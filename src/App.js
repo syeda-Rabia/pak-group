@@ -27,8 +27,8 @@ function App() {
             xs={7}
             style={{ backgroundColor: '#FAFAFA' }}
           >
-            <IndividualDashboard />
-            {/* <LeadsAllocatonAndAddition /> */}
+            {/* <IndividualDashboard /> */}
+            <LeadsAllocatonAndAddition />
           </Col>
         </Row>
       </Container>
