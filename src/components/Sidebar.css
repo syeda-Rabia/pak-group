@@ -1,0 +1,53 @@
+#dropdown-basic {
+  white-space: normal;
+  font-family: Sans-Serif;
+  margin-top: 20px;
+  background-color: #e5eeff;
+  border-radius: 41px;
+  border: none;
+  color: #2258bf;
+  text-align: left;
+  text-align: center;
+  letter-spacing: 0px;
+  font-size: 16px;
+}
+#dropdown-basic span {
+  font-family: Sans-Serif;
+  font-size: 15px;
+}
+.dropdown-menu.show {
+  display: block;
+  border: none;
+  margin-top: 20px;
+}
+@media only screen and (max-width: 991px) {
+  #dropdown-basic span {
+    display: none;
+  }
+  a.dropdown-item {
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+#dropdown-basic img {
+  float: left;
+  margin-top: 5px;
+  margin-right: 2px;
+  padding-left: 2px;
+}
+
+.LAAButton img {
+  padding-top: 10px;
+  float: left;
+}
+a.dropdown-item {
+  font-size: 16px;
+  color: #818181;
+  font-family: Sans-Serif;
+  text-align: left;
+  padding-left: 25px;
+  margin-right: 30px;
+  margin-top: 20px;
+  border: none;
+}
