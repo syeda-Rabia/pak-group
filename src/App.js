@@ -11,6 +11,7 @@ import ClosedLeads from './screens/ClosedLeads';
 import LeadsAdmin from './screens/LeadsAdmin';
 import InventoryAdmin from './screens/InventoryAdmin';
 import SearchLeads from './components/SearchLeads';
+import ToDoListAdmin from './screens/ToDoListAdmin';
 
 function App() {
   const viewHeight = window.outerHeight;
@@ -24,14 +25,14 @@ function App() {
         </Route>
         <React.Fragment>
           <HeaderNavBar />
-          <Container fluid style={{ height: '100vh' }}>
+          <Container fluid style={{ height: "100vh" }}>
             <Row>
               <Col
                 lg={2}
                 md={2}
                 sm={5}
                 xs={5}
-                style={{ backgroundColor: 'white' }}
+                style={{ backgroundColor: "white" }}
               >
                 {/* <Sidebar /> */}
                 <SearchLeads />
@@ -41,7 +42,7 @@ function App() {
                 md={10}
                 sm={7}
                 xs={7}
-                style={{ backgroundColor: '#FAFAFA' }}
+                style={{ backgroundColor: "#FAFAFA" }}
               >
                 <Route exact path="/dashboard">
                   <IndividualDashboard />
@@ -57,6 +58,9 @@ function App() {
                 </Route>
                 <Route exact path="/Inventory">
                   <InventoryAdmin />
+                </Route>
+                <Route exact path="/todolist">
+                  <ToDoListAdmin />
                 </Route>
                 {/* <IndividualDashboard /> */}
               </Col>
