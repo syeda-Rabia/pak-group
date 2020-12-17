@@ -7,6 +7,7 @@ import LeadsAllocatonAndAddition from './components/LeadsAllocatonAndAddition';
 import IndividualDashboard from './screens/IndividualDashboard';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SignIn from './screens/SignIn';
+import SearchLeads from './components/SearchLeads';
 
 function App() {
   const viewHeight = window.outerHeight;
@@ -18,7 +19,6 @@ function App() {
         <Route exact path="/">
           <SignIn />
         </Route>
-
         <React.Fragment>
           <HeaderNavBar />
           <Container fluid style={{ height: '100vh' }}>
@@ -30,7 +30,8 @@ function App() {
                 xs={5}
                 style={{ backgroundColor: 'white' }}
               >
-                <Sidebar />
+                {/* <Sidebar /> */}
+                <SearchLeads />
               </Col>
               <Col
                 lg={10}
@@ -45,13 +46,11 @@ function App() {
                 <Route exact path="/leadsallocation">
                   <LeadsAllocatonAndAddition />
                 </Route>
-                {/* <IndividualDashboard /> */}
               </Col>
             </Row>
           </Container>
         </React.Fragment>
       </Switch>
-      //
     </Router>
   );
 }

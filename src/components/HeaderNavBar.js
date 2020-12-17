@@ -1,8 +1,8 @@
-import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import "./HeaderNavbar.css";
-import logo from "../assests/Pak-Group-logo-1.png";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import './HeaderNavbar.css';
+import logo from '../assests/Pak-Group-logo-1.png';
+import { Link } from 'react-router-dom';
 
 export default function HeaderNavBar() {
   return (
@@ -15,30 +15,28 @@ export default function HeaderNavBar() {
             width="150px"
             height="50px"
             className="d-inline-block align-top"
-          />{" "}
+          />{' '}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link id="navlink" to="/dashboard">Dashboard</Link>
+              <Link id="navlink" to="/dashboard">
+                Dashboard
+              </Link>
             </Nav.Link>
             <Nav.Link href="#To-do-list">To Do</Nav.Link>
             <Nav.Link>
-              <Link to="/leadsallocation">Leads</Link>
+              <Link id="navlink" to="/leadsallocation">
+                Leads
+              </Link>
             </Nav.Link>
-            <NavDropdown title="Allocation" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
-                Search Leads
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Add New Leads
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">To Do List</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">
-                Closed Leads
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link>
+              <Link id="navlink" to="/leadsallocation">
+                Allocation
+              </Link>
+            </Nav.Link>
+
             <Nav.Link href="#Inventory">Inventory</Nav.Link>
             <Nav.Link href="#Accounts">Accounts</Nav.Link>
             <Nav.Link href="#Policies">Policies</Nav.Link>
@@ -52,17 +50,17 @@ export default function HeaderNavBar() {
           <Nav.Link
             href="#profile"
             style={{
-              backgroundColor: "white",
-              borderRadius: "50%",
-              width: "50px",
-              height: "50px",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              lineHeight: "20px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              lineHeight: '20px',
             }}
           >
-            <span style={{ color: "black" }}>HR</span>
+            <span style={{ color: 'black' }}>HR</span>
           </Nav.Link>
         </Nav>
       </Navbar>

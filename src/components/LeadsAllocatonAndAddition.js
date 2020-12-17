@@ -9,7 +9,7 @@ export default function LeadsAllocatonAndAddition() {
       <Row>
         <Col lg="12" style={{ backgroundColor: 'white', borderRadius: '5px' }}>
           <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover" style={{ display: 'block' }}>
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -22,10 +22,10 @@ export default function LeadsAllocatonAndAddition() {
                   <th scope="col">Country/City</th>
                   <th scope="col">Status</th>
                   <th scope="col">Interest</th>
-                  <th scope="col">AllocateTo</th>
+                  <th scope="col">Allocate To</th>
                   <th scope="col">Task</th>
                   <th scope="col">Deadline</th>
-                  <th scope="col">ReturnedFrom</th>
+                  <th scope="col">Returned From</th>
                 </tr>
               </thead>
               <tbody>

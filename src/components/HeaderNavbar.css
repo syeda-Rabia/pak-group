@@ -31,6 +31,13 @@ a.nav-link:hover {
   border-bottom-right-radius: 20px;
   background-color: rgb(93, 188, 210, 0.5);
 }
+a#navlink {
+  color: white;
+}
+a#navlink:hover {
+  text-decoration: none;
+}
+
 .navbar-nav .dropdown-menu {
   background-color: #2258bf;
   color: white !important;
