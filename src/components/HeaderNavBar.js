@@ -27,7 +27,7 @@ export default function HeaderNavBar() {
             </Nav.Link>
             <Nav.Link href="#To-do-list">To Do</Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/leadsallocation">
+              <Link id="navlink" to="/leads">
                 Leads
               </Link>
             </Nav.Link>
@@ -37,7 +37,11 @@ export default function HeaderNavBar() {
               </Link>
             </Nav.Link>
 
-            <Nav.Link href="#Inventory">Inventory</Nav.Link>
+            <Nav.Link>
+              <Link id="navlink" to="/inventory">
+                Inventory
+              </Link>
+            </Nav.Link>
             <Nav.Link href="#Accounts">Accounts</Nav.Link>
             <Nav.Link href="#Policies">Policies</Nav.Link>
             <Nav.Link href="#Documentation">Documentation</Nav.Link>
