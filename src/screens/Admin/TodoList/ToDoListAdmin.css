@@ -1,10 +1,13 @@
-
 .Laa h1 {
   text-align: left;
   color: #342e59;
   font-size: 34px;
   margin-top: 25px;
   margin-bottom: 20px;
+}
+.page-info {
+  margin-top: 27px;
+  margin-bottom: 0px;
 }
 input.form-control {
   background-color: #f2f4f5;

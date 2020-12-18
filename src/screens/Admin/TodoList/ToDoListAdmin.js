@@ -9,12 +9,16 @@ export default function LeadsAllocatonAndAddition() {
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(0);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
 
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
+  const handleShow = (pageCount) => {
+    setPageCount(pageCount);
+  };
   const handlePageChange = (page) => {
     setCurrentPage(page);
     console.log('page', page);
@@ -126,12 +130,22 @@ export default function LeadsAllocatonAndAddition() {
           </div>
         </Col>
       </Row>
-      <Pagination
-        itemsCount={totalCount}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      <Row>
+        <Col>
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+        </Col>
+        <Col>
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            show={handleShow}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 }

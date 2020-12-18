@@ -9,10 +9,15 @@ const Pagination = (props) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
-
+  props.show(pagesCount);
   return (
     <nav>
       <ul className="pagination">
+        <li class="page-item">
+          <a id="pagelink" class="page-link">
+            Previous
+          </a>
+        </li>
         {pages.map((page) => (
           <li
             key={page}
@@ -27,6 +32,11 @@ const Pagination = (props) => {
             </a>
           </li>
         ))}
+        <li class="page-item">
+          <a id="pagelink" class="page-link">
+            Next
+          </a>
+        </li>
       </ul>
     </nav>
   );
