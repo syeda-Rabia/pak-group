@@ -5,7 +5,7 @@ import Header_login from '../../../components/SignIn/SignInHeader';
 import Footer from '../../../components/SignIn/SignInFooter';
 import Image_pak from './../../../assests/Image_pak.png';
 import pkgrp_logo_1 from './../../../assests/pkgrp_logo_1.png';
-import logo from "./../../../assests/Ellipse 2 (1).svg";
+import logo from './../../../assests/Ellipse 2 (1).svg';
 import img from './../../../assests/fb-2.svg';
 import img2 from './../../../assests/tiwtr-2.svg';
 import img3 from './../../../assests/tum-2.svg';
@@ -19,9 +19,9 @@ class SignIn extends Component {
         <div>
           <Header_login />
         </div>
-        <div class="row">
+        <div className="row">
           {/* 
-              <div class="col-lg-6 col-md-6 mx-5">
+              <div className="col-lg-6 col-md-6 mx-5">
         
         */}
           <div
@@ -44,7 +44,7 @@ class SignIn extends Component {
             </div>
             {/* </Container> */}
             <div
-              class="row mb-4 px-3 "
+              className="row mb-4 px-3 "
               style={{
                 paddingTop: '20px',
                 marginRight: '30px',
@@ -61,18 +61,18 @@ class SignIn extends Component {
             </div>
           </div>
 
-          <div class="col-lg-5 col-md-6">
-            <div class="login-form">
+          <div className="col-lg-5 col-md-6">
+            <div className="login-form">
               <form>
                 <h2>Sign In</h2>
 
-                {/* <div class="row mb-1 "> */}
+                {/* <div className="row mb-1 "> */}
                 <p style={{ textAlign: 'center' }}>
                   Choose one of the following signin methods.
                 </p>
                 {/* </div> */}
 
-                <div class="social-icon ">
+                <div className="social-icon ">
                   <button type="button" style={{ backgroundColor: 'darkblue' }}>
                     <img src={img} className="mr-1 mb-1" />
                     Facebook
@@ -91,39 +91,39 @@ class SignIn extends Component {
                   </button>
                 </div>
 
-                {/* <div class="row mb-4  "> */}
+                {/* <div className="row mb-4  "> */}
                 <p style={{ textAlign: 'center' }}>
                   or signin using your email address{' '}
                 </p>
                 {/* </div> */}
 
-                <div class="row ">
-                  <div class="container ">
-                    <div class="form-group">
+                <div className="row ">
+                  <div className="container ">
+                    <div className="form-group">
                       <input
                         type="email"
                         name="email"
                         placeholder="Username or Email "
                       />
-                      <span class="input-icon">
-                        <i class="fa fa-envelope"></i>
+                      <span className="input-icon">
+                        <i className="fa fa-envelope"></i>
                       </span>
                     </div>
-                    <div class="form-group" style={{}}>
+                    <div className="form-group" style={{}}>
                       <input
                         type="password"
                         name="psw"
                         placeholder="Password"
                       />
-                      <span class="input-icon">
+                      <span className="input-icon">
                         <i lass="fa fa-lock"></i>
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="container">
+                <div className="row">
+                  <div className="container">
                     <div style={{ float: 'left', marginLeft: '110px' }}>
                       <img src={logo} className="pr-2 pb-1" />
 
@@ -136,8 +136,8 @@ class SignIn extends Component {
                   </div>
                 </div>
 
-                <button class="login-btn">Login</button>
-                <div class="row mb-4 px-5 ">
+                <button className="login-btn">Login</button>
+                <div className="row mb-4 px-5 ">
                   <p style={{ textAlign: 'center' }}>
                     {' '}
                     Don't have an account?{' '}

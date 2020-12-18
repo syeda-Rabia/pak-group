@@ -18,7 +18,7 @@ export default function Sidebar() {
         <Dropdown.Menu>
           <Dropdown.Item href="#/action-1">Search Leads</Dropdown.Item>
           <Dropdown.Item href="#/action-2">Add New Leads</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">TO DO List</Dropdown.Item>
+          <Dropdown.Item href="/todolist">TO DO List</Dropdown.Item>
           <Dropdown.Item href="#/action-3">Closed Leads</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

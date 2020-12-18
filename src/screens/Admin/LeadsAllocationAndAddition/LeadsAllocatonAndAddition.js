@@ -8,8 +8,8 @@ export default function LeadsAllocatonAndAddition() {
       <h1>Leads Allocation and Addition</h1>
       <Row>
         <Col lg="12" style={{ backgroundColor: 'white', borderRadius: '5px' }}>
-          <div class="table-responsive">
-            <table class="table table-hover" style={{ display: 'block' }}>
+          <div className="table-responsive">
+            <table className="table table-hover" style={{ display: 'block' }}>
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -32,17 +32,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -51,21 +51,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -73,7 +73,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>
@@ -83,17 +83,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">2</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -102,21 +102,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -124,7 +124,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>
@@ -134,17 +134,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">3</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -153,21 +153,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -175,7 +175,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>
@@ -185,17 +185,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">4</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -204,21 +204,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -226,7 +226,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>
@@ -236,17 +236,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">5</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -255,21 +255,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -277,7 +277,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>
@@ -287,17 +287,17 @@ export default function LeadsAllocatonAndAddition() {
                 <tr>
                   <th scope="row">6</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
                   <td>10:00 PM</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>NewsPaper</option>
                       <option>Facebook</option>
                       <option>Insta</option>
@@ -306,21 +306,21 @@ export default function LeadsAllocatonAndAddition() {
                   <td>London</td>
                   <td>On</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla</option>
                       <option>10 Marla</option>
                       <option>20 Marla</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -328,7 +328,7 @@ export default function LeadsAllocatonAndAddition() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Qasim</option>
                       <option>Rabia</option>

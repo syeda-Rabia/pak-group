@@ -37,8 +37,8 @@ function App() {
                 xs={5}
                 style={{ backgroundColor: 'white' }}
               >
-                <Sidebar />
-                {/* <SearchLeads /> */}
+                {/* <Sidebar /> */}
+                <SearchLeads />
               </Col>
               <Col
                 lg={10}

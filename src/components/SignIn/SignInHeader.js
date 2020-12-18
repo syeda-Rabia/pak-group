@@ -6,7 +6,6 @@ class Header_login extends Component {
   render() {
     return (
       <div>
-        {/* <div class="row"> */}
         <div
           className="row"
           style={{
@@ -20,7 +19,7 @@ class Header_login extends Component {
           </div>
 
           <div
-            class="login-button"
+            className="login-button"
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -28,10 +27,10 @@ class Header_login extends Component {
             }}
           >
             <div style={{ justifyContent: 'space-between' }}>
-              <button class="btn-2" type="button">
+              <button className="btn-2" type="button">
                 Log in
               </button>
-              <button class="btn-3" type="button">
+              <button className="btn-3" type="button">
                 Sign up
               </button>
             </div>

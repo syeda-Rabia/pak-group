@@ -7,19 +7,19 @@ class IndividualDashboard extends Component {
   render() {
     return (
       <Container fluid>
-        <div class="row">
+        <div className="row">
           <div
-            class="col-lg-12 col-md-12 text-nowrap "
+            className="col-lg-12 col-md-12 text-nowrap "
             style={{ backgroundColor: '#FAFAFA' }}
             // FAFAFA
           >
             <h1>Admin Dashboard</h1>
-            <div class="row">
+            <div className="row">
               <div
-                class="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
+                className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
                 style={{ backgroundColor: 'white', borderRadius: '10px' }}
               >
-                <div class="row" style={{}}>
+                <div className="row" style={{}}>
                   <Container fluid>
                     <div style={{}}>
                       <div
@@ -56,7 +56,7 @@ class IndividualDashboard extends Component {
                 <LeadReport_chart />
               </div>
               <div
-                class="col-lg-4 col-md-4 mt-2 mb-2 p-3 ml-2"
+                className="col-lg-4 col-md-4 mt-2 mb-2 p-3 ml-2"
                 style={{ backgroundColor: 'white', borderRadius: '10px' }}
               >
                 <h6>Pending Tasks Weekly (2020)</h6>
@@ -65,9 +65,9 @@ class IndividualDashboard extends Component {
               </div>
             </div>
             <Container fluid>
-              <div class="row">
+              <div className="row">
                 <div
-                  class="col-lg-12 col-md-12 mt-2 mb-2 p-3"
+                  className="col-lg-12 col-md-12 mt-2 mb-2 p-3"
                   style={{
                     float: 'right',
                     backgroundColor: 'white',
@@ -101,16 +101,16 @@ class IndividualDashboard extends Component {
             </Container>
 
             <Container fluid>
-              <div class="row">
+              <div className="row">
                 <div
-                  class="col-lg-4 col-md-4 mt-2 mb-2 mr-5 ml-2 p-3"
+                  className="col-lg-4 col-md-4 mt-2 mb-2 mr-5 ml-2 p-3"
                   style={{ backgroundColor: 'white', borderRadius: '10px' }}
                 >
                   <h3>Target Asigned</h3>
                   <LeadReport_chart />
                 </div>
                 <div
-                  class="col-lg-7 col-md-7 mt-2 mb-2  ml-4 p-3"
+                  className="col-lg-7 col-md-7 mt-2 mb-2  ml-4 p-3"
                   style={{
                     backgroundColor: 'white',
                     borderRadius: '10px',
@@ -134,8 +134,8 @@ class IndividualDashboard extends Component {
                     padding: '30px',
                   }}
                 >
-                  <div class="table-responsive">
-                    <table class="table table-hover">
+                  <div className="table-responsive">
+                    <table className="table table-hover">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
@@ -237,8 +237,8 @@ class IndividualDashboard extends Component {
                     marginRight: '30px',
                   }}
                 >
-                  <div class="table-responsive">
-                    <table class="table table-hover">
+                  <div className="table-responsive">
+                    <table className="table table-hover">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>

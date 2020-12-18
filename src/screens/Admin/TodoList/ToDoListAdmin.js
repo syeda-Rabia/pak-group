@@ -1,24 +1,24 @@
-import React from "react";
-import "./ToDoListAdmin.css";
-import { dummyData } from "../../../assests/constants/todoList";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react';
+import './ToDoListAdmin.css';
+import { dummyData } from '../../../assests/constants/todoList';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
   console.log(data);
   const TableRow = ({ index, item }) => {
-    console.log("item", item);
+    console.log('item', item);
     return (
       <tr>
         <th scope="row">{index}</th>
         <td>
-          <input placeholder={item.Clients} class="form-control" />
+          <input placeholder={item.Clients} className="form-control" />
         </td>
         <td>
-          <input placeholder={item.Contacts} class="form-control" />
+          <input placeholder={item.Contacts} className="form-control" />
         </td>
         <td>
-          <select class="form-control form-control-sm">
+          <select className="form-control form-control-sm">
             {item.Project.map((project) => (
               <option>{project}</option>
             ))}
@@ -29,7 +29,7 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.Country}</td>
 
         <td>
-          <select class="form-control form-control-sm">
+          <select className="form-control form-control-sm">
             {item.Status.map((status) => {
               return <option>{status}</option>;
             })}
@@ -37,17 +37,17 @@ export default function LeadsAllocatonAndAddition() {
         </td>
 
         <td>
-          <select class="form-control form-control-sm">
+          <select className="form-control form-control-sm">
             {item.Interest.map((interest) => {
               return <option>{interest}</option>;
             })}
           </select>
         </td>
         <td>
-          <input placeholder={item.Email} class="form-control" />
+          <input placeholder={item.Email} className="form-control" />
         </td>
         <td>
-          <select class="form-control form-control-sm">
+          <select className="form-control form-control-sm">
             {item.Task.map((task) => {
               return <option>{task}</option>;
             })}
@@ -55,7 +55,7 @@ export default function LeadsAllocatonAndAddition() {
         </td>
         <td>{item.Deadline}</td>
         <td>
-          <select class="form-control form-control-sm">
+          <select className="form-control form-control-sm">
             {item.Returned.map((returned) => {
               return <option>{returned}</option>;
             })}
@@ -68,9 +68,9 @@ export default function LeadsAllocatonAndAddition() {
     <Container fluid className="Laa">
       <h1>To DO List Admin</h1>
       <Row>
-        <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
-          <div class="table-responsive">
-            <table class="table table-hover" style={{ display: "block" }}>
+        <Col lg="12" style={{ backgroundColor: 'white', borderRadius: '5px' }}>
+          <div className="table-responsive">
+            <table className="table table-hover" style={{ display: 'block' }}>
               <thead>
                 <tr>
                   <th scope="col">ID</th>

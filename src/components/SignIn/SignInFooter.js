@@ -34,7 +34,7 @@ class Footer extends Component {
           </div>
         </div>
         <div className="row">
-          <div class="col-md-6 col-lg-6">
+          <div className="col-md-6 col-lg-6">
             <p
               className="ml-5 "
               style={{ color: 'blue', wordSpacing: '-2px', fontSize: '15px' }}
@@ -46,27 +46,27 @@ class Footer extends Component {
               All Rights Reserved.
             </p>
           </div>
-          <div class=" footer-icon">
-            <div class="text-right text-md-right">
+          <div className=" footer-icon">
+            <div className="text-right text-md-right">
               <ul className="list-unstyled list-inline ">
-                <li class="list-inline-item">
-                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                <li className="list-inline-item">
+                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
                     <img src={img} />
                   </a>
                 </li>
-                <li class="list-inline-item">
-                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                <li className="list-inline-item">
+                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
                     <img src={img2} />
                   </a>
                 </li>
-                <li class="list-inline-item">
-                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                <li className="list-inline-item">
+                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
                     +
                     <img src={img3} />
                   </a>
                 </li>
-                <li class="list-inline-item">
-                  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                <li className="list-inline-item">
+                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
                     <img src={img4} />
                   </a>
                 </li>

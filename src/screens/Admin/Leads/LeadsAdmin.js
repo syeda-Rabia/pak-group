@@ -1,6 +1,6 @@
-import React from "react";
-import "./LeadsAdmin.css";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react';
+import './LeadsAdmin.css';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function LeadsAdmin() {
   return (
@@ -12,10 +12,10 @@ export default function LeadsAdmin() {
         <Col
           lg
           md="12"
-          style={{ backgroundColor: "white", borderRadius: "5px" }}
+          style={{ backgroundColor: 'white', borderRadius: '5px' }}
         >
-          <div class="table-responsive">
-            <table class="table table-hover">
+          <div className="table-responsive">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -38,10 +38,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -50,14 +50,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Rabia</option>
                       <option>Atif</option>
                       <option>Qasim</option>
@@ -65,7 +65,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -73,7 +73,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -83,10 +83,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -95,14 +95,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Rabia</option>
                       <option>Atif</option>
                       <option>Qasim</option>
@@ -110,7 +110,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -118,7 +118,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -128,10 +128,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -140,14 +140,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -155,7 +155,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -163,7 +163,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -173,10 +173,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -185,14 +185,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -200,7 +200,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -208,7 +208,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -218,10 +218,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -230,14 +230,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -245,7 +245,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -253,7 +253,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -263,10 +263,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -275,14 +275,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -290,7 +290,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -298,7 +298,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -308,10 +308,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -320,14 +320,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -335,7 +335,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -343,7 +343,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -353,10 +353,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -365,14 +365,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -380,7 +380,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -388,7 +388,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
@@ -398,10 +398,10 @@ export default function LeadsAdmin() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <input placeholder="Atif" class="form-control" />
+                    <input placeholder="Atif" className="form-control" />
                   </td>
                   <td>
-                    <input placeholder="Contact" class="form-control" />
+                    <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
                   <td>$400</td>
@@ -410,14 +410,14 @@ export default function LeadsAdmin() {
                   <td>On</td>
 
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>5 Marla Residential</option>
                       <option>3 marla Rent</option>
                       <option>10 marla Plot</option>
                     </select>
                   </td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Atif</option>
                       <option>Rabia</option>
                       <option>Qasim</option>
@@ -425,7 +425,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>Rabia@gmail</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Sale</option>
                       <option>Rent</option>
                       <option>Pending</option>
@@ -433,7 +433,7 @@ export default function LeadsAdmin() {
                   </td>
                   <td>11-12-2020</td>
                   <td>
-                    <select class="form-control form-control-sm">
+                    <select className="form-control form-control-sm">
                       <option>Recording 1</option>
                       <option>Recording 2</option>
                       <option>Recording 3</option>
