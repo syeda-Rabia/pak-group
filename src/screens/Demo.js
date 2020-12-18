@@ -3,11 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 // import SearchLeads from '../components/SearchLeads';
 // import Sidebar from '../components/Sidebar';
 // import HeaderNavBar from '../components/HeaderNavBar';
-import HeaderNavBar from '../components/HeaderNavBar';
-import SearchLeads from '../components/SearchLeads';
+import HeaderNavBar from '../components/Header/HeaderNavBar';
+import SearchLeads from '../components/Sidebar/SearchLeads';
 
 // import IndividualDashboard from './screens/IndividualDashboard';
-import IndividualDashboard from './IndividualDashboard';
+import IndividualDashboard from './Admin/Dashboard/AdminDashboard';
 export default function Demo() {
   return (
     <React.Fragment>

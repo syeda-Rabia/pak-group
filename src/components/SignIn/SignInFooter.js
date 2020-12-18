@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import './SignInFooter.css';
 import { Container } from 'react-bootstrap';
-import img from '../assests/fb-logo.svg';
-import img2 from '../assests/tiwtr-logo.svg';
-import img3 from '../assests/tum-logo.svg';
-import img4 from '../assests/g-logo.svg';
+import img from "./../../assests/fb-logo.svg";
+import img2 from './../../assests/tiwtr-logo.svg';
+import img3 from "./../../assests/tum-logo.svg";
+import img4 from "./../../assests/g-logo.svg";
 class Footer extends Component {
   render() {
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 import "./ToDoListAdmin.css";
-import { dummyData } from "./../assests/constants/todoList";
+import { dummyData } from "../../../assests/constants/todoList";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function LeadsAllocatonAndAddition() {

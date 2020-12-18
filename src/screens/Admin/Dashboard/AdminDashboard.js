@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import LeadReport_chart from '../components/LeadReport_chart';
-import QuarterlyLead_chart from '../components/QuarterlyLead_chart';
+import LeadReport_chart from '../../../components/Charts/LeadReport_chart';
+import QuarterlyLead_chart from '../../../components/Charts/QuarterlyLead_chart';
 
 class IndividualDashboard extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import './HeaderNavbar.css';
-import logo from '../assests/Pak-Group-logo-1.png';
+import logo from './../../assests/Pak-Group-logo-1.png';
 import { Link } from 'react-router-dom';
 
 export default function HeaderNavBar() {
