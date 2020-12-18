@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "./HeaderNavbar.css";
-import logo from "../assests/Pak-Group-logo-1.png";
+import logo from "./../../assests/Pak-Group-logo-1.png";
 import { Link } from "react-router-dom";
 
 export default function HeaderNavBar() {
@@ -26,14 +26,11 @@ export default function HeaderNavBar() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-<<<<<<< HEAD
-=======
               <Link id="navlink" to="/todolist">
                 To Do
               </Link>
             </Nav.Link>
             <Nav.Link>
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
               <Link id="navlink" to="/leads">
                 Leads
               </Link>

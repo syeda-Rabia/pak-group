@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import './SignInHeader.css';
-import pkgrp_header_logo from '../assests/pkgrp_header_logo.png';
+import pkgrp_header_logo from './../../assests/pkgrp_header_logo.png';
 class Header_login extends Component {
   render() {
     return (

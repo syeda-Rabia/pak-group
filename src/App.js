@@ -1,21 +1,18 @@
 import './App.css';
 import React from 'react';
-import HeaderNavBar from './components/HeaderNavBar';
-import Sidebar from './components/Sidebar';
+import HeaderNavBar from './components/Header/HeaderNavBar';
+import Sidebar from './components/Sidebar/Sidebar';
 import { Container, Row, Col } from 'react-bootstrap';
-import LeadsAllocatonAndAddition from './screens/LeadsAllocatonAndAddition';
-import IndividualDashboard from './screens/IndividualDashboard';
+import LeadsAllocatonAndAddition from './screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition';
+import IndividualDashboard from './screens/Admin/Dashboard/AdminDashboard';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import SignIn from './screens/SignIn';
+import SignIn from './screens/Admin/SignIn/SignIn';
 import ClosedLeads from './screens/ClosedLeads';
-import LeadsAdmin from './screens/LeadsAdmin';
-import InventoryAdmin from './screens/InventoryAdmin';
-import SearchLeads from './components/SearchLeads';
-<<<<<<< HEAD
+import LeadsAdmin from './screens/Admin/Leads/LeadsAdmin';
+import InventoryAdmin from './screens/Admin/Inventory/InventoryAdmin';
+import SearchLeads from './components/Sidebar/SearchLeads';
 import Demo from './screens/Demo';
-=======
-import ToDoListAdmin from './screens/ToDoListAdmin';
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
+import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
 
 function App() {
   const viewHeight = window.outerHeight;
@@ -27,26 +24,6 @@ function App() {
         <Route exact path="/">
           <SignIn />
         </Route>
-<<<<<<< HEAD
-
-        <Route exact path="/dashboard">
-          {/* <demo /> */}
-          <Demo />
-        </Route>
-        <Route exact path="/leadsallocation">
-          <LeadsAllocatonAndAddition />
-        </Route>
-        <Route exact path="/closedleads">
-          <ClosedLeads />
-        </Route>
-        <Route exact path="/leads">
-          <LeadsAdmin />
-        </Route>
-        <Route exact path="/inventory">
-          <InventoryAdmin />
-        </Route>
-        {/* <IndividualDashboard /> */}
-=======
         <React.Fragment>
           <HeaderNavBar />
           <Container fluid style={{ height: "100vh" }}>
@@ -58,8 +35,8 @@ function App() {
                 xs={5}
                 style={{ backgroundColor: "white" }}
               >
-                {/* <Sidebar /> */}
-                <SearchLeads />
+                <Sidebar />
+                {/* <SearchLeads /> */}
               </Col>
               <Col
                 lg={10}
@@ -80,7 +57,7 @@ function App() {
                 <Route exact path="/leads">
                   <LeadsAdmin />
                 </Route>
-                <Route exact path="/Inventory">
+                <Route exact path="/inventory">
                   <InventoryAdmin />
                 </Route>
                 <Route exact path="/todolist">
@@ -91,7 +68,6 @@ function App() {
             </Row>
           </Container>
         </React.Fragment>
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
       </Switch>
     </Router>
   );

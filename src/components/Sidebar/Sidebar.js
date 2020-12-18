@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-import buttonImg from '../assests/resource.svg';
+import buttonImg from './../../assests/resource.svg';
 import './Sidebar.css';
 export default function Sidebar() {
   return (
