@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 // import Sidebar from '../components/Sidebar';
 // import HeaderNavBar from '../components/HeaderNavBar';
 import HeaderNavBar from '../components/Header/HeaderNavBar';
-import SearchLeads from '../components/Sidebar/SearchLeads';
+import SearchLeads from '../components/SideBar/SearchLeads';
 
 // import IndividualDashboard from './screens/IndividualDashboard';
 import IndividualDashboard from './Admin/Dashboard/AdminDashboard';
