@@ -17,9 +17,6 @@ import Demo from './screens/Demo';
 import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
 
 function App() {
-  const viewHeight = window.outerHeight;
-  console.log(viewHeight);
-
   return (
     <Router>
       <Switch>

@@ -2,34 +2,59 @@ import React from 'react';
 import './ToDoListAdmin.css';
 import { dummyData } from '../../../assests/constants/todoList';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import Pagination from '../../../components/Pagination';
+import { paginate } from '../../../utils/paginate';
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
-  console.log(data);
+  const totalCount = data.length;
+  const [pageSize, setPageSize] = React.useState(5);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const lastIndex = currentPage * pageSize;
+  const istIndex = lastIndex - pageSize;
+  const currentData = data.slice(istIndex, lastIndex);
+
+  // console.log('Page Size:', pageSize);
+  // console.log('Total Count: ', totalCount);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    console.log('page', page);
+  };
+
   const TableRow = ({ index, item }) => {
-    console.log('item', item);
+    // console.log('item', item);
+    const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <th scope="row">{index}</th>
+        <th scope="row" key={item.id}>
+          {item.id}
+        </th>
         <td>
-          <input placeholder={item.Clients} className="form-control" />
+          <input
+            key={item.id}
+            placeholder={item.Clients}
+            className="form-control"
+          />
         </td>
         <td>
-          <input placeholder={item.Contacts} className="form-control" />
+          <input
+            key={item.id}
+            placeholder={item.Contacts}
+            className="form-control"
+          />
         </td>
         <td>
-          <select className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm">
             {item.Project.map((project) => (
               <option>{project}</option>
             ))}
           </select>
         </td>
-        <td>{item.Budget}</td>
-        <td>{item.TOC}</td>
-        <td>{item.Country}</td>
+        <td key={item.id}>{item.Budget}</td>
+        <td key={item.id}>{item.TOC}</td>
+        <td key={item.id}>{item.Country}</td>
 
         <td>
-          <select className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm">
             {item.Status.map((status) => {
               return <option>{status}</option>;
             })}
@@ -37,25 +62,29 @@ export default function LeadsAllocatonAndAddition() {
         </td>
 
         <td>
-          <select className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm">
             {item.Interest.map((interest) => {
               return <option>{interest}</option>;
             })}
           </select>
         </td>
         <td>
-          <input placeholder={item.Email} className="form-control" />
+          <input
+            key={item.id}
+            placeholder={item.Email}
+            className="form-control"
+          />
         </td>
         <td>
-          <select className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm">
             {item.Task.map((task) => {
               return <option>{task}</option>;
             })}
           </select>
         </td>
-        <td>{item.Deadline}</td>
+        <td key={item.id}>{item.Deadline}</td>
         <td>
-          <select className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm">
             {item.Returned.map((returned) => {
               return <option>{returned}</option>;
             })}
@@ -89,7 +118,7 @@ export default function LeadsAllocatonAndAddition() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => {
+                {currentData.map((item, index) => {
                   return <TableRow index={index} item={item} />;
                 })}
               </tbody>
@@ -97,6 +126,12 @@ export default function LeadsAllocatonAndAddition() {
           </div>
         </Col>
       </Row>
+      <Pagination
+        itemsCount={totalCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </Container>
   );
 }
