@@ -11,11 +11,7 @@ import ClosedLeads from './screens/ClosedLeads';
 import LeadsAdmin from './screens/LeadsAdmin';
 import InventoryAdmin from './screens/InventoryAdmin';
 import SearchLeads from './components/SearchLeads';
-<<<<<<< HEAD
 import Demo from './screens/Demo';
-=======
-import ToDoListAdmin from './screens/ToDoListAdmin';
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
 
 function App() {
   const viewHeight = window.outerHeight;
@@ -27,7 +23,6 @@ function App() {
         <Route exact path="/">
           <SignIn />
         </Route>
-<<<<<<< HEAD
 
         <Route exact path="/dashboard">
           {/* <demo /> */}
@@ -46,52 +41,6 @@ function App() {
           <InventoryAdmin />
         </Route>
         {/* <IndividualDashboard /> */}
-=======
-        <React.Fragment>
-          <HeaderNavBar />
-          <Container fluid style={{ height: "100vh" }}>
-            <Row>
-              <Col
-                lg={2}
-                md={2}
-                sm={5}
-                xs={5}
-                style={{ backgroundColor: "white" }}
-              >
-                {/* <Sidebar /> */}
-                <SearchLeads />
-              </Col>
-              <Col
-                lg={10}
-                md={10}
-                sm={7}
-                xs={7}
-                style={{ backgroundColor: "#FAFAFA" }}
-              >
-                <Route exact path="/dashboard">
-                  <IndividualDashboard />
-                </Route>
-                <Route exact path="/leadsallocation">
-                  <LeadsAllocatonAndAddition />
-                </Route>
-                <Route exact path="/closedleads">
-                  <ClosedLeads />
-                </Route>
-                <Route exact path="/leads">
-                  <LeadsAdmin />
-                </Route>
-                <Route exact path="/Inventory">
-                  <InventoryAdmin />
-                </Route>
-                <Route exact path="/todolist">
-                  <ToDoListAdmin />
-                </Route>
-                {/* <IndividualDashboard /> */}
-              </Col>
-            </Row>
-          </Container>
-        </React.Fragment>
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
       </Switch>
     </Router>
   );

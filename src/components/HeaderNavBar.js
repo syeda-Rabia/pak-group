@@ -1,8 +1,8 @@
-import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import "./HeaderNavbar.css";
-import logo from "../assests/Pak-Group-logo-1.png";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import './HeaderNavbar.css';
+import logo from '../assests/Pak-Group-logo-1.png';
+import { Link } from 'react-router-dom';
 
 export default function HeaderNavBar() {
   return (
@@ -15,7 +15,7 @@ export default function HeaderNavBar() {
             width="150px"
             height="50px"
             className="d-inline-block align-top"
-          />{" "}
+          />{' '}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -26,14 +26,11 @@ export default function HeaderNavBar() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-<<<<<<< HEAD
-=======
               <Link id="navlink" to="/todolist">
                 To Do
               </Link>
             </Nav.Link>
             <Nav.Link>
->>>>>>> c170ae3e1a5dad02195a78c739ddcf65c78aa6a0
               <Link id="navlink" to="/leads">
                 Leads
               </Link>
@@ -61,17 +58,17 @@ export default function HeaderNavBar() {
           <Nav.Link
             href="#profile"
             style={{
-              backgroundColor: "white",
-              borderRadius: "50%",
-              width: "50px",
-              height: "50px",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              lineHeight: "20px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              lineHeight: '20px',
             }}
           >
-            <span style={{ color: "black" }}>HR</span>
+            <span style={{ color: 'black' }}>HR</span>
           </Nav.Link>
         </Nav>
       </Navbar>
