@@ -5,9 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 export default function LeadsAdmin() {
   return (
     <Container fluid className="Laa">
-      <h1>
-        Leads<span>(Admin)</span>
-      </h1>
+      <h1>Leads</h1>
       <Row>
         <Col
           lg

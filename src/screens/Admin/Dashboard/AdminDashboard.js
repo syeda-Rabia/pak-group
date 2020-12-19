@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import LeadReport_chart from '../../../components/Charts/LeadReport_chart';
 import QuarterlyLead_chart from '../../../components/Charts/QuarterlyLead_chart';
 
-class IndividualDashboard extends Component {
+class AdminDashboard extends Component {
   render() {
     return (
       <Container fluid>
@@ -11,7 +11,6 @@ class IndividualDashboard extends Component {
           <div
             className="col-lg-12 col-md-12 text-nowrap "
             style={{ backgroundColor: '#FAFAFA' }}
-            // FAFAFA
           >
             <h1>Admin Dashboard</h1>
             <div className="row">
@@ -19,9 +18,9 @@ class IndividualDashboard extends Component {
                 className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
                 style={{ backgroundColor: 'white', borderRadius: '10px' }}
               >
-                <div className="row" style={{}}>
+                <div className="row">
                   <Container fluid>
-                    <div style={{}}>
+                    <div>
                       <div
                         style={{
                           display: 'flex',
@@ -296,4 +295,4 @@ class IndividualDashboard extends Component {
     );
   }
 }
-export default IndividualDashboard;
+export default AdminDashboard;
