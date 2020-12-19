@@ -2,7 +2,7 @@ import React from 'react';
 import './ToDoListAdmin.css';
 import { dummyData } from '../../../assests/constants/todoList';
 import { Container, Row, Col } from 'react-bootstrap';
-import Pagination from '../../../components/Pagination';
+import Pagination from '../../../components/Pagination/Pagination';
 import { paginate } from '../../../utils/paginate';
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
