@@ -8,41 +8,49 @@ export default function HeaderNavBar() {
   return (
     <React.Fragment>
       <Navbar collapseOnSelect expand="lg" className="color-nav">
-        <Navbar.Brand href="#home">
-          <img
-            alt=""
-            src={logo}
-            width="150px"
-            height="50px"
-            className="d-inline-block align-top"
-          />{' '}
+        <Navbar.Brand>
+          <Link to="/dashboard">
+            <img
+              alt=""
+              src={logo}
+              width="150px"
+              height="50px"
+              className="d-inline-block align-top"
+            />{' '}
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link id="navlink" to="/dashboard">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/dashboard',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 Dashboard
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/todolist">
+              <Link id="navlink" to="/admin/todolist">
                 To Do
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/leads">
+              <Link id="navlink" to="/admin/leads">
                 Leads
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/leadsallocation">
+              <Link id="navlink" to="/admin/leadsallocation">
                 Allocation
               </Link>
             </Nav.Link>
 
             <Nav.Link>
-              <Link id="navlink" to="/inventory">
+              <Link id="navlink" to="/admin/inventory">
                 Inventory
               </Link>
             </Nav.Link>

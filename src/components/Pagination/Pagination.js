@@ -10,8 +10,13 @@ const Pagination = (props) => {
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
   props.show(pagesCount);
+
+  //  const [ SelectedBtn , setSelectedbtn]  = React.useState('btn1');
+
   return (
     <nav>
+      {/* <Button onClick={() =>setSelectedbtn('btn1')} style={{backgroundColor: SelectedBtn=="btn" ?'dardkBlie':'second '}} /> */}
+
       <ul className="pagination">
         <li class="page-item">
           <a id="pagelink" class="page-link">
