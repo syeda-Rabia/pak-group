@@ -24,8 +24,8 @@ import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
 import EmployeHeader from './components/EmployeHeader/EmployeHeader';
 
 function App() {
-  // const location = useLocation();
-  // console.log('----------', location.pathname);
+  const location = useLocation();
+  console.log('----------', location.pathname);
   const [condition, setCondition] = React.useState(false);
   const [userType, setUSerType] = React.useState('admin');
   return (
