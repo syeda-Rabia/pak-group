@@ -54,6 +54,11 @@ export default function HeaderNavBar() {
                 Inventory
               </Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link id="navlink" to="/admin/user">
+                User
+              </Link>
+            </Nav.Link>
             <Nav.Link href="#Accounts">Accounts</Nav.Link>
             <Nav.Link href="#Policies">Policies</Nav.Link>
             <Nav.Link href="#Documentation">Documentation</Nav.Link>

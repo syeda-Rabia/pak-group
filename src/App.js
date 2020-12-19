@@ -1,8 +1,7 @@
 import './App.css';
 import React from 'react';
 import HeaderNavBar from './components/Header/HeaderNavBar';
-// import Sidebar from './components/Sidebar/Sidebar';
-import Sidebar from './components/SideBar/Sidebar';
+import Sidebar from './components/Sidebar/Sidebar';
 import { Container, Row, Col } from 'react-bootstrap';
 import LeadsAllocatonAndAddition from './screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition';
 import AdminDashboard from './screens/Admin/Dashboard/AdminDashboard';
@@ -17,11 +16,11 @@ import SignIn from './screens/Admin/SignIn/SignIn';
 import ClosedLeads from './screens/ClosedLeads';
 import LeadsAdmin from './screens/Admin/Leads/LeadsAdmin';
 import InventoryAdmin from './screens/Admin/Inventory/InventoryAdmin';
-// import SearchLeads from './components/Sidebar/SearchLeads';
-import SearchLeads from './components/SideBar/SearchLeads';
+import SearchLeads from './components/Sidebar/SearchLeads';
 import Demo from './screens/Demo';
 import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
 import EmployeHeader from './components/EmployeHeader/EmployeHeader';
+import AddEmployee from './screens/Admin/AddUser/AddEmployee';
 
 function App() {
   const location = useLocation();
@@ -64,6 +63,9 @@ const AdminRoute = () => {
 
             <Route exact path="/admin/leadsallocation">
               <LeadsAllocatonAndAddition />
+            </Route>
+            <Route exact path="/admin/user">
+              <AddEmployee />
             </Route>
             <Route exact path="/admin/closedleads">
               <ClosedLeads />
