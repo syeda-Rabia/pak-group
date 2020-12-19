@@ -1,8 +1,7 @@
 import './App.css';
 import React from 'react';
 import HeaderNavBar from './components/Header/HeaderNavBar';
-// import Sidebar from './components/Sidebar/Sidebar';
-import Sidebar from './components/SideBar/Sidebar';
+import Sidebar from './components/Sidebar/Sidebar';
 import { Container, Row, Col } from 'react-bootstrap';
 import LeadsAllocatonAndAddition from './screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition';
 import IndividualDashboard from './screens/Admin/Dashboard/AdminDashboard';
@@ -11,10 +10,11 @@ import SignIn from './screens/Admin/SignIn/SignIn';
 import ClosedLeads from './screens/ClosedLeads';
 import LeadsAdmin from './screens/Admin/Leads/LeadsAdmin';
 import InventoryAdmin from './screens/Admin/Inventory/InventoryAdmin';
-// import SearchLeads from './components/Sidebar/SearchLeads';
-import SearchLeads from './components/SideBar/SearchLeads';
+import SearchLeads from './components/Sidebar/SearchLeads';
 import Demo from './screens/Demo';
 import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
+import Footer from './components/Footer/Footer'
+import AddEmployee from './screens/Admin/AddUser/AddEmployee'
 
 function App() {
   return (
@@ -34,8 +34,8 @@ function App() {
                 xs={5}
                 style={{ backgroundColor: 'white' }}
               >
-                {/* <Sidebar /> */}
-                <SearchLeads />
+                <Sidebar />
+                {/* <SearchLeads /> */}
               </Col>
               <Col
                 lg={10}
@@ -62,9 +62,13 @@ function App() {
                 <Route exact path="/todolist">
                   <ToDoListAdmin />
                 </Route>
+                 <Route exact path="/add">
+                  <AddEmployee />
+                </Route>
                 {/* <IndividualDashboard /> */}
               </Col>
             </Row>
+            <Footer/>
           </Container>
         </React.Fragment>
       </Switch>

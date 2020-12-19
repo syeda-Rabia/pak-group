@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 // import Sidebar from '../components/Sidebar';
 // import HeaderNavBar from '../components/HeaderNavBar';
 import HeaderNavBar from '../components/Header/HeaderNavBar';
-import SearchLeads from '../components/SideBar/SearchLeads';
+// import SearchLeads from '../components/SideBar/SearchLeads';
 
 // import IndividualDashboard from './screens/IndividualDashboard';
 import IndividualDashboard from './Admin/Dashboard/AdminDashboard';
@@ -16,7 +16,7 @@ export default function Demo() {
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: 'white' }}>
             {/* <Sidebar /> */}
-            <SearchLeads />
+            {/* <SearchLeads /> */}
           </Col>
           <Col
             lg={10}
