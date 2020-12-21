@@ -136,7 +136,16 @@ class SignIn extends Component {
                   </div>
                 </div>
 
-                <button className="login-btn">Login</button>
+                <button className="login-btn">
+                  <Link to="/admin/dashboard" style={{ color: 'white' }}>
+                    Admin Login
+                  </Link>
+                </button>
+                {/* <button className="login-btn">
+                  <Link to="/employe/dashboard" style={{ color: 'white' }}>
+                    Employe Login
+                  </Link>
+                </button> */}
                 <div className="row mb-4 px-5 ">
                   <p style={{ textAlign: 'center' }}>
                     {' '}
@@ -147,7 +156,6 @@ class SignIn extends Component {
                   </p>
                 </div>
               </form>
-              <Link to="/dashboard">Login</Link>
             </div>
           </div>
         </div>

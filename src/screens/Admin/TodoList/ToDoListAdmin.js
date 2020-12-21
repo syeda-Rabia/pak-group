@@ -21,7 +21,7 @@ export default function LeadsAllocatonAndAddition() {
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log('page', page);
+    // console.log('page', page);
   };
 
   const TableRow = ({ index, item }) => {
