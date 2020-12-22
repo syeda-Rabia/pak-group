@@ -9,7 +9,7 @@ export default function EmployeHeader() {
     <React.Fragment>
       <Navbar collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
-          <Link to="/dashboard">
+          <Link to="/">
             <img
               alt=""
               src={logo}

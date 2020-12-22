@@ -84,7 +84,10 @@ export default function SearchLeads(props) {
 
   return (
     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-      <Button id="searchLeads" style={{ textAlign: props.alignText }}>
+      <Button
+        id="searchLeads"
+        style={{ textAlign: props.alignText, paddingLeft: props.leftPadding }}
+      >
         {props.name} <ExpandMoreIcon />
       </Button>
     </OverlayTrigger>

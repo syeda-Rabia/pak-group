@@ -1,8 +1,6 @@
 import './App.css';
 import React from 'react';
 import HeaderNavBar from './components/Header/HeaderNavBar';
-import Sidebar from './components/Sidebar/Sidebar';
-import SearchLeads from './components/Sidebar/SearchLeads';
 import { Container, Row, Col } from 'react-bootstrap';
 import LeadsAllocatonAndAddition from './screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition';
 import AdminDashboard from './screens/Admin/Dashboard/AdminDashboard';
@@ -21,9 +19,11 @@ import Demo from './screens/Demo';
 import ToDoListAdmin from './screens/Admin/TodoList/ToDoListAdmin';
 import EmployeHeader from './components/EmployeHeader/EmployeHeader';
 import AddEmployee from './screens/Admin/AddUser/AddEmployee';
-import TempSidebar from './components/Sidebar/TempSidebar';
 import LeadsSidebar from './components/Sidebar/LeadsSidebar';
-import GenericTempSidebar from './components/Sidebar/GenericTempSidebar';
+import LAASidebar from './components/Sidebar/LAASidebar';
+import InventorySidebar from './components/Sidebar/InventorySidebar';
+import AddInventory from './screens/Admin/Inventory/AddInventory';
+
 function App() {
   var location = useLocation();
   const [condition, setCondition] = React.useState('');
@@ -37,19 +37,17 @@ function App() {
   };
   const [userType, setUSerType] = React.useState('admin');
 
-  const Condition = () => {
-    if (
-      condition === '/admin/dashboard' ||
-      '/admin/leadsallocation' ||
-      '/admin/closedleads'
-    ) {
-      return <GenericTempSidebar />;
-      // return <TempSidebar />;
-      // return <LeadsSidebar />;
-    } else {
-      return <LeadsSidebar />;
-    }
-  };
+  // const Condition = () => {
+  //   if (
+  //     condition === '/admin/dashboard' ||
+  //     '/admin/leadsallocation' ||
+  //     '/admin/closedleads'
+  //   ) {
+  //     return <LAASidebar />;
+  //   } else {
+  //     return <LeadsSidebar />;
+  //   }
+  // };
   const AdminRoute = () => {
     return (
       <React.Fragment>
@@ -63,7 +61,9 @@ function App() {
               xs={5}
               style={{ backgroundColor: 'white' }}
             >
-              <Condition />
+              {/* <Condition /> */}
+              <LAASidebar />
+              {/* <InventorySidebar /> */}
             </Col>
             <Col
               lg={10}
@@ -92,6 +92,9 @@ function App() {
               <Route exact path="/admin/inventory">
                 <InventoryAdmin />
               </Route>
+              <Route exact path="/admin/inventory/add">
+                <AddInventory />
+              </Route>
 
               <Route exact path="/admin/todolist">
                 <ToDoListAdmin />
@@ -116,8 +119,7 @@ function App() {
               xs={5}
               style={{ backgroundColor: 'white' }}
             >
-              {/* <Sidebar /> */}
-              <SearchLeads />
+              <LeadsSidebar />
             </Col>
             <Col
               lg={10}
@@ -152,7 +154,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <SignIn />
+          <SignIn setUser={setUSerType} />
         </Route>
         {userType === 'admin' ? <AdminRoute /> : <EmployeRoute />}
       </Switch>

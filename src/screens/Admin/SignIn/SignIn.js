@@ -136,16 +136,28 @@ class SignIn extends Component {
                   </div>
                 </div>
 
-                <button className="login-btn">
-                  <Link to="/admin/dashboard" style={{ color: 'white' }}>
+                <Link to="/admin/dashboard" style={{ color: 'white' }}>
+                  <button
+                    className="login-btn"
+                    onClick={() => {
+                      this.props.setUser('admin');
+                    }}
+                  >
                     Admin Login
-                  </Link>
-                </button>
-                {/* <button className="login-btn">
-                  <Link to="/employe/dashboard" style={{ color: 'white' }}>
+                  </button>
+                </Link>
+
+                <Link to="/employe/dashboard" style={{ color: 'white' }}>
+                  <button
+                    className="login-btn"
+                    onClick={() => {
+                      this.props.setUser('sjkdh');
+                    }}
+                  >
                     Employe Login
-                  </Link>
-                </button> */}
+                  </button>
+                </Link>
+
                 <div className="row mb-4 px-5 ">
                   <p style={{ textAlign: 'center' }}>
                     {' '}
