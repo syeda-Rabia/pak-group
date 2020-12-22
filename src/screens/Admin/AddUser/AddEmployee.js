@@ -7,6 +7,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/modal";
@@ -76,7 +77,7 @@ export default function AddEmployee() {
         <Modal.Header closeButton>
           <Modal.Title>Edit Employee</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="input.form-control">
+        <Modal.Body className="">
           <h6>ID</h6>
           <input className="form-control " value={item.id} />
           <h6>Name</h6>
@@ -204,33 +205,33 @@ export default function AddEmployee() {
         <td>
           <button
             type="button"
-            className="btn btn-primary"
+            className="bg-transparent  button-focus mr-2"
             onClick={() => {
               setShowView(true);
               setSelectedID(index);
             }}
           >
-            <FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon style={{ fontSize: 20 }} icon={faEye} />
           </button>
           <button
-            type="button"
-            className="btn btn-success"
+            type="button "
+            className="bg-transparent  button-focus mr-2"
             onClick={() => {
               setShowEdit(true);
               setSelectedID(index);
             }}
           >
-            <FontAwesomeIcon icon={faPencilAlt} />
+            <FontAwesomeIcon style={{ fontSize: 20 }} icon={faPencilAlt} />
           </button>
           <button
             type="button"
-            className="btn btn-danger"
+            className="bg-transparent  button-focus"
             onClick={() => {
               setShowDelete(true);
               setSelectedID(index);
             }}
           >
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon style={{ fontSize: 20 }} icon={faTrash} />
           </button>
         </td>
       </tr>
@@ -241,7 +242,7 @@ export default function AddEmployee() {
       <h1>Employees Record</h1>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-primary "
         onClick={() => {
           setShowAdd(true);
         }}
