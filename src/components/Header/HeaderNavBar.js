@@ -9,7 +9,7 @@ export default function HeaderNavBar() {
     <React.Fragment>
       <Navbar collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
-          <Link to="/dashboard">
+          <Link to="/">
             <img
               alt=""
               src={logo}
@@ -34,28 +34,58 @@ export default function HeaderNavBar() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/admin/todolist">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/todolist',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 To Do
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/admin/leads">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/leads',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 Leads
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/admin/leadsallocation">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/leadsallocation',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 Allocation
               </Link>
             </Nav.Link>
 
             <Nav.Link>
-              <Link id="navlink" to="/admin/inventory">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/inventory',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 Inventory
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/admin/user">
+              <Link
+                id="navlink"
+                to={{
+                  pathname: '/admin/user',
+                  state: { from: 'AdminHeader' },
+                }}
+              >
                 User
               </Link>
             </Nav.Link>

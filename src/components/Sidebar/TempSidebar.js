@@ -1,19 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import {
-  Container,
-  Dropdown,
+  ListGroup,
+  OverlayTrigger,
+  Button,
   Form,
   Popover,
-  Button,
-  Overlay,
-  OverlayTrigger,
-  Tooltip,
   Row,
   Col,
 } from 'react-bootstrap';
-import './SearchLeads.css';
+import buttonImg from './../../assests/resource.svg';
+import './TempSidebar.css';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-export default function SearchLeads(props) {
+import SearchLeads from './SearchLeads';
+import { Link } from 'react-router-dom';
+export default function Sidebar() {
+  const [toggle, setToggle] = React.useState(false);
+  const displayList = () => {
+    setToggle(!toggle);
+    console.log('toggle', toggle);
+  };
   const popover = (
     <Popover id="popover-basic">
       <Popover.Content>
@@ -52,9 +57,18 @@ export default function SearchLeads(props) {
             </Col>
             <Col>
               <Form.Group>
+                <Form.Label>City Wise</Form.Label>
+                <Form.Control
+                  controlId="city"
+                  as="select"
+                  defaultValue="City Name"
+                >
+                  <option>City 1</option>
+                  <option>City 2</option>
+                </Form.Control>
                 <Form.Label>Sale Person</Form.Label>
                 <Form.Control
-                  controlId="Sale Person"
+                  controlId="SalePerson"
                   as="select"
                   defaultValue="Sale Person"
                 >
@@ -82,11 +96,59 @@ export default function SearchLeads(props) {
     </Popover>
   );
 
+  const List = (props) => {
+    return (
+      <ul class="list-group">
+        <li id="list-item" class="list-group-item" action>
+          <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+            <button className="search-leads">
+              Search Leads <ExpandMoreIcon />
+            </button>
+          </OverlayTrigger>
+        </li>
+        <li id="list-item" class="list-group-item">
+          Add News Leads
+        </li>
+        <li id="list-item" class="list-group-item">
+          <Link
+            className="navLink"
+            id="list-item"
+            to={{
+              pathname: '/admin/todolist',
+            }}
+          >
+            To Do List
+          </Link>
+        </li>
+        <li id="list-item" class="list-group-item">
+          <Link
+            className="navLink"
+            id="list-item"
+            to={{
+              pathname: '/admin/closedleads',
+            }}
+          >
+            Closed Leads
+          </Link>
+        </li>
+      </ul>
+    );
+  };
+
   return (
-    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-      <Button id="searchLeads" style={{ textAlign: props.alignText }}>
-        {props.name} <ExpandMoreIcon />
-      </Button>
-    </OverlayTrigger>
+    <div
+      style={{
+        height: '100vh',
+        // border: '2px solid blue',
+      }}
+    >
+      <button className="toggle-button" onClick={displayList}>
+        <img src={buttonImg} />
+        <span>
+          Leads Allocaton and Addition <ExpandMoreIcon />
+        </span>
+      </button>
+      {toggle === true ? <List /> : null}
+    </div>
   );
 }
