@@ -30,14 +30,19 @@ export default function AddEmployee() {
           <Modal.Title>Employee Record</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h6>{item.id}</h6>
+          <div style={{ alignContent: "center" }}>
+            <h6>ID</h6>
+            {item.id}
 
-          <h6>{item.Name}</h6>
+            <h6>Name </h6>
+            {item.Name}
 
-          <h6>{item.Email}</h6>
+            <h6>Email</h6>
+            {item.Email}
 
-          <h6>{item.Type[0]}</h6>
-
+            <h6>Type</h6>
+            {item.Type[0]}
+          </div>
           {/* <label>ID</label>
           <input type="number">{item.id}</input>
           <label>Name</label>
@@ -71,15 +76,18 @@ export default function AddEmployee() {
         <Modal.Header closeButton>
           <Modal.Title>Edit Employee</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="input.form-control">
           <h6>ID</h6>
-          <input placeholder={item.id} />
+          <input className="form-control " value={item.id} />
           <h6>Name</h6>
-          <input placeholder={item.Name} />
+          <input className="form-control" value={item.Name} />
           <h6> Email</h6>
-          <input placeholder={item.Email} />
+          <input className="form-control" value={item.Email} />
           <h6>Type</h6>
-          <input placeholder={item.Type[0]} />
+          <select class="form-control form-control-sm">
+            <option>{item.Type[0]}</option>
+            <option>{item.Type[1]}</option>
+          </select>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -180,7 +188,7 @@ export default function AddEmployee() {
       </Modal>
     );
   };
-  const TableEmployee = ({ item }) => {
+  const TableEmployee = ({ item, index }) => {
     return (
       <tr>
         <th scope="row">{item.id}</th>
@@ -199,7 +207,7 @@ export default function AddEmployee() {
             className="btn btn-primary"
             onClick={() => {
               setShowView(true);
-              setSelectedID(item.id);
+              setSelectedID(index);
             }}
           >
             <FontAwesomeIcon icon={faEye} />
@@ -209,7 +217,7 @@ export default function AddEmployee() {
             className="btn btn-success"
             onClick={() => {
               setShowEdit(true);
-              setSelectedID(item.id);
+              setSelectedID(index);
             }}
           >
             <FontAwesomeIcon icon={faPencilAlt} />
@@ -219,7 +227,7 @@ export default function AddEmployee() {
             className="btn btn-danger"
             onClick={() => {
               setShowDelete(true);
-              setSelectedID(item.id);
+              setSelectedID(index);
             }}
           >
             <FontAwesomeIcon icon={faTrash} />
@@ -260,7 +268,7 @@ export default function AddEmployee() {
               </thead>
               <tbody>
                 {data.map((item, index) => {
-                  return <TableEmployee item={item} />;
+                  return <TableEmployee item={item} index={index} />;
                 })}
               </tbody>
               <ModalAdd item={data[selectedID]} />
