@@ -12,11 +12,9 @@ export default function InventorySidebar() {
       <Link to="/" className="add-project">
         Add Project Category
       </Link>
-      <Link to="/" className="add-project">
-        Add Project
-      </Link>
+
       <Link to="/admin/inventory/add" className="add-project">
-        Add Inventory
+        Add Project
       </Link>
       <Link to="/" className="add-project">
         Viewable

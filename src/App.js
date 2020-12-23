@@ -62,8 +62,8 @@ function App() {
               style={{ backgroundColor: 'white' }}
             >
               {/* <Condition /> */}
-              <LAASidebar />
-              {/* <InventorySidebar /> */}
+              {/* <LAASidebar /> */}
+              <InventorySidebar />
             </Col>
             <Col
               lg={10}
