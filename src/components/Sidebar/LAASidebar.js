@@ -14,8 +14,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { Link } from 'react-router-dom';
 import SearchLeads from './SearchLeads';
-import './TempSidebar.css';
-export default function GenericTempSidebar() {
+import './LAASidebar.css';
+export default function LAASidebar() {
   const [toggle, setToggle] = React.useState(false);
   const displayList = () => {
     setToggle(!toggle);
@@ -25,7 +25,7 @@ export default function GenericTempSidebar() {
   const List = (props) => {
     return (
       <React.Fragment>
-        <SearchLeads name="Search Leads" alignText="left" />
+        <SearchLeads name="Search Leads" alignText="left" leftPadding="22px" />
         <ul class="list-group">
           <li id="list-item" class="list-group-item">
             Add News Leads

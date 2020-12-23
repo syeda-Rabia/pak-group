@@ -22,9 +22,9 @@ export default function HeaderNavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/dashboard',
                   state: { from: 'AdminHeader' },
@@ -32,10 +32,10 @@ export default function HeaderNavBar() {
               >
                 Dashboard
               </Link>
-            </Nav.Link>
-            <Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/todolist',
                   state: { from: 'AdminHeader' },
@@ -43,10 +43,10 @@ export default function HeaderNavBar() {
               >
                 To Do
               </Link>
-            </Nav.Link>
-            <Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/leads',
                   state: { from: 'AdminHeader' },
@@ -54,10 +54,10 @@ export default function HeaderNavBar() {
               >
                 Leads
               </Link>
-            </Nav.Link>
-            <Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/leadsallocation',
                   state: { from: 'AdminHeader' },
@@ -65,11 +65,11 @@ export default function HeaderNavBar() {
               >
                 Allocation
               </Link>
-            </Nav.Link>
+            </Nav.Item>
 
-            <Nav.Link>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/inventory',
                   state: { from: 'AdminHeader' },
@@ -77,10 +77,10 @@ export default function HeaderNavBar() {
               >
                 Inventory
               </Link>
-            </Nav.Link>
-            <Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Link
-                id="navlink"
+                id="R-navlink"
                 to={{
                   pathname: '/admin/user',
                   state: { from: 'AdminHeader' },
@@ -88,13 +88,13 @@ export default function HeaderNavBar() {
               >
                 User
               </Link>
-            </Nav.Link>
-            <Nav.Link href="#Accounts">Accounts</Nav.Link>
-            <Nav.Link href="#Policies">Policies</Nav.Link>
-            <Nav.Link href="#Documentation">Documentation</Nav.Link>
-            <Nav.Link href="#Documentation" id="hr">
+            </Nav.Item>
+            <Nav.Item href="#Accounts">Accounts</Nav.Item>
+            <Nav.Item href="#Policies">Policies</Nav.Item>
+            <Nav.Item href="#Documentation">Documentation</Nav.Item>
+            <Nav.Item href="#Documentation" id="hr">
               HR
-            </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
         <Nav id="profile">

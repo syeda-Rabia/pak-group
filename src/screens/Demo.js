@@ -1,13 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-// import SearchLeads from '../components/SearchLeads';
-// import Sidebar from '../components/Sidebar';
-// import HeaderNavBar from '../components/HeaderNavBar';
 import HeaderNavBar from '../components/Header/HeaderNavBar';
-// import SearchLeads from '../components/SideBar/SearchLeads';
-
-// import IndividualDashboard from './screens/IndividualDashboard';
-import IndividualDashboard from './Admin/Dashboard/AdminDashboard';
+import InventorySidebar from '../components/Sidebar/InventorySidebar';
+import AddInventory from './Admin/Inventory/AddInventory';
 export default function Demo() {
   return (
     <React.Fragment>
@@ -17,6 +12,7 @@ export default function Demo() {
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: 'white' }}>
             {/* <Sidebar /> */}
             {/* <SearchLeads /> */}
+            <InventorySidebar />
           </Col>
           <Col
             lg={10}
@@ -25,7 +21,7 @@ export default function Demo() {
             xs={7}
             style={{ backgroundColor: '#FAFAFA' }}
           >
-            <IndividualDashboard />
+            <AddInventory />
           </Col>
         </Row>
       </Container>
