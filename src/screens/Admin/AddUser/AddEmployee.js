@@ -463,6 +463,8 @@ export default function AddEmployee() {
               className="form-control input-width"
               placeholder="Enter First Name"
               type="text"
+              minLength="3"
+              maxLength="10"
               value={f_name}
               onChange={(e) => {
                 setF_name(e.target.value);
@@ -474,6 +476,8 @@ export default function AddEmployee() {
               className="form-control input-width"
               placeholder="Enter Last Name"
               type="text"
+              minLength="0"
+              maxLength="10"
               value={l_name}
               onChange={(e) => {
                 setL_name(e.target.value);
