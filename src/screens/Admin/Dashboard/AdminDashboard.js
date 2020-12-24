@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import LeadReport_chart from '../../../components/Charts/LeadReport_chart';
 import QuarterlyLead_chart from '../../../components/Charts/QuarterlyLead_chart';
+import RecordTable from './RecordTable';
 
 class AdminDashboard extends Component {
   render() {
@@ -10,30 +11,30 @@ class AdminDashboard extends Component {
         <div className="row">
           <div
             className="col-lg-12 col-md-12 text-nowrap "
-            style={{ backgroundColor: '#FAFAFA' }}
+            style={{ backgroundColor: "#FAFAFA" }}
           >
             <h1>Admin Dashboard</h1>
             <div className="row">
               <div
                 className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
-                style={{ backgroundColor: 'white', borderRadius: '10px' }}
+                style={{ backgroundColor: "white", borderRadius: "10px" }}
               >
                 <div className="row">
                   <Container fluid>
                     <div>
                       <div
                         style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
                         }}
                       >
                         <div>
                           <h6>Target Assigend</h6>
                           <h3>Lead Report</h3>
                         </div>
-                        <div style={{ float: 'right', height: 30 }}>
+                        <div style={{ float: "right", height: 30 }}>
                           <select
                             name
                             className="language border-0"
@@ -56,7 +57,7 @@ class AdminDashboard extends Component {
               </div>
               <div
                 className="col-lg-4 col-md-4 mt-2 mb-2 p-3 ml-2"
-                style={{ backgroundColor: 'white', borderRadius: '10px' }}
+                style={{ backgroundColor: "white", borderRadius: "10px" }}
               >
                 <h6>Pending Tasks Weekly (2020)</h6>
 
@@ -68,21 +69,21 @@ class AdminDashboard extends Component {
                 <div
                   className="col-lg-12 col-md-12 mt-2 mb-2 p-3"
                   style={{
-                    float: 'right',
-                    backgroundColor: 'white',
-                    borderRadius: '10px',
+                    float: "right",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
                   }}
                 >
-                  <div className="row" style={{ padding: '30px' }}>
+                  <div className="row" style={{ padding: "30px" }}>
                     <div>
                       <h2>Quarterly Lead Tasks</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur</p>
                     </div>
                     <div
                       style={{
-                        position: 'absolute',
-                        top: '30px',
-                        right: '30px',
+                        position: "absolute",
+                        top: "30px",
+                        right: "30px",
                       }}
                     >
                       <select name className="language border-0" id="language">
@@ -103,7 +104,7 @@ class AdminDashboard extends Component {
               <div className="row">
                 <div
                   className="col-lg-4 col-md-4 mt-2 mb-2 mr-5 ml-2 p-3"
-                  style={{ backgroundColor: 'white', borderRadius: '10px' }}
+                  style={{ backgroundColor: "white", borderRadius: "10px" }}
                 >
                   <h3>Target Asigned</h3>
                   <LeadReport_chart />
@@ -111,8 +112,8 @@ class AdminDashboard extends Component {
                 <div
                   className="col-lg-7 col-md-7 mt-2 mb-2  ml-4 p-3"
                   style={{
-                    backgroundColor: 'white',
-                    borderRadius: '10px',
+                    backgroundColor: "white",
+                    borderRadius: "10px",
                   }}
                 >
                   <h6>Target Assigend</h6>
@@ -122,15 +123,16 @@ class AdminDashboard extends Component {
                 </div>
               </div>
             </Container>
-            <Container fluid>
+            <RecordTable/>
+            {/* <Container fluid>
               <Row>
                 <Col
                   lg="12"
                   style={{
-                    backgroundColor: 'white',
-                    borderRadius: '10px',
-                    marginTop: '30px',
-                    padding: '30px',
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    marginTop: "30px",
+                    padding: "30px",
                   }}
                 >
                   <div className="table-responsive">
@@ -206,19 +208,19 @@ class AdminDashboard extends Component {
                   </div>
                 </Col>
               </Row>
-            </Container>
+            </Container> */}
             <Container fluid>
               <Row>
                 <Col
                   md="4"
                   style={{
-                    backgroundColor: 'white',
-                    borderRadius: '10px',
-                    marginTop: '30px',
-                    marginRight: '30px',
-                    marginLeft: '10px',
-                    marginBottom: '30px',
-                    padding: '30px',
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    marginTop: "30px",
+                    marginRight: "30px",
+                    marginLeft: "10px",
+                    marginBottom: "30px",
+                    padding: "30px",
                   }}
                 >
                   <h3>Target Asigned</h3>
@@ -227,13 +229,13 @@ class AdminDashboard extends Component {
                 <Col
                   md="7"
                   style={{
-                    backgroundColor: 'white',
-                    borderRadius: '10px',
-                    marginTop: '30px',
-                    marginBottom: '30px',
-                    padding: '30px',
-                    marginLeft: '10px',
-                    marginRight: '30px',
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    marginTop: "30px",
+                    marginBottom: "30px",
+                    padding: "30px",
+                    marginLeft: "10px",
+                    marginRight: "30px",
                   }}
                 >
                   <div className="table-responsive">
@@ -291,6 +293,7 @@ class AdminDashboard extends Component {
             </Container>
           </div>
         </div>
+       
       </Container>
     );
   }

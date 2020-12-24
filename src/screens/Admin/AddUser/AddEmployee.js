@@ -35,36 +35,45 @@ export default function AddEmployee() {
           setShowView(false);
         }}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Employee Record</Modal.Title>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: '#818181' }}>
+            Employee Record
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <div style={{ alignContent: 'center' }}>
-            <h6>ID</h6>
-            <input className="form-control input-width" value={item.id} />
+        <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+          <Modal.Body>
+            <div style={{ alignContent: 'center' }}>
+              <h6>ID</h6>
+              <input className="form-control input-width" value={item.id} />
 
-            <h6>First Name </h6>
-            <input className="form-control input-width" value={item.Name} />
+              <h6>First Name </h6>
+              <input className="form-control input-width" value={item.Name} />
 
-            <h6>Last name</h6>
-            <input
-              className="form-control input-width"
-              value={item.Last_Name}
-            />
+              <h6>Last name</h6>
+              <input
+                className="form-control input-width"
+                value={item.Last_Name}
+              />
 
-            <h6>Email</h6>
-            <input className="form-control input-width" value={item.Email} />
+              <h6>Email</h6>
+              <input className="form-control input-width" value={item.Email} />
 
-            <h6>Gender</h6>
-            <input className="form-control input-width" value={item.Gender} />
+              <h6>Gender</h6>
+              <input className="form-control input-width" value={item.Gender} />
 
-            <h6>Contact</h6>
-            <input className="form-control input-width" value={item.Contact} />
+              <h6>Contact</h6>
+              <input
+                className="form-control input-width"
+                value={item.Contact}
+              />
 
-            <h6>Type</h6>
-            <input className="form-control input-width" value={item.Type} />
-          </div>
-          {/* <label>ID</label>
+              <h6>Type</h6>
+              <input className="form-control input-width" value={item.Type} />
+            </div>
+            {/* <label>ID</label>
           <input type="number">{item.id}</input>
           <label>Name</label>
           <input type="name">{item.Name}</input>
@@ -72,17 +81,18 @@ export default function AddEmployee() {
           <input type="email">{item.Email}</input>
           <label>Type</label>
           <input type="type">{item.Type}</input> */}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            style={{ backgroundColor: '#2258BF' }}
-            onClick={() => {
-              setShowView(false);
-            }}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: '#2258BF' }}
+              onClick={() => {
+                setShowView(false);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </div>
       </Modal>
     );
   };
@@ -641,61 +651,79 @@ export default function AddEmployee() {
     );
   };
   return (
-    <Container fluid className="Laa">
-      <h2>Employees Record</h2>
-      <button
-        data-tip
-        data-for="AddTip"
-        type="button"
-        className="btn btn-primary my-4"
-        onClick={() => {
-          setShowAdd(true);
-        }}
-      >
-        <FontAwesomeIcon icon={faPlusSquare} /> Create Employee
-      </button>
-      <ReactTooltip id="AddTip" place="top" effect="solid">
-        Add new user
-      </ReactTooltip>
-      <span></span>
-      <Row>
-        <Col
-          lg
-          md="12"
-          style={{ backgroundColor: 'white', borderRadius: '5px' }}
+    <Container
+      fluid
+      className="Laa"
+      style={{
+        // backgroundColor: 'red',
+        margin: 'auto',
+        width: '100%',
+        // border: '3px solid green',
+        padding: '10px',
+        marginTop: '10px',
+      }}
+    >
+      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+        <h3 style={{ color: '#818181' }}>Employees Record</h3>
+      </div>
+      <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+        <button
+          data-tip
+          data-for="AddTip"
+          type="button"
+          className="btn btn-primary my-4"
+          style={{
+            backgroundColor: '#2258BF',
+          }}
+          onClick={() => {
+            setShowAdd(true);
+          }}
         >
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Contact</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => {
-                  return <TableEmployee item={item} index={index} />;
-                })}
-              </tbody>
-              {data.length > 0 ? (
-                <>
-                  <ModalDelete item={data[selectedID]} />
-                  <ModalView item={data[selectedID]} />
-                  <ModalEdit item={data[selectedID]} />
-                  <ModalBan item={data[selectedID]} />
-                </>
-              ) : null}
-            </table>
-            <ModalAdd />
-          </div>
-        </Col>
-      </Row>
+          <FontAwesomeIcon icon={faPlusSquare} /> Create Employee
+        </button>
+        <ReactTooltip id="AddTip" place="top" effect="solid">
+          Add new user
+        </ReactTooltip>
+        <span></span>
+        <Row>
+          <Col
+            lg
+            md="12"
+            style={{ backgroundColor: 'white', borderRadius: '5px' }}
+          >
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => {
+                    return <TableEmployee item={item} index={index} />;
+                  })}
+                </tbody>
+                {data.length > 0 ? (
+                  <>
+                    <ModalDelete item={data[selectedID]} />
+                    <ModalView item={data[selectedID]} />
+                    <ModalEdit item={data[selectedID]} />
+                    <ModalBan item={data[selectedID]} />
+                  </>
+                ) : null}
+              </table>
+              <ModalAdd />
+            </div>
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 }
