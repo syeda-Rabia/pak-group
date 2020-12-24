@@ -52,14 +52,14 @@ function App() {
     return (
       <React.Fragment>
         <HeaderNavBar />
-        <Container fluid style={{ height: '100vh' }}>
+        <Container fluid style={{ height: "100vh" }}>
           <Row>
             <Col
               lg={2}
               md={2}
               sm={5}
               xs={5}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             >
               {/* <Condition /> */}
               {/* <LAASidebar /> */}
@@ -70,7 +70,7 @@ function App() {
               md={10}
               sm={7}
               xs={7}
-              style={{ backgroundColor: '#FAFAFA' }}
+              style={{ backgroundColor: "#FAFAFA" }}
             >
               <Route exact path="/admin/dashboard">
                 <AdminDashboard />
@@ -97,6 +97,9 @@ function App() {
               </Route>
 
               <Route exact path="/admin/todolist">
+                <ToDoListAdmin />
+              </Route>
+              <Route exact path="/filter">
                 <ToDoListAdmin />
               </Route>
             </Col>
