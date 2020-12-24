@@ -23,6 +23,8 @@ import LeadsSidebar from './components/Sidebar/LeadsSidebar';
 import LAASidebar from './components/Sidebar/LAASidebar';
 import InventorySidebar from './components/Sidebar/InventorySidebar';
 import AddInventory from './screens/Admin/Inventory/AddInventory';
+import ProjectList from './screens/Admin/Inventory/ProjectList';
+import TabPanel from './screens/Admin/Inventory/TempTabPanel';
 
 function App() {
   var location = useLocation();
@@ -90,7 +92,8 @@ function App() {
               </Route>
 
               <Route exact path="/admin/inventory">
-                <InventoryAdmin />
+                {/* <InventoryAdmin /> */}
+                <ProjectList />
               </Route>
               <Route exact path="/admin/inventory/add">
                 <AddInventory />

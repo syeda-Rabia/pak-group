@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Form, Button, Col, Container, Jumbotron } from 'react-bootstrap';
+import { Form, Button, Col, Container } from 'react-bootstrap';
+import Tooltip from '@material-ui/core/Tooltip';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
@@ -64,6 +65,7 @@ export default function AddInventory() {
                 <Form.Control
                   as="select"
                   defaultValue={category}
+                  className="w-100"
                   onChange={(e) => {
                     setCategory(e.target.value);
                   }}
@@ -179,15 +181,17 @@ export default function AddInventory() {
                     />
                   </Col>
                   <Col>
-                    <RemoveOutlinedIcon
-                      onClick={() => {
-                        console.log('clicked');
-                        const tempData = InventoryData.filter(
-                          (del) => del.id !== item.id
-                        );
-                        setInventoryData(tempData);
-                      }}
-                    />
+                    <Tooltip title="Delete" placement="right" arrow>
+                      <RemoveOutlinedIcon
+                        onClick={() => {
+                          console.log('clicked');
+                          const tempData = InventoryData.filter(
+                            (del) => del.id !== item.id
+                          );
+                          setInventoryData(tempData);
+                        }}
+                      />
+                    </Tooltip>
                   </Col>
                 </Form.Row>
               );

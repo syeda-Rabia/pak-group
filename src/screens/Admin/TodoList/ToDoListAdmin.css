@@ -5,6 +5,15 @@
   margin-top: 25px;
   margin-bottom: 20px;
 }
+thead tr p {
+  margin: 0; /* zero out margin */
+
+  font-size: 14px;
+  position: absolute;
+  text-align: center;
+  padding: 0;
+  top: 0;
+}
 .page-info {
   margin-top: 27px;
   margin-bottom: 0px;

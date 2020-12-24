@@ -103,7 +103,7 @@ export default function LeadsAllocatonAndAddition() {
       <Row>
         <Col lg="12" style={{ backgroundColor: 'white', borderRadius: '5px' }}>
           <div className="table-responsive">
-            <table className="table table-hover" style={{ display: 'block' }}>
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">ID</th>

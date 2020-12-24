@@ -1,20 +1,20 @@
 // import React from 'react';
-import "./AddEmployee.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import img2 from "./../../../assests/tiwtr-2.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faBan } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
-import { ModalData } from "./../../../assests/constants/modal";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import ReactTooltip from "react-tooltip";
+import './AddEmployee.css';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import img2 from './../../../assests/tiwtr-2.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { DeleteOutlineIcon } from '@material-ui/icons/DeleteOutline';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { Modal } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { ModalData } from './../../../assests/constants/modal';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+import ReactTooltip from 'react-tooltip';
 
 export default function AddEmployee() {
   const [showView, setShowView] = useState(false);
@@ -39,7 +39,7 @@ export default function AddEmployee() {
           <Modal.Title>Employee Record</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div style={{ alignContent: "center" }}>
+          <div style={{ alignContent: 'center' }}>
             <h6>ID</h6>
             <input className="form-control input-width" value={item.id} />
 
@@ -56,10 +56,7 @@ export default function AddEmployee() {
             <input className="form-control input-width" value={item.Email} />
 
             <h6>Gender</h6>
-            <input
-              className="form-control input-width"
-              value={item.Gender}
-            />
+            <input className="form-control input-width" value={item.Gender} />
 
             <h6>Contact</h6>
             <input className="form-control input-width" value={item.Contact} />
@@ -78,7 +75,7 @@ export default function AddEmployee() {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            style={{ backgroundColor: "#2258BF" }}
+            style={{ backgroundColor: '#2258BF' }}
             onClick={() => {
               setShowView(false);
             }}
@@ -155,12 +152,12 @@ export default function AddEmployee() {
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log("SendRecordToServer", event);
+      console.log('SendRecordToServer', event);
       // add validations
       // push
 
       let user = {
-        id: "1",
+        id: '1',
         Name: f_name,
         Last_Name: l_name,
         Email: email,
@@ -177,7 +174,7 @@ export default function AddEmployee() {
     const EditRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
+      console.log('EditRecordToServer', event);
       // add validations
       // push
 
@@ -282,8 +279,8 @@ export default function AddEmployee() {
               }}
               className="form-control form-control-sm"
             >
-              <option value={"Male"}>Male</option>
-              <option value={"Female"}>Female</option>
+              <option value={'Male'}>Male</option>
+              <option value={'Female'}>Female</option>
             </select>
 
             <h6>Type</h6>
@@ -294,13 +291,13 @@ export default function AddEmployee() {
               }}
               className="form-control form-control-sm"
             >
-              <option value={"Admin"}>Admin</option>
-              <option value={"Employee"}>Employee</option>
+              <option value={'Admin'}>Admin</option>
+              <option value={'Employee'}>Employee</option>
             </select>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              style={{ backgroundColor: '#2258BF' }}
               onClick={() => {
                 setShowEdit(false);
               }}
@@ -325,16 +322,16 @@ export default function AddEmployee() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = (item) => {
-      console.log("item is ", item);
+      console.log('item is ', item);
 
       let { id } = item;
-      console.log("ID is ", id);
+      console.log('ID is ', id);
 
       let arr = data;
 
       arr = arr.filter((user) => user.id != id.toString());
 
-      console.log("arr length ", arr.length, arr, selectedID);
+      console.log('arr length ', arr.length, arr, selectedID);
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;
@@ -388,7 +385,7 @@ export default function AddEmployee() {
         <Modal.Body>Do you really want to Block this Employee!</Modal.Body>
         <Modal.Footer>
           <Button
-            style={{ backgroundColor: "#2258BF" }}
+            style={{ backgroundColor: '#2258BF' }}
             onClick={() => {
               setShowBan(false);
             }}
@@ -396,7 +393,7 @@ export default function AddEmployee() {
             Close
           </Button>
           <Button
-            style={{ backgroundColor: "#2258BF" }}
+            style={{ backgroundColor: '#2258BF' }}
             onClick={() => {
               setShowBan(false);
             }}
@@ -408,22 +405,22 @@ export default function AddEmployee() {
     );
   };
   const ModalAdd = ({ item }) => {
-    const [f_name, setF_name] = useState("");
-    const [l_name, setL_name] = useState("");
-    const [email, setEmail] = useState("");
-    const [gender, setGender] = useState("male");
-    const [user_type, setUser_type] = useState("Admin");
-    const [phone_no, setPhone_no] = useState("");
+    const [f_name, setF_name] = useState('');
+    const [l_name, setL_name] = useState('');
+    const [email, setEmail] = useState('');
+    const [gender, setGender] = useState('male');
+    const [user_type, setUser_type] = useState('Admin');
+    const [phone_no, setPhone_no] = useState('');
 
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log("SendRecordToServer", event);
+      console.log('SendRecordToServer', event);
       // add validations
       // push
 
       let user = {
-        id: "1",
+        id: '1',
         Name: f_name,
         Last_Name: l_name,
         Email: email,
@@ -523,8 +520,8 @@ export default function AddEmployee() {
               }}
               className="form-control form-control-sm"
             >
-              <option value={"Male"}>Male</option>
-              <option value={"Female"}>Female</option>
+              <option value={'Male'}>Male</option>
+              <option value={'Female'}>Female</option>
             </select>
 
             <h6>Type</h6>
@@ -535,13 +532,13 @@ export default function AddEmployee() {
               }}
               className="form-control form-control-sm"
             >
-              <option value={"Admin"}>Admin</option>
-              <option value={"Employee"}>Employee</option>
+              <option value={'Admin'}>Admin</option>
+              <option value={'Employee'}>Employee</option>
             </select>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              style={{ backgroundColor: '#2258BF' }}
               onClick={() => {
                 setShowAdd(false);
               }}
@@ -665,7 +662,7 @@ export default function AddEmployee() {
         <Col
           lg
           md="12"
-          style={{ backgroundColor: "white", borderRadius: "5px" }}
+          style={{ backgroundColor: 'white', borderRadius: '5px' }}
         >
           <div className="table-responsive">
             <table className="table table-hover">
