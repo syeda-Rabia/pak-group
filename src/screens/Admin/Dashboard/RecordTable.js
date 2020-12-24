@@ -4,13 +4,13 @@ import { dummyData } from "../../../assests/constants/todoList";
 import { Container, Row, Col } from "react-bootstrap";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
-export default function LeadsAllocatonAndAddition() {
+export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
-  const [filterData, setFilterData] = React.useState(5);
+  const [filterData, setFilterData] = React.useState("All");
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -88,64 +88,87 @@ export default function LeadsAllocatonAndAddition() {
   };
   console.log(filterData);
   return (
-    <Container fluid className="Laa">
-      <h1>Employee</h1>
-      <select className="form-control form-control-sm"
-        onChange={(e) => {
-          console.log(e.target.value);
-        }}
+    <Container
+      fluid
+      className="Laa"
+      style={{
+        // backgroundColor: 'red',
+        margin: "auto",
+        width: "100%",
+        // border: '3px solid green',
+        padding: "10px",
+        marginTop: "10px",
+      }}
+    >
+      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+        <h3 style={{ color: "#818181" }}>Employee Record</h3>
+        <select
+          className="form-control form-control-sm"
+          onChange={(e) => {
+            setFilterData(e.target.value);
+          }}
         >
-        {data.map((item) => {
-          return <option>{item.Clients}</option>;
-        })}
-      </select>
-
-      <Row>
-        <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
-          <div className="table-responsive">
-            <table className="table table-hover" style={{ display: "block" }}>
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Clients</th>
-                  <th scope="col">Contacts</th>
-                  <th scope="col">Project</th>
-                  <th scope="col">Budget</th>
-                  <th scope="col">Time to Call</th>
-                  <th scope="col">Country/City</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Interest</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Task</th>
-                  <th scope="col">Deadline</th>
-                  <th scope="col">Returned From</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.map((item, index) => {
-                  return <TableRow index={index} item={item} />;
-                })}
-              </tbody>
-            </table>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>
-        </Col>
-        <Col>
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            show={handleShow}
-          />
-        </Col>
-      </Row>
+          select employee
+          {data.map((item) => {
+            return <option>{item.Clients}</option>;
+          })}
+        </select>
+      </div>
+      <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+        <Row>
+          <Col
+            lg="12"
+            style={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
+            <div className="table-responsive">
+              <table className="table table-hover" style={{ display: "block" }}>
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Clients</th>
+                    <th scope="col">Contacts</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Budget</th>
+                    <th scope="col">Time to Call</th>
+                    <th scope="col">Country/City</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Interest</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Deadline</th>
+                    <th scope="col">Returned From</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentData.map((item, index) => {
+                    console.log(item.Clients, filterData);
+                    if (filterData == "All")
+                      return <TableRow index={index} item={item} />;
+                    else if (item.Clients == filterData)
+                      return <TableRow index={index} item={item} />;
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p className="page-info">
+              Showing {currentPage} from {pageCount}
+            </p>
+          </Col>
+          <Col>
+            <Pagination
+              itemsCount={totalCount}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+              show={handleShow}
+            />
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 }
