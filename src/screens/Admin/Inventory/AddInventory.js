@@ -3,6 +3,9 @@ import React from 'react';
 import { Form, Button, Col, Container } from 'react-bootstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
+
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
   const [dummy, setDummy] = React.useState([]);
@@ -127,7 +130,12 @@ export default function AddInventory() {
       <React.Fragment>
         <br />
 
-        <Button onClick={() => setForm((state) => !state)}>Go Back</Button>
+        {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
+        <IconButton aria-label="delete" color="primary">
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon onClick={() => setForm((state) => !state)} />
+          </Tooltip>
+        </IconButton>
         <Container>
           <Form>
             {InventoryData.map((item, index) => {
@@ -181,17 +189,19 @@ export default function AddInventory() {
                     />
                   </Col>
                   <Col>
-                    <Tooltip title="Delete" placement="right" arrow>
-                      <RemoveOutlinedIcon
-                        onClick={() => {
-                          console.log('clicked');
-                          const tempData = InventoryData.filter(
-                            (del) => del.id !== item.id
-                          );
-                          setInventoryData(tempData);
-                        }}
-                      />
-                    </Tooltip>
+                    <IconButton aria-label="delete" color="primary">
+                      <Tooltip title="Delete" placement="right" arrow>
+                        <RemoveOutlinedIcon
+                          onClick={() => {
+                            console.log('clicked');
+                            const tempData = InventoryData.filter(
+                              (del) => del.id !== item.id
+                            );
+                            setInventoryData(tempData);
+                          }}
+                        />
+                      </Tooltip>
+                    </IconButton>
                   </Col>
                 </Form.Row>
               );

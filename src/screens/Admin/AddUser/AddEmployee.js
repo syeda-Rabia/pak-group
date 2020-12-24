@@ -314,7 +314,8 @@ export default function AddEmployee() {
             >
               Close
             </Button>
-            <input type="submit" value="Submit" />
+            <Button style={{ backgroundColor: '#2258BF' }}>Submit</Button>
+            {/* <input type="submit" value="Submit" /> */}
             {/* <Button
             type="submit"
             value="Submit"
