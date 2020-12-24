@@ -37,7 +37,7 @@ export default function AddInventory() {
           style={{
             // backgroundColor: 'red',
             margin: 'auto',
-            width: '70%',
+            width: '100%',
             // border: '3px solid green',
             padding: '10px',
             marginTop: '10px',

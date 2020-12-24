@@ -1,16 +1,16 @@
-import React from "react";
-import "./RecordTable.css";
-import { dummyData } from "../../../assests/constants/todoList";
-import { Container, Row, Col } from "react-bootstrap";
-import Pagination from "../../../components/Pagination/Pagination";
-import { paginate } from "../../../utils/paginate";
+import React from 'react';
+import './RecordTable.css';
+import { dummyData } from '../../../assests/constants/todoList';
+import { Container, Row, Col } from 'react-bootstrap';
+import Pagination from '../../../components/Pagination/Pagination';
+import { paginate } from '../../../utils/paginate';
 export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
-  const [filterData, setFilterData] = React.useState("All");
+  const [filterData, setFilterData] = React.useState('All');
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -93,15 +93,15 @@ export default function RecordTable() {
       className="Laa"
       style={{
         // backgroundColor: 'red',
-        margin: "auto",
-        width: "100%",
+        margin: 'auto',
+        width: '100%',
         // border: '3px solid green',
-        padding: "10px",
-        marginTop: "10px",
+        padding: '10px',
+        marginTop: '10px',
       }}
     >
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-        <h3 style={{ color: "#818181" }}>Employee Record</h3>
+        <h3 style={{ color: '#818181' }}>Employee Leads</h3>
         <select
           className="form-control form-control-sm"
           onChange={(e) => {
@@ -118,10 +118,10 @@ export default function RecordTable() {
         <Row>
           <Col
             lg="12"
-            style={{ backgroundColor: "white", borderRadius: "5px" }}
+            style={{ backgroundColor: 'white', borderRadius: '5px' }}
           >
             <div className="table-responsive">
-              <table className="table table-hover" style={{ display: "block" }}>
+              <table className="table table-hover" style={{ display: 'block' }}>
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -142,7 +142,7 @@ export default function RecordTable() {
                 <tbody>
                   {currentData.map((item, index) => {
                     console.log(item.Clients, filterData);
-                    if (filterData == "All")
+                    if (filterData == 'All')
                       return <TableRow index={index} item={item} />;
                     else if (item.Clients == filterData)
                       return <TableRow index={index} item={item} />;

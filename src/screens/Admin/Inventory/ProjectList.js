@@ -94,14 +94,16 @@ export default function ProjectList() {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: '#2258BF' }}
+              style={{ backgroundColor: '#2258bf' }}
               onClick={() => {
                 setShowEdit(false);
               }}
             >
               Close
             </Button>
-            <input type="submit" value="Submit" />
+            <Button style={{ backgroundColor: '#2258bf' }} onClick={() => {}}>
+              Submit
+            </Button>
           </Modal.Footer>
         </form>
       </Modal>
@@ -223,53 +225,56 @@ export default function ProjectList() {
     );
   };
   return (
-    <Container fluid className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
-      <h2 className="mb-3" style={{ color: '#818181' }}>
-        Project List
-      </h2>
+    <Container fluid>
+      <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
+        <h2 className="mb-3" style={{ color: '#818181' }}>
+          Project List
+        </h2>
+      </div>
 
-      <span></span>
-      <Row>
-        <Col
-          lg
-          md="12"
-          style={{ backgroundColor: 'white', borderRadius: '5px' }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col" style={{ color: '#818181' }}>
-                    ID
-                  </th>
-                  <th scope="col" style={{ color: '#818181' }}>
-                    Project Name
-                  </th>
-                  <th scope="col" style={{ color: '#818181' }}>
-                    Units
-                  </th>
+      <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
+        <Row>
+          <Col
+            lg
+            md="12"
+            style={{ backgroundColor: 'white', borderRadius: '5px' }}
+          >
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style={{ color: '#818181' }}>
+                      ID
+                    </th>
+                    <th scope="col" style={{ color: '#818181' }}>
+                      Project Name
+                    </th>
+                    <th scope="col" style={{ color: '#818181' }}>
+                      Units
+                    </th>
 
-                  <th scope="col" style={{ color: '#818181' }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => {
-                  return <TableEmployee item={item} index={index} />;
-                })}
-              </tbody>
-              {data.length > 0 ? (
-                <>
-                  <ModalDelete item={data[selectedID]} />
+                    <th scope="col" style={{ color: '#818181' }}>
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => {
+                    return <TableEmployee item={item} index={index} />;
+                  })}
+                </tbody>
+                {data.length > 0 ? (
+                  <>
+                    <ModalDelete item={data[selectedID]} />
 
-                  <ModalEdit item={data[selectedID]} />
-                </>
-              ) : null}
-            </table>
-          </div>
-        </Col>
-      </Row>
+                    <ModalEdit item={data[selectedID]} />
+                  </>
+                ) : null}
+              </table>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 }
