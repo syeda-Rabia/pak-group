@@ -24,7 +24,6 @@ import LAASidebar from './components/Sidebar/LAASidebar';
 import InventorySidebar from './components/Sidebar/InventorySidebar';
 import AddInventory from './screens/Admin/Inventory/AddInventory';
 import ProjectList from './screens/Admin/Inventory/ProjectList';
-import TabPanel from './screens/Admin/Inventory/TempTabPanel';
 
 function App() {
   var location = useLocation();
@@ -54,14 +53,14 @@ function App() {
     return (
       <React.Fragment>
         <HeaderNavBar />
-        <Container fluid style={{ height: "100vh" }}>
+        <Container fluid style={{ height: '100vh' }}>
           <Row>
             <Col
               lg={2}
               md={2}
               sm={5}
               xs={5}
-              style={{ backgroundColor: "white" }}
+              style={{ backgroundColor: 'white' }}
             >
               {/* <Condition /> */}
               {/* <LAASidebar /> */}
@@ -72,7 +71,7 @@ function App() {
               md={10}
               sm={7}
               xs={7}
-              style={{ backgroundColor: "#FAFAFA" }}
+              style={{ backgroundColor: '#FAFAFA' }}
             >
               <Route exact path="/admin/dashboard">
                 <AdminDashboard />
