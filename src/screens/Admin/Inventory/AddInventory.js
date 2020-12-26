@@ -131,9 +131,13 @@ export default function AddInventory() {
         <br />
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
-        <IconButton aria-label="delete" color="primary">
+        <IconButton
+          onClick={() => setForm((state) => !state)}
+          aria-label="delete"
+          color="primary"
+        >
           <Tooltip title="Go Back" placement="right" arrow>
-            <ArrowBackIcon onClick={() => setForm((state) => !state)} />
+            <ArrowBackIcon />
           </Tooltip>
         </IconButton>
         <Container>
@@ -156,6 +160,7 @@ export default function AddInventory() {
                       <Form.Control
                         style={{ height: 'calc(1.5em + 0.75rem + -4px)' }}
                         as="select"
+                        className="w-100"
                         placeholder="Project Category"
                         value={item.category}
                         onChange={(e) => {
