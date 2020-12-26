@@ -62,4 +62,13 @@ export const ModalData = [
     Contact: "+92309874556",
     Type: "Employee",
   },
+  {
+    id: "3",
+    Name: "sana",
+    Last_Name: "waheed",
+    Email: "sana@gmail.com",
+    Gender: "Female",
+    Contact: "+92309874556",
+    Type: "Employee",
+  },
 ];
