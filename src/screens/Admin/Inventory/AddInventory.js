@@ -1,23 +1,23 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { Form, Button, Col, Container } from 'react-bootstrap';
-import Tooltip from '@material-ui/core/Tooltip';
-import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import IconButton from '@material-ui/core/IconButton';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Form, Button, Col, Container } from "react-bootstrap";
+import Tooltip from "@material-ui/core/Tooltip";
+import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
   const [dummy, setDummy] = React.useState([]);
   const submit = (e) => {
     e.preventDefault();
-    console.log('Submit');
+    console.log("Submit");
   };
 
   const Inventory = () => {
-    const [name, setName] = React.useState('');
+    const [name, setName] = React.useState("");
     const [units, setUnits] = React.useState(1);
-    const [category, setCategory] = React.useState('Both');
+    const [category, setCategory] = React.useState("Both");
 
     const handleForm = () => {
       setForm(false);
@@ -25,10 +25,10 @@ export default function AddInventory() {
       for (let i = 0; i < units; i++) {
         arr.push({
           id: i + 1,
-          name: '',
-          category: '',
-          block_name: '',
-          status: '',
+          name: "",
+          category: "",
+          block_name: "",
+          status: "",
         });
       }
       setDummy(arr); //[]
@@ -39,15 +39,15 @@ export default function AddInventory() {
         <div
           style={{
             // backgroundColor: 'red',
-            margin: 'auto',
-            width: '100%',
+            margin: "auto",
+            width: "100%",
             // border: '3px solid green',
-            padding: '10px',
-            marginTop: '10px',
+            padding: "10px",
+            marginTop: "10px",
           }}
         >
           <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-            <h3 style={{ color: '#818181' }}>Add Project</h3>
+            <h3 style={{ color: "#818181" }}>Add Project</h3>
           </div>
           <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
             <Form onSubmit={submit}>
@@ -73,9 +73,9 @@ export default function AddInventory() {
                     setCategory(e.target.value);
                   }}
                 >
-                  <option value={'Both'}>Sale & Rent</option>
-                  <option value={'Sale'}>Sale</option>
-                  <option value={'Rent'}>Rent</option>
+                  <option value={"Both"}>Sale & Rent</option>
+                  <option value={"Sale"}>Sale</option>
+                  <option value={"Rent"}>Rent</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="units">
@@ -90,7 +90,7 @@ export default function AddInventory() {
                   placeholder="Number of Properties"
                 />
               </Form.Group>
-              {name != '' ? (
+              {name != "" ? (
                 <Button
                   className="w-100"
                   variant="primary"
@@ -158,7 +158,7 @@ export default function AddInventory() {
                   <Col>
                     <Form.Group controlId="projectCategory">
                       <Form.Control
-                        style={{ height: 'calc(1.5em + 0.75rem + -4px)' }}
+                        style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                         as="select"
                         className="w-100"
                         placeholder="Project Category"
@@ -168,8 +168,8 @@ export default function AddInventory() {
                           viewData({ category: e.target.value }, item.id);
                         }}
                       >
-                        <option value={'Sale'}>Sale</option>
-                        <option value={'Rent'}>Rent</option>
+                        <option value={"Sale"}>Sale</option>
+                        <option value={"Rent"}>Rent</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -185,20 +185,26 @@ export default function AddInventory() {
                   </Col>
                   <Col>
                     <Form.Control
+                      style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
+                      as="select"
+                      className="w-100"
                       placeholder="Status"
                       value={item.status}
                       onChange={(e) => {
                         // setInventoryData()
                         viewData({ status: e.target.value }, item.id);
                       }}
-                    />
+                    >
+                      <option value={"Sale"}>Sale</option>
+                      <option value={"Rent"}>Rent</option>
+                    </Form.Control>
                   </Col>
                   <Col>
                     <IconButton aria-label="delete" color="primary">
                       <Tooltip title="Delete" placement="right" arrow>
                         <RemoveOutlinedIcon
                           onClick={() => {
-                            console.log('clicked');
+                            console.log("clicked");
                             const tempData = InventoryData.filter(
                               (del) => del.id !== item.id
                             );
