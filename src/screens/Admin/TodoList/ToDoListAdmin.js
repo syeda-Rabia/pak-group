@@ -1,9 +1,9 @@
-import React from 'react';
-import './ToDoListAdmin.css';
-import { dummyData } from '../../../assests/constants/todoList';
-import { Container, Row, Col } from 'react-bootstrap';
-import Pagination from '../../../components/Pagination/Pagination';
-import { paginate } from '../../../utils/paginate';
+import React from "react";
+import "./ToDoListAdmin.css";
+import { dummyData } from "../../../assests/constants/todoList";
+import { Container, Row, Col } from "react-bootstrap";
+import Pagination from "../../../components/Pagination/Pagination";
+import { paginate } from "../../../utils/paginate";
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
@@ -36,7 +36,7 @@ export default function LeadsAllocatonAndAddition() {
           <input
             key={item.id}
             placeholder={item.Clients}
-            className="form-control"
+            className="form-control "
           />
         </td>
         <td>
@@ -101,7 +101,7 @@ export default function LeadsAllocatonAndAddition() {
     <Container fluid className="Laa">
       <h1>To DO List Admin</h1>
       <Row>
-        <Col lg="12" style={{ backgroundColor: 'white', borderRadius: '5px' }}>
+        <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>

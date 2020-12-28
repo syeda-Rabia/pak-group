@@ -156,6 +156,16 @@ export default function AddInventory() {
                     />
                   </Col>
                   <Col>
+                    <Form.Control
+                      placeholder="Block name"
+                      value={item.block_name}
+                      onChange={(e) => {
+                        // setInventoryData()
+                        viewData({ block_name: e.target.value }, item.id);
+                      }}
+                    />
+                  </Col>
+                  <Col>
                     <Form.Group controlId="projectCategory">
                       <Form.Control
                         style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
@@ -173,19 +183,12 @@ export default function AddInventory() {
                       </Form.Control>
                     </Form.Group>
                   </Col>
+
                   <Col>
                     <Form.Control
-                      placeholder="Block name"
-                      value={item.block_name}
-                      onChange={(e) => {
-                        // setInventoryData()
-                        viewData({ block_name: e.target.value }, item.id);
+                      style={{
+                        height: "calc(1.5em + 0.75rem + -4px)",
                       }}
-                    />
-                  </Col>
-                  <Col>
-                    <Form.Control
-                      style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                       as="select"
                       className="w-100"
                       placeholder="Status"
@@ -195,8 +198,9 @@ export default function AddInventory() {
                         viewData({ status: e.target.value }, item.id);
                       }}
                     >
-                      <option value={"Sale"}>Sale</option>
-                      <option value={"Rent"}>Rent</option>
+                      <option value={"Hold"}>Hold</option>
+                      <option value={"Open"}>Open</option>
+                      <option value={"Sold"}>Sold</option>
                     </Form.Control>
                   </Col>
                   <Col>
