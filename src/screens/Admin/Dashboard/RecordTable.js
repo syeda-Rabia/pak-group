@@ -1,20 +1,67 @@
-import React from 'react';
-import './RecordTable.css';
-import { dummyData } from '../../../assests/constants/todoList';
-import { Container, Row, Col } from 'react-bootstrap';
-import Pagination from '../../../components/Pagination/Pagination';
-import { paginate } from '../../../utils/paginate';
+import "./RecordTable.css";
+import { dummyData } from "../../../assests/constants/todoList";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+// import Calendar from "react-calendar";
+import Calendar from "react-calendar";
+import DateTimePicker from "react-datetime-picker";
+import TimePicker from "react-time-picker";
+import "react-calendar/dist/Calendar.css";
+import { DatePicker, calendarContainer } from "react-datepicker";
+import Pagination from "../../../components/Pagination/Pagination";
+import { paginate } from "../../../utils/paginate";
+import { Modal } from "react-bootstrap";
+import Dropdown from "react-multilevel-dropdown";
+
 export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
-  const [filterData, setFilterData] = React.useState('All');
+  const [filterData, setFilterData] = React.useState("All");
+  const [showModalCTA, setShowModalCTA] = React.useState(false);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
-
+  const [date, setDate] = useState(new Date());
+  const [value, onChange] = useState("10:00");
+  // const [startDate, setStartDate] = useState(new Date());
+  // const MyContainer = ({ className, children }) => {
+  //   return (
+  //     <div style={{ padding: "16px", background: "#216ba5", color: "#fff" }}>
+  //       <CalendarContainer className={className}>
+  //         <div style={{ background: "#f0f0f0" }}>
+  //           What is your favorite day?
+  //         </div>
+  //         <div style={{ position: "relative" }}>{children}</div>
+  //       </CalendarContainer>
+  //     </div>
+  //   );}
+  // const optionsArray = [
+  //   "Select",
+  //   "Instruct",
+  //   "Call Explanation",
+  //   "Shift and Warn",
+  // ];
+  const optionsArray = [
+    { title: "Instruct", options: [] },
+    { title: "Call Explanation", options: [] },
+    {
+      title: "Shift and Warn",
+      options: [
+        "Shift To",
+        "Shift To",
+        "Shift To",
+        "Shift To",
+        "Shift To",
+        "Shift To",
+        "Shift To",
+        "Shift To",
+      ],
+    },
+  ];
+  const [options, setOptions] = React.useState(optionsArray[0].title);
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
   const handleShow = (pageCount) => {
@@ -24,7 +71,140 @@ export default function RecordTable() {
     setCurrentPage(page);
     // console.log('page', page);
   };
-
+  const ModalCTA = () => {
+    if (options == optionsArray[0].title)
+      //
+      return (
+        <Modal
+          show={showModalCTA}
+          onHide={() => {
+            setShowModalCTA(false);
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Enter your Instruction</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <p>
+                <textarea id="myTextArea" rows="3" cols="62">
+                  Your text here
+                </textarea>
+              </p>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Send
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      );
+    if (options == optionsArray[1].title)
+      return (
+        <Modal
+          style={{ height: "1000px" }}
+          show={showModalCTA}
+          onHide={() => {
+            setShowModalCTA(false);
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Select date and time</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <h6>Select Date</h6>
+              <div style={{ paddingLeft: "60px" }}>
+                {/* <Calendar onChange={setDate} value={date} /> */}
+                {/* <DateTimePicker onChange={setDate} value={date} /> */}
+                {/* <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  showTimeInput
+                  customTimeInput={<ExampleCustomTimeInput />}
+                /> */}
+              </div>
+              <h6>Selet Time</h6>
+              <div>
+                <TimePicker onChange={onChange} value={value} />
+              </div>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Set
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      );
+    if (options == optionsArray[2].title)
+      return (
+        <Modal
+          show={showModalCTA}
+          onHide={() => {
+            setShowModalCTA(false);
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Select date and time</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <p>
+                <textarea id="myTextArea" rows="3" cols="80">
+                  Your text here
+                </textarea>
+              </p>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowModalCTA(false);
+              }}
+            >
+              Set
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      );
+  };
   const TableRow = ({ index, item }) => {
     // console.log('item', item);
     const records = paginate(data, currentPage, pageSize);
@@ -83,25 +263,56 @@ export default function RecordTable() {
             })}
           </select>
         </td>
+        <td>
+          <Dropdown
+            className="form-control form-control-sm"
+            onChange={(e) => {
+              setOptions(e.target.value);
+              setShowModalCTA(true);
+              console.log(e.target.value);
+            }}
+            // value=""
+          >
+            {optionsArray.map((item) => {
+              return (
+                <Dropdown.Item>
+                  {item.title}
+                  {item.options.length > 0 ? (
+                    <Dropdown.Submenu>
+                      {item.options.map((subItem) => {
+                        return <Dropdown.Item>{subItem}</Dropdown.Item>;
+                      })}
+                    </Dropdown.Submenu>
+                  ) : null}
+                </Dropdown.Item>
+              );
+            })}
+          </Dropdown>
+        </td>
       </tr>
     );
   };
-  console.log(filterData);
+  // console.log(filterData);
   return (
     <Container
       fluid
       className="Laa"
       style={{
         // backgroundColor: 'red',
-        margin: 'auto',
-        width: '100%',
+        margin: "auto",
+        width: "100%",
         // border: '3px solid green',
-        padding: '10px',
-        marginTop: '10px',
+        padding: "10px",
+        marginTop: "10px",
       }}
     >
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-        <h3 style={{ color: '#818181' }}>Employee Leads</h3>
+        <h3 style={{ color: "#818181" }}>Employee Leads</h3>
+        {/* <DatePicker
+      selected={startDate}
+      onChange={date => setStartDate(date)}
+      calendarContainer={MyContainer}
+    /> */}
         <select
           className="form-control form-control-sm"
           onChange={(e) => {
@@ -118,10 +329,10 @@ export default function RecordTable() {
         <Row>
           <Col
             lg="12"
-            style={{ backgroundColor: 'white', borderRadius: '5px' }}
+            style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <div className="table-responsive">
-              <table className="table table-hover" style={{ display: 'block' }}>
+              <table className="table table-hover" style={{ display: "block" }}>
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
@@ -137,12 +348,13 @@ export default function RecordTable() {
                     <th scope="col">Task</th>
                     <th scope="col">Deadline</th>
                     <th scope="col">Returned From</th>
+                    <th scope="col">Call To Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentData.map((item, index) => {
-                    console.log(item.Clients, filterData);
-                    if (filterData == 'All')
+                    // console.log(item.Clients, filterData);
+                    if (filterData == "All")
                       return <TableRow index={index} item={item} />;
                     else if (item.Clients == filterData)
                       return <TableRow index={index} item={item} />;
@@ -169,6 +381,7 @@ export default function RecordTable() {
           </Col>
         </Row>
       </div>
+      <ModalCTA />
     </Container>
   );
 }
