@@ -7,11 +7,12 @@ import Calendar from "react-calendar";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
 import "react-calendar/dist/Calendar.css";
-import { DatePicker, calendarContainer } from "react-datepicker";
+// import { DatePicker, calendarContainer } from "react-datepicker";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
 import { Modal } from "react-bootstrap";
 import Dropdown from "react-multilevel-dropdown";
+import DatePicker from "react-date-picker";
 
 export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
@@ -25,25 +26,8 @@ export default function RecordTable() {
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
   const [date, setDate] = useState(new Date());
-  const [value, onChange] = useState("10:00");
-  // const [startDate, setStartDate] = useState(new Date());
-  // const MyContainer = ({ className, children }) => {
-  //   return (
-  //     <div style={{ padding: "16px", background: "#216ba5", color: "#fff" }}>
-  //       <CalendarContainer className={className}>
-  //         <div style={{ background: "#f0f0f0" }}>
-  //           What is your favorite day?
-  //         </div>
-  //         <div style={{ position: "relative" }}>{children}</div>
-  //       </CalendarContainer>
-  //     </div>
-  //   );}
-  // const optionsArray = [
-  //   "Select",
-  //   "Instruct",
-  //   "Call Explanation",
-  //   "Shift and Warn",
-  // ];
+  const [value, onChange] = useState(new Date());
+
   const optionsArray = [
     { id: "1", title: "Instruct", options: [] },
     { title: "Call Explanation", options: [] },
@@ -65,7 +49,7 @@ export default function RecordTable() {
     setCurrentPage(page);
     // console.log('page', page);
   };
-  
+
   const ModalCTA = () => {
     if (options.title == optionsArray[0].title)
       //
@@ -124,6 +108,9 @@ export default function RecordTable() {
             <form>
               <h6>Select Date</h6>
               <div style={{ paddingLeft: "60px" }}>
+                <div style={{ marginTop: "100px" }}>
+                  <DatePicker onChange={onChange} value={value} />
+                </div>
                 {/* <Calendar onChange={setDate} value={date} /> */}
                 {/* <DateTimePicker onChange={setDate} value={date} /> */}
                 {/* <DatePicker
@@ -172,10 +159,14 @@ export default function RecordTable() {
           </Modal.Header>
           <Modal.Body>
             <form>
+<<<<<<< HEAD
+              <p>Do you really want to shift this person.</p>
+=======
               <p>
                 Do you really want to shift this person.
 
               </p>
+>>>>>>> 131f9f350e13897bfa71d8b6011ac1ada84fee5a
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -319,6 +310,9 @@ export default function RecordTable() {
     >
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Employee Leads</h3>
+        <div>
+          <DatePicker onChange={onChange} value={value} />
+        </div>
         {/* <DatePicker
       selected={startDate}
       onChange={date => setStartDate(date)}
@@ -343,23 +337,57 @@ export default function RecordTable() {
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <div className="table-responsive">
-              <table className="table table-hover" style={{ display: "block" }}>
+              <table
+                className="table table-hover"
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                }}
+              >
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Clients</th>
-                    <th scope="col">Contacts</th>
-                    <th scope="col">Project</th>
-                    <th scope="col">Budget</th>
-                    <th scope="col">Time to Call</th>
-                    <th scope="col">Country/City</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Interest</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Deadline</th>
-                    <th scope="col">Returned From</th>
-                    <th scope="col">Call To Action</th>
+                    <th scope="col">
+                      <span id="sp">ID</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Clients</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Contacts</span>
+                    </th>
+                    <th>
+                      <span id="sp">Project</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Budget</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Time to Call</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Country - City</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Status</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Interest</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Email</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Task</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Deadline</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Returned From</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Call To Action</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
