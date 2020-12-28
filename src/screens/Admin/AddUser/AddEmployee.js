@@ -46,32 +46,31 @@ export default function AddEmployee() {
         <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
           <Modal.Body>
             <div style={{ alignContent: 'center' }}>
-              <h6>ID</h6>
-              <input className="form-control input-width" value={item.id} />
+              
 
               <h6>First Name </h6>
-              <input className="form-control input-width" value={item.Name} />
+              <input className="form-control input-width mb-3" value={item.Name} />
 
               <h6>Last name</h6>
               <input
-                className="form-control input-width"
+                className="form-control input-width mb-3"
                 value={item.Last_Name}
               />
 
               <h6>Email</h6>
-              <input className="form-control input-width" value={item.Email} />
+              <input className="form-control input-width mb-3" value={item.Email} />
 
               <h6>Gender</h6>
-              <input className="form-control input-width" value={item.Gender} />
+              <input className="form-control input-width mb-3" value={item.Gender} />
 
               <h6>Contact</h6>
               <input
-                className="form-control input-width"
+                className="form-control input-width mb-3"
                 value={item.Contact}
               />
 
               <h6>Type</h6>
-              <input className="form-control input-width" value={item.Type} />
+              <input className="form-control input-width mb-2" value={item.Type} />
             </div>
             {/* <label>ID</label>
           <input type="number">{item.id}</input>
@@ -96,60 +95,7 @@ export default function AddEmployee() {
       </Modal>
     );
   };
-  // const ModalEdit = ({ item }) => {
-  //   return (
-  //     <Modal
-  //       show={showEdit}
-  //       onHide={() => {
-  //         setShowEdit(false);
-  //       }}
-  //     >
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Edit Employee</Modal.Title>
-  //       </Modal.Header>
-  //       <Modal.Body className="">
-  //         <h6>ID</h6>
-  //         <input className="form-control input-width" value={item.id} />
-  //         <h6>First Name</h6>
-  //         <input className="form-control input-width" value={item.Name} />
-  //         <h6>Last Name</h6>
-  //         <input className="form-control input-width" value={item.Last_Name} />
-  //         <h6> Email</h6>
-  //         <input className="form-control input-width" value={item.Email} />
-  //         <h6>Gender</h6>
-  //         <select class="form-control form-control-sm input-width">
-  //           <option>{item.Gender[0]}</option>
-  //           <option>{item.Gender[1]}</option>
-  //         </select>
-  //         <h6> Contact</h6>
-  //         <input className="form-control input-width" value={item.Contact} />
-  //         <h6>Type</h6>
-  //         <select class="form-control form-control-sm input-width">
-  //           <option>{item.Type[0]}</option>
-  //           <option>{item.Type[1]}</option>
-  //         </select>
-  //       </Modal.Body>
-  //       <Modal.Footer>
-  //         <Button
-  //           style={{ backgroundColor: "#2258BF" }}
-  //           onClick={() => {
-  //             setShowEdit(false);
-  //           }}
-  //         >
-  //           Close
-  //         </Button>
-  //         <Button
-  //           style={{ backgroundColor: "#2258BF" }}
-  //           onClick={() => {
-  //             setShowEdit(false);
-  //           }}
-  //         >
-  //           Save Changes
-  //         </Button>
-  //       </Modal.Footer>
-  //     </Modal>
-  //   );
-  // };
+  
 
   const ModalEdit = ({ item }) => {
     const [f_name, setF_name] = useState(item.Name);
@@ -215,7 +161,10 @@ export default function AddEmployee() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
           <Modal.Title>Edit Employee</Modal.Title>
         </Modal.Header>
         <form
@@ -223,6 +172,7 @@ export default function AddEmployee() {
             EditRecordToServer(e);
           }}
         >
+          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
           <Modal.Body>
             {/*             
             <h6>ID</h6>
@@ -230,7 +180,7 @@ export default function AddEmployee() {
 
             <h6>First Name</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter First Name"
               type="text"
               value={f_name}
@@ -241,7 +191,7 @@ export default function AddEmployee() {
 
             <h6>Last Name</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Last Name"
               type="text"
               value={l_name}
@@ -252,7 +202,7 @@ export default function AddEmployee() {
 
             <h6>Email</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Email"
               type="email"
               value={email}
@@ -272,7 +222,7 @@ export default function AddEmployee() {
 
             <h6>Phone</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Phone"
               type="tel"
               value={phone_no}
@@ -287,10 +237,10 @@ export default function AddEmployee() {
               onChange={(e) => {
                 setGender(e.target.value);
               }}
-              className="form-control form-control-sm"
+              className="form-control form-control-sm mb-3"
             >
-              <option value={'Male'}>Male</option>
-              <option value={'Female'}>Female</option>
+              <option value={"Male"}>Male</option>
+              <option value={"Female"}>Female</option>
             </select>
 
             <h6>Type</h6>
@@ -299,22 +249,22 @@ export default function AddEmployee() {
               onChange={(e) => {
                 setUser_type(e.target.value);
               }}
-              className="form-control form-control-sm"
+              className="form-control form-control-sm mb-3"
             >
-              <option value={'Admin'}>Admin</option>
-              <option value={'Employee'}>Employee</option>
+              <option value={"Admin"}>Admin</option>
+              <option value={"Employee"}>Employee</option>
             </select>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: '#2258BF' }}
+              style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowEdit(false);
               }}
             >
               Close
             </Button>
-            <Button style={{ backgroundColor: '#2258BF' }}>Submit</Button>
+            <Button style={{ backgroundColor: "#2258BF" }}>Submit</Button>
             {/* <input type="submit" value="Submit" /> */}
             {/* <Button
             type="submit"
@@ -327,7 +277,10 @@ export default function AddEmployee() {
             Add
           </Button> */}
           </Modal.Footer>
+          </div>
+          
         </form>
+        
       </Modal>
     );
   };
@@ -356,9 +309,13 @@ export default function AddEmployee() {
           setShowDelete(false);
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
           <Modal.Title>Delete Record</Modal.Title>
         </Modal.Header>
+        <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
         <Modal.Body>Do you really want to delete this Record!</Modal.Body>
         <Modal.Footer>
           <Button
@@ -379,6 +336,7 @@ export default function AddEmployee() {
             Delete
           </Button>
         </Modal.Footer>
+        </div>
       </Modal>
     );
   };
@@ -390,13 +348,17 @@ export default function AddEmployee() {
           setShowBan(false);
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
           <Modal.Title>Block User</Modal.Title>
         </Modal.Header>
+        <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
         <Modal.Body>Do you really want to Block this Employee!</Modal.Body>
         <Modal.Footer>
           <Button
-            style={{ backgroundColor: '#2258BF' }}
+            style={{ backgroundColor: "#2258BF" }}
             onClick={() => {
               setShowBan(false);
             }}
@@ -404,7 +366,7 @@ export default function AddEmployee() {
             Close
           </Button>
           <Button
-            style={{ backgroundColor: '#2258BF' }}
+            style={{ backgroundColor: "#2258BF" }}
             onClick={() => {
               setShowBan(false);
             }}
@@ -412,6 +374,7 @@ export default function AddEmployee() {
             Done
           </Button>
         </Modal.Footer>
+        </div>
       </Modal>
     );
   };
@@ -453,7 +416,10 @@ export default function AddEmployee() {
           setShowAdd(false);
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
         <form
@@ -461,6 +427,7 @@ export default function AddEmployee() {
             SendRecordToServer(e);
           }}
         >
+          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
           <Modal.Body>
             {/*             
             <h6>ID</h6>
@@ -468,7 +435,7 @@ export default function AddEmployee() {
 
             <h6>First Name</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter First Name"
               type="text"
               minLength="3"
@@ -481,7 +448,7 @@ export default function AddEmployee() {
 
             <h6>Last Name</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Last Name"
               type="text"
               minLength="0"
@@ -494,7 +461,7 @@ export default function AddEmployee() {
 
             <h6>Email</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Email"
               type="email"
               value={email}
@@ -514,7 +481,7 @@ export default function AddEmployee() {
 
             <h6>Phone</h6>
             <input
-              className="form-control input-width"
+              className="form-control input-width mb-3"
               placeholder="Enter Phone"
               type="number"
               value={phone_no}
@@ -529,10 +496,10 @@ export default function AddEmployee() {
               onChange={(e) => {
                 setGender(e.target.value);
               }}
-              className="form-control form-control-sm"
+              className="form-control form-control-sm mb-3"
             >
-              <option value={'Male'}>Male</option>
-              <option value={'Female'}>Female</option>
+              <option value={"Male"}>Male</option>
+              <option value={"Female"}>Female</option>
             </select>
 
             <h6>Type</h6>
@@ -541,22 +508,28 @@ export default function AddEmployee() {
               onChange={(e) => {
                 setUser_type(e.target.value);
               }}
-              className="form-control form-control-sm"
+              className="form-control form-control-sm mb-3"
             >
-              <option value={'Admin'}>Admin</option>
-              <option value={'Employee'}>Employee</option>
+              <option value={"Admin"}>Admin</option>
+              <option value={"Employee"}>Employee</option>
             </select>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: '#2258BF' }}
+              style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowAdd(false);
               }}
             >
               Close
             </Button>
-            <input type="submit" value="Submit" />
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              type="submit"
+              value="Submit"
+            >
+              Submit
+            </Button>
             {/* <Button
             type="submit"
             value="Submit"
@@ -568,6 +541,7 @@ export default function AddEmployee() {
             Add
           </Button> */}
           </Modal.Footer>
+          </div>
         </form>
       </Modal>
     );
