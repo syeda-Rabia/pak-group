@@ -45,23 +45,17 @@ export default function RecordTable() {
   //   "Shift and Warn",
   // ];
   const optionsArray = [
-    { title: "Instruct", options: [] },
+    { id: "1", title: "Instruct", options: [] },
     { title: "Call Explanation", options: [] },
     {
       title: "Shift and Warn",
-      options: [
-        "Shift To",
-        "Shift To",
-        "Shift To",
-        "Shift To",
-        "Shift To",
-        "Shift To",
-        "Shift To",
-        "Shift To",
-      ],
+      options: ["Amjad", "Nakash", "Uzma", "Adil", "Waqar", "kashif", "other"],
     },
   ];
-  const [options, setOptions] = React.useState(optionsArray[0].title);
+  const [options, setOptions] = React.useState({
+    title: optionsArray[0].title,
+    subID: null,
+  });
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
   const handleShow = (pageCount) => {
@@ -71,8 +65,9 @@ export default function RecordTable() {
     setCurrentPage(page);
     // console.log('page', page);
   };
+  
   const ModalCTA = () => {
-    if (options == optionsArray[0].title)
+    if (options.title == optionsArray[0].title)
       //
       return (
         <Modal
@@ -113,7 +108,7 @@ export default function RecordTable() {
           </Modal.Footer>
         </Modal>
       );
-    if (options == optionsArray[1].title)
+    if (options.title == optionsArray[1].title)
       return (
         <Modal
           style={{ height: "1000px" }}
@@ -164,7 +159,7 @@ export default function RecordTable() {
           </Modal.Footer>
         </Modal>
       );
-    if (options == optionsArray[2].title)
+    if (options.title == optionsArray[2].title)
       return (
         <Modal
           show={showModalCTA}
@@ -173,14 +168,13 @@ export default function RecordTable() {
           }}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Select date and time</Modal.Title>
+            <Modal.Title>Shift and Warn</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
               <p>
-                <textarea id="myTextArea" rows="3" cols="80">
-                  Your text here
-                </textarea>
+                Do you really want to shift this person.
+                
               </p>
             </form>
           </Modal.Body>
@@ -199,7 +193,7 @@ export default function RecordTable() {
                 setShowModalCTA(false);
               }}
             >
-              Set
+              Send
             </Button>
           </Modal.Footer>
         </Modal>
@@ -265,6 +259,8 @@ export default function RecordTable() {
         </td>
         <td>
           <Dropdown
+            style={{ border: "none" }}
+            title="CTA"
             className="form-control form-control-sm"
             onChange={(e) => {
               setOptions(e.target.value);
@@ -275,12 +271,26 @@ export default function RecordTable() {
           >
             {optionsArray.map((item) => {
               return (
-                <Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setShowModalCTA(true);
+                    if (item.options.length == 0)
+                      setOptions({ title: item.title, id: null });
+                  }}
+                >
                   {item.title}
                   {item.options.length > 0 ? (
                     <Dropdown.Submenu>
-                      {item.options.map((subItem) => {
-                        return <Dropdown.Item>{subItem}</Dropdown.Item>;
+                      {item.options.map((subItem, index) => {
+                        return (
+                          <Dropdown.Item
+                            onClick={() => {
+                              setOptions({ title: item.title, id: index });
+                            }}
+                          >
+                            {subItem}
+                          </Dropdown.Item>
+                        );
                       })}
                     </Dropdown.Submenu>
                   ) : null}
