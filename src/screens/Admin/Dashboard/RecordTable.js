@@ -159,14 +159,8 @@ export default function RecordTable() {
           </Modal.Header>
           <Modal.Body>
             <form>
-<<<<<<< HEAD
               <p>Do you really want to shift this person.</p>
-=======
-              <p>
-                Do you really want to shift this person.
-
-              </p>
->>>>>>> 131f9f350e13897bfa71d8b6011ac1ada84fee5a
+              <p>Do you really want to shift this person.</p>
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -263,7 +257,7 @@ export default function RecordTable() {
             {optionsArray.map((item) => {
               return (
                 <Dropdown.Item
-                style={{top:"-200px"}}
+                  style={{ top: "-200px" }}
                   onClick={() => {
                     setShowModalCTA(true);
                     if (item.options.length == 0)
@@ -310,9 +304,9 @@ export default function RecordTable() {
     >
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Employee Leads</h3>
-        <div>
+        {/* <div>
           <DatePicker onChange={onChange} value={value} />
-        </div>
+        </div> */}
         {/* <DatePicker
       selected={startDate}
       onChange={date => setStartDate(date)}
