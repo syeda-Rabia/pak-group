@@ -24,3 +24,7 @@ select.form-control.form-control-sm {
 .table thead tr th {
   border-top: none;
 }
+#sp {
+  margin-left: 50px;
+  margin-right: 50px;
+}
