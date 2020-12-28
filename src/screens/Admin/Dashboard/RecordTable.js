@@ -159,7 +159,14 @@ export default function RecordTable() {
           </Modal.Header>
           <Modal.Body>
             <form>
+<<<<<<< HEAD
               <p>Do you really want to shift this person.</p>
+=======
+              <p>
+                Do you really want to shift this person.
+
+              </p>
+>>>>>>> 131f9f350e13897bfa71d8b6011ac1ada84fee5a
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -256,6 +263,7 @@ export default function RecordTable() {
             {optionsArray.map((item) => {
               return (
                 <Dropdown.Item
+                style={{top:"-200px"}}
                   onClick={() => {
                     setShowModalCTA(true);
                     if (item.options.length == 0)
