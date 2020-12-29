@@ -1,7 +1,7 @@
-import React from 'react';
-import './LeadsAdmin.css';
-import { Container, Row, Col } from 'react-bootstrap';
-
+import React from "react";
+import "./LeadsAdmin.css";
+import { Container, Row, Col } from "react-bootstrap";
+import { KeyboardDatePickerExample } from "../../../utils/KeyboardTimePickerExample";
 export default function LeadsAdmin() {
   return (
     <Container fluid className="Laa">
@@ -10,7 +10,7 @@ export default function LeadsAdmin() {
         <Col
           lg
           md="12"
-          style={{ backgroundColor: 'white', borderRadius: '5px' }}
+          style={{ backgroundColor: "white", borderRadius: "5px" }}
         >
           <div className="table-responsive">
             <table className="table table-hover">
@@ -42,7 +42,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -69,7 +71,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -87,7 +99,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -114,7 +128,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -132,7 +156,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -159,7 +185,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -177,7 +213,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -204,7 +242,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -222,7 +270,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -249,7 +299,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -267,7 +327,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -294,7 +356,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -312,7 +384,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -339,7 +413,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -357,7 +441,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -384,7 +470,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>
@@ -402,7 +498,9 @@ export default function LeadsAdmin() {
                     <input placeholder="Contact" className="form-control" />
                   </td>
                   <td>Project Name</td>
-                  <td>$400</td>
+                  <td>
+                    <input placeholder="400 PKR" className="form-control" />
+                  </td>
                   <td>10:00 PM</td>
                   <td>London</td>
                   <td>On</td>
@@ -429,7 +527,17 @@ export default function LeadsAdmin() {
                       <option>Pending</option>
                     </select>
                   </td>
-                  <td>11-12-2020</td>
+                  <td>
+                    <div
+                      style={{
+                        marginLeft: "15px",
+                        marginRight: "70px",
+                        width: "100%",
+                      }}
+                    >
+                      <KeyboardDatePickerExample />
+                    </div>
+                  </td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>Recording 1</option>

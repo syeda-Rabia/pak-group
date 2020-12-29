@@ -1,6 +1,10 @@
-import React from 'react';
-import './LeadsAllocatonAndAddition.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import React from "react";
+import "./LeadsAllocatonAndAddition.css";
+import { Container, Row, Col } from "react-bootstrap";
+import {
+  KeyboardTimePickerExample,
+  KeyboardDatePickerExample,
+} from "../../../utils/KeyboardTimePickerExample";
 
 export default function LeadsAllocatonAndAddition() {
   return (
@@ -41,8 +45,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -74,7 +90,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>
@@ -92,8 +118,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td className="noWrap">Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -125,7 +163,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>
@@ -143,8 +191,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -176,7 +236,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>
@@ -194,8 +264,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -227,7 +309,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>
@@ -245,8 +337,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -278,7 +382,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>
@@ -296,8 +410,20 @@ export default function LeadsAllocatonAndAddition() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
-                    <td>10:00 PM</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "60px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardTimePickerExample />
+                      </div>
+                    </td>
 
                     <td>
                       <select className="form-control form-control-sm">
@@ -329,7 +455,17 @@ export default function LeadsAllocatonAndAddition() {
                         <option>Pending</option>
                       </select>
                     </td>
-                    <td>11-12-2020</td>
+                    <td>
+                      <div
+                        style={{
+                          marginLeft: "15px",
+                          marginRight: "70px",
+                          width: "100%",
+                        }}
+                      >
+                        <KeyboardDatePickerExample />
+                      </div>
+                    </td>
                     <td>
                       <select className="form-control form-control-sm">
                         <option>Atif</option>

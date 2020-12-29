@@ -1,15 +1,17 @@
-import '../AddUser/AddEmployee.css';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import img2 from './../../../assests/tiwtr-2.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'react-bootstrap';
-import React, { useState } from 'react';
-import { ProjectListData } from './../../../assests/constants/ProjectListDemoData';
-import 'react-phone-number-input/style.css';
-import ReactTooltip from 'react-tooltip';
+import "../AddUser/AddEmployee.css";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import img2 from "./../../../assests/tiwtr-2.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { ProjectListData } from "./../../../assests/constants/ProjectListDemoData";
+import "react-phone-number-input/style.css";
+import ReactTooltip from "react-tooltip";
+import AddIcon from "@material-ui/icons/Add";
+import { Link } from "react-router-dom";
 
 export default function ProjectList() {
   const [showView, setShowView] = useState(false);
@@ -27,12 +29,12 @@ export default function ProjectList() {
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log('SendRecordToServer', event);
+      console.log("SendRecordToServer", event);
       // add validations
       // push
 
       let projects = {
-        id: '1',
+        id: "1",
         Name: ProjectName,
         Units: Units,
       };
@@ -45,7 +47,7 @@ export default function ProjectList() {
     const EditRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log('EditRecordToServer', event);
+      console.log("EditRecordToServer", event);
       // add validations
       // push
 
@@ -94,14 +96,14 @@ export default function ProjectList() {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: '#2258bf' }}
+              style={{ backgroundColor: "#2258bf" }}
               onClick={() => {
                 setShowEdit(false);
               }}
             >
               Close
             </Button>
-            <Button style={{ backgroundColor: '#2258bf' }} onClick={() => {}}>
+            <Button style={{ backgroundColor: "#2258bf" }} onClick={() => {}}>
               Submit
             </Button>
           </Modal.Footer>
@@ -111,16 +113,16 @@ export default function ProjectList() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = (item) => {
-      console.log('item is ', item);
+      console.log("item is ", item);
 
       let { id } = item;
-      console.log('ID is ', id);
+      console.log("ID is ", id);
 
       let arr = data;
 
       arr = arr.filter((projects) => projects.id != id.toString());
 
-      console.log('arr length ', arr.length, arr, selectedID);
+      console.log("arr length ", arr.length, arr, selectedID);
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;
@@ -171,7 +173,7 @@ export default function ProjectList() {
           <div
             className="d-flex d-inline "
             style={{
-              justifyContent: 'center',
+              justifyContent: "center",
             }}
           >
             <button
@@ -227,7 +229,7 @@ export default function ProjectList() {
   return (
     <Container fluid>
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
-        <h2 className="mb-3" style={{ color: '#818181' }}>
+        <h2 className="mb-3" style={{ color: "#818181" }}>
           Project List
         </h2>
       </div>
@@ -237,23 +239,29 @@ export default function ProjectList() {
           <Col
             lg
             md="12"
-            style={{ backgroundColor: 'white', borderRadius: '5px' }}
+            style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
+            <Link to="/admin/inventory/add">
+              <Button>
+                <AddIcon />
+                <span style={{ marginLeft: "5px" }}>Add Project</span>
+              </Button>
+            </Link>
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{ color: '#818181' }}>
+                    <th scope="col" style={{ color: "#818181" }}>
                       ID
                     </th>
-                    <th scope="col" style={{ color: '#818181' }}>
+                    <th scope="col" style={{ color: "#818181" }}>
                       Project Name
                     </th>
-                    <th scope="col" style={{ color: '#818181' }}>
+                    <th scope="col" style={{ color: "#818181" }}>
                       Units
                     </th>
 
-                    <th scope="col" style={{ color: '#818181' }}>
+                    <th scope="col" style={{ color: "#818181" }}>
                       Actions
                     </th>
                   </tr>
