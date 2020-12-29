@@ -13,7 +13,11 @@ class AdminDashboard extends Component {
             className="col-lg-12 col-md-12 text-nowrap "
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <h1>Admin Dashboard</h1>
+            <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+              <h3 style={{ color: "#818181" }}>
+               Admin Dashboard
+              </h3>
+            </div>
             <div className="row">
               <div
                 className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
@@ -123,7 +127,7 @@ class AdminDashboard extends Component {
                 </div>
               </div>
             </Container>
-            <RecordTable/>
+            <RecordTable />
             {/* <Container fluid>
               <Row>
                 <Col
@@ -293,7 +297,6 @@ class AdminDashboard extends Component {
             </Container>
           </div>
         </div>
-       
       </Container>
     );
   }
