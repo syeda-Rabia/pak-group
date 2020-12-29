@@ -105,7 +105,8 @@ export default function LeadsAllocatonAndAddition() {
         </td>
         <td key={item.id}>
           <div
-            style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
+            className="form-control form-control-sm"
+            style={{ marginLeft: "15px", marginRight: "70px", width: "100%"}}
           >
             <KeyboardDatePickerExample />
           </div>
