@@ -8,9 +8,9 @@ import {
 
 export default function LeadsAllocatonAndAddition() {
   return (
-    <Container fluid className="Laa ">
-      <div className="col-lg-12 shadow p-1 mb-3 bg-white rounded mt-5">
-        <h1>Leads Allocation and Addition</h1>
+    <Container fluid>
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
       </div>
       <Row>
         <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
@@ -19,25 +19,53 @@ export default function LeadsAllocatonAndAddition() {
               <table className="table table-hover" style={{ display: "block" }}>
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Clients</th>
-                    <th scope="col">Contacts</th>
-                    <th scope="col">Project</th>
-                    <th scope="col">Budget</th>
-                    <th scope="col">TOC</th>
-                    <th scope="col">Source</th>
-                    <th scope="col">Country/City</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Interest</th>
-                    <th scope="col">Allocate To</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Deadline</th>
-                    <th scope="col">Returned From</th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>ID</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Clients</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Contacts</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Project</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Budget</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>TOC</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Source</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Country/City</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Status</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Interest</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}> Allocate_To</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Task</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Deadline</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Returned_From</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
+                    <td scope="row">1</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>
@@ -110,7 +138,7 @@ export default function LeadsAllocatonAndAddition() {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
+                    <td scope="row">2</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>
@@ -183,7 +211,7 @@ export default function LeadsAllocatonAndAddition() {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
+                    <td scope="row">3</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>
@@ -256,7 +284,7 @@ export default function LeadsAllocatonAndAddition() {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">4</th>
+                    <td scope="row">4</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>
@@ -329,7 +357,7 @@ export default function LeadsAllocatonAndAddition() {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">5</th>
+                    <td scope="row">5</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>
@@ -402,7 +430,7 @@ export default function LeadsAllocatonAndAddition() {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">6</th>
+                    <td scope="row">6</td>
                     <td>
                       <input placeholder="Atif" className="form-control" />
                     </td>

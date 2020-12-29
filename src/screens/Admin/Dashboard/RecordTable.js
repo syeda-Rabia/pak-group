@@ -192,7 +192,7 @@ export default function RecordTable() {
           <Modal.Body>
             <form>
               <p>Do you really want to shift this person.</p>
-              <p>Do you really want to shift this person.</p>
+             
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -387,46 +387,46 @@ export default function RecordTable() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      <span id="sp">ID</span>
+                      <span id="sp" style={{color:"#818181"}}>ID</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Clients</span>
+                      <span id="sp" style={{color:"#818181"}}>Clients</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Contacts</span>
+                      <span id="sp" style={{color:"#818181"}}>Contacts</span>
                     </th>
                     <th>
-                      <span id="sp">Project</span>
+                      <span id="sp" style={{color:"#818181"}}>Project</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Budget</span>
+                      <span id="sp" style={{color:"#818181"}}>Budget</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Time to Call</span>
+                      <span id="sp" style={{color:"#818181"}}>Time to Call</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Country - City</span>
+                      <span id="sp" style={{color:"#818181"}}>Country - City</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Status</span>
+                      <span id="sp" style={{color:"#818181"}}>Status</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Interest</span>
+                      <span id="sp" style={{color:"#818181"}}>Interest</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Email</span>
+                      <span id="sp" style={{color:"#818181"}}>Email</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Task</span>
+                      <span id="sp" style={{color:"#818181"}}>Task</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Deadline</span>
+                      <span id="sp" style={{color:"#818181"}}>Deadline</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Returned From</span>
+                      <span id="sp" style={{color:"#818181"}}>Returned From</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Call To Action</span>
+                      <span id="sp" style={{color:"#818181"}}>Call To Action</span>
                     </th>
                   </tr>
                 </thead>

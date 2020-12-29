@@ -33,9 +33,9 @@ export default function LeadsAllocatonAndAddition() {
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <th scope="row" key={item.id}>
+        <td scope="row" key={item.id}>
           {item.id}
-        </th>
+        </td>
         <td>
           <input
             key={item.id}
@@ -122,34 +122,65 @@ export default function LeadsAllocatonAndAddition() {
   };
   return (
     <Container fluid className="Laa">
-      <h1>To DO List Admin</h1>
+      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <h3 style={{ color: "#818181" }}>To Do List Admin</h3>
+      </div>
+
       <Row>
         <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Clients</th>
-                  <th scope="col">Contacts</th>
-                  <th scope="col">Project</th>
-                  <th scope="col">Budget</th>
-                  <th scope="col">Time to Call</th>
-                  <th scope="col">Country/City</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Interest</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Task</th>
-                  <th scope="col">Deadline</th>
-                  <th scope="col">Returned From</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.map((item, index) => {
-                  return <TableRow index={index} item={item} />;
-                })}
-              </tbody>
-            </table>
+          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>ID</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Clients</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Contacts</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Project</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}> Budget</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Time_to_Call</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}> Country/City</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Status</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Interest</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Email</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Task</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}>Deadline</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{color:"#818181"}}> Returned_From</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentData.map((item, index) => {
+                    return <TableRow index={index} item={item} />;
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </Col>
       </Row>
