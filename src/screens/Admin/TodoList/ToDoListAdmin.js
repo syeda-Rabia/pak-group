@@ -134,43 +134,71 @@ export default function LeadsAllocatonAndAddition() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>ID</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        ID
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Clients</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Clients
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Contacts</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Contacts
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Project</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Project
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}> Budget</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        {" "}
+                        Budget
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Time_to_Call</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        TOC
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}> Country/City</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        {" "}
+                        Country/City
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Status</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Status
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Interest</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Interest
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Email</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Email
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Task</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Task
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}>Deadline</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Deadline
+                      </span>
                     </th>
                     <th scope="col">
-                      <span id="sn" style={{color:"#818181"}}> Returned_From</span>
+                      <span id="sn" style={{ color: "#818181" }}>
+                        {"Returned_From"}
+                      </span>
                     </th>
                   </tr>
                 </thead>
