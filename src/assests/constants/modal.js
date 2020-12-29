@@ -7,6 +7,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "1",
@@ -16,6 +17,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "2",
@@ -25,6 +27,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "3",
@@ -34,6 +37,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "4",
@@ -43,6 +47,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "5",
@@ -52,6 +57,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "6",
@@ -61,6 +67,7 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
   {
     id: "3",
@@ -70,5 +77,6 @@ export const ModalData = [
     Gender: "Female",
     Contact: "+92309874556",
     Type: "Employee",
+    Password: "12345",
   },
 ];
