@@ -13,7 +13,9 @@ class AdminDashboard extends Component {
             className="col-lg-12 col-md-12 text-nowrap "
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <h1>Admin Dashboard</h1>
+            <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+              <h3 style={{ color: "#818181" }}>Admin Dashboard</h3>
+            </div>
             <div className="row">
               <div
                 className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
@@ -30,15 +32,22 @@ class AdminDashboard extends Component {
                           justifyContent: "space-between",
                         }}
                       >
-                        <div>
+                        <div style={{ color: "#818181" }}>
                           <h6>Target Assigend</h6>
                           <h3>Lead Report</h3>
                         </div>
-                        <div style={{ float: "right", height: 30 }}>
+                        <div
+                          style={{
+                            float: "right",
+                            height: 30,
+                            color: "#818181",
+                          }}
+                        >
                           <select
                             name
                             className="language border-0"
                             id="language"
+                            style={{ color: "#818181" }}
                           >
                             <option value="Hindi">Yearly(2020)</option>
                             <option value="English">Monthly(2020)</option>
@@ -48,7 +57,9 @@ class AdminDashboard extends Component {
                         </div>
                       </div>
 
-                      <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      <p style={{ color: "#818181" }}>
+                        Lorem ipsum dolor sit amet, consectetur
+                      </p>
                     </div>
                   </Container>
                 </div>
@@ -59,7 +70,9 @@ class AdminDashboard extends Component {
                 className="col-lg-4 col-md-4 mt-2 mb-2 p-3 ml-2"
                 style={{ backgroundColor: "white", borderRadius: "10px" }}
               >
-                <h6>Pending Tasks Weekly (2020)</h6>
+                <h6 style={{ color: "#818181" }}>
+                  Pending Tasks Weekly (2020)
+                </h6>
 
                 <QuarterlyLead_chart />
               </div>
@@ -75,7 +88,7 @@ class AdminDashboard extends Component {
                   }}
                 >
                   <div className="row" style={{ padding: "30px" }}>
-                    <div>
+                    <div style={{ color: "#818181" }}>
                       <h2>Quarterly Lead Tasks</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur</p>
                     </div>
@@ -84,9 +97,15 @@ class AdminDashboard extends Component {
                         position: "absolute",
                         top: "30px",
                         right: "30px",
+                        color: "#818181",
                       }}
                     >
-                      <select name className="language border-0" id="language">
+                      <select
+                        name
+                        className="language border-0"
+                        id="language"
+                        style={{ color: "#818181" }}
+                      >
                         <option value="Hindi">Yearly(2020)</option>
                         <option value="English">Monthly(2020)</option>
                         <option value="Urdu">Weekly(2020)</option>
@@ -104,7 +123,11 @@ class AdminDashboard extends Component {
               <div className="row">
                 <div
                   className="col-lg-4 col-md-4 mt-2 mb-2 mr-5 ml-2 p-3"
-                  style={{ backgroundColor: "white", borderRadius: "10px" }}
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    color: "#818181",
+                  }}
                 >
                   <h3>Target Asigned</h3>
                   <LeadReport_chart />
@@ -114,6 +137,7 @@ class AdminDashboard extends Component {
                   style={{
                     backgroundColor: "white",
                     borderRadius: "10px",
+                    color: "#818181",
                   }}
                 >
                   <h6>Target Assigend</h6>
@@ -123,7 +147,7 @@ class AdminDashboard extends Component {
                 </div>
               </div>
             </Container>
-            <RecordTable/>
+            <RecordTable />
             {/* <Container fluid>
               <Row>
                 <Col
@@ -223,7 +247,7 @@ class AdminDashboard extends Component {
                     padding: "30px",
                   }}
                 >
-                  <h3>Target Asigned</h3>
+                  <h3 style={{ color: "#818181" }}>Target Asigned</h3>
                   <LeadReport_chart />
                 </Col>
                 <Col
@@ -293,7 +317,6 @@ class AdminDashboard extends Component {
             </Container>
           </div>
         </div>
-       
       </Container>
     );
   }

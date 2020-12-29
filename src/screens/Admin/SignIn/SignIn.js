@@ -67,13 +67,13 @@ class SignIn extends Component {
                 <h2>Sign In</h2>
 
                 {/* <div className="row mb-1 "> */}
-                <p style={{ textAlign: 'center' }}>
+                {/* <p style={{ textAlign: 'center' }}>
                   Choose one of the following signin methods.
-                </p>
+                </p> */}
                 {/* </div> */}
 
                 <div className="social-icon ">
-                  <button type="button" style={{ backgroundColor: 'darkblue' }}>
+                  {/* <button type="button" style={{ backgroundColor: 'darkblue' }}>
                     <img src={img} className="mr-1 mb-1" />
                     Facebook
                   </button>
@@ -88,13 +88,13 @@ class SignIn extends Component {
                   <button type="button" style={{ backgroundColor: '#EA4B24' }}>
                     <img src={img4} className="mr-1 mb-1" />
                     Google
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* <div className="row mb-4  "> */}
-                <p style={{ textAlign: 'center' }}>
-                  or signin using your email address{' '}
-                </p>
+                <h6 style={{ textAlign: 'center' }}>
+                  signin using your email address{' '}
+                </h6>
                 {/* </div> */}
 
                 <div className="row ">
@@ -124,7 +124,7 @@ class SignIn extends Component {
 
                 <div className="row">
                   <div className="container">
-                    <div style={{ float: 'left', marginLeft: '110px' }}>
+                    <div style={{ float: 'left', marginLeft: '110px'}}>
                       <img src={logo} className="pr-2 pb-1" />
 
                       <label>Remember me</label>
