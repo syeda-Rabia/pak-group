@@ -13,7 +13,7 @@ export function KeyboardTimePickerExample() {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardTimePicker
-        label="Time to Call"
+        label="Time"
         placeholder="08:00 AM"
         mask="__:__ _M"
         value={selectedDate}
@@ -28,10 +28,11 @@ export function KeyboardDatePickerExample(props) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        placeholder="2018/10/10"
+        label="Date"
+        placeholder="10/10/2018"
         value={selectedDate}
         onChange={(date) => handleDateChange(date)}
-        format="yyyy/MM/dd"
+        format="dd/MM/yyyy"
       />
     </MuiPickersUtilsProvider>
   );

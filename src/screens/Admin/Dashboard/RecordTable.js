@@ -99,7 +99,6 @@ export default function RecordTable() {
     if (options.title == optionsArray[1].title)
       return (
         <Modal
-          style={{ height: "1000px" }}
           show={showModalCTA}
           onHide={() => {
             setShowModalCTA(false);
@@ -109,12 +108,12 @@ export default function RecordTable() {
             <Modal.Title>Select date and time</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="container-fluid">
+            <div className="container-fluid" style={{ marginLeft: "110px" }}>
               <div className="row mb-4">
-                <KeyboardTimePickerExample />
-              </div>
-              <div className="row">
                 <KeyboardDatePickerExample />
+              </div>
+              <div className="row ">
+                <KeyboardTimePickerExample />
               </div>
             </div>
           </Modal.Body>
