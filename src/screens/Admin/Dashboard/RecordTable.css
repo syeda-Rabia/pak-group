@@ -5,6 +5,10 @@
   margin-top: 25px;
   margin-bottom: 20px;
 }
+.ctaContent {
+  width: "190px !important";
+  background-color: white;
+}
 .page-info {
   margin-top: 27px;
   margin-bottom: 0px;

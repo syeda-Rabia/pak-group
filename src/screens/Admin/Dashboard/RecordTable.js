@@ -1,6 +1,14 @@
 import "./RecordTable.css";
 import { dummyData } from "../../../assests/constants/todoList";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  OverlayTrigger,
+  Popover,
+  ListGroup,
+} from "react-bootstrap";
 import React, { useState } from "react";
 // import Calendar from "react-calendar";
 import Calendar from "react-calendar";
@@ -53,6 +61,39 @@ export default function RecordTable() {
     setCurrentPage(page);
     // console.log('page', page);
   };
+  const popover = (
+    <Popover id="popover-basic">
+      {optionsArray.map((item) => {
+        return (
+          <Dropdown.Item
+            onClick={() => {
+              setShowModalCTA(true);
+              if (item.options.length == 0)
+                setOptions({ title: item.title, id: null });
+            }}
+          >
+            {item.title}
+            {item.options.length > 0 ? (
+              <Dropdown.Submenu>
+                {item.options.map((subItem, index) => {
+                  return (
+                    <Dropdown.Item
+                      onClick={() => {
+                        setOptions({ title: item.title, id: index });
+                      }}
+                    >
+                      {subItem}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Submenu>
+            ) : null}
+          </Dropdown.Item>
+        );
+      })}
+      {/* </Dropdown> */}
+    </Popover>
+  );
 
   const ModalCTA = () => {
     if (options.title == optionsArray[0].title)
@@ -234,8 +275,9 @@ export default function RecordTable() {
           </select>
         </td>
         <td>
-          <Dropdown
+          {/* <Dropdown
             style={{ border: "none" }}
+            boundary="window"
             title="CTA"
             className="form-control form-control-sm"
             onChange={(e) => {
@@ -243,12 +285,12 @@ export default function RecordTable() {
               setShowModalCTA(true);
               console.log(e.target.value);
             }}
-            // value=""
           >
+          
             {optionsArray.map((item) => {
               return (
                 <Dropdown.Item
-                  style={{ top: "-200px" }}
+                  style={{ top: "-200px", overflow: "inherit" }}
                   onClick={() => {
                     setShowModalCTA(true);
                     if (item.options.length == 0)
@@ -274,7 +316,20 @@ export default function RecordTable() {
                 </Dropdown.Item>
               );
             })}
-          </Dropdown>
+          </Dropdown> */}
+          <OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>
+            <Button
+              className="btn"
+              style={{ border: "none ", backgroundColor: "lightblue" }}
+              onChange={(e) => {
+                setOptions(e.target.value);
+                setShowModalCTA(true);
+                console.log(e.target.value);
+              }}
+            >
+              CTA
+            </Button>
+          </OverlayTrigger>
         </td>
       </tr>
     );
