@@ -2,6 +2,8 @@ import "../AddUser/AddEmployee.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import img2 from "./../../../assests/tiwtr-2.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -240,10 +242,18 @@ export default function ProjectList() {
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <Link to="/admin/inventory/add">
-              <Button>
-                <AddIcon />
-                <span style={{ marginLeft: "5px" }}>Add Project</span>
-              </Button>
+              <button
+                
+                type="button"
+                className="btn btn-primary my-4"
+                style={
+                  {
+                    backgroundColor: "#2258BF",
+                  }
+                }
+              >
+                <FontAwesomeIcon icon={faPlusSquare} /> Add Project
+              </button>
             </Link>
             <div className="table-responsive">
               <table className="table table-hover">

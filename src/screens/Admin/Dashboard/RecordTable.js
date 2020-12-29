@@ -221,9 +221,9 @@ export default function RecordTable() {
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <th scope="row" key={item.id}>
+        <td scope="row" key={item.id}>
           {item.id}
-        </th>
+        </td>
         <td>{item.Clients}</td>
         <td>{item.Contacts}</td>
         <td>

@@ -64,7 +64,7 @@ class SignIn extends Component {
           <div className="col-lg-5 col-md-6">
             <div className="login-form">
               <form>
-                <h2>Sign In</h2>
+                <h2 style={{color:"#2258BF"}}>Sign In</h2>
 
                 {/* <div className="row mb-1 "> */}
                 {/* <p style={{ textAlign: 'center' }}>
