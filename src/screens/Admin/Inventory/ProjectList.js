@@ -2,6 +2,8 @@ import "../AddUser/AddEmployee.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import img2 from "./../../../assests/tiwtr-2.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -228,8 +230,13 @@ export default function ProjectList() {
   };
   return (
     <Container fluid>
+<<<<<<< HEAD
       <div className="shadow p-3 mb-3 bg-white rounded mt-4">
         <h2 style={{ color: "#818181" }}>Project List</h2>
+=======
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <h3 style={{ color: "#818181" }}>Project List</h3>
+>>>>>>> 31ba0ddc707b56cc637db8edd2810189f903bb62
       </div>
 
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
@@ -240,10 +247,18 @@ export default function ProjectList() {
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <Link to="/admin/inventory/add">
-              <Button>
-                <AddIcon />
-                <span style={{ marginLeft: "5px" }}>Add Project</span>
-              </Button>
+              <button
+                
+                type="button"
+                className="btn btn-primary my-4"
+                style={
+                  {
+                    backgroundColor: "#2258BF",
+                  }
+                }
+              >
+                <FontAwesomeIcon icon={faPlusSquare} /> Add Project
+              </button>
             </Link>
             <div className="table-responsive">
               <table className="table table-hover">
