@@ -13,6 +13,10 @@ import { paginate } from "../../../utils/paginate";
 import { Modal } from "react-bootstrap";
 import Dropdown from "react-multilevel-dropdown";
 import DatePicker from "react-date-picker";
+import {
+  KeyboardDatePickerExample,
+  KeyboardTimePickerExample,
+} from "../../../utils/KeyboardTimePickerExample";
 
 export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
@@ -95,7 +99,6 @@ export default function RecordTable() {
     if (options.title == optionsArray[1].title)
       return (
         <Modal
-          style={{ height: "1000px" }}
           show={showModalCTA}
           onHide={() => {
             setShowModalCTA(false);
@@ -105,26 +108,14 @@ export default function RecordTable() {
             <Modal.Title>Select date and time</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form>
-              <h6>Select Date</h6>
-              <div style={{ paddingLeft: "60px" }}>
-                <div style={{ marginTop: "100px" }}>
-                  <DatePicker onChange={onChange} value={value} />
-                </div>
-                {/* <Calendar onChange={setDate} value={date} /> */}
-                {/* <DateTimePicker onChange={setDate} value={date} /> */}
-                {/* <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  showTimeInput
-                  customTimeInput={<ExampleCustomTimeInput />}
-                /> */}
+            <div className="container-fluid" style={{ marginLeft: "110px" }}>
+              <div className="row mb-4">
+                <KeyboardDatePickerExample />
               </div>
-              <h6>Selet Time</h6>
-              <div>
-                <TimePicker onChange={onChange} value={value} />
+              <div className="row ">
+                <KeyboardTimePickerExample />
               </div>
-            </form>
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button

@@ -4,6 +4,10 @@ import { dummyData } from "../../../assests/constants/todoList";
 import { Container, Row, Col } from "react-bootstrap";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
+import {
+  KeyboardTimePickerExample,
+  KeyboardDatePickerExample,
+} from "../../../utils/KeyboardTimePickerExample";
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
@@ -53,8 +57,21 @@ export default function LeadsAllocatonAndAddition() {
             ))}
           </select>
         </td>
-        <td key={item.id}>{item.Budget}</td>
-        <td key={item.id}>{item.TOC}</td>
+        <td>
+          <input
+            key={item.id}
+            placeholder={item.Budget}
+            className="form-control"
+          />
+        </td>
+
+        <td key={item.id}>
+          <div
+            style={{ marginLeft: "10px", marginRight: "60px", width: "100%" }}
+          >
+            <KeyboardTimePickerExample />
+          </div>
+        </td>
         <td key={item.id}>{item.Country}</td>
 
         <td>
@@ -86,7 +103,13 @@ export default function LeadsAllocatonAndAddition() {
             })}
           </select>
         </td>
-        <td key={item.id}>{item.Deadline}</td>
+        <td key={item.id}>
+          <div
+            style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
+          >
+            <KeyboardDatePickerExample />
+          </div>
+        </td>
         <td>
           <select key={item.id} className="form-control form-control-sm">
             {item.Returned.map((returned) => {
