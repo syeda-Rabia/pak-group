@@ -8,23 +8,21 @@ import {
   OverlayTrigger,
   Popover,
   ListGroup,
+  Dropdown,
+  DropdownButton,
 } from "react-bootstrap";
 import React, { useState } from "react";
-// import Calendar from "react-calendar";
-import Calendar from "react-calendar";
-import DateTimePicker from "react-datetime-picker";
-import TimePicker from "react-time-picker";
 import "react-calendar/dist/Calendar.css";
-// import { DatePicker, calendarContainer } from "react-datepicker";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
 import { Modal } from "react-bootstrap";
-import Dropdown from "react-multilevel-dropdown";
-import DatePicker from "react-date-picker";
+// import Dropdown from "react-multilevel-dropdown";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
+
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 export default function RecordTable() {
   const [data, setData] = React.useState(dummyData);
@@ -37,8 +35,17 @@ export default function RecordTable() {
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
-  const [date, setDate] = useState(new Date());
-  const [value, onChange] = useState(new Date());
+  const [value, setValue] = useState("");
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   const optionsArray = [
     { id: "1", title: "Instruct", options: [] },
@@ -61,43 +68,11 @@ export default function RecordTable() {
     setCurrentPage(page);
     // console.log('page', page);
   };
-  const popover = (
-    <Popover id="popover-basic">
-      {optionsArray.map((item) => {
-        return (
-          <Dropdown.Item
-            onClick={() => {
-              setShowModalCTA(true);
-              if (item.options.length == 0)
-                setOptions({ title: item.title, id: null });
-            }}
-          >
-            {item.title}
-            {item.options.length > 0 ? (
-              <Dropdown.Submenu>
-                {item.options.map((subItem, index) => {
-                  return (
-                    <Dropdown.Item
-                      onClick={() => {
-                        setOptions({ title: item.title, id: index });
-                      }}
-                    >
-                      {subItem}
-                    </Dropdown.Item>
-                  );
-                })}
-              </Dropdown.Submenu>
-            ) : null}
-          </Dropdown.Item>
-        );
-      })}
-      {/* </Dropdown> */}
-    </Popover>
-  );
 
   const ModalCTA = () => {
-    if (options.title == optionsArray[0].title)
-      //
+    // if (options.title == optionsArray[0].title)
+    //
+    if (value == "instruct") {
       return (
         <Modal
           show={showModalCTA}
@@ -137,7 +112,9 @@ export default function RecordTable() {
           </Modal.Footer>
         </Modal>
       );
-    if (options.title == optionsArray[1].title)
+    }
+    // if (options.title == optionsArray[1].title)
+    else if (value == "call-Explanation") {
       return (
         <Modal
           show={showModalCTA}
@@ -178,7 +155,10 @@ export default function RecordTable() {
           </Modal.Footer>
         </Modal>
       );
-    if (options.title == optionsArray[2].title)
+    }
+
+    // if (options.title == optionsArray[2].title)
+    else if (value == "shift-and-warn") {
       return (
         <Modal
           show={showModalCTA}
@@ -192,7 +172,6 @@ export default function RecordTable() {
           <Modal.Body>
             <form>
               <p>Do you really want to shift this person.</p>
-             
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -215,6 +194,9 @@ export default function RecordTable() {
           </Modal.Footer>
         </Modal>
       );
+    } else {
+      return null;
+    }
   };
   const TableRow = ({ index, item }) => {
     // console.log('item', item);
@@ -269,61 +251,28 @@ export default function RecordTable() {
         <td key={item.id}>{item.Deadline}</td>
         <td>Rabia</td>
         <td>
-          {/* <Dropdown
-            style={{ border: "none" }}
-            boundary="window"
+          <DropdownButton
+            id="CTA-Button"
             title="CTA"
-            className="form-control form-control-sm"
-            onChange={(e) => {
-              setOptions(e.target.value);
+            onSelect={(e) => {
+              setValue(e);
               setShowModalCTA(true);
-              console.log(e.target.value);
+              console.log(e);
             }}
           >
-          
-            {optionsArray.map((item) => {
-              return (
-                <Dropdown.Item
-                  style={{ top: "-200px", overflow: "inherit" }}
-                  onClick={() => {
-                    setShowModalCTA(true);
-                    if (item.options.length == 0)
-                      setOptions({ title: item.title, id: null });
-                  }}
-                >
-                  {item.title}
-                  {item.options.length > 0 ? (
-                    <Dropdown.Submenu>
-                      {item.options.map((subItem, index) => {
-                        return (
-                          <Dropdown.Item
-                            onClick={() => {
-                              setOptions({ title: item.title, id: index });
-                            }}
-                          >
-                            {subItem}
-                          </Dropdown.Item>
-                        );
-                      })}
-                    </Dropdown.Submenu>
-                  ) : null}
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown> */}
-          <OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>
-            <Button
-              className="btn"
-              style={{ border: "none ", backgroundColor: "lightblue" }}
-              onChange={(e) => {
-                setOptions(e.target.value);
-                setShowModalCTA(true);
-                console.log(e.target.value);
-              }}
+            <Dropdown.Item eventKey="instruct" style={{ color: "black" }}>
+              Instruct
+            </Dropdown.Item>
+            <Dropdown.Item
+              eventKey="call-Explanation"
+              style={{ color: "black" }}
             >
-              CTA
-            </Button>
-          </OverlayTrigger>
+              Call Explanation
+            </Dropdown.Item>
+            <Dropdown.Item eventKey="shift-and-Warn" style={{ color: "black" }}>
+              Shift and Warn
+            </Dropdown.Item>
+          </DropdownButton>
         </td>
       </tr>
     );
@@ -381,46 +330,46 @@ export default function RecordTable() {
                 <thead>
                   <tr>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>ID</span>
+                      <span id="sp">ID</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Clients</span>
+                      <span id="sp">Clients</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Contacts</span>
+                      <span id="sp">Contacts</span>
                     </th>
                     <th>
-                      <span id="sp" style={{color:"#818181"}}>Project</span>
+                      <span id="sp">Project</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Budget</span>
+                      <span id="sp">Budget</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Time to Call</span>
+                      <span id="sp">Time to Call</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Country - City</span>
+                      <span id="sp">Country - City</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Status</span>
+                      <span id="sp">Status</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Interest</span>
+                      <span id="sp">Interest</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Email</span>
+                      <span id="sp">Email</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Task</span>
+                      <span id="sp">Task</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Deadline</span>
+                      <span id="sp">Deadline</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Returned From</span>
+                      <span id="sp">Returned From</span>
                     </th>
                     <th scope="col">
-                      <span id="sp" style={{color:"#818181"}}>Call To Action</span>
+                      <span id="sp">Call To Action</span>
                     </th>
                   </tr>
                 </thead>
