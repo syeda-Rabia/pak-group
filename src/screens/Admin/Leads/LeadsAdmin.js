@@ -102,7 +102,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -149,7 +151,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -196,7 +200,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -243,7 +249,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -290,7 +298,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -337,7 +347,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -384,7 +396,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -431,7 +445,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -478,7 +494,9 @@ export default function LeadsAdmin() {
                       <input placeholder="Contact" className="form-control" />
                     </td>
                     <td>Project Name</td>
-                    <td>$400</td>
+                    <td>
+                      <input placeholder="400 PKR" className="form-control" />
+                    </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
@@ -522,7 +540,6 @@ export default function LeadsAdmin() {
           </Col>
         </Row>
       </div>
-      
     </Container>
   );
 }

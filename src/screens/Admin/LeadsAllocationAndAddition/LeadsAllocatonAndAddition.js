@@ -15,7 +15,6 @@ import {
 export default function LeadsAllocatonAndAddition() {
   return (
     <Container fluid>
-      
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
       </div>
@@ -27,12 +26,10 @@ export default function LeadsAllocatonAndAddition() {
                 data-tip
                 data-for="ImportFile"
                 type="button"
-                className="btn btn-success my-4"
-                style={
-                  {
-                    //backgroundColor: "#2258BF",
-                  }
-                }
+                className="btn btn-primary my-4"
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
               >
                 <FontAwesomeIcon icon={faPlusSquare} /> Import Excel File
               </button>
@@ -181,13 +178,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">2</td>
@@ -254,13 +245,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td className="noWrap">Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">3</td>
@@ -327,13 +312,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">4</td>
@@ -400,13 +379,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">5</td>
@@ -473,13 +446,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">6</td>
@@ -546,13 +513,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                 </tbody>
               </table>

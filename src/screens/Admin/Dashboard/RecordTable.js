@@ -267,13 +267,7 @@ export default function RecordTable() {
           </select>
         </td>
         <td key={item.id}>{item.Deadline}</td>
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Returned.map((returned) => {
-              return <option>{returned}</option>;
-            })}
-          </select>
-        </td>
+        <td>Rabia</td>
         <td>
           {/* <Dropdown
             style={{ border: "none" }}

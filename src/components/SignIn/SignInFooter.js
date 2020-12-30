@@ -12,19 +12,31 @@ class Footer extends Component {
       <div>
         <div className="row ">
           <div
-            className="footer-link text-primary   "
-            style={{ fontSize: '16px' }}
+            className="footer-link text-primary  "
+            style={{ fontSize: "16px"}}
           >
-            <div className="ml-5 mb-5">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms and Conditions</a>
-              <a href="#">Help</a>
-              <a href="#">PakGroup Licenses</a>
-              <a href="#">Partners</a>
+            <div className="ml-5 clr" style={{ color: "#2258BF" }}>
+              <a className="clr" href="#">
+                Privacy Policy
+              </a>
+              <a className="clr" href="#">
+                Terms and Conditions
+              </a>
+              <a className="clr" href="#">
+                Help
+              </a>
+              <a className="clr" href="#">
+                PakGroup Licenses
+              </a>
+              <a className="clr" href="#">
+                Partners
+              </a>
             </div>
           </div>
           <div className="footer-language text-primary">
-            <label for="language">LANGUAGE:</label>
+            <label className="clr" for="language">
+              LANGUAGE:
+            </label>
             <select name className="language border-0" id="language">
               <option value="English">ENGLISH</option>
               <option value="Urdu">URDU</option>
@@ -34,15 +46,20 @@ class Footer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-lg-6">
+          <div className="col-md-6 col-lg-6 mt-0">
             <p
               className="ml-5 "
-              style={{ color: 'blue', wordSpacing: '-2px', fontSize: '15px' }}
+              style={{
+                color: "#2258BF",
+                wordSpacing: "-2px",
+                fontSize: "15px",
+                
+              }}
             >
               PakGroup © 2020 Copyright by
               <a href="#">
                 <strong> PakGroup.</strong>
-              </a>{' '}
+              </a>{" "}
               All Rights Reserved.
             </p>
           </div>
