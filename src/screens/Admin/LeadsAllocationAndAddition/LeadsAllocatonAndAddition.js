@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 
-
 import {
   KeyboardTimePickerExample,
   KeyboardDatePickerExample,
@@ -15,12 +14,11 @@ import {
 export default function LeadsAllocatonAndAddition() {
   return (
     <Container fluid>
-      
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
       </div>
       <Row>
-        <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
+        <Col style={{ borderRadius: "5px" }}>
           <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
             <div className="table-responsive">
               <button
@@ -28,11 +26,6 @@ export default function LeadsAllocatonAndAddition() {
                 data-for="ImportFile"
                 type="button"
                 className="btn btn-success my-4"
-                style={
-                  {
-                    //backgroundColor: "#2258BF",
-                  }
-                }
               >
                 <FontAwesomeIcon icon={faPlusSquare} /> Import Excel File
               </button>

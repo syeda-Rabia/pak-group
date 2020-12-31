@@ -8,6 +8,7 @@ import {
   KeyboardTimePickerExample,
   KeyboardDatePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
+
 export default function LeadsAllocatonAndAddition() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
@@ -33,9 +34,7 @@ export default function LeadsAllocatonAndAddition() {
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <td scope="row" key={item.id}>
-          {item.id}
-        </td>
+        <td key={item.id}>{item.id}</td>
         <td>
           <input
             key={item.id}
@@ -106,7 +105,7 @@ export default function LeadsAllocatonAndAddition() {
         <td key={item.id}>
           <div
             className="form-control form-control-sm"
-            style={{ marginLeft: "15px", marginRight: "70px", width: "100%"}}
+            style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
           >
             <KeyboardDatePickerExample />
           </div>
@@ -131,7 +130,7 @@ export default function LeadsAllocatonAndAddition() {
         <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
           <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
             <div className="table-responsive">
-              <table className="table table-hover">
+              <table id="todolistTable" className="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">

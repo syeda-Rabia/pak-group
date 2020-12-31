@@ -258,7 +258,8 @@ export default function RecordTable() {
         </td>
         <td>
           <DropdownButton
-            id="CTA-Button"
+            id="CTA-button"
+            variant="info"
             title="CTA"
             onSelect={(e) => {
               setValue(e);
@@ -266,18 +267,54 @@ export default function RecordTable() {
               console.log(e);
             }}
           >
-            <Dropdown.Item eventKey="instruct" style={{ color: "black" }}>
+            <Dropdown.Item
+              as="button"
+              eventKey="instruct"
+              style={{ color: "black", outline: "none" }}
+            >
               Instruct
             </Dropdown.Item>
             <Dropdown.Item
+              as="button"
               eventKey="call-Explanation"
-              style={{ color: "black" }}
+              style={{ color: "black", outline: "none" }}
             >
               Call Explanation
             </Dropdown.Item>
-            <Dropdown.Item eventKey="shift-and-Warn" style={{ color: "black" }}>
+            {/* <Dropdown.Item
+              as="button"
+              eventKey="shift-and-Warn"
+              style={{ color: "black", outline: "none" }}
+            >
               Shift and Warn
-            </Dropdown.Item>
+            </Dropdown.Item> */}
+            <DropdownButton
+              id="shiftAndWarnButton"
+              title="Shift and Warn"
+              drop="left"
+            >
+              <Dropdown.Item
+                as="button"
+                eventKey="instruct"
+                style={{ color: "black", outline: "none" }}
+              >
+                Atif
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                eventKey="call-Explanation"
+                style={{ color: "black", outline: "none" }}
+              >
+                Rabia
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                eventKey="shift-and-Warn"
+                style={{ color: "black", outline: "none" }}
+              >
+                Qasim
+              </Dropdown.Item>
+            </DropdownButton>
           </DropdownButton>
         </td>
       </tr>

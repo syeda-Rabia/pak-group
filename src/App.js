@@ -15,16 +15,14 @@ import SignIn from "./screens/Admin/SignIn/SignIn";
 import ClosedLeads from "./screens/ClosedLeads";
 import LeadsAdmin from "./screens/Admin/Leads/LeadsAdmin";
 import InventoryAdmin from "./screens/Admin/Inventory/InventoryAdmin";
-import Demo from "./screens/Demo";
+// import Demo from "./screens/Demo";
 import ToDoListAdmin from "./screens/Admin/TodoList/ToDoListAdmin";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
 import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
 import LeadsSidebar from "./components/Sidebar/LeadsSidebar";
-import LAASidebar from "./components/Sidebar/LAASidebar";
+
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import AddInventory from "./screens/Admin/Inventory/AddInventory";
-import ProjectList from "./screens/Admin/Inventory/ProjectList";
-import TimePicker from "react-time-picker";
 import { KeyboardDatePickerExample } from "./utils/KeyboardTimePickerExample";
 
 function App() {
@@ -93,8 +91,8 @@ function App() {
               </Route>
 
               <Route exact path="/admin/inventory">
-                {/* <InventoryAdmin /> */}
-                <ProjectList />
+                <InventoryAdmin />
+                {/* <ProjectList /> */}
               </Route>
               <Route exact path="/admin/inventory/add">
                 <AddInventory />
