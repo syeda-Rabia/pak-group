@@ -54,7 +54,9 @@ export default function ViewableTo() {
                 ) : null}
               </div>
               <div>
-                {viewable.length > 0 ? (
+
+              {viewable != null ? (
+                viewable.length > 0 ? (
                   <button
                     class="col-lg-12 btn btn-primary"
                     type="submit"
@@ -67,7 +69,9 @@ export default function ViewableTo() {
                   >
                     save
                   </button>
-                ) : null}
+                ) : null
+              ) : null}
+              
               </div>
             </Row>
 
@@ -110,9 +114,11 @@ export default function ViewableTo() {
                     <td>1</td>
                     <td>Project Name</td>
                     <td>
-                      {viewable.map((task) => {
-                        return `${task.value} `;
-                      })}
+                      {viewable != null
+                        ? viewable.map((task) => {
+                            return `${task.value} `;
+                          })
+                        : null}
                     </td>
                   </tr>
                   <tr>
@@ -127,9 +133,11 @@ export default function ViewableTo() {
                     <td>1</td>
                     <td>Project Name</td>
                     <td>
-                      {viewable.map((task) => {
-                        return `${task.value} `;
-                      })}
+                      {viewable != null
+                        ? viewable.map((task) => {
+                            return `${task.value} `;
+                          })
+                        : null}
                     </td>
                   </tr>
                   <tr>
@@ -144,9 +152,11 @@ export default function ViewableTo() {
                     <td>1</td>
                     <td>Project Name</td>
                     <td>
-                      {viewable.map((task) => {
-                        return `${task.value} `;
-                      })}
+                      {viewable != null
+                        ? viewable.map((task) => {
+                            return `${task.value} `;
+                          })
+                        : null}
                     </td>
                   </tr>
                   <tr>
@@ -161,9 +171,11 @@ export default function ViewableTo() {
                     <td>1</td>
                     <td>Project Name</td>
                     <td>
-                      {viewable.map((task) => {
-                        return `${task.value} `;
-                      })}
+                      {viewable != null
+                        ? viewable.map((task) => {
+                            return `${task.value} `;
+                          })
+                        : null}
                     </td>
                   </tr>
                 </tbody>
