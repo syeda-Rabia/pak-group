@@ -57,7 +57,8 @@ class Footer extends Component {
               }}
             >
               PakGroup © 2020 Copyright by
-              <a href="#">
+              <a style={{
+                color: "#2258BF"}}href="#">
                 <strong> PakGroup.</strong>
               </a>{" "}
               All Rights Reserved.

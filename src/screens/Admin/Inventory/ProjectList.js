@@ -230,13 +230,8 @@ export default function ProjectList() {
   };
   return (
     <Container fluid>
-<<<<<<< HEAD
-      <div className="shadow p-3 mb-3 bg-white rounded mt-4">
-        <h2 style={{ color: "#818181" }}>Project List</h2>
-=======
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Project List</h3>
->>>>>>> 31ba0ddc707b56cc637db8edd2810189f903bb62
       </div>
 
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
