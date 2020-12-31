@@ -20,7 +20,8 @@ import ToDoListAdmin from "./screens/Admin/TodoList/ToDoListAdmin";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
 import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
 import LeadsSidebar from "./components/Sidebar/LeadsSidebar";
-
+import LAASidebar from "./components/Sidebar/LAASidebar";
+import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import AddInventory from "./screens/Admin/Inventory/AddInventory";
 import { KeyboardDatePickerExample } from "./utils/KeyboardTimePickerExample";
@@ -88,6 +89,9 @@ function App() {
               </Route>
               <Route exact path="/admin/leads">
                 <LeadsAdmin />
+              </Route>
+              <Route exact path="/viewable">
+                <ViewableTo />
               </Route>
 
               <Route exact path="/admin/inventory">

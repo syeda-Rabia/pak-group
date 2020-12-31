@@ -25,7 +25,10 @@ export default function LeadsAllocatonAndAddition() {
                 data-tip
                 data-for="ImportFile"
                 type="button"
-                className="btn btn-success my-4"
+                className="btn btn-primary my-4"
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
               >
                 <FontAwesomeIcon icon={faPlusSquare} /> Import Excel File
               </button>
@@ -174,13 +177,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">2</td>
@@ -247,13 +244,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td className="noWrap">Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">3</td>
@@ -320,13 +311,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">4</td>
@@ -393,13 +378,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">5</td>
@@ -466,13 +445,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                   <tr>
                     <td scope="row">6</td>
@@ -539,13 +512,7 @@ export default function LeadsAllocatonAndAddition() {
                         <KeyboardDatePickerExample />
                       </div>
                     </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                        <option>Rabia</option>
-                      </select>
-                    </td>
+                    <td>Rabia</td>
                   </tr>
                 </tbody>
               </table>

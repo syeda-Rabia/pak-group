@@ -30,7 +30,8 @@ class Header_login extends Component {
               <button className="btn-2" type="button">
                 Log in
               </button>
-              <button className="btn-3" type="button">
+              <button style={{
+                backgroundColor: "#2258BF"}}className="btn-3" type="button">
                 Sign up
               </button>
             </div>

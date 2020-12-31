@@ -1,6 +1,6 @@
 .Laa h1 {
   text-align: left;
-  color: #342e59;
+  color: #818181;
   font-size: 34px;
   margin-top: 25px;
   margin-bottom: 20px;
@@ -19,9 +19,9 @@ select.form-control.form-control-sm {
 }
 .table thead tr th {
   border-top: none;
-  width: 104px;
 }
-#st {
+#sn{
   margin-left: 50px;
   margin-right: 50px;
 }
+

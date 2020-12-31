@@ -104,19 +104,13 @@ export default function LeadsAllocatonAndAddition() {
         </td>
         <td key={item.id}>
           <div
-            className="form-control form-control-sm"
+            className=""
             style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
           >
             <KeyboardDatePickerExample />
           </div>
         </td>
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Returned.map((returned) => {
-              return <option>{returned}</option>;
-            })}
-          </select>
-        </td>
+        <td>Rabia</td>
       </tr>
     );
   };
