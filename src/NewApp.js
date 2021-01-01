@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import HeaderNavBar from "./components/Header/HeaderNavBar";
+import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   BrowserRouter as Router,
@@ -17,6 +18,7 @@ import AdminDashboardScreen from "./screens/AdminDashboardScreen";
 import AdminLAAScreen from "./screens/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/AdminTodoListScreen";
+import EmployeeDashboardScreen from "./screens/EmployeeDashboardScreen";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import ExcelPage from "./utils/ExcelPage";
 function NewApp() {
@@ -60,6 +62,10 @@ function NewApp() {
           <br />
           {/* <ProjectList /> */}
           <ExcelPage />
+        </Route>
+        <Route path="/employee/dashboard">
+          <EmployeHeader />
+          <EmployeeDashboardScreen />
         </Route>
       </Switch>
     </Router>

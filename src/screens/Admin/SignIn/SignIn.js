@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import './SignIn.css';
-import Header_login from '../../../components/SignIn/SignInHeader';
-import Footer from '../../../components/SignIn/SignInFooter';
-import Image_pak from './../../../assests/Image_pak.png';
-import pkgrp_logo_1 from './../../../assests/pkgrp_logo_1.png';
-import logo from './../../../assests/Ellipse 2 (1).svg';
-import img from './../../../assests/fb-2.svg';
-import img2 from './../../../assests/tiwtr-2.svg';
-import img3 from './../../../assests/tum-2.svg';
-import img4 from './../../../assests/g-2.svg';
-import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import ReactDom from "react-dom";
+import "./SignIn.css";
+import Header_login from "../../../components/SignIn/SignInHeader";
+import Footer from "../../../components/SignIn/SignInFooter";
+import Image_pak from "./../../../assests/Image_pak.png";
+import pkgrp_logo_1 from "./../../../assests/pkgrp_logo_1.png";
+import logo from "./../../../assests/Ellipse 2 (1).svg";
+import img from "./../../../assests/fb-2.svg";
+import img2 from "./../../../assests/tiwtr-2.svg";
+import img3 from "./../../../assests/tum-2.svg";
+import img4 from "./../../../assests/g-2.svg";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 class SignIn extends Component {
   render() {
     return (
@@ -140,21 +140,21 @@ class SignIn extends Component {
                   <button
                     className="login-btn"
                     style={{ backgroundColor: "#2258BF" }}
-                    onClick={() => {
-                      this.props.setUser("admin");
-                    }}
+                    // onClick={() => {
+                    //   this.props.setUser("admin");
+                    // }}
                   >
                     Admin Login
                   </button>
                 </Link>
 
-                <Link to="/employe/dashboard" style={{ color: "white" }}>
+                <Link to="/employee/dashboard" style={{ color: "white" }}>
                   <button
                     className="login-btn"
                     style={{ backgroundColor: "#2258BF" }}
-                    onClick={() => {
-                      this.props.setUser("sjkdh");
-                    }}
+                    // onClick={() => {
+                    //   this.props.setUser("sjkdh");
+                    // }}
                   >
                     Employe Login
                   </button>

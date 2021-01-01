@@ -50,14 +50,14 @@ export default function AddEmployee() {
             <div style={{ alignContent: "center" }}>
               <div className="pb-3">
               <h6>First Name </h6>
-              <input className="form-control  input-width" value={item.Name} />
+              <input className="form-control  input-width w-100" value={item.Name} />
 
               </div>
 <div className="pb-3">
 
               <h6>Last name</h6>
               <input
-                className="form-control input-width "
+                className="form-control input-width w-100"
                 value={item.Last_Name}
               />
 </div>
