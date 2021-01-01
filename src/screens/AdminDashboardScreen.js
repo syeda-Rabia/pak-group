@@ -7,7 +7,14 @@ export default function AdminProjectListScreen() {
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
+          <Col
+            class="shadow"
+            lg={2}
+            md={2}
+            sm={5}
+            xs={5}
+            style={{ backgroundColor: "white" }}
+          >
             <LAASidebar />
           </Col>
           <Col

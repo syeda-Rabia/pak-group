@@ -17,6 +17,8 @@ import AdminDashboardScreen from "./screens/AdminDashboardScreen";
 import AdminLAAScreen from "./screens/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/AdminTodoListScreen";
+import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
+
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import ExcelPage from "./utils/ExcelPage";
 function NewApp() {
@@ -55,7 +57,11 @@ function NewApp() {
           <HeaderNavBar />
           <AddEmployee />
         </Route>
-        <Route path="/test">
+        <Route exact path="/admin/viewable">
+          <HeaderNavBar />
+          <ViewableTo />
+        </Route>
+        <Route path="/admin/upload-file">
           <HeaderNavBar />
           <br />
           {/* <ProjectList /> */}
