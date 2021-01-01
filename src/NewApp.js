@@ -11,12 +11,12 @@ import {
 } from "react-router-dom";
 import SignIn from "./screens/Admin/SignIn/SignIn";
 import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
-import AdminAddInventoryScreen from "./screens/AdminAddInventoryScreen";
-import AdminProjectListScreen from "./screens/AdminProjectListScreen";
-import AdminDashboardScreen from "./screens/AdminDashboardScreen";
-import AdminLAAScreen from "./screens/AdminLA&AScreen";
-import AdminLeadsScreen from "./screens/AdminLeadsScreen";
-import AdminTodoListScreen from "./screens/AdminTodoListScreen";
+import AdminAddInventoryScreen from "./screens/Admin/Views/AdminAddInventoryScreen";
+import AdminProjectListScreen from "./screens/Admin/Views/AdminProjectListScreen";
+import AdminDashboardScreen from "./screens/Admin/Views/AdminDashboardScreen";
+import AdminLAAScreen from "./screens/Admin/Views/AdminLA&AScreen";
+import AdminLeadsScreen from "./screens/Admin/Views/AdminLeadsScreen";
+import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 
 import ProjectList from "./screens/Admin/Inventory/ProjectList";

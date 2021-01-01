@@ -1,14 +1,21 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LeadsAdmin from "./Admin/Leads/LeadsAdmin";
-import LeadsSidebar from "../components/Sidebar/LeadsSidebar";
-export default function AdminLeadsScreen() {
+import AdminDashboard from "../Dashboard/AdminDashboard";
+import LAASidebar from "../../../components/Sidebar/LAASidebar";
+export default function AdminProjectListScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LeadsSidebar />
+          <Col
+            class="shadow"
+            lg={2}
+            md={2}
+            sm={5}
+            xs={5}
+            style={{ backgroundColor: "white" }}
+          >
+            <LAASidebar />
           </Col>
           <Col
             lg={10}
@@ -17,7 +24,7 @@ export default function AdminLeadsScreen() {
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAdmin />
+            <AdminDashboard />
           </Col>
         </Row>
       </Container>

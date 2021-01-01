@@ -1,25 +1,25 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LeadsSidebar from "../components/Sidebar/LeadsSidebar";
-import ToDoListAdmin from "./Admin/TodoList/ToDoListAdmin";
-export default function AdminTodoListScreen() {
+import InventorySidebar from "../../../components/Sidebar/InventorySidebar";
+import AddInventory from "../Inventory/AddInventory";
+export default function AdminAddInventoryScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
-        {/* <Row>
+        <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LeadsSidebar />
-          </Col> */}
-        {/* <Col
+            <InventorySidebar />
+          </Col>
+          <Col
             lg={10}
             md={10}
             sm={7}
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
-          > */}
-        <ToDoListAdmin />
-        {/* </Col>
-        </Row> */}
+          >
+            <AddInventory />
+          </Col>
+        </Row>
       </Container>
     </React.Fragment>
   );

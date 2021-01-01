@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LAASidebar from "../components/Sidebar/LAASidebar";
-import LeadsAllocatonAndAddition from "./Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
+import LAASidebar from "../../../components/Sidebar/LAASidebar";
+import LeadsAllocatonAndAddition from "../LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
 export default function AdminLAAScreen() {
   return (
     <React.Fragment>

@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import InventorySidebar from "../components/Sidebar/InventorySidebar";
-import ProjectList from "./Admin/Inventory/ProjectList";
-export default function AdminProjectListScreen() {
+import LeadsAdmin from "../Leads/LeadsAdmin";
+import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
+export default function AdminLeadsScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <InventorySidebar />
+            <LeadsSidebar />
           </Col>
           <Col
             lg={10}
@@ -17,7 +17,7 @@ export default function AdminProjectListScreen() {
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <ProjectList />
+            <LeadsAdmin />
           </Col>
         </Row>
       </Container>
