@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import AdminDashboard from "./Admin/Dashboard/AdminDashboard";
-import LAASidebar from "../components/Sidebar/LAASidebar";
-export default function AdminProjectListScreen() {
+import InventorySidebar from "../../../components/Sidebar/InventorySidebar";
+import AddInventory from "../Inventory/AddInventory";
+export default function AdminAddInventoryScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LAASidebar />
+            <InventorySidebar />
           </Col>
           <Col
             lg={10}
@@ -17,7 +17,7 @@ export default function AdminProjectListScreen() {
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <AdminDashboard />
+            <AddInventory />
           </Col>
         </Row>
       </Container>

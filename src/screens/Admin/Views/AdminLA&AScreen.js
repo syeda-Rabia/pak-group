@@ -1,25 +1,25 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LeadsSidebar from "../components/Sidebar/LeadsSidebar";
-import ToDoListAdmin from "./Admin/TodoList/ToDoListAdmin";
-export default function AdminTodoListScreen() {
+import LAASidebar from "../../../components/Sidebar/LAASidebar";
+import LeadsAllocatonAndAddition from "../LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
+export default function AdminLAAScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
-        {/* <Row>
+        <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LeadsSidebar />
-          </Col> */}
-        {/* <Col
+            <LAASidebar />
+          </Col>
+          <Col
             lg={10}
             md={10}
             sm={7}
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
-          > */}
-        <ToDoListAdmin />
-        {/* </Col>
-        </Row> */}
+          >
+            <LeadsAllocatonAndAddition />
+          </Col>
+        </Row>
       </Container>
     </React.Fragment>
   );
