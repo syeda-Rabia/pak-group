@@ -147,6 +147,7 @@ export default function AddInventory() {
                 <Form.Row>
                   <Col>
                     <Form.Control
+                      className="w-100"
                       placeholder="Inventory name"
                       value={item.name}
                       onChange={(e) => {
@@ -158,6 +159,7 @@ export default function AddInventory() {
                   <Col>
                     <Form.Control
                       placeholder="Block name"
+                      className="w-100"
                       value={item.block_name}
                       onChange={(e) => {
                         // setInventoryData()

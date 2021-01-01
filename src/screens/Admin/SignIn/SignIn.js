@@ -21,7 +21,7 @@ export default function SignIn() {
 
   useEffect(() => {
     axios
-      .post(`https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z`, { items })
+      .post(`https://pak-group.herokuapp.com/admin/login`, { items })
       .then((res) => {
         console.log(res);
         console.log(res.data);
