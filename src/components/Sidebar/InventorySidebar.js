@@ -16,7 +16,7 @@ export default function InventorySidebar() {
       <Link to="/admin/inventory/add" className="add-project">
         Add Project
       </Link>
-      <Link to="/" className="add-project">
+      <Link to="/admin/viewable" className="add-project">
         Viewable
       </Link>
     </div>

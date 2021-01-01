@@ -21,7 +21,11 @@ import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 import EmployeeDashboardScreen from "./screens/Employe/Views/EmployeeDashboardScreen";
 import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
+import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
+import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
+import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
+
 import ExcelPage from "./utils/ExcelPage";
 function NewApp() {
   return (
@@ -38,6 +42,7 @@ function NewApp() {
           <HeaderNavBar />
           <AdminProjectListScreen />
         </Route>
+        
 
         <Route path="/admin/dashboard">
           <HeaderNavBar />
@@ -76,6 +81,18 @@ function NewApp() {
         <Route path="/employee/leads">
           <EmployeHeader />
           <EmployeeLeadsScreen />
+        </Route>
+        <Route path="/employee/inventory">
+          <EmployeHeader />
+          <EmployeeInventory />
+        </Route>
+        <Route path="/employee/policies">
+          <EmployeHeader />
+          <EmployeePolicies />
+        </Route>
+        <Route path="/employee/todolist">
+          <EmployeHeader />
+          <EmployeeToDo />
         </Route>
       </Switch>
     </Router>

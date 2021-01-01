@@ -5,9 +5,11 @@ import { Container, Row, Col } from "react-bootstrap";
 export default function EmployeeInventory() {
   return (
     <Container fluid className="Laa">
-      <h1>
-        Inventory<span>(Employee)</span>
-      </h1>
+      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+        <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
+      </div>
+      <div class="col-lg-12 shadow p-3  bg-white rounded ">
+
       <Row>
         <Col
           lg
@@ -18,18 +20,32 @@ export default function EmployeeInventory() {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Sr No</th>
-                  <th scope="col">Project</th>
-                  <th scope="col">Category</th>
-                  <th scope="col">Type of Unit</th>
-                  <th scope="col">Block</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Viewable To</th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Sr No
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Project
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Category
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Type of Unit
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Block
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Status
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Viewable To
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -67,7 +83,7 @@ export default function EmployeeInventory() {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -105,7 +121,7 @@ export default function EmployeeInventory() {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -143,7 +159,7 @@ export default function EmployeeInventory() {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -181,7 +197,7 @@ export default function EmployeeInventory() {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -219,7 +235,7 @@ export default function EmployeeInventory() {
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">1</th>
+                  <td scope="row">1</td>
                   <td>
                     <select className="form-control form-control-sm">
                       <option>LDA city</option>
@@ -261,6 +277,7 @@ export default function EmployeeInventory() {
           </div>
         </Col>
       </Row>
+      </div>
     </Container>
   );
 }
