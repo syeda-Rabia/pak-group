@@ -1,13 +1,13 @@
-import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import './HeaderNavbar.css';
-import logo from './../../assests/Pak-Group-logo-1.png';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import "./HeaderNavbar.css";
+import logo from "./../../assests/Pak-Group-logo-1.png";
+import { Link } from "react-router-dom";
 
 export default function HeaderNavBar() {
   return (
     <React.Fragment>
-      <Navbar collapseOnSelect expand="lg" className="color-nav">
+      <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -16,7 +16,7 @@ export default function HeaderNavBar() {
               width="150px"
               height="50px"
               className="d-inline-block align-top"
-            />{' '}
+            />{" "}
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -26,8 +26,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/dashboard',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/dashboard",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 Dashboard
@@ -37,8 +37,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/todolist',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/todolist",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 To Do
@@ -48,8 +48,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/leads',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/leads",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 Leads
@@ -59,8 +59,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/leadsallocation',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/leadsallocation",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 Allocation
@@ -71,8 +71,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/inventory',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/inventory",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 Inventory
@@ -82,8 +82,8 @@ export default function HeaderNavBar() {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: '/admin/user',
-                  state: { from: 'AdminHeader' },
+                  pathname: "/admin/user",
+                  state: { from: "AdminHeader" },
                 }}
               >
                 User
@@ -101,17 +101,17 @@ export default function HeaderNavBar() {
           <Nav.Link
             href="#profile"
             style={{
-              backgroundColor: 'white',
-              borderRadius: '50%',
-              width: '50px',
-              height: '50px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              lineHeight: '20px',
+              backgroundColor: "white",
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              lineHeight: "20px",
             }}
           >
-            <span style={{ color: 'black' }}>HR</span>
+            <span style={{ color: "black" }}>HR</span>
           </Nav.Link>
         </Nav>
       </Navbar>

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import './SignIn.css';
-import Header_login from '../../../components/SignIn/SignInHeader';
-import Footer from '../../../components/SignIn/SignInFooter';
-import Image_pak from './../../../assests/Image_pak.png';
-import pkgrp_logo_1 from './../../../assests/pkgrp_logo_1.png';
-import logo from './../../../assests/Ellipse 2 (1).svg';
-import img from './../../../assests/fb-2.svg';
-import img2 from './../../../assests/tiwtr-2.svg';
-import img3 from './../../../assests/tum-2.svg';
-import img4 from './../../../assests/g-2.svg';
-import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import ReactDom from "react-dom";
+import "./SignIn.css";
+import Header_login from "../../../components/SignIn/SignInHeader";
+import Footer from "../../../components/SignIn/SignInFooter";
+import Image_pak from "./../../../assests/Image_pak.png";
+import pkgrp_logo_1 from "./../../../assests/pkgrp_logo_1.png";
+import logo from "./../../../assests/Ellipse 2 (1).svg";
+import img from "./../../../assests/fb-2.svg";
+import img2 from "./../../../assests/tiwtr-2.svg";
+import img3 from "./../../../assests/tum-2.svg";
+import img4 from "./../../../assests/g-2.svg";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 class SignIn extends Component {
   render() {
     return (
@@ -26,11 +26,11 @@ class SignIn extends Component {
         */}
           <div
             className="col-lg-7 col-md-6"
-            style={{ backgroundColor: '#F7FAFD', border: '1px black' }}
+            style={{ backgroundColor: "#F7FAFD", border: "1px black" }}
           >
-            <div className="first-logo" style={{ height: '119px' }}>
+            <div className="first-logo" style={{ height: "119px" }}>
               <img
-                style={{ width: '190px', height: '80px' }}
+                style={{ width: "190px", height: "80px" }}
                 src={pkgrp_logo_1}
               />
             </div>
@@ -38,20 +38,20 @@ class SignIn extends Component {
             {/* <Container fluid style={{marginLeft:'30px',marginRight:'300px',border:'1px solid black'}}> */}
             <div
               className="signin-image"
-              style={{ marginRight: '30px', marginLeft: '30px' }}
+              style={{ marginRight: "30px", marginLeft: "30px" }}
             >
-              <img style={{ width: '90%', height: '100%' }} src={Image_pak} />
+              <img style={{ width: "90%", height: "100%" }} src={Image_pak} />
             </div>
             {/* </Container> */}
             <div
               className="row mb-4 px-3 "
               style={{
-                paddingTop: '20px',
-                marginRight: '30px',
-                marginLeft: '30px',
+                paddingTop: "20px",
+                marginRight: "30px",
+                marginLeft: "30px",
               }}
             >
-              <p style={{ textAlign: 'center' }}>
+              <p style={{ textAlign: "center" }}>
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
                 quae ab illo inventore veritatis et quasi architecto beatae
@@ -64,7 +64,7 @@ class SignIn extends Component {
           <div className="col-lg-5 col-md-6">
             <div className="login-form">
               <form>
-                <h2 style={{color:"#2258BF"}}>Sign In</h2>
+                <h2 style={{ color: "#2258BF" }}>Sign In</h2>
 
                 {/* <div className="row mb-1 "> */}
                 {/* <p style={{ textAlign: 'center' }}>
@@ -92,8 +92,8 @@ class SignIn extends Component {
                 </div>
 
                 {/* <div className="row mb-4  "> */}
-                <h6 style={{ textAlign: 'center' }}>
-                  signin using your email address{' '}
+                <h6 style={{ textAlign: "center" }}>
+                  signin using your email address{" "}
                 </h6>
                 {/* </div> */}
 
@@ -124,44 +124,46 @@ class SignIn extends Component {
 
                 <div className="row">
                   <div className="container">
-                    <div style={{ float: 'left', marginLeft: '110px'}}>
+                    <div style={{ float: "left", marginLeft: "110px" }}>
                       <img src={logo} className="pr-2 pb-1" />
 
                       <label>Remember me</label>
                     </div>
 
-                    <div style={{ float: 'right', marginRight: '100px' }}>
+                    <div style={{ float: "right", marginRight: "100px" }}>
                       <a href="#">Forgot Password?</a>
                     </div>
                   </div>
                 </div>
 
-                <Link to="/admin/dashboard" style={{ color: 'white' }}>
+                <Link to="/admin/dashboard" style={{ color: "white" }}>
                   <button
                     className="login-btn"
-                    onClick={() => {
-                      this.props.setUser('admin');
-                    }}
+                    style={{ backgroundColor: "#2258BF" }}
+                    // onClick={() => {
+                    //   this.props.setUser("admin");
+                    // }}
                   >
                     Admin Login
                   </button>
                 </Link>
 
-                <Link to="/employe/dashboard" style={{ color: 'white' }}>
+                <Link to="/employe/dashboard" style={{ color: "white" }}>
                   <button
                     className="login-btn"
-                    onClick={() => {
-                      this.props.setUser('sjkdh');
-                    }}
+                    style={{ backgroundColor: "#2258BF" }}
+                    // onClick={() => {
+                    //   this.props.setUser("sjkdh");
+                    // }}
                   >
                     Employe Login
                   </button>
                 </Link>
 
                 <div className="row mb-4 px-5 ">
-                  <p style={{ textAlign: 'center' }}>
-                    {' '}
-                    Don't have an account?{' '}
+                  <p style={{ textAlign: "center" }}>
+                    {" "}
+                    Don't have an account?{" "}
                     <a href="#" className="text-primary ">
                       Sign up now!
                     </a>

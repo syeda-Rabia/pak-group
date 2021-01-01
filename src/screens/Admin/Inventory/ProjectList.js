@@ -230,8 +230,8 @@ export default function ProjectList() {
   };
   return (
     <Container fluid>
-      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-        <h3 style={{ color: "#818181" }}>Project List</h3>
+      <div className="shadow p-3 mb-3 bg-white rounded mt-4">
+        <h2 style={{ color: "#818181" }}>Project List</h2>
       </div>
 
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
@@ -243,14 +243,11 @@ export default function ProjectList() {
           >
             <Link to="/admin/inventory/add">
               <button
-                
                 type="button"
                 className="btn btn-primary my-4"
-                style={
-                  {
-                    backgroundColor: "#2258BF",
-                  }
-                }
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
               >
                 <FontAwesomeIcon icon={faPlusSquare} /> Add Project
               </button>
