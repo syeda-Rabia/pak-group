@@ -158,7 +158,7 @@ export default function SignIn() {
                 </button>
               </Link>
 
-              <Link to="/employe/dashboard" style={{ color: "white" }}>
+              <Link to="/employee/dashboard" style={{ color: "white" }}>
                 <button
                   className="login-btn"
                   style={{ backgroundColor: "#2258BF" }}

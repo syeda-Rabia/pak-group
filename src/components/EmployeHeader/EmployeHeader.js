@@ -23,28 +23,28 @@ export default function EmployeHeader() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link id="navlink" to="/employe/dashboard">
+              <Link id="navlink" to="/employee/dashboard">
                 Dashboard
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/employe/todolist">
+              <Link id="navlink" to="/employee/todolist">
                 To Do
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/employe/leads">
+              <Link id="navlink" to="/employee/leads">
                 Leads
               </Link>
             </Nav.Link>
 
             <Nav.Link>
-              <Link id="navlink" to="/employe/inventory">
+              <Link id="navlink" to="/employee/inventory">
                 Inventory
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link id="navlink" to="/employe/policies">
+              <Link id="navlink" to="/employee/policies">
                 Policies
               </Link>
             </Nav.Link>

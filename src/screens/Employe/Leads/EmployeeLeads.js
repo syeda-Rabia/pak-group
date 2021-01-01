@@ -19,20 +19,7 @@ export default function EmployeeLeads() {
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            <ReactHTMLTableToExcel
-              className="btn btn-outline-info ml-3"
-              table="leadsTable"
-              filename="LeadsExcel"
-              sheet="Sheet"
-              buttonText={
-                <>
-                  <FontAwesomeIcon icon={faUpload} />
-                  <span className="ml-2">Export Excel</span>
-                </>
-              }
-            />
-
-            <Dropfile />
+            
             <div className="table-responsive">
               <table id="leadsTable" className="table table-hover">
                 <thead>

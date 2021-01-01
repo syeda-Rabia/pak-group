@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LAASidebar from "../components/Sidebar/LAASidebar";
-import EmployeeDashboard from "./Employe/EmployeeDashboard/EmployeeDashboard";
-export default function EmployeeDashboardScreen() {
+import EmployeeLeads from "../Leads/EmployeeLeads";
+import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
+export default function EmployeeLeadsScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LAASidebar />
+            <LeadsSidebar />
           </Col>
           <Col
             lg={10}
@@ -17,7 +17,7 @@ export default function EmployeeDashboardScreen() {
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <EmployeeDashboard />
+            <EmployeeLeads />
           </Col>
         </Row>
       </Container>
