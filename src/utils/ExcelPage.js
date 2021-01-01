@@ -231,7 +231,7 @@ export default class ExcelPage extends Component {
           >
             <Button>
               {/* <Icon type="upload" /> Click to Upload Excel File */}
-              {/* <UploadOutlined style={{ marginBottom: "5px" }} /> */}
+              {/* < style={{ marginBottom: "5px" }} /> */}
               Upload
             </Button>
           </Upload>

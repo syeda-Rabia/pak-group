@@ -1,13 +1,20 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LAASidebar from "../components/Sidebar/LAASidebar";
-import LeadsAllocatonAndAddition from "./Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
-export default function AdminLAAScreen() {
+import AdminDashboard from "../Dashboard/AdminDashboard";
+import LAASidebar from "../../../components/Sidebar/LAASidebar";
+export default function AdminProjectListScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
+          <Col
+            class="shadow"
+            lg={2}
+            md={2}
+            sm={5}
+            xs={5}
+            style={{ backgroundColor: "white" }}
+          >
             <LAASidebar />
           </Col>
           <Col
@@ -17,7 +24,7 @@ export default function AdminLAAScreen() {
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAllocatonAndAddition />
+            <AdminDashboard />
           </Col>
         </Row>
       </Container>
