@@ -78,6 +78,7 @@ export default function AddEmployee() {
                   />
                 </div>
 
+<<<<<<< HEAD
                 <div className="pb-3">
                   <h6>Contact</h6>
                   <input
@@ -94,6 +95,52 @@ export default function AddEmployee() {
                 </div>
               </div>
               {/* <label>ID</label>
+=======
+          <Modal.Body>
+            <div style={{ alignContent: "center" }}>
+              <div className="pb-3">
+              <h6>First Name </h6>
+              <input className="form-control  input-width w-100 " value={item.Name} />
+
+              </div>
+<div className="pb-3">
+
+              <h6>Last name</h6>
+              <input
+                className="form-control input-width  w-100"
+                value={item.Last_Name}
+              />
+</div>
+<div className="pb-3">
+
+              <h6>Email</h6>
+              <input className="form-control input-width w-100 " value={item.Email} />
+</div>
+<div className="pb-3 w-100">
+
+              <h6>Gender</h6>
+              <input
+                className="form-control input-width w-100 "
+                value={item.Gender}
+              />
+</div>
+
+<div className="pb-3">
+
+              <h6>Contact</h6>
+              <input
+                className="form-control input-width w-100 "
+                value={item.Contact}
+              />
+</div>
+<div className="pb-3 w-100">
+
+              <h6>Type</h6>
+              <input className="form-control input-width w-100 " value={item.Type} />
+</div>
+            </div>
+            {/* <label>ID</label>
+>>>>>>> 6d2f8d8e1386e3690a2e3ac48cae30d6aac4eba3
           <input type="number">{item.id}</input>
           <label>Name</label>
           <input type="name">{item.Name}</input>
@@ -197,12 +244,12 @@ export default function AddEmployee() {
             <Modal.Body>
               {/*             
             <h6>ID</h6>
-            <input className="form-control input-width"    placeholder="Enter Id" /> */}
+            <input className="form-control input-width w-100"    placeholder="Enter Id" /> */}
               <form>
                 <div className="pb-3">
                   <h6>First Name</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control input-width w-100 "
                     placeholder="Enter First Name"
                     type="text"
                     value={f_name}
@@ -214,7 +261,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Last Name</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control input-width w-100 "
                     placeholder="Enter Last Name"
                     type="text"
                     value={l_name}
@@ -226,7 +273,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Email</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control input-width w-100 "
                     placeholder="Enter Email"
                     type="email"
                     value={email}
@@ -247,7 +294,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Phone</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control input-width w-100 "
                     placeholder="Enter Phone"
                     type="tel"
                     value={phone_no}
@@ -256,7 +303,7 @@ export default function AddEmployee() {
                     }}
                   />
                 </div>
-                <div className="pb-3">
+                <div className="pb-3 w-100">
                   <h6>Gender</h6>
                   <select
                     value={gender}
@@ -276,7 +323,7 @@ export default function AddEmployee() {
                     onChange={(e) => {
                       setUser_type(e.target.value);
                     }}
-                    className="form-control form-control-sm "
+                    className="form-control form-control-sm w-100 "
                   >
                     <option value={"Admin"}>Admin</option>
                     <option value={"Employee"}>Employee</option>
@@ -285,7 +332,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Initial Password</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control input-width w-100 "
                     placeholder="Enter password"
                     type="password"
                     value={password}
@@ -476,6 +523,7 @@ export default function AddEmployee() {
             <Modal.Body>
               {/*             
             <h6>ID</h6>
+<<<<<<< HEAD
             <input className="form-control input-width"    placeholder="Enter Id" /> */}
               <div className="pb-3">
                 <h6>First Name</h6>
@@ -517,6 +565,53 @@ export default function AddEmployee() {
                   }}
                 />
               </div>
+=======
+            <input className="form-control input-width w-100"    placeholder="Enter Id" /> */}
+<div className="pb-3">
+
+              <h6>First Name</h6>
+              <input
+                className="form-control input-width w-100 "
+                placeholder="Enter First Name"
+                type="text"
+                minLength="3"
+                maxLength="10"
+                value={f_name}
+                onChange={(e) => {
+                  setF_name(e.target.value);
+                }}
+              />
+</div>
+<div className="pb-3">
+
+              <h6>Last Name</h6>
+              <input
+                className="form-control input-width w-100 "
+                placeholder="Enter Last Name"
+                type="text"
+                minLength="0"
+                maxLength="10"
+                value={l_name}
+                onChange={(e) => {
+                  setL_name(e.target.value);
+                }}
+              />
+</div>
+<div className="pb-3">
+
+              <h6>Email</h6>
+              <input
+                className="form-control input-width w-100 "
+                placeholder="Enter Email"
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+</div>
+
+>>>>>>> 6d2f8d8e1386e3690a2e3ac48cae30d6aac4eba3
 
               {/* <h6>Contact</h6>
             <PhoneInput
@@ -526,6 +621,7 @@ export default function AddEmployee() {
                 setPhone_no(e.target.value);
               }}
             /> */}
+<<<<<<< HEAD
               <div className="pb-3">
                 <h6>Phone</h6>
                 <input
@@ -577,6 +673,63 @@ export default function AddEmployee() {
                   }}
                 />
               </div>
+=======
+            <div className="pb-3">
+
+              <h6>Phone</h6>
+              <input
+                className="form-control input-width w-100 "
+                placeholder="Enter Phone"
+                type="number"
+                value={phone_no}
+                onChange={(e) => {
+                  setPhone_no(e.target.value);
+                }}
+              />
+            </div>
+
+<div className="pb-3">
+
+              <h6>Gender</h6>
+              <select
+                value={gender}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+                className="form-control form-control-sm "
+              >
+                <option value={"Male"}>Male</option>
+                <option value={"Female"}>Female</option>
+              </select>
+</div>
+<div className="pb-3">
+
+              <h6>Type</h6>
+              <select
+                value={user_type}
+                onChange={(e) => {
+                  setUser_type(e.target.value);
+                }}
+                className="form-control form-control-sm "
+              >
+                <option value={"Admin"}>Admin</option>
+                <option value={"Employee"}>Employee</option>
+              </select>
+</div>
+<div className="pb-3">
+
+              <h6>Initial Password</h6>
+              <input
+                className="form-control input-width w-100 "
+                placeholder="Enter password"
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+</div>
+>>>>>>> 6d2f8d8e1386e3690a2e3ac48cae30d6aac4eba3
             </Modal.Body>
             <Modal.Footer>
               <Button
