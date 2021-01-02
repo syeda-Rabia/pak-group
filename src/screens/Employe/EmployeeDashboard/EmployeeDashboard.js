@@ -32,8 +32,8 @@ class EmployeeDashboard extends Component {
                         }}
                       >
                         <div style={{ color: "#818181" }}>
-                          <h6>Target Assigend</h6>
-                          <h3>Lead Report</h3>
+                          <h6 style={{ color: "#818181" }}>Target Assigend</h6>
+                          <h3 style={{ color: "#818181" }}>Lead Report</h3>
                         </div>
                         <div
                           style={{
@@ -88,7 +88,7 @@ class EmployeeDashboard extends Component {
                 >
                   <div className="row" style={{ padding: "30px" }}>
                     <div style={{ color: "#818181" }}>
-                      <h2>Quarterly Lead Tasks</h2>
+                      <h2 style={{ color: "#818181" }}>Quarterly Lead Tasks</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur</p>
                     </div>
                     <div
@@ -128,7 +128,7 @@ class EmployeeDashboard extends Component {
                     color: "#818181",
                   }}
                 >
-                  <h3>Target Asigned</h3>
+                  <h3 style={{ color: "#818181" }}>Target Asigned</h3>
                   <EmployeeLeadReportChart />
                 </div>
                 <div
@@ -139,22 +139,19 @@ class EmployeeDashboard extends Component {
                     color: "#818181",
                   }}
                 >
-                  <h6>Target Assigend</h6>
-                  <h3>Lead Report</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur</p>
+                  <h6 style={{ color: "#818181" }}>Target Assigend</h6>
+                  <h3 style={{ color: "#818181" }}>Lead Report</h3>
+                  <p style={{ color: "#818181" }}>
+                    Lorem ipsum dolor sit amet, consectetur
+                  </p>
                   <EmployeeQuartelyLeadChart />
                 </div>
               </div>
             </Container>
-           
-            </div>   
-
-                          
-    
-    
-  </div>
-  </Container>
-  );
+          </div>
+        </div>
+      </Container>
+    );
                 }
 }
 export default EmployeeDashboard;

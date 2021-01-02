@@ -117,12 +117,19 @@ export default function LeadsAllocatonAndAddition() {
         <td>
           <DropdownButton id="Action-button" variant="info" title="Action">
             <DropdownButton
+              className="mb-1 "
               id="callreceived"
               title="Call Received"
               drop="left"
-              style={{ color: "black", outline: "none",backgroundColor:"white" }}
+              style={{
+                color: "black",
+                outline: "none",
+                backgroundColor: "white",
+              
+              }}
             >
               <DropdownButton
+                className="mb-1"
                 id="shiftAndWarnButton"
                 title="Shift and Warn"
                 drop="left"
@@ -143,7 +150,12 @@ export default function LeadsAllocatonAndAddition() {
                 </Dropdown.Item>
               </DropdownButton>
             </DropdownButton>
-            <DropdownButton id="calldeclined" title="Call declined" drop="left">
+            <DropdownButton
+              className="mb-1"
+              id="calldeclined"
+              title="Call declined"
+              drop="left"
+            >
               <Dropdown.Item
                 as="button"
                 eventKey="instruct"
@@ -168,6 +180,7 @@ export default function LeadsAllocatonAndAddition() {
             </DropdownButton>
 
             <DropdownButton
+              className="mb-1"
               id="askforhatsapp"
               title="Asked To Send Whatsapp"
               drop="left"
@@ -195,6 +208,7 @@ export default function LeadsAllocatonAndAddition() {
               </Dropdown.Item>
             </DropdownButton>
             <DropdownButton
+              className="mb-1"
               id="askforsms"
               title="Asked To send sms"
               drop="left"
@@ -222,6 +236,7 @@ export default function LeadsAllocatonAndAddition() {
               </Dropdown.Item>
             </DropdownButton>
             <DropdownButton
+              className="mb-1"
               id="MeetingScedule"
               title="Meeting Scheduled"
               drop="left"
