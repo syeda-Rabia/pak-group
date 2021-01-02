@@ -1,20 +1,21 @@
 // import React from 'react';
-import './AddEmployee.css';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import img2 from './../../../assests/tiwtr-2.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { DeleteOutlineIcon } from '@material-ui/icons/DeleteOutline';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
-import { faBan } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
-import { ModalData } from './../../../assests/constants/modal';
-import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import ReactTooltip from 'react-tooltip';
+import "./AddEmployee.css";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import img2 from "./../../../assests/tiwtr-2.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { ModalData } from "./../../../assests/constants/modal";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import ReactTooltip from "react-tooltip";
+import axios from "axios";
 
 export default function AddEmployee() {
   const [showView, setShowView] = useState(false);
@@ -45,51 +46,53 @@ export default function AddEmployee() {
         </Modal.Header>
         <div class="col-lg-12 shadow   bg-white rounded ">
           <form>
+            <Modal.Body>
+              <div style={{ alignContent: "center" }}>
+                <div className="pb-3">
+                  <h6>First Name </h6>
+                  <input
+                    className="form-control  input-width"
+                    value={item.Name}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Last name</h6>
+                  <input
+                    className="form-control input-width "
+                    value={item.Last_Name}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Email</h6>
+                  <input
+                    className="form-control input-width "
+                    value={item.Email}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Gender</h6>
+                  <input
+                    className="form-control input-width "
+                    value={item.Gender}
+                  />
+                </div>
 
-          <Modal.Body>
-            <div style={{ alignContent: "center" }}>
-              <div className="pb-3">
-              <h6>First Name </h6>
-              <input className="form-control  input-width w-100 " value={item.Name} />
-
+                <div className="pb-3">
+                  <h6>Contact</h6>
+                  <input
+                    className="form-control input-width "
+                    value={item.Contact}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Type</h6>
+                  <input
+                    className="form-control input-width "
+                    value={item.Type}
+                  />
+                </div>
               </div>
-<div className="pb-3">
-
-              <h6>Last name</h6>
-              <input
-                className="form-control input-width  w-100"
-                value={item.Last_Name}
-              />
-</div>
-<div className="pb-3">
-
-              <h6>Email</h6>
-              <input className="form-control input-width w-100 " value={item.Email} />
-</div>
-<div className="pb-3 w-100">
-
-              <h6>Gender</h6>
-              <input
-                className="form-control input-width w-100 "
-                value={item.Gender}
-              />
-</div>
-
-<div className="pb-3">
-
-              <h6>Contact</h6>
-              <input
-                className="form-control input-width w-100 "
-                value={item.Contact}
-              />
-</div>
-<div className="pb-3 w-100">
-
-              <h6>Type</h6>
-              <input className="form-control input-width w-100 " value={item.Type} />
-</div>
-            </div>
-            {/* <label>ID</label>
+              {/* <label>ID</label>
           <input type="number">{item.id}</input>
           <label>Name</label>
           <input type="name">{item.Name}</input>
@@ -97,30 +100,29 @@ export default function AddEmployee() {
           <input type="email">{item.Email}</input>
           <label>Type</label>
           <input type="type">{item.Type}</input> */}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              style={{ backgroundColor: "#2258BF" }}
-              onClick={() => {
-                setShowView(false);
-              }}
-            >
-              Close
-            </Button>
-          </Modal.Footer>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowView(false);
+                }}
+              >
+                Close
+              </Button>
+            </Modal.Footer>
           </form>
         </div>
       </Modal>
     );
   };
-  
 
   const ModalEdit = ({ item }) => {
     const [f_name, setF_name] = useState(item.Name);
     const [l_name, setL_name] = useState(item.Last_Name);
     const [email, setEmail] = useState(item.Email);
     const [gender, setGender] = useState(item.Gender);
-        const [password, setPassword] = useState("");
+    const [password, setPassword] = useState("");
 
     const [user_type, setUser_type] = useState(item.Type);
     const [phone_no, setPhone_no] = useState(item.Contact);
@@ -128,12 +130,12 @@ export default function AddEmployee() {
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log('SendRecordToServer', event);
+      console.log("SendRecordToServer", event);
       // add validations
       // push
 
       let user = {
-        id: '1',
+        id: "1",
         Name: f_name,
         Last_Name: l_name,
         Email: email,
@@ -150,7 +152,7 @@ export default function AddEmployee() {
     const EditRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log('EditRecordToServer', event);
+      console.log("EditRecordToServer", event);
       // add validations
       // push
 
@@ -196,12 +198,12 @@ export default function AddEmployee() {
             <Modal.Body>
               {/*             
             <h6>ID</h6>
-            <input className="form-control input-width w-100"    placeholder="Enter Id" /> */}
+            <input className="form-control input-width"    placeholder="Enter Id" /> */}
               <form>
                 <div className="pb-3">
                   <h6>First Name</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter First Name"
                     type="text"
                     value={f_name}
@@ -213,7 +215,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Last Name</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Last Name"
                     type="text"
                     value={l_name}
@@ -225,7 +227,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Email</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Email"
                     type="email"
                     value={email}
@@ -246,7 +248,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Phone</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Phone"
                     type="tel"
                     value={phone_no}
@@ -255,7 +257,7 @@ export default function AddEmployee() {
                     }}
                   />
                 </div>
-                <div className="pb-3 w-100">
+                <div className="pb-3">
                   <h6>Gender</h6>
                   <select
                     value={gender}
@@ -275,7 +277,7 @@ export default function AddEmployee() {
                     onChange={(e) => {
                       setUser_type(e.target.value);
                     }}
-                    className="form-control form-control-sm w-100 "
+                    className="form-control form-control-sm "
                   >
                     <option value={"Admin"}>Admin</option>
                     <option value={"Employee"}>Employee</option>
@@ -284,7 +286,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Initial Password</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter password"
                     type="password"
                     value={password}
@@ -324,16 +326,16 @@ export default function AddEmployee() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = (item) => {
-      console.log('item is ', item);
+      console.log("item is ", item);
 
       let { id } = item;
-      console.log('ID is ', id);
+      console.log("ID is ", id);
 
       let arr = data;
 
       arr = arr.filter((user) => user.id != id.toString());
 
-      console.log('arr length ', arr.length, arr, selectedID);
+      console.log("arr length ", arr.length, arr, selectedID);
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;
@@ -417,24 +419,24 @@ export default function AddEmployee() {
     );
   };
   const ModalAdd = ({ item }) => {
-    const [f_name, setF_name] = useState('');
-    const [l_name, setL_name] = useState('');
-    const [email, setEmail] = useState('');
-    const [gender, setGender] = useState('male');
-    const [user_type, setUser_type] = useState('Admin');
+    const [f_name, setF_name] = useState("");
+    const [l_name, setL_name] = useState("");
+    const [email, setEmail] = useState("");
+    const [gender, setGender] = useState("male");
+    const [user_type, setUser_type] = useState("Admin");
     const [password, setPassword] = useState("");
+    const [phone_no, setPhone_no] = useState("");
 
-    const [phone_no, setPhone_no] = useState('');
-
-    const SendRecordToServer = (event) => {
+    const SendRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log('SendRecordToServer', event);
+      // console.log("SendRecordToServer", event);
       // add validations
+
       // push
 
       let user = {
-        id: '1',
+        id: "1",
         Name: f_name,
         Last_Name: l_name,
         Email: email,
@@ -443,6 +445,35 @@ export default function AddEmployee() {
         Password: password,
         Type: user_type,
       };
+      // await
+      axios
+        .post(
+          // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
+          "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
+          {
+            firstName: f_name,
+            lastName: l_name,
+            email: email,
+            gender: gender,
+            phone: phone_no,
+            password: password,
+            type: user_type,
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then(
+          (res) => {
+            console.log(res);
+            console.log(res.data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
 
       let arr = data;
       arr.push(user);
@@ -470,117 +501,98 @@ export default function AddEmployee() {
         >
           <div class="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
-              {/*             
-            <h6>ID</h6>
-            <input className="form-control input-width w-100"    placeholder="Enter Id" /> */}
-<div className="pb-3">
+              <div className="pb-3">
+                <h6>First Name</h6>
+                <input
+                  className="form-control input-width w-100 "
+                  placeholder="Enter First Name"
+                  type="text"
+                  minLength="3"
+                  maxLength="10"
+                  value={f_name}
+                  onChange={(e) => {
+                    setF_name(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pb-3">
+                <h6>Last Name</h6>
+                <input
+                  className="form-control input-width w-100 "
+                  placeholder="Enter Last Name"
+                  type="text"
+                  minLength="0"
+                  maxLength="10"
+                  value={l_name}
+                  onChange={(e) => {
+                    setL_name(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pb-3">
+                <h6>Email</h6>
+                <input
+                  className="form-control input-width w-100"
+                  placeholder="Enter Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
 
-              <h6>First Name</h6>
-              <input
-                className="form-control input-width w-100 "
-                placeholder="Enter First Name"
-                type="text"
-                minLength="3"
-                maxLength="10"
-                value={f_name}
-                onChange={(e) => {
-                  setF_name(e.target.value);
-                }}
-              />
-</div>
-<div className="pb-3">
+              <div className="pb-3">
+                <h6>Phone</h6>
+                <input
+                  className="form-control input-width w-100"
+                  placeholder="Enter Phone"
+                  type="tel"
+                  value={phone_no}
+                  onChange={(e) => {
+                    setPhone_no(e.target.value);
+                  }}
+                />
+              </div>
 
-              <h6>Last Name</h6>
-              <input
-                className="form-control input-width w-100 "
-                placeholder="Enter Last Name"
-                type="text"
-                minLength="0"
-                maxLength="10"
-                value={l_name}
-                onChange={(e) => {
-                  setL_name(e.target.value);
-                }}
-              />
-</div>
-<div className="pb-3">
-
-              <h6>Email</h6>
-              <input
-                className="form-control input-width w-100 "
-                placeholder="Enter Email"
-                type="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-</div>
-
-
-              {/* <h6>Contact</h6>
-            <PhoneInput
-              placeholder="Enter phone number"
-              value={phone_no}
-              onChange={(e) => {
-                setPhone_no(e.target.value);
-              }}
-            /> */}
-            <div className="pb-3">
-
-              <h6>Phone</h6>
-              <input
-                className="form-control input-width w-100 "
-                placeholder="Enter Phone"
-                type="number"
-                value={phone_no}
-                onChange={(e) => {
-                  setPhone_no(e.target.value);
-                }}
-              />
-            </div>
-
-<div className="pb-3">
-
-              <h6>Gender</h6>
-              <select
-                value={gender}
-                onChange={(e) => {
-                  setGender(e.target.value);
-                }}
-                className="form-control form-control-sm "
-              >
-                <option value={"Male"}>Male</option>
-                <option value={"Female"}>Female</option>
-              </select>
-</div>
-<div className="pb-3">
-
-              <h6>Type</h6>
-              <select
-                value={user_type}
-                onChange={(e) => {
-                  setUser_type(e.target.value);
-                }}
-                className="form-control form-control-sm "
-              >
-                <option value={"Admin"}>Admin</option>
-                <option value={"Employee"}>Employee</option>
-              </select>
-</div>
-<div className="pb-3">
-
-              <h6>Initial Password</h6>
-              <input
-                className="form-control input-width w-100 "
-                placeholder="Enter password"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-</div>
+              <div className="pb-3">
+                <h6>Gender</h6>
+                <select
+                  value={gender}
+                  onChange={(e) => {
+                    setGender(e.target.value);
+                  }}
+                  className="form-control form-control-sm w-100"
+                >
+                  <option value={"Male"}>Male</option>
+                  <option value={"Female"}>Female</option>
+                </select>
+              </div>
+              <div className="pb-3">
+                <h6>Type</h6>
+                <select
+                  value={user_type}
+                  onChange={(e) => {
+                    setUser_type(e.target.value);
+                  }}
+                  className="form-control form-control-sm w-100"
+                >
+                  <option value={"Admin"}>Admin</option>
+                  <option value={"Employee"}>Employee</option>
+                </select>
+              </div>
+              <div className="pb-3">
+                <h6>Initial Password</h6>
+                <input
+                  className="form-control input-width w-100 "
+                  placeholder="Enter password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -699,15 +711,15 @@ export default function AddEmployee() {
       className="Laa"
       style={{
         // backgroundColor: 'red',
-        margin: 'auto',
-        width: '100%',
+        margin: "auto",
+        width: "100%",
         // border: '3px solid green',
-        padding: '10px',
-        marginTop: '10px',
+        padding: "10px",
+        marginTop: "10px",
       }}
     >
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-        <h3 style={{ color: '#818181' }}>Employees Record</h3>
+        <h3 style={{ color: "#818181" }}>Employees Record</h3>
       </div>
       <div class="col-lg-12 shadow p-3  bg-white rounded ">
         <button
@@ -716,7 +728,7 @@ export default function AddEmployee() {
           type="button"
           className="btn btn-primary my-4"
           style={{
-            backgroundColor: '#2258BF',
+            backgroundColor: "#2258BF",
           }}
           onClick={() => {
             setShowAdd(true);
@@ -732,20 +744,36 @@ export default function AddEmployee() {
           <Col
             lg
             md="12"
-            style={{ backgroundColor: 'white', borderRadius: '5px' }}
+            style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{color:"#818181"}}>ID</th>
-                    <th scope="col" style={{color:"#818181"}}>First Name</th>
-                    <th scope="col" style={{color:"#818181"}}>Last Name</th>
-                    <th scope="col" style={{color:"#818181"}}>Email</th>
-                    <th scope="col" style={{color:"#818181"}}>Gender</th>
-                    <th scope="col" style={{color:"#818181"}}>Contact</th>
-                    <th scope="col" style={{color:"#818181"}}>Type</th>
-                    <th scope="col" style={{color:"#818181"}}>Actions</th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      ID
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      First Name
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Last Name
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Email
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Gender
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Contact
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Type
+                    </th>
+                    <th scope="col" style={{ color: "#818181" }}>
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
