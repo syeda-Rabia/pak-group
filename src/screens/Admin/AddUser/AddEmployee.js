@@ -198,12 +198,12 @@ export default function AddEmployee() {
             <Modal.Body>
               {/*             
             <h6>ID</h6>
-            <input className="form-control input-width w-100"    placeholder="Enter Id" /> */}
+            <input className="form-control input-width"    placeholder="Enter Id" /> */}
               <form>
                 <div className="pb-3">
                   <h6>First Name</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter First Name"
                     type="text"
                     value={f_name}
@@ -215,7 +215,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Last Name</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Last Name"
                     type="text"
                     value={l_name}
@@ -227,7 +227,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Email</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Email"
                     type="email"
                     value={email}
@@ -248,7 +248,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Phone</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter Phone"
                     type="tel"
                     value={phone_no}
@@ -257,7 +257,7 @@ export default function AddEmployee() {
                     }}
                   />
                 </div>
-                <div className="pb-3 w-100">
+                <div className="pb-3">
                   <h6>Gender</h6>
                   <select
                     value={gender}
@@ -277,7 +277,7 @@ export default function AddEmployee() {
                     onChange={(e) => {
                       setUser_type(e.target.value);
                     }}
-                    className="form-control form-control-sm w-100 "
+                    className="form-control form-control-sm "
                   >
                     <option value={"Admin"}>Admin</option>
                     <option value={"Employee"}>Employee</option>
@@ -286,7 +286,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Initial Password</h6>
                   <input
-                    className="form-control input-width w-100 "
+                    className="form-control input-width "
                     placeholder="Enter password"
                     type="password"
                     value={password}
@@ -447,11 +447,33 @@ export default function AddEmployee() {
       };
       // await
       axios
-        .post("https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z", { user })
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        });
+        .post(
+          // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
+          "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
+          {
+            firstName: f_name,
+            lastName: l_name,
+            email: email,
+            gender: gender,
+            phone: phone_no,
+            password: password,
+            type: user_type,
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then(
+          (res) => {
+            console.log(res);
+            console.log(res.data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
 
       let arr = data;
       arr.push(user);
