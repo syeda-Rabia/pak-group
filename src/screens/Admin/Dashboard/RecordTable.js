@@ -339,7 +339,7 @@ export default function RecordTable() {
       calendarContainer={MyContainer}
     /> */}
         <select
-          className="form-control form-control-sm"
+          className="form-control form-control-sm w-100"
           onChange={(e) => {
             setFilterData(e.target.value);
           }}
