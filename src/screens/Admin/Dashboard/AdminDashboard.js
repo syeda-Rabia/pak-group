@@ -17,7 +17,7 @@ class AdminDashboard extends Component {
               <h3 style={{ color: "#818181" }}>Admin Dashboard</h3>
             </div>
             <div className="row">
-              <div
+              <div 
                 className="col-lg- col-md-7 mt-2 mb-2 mr-5 ml-3 p-3"
                 style={{ backgroundColor: "white", borderRadius: "10px" }}
               >
@@ -33,8 +33,8 @@ class AdminDashboard extends Component {
                         }}
                       >
                         <div style={{ color: "#818181" }}>
-                          <h6>Target Assigend</h6>
-                          <h3>Lead Report</h3>
+                          <h6 style={{ color: "#818181" }}>Target Assigend</h6>
+                          <h3 style={{ color: "#818181" }}>Lead Report</h3>
                         </div>
                         <div
                           style={{
@@ -89,8 +89,10 @@ class AdminDashboard extends Component {
                 >
                   <div className="row" style={{ padding: "30px" }}>
                     <div style={{ color: "#818181" }}>
-                      <h2>Quarterly Lead Tasks</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      <h2 style={{ color: "#818181" }}>Quarterly Lead Tasks</h2>
+                      <p style={{ color: "#818181" }}>
+                        Lorem ipsum dolor sit amet, consectetur
+                      </p>
                     </div>
                     <div
                       style={{
@@ -129,7 +131,7 @@ class AdminDashboard extends Component {
                     color: "#818181",
                   }}
                 >
-                  <h3>Target Asigned</h3>
+                  <h3 style={{ color: "#818181" }}>Target Asigned</h3>
                   <LeadReport_chart />
                 </div>
                 <div
@@ -140,9 +142,11 @@ class AdminDashboard extends Component {
                     color: "#818181",
                   }}
                 >
-                  <h6>Target Assigend</h6>
-                  <h3>Lead Report</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur</p>
+                  <h6 style={{ color: "#818181" }}>Target Assigend</h6>
+                  <h3 style={{ color: "#818181" }}>Lead Report</h3>
+                  <p style={{ color: "#818181" }}>
+                    Lorem ipsum dolor sit amet, consectetur
+                  </p>
                   <QuarterlyLead_chart />
                 </div>
               </div>

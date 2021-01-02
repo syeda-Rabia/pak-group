@@ -107,12 +107,12 @@ export default function SignIn() {
 
               {/* <div className="row mb-4  "> */}
               <h6 style={{ textAlign: "center" }}>
-                signin using your email address{" "}
+                Sign in using your email address{" "}
               </h6>
               {/* </div> */}
 
-              <div className="row ">
-                <div className="container ">
+              <div className="row  pb-0">
+                <div className="container  pb-0 ">
                   <div className="form-group">
                     <input
                       type="email"
@@ -133,12 +133,12 @@ export default function SignIn() {
               </div>
 
               <div className="row">
-                <div className="container">
+                <div className="container pb-0">
                   <div style={{ float: "left", marginLeft: "110px" }}>
-                    <img src={logo} className="pr-2 pb-1" />
+                      <img src={logo} className="pr-2 pb-1" />
 
-                    <label>Remember me</label>
-                  </div>
+                      <label>Remember me</label>
+                    </div>
 
                   <div style={{ float: "right", marginRight: "100px" }}>
                     <a href="#">Forgot Password?</a>
@@ -148,7 +148,7 @@ export default function SignIn() {
 
               <Link to="/admin/dashboard" style={{ color: "white" }}>
                 <button
-                  className="login-btn"
+                  className="login-btn "
                   style={{ backgroundColor: "#2258BF" }}
                   // onClick={() => {
                   //   this.props.setUser("admin");

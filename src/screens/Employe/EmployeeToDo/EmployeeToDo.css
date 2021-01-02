@@ -45,7 +45,7 @@ select.form-control.form-control-sm {
 .btn-primary{
     border-color:white !important;
 }
-.btn-primary.dropdown-toggle {
+.btn-primary.dropdown-toggle :hover{
     color:  #1f1b1b;
     background-color:white;
 }
