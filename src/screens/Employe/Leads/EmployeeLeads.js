@@ -9,17 +9,16 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 export default function EmployeeLeads() {
   return (
     <Container fluid className="Laa">
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads</h3>
       </div>
-      <div class="col-lg-12 shadow p-3  bg-white rounded ">
+      <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Row>
           <Col
             lg
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            
             <div className="table-responsive">
               <table id="leadsTable" className="table table-hover">
                 <thead>
@@ -100,444 +99,54 @@ export default function EmployeeLeads() {
                 <tbody>
                   <tr>
                     <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
+                    <td>Rabia</td>
+                    <td>contact</td>
                     <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
+                    <td>400 PKR</td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Rabia</option>
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
+                    <td>5 Marla Residential</td>
+                    <td>Atif</td>
                     <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
+                    <td>Sale</td>
+                    <td>04/01/2021</td>
+                    <td>Recording 2</td>
                   </tr>
                   <tr>
                     <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
+                    <td>Rabia</td>
+                    <td>contact</td>
                     <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
+                    <td>400 PKR</td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Rabia</option>
-                        <option>Atif</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
+                    <td>5 Marla Residential</td>
+                    <td>Atif</td>
                     <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
+                    <td>Sale</td>
+                    <td>04/01/2021</td>
+                    <td>Recording 2</td>
                   </tr>
                   <tr>
                     <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
+                    <td>Rabia</td>
+                    <td>contact</td>
                     <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
+                    <td>400 PKR</td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
+                    <td>5 Marla Residential</td>
+                    <td>Atif</td>
                     <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>
-                      <input placeholder="Atif" className="form-control" />
-                    </td>
-                    <td>
-                      <input placeholder="Contact" className="form-control" />
-                    </td>
-                    <td>Project Name</td>
-                    <td>
-                      <input placeholder="400 PKR" className="form-control" />
-                    </td>
-                    <td>10:00 PM</td>
-                    <td>London</td>
-                    <td>On</td>
-
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>5 Marla Residential</option>
-                        <option>3 marla Rent</option>
-                        <option>10 marla Plot</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Atif</option>
-                        <option>Rabia</option>
-                        <option>Qasim</option>
-                      </select>
-                    </td>
-                    <td>Rabia@gmail</td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Sale</option>
-                        <option>Rent</option>
-                        <option>Pending</option>
-                      </select>
-                    </td>
-                    <td>
-                      <KeyboardDatePickerExample />
-                    </td>
-                    <td>
-                      <select className="form-control form-control-sm">
-                        <option>Recording 1</option>
-                        <option>Recording 2</option>
-                        <option>Recording 3</option>
-                      </select>
-                    </td>
+                    <td>Sale</td>
+                    <td>04/01/2021</td>
+                    <td>Recording 2</td>
                   </tr>
                 </tbody>
               </table>

@@ -19,7 +19,7 @@ export default function LeadsAdmin() {
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            <ReactHTMLTableToExcel
+            {/* <ReactHTMLTableToExcel
               className="btn btn-outline-info ml-3"
               table="leadsTable"
               filename="LeadsExcel"
@@ -30,7 +30,7 @@ export default function LeadsAdmin() {
                   <span className="ml-2">Export Excel</span>
                 </>
               }
-            />
+            /> */}
 
             <Dropfile />
             <div className="table-responsive">

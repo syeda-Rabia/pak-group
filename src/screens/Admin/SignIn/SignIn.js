@@ -166,7 +166,7 @@ export default function SignIn() {
                   //   this.props.setUser("sjkdh");
                   // }}
                 >
-                  Employe Login
+                  Employee Login
                 </button>
               </Link>
 

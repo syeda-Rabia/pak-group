@@ -306,9 +306,8 @@ export default function AddEmployee() {
               >
                 Close
               </Button>
-              <Button style={{ backgroundColor: "#2258BF" }}>Submit</Button>
-              {/* <input type="submit" value="Submit" /> */}
-              {/* <Button
+              
+              <Button
             type="submit"
             value="Submit"
             style={{ backgroundColor: "#2258BF" }}
@@ -317,7 +316,7 @@ export default function AddEmployee() {
             }}
           >
             Add
-          </Button> */}
+          </Button>
             </Modal.Footer>
           </div>
         </form>
