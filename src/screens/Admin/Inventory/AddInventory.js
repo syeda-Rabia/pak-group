@@ -4,34 +4,94 @@ import { Form, Button, Col, Container } from "react-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  IconButton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
+import axios from "axios";
 
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
   const [dummy, setDummy] = React.useState([]);
+  const [projectDetails, setProjectDetails] = React.useState({});
+  const [nameParent, setNameParent] = React.useState("");
+  const [unitsParent, setUnitsParent] = React.useState(1);
+  const [categoryParent, setCategoryParent] = React.useState("Both");
+
   const submit = (e) => {
     e.preventDefault();
     console.log("Submit");
   };
+  const handlePostRequest = async (InventoryData) => {
+    console.log("state");
 
+    // setProjectDetails((state) => {
+    //   state.inventory = InventoryData;
+    //   return state;
+    // });
+    setProjectDetails((state) => {
+      return {
+        //return the new data layer
+        ...state,
+        inventory: [InventoryData],
+      };
+    });
+    console.log(projectDetails);
+
+    const jsonData = JSON.stringify(projectDetails);
+    await axios
+      .post(
+        // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
+        "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
+        jsonData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then(
+        (res) => {
+          console.log("resssssssssssssss", res);
+
+          console.log("res.dataaaaaaaaaaa", res.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+  console.log(projectDetails);
   const Inventory = () => {
-    const [name, setName] = React.useState("");
-    const [units, setUnits] = React.useState(1);
-    const [category, setCategory] = React.useState("Both");
-
+    const [name, setName] = React.useState(nameParent);
+    const [units, setUnits] = React.useState(unitsParent);
+    const [category, setCategory] = React.useState(categoryParent);
     const handleForm = () => {
       setForm(false);
+      setNameParent(name);
+      setUnitsParent(units);
+      setCategoryParent(category);
       let arr = [];
       for (let i = 0; i < units; i++) {
         arr.push({
           id: i + 1,
           name: "",
-          category: "",
+          category: category === "Both" ? "" : category,
           block_name: "",
           status: "",
         });
       }
       setDummy(arr); //[]
+      setProjectDetails({
+        name: name,
+        category: category,
+        units: units,
+        status: "open",
+        inventory: [],
+      });
     };
 
     return (
@@ -54,9 +114,11 @@ export default function AddInventory() {
               <Form.Group controlId="inventoryName">
                 <Form.Label>Project Name</Form.Label>
                 <Form.Control
-                  defaultValue={name}
+                  value={name}
                   onChange={(e) => {
+                    // console.log(name);
                     setName(e.target.value);
+                    console.log(name);
                   }}
                   required={true}
                   className="w-100"
@@ -66,8 +128,8 @@ export default function AddInventory() {
               <Form.Group controlId="projectCategory">
                 <Form.Label>Project Category</Form.Label>
                 <Form.Control
+                  value={category}
                   as="select"
-                  defaultValue={category}
                   className="w-100"
                   onChange={(e) => {
                     setCategory(e.target.value);
@@ -81,7 +143,7 @@ export default function AddInventory() {
               <Form.Group controlId="units">
                 <Form.Label>Units</Form.Label>
                 <Form.Control
-                  defaultValue={units}
+                  value={units}
                   onChange={(e) => {
                     setUnits(e.target.value);
                   }}
@@ -110,18 +172,30 @@ export default function AddInventory() {
   const InventoryDetails = () => {
     const [InventoryData, setInventoryData] = React.useState(dummy);
 
-    const viewData = (data, id) => {
+    const viewData = (data, id, index) => {
       // console.log('index', id);
       // console.log('data', data);
       let key = Object.keys(data)[0];
-      let inData = InventoryData.map((item) => {
-        if (item.id == id) {
-          item[key] = data[key];
-        }
-        return item;
+      // let inData = InventoryData.map((item) => {
+      //   if (item.id == id) {
+      //     item[key] = data[key];
+      //   }
+      //   return item;
+      // });
+      // console.log(inData);
+      // let inData = InventoryData;
+      // inData[index][key] = data[key];
+      // console.log(inData[index]);
+      setInventoryData((state) => {
+        const temp = [...state];
+        const objectChange = temp[index];
+        objectChange[key] = data[key];
+        temp[index] = { ...objectChange };
+        // state[index] = { ...temp };
+        console.log(state);
+        return temp;
       });
-      console.log(inData);
-      setInventoryData(inData);
+      // setInventoryData(inData);
     };
     React.useEffect(() => {
       if (InventoryData.length === 0) setForm((state) => !state);
@@ -144,15 +218,16 @@ export default function AddInventory() {
           <Form>
             {InventoryData.map((item, index) => {
               return (
-                <Form.Row>
+                <Form.Row style={{ marginBottom: "8px" }}>
                   <Col>
                     <Form.Control
                       className="w-100"
                       placeholder="Inventory name"
                       value={item.name}
+                      style={{ height: "calc(1.5em + 1.6rem + 2px)" }}
                       onChange={(e) => {
                         // setInventoryData()
-                        viewData({ name: e.target.value }, item.id);
+                        viewData({ name: e.target.value }, item.id, index);
                       }}
                     />
                   </Col>
@@ -160,16 +235,21 @@ export default function AddInventory() {
                     <Form.Control
                       placeholder="Block name"
                       className="w-100"
+                      style={{ height: "calc(1.5em + 1.6rem + 2px)" }}
                       value={item.block_name}
                       onChange={(e) => {
                         // setInventoryData()
-                        viewData({ block_name: e.target.value }, item.id);
+                        viewData(
+                          { block_name: e.target.value },
+                          item.id,
+                          index
+                        );
                       }}
                     />
                   </Col>
                   <Col>
                     <Form.Group controlId="projectCategory">
-                      <Form.Control
+                      {/* <Form.Control
                         style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                         as="select"
                         className="w-100"
@@ -177,17 +257,42 @@ export default function AddInventory() {
                         value={item.category}
                         onChange={(e) => {
                           // setInventoryData()
-                          viewData({ category: e.target.value }, item.id);
+                          viewData({ category: e.target.value }, item.id,index);
                         }}
                       >
+                        <option value={"null"}>Select Category</option>
                         <option value={"Sale"}>Sale</option>
                         <option value={"Rent"}>Rent</option>
-                      </Form.Control>
+                      </Form.Control> */}
+                      <FormControl
+                        className="w-100"
+                        style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
+                      >
+                        <InputLabel>Select Category</InputLabel>
+
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={item.category}
+                          onChange={(e) => {
+                            // setInventoryData()
+                            viewData(
+                              { category: e.target.value },
+                              item.id,
+                              index
+                            );
+                          }}
+                        >
+                          {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
+                          <MenuItem value={"Sale"}>Sale</MenuItem>
+                          <MenuItem value={"Rent"}>Rent</MenuItem>
+                        </Select>
+                      </FormControl>
                     </Form.Group>
                   </Col>
 
                   <Col>
-                    <Form.Control
+                    {/* <Form.Control
                       style={{
                         height: "calc(1.5em + 0.75rem + -4px)",
                       }}
@@ -197,13 +302,35 @@ export default function AddInventory() {
                       value={item.status}
                       onChange={(e) => {
                         // setInventoryData()
-                        viewData({ status: e.target.value }, item.id);
+                        viewData({ status: e.target.value }, item.id,index);
                       }}
                     >
+                      <option value={"null"}>Select Status</option>
                       <option value={"Hold"}>Hold</option>
                       <option value={"Open"}>Open</option>
                       <option value={"Sold"}>Sold</option>
-                    </Form.Control>
+                    </Form.Control> */}
+                    <FormControl
+                      className="w-100"
+                      style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
+                    >
+                      <InputLabel>Select Status</InputLabel>
+
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={item.status}
+                        onChange={(e) => {
+                          // setInventoryData()
+                          viewData({ status: e.target.value }, item.id, index);
+                        }}
+                      >
+                        {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
+                        <MenuItem value={"Hold"}>Hold</MenuItem>
+                        <MenuItem value={"Sale"}>Sale</MenuItem>
+                        <MenuItem value={"Rent"}>Rent</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Col>
                   <Col>
                     <IconButton aria-label="delete" color="primary">
@@ -224,7 +351,17 @@ export default function AddInventory() {
               );
             })}
 
-            <Button>Save</Button>
+            <Button
+              onClick={() => {
+                handlePostRequest(InventoryData);
+                // setProjectDetails((state) => {
+                //   state.inventory = InventoryData;
+                //   return state;
+                // });
+              }}
+            >
+              Save
+            </Button>
           </Form>
         </Container>
       </React.Fragment>

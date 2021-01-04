@@ -15,6 +15,10 @@ import { ModalData } from "./../../../assests/constants/modal";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import Snackbar from "@material-ui/core/Snackbar";
+import Grow from "@material-ui/core/Grow";
+
 import axios from "axios";
 
 export default function AddEmployee() {
@@ -24,9 +28,13 @@ export default function AddEmployee() {
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
+  const [showAlert, setShowAlert] = React.useState(false);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+  const handleClose = () => {
+    setShowAlert(false);
+  };
 
   const ModalView = ({ item }) => {
     return (
@@ -222,14 +230,6 @@ export default function AddEmployee() {
                   />
                 </div>
 
-                {/* <h6>Contact</h6>
-            <PhoneInput
-              placeholder="Enter phone number"
-              value={phone_no}
-              onChange={(e) => {
-                setPhone_no(e.target.value);
-              }}
-            /> */}
                 <div className="pb-3">
                   <h6>Phone</h6>
                   <input
@@ -411,7 +411,6 @@ export default function AddEmployee() {
     const [user_type, setUser_type] = useState("Admin");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
-
     const SendRecordToServer = async (event) => {
       event.preventDefault();
 
@@ -430,20 +429,22 @@ export default function AddEmployee() {
         Password: password,
         Type: user_type,
       };
-      // await
-      axios
+
+      const formData = {
+        firstName: f_name,
+        lastName: l_name,
+        email: email,
+        gender: gender,
+        phone: phone_no,
+        password: password,
+        type: user_type,
+      };
+      const jsonData = JSON.stringify(formData);
+      await axios
         .post(
           // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
           "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-          {
-            firstName: f_name,
-            lastName: l_name,
-            email: email,
-            gender: gender,
-            phone: phone_no,
-            password: password,
-            type: user_type,
-          },
+          jsonData,
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -452,8 +453,13 @@ export default function AddEmployee() {
         )
         .then(
           (res) => {
-            console.log(res);
-            console.log(res.data);
+            console.log("resssssssssssssss", res.status);
+            if (res.status === 200) {
+              setShowAlert(true);
+              // alert("skjdhfkjd");
+            }
+
+            console.log("res.dataaaaaaaaaaa", res.data);
           },
           (error) => {
             console.log(error);
@@ -703,6 +709,23 @@ export default function AddEmployee() {
         marginTop: "10px",
       }}
     >
+      {showAlert == true ? (
+        <Grow in={showAlert}>
+          <Snackbar
+            open={showAlert}
+            autoHideDuration={2000}
+            onClose={handleClose}
+          >
+            <Alert variant="filled" severity="success">
+              <AlertTitle>Success</AlertTitle>
+              <span className="mr-5" style={{ textAlign: "center" }}>
+                Record Submitted
+              </span>
+            </Alert>
+          </Snackbar>
+        </Grow>
+      ) : null}
+
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Employees Record</h3>
       </div>
