@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ListGroup,
   OverlayTrigger,
@@ -7,46 +7,46 @@ import {
   Popover,
   Row,
   Col,
-} from 'react-bootstrap';
-import buttonImg from './../../assests/resource.svg';
+} from "react-bootstrap";
+import buttonImg from "./../../assests/resource.svg";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { Link } from 'react-router-dom';
-import SearchLeads from './SearchLeads';
-import './LAASidebar.css';
+import { Link } from "react-router-dom";
+import SearchLeads from "./SearchLeads";
+import "./LAASidebar.css";
 export default function LAASidebar() {
   const [toggle, setToggle] = React.useState(false);
   const displayList = () => {
     setToggle(!toggle);
-    console.log('toggle', toggle);
+    console.log("toggle", toggle);
   };
 
   const List = (props) => {
     return (
       <React.Fragment>
         <SearchLeads name="Search Leads" alignText="left" leftPadding="22px" />
-        <ul class="list-group">
-          <li id="list-item" class="list-group-item">
+        <ul className="list-group">
+          <li id="list-item" className="list-group-item">
             Add News Leads
           </li>
-          <li id="list-item" class="list-group-item">
+          <li id="list-item" className="list-group-item">
             <Link
               className="navLink"
               id="list-item"
               to={{
-                pathname: '/admin/todolist',
+                pathname: "/admin/todolist",
               }}
             >
               To Do List
             </Link>
           </li>
-          <li id="list-item" class="list-group-item">
+          <li id="list-item" className="list-group-item">
             <Link
               className="navLink"
               id="list-item"
               to={{
-                pathname: '/admin/closedleads',
+                pathname: "/admin/closedleads",
               }}
             >
               Closed Leads
@@ -60,7 +60,7 @@ export default function LAASidebar() {
   return (
     <div
       style={{
-        height: '100vh',
+        height: "100vh",
         // border: '2px solid blue',
       }}
     >

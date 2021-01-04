@@ -15,6 +15,10 @@ import { ModalData } from "./../../../assests/constants/modal";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import Snackbar from "@material-ui/core/Snackbar";
+import Grow from "@material-ui/core/Grow";
+
 import axios from "axios";
 
 export default function AddEmployee() {
@@ -24,9 +28,13 @@ export default function AddEmployee() {
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
+  const [showAlert, setShowAlert] = React.useState(false);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+  const handleClose = () => {
+    setShowAlert(false);
+  };
 
   const ModalView = ({ item }) => {
     return (
@@ -50,46 +58,31 @@ export default function AddEmployee() {
               <div style={{ alignContent: "center" }}>
                 <div className="pb-3">
                   <h6>First Name </h6>
-                  <input
-                    className="form-control  input-width"
-                    value={item.Name}
-                  />
+                  <input className="form-control  w-100" value={item.Name} />
                 </div>
                 <div className="pb-3">
                   <h6>Last name</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     value={item.Last_Name}
                   />
                 </div>
                 <div className="pb-3">
                   <h6>Email</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Email}
-                  />
+                  <input className="form-control w-100 " value={item.Email} />
                 </div>
                 <div className="pb-3">
                   <h6>Gender</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Gender}
-                  />
+                  <input className="form-control w-100 " value={item.Gender} />
                 </div>
 
                 <div className="pb-3">
                   <h6>Contact</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Contact}
-                  />
+                  <input className="form-control w-100 " value={item.Contact} />
                 </div>
                 <div className="pb-3">
                   <h6>Type</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Type}
-                  />
+                  <input className="form-control w-100 " value={item.Type} />
                 </div>
               </div>
               {/* <label>ID</label>
@@ -198,12 +191,12 @@ export default function AddEmployee() {
             <Modal.Body>
               {/*             
             <h6>ID</h6>
-            <input className="form-control input-width"    placeholder="Enter Id" /> */}
+            <input className="form-control w-100"    placeholder="Enter Id" /> */}
               <form>
                 <div className="pb-3">
                   <h6>First Name</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     placeholder="Enter First Name"
                     type="text"
                     value={f_name}
@@ -215,7 +208,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Last Name</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     placeholder="Enter Last Name"
                     type="text"
                     value={l_name}
@@ -227,7 +220,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Email</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     placeholder="Enter Email"
                     type="email"
                     value={email}
@@ -237,18 +230,10 @@ export default function AddEmployee() {
                   />
                 </div>
 
-                {/* <h6>Contact</h6>
-            <PhoneInput
-              placeholder="Enter phone number"
-              value={phone_no}
-              onChange={(e) => {
-                setPhone_no(e.target.value);
-              }}
-            /> */}
                 <div className="pb-3">
                   <h6>Phone</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     placeholder="Enter Phone"
                     type="tel"
                     value={phone_no}
@@ -264,7 +249,7 @@ export default function AddEmployee() {
                     onChange={(e) => {
                       setGender(e.target.value);
                     }}
-                    className="form-control form-control-sm "
+                    className="form-control form-control-sm w-100"
                   >
                     <option value={"Male"}>Male</option>
                     <option value={"Female"}>Female</option>
@@ -277,7 +262,7 @@ export default function AddEmployee() {
                     onChange={(e) => {
                       setUser_type(e.target.value);
                     }}
-                    className="form-control form-control-sm "
+                    className="form-control form-control-sm w-100"
                   >
                     <option value={"Admin"}>Admin</option>
                     <option value={"Employee"}>Employee</option>
@@ -286,7 +271,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Initial Password</h6>
                   <input
-                    className="form-control input-width "
+                    className="form-control w-100 "
                     placeholder="Enter password"
                     type="password"
                     value={password}
@@ -425,7 +410,6 @@ export default function AddEmployee() {
     const [user_type, setUser_type] = useState("Admin");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
-
     const SendRecordToServer = async (event) => {
       event.preventDefault();
 
@@ -444,20 +428,22 @@ export default function AddEmployee() {
         Password: password,
         Type: user_type,
       };
-      // await
-      axios
+
+      const formData = {
+        firstName: f_name,
+        lastName: l_name,
+        email: email,
+        gender: gender,
+        phone: phone_no,
+        password: password,
+        type: user_type,
+      };
+      const jsonData = JSON.stringify(formData);
+      await axios
         .post(
           // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
           "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-          {
-            firstName: f_name,
-            lastName: l_name,
-            email: email,
-            gender: gender,
-            phone: phone_no,
-            password: password,
-            type: user_type,
-          },
+          jsonData,
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -466,8 +452,13 @@ export default function AddEmployee() {
         )
         .then(
           (res) => {
-            console.log(res);
-            console.log(res.data);
+            console.log("resssssssssssssss", res.status);
+            if (res.status === 200) {
+              setShowAlert(true);
+              // alert("skjdhfkjd");
+            }
+
+            console.log("res.dataaaaaaaaaaa", res.data);
           },
           (error) => {
             console.log(error);
@@ -503,7 +494,7 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>First Name</h6>
                 <input
-                  className="form-control input-width w-100 "
+                  className="form-control  w-100 "
                   placeholder="Enter First Name"
                   type="text"
                   minLength="3"
@@ -517,7 +508,7 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>Last Name</h6>
                 <input
-                  className="form-control input-width w-100 "
+                  className="form-control  w-100 "
                   placeholder="Enter Last Name"
                   type="text"
                   minLength="0"
@@ -531,7 +522,7 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>Email</h6>
                 <input
-                  className="form-control input-width w-100"
+                  className="form-control  w-100"
                   placeholder="Enter Email"
                   type="email"
                   value={email}
@@ -544,7 +535,7 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>Phone</h6>
                 <input
-                  className="form-control input-width w-100"
+                  className="form-control  w-100"
                   placeholder="Enter Phone"
                   type="tel"
                   value={phone_no}
@@ -583,7 +574,7 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>Initial Password</h6>
                 <input
-                  className="form-control input-width w-100 "
+                  className="form-control  w-100 "
                   placeholder="Enter password"
                   type="password"
                   value={password}
@@ -717,6 +708,23 @@ export default function AddEmployee() {
         marginTop: "10px",
       }}
     >
+      {showAlert == true ? (
+        <Grow in={showAlert}>
+          <Snackbar
+            open={showAlert}
+            autoHideDuration={2000}
+            onClose={handleClose}
+          >
+            <Alert variant="filled" severity="success">
+              <AlertTitle>Success</AlertTitle>
+              <span className="mr-5" style={{ textAlign: "center" }}>
+                Record Submitted
+              </span>
+            </Alert>
+          </Snackbar>
+        </Grow>
+      ) : null}
+
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Employees Record</h3>
       </div>

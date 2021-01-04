@@ -7,14 +7,10 @@ h4 {
 }
 
 .table-image td {
-
-    vertical-align: middle;
-
+  vertical-align: middle;
 }
 .table-image th {
-
-    vertical-align: middle;
-
+  vertical-align: middle;
 }
 .Laa h1 {
   text-align: left;
@@ -39,20 +35,17 @@ select.form-control.form-control-sm {
   border-top: none;
   text-align: center;
 }
-td{
+td {
   text-align: center;
 }
-.button-focus:focus{
+.button-focus:focus {
   outline: none;
 }
 .button-focus {
   border: none;
-  color:#2258BF;
-  
+  color: #2258bf;
 }
-.input-width{
-  width:100%;
-}
+
 /* .button-bg{
   background-color: #2258BF;
 } */
