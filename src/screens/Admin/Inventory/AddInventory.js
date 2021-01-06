@@ -4,14 +4,17 @@ import { Form, Button, Col, Container } from "react-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import {
   IconButton,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
+  Snackbar,
+  LinearProgress,
 } from "@material-ui/core";
-import axios from "axios";
 
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
@@ -28,41 +31,47 @@ export default function AddInventory() {
   const handlePostRequest = async (InventoryData) => {
     console.log("state");
 
-    // setProjectDetails((state) => {
-    //   state.inventory = InventoryData;
-    //   return state;
-    // });
     setProjectDetails((state) => {
-      return {
-        //return the new data layer
-        ...state,
-        inventory: [InventoryData],
-      };
+      state.inventory = InventoryData;
+      return state;
     });
+    // setProjectDetails((state) => {
+    //   console.log("Before Updation", state);
+    //   return {
+    //     //return the new data layer
+    //     ...state,
+    //     inventory: [InventoryData],
+    //   };
+    //   console.log("After Updation", state);
+    // });
     console.log(projectDetails);
 
-    const jsonData = JSON.stringify(projectDetails);
-    await axios
-      .post(
-        // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
-        "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-        jsonData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then(
-        (res) => {
-          console.log("resssssssssssssss", res);
+    await fetch("https://pak-group.herokuapp.com/admin/createProject", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(projectDetails),
+    })
+      .then((response) => {
+        console.log("response", response);
+        console.log("response Data", response.data);
 
-          console.log("res.dataaaaaaaaaaa", res.data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        // if (response.status === 200) {
+        //   setShowAlert(true);
+
+        //   // alert("skjdhfkjd");
+        // }
+      })
+      // .then((response) => response.json())
+      // .then((json) => {
+      //   console.log(json);
+      // })
+
+      .catch((error) => {
+        console.error(error);
+      });
   };
   console.log(projectDetails);
   const Inventory = () => {
@@ -202,6 +211,10 @@ export default function AddInventory() {
     }, [InventoryData]);
     return (
       <React.Fragment>
+        <Snackbar open="true" autoHideDuration={2000}>
+          <CircularProgress disableShrink />
+          <LinearProgress />
+        </Snackbar>
         <br />
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}

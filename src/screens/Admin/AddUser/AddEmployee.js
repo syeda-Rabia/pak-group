@@ -410,6 +410,7 @@ export default function AddEmployee() {
     const [user_type, setUser_type] = useState("Admin");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
+
     const SendRecordToServer = async (event) => {
       event.preventDefault();
 
@@ -439,32 +440,61 @@ export default function AddEmployee() {
         type: user_type,
       };
       const jsonData = JSON.stringify(formData);
-      await axios
-        .post(
-          // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
-          "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-          jsonData,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then(
-          (res) => {
-            console.log("resssssssssssssss", res.status);
-            if (res.status === 200) {
-              setShowAlert(true);
-              // alert("skjdhfkjd");
-            }
+      // await axios
+      //   .post(
+      //     "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
+      //     // "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
+      //     jsonData,
+      //     {
+      //       headers: {
+      //         Accept: "application/json",
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   )
+      //   .then(
+      //     (res) => {
+      //       console.log("resssssssssssssss", res);
+      //       if (res.status === 200) {
+      //         setShowAlert(true);
+      //         // alert("skjdhfkjd");
+      //       }
 
-            console.log("res.dataaaaaaaaaaa", res.data);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      //       console.log("res.dataaaaaaaaaaa", res.data);
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
 
+      // Fetch Code Start
+      await fetch("https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          console.log("response", response);
+          console.log("response Data", response.data);
+
+          if (response.status === 200) {
+            setShowAlert(true);
+
+            // alert("skjdhfkjd");
+          }
+        })
+        // .then((response) => response.json())
+        // .then((json) => {
+        //   console.log(json);
+        // })
+
+        .catch((error) => {
+          console.error(error);
+        });
+      // Fetch Code End
       let arr = data;
       arr.push(user);
       setData(arr);
