@@ -5,6 +5,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 import {
   IconButton,
@@ -14,7 +15,9 @@ import {
   InputLabel,
   Snackbar,
   LinearProgress,
+  Grow,
 } from "@material-ui/core";
+import { Link, useHistory, Redirect, Route } from "react-router-dom";
 
 export default function AddInventory() {
   const [form, setForm] = React.useState(true); //
@@ -23,57 +26,21 @@ export default function AddInventory() {
   const [nameParent, setNameParent] = React.useState("");
   const [unitsParent, setUnitsParent] = React.useState(1);
   const [categoryParent, setCategoryParent] = React.useState("Both");
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [redirectPage, setRedirectPage] = React.useState(false);
+
+  const [showProgress, setShowProgress] = React.useState(false);
 
   const submit = (e) => {
     e.preventDefault();
     console.log("Submit");
   };
-  const handlePostRequest = async (InventoryData) => {
-    console.log("state");
-
-    setProjectDetails((state) => {
-      state.inventory = InventoryData;
-      return state;
-    });
-    // setProjectDetails((state) => {
-    //   console.log("Before Updation", state);
-    //   return {
-    //     //return the new data layer
-    //     ...state,
-    //     inventory: [InventoryData],
-    //   };
-    //   console.log("After Updation", state);
-    // });
-    console.log(projectDetails);
-
-    await fetch("https://pak-group.herokuapp.com/admin/createProject", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(projectDetails),
-    })
-      .then((response) => {
-        console.log("response", response);
-        console.log("response Data", response.data);
-
-        // if (response.status === 200) {
-        //   setShowAlert(true);
-
-        //   // alert("skjdhfkjd");
-        // }
-      })
-      // .then((response) => response.json())
-      // .then((json) => {
-      //   console.log(json);
-      // })
-
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleClose = () => {
+    setShowAlert(false);
+    setRedirectPage(true);
   };
-  console.log(projectDetails);
+
+  // console.log(projectDetails);
   const Inventory = () => {
     const [name, setName] = React.useState(nameParent);
     const [units, setUnits] = React.useState(unitsParent);
@@ -206,16 +173,104 @@ export default function AddInventory() {
       });
       // setInventoryData(inData);
     };
+    const handlePostRequest = async () => {
+      console.log("state");
+      setShowProgress(true);
+
+      setProjectDetails((state) => {
+        state.inventory = InventoryData;
+        return state;
+      });
+      var postData = projectDetails;
+      postData.inventory = InventoryData;
+      // setProjectDetails((state) => {
+      //   console.log("Before Updation", state);
+      //   return {
+      //     //return the new data layer
+      //     ...state,
+      //     inventory: [InventoryData],
+      //   };
+      //   console.log("After Updation", state);
+      // });
+      console.log(projectDetails, "STATE UPDATE");
+      console.log(postData, "POST DATA");
+      console.log("LEVEL", InventoryData);
+
+      await fetch(
+        // "https://pak-group.herokuapp.com/admin/createProject",
+        "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(projectDetails),
+        }
+      )
+        .then((response) => {
+          console.log("response", response);
+          console.log("response Data", response.data);
+
+          if (response.status === 200) {
+            // alert("skjdhfkjd");
+            setTimeout(() => {
+              setShowProgress(false);
+              setShowAlert(true);
+            }, 2000);
+          }
+        })
+        // .then((response) => response.json())
+        // .then((json) => {
+        //   console.log(json);
+        // })
+
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    const history = useHistory();
+
     React.useEffect(() => {
       if (InventoryData.length === 0) setForm((state) => !state);
     }, [InventoryData]);
     return (
       <React.Fragment>
-        <Snackbar open="true" autoHideDuration={2000}>
-          <CircularProgress disableShrink />
-          <LinearProgress />
-        </Snackbar>
+        {/* <LinearProgress /> */}
+        {showProgress == true ? (
+          <Snackbar open={showProgress}>
+            <CircularProgress disableShrink />
+          </Snackbar>
+        ) : null}
+
+        {showAlert == true ? (
+          <Grow in={showAlert}>
+            <Snackbar
+              open={showAlert}
+              autoHideDuration={1000}
+              onClose={handleClose}
+            >
+              <Alert variant="filled" severity="success">
+                <AlertTitle>Success</AlertTitle>
+                <span className="mr-5" style={{ textAlign: "center" }}>
+                  Project Added
+                </span>
+              </Alert>
+            </Snackbar>
+          </Grow>
+        ) : null}
         <br />
+        <Route
+          render={() =>
+            redirectPage ? (
+              <Redirect
+                to={{
+                  pathname: "/admin/inventory",
+                }}
+              />
+            ) : null
+          }
+        />
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
         <IconButton
@@ -363,18 +418,20 @@ export default function AddInventory() {
                 </Form.Row>
               );
             })}
-
-            <Button
-              onClick={() => {
-                handlePostRequest(InventoryData);
-                // setProjectDetails((state) => {
-                //   state.inventory = InventoryData;
-                //   return state;
-                // });
-              }}
-            >
-              Save
-            </Button>
+            <Link>
+              <Button
+                onClick={() => {
+                  handlePostRequest();
+                  // setProjectDetails((state) => {
+                  //   state.inventory = InventoryData;
+                  //   return state;
+                  // });
+                  // setTimeout(() => {}, 3000);
+                }}
+              >
+                Save
+              </Button>
+            </Link>
           </Form>
         </Container>
       </React.Fragment>

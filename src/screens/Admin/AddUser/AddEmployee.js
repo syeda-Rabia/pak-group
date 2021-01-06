@@ -291,17 +291,17 @@ export default function AddEmployee() {
               >
                 Close
               </Button>
-              
+
               <Button
-            type="submit"
-            value="Submit"
-            style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setShowAdd(false);
-            }}
-          >
-            Add
-          </Button>
+                type="submit"
+                value="Submit"
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowAdd(false);
+                }}
+              >
+                Add
+              </Button>
             </Modal.Footer>
           </div>
         </form>
