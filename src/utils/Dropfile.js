@@ -32,16 +32,17 @@ export default function Dropfile(props) {
   ));
 
   return (
-    <section className="container fluid border border-black">
+    <section >
       <button
-        className="btn btn-outline-info pb-2 mb-2"
+        className="btn btn-primary "
+        style={{backgroundColor:"#2258BF"}}
         onClick={() => {
           setToggle(!toggle);
           console.log(toggle);
         }}
       >
         <FontAwesomeIcon icon={faFileExcel} />{" "}
-        <span className="ml-1">Import Excel</span>
+        <span className="">Import Excel</span>
       </button>
       {toggle ? (
         <>

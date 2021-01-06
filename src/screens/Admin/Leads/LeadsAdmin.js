@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 export default function LeadsAdmin() {
   return (
-    <Container fluid className="Laa">
+    <Container fluid className=" Laa">
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads</h3>
       </div>
@@ -114,28 +114,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control " />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Rabia</option>
                         <option>Atif</option>
                         <option>Qasim</option>
@@ -143,7 +143,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -153,7 +153,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -163,28 +163,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Rabia</option>
                         <option>Atif</option>
                         <option>Qasim</option>
@@ -192,7 +192,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -202,7 +202,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -212,28 +212,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -241,7 +241,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -251,7 +251,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -261,28 +261,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -290,7 +290,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -300,7 +300,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -310,28 +310,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -339,7 +339,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -349,7 +349,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -359,28 +359,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -388,7 +388,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -398,7 +398,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -408,28 +408,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -437,7 +437,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -447,7 +447,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -457,28 +457,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -486,7 +486,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -496,7 +496,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>
@@ -506,28 +506,28 @@ export default function LeadsAdmin() {
                   <tr>
                     <td scope="row">1</td>
                     <td>
-                      <input placeholder="Atif" className="form-control" />
+                      <input placeholder="Atif" className=" w-100 form-control" />
                     </td>
                     <td>
-                      <input placeholder="Contact" className="form-control" />
+                      <input placeholder="Contact" className=" w-100 form-control" />
                     </td>
                     <td>Project Name</td>
                     <td>
-                      <input placeholder="400 PKR" className="form-control" />
+                      <input placeholder="400 PKR" className=" w-100 form-control" />
                     </td>
                     <td>10:00 PM</td>
                     <td>London</td>
                     <td>On</td>
 
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>5 Marla Residential</option>
                         <option>3 marla Rent</option>
                         <option>10 marla Plot</option>
                       </select>
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Atif</option>
                         <option>Rabia</option>
                         <option>Qasim</option>
@@ -535,7 +535,7 @@ export default function LeadsAdmin() {
                     </td>
                     <td>Rabia@gmail</td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Sale</option>
                         <option>Rent</option>
                         <option>Pending</option>
@@ -545,7 +545,7 @@ export default function LeadsAdmin() {
                       <KeyboardDatePickerExample />
                     </td>
                     <td>
-                      <select className="form-control form-control-sm">
+                      <select className=" w-100 form-control form-control-sm">
                         <option>Recording 1</option>
                         <option>Recording 2</option>
                         <option>Recording 3</option>

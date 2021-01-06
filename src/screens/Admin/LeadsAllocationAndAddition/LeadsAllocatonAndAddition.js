@@ -47,59 +47,117 @@ export default function LeadsAllocatonAndAddition() {
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
-          <Modal.Title style={{ color: "#818181" }}>
-            Employee Record
-          </Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
         </Modal.Header>
         <div class="col-lg-12 shadow   bg-white rounded ">
           <form>
             <Modal.Body>
-              <div style={{ alignContent: "center" }}>
-                <div className="pb-3">
-                  <h6>First Name </h6>
-                  <input
-                    className="form-control  input-width"
-                    value={item.Name}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Last name</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Last_Name}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Email</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Email}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Gender</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Gender}
-                  />
-                </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+                className=""
+              >
+                {/* <div> */}
+                <div className="">
+                  <div className="pb-3">
+                    <h6>Name </h6>
+                    <input
+                      className="form-control  input-width w-100"
+                      value={item.Name}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Contact</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Contact}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Project}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Budget}
+                    />
+                  </div>
 
-                <div className="pb-3">
-                  <h6>Contact</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Contact}
-                  />
+                  <div className="pb-3">
+                    <h6>Toc</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Toc}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Source</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Source}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Country</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Country}
+                    />
+                  </div>
                 </div>
-                <div className="pb-3">
-                  <h6>Type</h6>
-                  <input
-                    className="form-control input-width "
-                    value={item.Type}
-                  />
+                <div className="">
+                  <div className="pb-3">
+                    <h6>Status</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Status}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Interest</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Interest}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Allocated To</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Allocate}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Task</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Task}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Deadline</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Deadline}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Returned From</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      value={item.Returned}
+                    />
+                  </div>
                 </div>
-              </div>
-              {/* <label>ID</label>
+                {/* <label>ID</label>
           <input type="number">{item.id}</input>
           <label>Name</label>
           <input type="name">{item.Name}</input>
@@ -107,6 +165,8 @@ export default function LeadsAllocatonAndAddition() {
           <input type="email">{item.Email}</input>
           <label>Type</label>
           <input type="type">{item.Type}</input> */}
+                {/* </div> */}
+              </div>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -131,7 +191,7 @@ export default function LeadsAllocatonAndAddition() {
     const [budget, setBudget] = useState(item.Budget);
     const [toc, setToc] = useState(item.Toc);
     const [source, setSource] = useState(item.Source);
-    const [country, setCountry] = useState(item.Source);
+    const [country, setCountry] = useState(item.Country);
     const [status, setStatus] = useState(item.Status);
     const [interest, setInterest] = useState(item.Interest);
     const [allocate_to, setAllocate] = useState(item.Allocate);
@@ -223,166 +283,181 @@ export default function LeadsAllocatonAndAddition() {
           <div class="col-lg-12 shadow  bg-white rounded ">
             <Modal.Body>
               <form>
-                <div className="pb-3">
-                  <h6>Client</h6>
-                  <input
-                    className="form-control input-width w-100 "
-                    type="text"
-                    minLength="3"
-                    maxLength="10"
-                    value={client}
-                    onChange={(e) => {
-                      setClient(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Contact</h6>
-                  <input
-                    className="form-control input-width w-100 "
-                    placeholder="Enter Contact"
-                    type="text"
-                    minLength="0"
-                    maxLength="10"
-                    value={contact}
-                    onChange={(e) => {
-                      setContact(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Project</h6>
-                  <select
-                    value={project}
-                    onChange={(e) => {
-                      setProject(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"LDA"}>LDA City</option>
-                    <option value={"DHA"}>DHA </option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>Budget</h6>
-                  <input
-                    className="form-control input-width w-100"
-                    placeholder="Enter Budget"
-                    type="email"
-                    value={budget}
-                    onChange={(e) => {
-                      setBudget(e.target.value);
-                    }}
-                  />
-                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                   
+                  }}
+                  className=""
+                >
+                  <div>
+                    <div className="pb-3">
+                      <h6>Client</h6>
+                      <input
+                        className="form-control input-width w-100 "
+                        type="text"
+                        minLength="3"
+                        maxLength="10"
+                        value={client}
+                        onChange={(e) => {
+                          setClient(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Contact</h6>
+                      <input
+                        className="form-control input-width w-100 "
+                        placeholder="Enter Contact"
+                        type="text"
+                        minLength="0"
+                        maxLength="10"
+                        value={contact}
+                        onChange={(e) => {
+                          setContact(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Project</h6>
+                      <select
+                        value={project}
+                        onChange={(e) => {
+                          setProject(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"LDA"}>LDA City</option>
+                        <option value={"DHA"}>DHA </option>
+                      </select>
+                    </div>
+                    <div className="pb-3">
+                      <h6>Budget</h6>
+                      <input
+                        className="form-control input-width w-100"
+                        placeholder="Enter Budget"
+                        type="email"
+                        value={budget}
+                        onChange={(e) => {
+                          setBudget(e.target.value);
+                        }}
+                      />
+                    </div>
 
-                <div className="pb-3">
-                  <h6>Time-To Call</h6>
-                  <div className="form-control input-width w-100">
-                    <KeyboardTimePickerExample
-                      value={toc}
-                      onChange={(e) => {
-                        setToc(e.target.value);
-                        console.log(e);
-                      }}
-                    />
-                  </div>
-                </div>
+                    <div className="pb-3">
+                      <h6>Time-To Call</h6>
+                      <div className=" w-100">
+                        <KeyboardTimePickerExample
+                          value={toc}
+                          onChange={(e) => {
+                            setToc(e.target.value);
+                            console.log(e);
+                          }}
+                        />
+                      </div>
+                    </div>
 
-                <div className="pb-3">
-                  <h6>Source</h6>
-                  <select
-                    value={source}
-                    onChange={(e) => {
-                      setSource(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"Newspaper"}>News Paper</option>
-                    <option value={"Tv"}>Tv</option>
-                    <option value={"sms"}>SMS</option>
-                    <option value={"personal reference"}>
-                      Personal Reference
-                    </option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>Country/city</h6>
-                  <input
-                    className="form-control input-width w-100"
-                    placeholder="Enter Country"
-                    type="email"
-                    value={country}
-                    onChange={(e) => {
-                      setCountry(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Status</h6>
-                  <select
-                    value={status}
-                    onChange={(e) => {
-                      setStatus(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"graceperiod"}>Grace Period</option>
-                    <option value={"Overdue"}>Over Due</option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>Interest</h6>
-                  <select
-                    value={interest}
-                    onChange={(e) => {
-                      setInterest(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"5marla"}>5 Marla</option>
-                    <option value={"10marla"}>10 Marla</option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>Allocate To</h6>
-                  <select
-                    value={allocate_to}
-                    onChange={(e) => {
-                      setAllocate(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"Atif"}>Atif</option>
-                    <option value={"Rabia"}>Rabia</option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>Task</h6>
-                  <select
-                    value={task}
-                    onChange={(e) => {
-                      setTask(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <option value={"Sale"}>Sale</option>
-                    <option value={"rent"}>Rent</option>
-                    <option value={"other"}>other</option>
-                  </select>
-                </div>
-                <div className="pb-3">
-                  <h6>DeadLine</h6>
-                  <div className="form-control input-width w-100 ">
-                    <KeyboardDatePickerExample
-                      value={deadline}
-                      onChange={(e) => {
-                        setDeadline(e.target.value);
-                      }}
-                    />
+                    <div className="pb-3">
+                      <h6>Source</h6>
+                      <select
+                        value={source}
+                        onChange={(e) => {
+                          setSource(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"Newspaper"}>News Paper</option>
+                        <option value={"Tv"}>Tv</option>
+                        <option value={"sms"}>SMS</option>
+                        <option value={"personal reference"}>
+                          Personal Reference
+                        </option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div className="pb-3">
+                  <div className="ml-4">
+                    <div className="pb-3">
+                      <h6>Country/city</h6>
+                      <input
+                        className="form-control input-width w-100"
+                        placeholder="Enter Country"
+                        type="email"
+                        value={country}
+                        onChange={(e) => {
+                          setCountry(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Status</h6>
+                      <select
+                        value={status}
+                        onChange={(e) => {
+                          setStatus(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"graceperiod"}>Grace Period</option>
+                        <option value={"Overdue"}>Over Due</option>
+                      </select>
+                    </div>
+                    <div className="pb-3">
+                      <h6>Interest</h6>
+                      <select
+                        value={interest}
+                        onChange={(e) => {
+                          setInterest(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"5marla"}>5 Marla</option>
+                        <option value={"10marla"}>10 Marla</option>
+                      </select>
+                    </div>
+                    <div className="pb-3">
+                      <h6>Allocate To</h6>
+                      <select
+                        value={allocate_to}
+                        onChange={(e) => {
+                          setAllocate(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"Atif"}>Atif</option>
+                        <option value={"Rabia"}>Rabia</option>
+                      </select>
+                    </div>
+                    <div className="pb-3">
+                      <h6>Task</h6>
+                      <select
+                        value={task}
+                        onChange={(e) => {
+                          setTask(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        <option value={"Sale"}>Sale</option>
+                        <option value={"rent"}>Rent</option>
+                        <option value={"other"}>other</option>
+                      </select>
+                    </div>
+                    <div className="pb-3">
+                      <h6>DeadLine</h6>
+                      <div className=" w-100">
+                        <KeyboardDatePickerExample
+                        style={{
+                          border:""
+                        }}
+                          value={deadline}
+                          onChange={(e) => {
+                            setDeadline(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    {/* <div className="pb-3">
                   <h6>returned From</h6>
                   <select
                     value={returned_from}
@@ -395,6 +470,8 @@ export default function LeadsAllocatonAndAddition() {
                     <option value={"Ali"}>Ali</option>
                     <option value={"Atif"}>Atif</option>
                   </select>
+                </div> */}
+                  </div>
                 </div>
               </form>
             </Modal.Body>
@@ -407,17 +484,17 @@ export default function LeadsAllocatonAndAddition() {
               >
                 Close
               </Button>
-              
+
               <Button
-            type="submit"
-            value="Submit"
-            style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setShowAdd(false);
-            }}
-          >
-            Add
-          </Button>
+                type="submit"
+                value="Submit"
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowAdd(false);
+                }}
+              >
+                Add
+              </Button>
             </Modal.Footer>
           </div>
         </form>
@@ -571,167 +648,179 @@ export default function LeadsAllocatonAndAddition() {
         >
           <div class="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
-              <div className="pb-3">
-                <h6>Client</h6>
-                <input
-                  className="form-control input-width w-100 "
-                  placeholder="Enter  Name"
-                  type="text"
-                  minLength="3"
-                  maxLength="10"
-                  value={client}
-                  onChange={(e) => {
-                    setClient(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="pb-3">
-                <h6>Contact</h6>
-                <input
-                  className="form-control input-width w-100 "
-                  placeholder="Enter Contact"
-                  type="text"
-                  minLength="0"
-                  maxLength="10"
-                  value={contact}
-                  onChange={(e) => {
-                    setContact(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="pb-3">
-                <h6>Project</h6>
-                <select
-                  value={project}
-                  onChange={(e) => {
-                    setProject(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"LDA"}>LDA City</option>
-                  <option value={"DHA"}>DHA </option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>Budget</h6>
-                <input
-                  className="form-control input-width w-100"
-                  placeholder="Enter Budget"
-                  type="email"
-                  value={budget}
-                  onChange={(e) => {
-                    setBudget(e.target.value);
-                  }}
-                />
-              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+                className=""
+              >
+                <div>
+                  <div className="pb-3">
+                    <h6>Client</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      placeholder="Enter  Name"
+                      type="text"
+                      minLength="3"
+                      maxLength="10"
+                      value={client}
+                      onChange={(e) => {
+                        setClient(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Contact</h6>
+                    <input
+                      className="form-control input-width w-100 "
+                      placeholder="Enter Contact"
+                      type="text"
+                      minLength="0"
+                      maxLength="10"
+                      value={contact}
+                      onChange={(e) => {
+                        setContact(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <select
+                      value={project}
+                      onChange={(e) => {
+                        setProject(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"LDA"}>LDA City</option>
+                      <option value={"DHA"}>DHA </option>
+                    </select>
+                  </div>
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <input
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="email"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div>
 
-              <div className="pb-3">
-                <h6>Time-To Call</h6>
-                <div className="form-control input-width w-100">
-                  <KeyboardTimePickerExample
-                    value={toc}
-                    onChange={(e) => {
-                      setToc(e.target.value);
-                      console.log(e);
-                    }}
-                  />
-                </div>
-              </div>
+                  <div className="pb-3">
+                    <h6>Time-To Call</h6>
+                    <div className=" w-100">
+                      <KeyboardTimePickerExample
+                        value={toc}
+                        onChange={(e) => {
+                          setToc(e.target.value);
+                          console.log(e);
+                        }}
+                      />
+                    </div>
+                  </div>
 
-              <div className="pb-3">
-                <h6>Source</h6>
-                <select
-                  value={source}
-                  onChange={(e) => {
-                    setSource(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"Newspaper"}>News Paper</option>
-                  <option value={"Tv"}>Tv</option>
-                  <option value={"sms"}>SMS</option>
-                  <option value={"personal reference"}>
-                    Personal Reference
-                  </option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>Country/city</h6>
-                <input
-                  className="form-control input-width w-100"
-                  placeholder="Enter Country"
-                  type="email"
-                  value={country}
-                  onChange={(e) => {
-                    setCountry(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="pb-3">
-                <h6>Status</h6>
-                <select
-                  value={status}
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"graceperiod"}>Grace Period</option>
-                  <option value={"Overdue"}>Over Due</option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>Interest</h6>
-                <select
-                  value={interest}
-                  onChange={(e) => {
-                    setInterest(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"5marla"}>5 Marla</option>
-                  <option value={"10marla"}>10 Marla</option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>Allocate To</h6>
-                <select
-                  value={allocate_to}
-                  onChange={(e) => {
-                    setAllocate(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"Atif"}>Atif</option>
-                  <option value={"Rabia"}>Rabia</option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>Task</h6>
-                <select
-                  value={task}
-                  onChange={(e) => {
-                    setTask(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"Sale"}>Sale</option>
-                  <option value={"rent"}>Rent</option>
-                  <option value={"other"}>other</option>
-                </select>
-              </div>
-              <div className="pb-3">
-                <h6>DeadLine</h6>
-                <div className="form-control input-width w-100 ">
-                  <KeyboardDatePickerExample
-                    value={deadline}
-                    onChange={(e) => {
-                      setDeadline(e.target.value);
-                    }}
-                  />
+                  <div className="pb-3">
+                    <h6>Source</h6>
+                    <select
+                      value={source}
+                      onChange={(e) => {
+                        setSource(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"Newspaper"}>News Paper</option>
+                      <option value={"Tv"}>Tv</option>
+                      <option value={"sms"}>SMS</option>
+                      <option value={"personal reference"}>
+                        Personal Reference
+                      </option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="pb-3">
+                <div className="ml-3">
+                  <div className="pb-3">
+                    <h6>Country/city</h6>
+                    <input
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="email"
+                      value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Status</h6>
+                    <select
+                      value={status}
+                      onChange={(e) => {
+                        setStatus(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"graceperiod"}>Grace Period</option>
+                      <option value={"Overdue"}>Over Due</option>
+                    </select>
+                  </div>
+                  <div className="pb-3">
+                    <h6>Interest</h6>
+                    <select
+                      value={interest}
+                      onChange={(e) => {
+                        setInterest(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"5marla"}>5 Marla</option>
+                      <option value={"10marla"}>10 Marla</option>
+                    </select>
+                  </div>
+                  <div className="pb-3">
+                    <h6>Allocate To</h6>
+                    <select
+                      value={allocate_to}
+                      onChange={(e) => {
+                        setAllocate(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"Atif"}>Atif</option>
+                      <option value={"Rabia"}>Rabia</option>
+                    </select>
+                  </div>
+                  <div className="pb-3">
+                    <h6>Task</h6>
+                    <select
+                      value={task}
+                      onChange={(e) => {
+                        setTask(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <option value={"Sale"}>Sale</option>
+                      <option value={"rent"}>Rent</option>
+                      <option value={"other"}>other</option>
+                    </select>
+                  </div>
+                  <div className="pb-3">
+                    <h6>DeadLine</h6>
+                    <div className=" w-100 ">
+                      <KeyboardDatePickerExample
+                        value={deadline}
+                        onChange={(e) => {
+                          setDeadline(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* <div className="pb-3">
                 <h6>returned From</h6>
                 <select
                   value={returned_from}
@@ -744,6 +833,8 @@ export default function LeadsAllocatonAndAddition() {
                   <option value={"Ali"}>Ali</option>
                   <option value={"Atif"}>Atif</option>
                 </select>
+              </div> */}
+                </div>
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -867,31 +958,35 @@ export default function LeadsAllocatonAndAddition() {
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Leads Allocation And Addition</h3>
       </div>
-      <div class="col-lg-12 shadow p-3  bg-white rounded ">
-        <div>
-          <Dropfile />
-        </div>
+      <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <Row className="mb-2">
+          <div className=" pl-2">
+            <Dropfile />
+          </div>
 
-        <ReactTooltip id="AddTip" place="top" effect="solid">
-          import Excel
-        </ReactTooltip>
-        <button
-          data-tip
-          data-for="AddTip"
-          type="button"
-          className="btn btn-primary my-4"
-          style={{
-            backgroundColor: "#2258BF",
-          }}
-          onClick={() => {
-            setShowAdd(true);
-          }}
-        >
-          <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
-        </button>
-        <ReactTooltip id="AddTip" place="top" effect="solid">
-          Add new Lead
-        </ReactTooltip>
+          <ReactTooltip id="AddTip" place="top" effect="solid">
+            import Excel
+          </ReactTooltip>
+          <div className=" float-right pl-2">
+            <button
+              data-tip
+              data-for="AddTip"
+              type="button"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+              onClick={() => {
+                setShowAdd(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
+            </button>
+            <ReactTooltip id="AddTip" place="top" effect="solid">
+              Add new Lead
+            </ReactTooltip>
+          </div>
+        </Row>
         <span></span>
         <Row>
           <Col

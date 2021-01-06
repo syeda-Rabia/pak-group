@@ -39,18 +39,18 @@ export default function LeadsAllocatonAndAddition() {
           <input
             key={item.id}
             placeholder={item.Clients}
-            className="form-control "
+            className="form-control w-100"
           />
         </td>
         <td>
           <input
             key={item.id}
             placeholder={item.Contacts}
-            className="form-control"
+            className="form-control w-100"
           />
         </td>
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Project.map((project) => (
               <option>{project}</option>
             ))}
@@ -60,7 +60,7 @@ export default function LeadsAllocatonAndAddition() {
           <input
             key={item.id}
             placeholder={item.Budget}
-            className="form-control"
+            className="form-control w-100"
           />
         </td>
 
@@ -74,7 +74,7 @@ export default function LeadsAllocatonAndAddition() {
         <td key={item.id}>{item.Country}</td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Status.map((status) => {
               return <option>{status}</option>;
             })}
@@ -82,7 +82,7 @@ export default function LeadsAllocatonAndAddition() {
         </td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Interest.map((interest) => {
               return <option>{interest}</option>;
             })}
@@ -92,11 +92,11 @@ export default function LeadsAllocatonAndAddition() {
           <input
             key={item.id}
             placeholder={item.Email}
-            className="form-control"
+            className="form-control w-100"
           />
         </td>
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Task.map((task) => {
               return <option>{task}</option>;
             })}
@@ -112,7 +112,7 @@ export default function LeadsAllocatonAndAddition() {
         </td>
         <td>Rabia</td>
         <td>
-          <select className="form-control form-control-sm">
+          <select className="form-control form-control-sm w-100">
             <option>Recording 1</option>
             <option>Recording 2</option>
             <option>Recording 3</option>
@@ -199,6 +199,11 @@ export default function LeadsAllocatonAndAddition() {
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         {"Returned_From"}
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Recording
                       </span>
                     </th>
                   </tr>
