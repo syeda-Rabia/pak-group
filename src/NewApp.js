@@ -42,7 +42,6 @@ function NewApp() {
           <HeaderNavBar />
           <AdminProjectListScreen />
         </Route>
-        
 
         <Route path="/admin/dashboard">
           <HeaderNavBar />
@@ -63,6 +62,10 @@ function NewApp() {
         <Route path="/admin/user">
           <HeaderNavBar />
           <AddEmployee />
+        </Route>
+        <Route path="/admin/policies">
+          
+          <EmployeePolicies />
         </Route>
         <Route exact path="/admin/viewable">
           <HeaderNavBar />

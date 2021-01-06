@@ -209,7 +209,7 @@ export default function RecordTable() {
         <td>{item.Clients}</td>
         <td>{item.Contacts}</td>
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Project.map((project) => (
               <option>{project}</option>
             ))}
@@ -220,7 +220,7 @@ export default function RecordTable() {
         <td key={item.id}>{item.Country}</td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Status.map((status) => {
               return <option>{status}</option>;
             })}
@@ -228,7 +228,7 @@ export default function RecordTable() {
         </td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Interest.map((interest) => {
               return <option>{interest}</option>;
             })}
@@ -238,11 +238,11 @@ export default function RecordTable() {
           <input
             key={item.id}
             placeholder={item.Email}
-            className="form-control"
+            className="form-control w-100"
           />
         </td>
         <td>
-          <select key={item.id} className="form-control form-control-sm">
+          <select key={item.id} className="form-control form-control-sm w-100">
             {item.Task.map((task) => {
               return <option>{task}</option>;
             })}
