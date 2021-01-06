@@ -9,6 +9,7 @@ import {
   Route,
   Link,
   useLocation,
+  Redirect,
 } from "react-router-dom";
 import SignIn from "./screens/Admin/SignIn/SignIn";
 import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
@@ -28,12 +29,11 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 
 import ExcelPage from "./utils/ExcelPage";
 function NewApp() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <SignIn />
-        </Route>
+  const [userType, setUserType] = React.useState("");
+  console.log("user app", userType);
+  const AdminRoute = () => {
+    return (
+      <React.Fragment>
         <Route path="/admin/inventory/add">
           <HeaderNavBar />
           <AdminAddInventoryScreen />
@@ -42,7 +42,6 @@ function NewApp() {
           <HeaderNavBar />
           <AdminProjectListScreen />
         </Route>
-
         <Route path="/admin/dashboard">
           <HeaderNavBar />
           <AdminDashboardScreen />
@@ -64,7 +63,7 @@ function NewApp() {
           <AddEmployee />
         </Route>
         <Route path="/admin/policies">
-          
+          <HeaderNavBar />
           <EmployeePolicies />
         </Route>
         <Route exact path="/admin/viewable">
@@ -77,6 +76,13 @@ function NewApp() {
           {/* <ProjectList /> */}
           <ExcelPage />
         </Route>
+      </React.Fragment>
+    );
+  };
+
+  const EmployeeRoute = () => {
+    return (
+      <React.Fragment>
         <Route path="/employee/dashboard">
           <EmployeHeader />
           <EmployeeDashboardScreen />
@@ -97,6 +103,41 @@ function NewApp() {
           <EmployeHeader />
           <EmployeeToDo />
         </Route>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <SignIn setUser={setUserType} />
+          {userType === "admin" ? (
+            <Route
+              render={() =>
+                userType == "admin" ? (
+                  <Redirect
+                    to={{
+                      pathname: "/admin/dashboard",
+                    }}
+                  />
+                ) : userType === "employee" ? (
+                  <Redirect
+                    to={{
+                      pathname: "/employee/dashboard",
+                    }}
+                  />
+                ) : null
+              }
+            />
+          ) : null}
+        </Route>
+        {userType === "admin" ? (
+          <AdminRoute />
+        ) : userType === "employee" ? (
+          <EmployeeRoute />
+        ) : null}
+        {/* {userType === "admin" ? alert("Admin") : alert("employee")} */}
       </Switch>
     </Router>
   );

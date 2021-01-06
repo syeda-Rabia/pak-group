@@ -14,19 +14,35 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    axios
-      .post(`https://pak-group.herokuapp.com/admin/login`, { items })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handlePostLogin = async () => {
+    // console.log("lofin");
+    await fetch("https://pak-group.herokuapp.com/admin/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        let userType = Object.keys(json)[0];
+        console.log(userType);
+        props.setUser(userType);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-  }, []);
+  };
 
   return (
     <Container fluid>
@@ -117,6 +133,10 @@ export default function SignIn() {
                     <input
                       type="email"
                       name="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       placeholder="Username or Email "
                     />
                     <span className="input-icon">
@@ -124,7 +144,15 @@ export default function SignIn() {
                     </span>
                   </div>
                   <div className="form-group" style={{}}>
-                    <input type="password" name="psw" placeholder="Password" />
+                    <input
+                      type="password"
+                      name="psw"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
                     <span className="input-icon">
                       <i lass="fa fa-lock"></i>
                     </span>
@@ -148,7 +176,7 @@ export default function SignIn() {
                       display: "flex",
                       width: "50%",
                       flexDirection: "row",
-                      paddingTop:"10px",
+                      paddingTop: "10px",
                       // justifyContent: "flex-start",
                       // alignItems: "center",
                       // float: "left",
@@ -164,11 +192,9 @@ export default function SignIn() {
                         width: "100%",
                         // float: "left",
                         // marginLeft: "",
-                        
                       }}
                       for="remember"
                     >
-                      {" "}
                       Remember me
                     </label>
                   </div>
@@ -182,24 +208,26 @@ export default function SignIn() {
                       paddingRight: 100,
                     }}
                   >
-                    <a href="#">Forgot Password?</a>
+                    <a>Forgot Password?</a>
                   </div>
                 </div>
               </div>
 
-              <Link to="/admin/dashboard" style={{ color: "white" }}>
-                <button
-                  className="login-btn "
-                  style={{ backgroundColor: "#2258BF" }}
-                  // onClick={() => {
-                  //   this.props.setUser("admin");
-                  // }}
-                >
-                  Admin Login
-                </button>
-              </Link>
+              {/* <Link to="/admin/dashboard" style={{ color: "white" }}> */}
+              <button
+                className="login-btn "
+                type="submit"
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={(event) => {
+                  event.preventDefault();
+                  handlePostLogin();
+                }}
+              >
+                Login
+              </button>
+              {/* </Link> */}
 
-              <Link to="/employee/dashboard" style={{ color: "white" }}>
+              {/* <Link to="/employee/dashboard" style={{ color: "white" }}>
                 <button
                   className="login-btn"
                   style={{ backgroundColor: "#2258BF" }}
@@ -209,15 +237,12 @@ export default function SignIn() {
                 >
                   Employee Login
                 </button>
-              </Link>
+              </Link> */}
 
               <div className="row mb-4 px-5 ">
                 <p style={{ textAlign: "center" }}>
-                  {" "}
-                  Don't have an account?{" "}
-                  <a href="#" className="text-primary ">
-                    Sign up now!
-                  </a>
+                  Don't have an account?
+                  <a className="text-primary ">Sign up now!</a>
                 </p>
               </div>
             </form>
