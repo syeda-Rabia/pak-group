@@ -37,79 +37,31 @@ export default function LeadsAllocatonAndAddition() {
     return (
       <tr>
         <td key={item.id}>{item.id}</td>
-        <td>
-          <input
-            key={item.id}
-            placeholder={item.Clients}
-            className="form-control "
-          />
-        </td>
-        <td>
-          <input
-            key={item.id}
-            placeholder={item.Contacts}
-            className="form-control"
-          />
-        </td>
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Project.map((project) => (
-              <option>{project}</option>
-            ))}
-          </select>
-        </td>
-        <td>
-          <input
-            key={item.id}
-            placeholder={item.Budget}
-            className="form-control"
-          />
-        </td>
+        <td key={item.id}>{item.Clients}</td>
+        <td key={item.id}>{item.Contacts}</td>
+        <td key={item.id}>{item.Project[0]}</td>
+        <td key={item.id}>{item.Budget}</td>
 
         <td key={item.id}>
           <div
             style={{ marginLeft: "10px", marginRight: "60px", width: "100%" }}
           >
-            <KeyboardTimePickerExample />
+            04:30 AM
           </div>
         </td>
         <td key={item.id}>{item.Country}</td>
 
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Status.map((status) => {
-              return <option>{status}</option>;
-            })}
-          </select>
-        </td>
+        <td key={item.id}>{item.Status[0]}</td>
 
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Interest.map((interest) => {
-              return <option>{interest}</option>;
-            })}
-          </select>
-        </td>
-        <td>
-          <input
-            key={item.id}
-            placeholder={item.Email}
-            className="form-control"
-          />
-        </td>
-        <td>
-          <select key={item.id} className="form-control form-control-sm">
-            {item.Task.map((task) => {
-              return <option>{task}</option>;
-            })}
-          </select>
-        </td>
+        <td key={item.id}>{item.Interest[0]}</td>
+        <td key={item.id}>{item.Email}</td>
+        <td key={item.id}>{item.Task[0]}</td>
         <td key={item.id}>
           <div
             className=""
             style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
           >
-            <KeyboardDatePickerExample />
+            04/01/2021
           </div>
         </td>
         <td> Recording 1</td>
@@ -125,7 +77,6 @@ export default function LeadsAllocatonAndAddition() {
                 color: "black",
                 outline: "none",
                 backgroundColor: "white",
-              
               }}
             >
               <DropdownButton
@@ -133,20 +84,33 @@ export default function LeadsAllocatonAndAddition() {
                 id="shiftAndWarnButton"
                 title="Shift and Warn"
                 drop="left"
+                style={{
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
               >
                 <Dropdown.Item
                   as="button"
                   eventKey="instruct"
                   style={{ color: "black", outline: "none" }}
                 >
-                  Date
+                  <div
+                    style={
+                      {
+                        // marginLeft: "10px",
+                        // marginRight: "60px",
+                      }
+                    }
+                  >
+                    <KeyboardDatePickerExample />
+                  </div>
                 </Dropdown.Item>
                 <Dropdown.Item
                   as="button"
                   eventKey="call-Explanation"
                   style={{ color: "black", outline: "none" }}
                 >
-                  Time
+                  <KeyboardTimePickerExample />
                 </Dropdown.Item>
               </DropdownButton>
             </DropdownButton>
@@ -156,7 +120,7 @@ export default function LeadsAllocatonAndAddition() {
               title="Call declined"
               drop="left"
             >
-              <Dropdown.Item
+              {/* <Dropdown.Item
                 as="button"
                 eventKey="instruct"
                 style={{ color: "black", outline: "none" }}
@@ -176,7 +140,7 @@ export default function LeadsAllocatonAndAddition() {
                 style={{ color: "black", outline: "none" }}
               >
                 Qasim
-              </Dropdown.Item>
+              </Dropdown.Item> */}
             </DropdownButton>
 
             <DropdownButton
@@ -185,7 +149,7 @@ export default function LeadsAllocatonAndAddition() {
               title="Asked To Send Whatsapp"
               drop="left"
             >
-              <Dropdown.Item
+              {/* <Dropdown.Item
                 as="button"
                 eventKey="instruct"
                 style={{ color: "black", outline: "none" }}
@@ -205,7 +169,7 @@ export default function LeadsAllocatonAndAddition() {
                 style={{ color: "black", outline: "none" }}
               >
                 Qasim
-              </Dropdown.Item>
+              </Dropdown.Item> */}
             </DropdownButton>
             <DropdownButton
               className="mb-1"
@@ -266,19 +230,79 @@ export default function LeadsAllocatonAndAddition() {
             </DropdownButton>
           </DropdownButton>
         </td>
-        <td>What to do</td>
+        <td>
+          <DropdownButton
+            id="CTA-button"
+            variant="info"
+            title="CTA"
+            onSelect={(e) => {
+              setValue(e);
+              
+              console.log(e);
+            }}
+          >
+            <Dropdown.Item
+              as="button"
+              eventKey="instruct"
+              style={{ color: "black", outline: "none" }}
+            >
+              Instruct
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              eventKey="call-Explanation"
+              style={{ color: "black", outline: "none" }}
+            >
+              Call Explanation
+            </Dropdown.Item>
+            {/* <Dropdown.Item
+              as="button"
+              eventKey="shift-and-Warn"
+              style={{ color: "black", outline: "none" }}
+            >
+              Shift and Warn
+            </Dropdown.Item> */}
+            <DropdownButton
+              id="shiftAndWarnButton"
+              title="Shift and Warn"
+              drop="left"
+            >
+              <Dropdown.Item
+                as="button"
+                eventKey="instruct"
+                style={{ color: "black", outline: "none" }}
+              >
+                Atif
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                eventKey="call-Explanation"
+                style={{ color: "black", outline: "none" }}
+              >
+                Rabia
+              </Dropdown.Item>
+              <Dropdown.Item
+                as="button"
+                eventKey="shift-and-Warn"
+                style={{ color: "black", outline: "none" }}
+              >
+                Qasim
+              </Dropdown.Item>
+            </DropdownButton>
+          </DropdownButton>
+        </td>
       </tr>
     );
   };
   return (
     <Container fluid className="Laa">
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>To Do List (Employee)</h3>
       </div>
 
       <Row>
         <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
-          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+          <div className="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
             <div className="table-responsive">
               <table id="todolistTable" className="table table-hover">
                 <thead>

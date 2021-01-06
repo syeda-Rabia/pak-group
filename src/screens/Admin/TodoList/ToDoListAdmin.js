@@ -111,6 +111,13 @@ export default function LeadsAllocatonAndAddition() {
           </div>
         </td>
         <td>Rabia</td>
+        <td>
+          <select className="form-control form-control-sm">
+            <option>Recording 1</option>
+            <option>Recording 2</option>
+            <option>Recording 3</option>
+          </select>
+        </td>
       </tr>
     );
   };

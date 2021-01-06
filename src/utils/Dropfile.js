@@ -32,7 +32,7 @@ export default function Dropfile(props) {
   ));
 
   return (
-    <section className="container">
+    <section className="container fluid border border-black">
       <button
         className="btn btn-outline-info pb-2 mb-2"
         onClick={() => {

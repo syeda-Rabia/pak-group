@@ -4,10 +4,10 @@ import { Container, Row, Col } from "react-bootstrap";
 export default function EmployeePolicies() {
   return (
     <Container fluid>
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Policies</h3>
       </div>
-      <div class="col-lg-12 shadow p-3  bg-white rounded ">
+      <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <h6 style={{ color: "#2258BF" }}>Introduction</h6>
         <p>
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem
