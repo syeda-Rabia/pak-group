@@ -32,9 +32,37 @@ export default function AddEmployee() {
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
   const handleClose = () => {
     setShowAlert(false);
   };
+  useEffect(() => {
+    fetch("https://pak-group.herokuapp.com/admin/viewEmployees", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTcyZWYwNjU0ZjAwMTdmNzlhZDUiLCJpYXQiOjE2MDk5MzQ3Mjl9.mLqgYtTKk6uevRcfxAKwHnv9_bKZ6n1sHa_2k6fDtGA",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+          console.log("------------------------", result);
+        },
+
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+          console.log(error);
+        }
+      );
+  }, []);
 
   const ModalView = ({ item }) => {
     return (
