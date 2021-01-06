@@ -2,7 +2,7 @@ body {
   font-family: arial;
 }
 #img_container {
-  border: '1px solid black';
+  border: "1px solid black";
 }
 .first-logo {
   display: flex;
@@ -142,6 +142,19 @@ body {
   text-align: center;
   font-size: 16px;
   margin: 0 0 10px;
+}
+.chk {
+  width: 100% !important;
+  padding-left: 10px !important;
+  display: flex;
+  flex-direction: row;
+  /* height: 56px; 
+
+  box-sizing: border-box;
+  font-size: 15px;
+  margin-left: 110px;
+
+  /* padding-left: 75px; */
 }
 @media screen and (max-width: 767px) {
   .login-form {

@@ -66,7 +66,6 @@ export default function HeaderNavBar() {
                 Allocation
               </Link>
             </Nav.Item>
-
             <Nav.Item>
               <Link
                 id="R-navlink"
@@ -89,8 +88,19 @@ export default function HeaderNavBar() {
                 User
               </Link>
             </Nav.Item>
+
+            <Nav.Item>
+              <Link
+                id="R-navlink"
+                to={{
+                  pathname: "/admin/policies",
+                  state: { from: "AdminHeader" },
+                }}
+              >
+                Policies
+              </Link>
+            </Nav.Item>
             <Nav.Item href="#Accounts">Accounts</Nav.Item>
-            <Nav.Item href="#Policies">Policies</Nav.Item>
             <Nav.Item href="#Documentation">Documentation</Nav.Item>
             <Nav.Item href="#Documentation" id="hr">
               HR

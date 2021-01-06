@@ -133,14 +133,55 @@ export default function SignIn() {
               </div>
 
               <div className="row">
-                <div className="container pb-0">
-                  <div style={{ float: "left", marginLeft: "110px" }}>
-                      <img src={logo} className="pr-2 pb-1" />
+                <div
+                  // className="container pb-0"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    // backgroundColor: "red",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "50%",
+                      flexDirection: "row",
+                      paddingTop:"10px",
+                      // justifyContent: "flex-start",
+                      // alignItems: "center",
+                      // float: "left",
+                      // marginLeft: "110px",
+                      // border: "1px solid black",
+                    }}
+                  >
+                    {/* <img src={logo} className="pr-2 pb-1" /> */}
+                    {/* <div className="chk"> */}
+                    <input type="checkbox" id="remember"></input>
+                    <label
+                      style={{
+                        width: "100%",
+                        // float: "left",
+                        // marginLeft: "",
+                        
+                      }}
+                      for="remember"
+                    >
+                      {" "}
+                      Remember me
+                    </label>
+                  </div>
+                  {/* </div> */}
 
-                      <label>Remember me</label>
-                    </div>
-
-                  <div style={{ float: "right", marginRight: "100px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignSelf: "flex-start",
+                      // backgroundColor: "blue",
+                      paddingRight: 100,
+                    }}
+                  >
                     <a href="#">Forgot Password?</a>
                   </div>
                 </div>
