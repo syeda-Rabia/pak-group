@@ -4,7 +4,8 @@ import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
 import { Link } from "react-router-dom";
 
-export default function HeaderNavBar() {
+export default function HeaderNavBar(props) {
+  console.log(props);
   return (
     <React.Fragment>
       <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">

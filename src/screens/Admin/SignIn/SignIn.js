@@ -228,17 +228,18 @@ export default function SignIn(props) {
               </button>
               {/* </Link> */}
 
-              {/* <Link to="/employee/dashboard" style={{ color: "white" }}>
+              <Link to="/employee/dashboard" style={{ color: "white" }}>
                 <button
                   className="login-btn"
                   style={{ backgroundColor: "#2258BF" }}
-                  // onClick={() => {
-                  //   this.props.setUser("sjkdh");
-                  // }}
+                  onClick={() => {
+                    //   this.props.setUser("sjkdh");
+                    props.setUser("employee");
+                  }}
                 >
                   Employee Login
                 </button>
-              </Link> */}
+              </Link>
 
               <div className="row mb-4 px-5 ">
                 <p style={{ textAlign: "center" }}>

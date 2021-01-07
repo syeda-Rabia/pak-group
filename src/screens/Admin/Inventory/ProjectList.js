@@ -3,17 +3,20 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import img2 from "./../../../assests/tiwtr-2.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPencilAlt,
+  faEye,
+  faPlusSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import { ProjectListData } from "./../../../assests/constants/ProjectListDemoData";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
 import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+import InventoryAdmin from "./InventoryAdmin";
 
 export default function ProjectList() {
   const [showView, setShowView] = useState(false);
@@ -113,6 +116,7 @@ export default function ProjectList() {
       </Modal>
     );
   };
+
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = (item) => {
       console.log("item is ", item);
@@ -141,7 +145,9 @@ export default function ProjectList() {
         <Modal.Header closeButton>
           <Modal.Title>Delete Record</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Do you really want to delete this Record!</Modal.Body>
+        <Modal.Body>
+          Do you really want to delete this Project and It's Inventories!
+        </Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"
@@ -164,12 +170,19 @@ export default function ProjectList() {
       </Modal>
     );
   };
+
+  const ViewCurrent = ({ item }) => {
+    console.log("itnegshgshgnn", item);
+
+    return null;
+  };
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
         <td>{item.id}</td>
         <td>{item.Name}</td>
-        <td>{item.Units}</td>
+        <td>{item.inventory.length}</td>
+        {/* <td>{item.Units}</td> */}
 
         <td>
           <div
@@ -188,11 +201,20 @@ export default function ProjectList() {
                 setSelectedID(index);
               }}
             >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
+              <Link to={{ pathname: "/admin/projects", query: { item } }}>
+                {/* <Link
+                to={{
+                  pathname: "/admin/projects",
+                  aboutProps: { name: "Atif" },
+                }}
+              > */}
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
+              </Link>
             </button>
             <ReactTooltip id="ViewTip" place="top" effect="solid">
-              View Details
+              View or Edit Details
             </ReactTooltip>
+            {/* 
             <button
               data-tip
               data-for="EditTip"
@@ -207,7 +229,7 @@ export default function ProjectList() {
             </button>
             <ReactTooltip id="EditTip" place="top" effect="solid">
               Edit Details
-            </ReactTooltip>
+            </ReactTooltip> */}
             <button
               data-tip
               data-for="DeleteTip"
@@ -279,8 +301,9 @@ export default function ProjectList() {
                 {data.length > 0 ? (
                   <>
                     <ModalDelete item={data[selectedID]} />
+                    <ViewCurrent item={data[selectedID]} />
 
-                    <ModalEdit item={data[selectedID]} />
+                    {/* <ModalEdit item={data[selectedID]} /> */}
                   </>
                 ) : null}
               </table>

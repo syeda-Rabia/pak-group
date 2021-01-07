@@ -805,7 +805,6 @@ export default function AddEmployee() {
         <ReactTooltip id="AddTip" place="top" effect="solid">
           Add new user
         </ReactTooltip>
-        <span></span>
         <Row>
           <Col
             lg

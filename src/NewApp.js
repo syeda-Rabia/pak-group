@@ -28,6 +28,8 @@ import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 
 import ExcelPage from "./utils/ExcelPage";
+import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
+
 function NewApp() {
   const [userType, setUserType] = React.useState("");
   console.log("user app", userType);
@@ -38,6 +40,23 @@ function NewApp() {
           <HeaderNavBar />
           <AdminAddInventoryScreen />
         </Route>
+
+        <Route
+          exact
+          path="/admin/projects/"
+          render={(props) => (
+            <>
+              <HeaderNavBar />
+              <AdminProjectDetailsScreen {...props} />
+            </>
+          )}
+        />
+        {/* 
+        <Route path="/admin/projects/">
+          <HeaderNavBar />
+          <AdminProjectDetailsScreen />
+        </Route> */}
+
         <Route path="/admin/inventory">
           <HeaderNavBar />
           <AdminProjectListScreen />
@@ -111,24 +130,27 @@ function NewApp() {
     <Router>
       <Switch>
         <Route exact path="/">
+          {/* <SignIn /> */}
           <SignIn setUser={setUserType} />
           {userType === "admin" ? (
             <Route
-              render={() =>
-                userType == "admin" ? (
-                  <Redirect
-                    to={{
-                      pathname: "/admin/dashboard",
-                    }}
-                  />
-                ) : userType === "employee" ? (
-                  <Redirect
-                    to={{
-                      pathname: "/employee/dashboard",
-                    }}
-                  />
-                ) : null
-              }
+              render={() => (
+                <Redirect
+                  to={{
+                    pathname: "/admin/dashboard",
+                  }}
+                />
+              )}
+            />
+          ) : userType === "employee" ? (
+            <Route
+              render={() => (
+                <Redirect
+                  to={{
+                    pathname: "/employee/dashboard",
+                  }}
+                />
+              )}
             />
           ) : null}
         </Route>
