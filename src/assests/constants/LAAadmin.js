@@ -13,7 +13,7 @@ export const ModalData = [
     Allocate: "Rabia",
     Task: "Sale",
     Deadline: "05/06/2021",
-    Returned: "Sana",
+    Returned: "----",
   },
   {
     id: "1",
@@ -45,7 +45,7 @@ export const ModalData = [
     Allocate: "Rabia",
     Task: "Sale",
     Deadline: "05/06/2021",
-    Returned: "Imtesal",
+    Returned: "----",
   },
   {
     id: "3",

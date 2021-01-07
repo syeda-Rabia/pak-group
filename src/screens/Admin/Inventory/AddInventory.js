@@ -16,6 +16,7 @@ import {
   Snackbar,
   LinearProgress,
   Grow,
+  FormGroup,
 } from "@material-ui/core";
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
 
@@ -235,7 +236,7 @@ export default function AddInventory() {
       if (InventoryData.length === 0) setForm((state) => !state);
     }, [InventoryData]);
     return (
-      <React.Fragment>
+      <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
         {/* <LinearProgress /> */}
         {showProgress == true ? (
           <Snackbar open={showProgress}>
@@ -316,7 +317,10 @@ export default function AddInventory() {
                     />
                   </Col>
                   <Col>
-                    <Form.Group controlId="projectCategory">
+                    <Form.Group
+                      style={{ backgroundColor: "#F2F4F5" }}
+                      controlId="projectCategory"
+                    >
                       {/* <Form.Control
                         style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                         as="select"
@@ -333,12 +337,13 @@ export default function AddInventory() {
                         <option value={"Rent"}>Rent</option>
                       </Form.Control> */}
                       <FormControl
-                        className="w-100"
+                        className="w-100 bg-blue"
                         style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                       >
                         <InputLabel>Select Category</InputLabel>
 
                         <Select
+                          style={{ backgroundColor: "#F2F4F5" }}
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           value={item.category}
@@ -378,27 +383,40 @@ export default function AddInventory() {
                       <option value={"Open"}>Open</option>
                       <option value={"Sold"}>Sold</option>
                     </Form.Control> */}
-                    <FormControl
-                      className="w-100"
-                      style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
-                    >
-                      <InputLabel>Select Status</InputLabel>
-
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={item.status}
-                        onChange={(e) => {
-                          // setInventoryData()
-                          viewData({ status: e.target.value }, item.id, index);
+                    <FormGroup style={{ backgroundColor: "#F2F4F5" }}>
+                      <FormControl
+                        className="w-100"
+                        style={{
+                          height: "calc(1.5em + 0.75rem + -4px)",
+                          
                         }}
                       >
-                        {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
-                        <MenuItem value={"Hold"}>Hold</MenuItem>
-                        <MenuItem value={"Sale"}>Sale</MenuItem>
-                        <MenuItem value={"Rent"}>Rent</MenuItem>
-                      </Select>
-                    </FormControl>
+                        <InputLabel>Select Status</InputLabel>
+
+                        <Select
+                          style={{
+                            backgroundColor: "#F2F4F5",
+                           
+                          }}
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={item.status}
+                          onChange={(e) => {
+                            // setInventoryData()
+                            viewData(
+                              { status: e.target.value },
+                              item.id,
+                              index
+                            );
+                          }}
+                        >
+                          {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
+                          <MenuItem value={"Hold"}>Hold</MenuItem>
+                          <MenuItem value={"Sale"}>Sale</MenuItem>
+                          <MenuItem value={"Rent"}>Rent</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </FormGroup>
                   </Col>
                   <Col>
                     <IconButton aria-label="delete" color="primary">
@@ -434,7 +452,7 @@ export default function AddInventory() {
             </Link>
           </Form>
         </Container>
-      </React.Fragment>
+      </div>
     );
   };
   if (form) {

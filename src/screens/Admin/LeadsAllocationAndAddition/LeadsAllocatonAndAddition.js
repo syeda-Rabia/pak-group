@@ -568,11 +568,19 @@ export default function LeadsAllocatonAndAddition() {
 
         <td>{item.Project}</td>
         <td>{item.Budget}</td>
-        <td>{item.Toc}</td>
+        <td>
+          <KeyboardTimePickerExample />
+        </td>
 
         <td>{item.Source}</td>
         <td>{item.Country}</td>
-        <td>{item.Status}</td>
+        <td>
+          <select className="form-control form-control-sm w-100">
+            <option value={"sold"}>Sold</option>
+            <option value={"open"}>Open</option>
+            <option value={"onhold"}>On Hold</option>
+          </select>
+        </td>
         <td>{item.Interest}</td>
         <td>
           <select className="form-control form-control-sm w-100">
@@ -583,8 +591,16 @@ export default function LeadsAllocatonAndAddition() {
           </select>
         </td>
 
-        <td>{item.Task}</td>
-        <td>{item.Deadline}</td>
+        <td>
+          <select className="form-control form-control-sm w-100">
+            <option value={"sale"}>Sale</option>
+            <option value={"rent"}>Rent</option>
+            <option value={"other"}>Other</option>
+          </select>
+        </td>
+        <td>
+          <KeyboardDatePickerExample />
+        </td>
         <td>{item.Returned}</td>
         <td>
           {" "}
@@ -596,9 +612,8 @@ export default function LeadsAllocatonAndAddition() {
             style={{
               backgroundColor: "#2258BF",
             }}
-            
           >
-             Update
+            Update
           </button>
           <ReactTooltip id="update" place="top" effect="solid">
             update
@@ -674,18 +689,7 @@ export default function LeadsAllocatonAndAddition() {
         <h3 style={{ color: "#818181" }}>Leads Allocation And Addition</h3>
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <Row className="mb-2">
-          <div className=" pl-2">
-            <Dropfile />
-          </div>
-
-          <ReactTooltip id="AddTip" place="top" effect="solid">
-            import Excel
-          </ReactTooltip>
-          <div className=" float-right pl-2">
-           
-          </div>
-        </Row>
+       
         <span></span>
         <Row>
           <Col
