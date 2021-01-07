@@ -558,317 +558,7 @@ export default function LeadsAllocatonAndAddition() {
     );
   };
 
-  const ModalAdd = ({ item }) => {
-    const [client, setClient] = useState("");
-    const [contact, setContact] = useState("");
-    const [project, setProject] = useState("LDA City");
-    const [budget, setBudget] = useState("");
-    const [toc, setToc] = useState("");
-    const [source, setSource] = useState("News paper");
-    const [country, setCountry] = useState("");
-    const [status, setStatus] = useState("New");
-    const [interest, setInterest] = useState("5 marla Residential");
-    const [allocate_to, setAllocate] = useState("Rabia");
-    const [task, setTask] = useState("Sale");
-    const [deadline, setDeadline] = useState("");
-    const [returned_from, setReturned] = useState("Atif");
-
-    const SendRecordToServer = async (event) => {
-      event.preventDefault();
-
-      let user = {
-        id: "1",
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: toc,
-        Source: source,
-        Country: country,
-        Status: status,
-        Interest: interest,
-        Allocate: allocate_to,
-        Task: task,
-        Deadline: deadline,
-        Returned: returned_from,
-      };
-      // await
-      axios
-        .post(
-          // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
-          "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-          {
-            // firstName: f_name,
-            // lastName: l_name,
-            // email: email,
-            // gender: gender,
-            // phone: phone_no,
-            // password: password,
-            // type: user_type,
-          },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then(
-          (res) => {
-            console.log(res);
-            console.log(res.data);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-
-      let arr = data;
-      arr.push(user);
-      setData(arr);
-      setShowAdd(false);
-    };
-
-    return (
-      <Modal
-        show={showAdd}
-        onHide={() => {
-          setShowAdd(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Add Lead</Modal.Title>
-        </Modal.Header>
-        <form
-          onSubmit={(e) => {
-            SendRecordToServer(e);
-          }}
-        >
-          <div class="col-lg-12 shadow bg-white rounded ">
-            <Modal.Body>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                }}
-                className=""
-              >
-                <div>
-                  <div className="pb-3">
-                    <h6>Client</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      placeholder="Enter  Name"
-                      type="text"
-                      minLength="3"
-                      maxLength="10"
-                      value={client}
-                      onChange={(e) => {
-                        setClient(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Contact</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      placeholder="Enter Contact"
-                      type="text"
-                      minLength="0"
-                      maxLength="10"
-                      value={contact}
-                      onChange={(e) => {
-                        setContact(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Project</h6>
-                    <select
-                      value={project}
-                      onChange={(e) => {
-                        setProject(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"LDA"}>LDA City</option>
-                      <option value={"DHA"}>DHA </option>
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>Budget</h6>
-                    <input
-                      className="form-control input-width w-100"
-                      placeholder="Enter Budget"
-                      type="email"
-                      value={budget}
-                      onChange={(e) => {
-                        setBudget(e.target.value);
-                      }}
-                    />
-                  </div>
-
-                  <div className="pb-3">
-                    <h6>Time-To Call</h6>
-                    <div className=" w-100">
-                      <KeyboardTimePickerExample
-                        value={toc}
-                        onChange={(e) => {
-                          setToc(e.target.value);
-                          console.log(e);
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="pb-3">
-                    <h6>Source</h6>
-                    <select
-                      value={source}
-                      onChange={(e) => {
-                        setSource(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"Newspaper"}>News Paper</option>
-                      <option value={"Tv"}>Tv</option>
-                      <option value={"sms"}>SMS</option>
-                      <option value={"personal reference"}>
-                        Personal Reference
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div className="ml-3">
-                  <div className="pb-3">
-                    <h6>Country/city</h6>
-                    <input
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="email"
-                      value={country}
-                      onChange={(e) => {
-                        setCountry(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Status</h6>
-                    <select
-                      value={status}
-                      onChange={(e) => {
-                        setStatus(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"graceperiod"}>Grace Period</option>
-                      <option value={"Overdue"}>Over Due</option>
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>Interest</h6>
-                    <select
-                      value={interest}
-                      onChange={(e) => {
-                        setInterest(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"5marla"}>5 Marla</option>
-                      <option value={"10marla"}>10 Marla</option>
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>Allocate To</h6>
-                    <select
-                      value={allocate_to}
-                      onChange={(e) => {
-                        setAllocate(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"Atif"}>Atif</option>
-                      <option value={"Rabia"}>Rabia</option>
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>Task</h6>
-                    <select
-                      value={task}
-                      onChange={(e) => {
-                        setTask(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <option value={"Sale"}>Sale</option>
-                      <option value={"rent"}>Rent</option>
-                      <option value={"other"}>other</option>
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>DeadLine</h6>
-                    <div className=" w-100 ">
-                      <KeyboardDatePickerExample
-                        value={deadline}
-                        onChange={(e) => {
-                          setDeadline(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* <div className="pb-3">
-                <h6>returned From</h6>
-                <select
-                  value={returned_from}
-                  onChange={(e) => {
-                    setReturned(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"Rabia"}>Rabia</option>
-                  <option value={"Ali"}>Ali</option>
-                  <option value={"Atif"}>Atif</option>
-                </select>
-              </div> */}
-                </div>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowAdd(false);
-                }}
-              >
-                Close
-              </Button>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                type="submit"
-                value="Submit"
-              >
-                Submit
-              </Button>
-              {/* <Button
-            type="submit"
-            value="Submit"
-            style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setShowAdd(false);
-            }}
-          >
-            Add
-          </Button> */}
-            </Modal.Footer>
-          </div>
-        </form>
-      </Modal>
-    );
-  };
+ 
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
@@ -884,11 +574,36 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.Country}</td>
         <td>{item.Status}</td>
         <td>{item.Interest}</td>
-        <td>{item.Allocate}</td>
+        <td>
+          <select className="form-control form-control-sm w-100">
+            <option value={"Rabia"}>Rabia</option>
+            <option value={"sana"}>Sana</option>
+            <option value={"atif"}>Atif</option>
+            <option value={"ali"}>Ali</option>
+          </select>
+        </td>
 
         <td>{item.Task}</td>
         <td>{item.Deadline}</td>
         <td>{item.Returned}</td>
+        <td>
+          {" "}
+          <button
+            data-tip
+            data-for="update"
+            type="button"
+            className="btn btn-primary"
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+            
+          >
+             Update
+          </button>
+          <ReactTooltip id="update" place="top" effect="solid">
+            update
+          </ReactTooltip>
+        </td>
 
         <td>
           <div className="d-flex d-inline">
@@ -968,23 +683,7 @@ export default function LeadsAllocatonAndAddition() {
             import Excel
           </ReactTooltip>
           <div className=" float-right pl-2">
-            <button
-              data-tip
-              data-for="AddTip"
-              type="button"
-              className="btn btn-primary"
-              style={{
-                backgroundColor: "#2258BF",
-              }}
-              onClick={() => {
-                setShowAdd(true);
-              }}
-            >
-              <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
-            </button>
-            <ReactTooltip id="AddTip" place="top" effect="solid">
-              Add new Lead
-            </ReactTooltip>
+           
           </div>
         </Row>
         <span></span>
@@ -1051,7 +750,7 @@ export default function LeadsAllocatonAndAddition() {
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         {" "}
-                        Allocate_To
+                        Allocate/Re_Allocate
                       </span>
                     </th>
                     <th scope="col">
@@ -1067,6 +766,11 @@ export default function LeadsAllocatonAndAddition() {
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Returned_From
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Update_Record
                       </span>
                     </th>
                     <th scope="col">
@@ -1089,7 +793,7 @@ export default function LeadsAllocatonAndAddition() {
                   </>
                 ) : null}
               </table>
-              <ModalAdd />
+              
             </div>
           </Col>
         </Row>

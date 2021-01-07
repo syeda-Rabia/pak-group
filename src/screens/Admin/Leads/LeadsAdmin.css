@@ -25,3 +25,8 @@ select.form-control.form-control-sm {
   margin-left: 50px;
   margin-right: 50px;
 }
+.card-body {
+padding:0px !important;
+padding-top: 5px !important;
+padding-left: 10px !important;
+}
