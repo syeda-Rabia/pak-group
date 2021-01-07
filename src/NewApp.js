@@ -31,7 +31,7 @@ import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 
 function NewApp() {
-  const [userType, setUserType] = React.useState("");
+  const [userType, setUserType] = React.useState("admin");
   console.log("user app", userType);
   const AdminRoute = () => {
     return (
