@@ -34,7 +34,7 @@ function NewApp() {
   const AdminRoute = () => {
     return (
       <React.Fragment>
-        <Route path="/admin/inventory/add">
+        <Route path="/admin/add-project">
           <HeaderNavBar />
           <AdminAddInventoryScreen />
         </Route>

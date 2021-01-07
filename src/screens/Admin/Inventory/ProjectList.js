@@ -241,7 +241,7 @@ export default function ProjectList() {
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            <Link to="/admin/inventory/add">
+            <Link to="/admin/add-project">
               <button
                 type="button"
                 className="btn btn-primary my-4"

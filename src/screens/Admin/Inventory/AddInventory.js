@@ -260,7 +260,7 @@ export default function AddInventory() {
           </Grow>
         ) : null}
         <br />
-        <Route
+        {/* <Route
           render={() =>
             redirectPage ? (
               <Redirect
@@ -270,7 +270,7 @@ export default function AddInventory() {
               />
             ) : null
           }
-        />
+        /> */}
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
         <IconButton
