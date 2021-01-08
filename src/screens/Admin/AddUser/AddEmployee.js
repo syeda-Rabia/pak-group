@@ -18,10 +18,14 @@ import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
 import Grow from "@material-ui/core/Grow";
+import { server_url } from "../../../utils/Config";
+// import GetRecordFromServer from "../../../utils/Functions";
 
 import axios from "axios";
 
 export default function AddEmployee() {
+  const [userRecord, setUserRecord] = useState("");
+
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -40,12 +44,20 @@ export default function AddEmployee() {
     setShowAlert(false);
   };
   useEffect(() => {
-    fetch("https://pak-group.herokuapp.com/admin/viewEmployees", {
+    console.log("use efect is run");
+    GetUserRecordFromServer();
+  }, []);
+
+  const GetUserRecordFromServer = async () => {
+    console.log("GetUserRecordFromServer is run");
+
+    fetch(server_url + "admin/employee/all", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTY3ZWYwNjU0ZjAwMTdmNzlhZDIiLCJpYXQiOjE2MDk5OTg5NDZ9.ni9LQdAd8lsq3fMuwr2qGmOjRK3_5xA1-17InSj6c10",
+        Authorization: `Bearer ${"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjc4M2JjNzQxZTcwMTg2NTNkZTk5YjdiMDdjMDFhYTA0ODIwNTdmYzc5OTcxOGVkYWRjMWUzNjhkZjAzNDk5ZWQ3NjVkYWVlYzhjOWE4ZTYiLCJpYXQiOiIxNjEwMTA5NDUzLjU4ODI1NCIsIm5iZiI6IjE2MTAxMDk0NTMuNTg4MjYwIiwiZXhwIjoiMTY0MTY0NTQ1My41NzI1NjUiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.EcAsb01SH8jjiQIlkTGl22orcs0LuEH7IXq3iC9GBZXbNLqDRWvMnV4ge7GTWtsxrtwBuUhHARvdZ1aYYx7DnuhDtj4r6bbBeEUEkCgkymm_yiJzePxfU2CgdZJYGdkg7UUkowZcf_f-jm4su8KqCJRy8JMApR9FlspRTH_9ef9I2UPNoetn_wz75lKB74wkpEEpR1VIp9et6TReUONB1IfWl7_nUxb8tiIHn4XjKUaNEsJhKelzPPF3njsgyH9jtlVrhqQfhsJkX1E6yZCt-txd4SqBLnQW5fXIlUxflwwtA2lNkMWBRgaGoAIzNNn9m_hftI2XyZv0JnLN6jCoYC2TbpXEKV2Ot6pioXRCJyOIK3gqkwtMOZR-XHEuVsbLh-GPxOqksGx6SZKhaeVV0rhx4vceChILW2PKHyR327QUeKMLrfK6fwH8UGiORGa_HPs3VfTwjLvxSkF_nZsA2TWpFiKBOum2klQ9hxtbX4ogm69dV63OGkzKJHXfsFQTJYOdoz1-xQXVka2yiKCkHRuBV0jsNpW4yqbnADjX2am8ZeSke72g_TcHFH3iv9A4UWRfKIt31S7K6S57P80l5Jc2OpfpWybCBwaEO3PSuP0uoH8RkCmlwMjBCalOcxPWiqiOWx9KSffFMqFJ7gq_-NFccJRlX0X2YDsc4pfyfpg"}`,
+        // Authorization:
+        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTY3ZWYwNjU0ZjAwMTdmNzlhZDIiLCJpYXQiOjE2MDk5OTg5NDZ9.ni9LQdAd8lsq3fMuwr2qGmOjRK3_5xA1-17InSj6c10",
         // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTcyZWYwNjU0ZjAwMTdmNzlhZDUiLCJpYXQiOjE2MDk5MzQ3Mjl9.mLqgYtTKk6uevRcfxAKwHnv9_bKZ6n1sHa_2k6fDtGA",
       },
     })
@@ -53,8 +65,17 @@ export default function AddEmployee() {
       .then(
         (result) => {
           setIsLoaded(true);
-          setItems(result);
-          console.log("------------------------", result);
+          // setItems(result);
+
+          if (result.error != true) {
+            setUserRecord(result.data.users.data);
+            console.log("------------------------", result.data.users.data);
+          } else {
+            console.log(
+              "server throw error ---------> ",
+              JSON.stringify(result)
+            );
+          }
         },
 
         (error) => {
@@ -63,7 +84,7 @@ export default function AddEmployee() {
           console.log(error);
         }
       );
-  }, []);
+  };
 
   const ModalView = ({ item }) => {
     return (
@@ -678,15 +699,15 @@ export default function AddEmployee() {
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
-        <td>{item.id}</td>
-        <td>{item.Name}</td>
-        <td>{item.Last_Name}</td>
+        <td>{index + 1}</td>
+        <td>{item.first_name}</td>
+        <td>{item.last_name}</td>
 
-        <td>{item.Email}</td>
-        <td>{item.Gender}</td>
-        <td>{item.Contact}</td>
+        <td>{item.email}</td>
+        <td>{item.gender != "Male" || "Female" ? item.gender : "----"}</td>
+        <td>{item.phone != null ? item.phone : "----"}</td>
 
-        <td>{item.Type}</td>
+        <td>{item.user_type == 1 ? "Admin" : "Employee"}</td>
         <td>
           <div className="d-flex d-inline">
             <button
@@ -842,9 +863,18 @@ export default function AddEmployee() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => {
+                  {userRecord != "" ? (
+                    userRecord.map((user, index) => (
+                      <>
+                        <TableEmployee item={user} index={index} />
+                      </>
+                    ))
+                  ) : (
+                    <h1>No Data</h1>
+                  )}
+                  {/* {data.map((item, index) => {
                     return <TableEmployee item={item} index={index} />;
-                  })}
+                  })} */}
                 </tbody>
                 {data.length > 0 ? (
                   <>
