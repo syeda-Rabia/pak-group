@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import './SignInFooter.css';
-import { Container } from 'react-bootstrap';
+import React, { Component } from "react";
+import ReactDom from "react-dom";
+import "./SignInFooter.css";
+import { Container } from "react-bootstrap";
 import img from "./../../assests/fb-logo.svg";
-import img2 from './../../assests/tiwtr-logo.svg';
+import img2 from "./../../assests/tiwtr-logo.svg";
 import img3 from "./../../assests/tum-logo.svg";
 import img4 from "./../../assests/g-logo.svg";
 class Footer extends Component {
@@ -12,10 +12,10 @@ class Footer extends Component {
       <div>
         <div className="row ">
           <div
-            className="footer-link text-primary  "
-            style={{ fontSize: "16px"}}
+            className=" col-lg-6 footer-link text-primary  "
+            style={{ fontSize: "16px" }}
           >
-            <div className="ml-5 clr" style={{ color: "#2258BF" }}>
+            <div className="ml-5  footr clr" style={{ color: "#2258BF" }}>
               <a className="clr" href="#">
                 Privacy Policy
               </a>
@@ -33,63 +33,57 @@ class Footer extends Component {
               </a>
             </div>
           </div>
-          <div className="footer-language text-primary">
-            <label className="clr" for="language">
-              LANGUAGE:
-            </label>
-            <select name className="language border-0" id="language">
-              <option value="English">ENGLISH</option>
-              <option value="Urdu">URDU</option>
-              <option value="Parsian">PARSIAN</option>
-              <option value="Hindi">HINDI</option>
-            </select>
+          <div className=" col-lg-6 footer-link item">
+            <div className=" footer-icon item">
+              <div className="item">
+                <ul className="list-unstyled list-inline item">
+                  <li className="list-inline-item">
+                    <a className="btn-floating btn-sm rgba-white-slight mx-1">
+                      <img src={img} />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn-floating btn-sm rgba-white-slight mx-1">
+                      <img src={img2} />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn-floating btn-sm rgba-white-slight mx-1">
+                      +
+                      <img src={img3} />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a className="btn-floating btn-sm rgba-white-slight mx-1">
+                      <img src={img4} />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-6 col-lg-6 mt-0">
             <p
-              className="ml-5 "
+              className="ml-5 text1"
               style={{
                 color: "#2258BF",
                 wordSpacing: "-2px",
                 fontSize: "15px",
-                
               }}
             >
               PakGroup © 2020 Copyright by
-              <a style={{
-                color: "#2258BF"}}href="#">
+              <a
+                style={{
+                  color: "#2258BF",
+                }}
+                href="#"
+              >
                 <strong> PakGroup.</strong>
               </a>{" "}
               All Rights Reserved.
             </p>
-          </div>
-          <div className=" footer-icon">
-            <div className="text-right text-md-right">
-              <ul className="list-unstyled list-inline ">
-                <li className="list-inline-item">
-                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                    <img src={img} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                    <img src={img2} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                    +
-                    <img src={img3} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a className="btn-floating btn-sm rgba-white-slight mx-1">
-                    <img src={img4} />
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>

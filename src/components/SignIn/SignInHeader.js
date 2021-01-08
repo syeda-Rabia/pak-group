@@ -27,12 +27,12 @@ class Header_login extends Component {
             }}
           >
             <div style={{ justifyContent: 'space-between' }}>
-              <button className="btn-2" type="button">
+              {/* <button className="btn-2" type="button">
                 Log in
-              </button>
+              </button> */}
               <button style={{
                 backgroundColor: "#2258BF"}}className="btn-3" type="button">
-                Sign up
+                Login
               </button>
             </div>
           </div>

@@ -46,9 +46,6 @@ export default function SignIn(props) {
 
   return (
     <Container fluid>
-      <div>
-        <Header_login />
-      </div>
       <div className="row">
         {/* 
               <div className="col-lg-6 col-md-6 mx-5">
@@ -74,14 +71,14 @@ export default function SignIn(props) {
           </div>
           {/* </Container> */}
           <div
-            className="row mb-4 px-3 "
+            className="row mb-4 px-3 content"
             style={{
               paddingTop: "20px",
               marginRight: "30px",
               marginLeft: "30px",
             }}
           >
-            <p style={{ textAlign: "center" }}>
+            <p className="content">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab illo inventore veritatis et quasi architecto beatae vitae
@@ -94,171 +91,147 @@ export default function SignIn(props) {
         <div className="col-lg-5 col-md-6">
           <div className="login-form">
             <form>
-              <h2 style={{ color: "#2258BF" }}>Sign In</h2>
-
-              {/* <div className="row mb-1 "> */}
-              {/* <p style={{ textAlign: 'center' }}>
-                  Choose one of the following signin methods.
-                </p> */}
-              {/* </div> */}
-
-              <div className="social-icon ">
-                {/* <button type="button" style={{ backgroundColor: 'darkblue' }}>
-                    <img src={img} className="mr-1 mb-1" />
-                    Facebook
-                  </button>
-                  <button type="button" style={{ backgroundColor: '#55ACEE' }}>
-                    <img src={img2} className="mr-1 mb-1" />
-                    Twitter
-                  </button>
-                  <button type="button" style={{ backgroundColor: '#3B445C' }}>
-                    <img src={img3} className="mr-1 mb-1" />
-                    Tumblr
-                  </button>
-                  <button type="button" style={{ backgroundColor: '#EA4B24' }}>
-                    <img src={img4} className="mr-1 mb-1" />
-                    Google
-                  </button> */}
-              </div>
-
-              {/* <div className="row mb-4  "> */}
-              <h6 style={{ textAlign: "center" }}>
-                Sign in using your email address{" "}
-              </h6>
-              {/* </div> */}
-
-              <div className="row  pb-0">
-                <div className="container  pb-0 ">
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      name="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                      placeholder="Username or Email "
-                    />
-                    <span className="input-icon">
-                      <i className="fa fa-envelope"></i>
-                    </span>
-                  </div>
-                  <div className="form-group" style={{}}>
-                    <input
-                      type="password"
-                      name="psw"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                    />
-                    <span className="input-icon">
-                      <i lass="fa fa-lock"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row">
+              <div className="container fluid">
+                <h2>Sign In</h2>
+                <h6 style={{ textAlign: "center" }}>
+                  Sign in using your email address{" "}
+                </h6>{" "}
                 <div
-                  // className="container pb-0"
+                  className="form-group"
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "50px",
+                  }}
+                >
+                  <input
+                    className="form-control input1"
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    placeholder="Username or Email "
+                  />
+                </div>
+                <div
+                  className="form-group "
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <input
+                    className="form-control input1"
+                    type="password"
+                    name="psw"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </div>
+                <div
+                  className="flx"
+                  style={{
                     // backgroundColor: "red",
-                    justifyContent: "space-between",
+                    width: "100%",
+                    // height: 50,
+                    display: "flex",
+                    // paddingRight: 20,
+                    // paddingLeft: 30,
+                    // flexDirection: "column",
                   }}
                 >
                   <div
+                    className="custom-control custom-checkbox"
                     style={{
                       display: "flex",
-                      width: "50%",
-                      flexDirection: "row",
-                      paddingTop: "10px",
-                      // justifyContent: "flex-start",
-                      // alignItems: "center",
-                      // float: "left",
-                      // marginLeft: "110px",
-                      // border: "1px solid black",
+                      flex: 1,
+                      // backgroundColor: "blue",
+                      // margin: 10,
+                      justifyContent: "center",
                     }}
                   >
-                    {/* <img src={logo} className="pr-2 pb-1" /> */}
-                    {/* <div className="chk"> */}
-                    <input type="checkbox" id="remember"></input>
-                    <label
+                    <input
                       style={{
-                        width: "100%",
-                        // float: "left",
-                        // marginLeft: "",
+                        borderRadius: "20px",
                       }}
-                      for="remember"
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="customCheck1"
+                    />
+                    <label
+                      className="custom-control-label"
+                      htmlFor="customCheck1"
                     >
                       Remember me
                     </label>
                   </div>
-                  {/* </div> */}
-
                   <div
                     style={{
                       display: "flex",
-                      alignSelf: "flex-start",
+                      flex: 1,
+
                       // backgroundColor: "blue",
-                      paddingRight: 100,
+                      // margin: 10,
+                      justifyContent: "center",
                     }}
                   >
-                    <a>Forgot Password?</a>
+                    <p
+                    // style={{
+                    //   display: "flex",
+                    //   alignSelf: "flex-end",
+                    // }}
+                    >
+                      <a href="#"> Forgot password?</a>
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              {/* <Link to="/admin/dashboard" style={{ color: "white" }}>
-                <button
-                  className="login-btn "
-                  type="submit"
-                  style={{ backgroundColor: "#2258BF" }}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    // handlePostLogin();
-                    props.setUser("admin");
-                  }}
-                >
-                  Login
-                </button>
-              </Link> */}
-
-              <Link to="/admin/dashboard" style={{ color: "white" }}>
-                <button
-                  className="login-btn"
-                  style={{ backgroundColor: "#2258BF" }}
-                  onClick={() => {
-                    //   this.props.setUser("sjkdh");
-                    props.setUser("admin");
-                  }}
-                >
-                  Admin Login
-                </button>
-              </Link>
-
-              <Link to="/employee/dashboard" style={{ color: "white" }}>
-                <button
-                  className="login-btn"
-                  style={{ backgroundColor: "#2258BF" }}
-                  onClick={() => {
-                    //   this.props.setUser("sjkdh");
-                    props.setUser("employee");
-                  }}
-                >
-                  Employee Login
-                </button>
-              </Link>
-
-              <div className="row mb-4 px-5 ">
-                <p style={{ textAlign: "center" }}>
-                  Don't have an account?
-                  <a className="text-primary ">Sign up now!</a>
-                </p>
+                <Link to="/admin/dashboard" style={{ color: "white" }}>
+                  <div
+                    className="form-group"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      className="btn btn-primary button1"
+                      onClick={() => {
+                        props.setUser("admin");
+                      }}
+                    >
+                      Admin Login
+                    </button>
+                  </div>
+                </Link>
+                <Link to="/employee/dashboard" style={{ color: "white" }}>
+                  <div
+                    className="form-group"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      className="btn btn-primary button1"
+                      onClick={() => {
+                        props.setUser("employee");
+                      }}
+                    >
+                      Employee login
+                    </button>
+                  </div>
+                </Link>
               </div>
             </form>
           </div>

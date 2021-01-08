@@ -7,7 +7,7 @@ export default function AdminLeadsScreen() {
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
+          {/* <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
             <LeadsSidebar />
           </Col>
           <Col
@@ -16,9 +16,9 @@ export default function AdminLeadsScreen() {
             sm={7}
             xs={7}
             style={{ backgroundColor: "#FAFAFA" }}
-          >
+          > */}
             <LeadsAdmin />
-          </Col>
+          {/* </Col> */}
         </Row>
       </Container>
     </React.Fragment>
