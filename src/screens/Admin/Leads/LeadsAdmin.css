@@ -26,29 +26,41 @@ select.form-control.form-control-sm {
   margin-right: 50px;
 }
 .card-body {
-padding:0px !important;
-padding-top: 5px !important;
-padding-left: 10px !important;
+  padding: 0px !important;
+  padding-top: 5px !important;
+  padding-left: 10px !important;
 }
-.spn1{
+.spn1 {
   padding-right: 100px;
   padding-top: 0px;
   font-size: 16px;
 }
-.spn2{
-   padding-right: 20px;
-    padding-top: 0px;
-  font-size: 16px;
-}
-@media only screen and (max-width: 600px) {
-  .spn1{
-  padding-right: 15px;
+.spn2 {
+  padding-right: 20px;
   padding-top: 0px;
   font-size: 16px;
 }
-.spn2{
-   padding-right: 5px;
+@media only screen and (max-width: 600px) {
+  .spn1 {
+    padding-right: 15px;
     padding-top: 0px;
-  font-size: 16px;
+    font-size: 16px;
+  }
+  .spn2 {
+    padding-right: 5px;
+    padding-top: 0px;
+    font-size: 16px;
+  }
 }
+@media only screen and (max-width: 375px) {
+  .spn1 {
+    padding-right: 5px !important;
+    padding-top: 0px;
+    font-size: 16px !important;
+  }
+  .spn2 {
+    padding-right: 0px !important;
+    padding-top: 0px;
+    font-size: 16px !important;
+  }
 }

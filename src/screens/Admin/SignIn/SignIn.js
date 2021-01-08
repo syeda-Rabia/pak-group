@@ -142,8 +142,8 @@ export default function SignIn(props) {
                     width: "100%",
                     // height: 50,
                     display: "flex",
-                    paddingRight: 20,
-                    paddingLeft: 30,
+                    // paddingRight: 20,
+                    // paddingLeft: 30,
                     // flexDirection: "column",
                   }}
                 >
@@ -153,7 +153,7 @@ export default function SignIn(props) {
                       display: "flex",
                       flex: 1,
                       // backgroundColor: "blue",
-                      margin: 10,
+                      // margin: 10,
                       justifyContent: "center",
                     }}
                   >
@@ -178,7 +178,7 @@ export default function SignIn(props) {
                       flex: 1,
 
                       // backgroundColor: "blue",
-                      margin: 10,
+                      // margin: 10,
                       justifyContent: "center",
                     }}
                   >

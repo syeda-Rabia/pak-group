@@ -2,8 +2,18 @@
   background-color: #2258bf;
   width: 100%;
 }
+/* .custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: rgb(53, 2, 2);
+} */
+.navbar-hamburger {
+  background-image: url("data:image/svg+xml,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
 .nav-item {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: white !important;
   margin: 0px 10px;
   padding-bottom: 10px;
@@ -21,7 +31,7 @@
   color: #000;
   text-align: center;
   align-items: center;
-  justify-content: 'center';
+  justify-content: "center";
   background: #fff;
 }
 .nav-item:hover {
