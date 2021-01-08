@@ -20,11 +20,14 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Grow from "@material-ui/core/Grow";
 import { server_url } from "../../../utils/Config";
 // import GetRecordFromServer from "../../../utils/Functions";
-
+import { Backdrop, makeStyles } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Skeleton from "@material-ui/lab/Skeleton";
 import axios from "axios";
 
 export default function AddEmployee() {
   const [userRecord, setUserRecord] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -43,6 +46,16 @@ export default function AddEmployee() {
   const handleClose = () => {
     setShowAlert(false);
   };
+
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
+
   useEffect(() => {
     console.log("use efect is run");
     GetUserRecordFromServer();
@@ -51,7 +64,9 @@ export default function AddEmployee() {
   const GetUserRecordFromServer = async () => {
     console.log("GetUserRecordFromServer is run");
 
-    fetch(server_url + "admin/employee/all", {
+    setIsLoading(true);
+
+    let res = await fetch(server_url + "admin/employee/all", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -84,6 +99,8 @@ export default function AddEmployee() {
           console.log(error);
         }
       );
+
+    setIsLoading(false);
   };
 
   const ModalView = ({ item }) => {
@@ -452,17 +469,19 @@ export default function AddEmployee() {
       </Modal>
     );
   };
+
   const ModalAdd = ({ item }) => {
     const [f_name, setF_name] = useState("");
     const [l_name, setL_name] = useState("");
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("male");
-    const [user_type, setUser_type] = useState("Admin");
+    const [user_type, setUser_type] = useState("Employee");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
+      setIsLoading(true);
 
       // console.log("SendRecordToServer", event);
       // add validations
@@ -481,69 +500,35 @@ export default function AddEmployee() {
       };
 
       const formData = {
-        firstName: f_name,
-        lastName: l_name,
+        first_name: f_name,
+        last_name: l_name,
         email: email,
         gender: gender,
         phone: phone_no,
         password: password,
-        type: user_type,
+        user_type: user_type == "Admin" ? 1 : 2,
       };
       const jsonData = JSON.stringify(formData);
-      // await axios
-      //   .post(
-      //     "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
-      //     // "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-      //     jsonData,
-      //     {
-      //       headers: {
-      //         Accept: "application/json",
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   )
-      //   .then(
-      //     (res) => {
-      //       console.log("resssssssssssssss", res);
-      //       if (res.status === 200) {
-      //         setShowAlert(true);
-      //         // alert("skjdhfkjd");
-      //       }
-
-      //       console.log("res.dataaaaaaaaaaa", res.data);
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-
-      // Fetch Code Start
-      await fetch("https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z", {
+      let res = await fetch(server_url + "admin/employee/add", {
+        mode: "cors",
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjc4M2JjNzQxZTcwMTg2NTNkZTk5YjdiMDdjMDFhYTA0ODIwNTdmYzc5OTcxOGVkYWRjMWUzNjhkZjAzNDk5ZWQ3NjVkYWVlYzhjOWE4ZTYiLCJpYXQiOiIxNjEwMTA5NDUzLjU4ODI1NCIsIm5iZiI6IjE2MTAxMDk0NTMuNTg4MjYwIiwiZXhwIjoiMTY0MTY0NTQ1My41NzI1NjUiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.EcAsb01SH8jjiQIlkTGl22orcs0LuEH7IXq3iC9GBZXbNLqDRWvMnV4ge7GTWtsxrtwBuUhHARvdZ1aYYx7DnuhDtj4r6bbBeEUEkCgkymm_yiJzePxfU2CgdZJYGdkg7UUkowZcf_f-jm4su8KqCJRy8JMApR9FlspRTH_9ef9I2UPNoetn_wz75lKB74wkpEEpR1VIp9et6TReUONB1IfWl7_nUxb8tiIHn4XjKUaNEsJhKelzPPF3njsgyH9jtlVrhqQfhsJkX1E6yZCt-txd4SqBLnQW5fXIlUxflwwtA2lNkMWBRgaGoAIzNNn9m_hftI2XyZv0JnLN6jCoYC2TbpXEKV2Ot6pioXRCJyOIK3gqkwtMOZR-XHEuVsbLh-GPxOqksGx6SZKhaeVV0rhx4vceChILW2PKHyR327QUeKMLrfK6fwH8UGiORGa_HPs3VfTwjLvxSkF_nZsA2TWpFiKBOum2klQ9hxtbX4ogm69dV63OGkzKJHXfsFQTJYOdoz1-xQXVka2yiKCkHRuBV0jsNpW4yqbnADjX2am8ZeSke72g_TcHFH3iv9A4UWRfKIt31S7K6S57P80l5Jc2OpfpWybCBwaEO3PSuP0uoH8RkCmlwMjBCalOcxPWiqiOWx9KSffFMqFJ7gq_-NFccJRlX0X2YDsc4pfyfpg"}`,
         },
         body: JSON.stringify(formData),
       })
         .then((response) => {
-          console.log("response", response);
-          console.log("response Data", response.data);
-
-          if (response.status === 200) {
-            setShowAlert(true);
-
-            // alert("skjdhfkjd");
-          }
+          console.log("response from server is --------------", response);
         })
-        // .then((response) => response.json())
-        // .then((json) => {
-        //   console.log(json);
-        // })
 
         .catch((error) => {
           console.error(error);
         });
+
+      setIsLoading(false);
+
       // Fetch Code End
       let arr = data;
       arr.push(user);
@@ -696,6 +681,7 @@ export default function AddEmployee() {
       </Modal>
     );
   };
+
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
@@ -788,6 +774,13 @@ export default function AddEmployee() {
         marginTop: "10px",
       }}
     >
+      {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       {showAlert == true ? (
         <Grow in={showAlert}>
           <Snackbar
@@ -863,15 +856,18 @@ export default function AddEmployee() {
                   </tr>
                 </thead>
                 <tbody>
-                  {userRecord != "" ? (
-                    userRecord.map((user, index) => (
-                      <>
-                        <TableEmployee item={user} index={index} />
-                      </>
-                    ))
-                  ) : (
-                    <h1>No Data</h1>
-                  )}
+                  {
+                    userRecord != ""
+                      ? userRecord.map((user, index) => (
+                          <>
+                            <TableEmployee item={user} index={index} />
+                          </>
+                        ))
+                      : // <h1>No Data</h1>
+                        null
+
+                    // <Skeleton variant="rect" width={"100%"} height={"100%"} />
+                  }
                   {/* {data.map((item, index) => {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
