@@ -132,7 +132,7 @@ function NewApp() {
         <Route exact path="/">
           {/* <SignIn /> */}
           <SignIn setUser={setUserType} />
-          {userType === "admin" ? (
+          {/* {userType === "admin" ? (
             <Route
               render={() => (
                 <Redirect
@@ -152,7 +152,7 @@ function NewApp() {
                 />
               )}
             />
-          ) : null}
+          ) : null} */}
         </Route>
         {userType === "admin" ? (
           <AdminRoute />
