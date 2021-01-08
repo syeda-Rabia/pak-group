@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import AdminDashboard from "../Dashboard/AdminDashboard";
 import LAASidebar from "../../../components/Sidebar/LAASidebar";
+import SwipeableTemporaryDrawer from "../../../components/Sidebar/SwipableSidebar";
 export default function AdminProjectListScreen() {
   return (
     <React.Fragment>

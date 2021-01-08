@@ -360,6 +360,7 @@ export default function RecordTable() {
               <table
                 className="table table-hover"
                 style={{
+                  minHeight: "220px",
                   textAlign: "center",
                   width: "100%",
                 }}

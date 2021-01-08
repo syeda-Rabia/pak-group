@@ -213,20 +213,33 @@ export default function SignIn(props) {
                 </div>
               </div>
 
-              {/* <Link to="/admin/dashboard" style={{ color: "white" }}> */}
-              <button
-                className="login-btn "
-                type="submit"
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={(event) => {
-                  event.preventDefault();
-                  // handlePostLogin();
-                  props.setUser("admin");
-                }}
-              >
-                Login
-              </button>
-              {/* </Link> */}
+              {/* <Link to="/admin/dashboard" style={{ color: "white" }}>
+                <button
+                  className="login-btn "
+                  type="submit"
+                  style={{ backgroundColor: "#2258BF" }}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    // handlePostLogin();
+                    props.setUser("admin");
+                  }}
+                >
+                  Login
+                </button>
+              </Link> */}
+
+              <Link to="/admin/dashboard" style={{ color: "white" }}>
+                <button
+                  className="login-btn"
+                  style={{ backgroundColor: "#2258BF" }}
+                  onClick={() => {
+                    //   this.props.setUser("sjkdh");
+                    props.setUser("admin");
+                  }}
+                >
+                  Admin Login
+                </button>
+              </Link>
 
               <Link to="/employee/dashboard" style={{ color: "white" }}>
                 <button
