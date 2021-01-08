@@ -21,27 +21,27 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(id, name, noOfInstructions, call, warning) {
+  return { id, name, noOfInstructions, call, warning };
 }
 
 const rows = [
-  // Note Name must be unique or this algo works on unique name
-  createData("Ali Hashmi", 305, "03:00 PM", "67"),
-  createData("Ali ", 305, "03:00 PM", "67"),
-  createData("Atif", 305, "03:00 PM", "67"),
-  createData("Qasim", 305, "03:00 PM", "67"),
-  createData("Shafi", 305, "03:00 PM", "67"),
-  createData("Sabir Ali", 305, "03:00 PM", "67"),
-  createData("Sabir Ali Khuram", 305, "03:00 PM", "67"),
-  createData("Rabia", 305, "03:00 PM", "67"),
-  createData("Usama", 305, "03:00 PM", "67"),
-  createData("Waleed", 305, "03:00 PM", "67"),
-  createData("Kazam", 305, "03:00 PM", "67"),
-  createData("Elon Musk", 305, "03:00 PM", "67"),
-  createData("Imtesal", 305, "03:00 PM", "67"),
-  createData("Tom Cruise", 305, "03:00 PM", "67"),
-  createData("Einstein", 305, "03:00 PM", "67"),
+  // Note ID must be unique or this algo works on unique id
+  createData(1, "Ali Hashmi", 305, "03:00 PM", "67"),
+  createData(2, "Ali Hashmi", 305, "03:00 PM", "67"),
+  createData(3, "Atif", 305, "03:00 PM", "67"),
+  createData(4, "Qasim", 305, "03:00 PM", "67"),
+  createData(5, "Shafi", 305, "03:00 PM", "67"),
+  createData(6, "Sabir Ali", 305, "03:00 PM", "67"),
+  createData(7, "Sabir Ali Khuram", 305, "03:00 PM", "67"),
+  createData(8, "Rabia", 305, "03:00 PM", "67"),
+  createData(9, "Usama", 305, "03:00 PM", "67"),
+  createData(10, "Waleed", 305, "03:00 PM", "67"),
+  createData(11, "Kazam", 305, "03:00 PM", "67"),
+  createData(12, "Elon Musk", 305, "03:00 PM", "67"),
+  createData(13, "Imtesal", 305, "03:00 PM", "67"),
+  createData(14, "Tom Cruise", 305, "03:00 PM", "67"),
+  createData(15, "Einstein", 305, "03:00 PM", "67"),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -72,6 +72,12 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
+    id: "srNo",
+    numeric: true,
+    disablePadding: true,
+    label: "ID",
+  },
+  {
     id: "name",
     numeric: false,
     disablePadding: true,
@@ -90,6 +96,7 @@ const headCells = [
     label: "Explanation Calls",
   },
   { id: "warning", numeric: false, disablePadding: false, label: "Warnings" },
+
   //   { id: "protein", numeric: true, disablePadding: false, label: "Protein (g)" },
 ];
 
@@ -257,19 +264,19 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n, index) => n.name);
+      const newSelecteds = rows.map((n, index) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -297,7 +304,7 @@ export default function EnhancedTable() {
   //     setDense(event.target.checked);
   //   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -326,17 +333,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -345,6 +352,8 @@ export default function EnhancedTable() {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
+                      <TableCell align="right">{row.id}</TableCell>
+
                       <TableCell
                         component="th"
                         id={labelId}
@@ -353,10 +362,11 @@ export default function EnhancedTable() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">
+                        {row.noOfInstructions}
+                      </TableCell>
+                      <TableCell align="right">{row.call}</TableCell>
+                      <TableCell align="right">{row.warning}</TableCell>
                     </TableRow>
                   );
                 })}
