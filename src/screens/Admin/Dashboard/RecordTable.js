@@ -383,10 +383,10 @@ export default function RecordTable() {
                       <span id="sp">Budget</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Time to Call</span>
+                      <span id="sp">Time_to_Call</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Country - City</span>
+                      <span id="sp">Country/City</span>
                     </th>
                     <th scope="col">
                       <span id="sp">Status</span>
@@ -404,10 +404,10 @@ export default function RecordTable() {
                       <span id="sp">Deadline</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Returned From</span>
+                      <span id="sp">Returned_From</span>
                     </th>
                     <th scope="col">
-                      <span id="sp">Call To Action</span>
+                      <span id="sp">Call_To_Action</span>
                     </th>
                   </tr>
                 </thead>

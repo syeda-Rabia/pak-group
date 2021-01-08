@@ -17,6 +17,8 @@ import {
   LinearProgress,
   Grow,
   FormGroup,
+  Backdrop,
+  makeStyles,
 } from "@material-ui/core";
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
 
@@ -31,6 +33,13 @@ export default function AddInventory() {
   const [redirectPage, setRedirectPage] = React.useState(false);
 
   const [showProgress, setShowProgress] = React.useState(false);
+
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
 
   const submit = (e) => {
     e.preventDefault();
@@ -231,6 +240,7 @@ export default function AddInventory() {
         });
     };
     const history = useHistory();
+    const classes = useStyles();
 
     React.useEffect(() => {
       if (InventoryData.length === 0) setForm((state) => !state);
@@ -239,9 +249,9 @@ export default function AddInventory() {
       <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
         {/* <LinearProgress /> */}
         {showProgress == true ? (
-          <Snackbar open={showProgress}>
+          <Backdrop className={classes.backdrop} open={showProgress}>
             <CircularProgress disableShrink />
-          </Snackbar>
+          </Backdrop>
         ) : null}
 
         {showAlert == true ? (
