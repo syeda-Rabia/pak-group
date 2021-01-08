@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   Container,
   Dropdown,
@@ -10,12 +10,23 @@ import {
   Tooltip,
   Row,
   Col,
-} from 'react-bootstrap';
-import './SearchLeads.css';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+} from "react-bootstrap";
+import "./SearchLeads.css";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 export default function SearchLeads(props) {
   const popover = (
-    <Popover id="popover-basic">
+    <Popover
+      id="popover-basic"
+      style={{
+        zIndex: "1030",
+        position: "absolute",
+        top: "10",
+        right: "50",
+        left: "90% !important",
+        backgroundColor: "red",
+        border: "10px solid black",
+      }}
+    >
       <Popover.Content>
         <Form>
           <Row>
@@ -87,6 +98,7 @@ export default function SearchLeads(props) {
       <Button
         id="searchLeads"
         style={{ textAlign: props.alignText, paddingLeft: props.leftPadding }}
+        onClick={() => console.log("button press search leads")}
       >
         {props.name} <ExpandMoreIcon />
       </Button>

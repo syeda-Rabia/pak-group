@@ -293,7 +293,7 @@ export default function AddInventory() {
                       className="w-100"
                       placeholder="Inventory name"
                       value={item.name}
-                      style={{ height: "calc(1.5em + 1.6rem + 2px)" }}
+                      style={{ height: "calc(1.5em + 1.99rem + 2px)" }}
                       onChange={(e) => {
                         // setInventoryData()
                         viewData({ name: e.target.value }, item.id, index);
@@ -304,7 +304,7 @@ export default function AddInventory() {
                     <Form.Control
                       placeholder="Block name"
                       className="w-100"
-                      style={{ height: "calc(1.5em + 1.6rem + 2px)" }}
+                      style={{ height: "calc(1.5em + 1.99rem + 2px)" }}
                       value={item.block_name}
                       onChange={(e) => {
                         // setInventoryData()
@@ -318,7 +318,7 @@ export default function AddInventory() {
                   </Col>
                   <Col>
                     <Form.Group
-                      style={{ backgroundColor: "#F2F4F5" }}
+                      // style={{ backgroundColor: "#F2F4F5" }}
                       controlId="projectCategory"
                     >
                       {/* <Form.Control
@@ -337,15 +337,20 @@ export default function AddInventory() {
                         <option value={"Rent"}>Rent</option>
                       </Form.Control> */}
                       <FormControl
+                        variant="filled"
                         className="w-100 bg-blue"
                         style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
                       >
-                        <InputLabel>Select Category</InputLabel>
+                        <InputLabel id="demo-simple-select-filled-label">
+                          Select Category
+                        </InputLabel>
 
                         <Select
-                          style={{ backgroundColor: "#F2F4F5" }}
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
+                          // style={{ backgroundColor: "#F2F4F5" }}
+                          // labelId="demo-simple-select-label"
+                          // id="demo-simple-select"
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
                           value={item.category}
                           onChange={(e) => {
                             // setInventoryData()
@@ -383,23 +388,29 @@ export default function AddInventory() {
                       <option value={"Open"}>Open</option>
                       <option value={"Sold"}>Sold</option>
                     </Form.Control> */}
-                    <FormGroup style={{ backgroundColor: "#F2F4F5" }}>
+                    <FormGroup
+                    // style={{ backgroundColor: "#F2F4F5" }}
+                    >
                       <FormControl
+                        variant="filled"
                         className="w-100"
                         style={{
                           height: "calc(1.5em + 0.75rem + -4px)",
-                          
                         }}
                       >
-                        <InputLabel>Select Status</InputLabel>
+                        <InputLabel id="demo-simple-select-filled-label">
+                          Select Status
+                        </InputLabel>
 
                         <Select
-                          style={{
-                            backgroundColor: "#F2F4F5",
-                           
-                          }}
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
+                          // style={{
+                          //   backgroundColor: "#F2F4F5",
+
+                          // }}
+                          // labelId="demo-simple-select-label"
+                          // id="demo-simple-select"
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
                           value={item.status}
                           onChange={(e) => {
                             // setInventoryData()

@@ -2,8 +2,12 @@
   background-color: #2258bf;
   width: 100%;
 }
+.navbar-light .navbar-toggler-icon {
+  background-image: url(https://icon-library.com/images/white-menu-icon/white-menu-icon-12.jpg) !important;
+  background-size: 50px 50px;
+}
 .nav-item {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: white !important;
   margin: 0px 10px;
   padding-bottom: 10px;
@@ -21,7 +25,7 @@
   color: #000;
   text-align: center;
   align-items: center;
-  justify-content: 'center';
+  justify-content: "center";
   background: #fff;
 }
 .nav-item:hover {

@@ -15,7 +15,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import SearchLeads from "./SearchLeads";
 import "./LAASidebar.css";
-export default function LAASidebar() {
+import FormPopover from "./FormPopover";
+export default function LAASidebar(props) {
   const [toggle, setToggle] = React.useState(false);
   const displayList = () => {
     setToggle(!toggle);
@@ -25,7 +26,8 @@ export default function LAASidebar() {
   const List = (props) => {
     return (
       <React.Fragment>
-        <SearchLeads name="Search Leads" alignText="left" leftPadding="22px" />
+        {/* <SearchLeads name="Search Leads" alignText="left" leftPadding="22px" /> */}
+        <FormPopover name="Search Leads" alignText="left" leftPadding="22px" />
         <ul className="list-group">
           <li id="list-item" className="list-group-item">
             Add News Leads
@@ -67,7 +69,7 @@ export default function LAASidebar() {
       <button className="toggle-button" onClick={displayList}>
         <img src={buttonImg} />
         <span>
-          Leads Allocaton and Addition <ExpandMoreIcon />
+          {props.name} <ExpandMoreIcon />
         </span>
       </button>
       {toggle === true ? <List /> : null}

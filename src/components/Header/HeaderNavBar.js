@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
 import { Link } from "react-router-dom";
@@ -7,12 +7,20 @@ import { Link } from "react-router-dom";
 export default function HeaderNavBar(props) {
   console.log(props);
   return (
-    <React.Fragment>
+    <Container
+      fluid
+      style={{ backgroundColor: "#2258bf" }}
+      xl={12}
+      lg={12}
+      sm={12}
+      xs={12}
+      className=" mx-0 px-0"
+    >
       <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
           <Link to="/">
             <img
-              alt=""
+              alt="PaK Group"
               src={logo}
               width="150px"
               height="50px"
@@ -126,6 +134,6 @@ export default function HeaderNavBar(props) {
           </Nav.Link>
         </Nav>
       </Navbar>
-    </React.Fragment>
+    </Container>
   );
 }
