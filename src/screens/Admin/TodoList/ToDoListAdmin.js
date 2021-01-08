@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ToDoListAdmin.css";
 import { dummyData } from "../../../assests/constants/todoList";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactTooltip from "react-tooltip";
+import sample from "./../../../assests/sample.mp3";
+import sample2 from "./../../../assests/sample2.mp3";
+
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPause } from "@fortawesome/free-solid-svg-icons";
+
 import {
   KeyboardTimePickerExample,
   KeyboardDatePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
 
-export default function LeadsAllocatonAndAddition() {
+export default function ToDoListAdmin() {
   const [data, setData] = React.useState(dummyData);
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
+   const [setPlay, setShowPlay] = React.useState(false);
+   const [value, setValue] = useState();
+  
+   const [selectedID, setSelectedID] = useState(0);
+   const audioTune = new Audio(sample);
+   const audioTune2 = new Audio(sample2);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -27,6 +41,125 @@ export default function LeadsAllocatonAndAddition() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     // console.log('page', page);
+  };
+  const ModalPlay = ({ item }) => {
+    const [playAudio, setPlayAudio] = useState(false);
+    const [playAudio2, setPlayAudio2] = useState(false);
+
+    useEffect(() => {
+      audioTune.load();
+    }, []);
+
+    const playSound = () => {
+      audioTune.play();
+      setPlayAudio(true);
+    };
+
+    const pauseSound = () => {
+      audioTune.pause();
+      setPlayAudio(false);
+    };
+
+    useEffect(() => {
+      audioTune2.load();
+    }, []);
+
+    const playSound2 = () => {
+      audioTune2.play();
+      setPlayAudio2(true);
+    };
+
+    const pauseSound2 = () => {
+      audioTune2.pause();
+      setPlayAudio2(false);
+    };
+
+    return (
+      <Modal
+        show={setPlay}
+        onHide={() => {
+          setShowPlay(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
+        </Modal.Header>
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <Modal.Body>
+            <Card
+              className="shadow  bg-white rounded "
+              style={{ width: "80%", height: "40px", marginLeft: "35px" }}
+            >
+              <Card.Body>
+                <span className="spn1">01/12/2020</span>
+                <span className="spn2">Recording 1</span>
+                {playAudio ? (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={pauseSound}
+                  >
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={playSound}
+                  >
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                  </button>
+                )}
+              </Card.Body>
+            </Card>
+            <Card
+              className="shadow  bg-white rounded "
+              style={{
+                width: "80%",
+                height: "40px",
+                marginTop: "20px",
+                marginLeft: "35px",
+              }}
+            >
+              <Card.Body>
+                <span className="spn1">31/12/2020</span>
+                <span className="spn2">Recording 2</span>
+                {playAudio2 ? (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={pauseSound2}
+                  >
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={playSound2}
+                  >
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                  </button>
+                )}
+              </Card.Body>
+            </Card>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowPlay(false);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
+    );
   };
 
   const TableRow = ({ index, item }) => {
@@ -112,11 +245,21 @@ export default function LeadsAllocatonAndAddition() {
         </td>
         <td>Rabia</td>
         <td>
-          <select className="form-control form-control-sm w-100">
-            <option>Recording 1</option>
-            <option>Recording 2</option>
-            <option>Recording 3</option>
-          </select>
+          <button
+            data-tip
+            data-for="ViewTip"
+            type="button"
+            className="bg-transparent  button-focus mr-2"
+            onClick={() => {
+              setShowPlay(true);
+              setSelectedID(index);
+            }}
+          >
+            <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+          </button>
+          <ReactTooltip id="ViewTip" place="top" effect="solid">
+            play
+          </ReactTooltip>
         </td>
       </tr>
     );
@@ -213,6 +356,11 @@ export default function LeadsAllocatonAndAddition() {
                     return <TableRow index={index} item={item} />;
                   })}
                 </tbody>
+                {data.length > 0 ? (
+                  <>
+                    <ModalPlay item={data[selectedID]} />
+                  </>
+                ) : null}
               </table>
             </div>
           </div>

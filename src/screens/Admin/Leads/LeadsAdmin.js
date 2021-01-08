@@ -77,25 +77,15 @@ export default function LeadsAdmin() {
         >
           <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <Modal.Body>
             <Card
               className="shadow  bg-white rounded "
               style={{ width: "80%", height: "40px", marginLeft: "35px" }}
             >
               <Card.Body>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    paddingRight: "100px",
-                    paddingTop: "0px",
-                  }}
-                >
-                  01/12/2020
-                </span>
-                <span style={{ fontSize: "16px", paddingRight: "20px" }}>
-                  Recording 1
-                </span>
+                <span className="spn1">01/12/2020</span>
+                <span className="spn2">Recording 1</span>
                 {playAudio ? (
                   <button
                     type="button"
@@ -125,18 +115,8 @@ export default function LeadsAdmin() {
               }}
             >
               <Card.Body>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    paddingRight: "100px",
-                    paddingTop: "0px",
-                  }}
-                >
-                  31/12/2020
-                </span>
-                <span style={{ fontSize: "16px", paddingRight: "20px" }}>
-                  Recording 2
-                </span>
+                <span className="spn1">31/12/2020</span>
+                <span className="spn2">Recording 2</span>
                 {playAudio2 ? (
                   <button
                     type="button"
@@ -326,18 +306,7 @@ export default function LeadsAdmin() {
                      />
                    </div>
 
-                   {/* <div className="pb-3">
-                     <h6>Time To Call</h6>
-                     <div className=" w-100">
-                       <KeyboardTimePickerExample
-                         value={toc}
-                         onChange={(e) => {
-                           setToc(e.target.value);
-                           console.log(e);
-                         }}
-                       />
-                     </div> */}
-                   {/* </div> */}
+                  
                  </div>
                  <div className="ml-3">
                    <div className="pb-3">
@@ -352,19 +321,7 @@ export default function LeadsAdmin() {
                        }}
                      />
                    </div>
-                   {/* <div className="pb-3">
-                     <h6>Status</h6>
-                     <select
-                       value={status}
-                       onChange={(e) => {
-                         setStatus(e.target.value);
-                       }}
-                       className="form-control form-control-sm w-100"
-                     >
-                       <option value={"graceperiod"}>Grace Period</option>
-                       <option value={"Overdue"}>Over Due</option>
-                     </select>
-                   </div> */}
+                   
                    <div className="pb-3">
                      <h6>Interest</h6>
                      <select
@@ -378,19 +335,7 @@ export default function LeadsAdmin() {
                        <option value={"10marla"}>10 Marla</option>
                      </select>
                    </div>
-                   {/* <div className="pb-3">
-                     <h6>Allocate To</h6>
-                     <select
-                       value={allocate_to}
-                       onChange={(e) => {
-                         setAllocate(e.target.value);
-                       }}
-                       className="form-control form-control-sm w-100"
-                     >
-                       <option value={"Atif"}>Atif</option>
-                       <option value={"Rabia"}>Rabia</option>
-                     </select>
-                   </div> */}
+                   
                    <div className="pb-3">
                      <h6>Email</h6>
                      <input
@@ -417,32 +362,7 @@ export default function LeadsAdmin() {
                        <option value={"other"}>other</option>
                      </select>
                    </div>
-                   {/* <div className="pb-3">
-                     <h6>DeadLine</h6>
-                     <div className=" w-100 ">
-                       <KeyboardDatePickerExample
-                         value={deadline}
-                         onChange={(e) => {
-                           setDeadline(e.target.value);
-                         }}
-                       />
-                     </div>
-                   </div> */}
-
-                   {/* <div className="pb-3">
-                <h6>returned From</h6>
-                <select
-                  value={returned_from}
-                  onChange={(e) => {
-                    setReturned(e.target.value);
-                  }}
-                  className="form-control form-control-sm w-100"
-                >
-                  <option value={"Rabia"}>Rabia</option>
-                  <option value={"Ali"}>Ali</option>
-                  <option value={"Atif"}>Atif</option>
-                </select>
-              </div> */}
+                   
                  </div>
                </div>
              </Modal.Body>
@@ -462,16 +382,7 @@ export default function LeadsAdmin() {
                >
                  Submit
                </Button>
-               {/* <Button
-            type="submit"
-            value="Submit"
-            style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setShowAdd(false);
-            }}
-          >
-            Add
-          </Button> */}
+              
              </Modal.Footer>
            </div>
          </form>
@@ -551,6 +462,7 @@ export default function LeadsAdmin() {
               className="btn btn-primary"
               style={{
                 backgroundColor: "#2258BF",
+                
               }}
               onClick={() => {
                 setShowAdd(true);
