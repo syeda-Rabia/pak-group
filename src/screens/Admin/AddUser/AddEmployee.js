@@ -83,7 +83,7 @@ export default function AddEmployee() {
           // setItems(result);
 
           if (result.error != true) {
-            setUserRecord(result.data.users.data);
+            // setUserRecord(result.data.users.data);
             console.log("------------------------", result.data.users.data);
           } else {
             console.log(
@@ -509,8 +509,15 @@ export default function AddEmployee() {
         user_type: user_type == "Admin" ? 1 : 2,
       };
       const jsonData = JSON.stringify(formData);
+      // const requestOptions = {
+      //   crossDomain: true,
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // };
       let res = await fetch(server_url + "admin/employee/add", {
-        mode: "cors",
+        // mode: "cors",
+        crossDomain: true,
         method: "POST",
         headers: {
           Accept: "application/json",
