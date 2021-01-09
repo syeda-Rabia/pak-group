@@ -23,12 +23,12 @@ export default function ToDoListAdmin() {
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
-   const [setPlay, setShowPlay] = React.useState(false);
-   const [value, setValue] = useState();
-  
-   const [selectedID, setSelectedID] = useState(0);
-   const audioTune = new Audio(sample);
-   const audioTune2 = new Audio(sample2);
+  const [setPlay, setShowPlay] = React.useState(false);
+  const [value, setValue] = useState();
+
+  const [selectedID, setSelectedID] = useState(0);
+  const audioTune = new Audio(sample);
+  const audioTune2 = new Audio(sample2);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -266,105 +266,105 @@ export default function ToDoListAdmin() {
   };
   return (
     <Container fluid className="Laa">
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-        <h3 style={{ color: "#818181" }}>To Do List Admin</h3>
-      </div>
+      <Row>
+        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+          <h3 style={{ color: "#818181" }}>To Do List </h3>
+        </div>
+      </Row>
 
       <Row>
-        <Col lg="12" style={{ backgroundColor: "white", borderRadius: "5px" }}>
-          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
-            <div className="table-responsive">
-              <table id="todolistTable" className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        ID
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Clients
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Contacts
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Project
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        {" "}
-                        Budget
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        TOC
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        {" "}
-                        Country/City
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Status
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Interest
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Email
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Task
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Deadline
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        {"Returned_From"}
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Recording
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentData.map((item, index) => {
-                    return <TableRow index={index} item={item} />;
-                  })}
-                </tbody>
-                {data.length > 0 ? (
-                  <>
-                    <ModalPlay item={data[selectedID]} />
-                  </>
-                ) : null}
-              </table>
-            </div>
+        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+          <div className="table-responsive">
+            <table id="todolistTable" className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      ID
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Clients
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Contacts
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Project
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      {" "}
+                      Budget
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      TOC
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      {" "}
+                      Country/City
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Status
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Interest
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Email
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Task
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Deadline
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      {"Returned_From"}
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Recording
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentData.map((item, index) => {
+                  return <TableRow index={index} item={item} />;
+                })}
+              </tbody>
+              {data.length > 0 ? (
+                <>
+                  <ModalPlay item={data[selectedID]} />
+                </>
+              ) : null}
+            </table>
           </div>
-        </Col>
+        </div>
       </Row>
       <Row>
         <Col>
