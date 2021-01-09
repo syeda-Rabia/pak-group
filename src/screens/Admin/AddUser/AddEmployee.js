@@ -530,11 +530,6 @@ export default function AddEmployee() {
       event.preventDefault();
       setIsLoading(true);
 
-      // console.log("SendRecordToServer", event);
-      // add validations
-
-      // push
-
       let user = {
         id: "1",
         Name: f_name,
@@ -546,17 +541,6 @@ export default function AddEmployee() {
         Type: user_type,
       };
 
-      const formData = {
-        first_name: f_name,
-        last_name: l_name,
-        email: email,
-        gender: gender,
-        phone: phone_no,
-        password: password,
-        user_type: user_type,
-      };
-      const jsonData = JSON.stringify(formData);
-
       try {
         let resp = await fetch(server_url + "admin/employee/add", {
           method: "post",
@@ -567,8 +551,15 @@ export default function AddEmployee() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-
-          body: jsonData,
+          body: JSON.stringify({
+            first_name: f_name,
+            last_name: l_name,
+            email: email,
+            gender: gender == "male" ? "Male" : "Female",
+            phone: phone_no,
+            password: password,
+            user_type: user_type == "Admin" ? "Admin" : "Employee",
+          }),
         })
           .then((response) => response.json())
           .then((json) => {

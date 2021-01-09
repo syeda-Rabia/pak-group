@@ -12,7 +12,7 @@ class Footer extends Component {
       <div>
         <div className="row ">
           <div
-            className=" col-lg-6 footer-link text-primary  "
+            className=" col-lg-6 col-sm-12   footer-link text-primary  "
             style={{ fontSize: "16px" }}
           >
             <div className="ml-5  footr clr" style={{ color: "#2258BF" }}>
@@ -33,10 +33,10 @@ class Footer extends Component {
               </a>
             </div>
           </div>
-          <div className=" col-lg-6 footer-link item">
-            <div className=" footer-icon item">
+          <div className="col-lg-6 col-sm-12 flx footer-link item w-100">
+            <div className=" footer-icon item w-100">
               <div className="item">
-                <ul className="list-unstyled list-inline item">
+                <ul className="list-unstyled list-inline item flx1">
                   <li className="list-inline-item">
                     <a className="btn-floating btn-sm rgba-white-slight mx-1">
                       <img src={img} />
@@ -66,11 +66,10 @@ class Footer extends Component {
         <div className="row">
           <div className="col-md-6 col-lg-6 mt-0">
             <p
-              className="ml-5 text1"
+              className=" text1"
               style={{
                 color: "#2258BF",
                 wordSpacing: "-2px",
-                fontSize: "15px",
               }}
             >
               PakGroup © 2020 Copyright by

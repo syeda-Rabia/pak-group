@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Form, Button, Col, Container } from "react-bootstrap";
+import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -82,76 +82,81 @@ export default function AddInventory() {
 
     return (
       <React.Fragment>
-        <div
-          style={{
-            // backgroundColor: 'red',
-            margin: "auto",
-            width: "100%",
-            // border: '3px solid green',
-            padding: "10px",
-            marginTop: "10px",
-          }}
+        <Container
+          fluid
+          // style={{
+          //   // backgroundColor: 'red',
+          //   margin: "auto",
+          //   width: "100%",
+          //   // border: '3px solid green',
+          //   padding: "10px",
+          //   marginTop: "10px",
+          // }}
         >
-          <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-            <h3 style={{ color: "#818181" }}>Add Project</h3>
-          </div>
-          <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
-            <Form onSubmit={submit}>
-              <Form.Group controlId="inventoryName">
-                <Form.Label>Project Name</Form.Label>
-                <Form.Control
-                  value={name}
-                  onChange={(e) => {
-                    // console.log(name);
-                    setName(e.target.value);
-                    console.log(name);
-                  }}
-                  required={true}
-                  className="w-100"
-                  type="text"
-                />
-              </Form.Group>
-              <Form.Group controlId="projectCategory">
-                <Form.Label>Project Category</Form.Label>
-                <Form.Control
-                  value={category}
-                  as="select"
-                  className="w-100"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                >
-                  <option value={"Both"}>Sale & Rent</option>
-                  <option value={"Sale"}>Sale</option>
-                  <option value={"Rent"}>Rent</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="units">
-                <Form.Label>Units</Form.Label>
-                <Form.Control
-                  value={units}
-                  onChange={(e) => {
-                    setUnits(e.target.value);
-                  }}
-                  className="w-100"
-                  type="number"
-                  placeholder="Number of Properties"
-                />
-              </Form.Group>
-              {name != "" ? (
-                <Button
-                  className="w-100"
-                  variant="primary"
-                  type="submit"
-                  disabled={!name}
-                  onClick={handleForm}
-                >
-                  Add Inventory
-                </Button>
-              ) : null}
-            </Form>
-          </div>
-        </div>
+          <Row>
+            <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+              <h3 style={{ color: "#818181" }}>Add Project</h3>
+            </div>
+          </Row>
+          <Row>
+            <div class="col-lg-12 shadow p-3  bg-white rounded ">
+              <Form onSubmit={submit}>
+                <Form.Group controlId="inventoryName">
+                  <Form.Label>Project Name</Form.Label>
+                  <Form.Control
+                    value={name}
+                    onChange={(e) => {
+                      // console.log(name);
+                      setName(e.target.value);
+                      console.log(name);
+                    }}
+                    required={true}
+                    className="w-100"
+                    type="text"
+                  />
+                </Form.Group>
+                <Form.Group controlId="projectCategory">
+                  <Form.Label>Project Category</Form.Label>
+                  <Form.Control
+                    value={category}
+                    as="select"
+                    className="w-100"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                  >
+                    <option value={"Both"}>Sale & Rent</option>
+                    <option value={"Sale"}>Sale</option>
+                    <option value={"Rent"}>Rent</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group controlId="units">
+                  <Form.Label>Units</Form.Label>
+                  <Form.Control
+                    value={units}
+                    onChange={(e) => {
+                      setUnits(e.target.value);
+                    }}
+                    className="w-100"
+                    type="number"
+                    placeholder="Number of Properties"
+                  />
+                </Form.Group>
+                {name != "" ? (
+                  <Button
+                    className="w-100"
+                    variant="primary"
+                    type="submit"
+                    disabled={!name}
+                    onClick={handleForm}
+                  >
+                    Add Inventory
+                  </Button>
+                ) : null}
+              </Form>
+            </div>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   };

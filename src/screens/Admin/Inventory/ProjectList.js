@@ -251,66 +251,61 @@ export default function ProjectList() {
     );
   };
   return (
-    <Container fluid>
-      <div className="shadow p-3 mb-3 bg-white rounded mt-4">
-        <h2 style={{ color: "#818181" }}>Project List</h2>
-      </div>
+    <Container fluid className="Laa">
+      <Row>
+        <div className=" col-lg-12 shadow p-3  bg-white rounded mt-4">
+          <h2 style={{ color: "#818181" }}>Project List</h2>
+        </div>
+      </Row>
+      <Row>
+        <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
+          <Link to="/admin/add-project">
+            <button
+              type="button"
+              className="btn btn-primary my-4"
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+            >
+              <FontAwesomeIcon icon={faPlusSquare} /> Add Project
+            </button>
+          </Link>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    ID
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Project Name
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Units
+                  </th>
 
-      <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
-        <Row>
-          <Col
-            lg
-            md="12"
-            style={{ backgroundColor: "white", borderRadius: "5px" }}
-          >
-            <Link to="/admin/add-project">
-              <button
-                type="button"
-                className="btn btn-primary my-4"
-                style={{
-                  backgroundColor: "#2258BF",
-                }}
-              >
-                <FontAwesomeIcon icon={faPlusSquare} /> Add Project
-              </button>
-            </Link>
-            <div className="table-responsive">
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col" style={{ color: "#818181" }}>
-                      ID
-                    </th>
-                    <th scope="col" style={{ color: "#818181" }}>
-                      Project Name
-                    </th>
-                    <th scope="col" style={{ color: "#818181" }}>
-                      Units
-                    </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => {
+                  return <TableEmployee item={item} index={index} />;
+                })}
+              </tbody>
+              {data.length > 0 ? (
+                <>
+                  <ModalDelete item={data[selectedID]} />
+                  <ViewCurrent item={data[selectedID]} />
 
-                    <th scope="col" style={{ color: "#818181" }}>
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => {
-                    return <TableEmployee item={item} index={index} />;
-                  })}
-                </tbody>
-                {data.length > 0 ? (
-                  <>
-                    <ModalDelete item={data[selectedID]} />
-                    <ViewCurrent item={data[selectedID]} />
-
-                    {/* <ModalEdit item={data[selectedID]} /> */}
-                  </>
-                ) : null}
-              </table>
-            </div>
-          </Col>
-        </Row>
-      </div>
+                  {/* <ModalEdit item={data[selectedID]} /> */}
+                </>
+              ) : null}
+            </table>
+          </div>
+        </div>
+      </Row>
     </Container>
   );
 }

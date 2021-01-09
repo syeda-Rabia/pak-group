@@ -1,4 +1,4 @@
-import { server_url } from "./Config";
+import { server_url, token } from "./Config";
 
 const GetRecordFromServer = async (url) => {
   fetch(server_url + url, {
@@ -25,4 +25,38 @@ const GetRecordFromServer = async (url) => {
     );
 };
 
-export default GetRecordFromServer;
+const POST = async (url, formData) => {
+  console.log("POST method , coming URL is ------,     ", url);
+  console.log(
+    "form data to submut ----------,      ",
+    JSON.stringify(formData)
+  );
+
+  try {
+    return fetch(server_url + url, {
+      method: "post",
+      // mode: "no-cors",
+      crossDomain: true,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("resp in POST func", JSON.stringify(res));
+        return res;
+      })
+      .catch((error) => {
+        console.error(error);
+        return error;
+      });
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+};
+
+export default POST;
