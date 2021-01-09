@@ -8,16 +8,19 @@ import "bootstrap/dist/css/bootstrap.css";
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 import "antd/dist/antd.css";
-
+import { store, persistor } from "./modules/Store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      {/* <App /> */}
-      <NewApp />
-    </BrowserRouter>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <NewApp />
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 
