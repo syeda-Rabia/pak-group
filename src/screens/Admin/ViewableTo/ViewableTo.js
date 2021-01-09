@@ -54,24 +54,22 @@ export default function ViewableTo() {
                 ) : null}
               </div>
               <div>
+                {viewable != null ? (
+                  viewable.length > 0 ? (
+                    <button
+                      class="col-lg-12 btn btn-primary"
+                      type="submit"
+                      style={{ backgroundColor: "#2258BF" }}
+                      // disabled={!select.every((v) => v === true)}
 
-              {viewable != null ? (
-                viewable.length > 0 ? (
-                  <button
-                    class="col-lg-12 btn btn-primary"
-                    type="submit"
-                    style={{ backgroundColor: "#2258BF" }}
-                    // disabled={!select.every((v) => v === true)}
-
-                    onClick={(arr) => {
-                      console.log(arr);
-                    }}
-                  >
-                    save
-                  </button>
-                ) : null
-              ) : null}
-              
+                      onClick={(arr) => {
+                        console.log(arr);
+                      }}
+                    >
+                      save
+                    </button>
+                  ) : null
+                ) : null}
               </div>
             </Row>
 
@@ -86,12 +84,37 @@ export default function ViewableTo() {
                     </th>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Sr_no
+                        Serial_No
                       </span>
                     </th>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Project
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Project_Category
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Inventory_Name
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Block_Name
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Inventory_Category
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Status
                       </span>
                     </th>
                     <th scope="col">
@@ -113,63 +136,11 @@ export default function ViewableTo() {
                     </td>
                     <td>1</td>
                     <td>Project Name</td>
-                    <td>
-                      {viewable != null
-                        ? viewable.map((task) => {
-                            return `${task.value} `;
-                          })
-                        : null}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">
-                      <input
-                        type="checkBox"
-                        onClick={(e) => {
-                          HandleName(1);
-                        }}
-                      />
-                    </td>
-                    <td>1</td>
-                    <td>Project Name</td>
-                    <td>
-                      {viewable != null
-                        ? viewable.map((task) => {
-                            return `${task.value} `;
-                          })
-                        : null}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">
-                      <input
-                        type="checkBox"
-                        onClick={(e) => {
-                          HandleName(2);
-                        }}
-                      />
-                    </td>
-                    <td>1</td>
-                    <td>Project Name</td>
-                    <td>
-                      {viewable != null
-                        ? viewable.map((task) => {
-                            return `${task.value} `;
-                          })
-                        : null}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope="row">
-                      <input
-                        type="checkBox"
-                        onClick={(e) => {
-                          HandleName(3);
-                        }}
-                      />
-                    </td>
-                    <td>1</td>
-                    <td>Project Name</td>
+                    <td>LDA City</td>
+                    <td>DHA</td>
+                    <td>Block A</td>
+                    <td>Sale</td>
+                    <td>Sold</td>
                     <td>
                       {viewable != null
                         ? viewable.map((task) => {

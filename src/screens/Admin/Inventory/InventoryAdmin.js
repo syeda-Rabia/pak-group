@@ -24,73 +24,69 @@ export default function InventoryAdmin({ listData }) {
   };
   return (
     <Container fluid className="Laa">
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-        <h3 style={{ color: "#818181" }}>
-          Inventory <sub>(Admin)</sub>
-        </h3>
-      </div>
-      <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <Row>
-          <Col
-            lg
-            md="12"
-            style={{ backgroundColor: "white", borderRadius: "5px" }}
-          >
-            <div className="table-responsive">
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        ID
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        ProjectName
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Category
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        BlockName
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        InventoryName
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Status
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Action
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* {data[0].map((item, index) => { */}
+      <Row>
+        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+          <h3 style={{ color: "#818181" }}>
+            Inventory <sub>(Admin)</sub>
+          </h3>
+        </div>
+      </Row>
+      <Row>
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      ID
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      ProjectName
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Category
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      BlockName
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      InventoryName
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Status
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Action
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {data[0].map((item, index) => { */}
 
-                  <TableRow
-                    Name={listData.item.Name}
-                    inventories={listData.item.inventory}
-                  />
-                  {/* })} */}
-                </tbody>
-              </table>
-            </div>
-          </Col>
-        </Row>
-      </div>
+                <TableRow
+                  Name={listData.item.Name}
+                  inventories={listData.item.inventory}
+                />
+                {/* })} */}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Row>
     </Container>
   );
 }

@@ -288,7 +288,6 @@ export default function LeadsAllocatonAndAddition() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-around",
-                   
                   }}
                   className=""
                 >
@@ -447,9 +446,9 @@ export default function LeadsAllocatonAndAddition() {
                       <h6>DeadLine</h6>
                       <div className=" w-100">
                         <KeyboardDatePickerExample
-                        style={{
-                          border:""
-                        }}
+                          style={{
+                            border: "",
+                          }}
                           value={deadline}
                           onChange={(e) => {
                             setDeadline(e.target.value);
@@ -558,7 +557,6 @@ export default function LeadsAllocatonAndAddition() {
     );
   };
 
- 
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
@@ -676,132 +674,127 @@ export default function LeadsAllocatonAndAddition() {
     <Container
       fluid
       className="Laa"
-      style={{
-        // backgroundColor: 'red',
-        margin: "auto",
-        width: "100%",
-        // border: '3px solid green',
-        padding: "10px",
-        marginTop: "10px",
-      }}
+      // style={{
+      //   // backgroundColor: 'red',
+      //   margin: "auto",
+      //   width: "100%",
+      //   // border: '3px solid green',
+      //   padding: "10px",
+      //   marginTop: "10px",
+      // }}
     >
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
-        <h3 style={{ color: "#818181" }}>Leads Allocation And Addition</h3>
-      </div>
-      <div className="col-lg-12 shadow p-3  bg-white rounded ">
-       
-        <span></span>
-        <Row>
-          <Col
-            lg
-            md="12"
-            style={{ backgroundColor: "white", borderRadius: "5px" }}
-          >
-            <div className="table-responsive">
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        ID
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Clients
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Contacts
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Project
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Budget
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        TOC
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Source
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Country/City
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Status
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Interest
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        {" "}
-                        Allocate/Re_Allocate
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Task
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Deadline
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Returned_From
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Update_Record
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Action
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => {
-                    return <TableEmployee item={item} index={index} />;
-                  })}
-                </tbody>
-                {data.length > 0 ? (
-                  <>
-                    <ModalDelete item={data[selectedID]} />
-                    <ModalView item={data[selectedID]} />
-                    <ModalEdit item={data[selectedID]} />
-                  </>
-                ) : null}
-              </table>
-              
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+          <h3 style={{ color: "#818181" }}>Leads Allocation And Addition</h3>
+        </div>
+      </Row>
+      <Row>
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <span></span>
+
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      ID
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Clients
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Contacts
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Project
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Budget
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      TOC
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Source
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Country/City
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Status
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Interest
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      {" "}
+                      Allocate/Re_Allocate
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Task
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Deadline
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Returned_From
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Update_Record
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Action
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => {
+                  return <TableEmployee item={item} index={index} />;
+                })}
+              </tbody>
+              {data.length > 0 ? (
+                <>
+                  <ModalDelete item={data[selectedID]} />
+                  <ModalView item={data[selectedID]} />
+                  <ModalEdit item={data[selectedID]} />
+                </>
+              ) : null}
+            </table>
+          </div>
+        </div>
+      </Row>
     </Container>
   );
 }
