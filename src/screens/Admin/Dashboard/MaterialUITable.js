@@ -352,7 +352,7 @@ export default function EnhancedTable() {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      <TableCell align="right">{row.id}</TableCell>
+                      <TableCell align="left">{row.id}</TableCell>
 
                       <TableCell
                         component="th"
@@ -362,11 +362,11 @@ export default function EnhancedTable() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         {row.noOfInstructions}
                       </TableCell>
-                      <TableCell align="right">{row.call}</TableCell>
-                      <TableCell align="right">{row.warning}</TableCell>
+                      <TableCell align="center">{row.call}</TableCell>
+                      <TableCell align="center">{row.warning}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -379,7 +379,7 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions="5"
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

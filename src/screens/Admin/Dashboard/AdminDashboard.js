@@ -17,10 +17,7 @@ function AdminDashboard() {
             <h4 style={{ color: "#818181" }}>Admin Dashboard</h4>
           </Col>
           <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-            <div
-              className="float-right drawer-div position-absolute"
-              style={{ bottom: "-5px" }}
-            >
+            <div className="float-right drawer-div" style={{ bottom: "-5px" }}>
               <SwipeableTemporaryDrawer />
             </div>
           </Col>

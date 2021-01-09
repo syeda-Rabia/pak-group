@@ -15,14 +15,19 @@ import { ModalData } from "./../../../assests/constants/modal";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import Snackbar from "@material-ui/core/Snackbar";
-import Grow from "@material-ui/core/Grow";
-import { server_url } from "../../../utils/Config";
+import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
+import { server_url, token } from "../../../utils/Config";
 // import GetRecordFromServer from "../../../utils/Functions";
-import { Backdrop, makeStyles } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Skeleton from "@material-ui/lab/Skeleton";
+import {
+  Backdrop,
+  makeStyles,
+  CircularProgress,
+  Slide,
+  Grow,
+  Snackbar,
+} from "@material-ui/core";
+import Pagination from "../../../components/Pagination/Pagination";
+
 import axios from "axios";
 
 export default function AddEmployee() {
@@ -36,6 +41,7 @@ export default function AddEmployee() {
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
   const [showAlert, setShowAlert] = React.useState(false);
+  const [errorAlert, setErrorAlert] = React.useState(false);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
@@ -43,8 +49,57 @@ export default function AddEmployee() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
+  /*  Pagination data  */
+
+  const [pageSize, setPageSize] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(null);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [totalRecord, setTotalRecord] = React.useState(null);
+
+  const lastIndex = currentPage * pageSize;
+  const istIndex = lastIndex - pageSize;
+  const currentData = data.slice(istIndex, lastIndex);
+
+  // const [page, setPage] = React.useState(2);
+  const handlePageChange = async (page) => {
+    /*
+    Api Call
+    
+    */
+
+    let res = await fetch(server_url + "admin/employee/all?page=" + page, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log("Pagination Button hit", result.data.users);
+          setCurrentPage(result.data.users.current_page);
+          setUserRecord(result.data.users.data);
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  const handleShow = (pageCount) => {
+    setPageCount(pageCount);
+  };
+
+  /*  Pagination data  */
+
   const handleClose = () => {
     setShowAlert(false);
+  };
+
+  const handleErrorClose = () => {
+    setErrorAlert(false);
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -70,10 +125,7 @@ export default function AddEmployee() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjc4M2JjNzQxZTcwMTg2NTNkZTk5YjdiMDdjMDFhYTA0ODIwNTdmYzc5OTcxOGVkYWRjMWUzNjhkZjAzNDk5ZWQ3NjVkYWVlYzhjOWE4ZTYiLCJpYXQiOiIxNjEwMTA5NDUzLjU4ODI1NCIsIm5iZiI6IjE2MTAxMDk0NTMuNTg4MjYwIiwiZXhwIjoiMTY0MTY0NTQ1My41NzI1NjUiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.EcAsb01SH8jjiQIlkTGl22orcs0LuEH7IXq3iC9GBZXbNLqDRWvMnV4ge7GTWtsxrtwBuUhHARvdZ1aYYx7DnuhDtj4r6bbBeEUEkCgkymm_yiJzePxfU2CgdZJYGdkg7UUkowZcf_f-jm4su8KqCJRy8JMApR9FlspRTH_9ef9I2UPNoetn_wz75lKB74wkpEEpR1VIp9et6TReUONB1IfWl7_nUxb8tiIHn4XjKUaNEsJhKelzPPF3njsgyH9jtlVrhqQfhsJkX1E6yZCt-txd4SqBLnQW5fXIlUxflwwtA2lNkMWBRgaGoAIzNNn9m_hftI2XyZv0JnLN6jCoYC2TbpXEKV2Ot6pioXRCJyOIK3gqkwtMOZR-XHEuVsbLh-GPxOqksGx6SZKhaeVV0rhx4vceChILW2PKHyR327QUeKMLrfK6fwH8UGiORGa_HPs3VfTwjLvxSkF_nZsA2TWpFiKBOum2klQ9hxtbX4ogm69dV63OGkzKJHXfsFQTJYOdoz1-xQXVka2yiKCkHRuBV0jsNpW4yqbnADjX2am8ZeSke72g_TcHFH3iv9A4UWRfKIt31S7K6S57P80l5Jc2OpfpWybCBwaEO3PSuP0uoH8RkCmlwMjBCalOcxPWiqiOWx9KSffFMqFJ7gq_-NFccJRlX0X2YDsc4pfyfpg"}`,
-        // Authorization:
-        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTY3ZWYwNjU0ZjAwMTdmNzlhZDIiLCJpYXQiOjE2MDk5OTg5NDZ9.ni9LQdAd8lsq3fMuwr2qGmOjRK3_5xA1-17InSj6c10",
-        // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmY1YTcyZWYwNjU0ZjAwMTdmNzlhZDUiLCJpYXQiOjE2MDk5MzQ3Mjl9.mLqgYtTKk6uevRcfxAKwHnv9_bKZ6n1sHa_2k6fDtGA",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -83,8 +135,11 @@ export default function AddEmployee() {
           // setItems(result);
 
           if (result.error != true) {
-            // setUserRecord(result.data.users.data);
-            console.log("------------------------", result.data.users.data);
+            setUserRecord(result.data.users.data);
+            setPageSize(result.data.users.per_page);
+            setTotalRecord(result.data.users.total);
+            setCurrentPage(result.data.users.current_page);
+            console.log("------------------------", result.data);
           } else {
             console.log(
               "server throw error ---------> ",
@@ -152,14 +207,6 @@ export default function AddEmployee() {
                   <input className="form-control w-100 " value={item.Type} />
                 </div>
               </div>
-              {/* <label>ID</label>
-          <input type="number">{item.id}</input>
-          <label>Name</label>
-          <input type="name">{item.Name}</input>
-          <label>Email</label>
-          <input type="email">{item.Email}</input>
-          <label>Type</label>
-          <input type="type">{item.Type}</input> */}
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -474,7 +521,7 @@ export default function AddEmployee() {
     const [f_name, setF_name] = useState("");
     const [l_name, setL_name] = useState("");
     const [email, setEmail] = useState("");
-    const [gender, setGender] = useState("male");
+    const [gender, setGender] = useState("Male");
     const [user_type, setUser_type] = useState("Employee");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
@@ -506,37 +553,50 @@ export default function AddEmployee() {
         gender: gender,
         phone: phone_no,
         password: password,
-        user_type: user_type == "Admin" ? 1 : 2,
+        user_type: user_type,
       };
       const jsonData = JSON.stringify(formData);
-      // const requestOptions = {
-      //   crossDomain: true,
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // };
-      let res = await fetch(server_url + "admin/employee/add", {
-        // mode: "cors",
-        crossDomain: true,
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjc4M2JjNzQxZTcwMTg2NTNkZTk5YjdiMDdjMDFhYTA0ODIwNTdmYzc5OTcxOGVkYWRjMWUzNjhkZjAzNDk5ZWQ3NjVkYWVlYzhjOWE4ZTYiLCJpYXQiOiIxNjEwMTA5NDUzLjU4ODI1NCIsIm5iZiI6IjE2MTAxMDk0NTMuNTg4MjYwIiwiZXhwIjoiMTY0MTY0NTQ1My41NzI1NjUiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.EcAsb01SH8jjiQIlkTGl22orcs0LuEH7IXq3iC9GBZXbNLqDRWvMnV4ge7GTWtsxrtwBuUhHARvdZ1aYYx7DnuhDtj4r6bbBeEUEkCgkymm_yiJzePxfU2CgdZJYGdkg7UUkowZcf_f-jm4su8KqCJRy8JMApR9FlspRTH_9ef9I2UPNoetn_wz75lKB74wkpEEpR1VIp9et6TReUONB1IfWl7_nUxb8tiIHn4XjKUaNEsJhKelzPPF3njsgyH9jtlVrhqQfhsJkX1E6yZCt-txd4SqBLnQW5fXIlUxflwwtA2lNkMWBRgaGoAIzNNn9m_hftI2XyZv0JnLN6jCoYC2TbpXEKV2Ot6pioXRCJyOIK3gqkwtMOZR-XHEuVsbLh-GPxOqksGx6SZKhaeVV0rhx4vceChILW2PKHyR327QUeKMLrfK6fwH8UGiORGa_HPs3VfTwjLvxSkF_nZsA2TWpFiKBOum2klQ9hxtbX4ogm69dV63OGkzKJHXfsFQTJYOdoz1-xQXVka2yiKCkHRuBV0jsNpW4yqbnADjX2am8ZeSke72g_TcHFH3iv9A4UWRfKIt31S7K6S57P80l5Jc2OpfpWybCBwaEO3PSuP0uoH8RkCmlwMjBCalOcxPWiqiOWx9KSffFMqFJ7gq_-NFccJRlX0X2YDsc4pfyfpg"}`,
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => {
-          console.log("response from server is --------------", response);
-        })
 
-        .catch((error) => {
-          console.error(error);
-        });
+      try {
+        let resp = await fetch(server_url + "admin/employee/add", {
+          method: "post",
+          // mode: "no-cors",
+          crossDomain: true,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: jsonData,
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            console.log("response from server  -------- ,", json, {
+              first_name: f_name,
+              last_name: l_name,
+              email: email,
+              gender: gender,
+              phone: phone_no,
+              password: password,
+              user_type: user_type,
+            });
+            if (json.success != false) {
+              setShowAlert(true);
+              console.log("DATA SET SUCCESSFULLY");
+
+              setUserRecord((state) => [formData].concat(state));
+            }
+            if (json.success == false) {
+              setErrorAlert(true);
+            }
+          });
+      } catch (e) {
+        console.log(e);
+      }
 
       setIsLoading(false);
 
-      // Fetch Code End
       let arr = data;
       arr.push(user);
       setData(arr);
@@ -672,16 +732,6 @@ export default function AddEmployee() {
               >
                 Submit
               </Button>
-              {/* <Button
-            type="submit"
-            value="Submit"
-            style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setShowAdd(false);
-            }}
-          >
-            Add
-          </Button> */}
             </Modal.Footer>
           </div>
         </form>
@@ -773,10 +823,8 @@ export default function AddEmployee() {
       fluid
       className="Laa"
       style={{
-        // backgroundColor: 'red',
         margin: "auto",
         width: "100%",
-        // border: '3px solid green',
         padding: "10px",
         marginTop: "10px",
       }}
@@ -788,12 +836,14 @@ export default function AddEmployee() {
           </Backdrop>
         </>
       ) : null}
+      {/* Success Alert */}
       {showAlert == true ? (
-        <Grow in={showAlert}>
+        <Slide in={showAlert} direction="up">
           <Snackbar
             open={showAlert}
             autoHideDuration={2000}
             onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
           >
             <Alert variant="filled" severity="success">
               <AlertTitle>Success</AlertTitle>
@@ -802,7 +852,26 @@ export default function AddEmployee() {
               </span>
             </Alert>
           </Snackbar>
-        </Grow>
+        </Slide>
+      ) : null}
+
+      {/* Error Alert */}
+      {errorAlert == true ? (
+        <Slide in={errorAlert} direction="up">
+          <Snackbar
+            open={errorAlert}
+            autoHideDuration={3000}
+            onClose={handleErrorClose}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          >
+            <Alert variant="filled" severity="error">
+              <AlertTitle>Error</AlertTitle>
+              <span className="mr-5" style={{ textAlign: "center" }}>
+                Record not Submitted
+              </span>
+            </Alert>
+          </Snackbar>
+        </Slide>
       ) : null}
 
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
@@ -892,6 +961,17 @@ export default function AddEmployee() {
             </div>
           </Col>
         </Row>
+        <Pagination
+          itemsCount={totalRecord}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          show={handleShow}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </Container>
   );
