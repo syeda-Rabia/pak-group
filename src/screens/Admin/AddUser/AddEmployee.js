@@ -496,7 +496,6 @@ export default function AddEmployee() {
         Type: user_type,
       };
 
-      console.log("response ---- , ");
       try {
         let resp = await fetch(server_url + "admin/employee/add", {
           method: "post",

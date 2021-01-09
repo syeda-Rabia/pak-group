@@ -29,11 +29,13 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 
 import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
+import { connect } from "react-redux";
 
-function NewApp() {
+const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
-  console.log("user app", userType);
+  console.log("user app --------", props.user);
   const AdminRoute = () => {
+    console.log("Admin Route is call");
     return (
       <React.Fragment>
         <Route path="/admin/add-project">
@@ -61,7 +63,9 @@ function NewApp() {
           <HeaderNavBar />
           <AdminProjectListScreen />
         </Route>
-        <Route path="/admin/dashboard">
+        {/* <Route path="/admin/dashboard"> */}
+
+        <Route path="/" exact>
           <HeaderNavBar />
           <AdminDashboardScreen />
         </Route>
@@ -102,7 +106,9 @@ function NewApp() {
   const EmployeeRoute = () => {
     return (
       <React.Fragment>
-        <Route path="/employee/dashboard">
+        <Route exact path="/">
+          {/* <Route path="/employee/dashboard"> */}
+
           <EmployeHeader />
           <EmployeeDashboardScreen />
         </Route>
@@ -129,40 +135,30 @@ function NewApp() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          {/* <SignIn /> */}
-          <SignIn setUser={setUserType} />
-          {/* {userType === "admin" ? (
-            <Route
-              render={() => (
-                <Redirect
-                  to={{
-                    pathname: "/admin/dashboard",
-                  }}
-                />
-              )}
-            />
-          ) : userType === "employee" ? (
-            <Route
-              render={() => (
-                <Redirect
-                  to={{
-                    pathname: "/employee/dashboard",
-                  }}
-                />
-              )}
-            />
-          ) : null} */}
-        </Route>
-        {userType === "admin" ? (
-          <AdminRoute />
-        ) : userType === "employee" ? (
-          <EmployeeRoute />
-        ) : null}
-        {/* {userType === "admin" ? alert("Admin") : alert("employee")} */}
+        {props.user.logged != false && props.user.token != null ? (
+          props.user.user_info.user_type === 1 ? (
+            <AdminRoute />
+          ) : (
+            <EmployeeRoute />
+          )
+        ) : (
+          <Route exact path="/">
+            <SignIn setUser={setUserType} />
+          </Route>
+        )}
       </Switch>
     </Router>
   );
-}
+};
 
-export default NewApp;
+const mapDispatchToProps = (dispatch) => {};
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    user: state.auth,
+  };
+};
+
+// export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(NewApp);

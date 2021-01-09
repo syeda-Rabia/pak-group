@@ -13,8 +13,11 @@ import img4 from "./../../../assests/g-2.svg";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import POST from "../../../utils/Functions";
+import { connect } from "react-redux";
+import { setUser } from "../../../modules/Auth/actions";
 
-export default function SignIn(props) {
+const SignIn = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -22,26 +25,27 @@ export default function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handlePostLogin = async () => {
-    // console.log("lofin");
-    await fetch("https://pak-group.herokuapp.com/admin/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        let userType = Object.keys(json)[0];
-        console.log(userType);
-        props.setUser(userType);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const SignInFun = async (event) => {
+    event.preventDefault();
+
+    console.log("SignInFun is call ------");
+
+    let url = "login";
+    let formData = {
+      email: email,
+      password: password,
+    };
+    let resp = await POST(url, formData);
+
+    if (resp.data != null) {
+      let { user, Access_token } = resp.data;
+
+      props.OnLoginSuccess(user, Access_token);
+    } else {
+      alert("Error , see console");
+
+      console.log("resp is sigin in file ----", JSON.stringify(resp));
+    }
   };
 
   return (
@@ -90,7 +94,11 @@ export default function SignIn(props) {
 
         <div className="col-lg-5 col-md-6">
           <div className="login-form">
-            <form>
+            <form
+              onSubmit={(e) => {
+                SignInFun(e);
+              }}
+            >
               <div className="container fluid">
                 <h2>Sign In</h2>
                 <h6 style={{ textAlign: "center" }}>
@@ -192,7 +200,27 @@ export default function SignIn(props) {
                     </p>
                   </div>
                 </div>
-                <Link to="/admin/dashboard" style={{ color: "white" }}>
+                {/* <Link to="/admin/dashboard" style={{ color: "white" }}> */}
+                <div
+                  className="form-group"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="btn btn-primary button1"
+                    // onClick={() => {
+                    //   props.setUser("admin");
+                    // }}
+                  >
+                    Login
+                  </button>
+                </div>
+                {/* </Link> */}
+                {/* <Link to="/employee/dashboard" style={{ color: "white" }}>
                   <div
                     className="form-group"
                     style={{
@@ -204,34 +232,14 @@ export default function SignIn(props) {
                     <button
                       type="submit"
                       className="btn btn-primary button1"
-                      onClick={() => {
-                        props.setUser("admin");
-                      }}
-                    >
-                      Admin Login
-                    </button>
-                  </div>
-                </Link>
-                <Link to="/employee/dashboard" style={{ color: "white" }}>
-                  <div
-                    className="form-group"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <button
-                      type="submit"
-                      className="btn btn-primary button1"
-                      onClick={() => {
-                        props.setUser("employee");
-                      }}
+                      // onClick={() => {
+                      //   props.setUser("employee");
+                      // }}
                     >
                       Employee login
                     </button>
                   </div>
-                </Link>
+                </Link> */}
               </div>
             </form>
           </div>
@@ -242,4 +250,17 @@ export default function SignIn(props) {
       </div>
     </Container>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    OnLoginSuccess: (userData, token) => dispatch(setUser(userData, token)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  // console.log("state is --------------", JSON.stringify(state));
+};
+
+// export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
