@@ -9,7 +9,7 @@ export default function InventorySidebar() {
         // border: '2px solid blue',
       }}
     >
-      <Link to="/" className="add-project">
+      <Link to="/admin/add-category" className="add-project">
         Add Project Category
       </Link>
 

@@ -19,6 +19,7 @@ import AdminDashboardScreen from "./screens/Admin/Views/AdminDashboardScreen";
 import AdminLAAScreen from "./screens/Admin/Views/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/Admin/Views/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
+import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 import EmployeeDashboardScreen from "./screens/Employe/Views/EmployeeDashboardScreen";
 import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
@@ -53,11 +54,11 @@ const NewApp = (props) => {
             </>
           )}
         />
-        {/* 
-        <Route path="/admin/projects/">
+
+        <Route path="/admin/add-category">
           <HeaderNavBar />
-          <AdminProjectDetailsScreen />
-        </Route> */}
+          <AdminCategoriesDetailScreen />
+        </Route>
 
         <Route path="/admin/inventory">
           <HeaderNavBar />
