@@ -7,6 +7,10 @@ const initialState = {
 };
 
 const storeDataOnLocalStorage = async (user_info, token, logged) => {
+  console.log(
+    "------------------storeDataOnLocalStorage is call ----------------"
+  );
+
   try {
     localStorage.setItem("user_info", JSON.stringify(user_info));
     localStorage.setItem("token", JSON.stringify(token));
@@ -17,6 +21,9 @@ const storeDataOnLocalStorage = async (user_info, token, logged) => {
 };
 
 const getDataFromLocalStorage = async () => {
+  console.log(
+    "------------------getDataFromLocalStorage is call ----------------"
+  );
   try {
     let res1 = localStorage.getItem("user_info");
     let res2 = localStorage.getItem("token");
@@ -49,6 +56,7 @@ getDataFromLocalStorage();
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case types.SET_USER:
+      storeDataOnLocalStorage(action.payload.user, action.payload.token, true);
       return {
         ...state,
         logged: true,
