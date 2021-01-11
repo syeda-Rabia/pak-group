@@ -540,6 +540,15 @@ export default function AddEmployee() {
         Password: password,
         Type: user_type,
       };
+      const formData = {
+        first_name: f_name,
+        last_name: l_name,
+        email: email,
+        gender: gender,
+        phone: phone_no,
+        password: password,
+        user_type: user_type,
+      };
 
       try {
         let resp = await fetch(server_url + "admin/employee/add", {
@@ -563,15 +572,7 @@ export default function AddEmployee() {
         })
           .then((response) => response.json())
           .then((json) => {
-            console.log("response from server  -------- ,", json, {
-              first_name: f_name,
-              last_name: l_name,
-              email: email,
-              gender: gender,
-              phone: phone_no,
-              password: password,
-              user_type: user_type,
-            });
+            console.log("response from server  -------- ,", json);
             if (json.success != false) {
               setShowAlert(true);
               console.log("DATA SET SUCCESSFULLY");

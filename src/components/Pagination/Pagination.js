@@ -5,7 +5,7 @@ import "./Pagination.css";
 
 const Pagination = (props) => {
   const { itemsCount, pageSize, onPageChange, currentPage } = props;
-  console.log("Current ", currentPage);
+  console.log("Current ", typeOf(currentPage));
   console.log("itemsCount ", itemsCount);
   console.log("pageSize ", pageSize);
   const pagesCount = Math.ceil(itemsCount / pageSize);
@@ -20,11 +20,18 @@ const Pagination = (props) => {
       {/* <Button onClick={() =>setSelectedbtn('btn1')} style={{backgroundColor: SelectedBtn=="btn" ?'dardkBlie':'second '}} /> */}
 
       <ul className="pagination">
-        {/* <li class="page-item">
-          <a id="pagelink" class="page-link" onClick={() => onPageChange()}>
+        <li class="page-item">
+          <a
+            id="pagelink"
+            class="page-link"
+            onClick={() => {
+              const page = currentPage + 1;
+              onPageChange(page);
+            }}
+          >
             Previous
           </a>
-        </li> */}
+        </li>
         {pages.map((page) => (
           <li
             key={page}
@@ -39,11 +46,11 @@ const Pagination = (props) => {
             </a>
           </li>
         ))}
-        {/* <li class="page-item">
+        <li class="page-item">
           <a id="pagelink" class="page-link" onClick={() => onPageChange()}>
             Next
           </a>
-        </li> */}
+        </li>
       </ul>
     </nav>
   );
