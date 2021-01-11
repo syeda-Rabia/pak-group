@@ -1,25 +1,8 @@
 import React from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import SearchLeads from "./SearchLeads";
-import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { Col, Form, Row } from "react-bootstrap";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Container } from "@material-ui/core";
+import { Drawer, SwipeableDrawer } from "@material-ui/core";
+
 import FormPopover from "./FormPopover";
-import LAASidebar from "./LAASidebar";
 import buttonImg from "./../../assests/resource.svg";
 import Fab from "@material-ui/core/Fab";
 import { Link } from "react-router-dom";
@@ -89,10 +72,11 @@ export default function TemporaryDrawer() {
           </Fab>
 
           {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-          <Drawer
+          <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
           >
             {/* <LAASidebar /> */}
             <FormPopover name="Search Leads" />
@@ -123,7 +107,7 @@ export default function TemporaryDrawer() {
                 </Link>
               </li>
             </ul>
-          </Drawer>
+          </SwipeableDrawer>
         </React.Fragment>
       ))}
     </div>

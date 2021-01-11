@@ -25,8 +25,10 @@ const ApiUrls = {
 
   //   VIEWABLE
   ASSIGN_VIEWABLE_INVETORIES: "",
-  GET_ALL_VIEWABLE_INVENTORIES: "",
   GET_USER_VIEWABLE_INVENTORIES: "employee/inventory/all/",
+  GET_ALL_VIEWABLE_INVENTORIES: "admin/viewable/getProjects",
+  GET_ALL_EMPLOYEES: "admin/viewable/getEmployees",
+  POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY: "admin/viewable/add ",
 
   // LEADS
   CREATE_LEAD: "admin/lead/add",

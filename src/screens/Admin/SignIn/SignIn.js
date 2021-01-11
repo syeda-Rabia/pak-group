@@ -202,7 +202,7 @@ const SignIn = (props) => {
                   {/* Material UI */}
                   <div
                     className="form-control input1"
-                    id={emailError ? "error" : null}
+                    id={emailError ? "error" : "noError"}
                   >
                     <Input
                       disableUnderline="false"
@@ -226,11 +226,6 @@ const SignIn = (props) => {
                         setEmail(e.target.value);
                       }}
                     />
-                    {emailError ? (
-                      <FormHelperText id="component-error-text">
-                        <span className="mb-5">Enter Valid Email</span>
-                      </FormHelperText>
-                    ) : null}
                   </div>
                 </div>
                 <div
@@ -253,7 +248,7 @@ const SignIn = (props) => {
                   /> */}
                   <div
                     className="form-control input1"
-                    id={passwordError ? "error" : null}
+                    // id={passwordError ? "error" : null}
                   >
                     <Input
                       id="standard-adornment-password"
@@ -282,11 +277,11 @@ const SignIn = (props) => {
                         </InputAdornment>
                       }
                     />
-                    {passwordError ? (
+                    {/* {passwordError ? (
                       <FormHelperText id="component-error-text">
                         <span className="mb-5">Min Length 8 Characters</span>
                       </FormHelperText>
-                    ) : null}
+                    ) : null} */}
                   </div>
                 </div>
                 <div

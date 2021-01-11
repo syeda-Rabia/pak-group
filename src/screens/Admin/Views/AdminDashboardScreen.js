@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import AdminDashboard from "../Dashboard/AdminDashboard";
 import LAASidebar from "../../../components/Sidebar/LAASidebar";
-import SwipeableTemporaryDrawer from "../../../components/Sidebar/SwipableSidebar";
+import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import "./AdminDashboardScreen.css";
 export default function AdminProjectListScreen() {
   return (
@@ -18,7 +18,7 @@ export default function AdminProjectListScreen() {
             xs={0}
             style={{ backgroundColor: "white" }}
           >
-            <LAASidebar name="Leads Allocation and Addition" />
+            <LAASidebar />
           </Col>
           <Col
             lg={10}

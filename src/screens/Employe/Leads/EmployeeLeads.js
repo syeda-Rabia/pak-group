@@ -22,10 +22,10 @@ function EmployeeLeads(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
-  const Table = ({ item }) => {
+  const Table = ({ item,index }) => {
     return (
       <tr>                                                                                                                                                                                                                                                                                                                                                                          
-        <td scope="row">1</td>
+        <td scope="row">{index+1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
@@ -132,8 +132,8 @@ function EmployeeLeads(props) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
-                  <Table item={item.lead} />
+                {data.map((item,index) => (
+                  <Table item={item.lead} index={index} />
                 ))}
               </tbody>
             </table>

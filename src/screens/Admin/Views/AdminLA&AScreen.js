@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 import LAASidebar from "../../../components/Sidebar/LAASidebar";
 import LeadsAllocatonAndAddition from "../LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
 export default function AdminLAAScreen() {
@@ -7,14 +8,22 @@ export default function AdminLAAScreen() {
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
+          <Col
+            id="sidebar-component"
+            lg={2}
+            md={2}
+            sm={0}
+            xs={0}
+            style={{ backgroundColor: "white" }}
+          >
             <LAASidebar />
+            {/* <InventoryMobileViewSidebar /> */}
           </Col>
           <Col
             lg={10}
             md={10}
-            sm={7}
-            xs={7}
+            sm={12}
+            xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
             <LeadsAllocatonAndAddition />
