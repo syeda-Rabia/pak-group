@@ -26,14 +26,14 @@ const ApiUrls = {
   //   VIEWABLE
   ASSIGN_VIEWABLE_INVETORIES: "",
   GET_ALL_VIEWABLE_INVENTORIES: "",
-  GET_USER_VIEWABLE_INVENTORIES: "",
+  GET_USER_VIEWABLE_INVENTORIES: "employee/inventory/all/",
 
   // LEADS
   CREATE_LEAD: "admin/lead/add",
   EDIT_LEAD: "",
   DELETE_LEAD: "",
   GET_ALL_LEADS: "admin/lead/all",
-  GET_USER_LEADS: "",
+  GET_USER_LEADS: "employee/lead/all/",
 
   // LEAD ALLOCATION
   ALLOCATE_OR_RE_ALLOCATE_LEAD: "",

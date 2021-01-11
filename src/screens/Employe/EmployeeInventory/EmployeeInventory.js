@@ -1,8 +1,35 @@
 import React from "react";
 import "./EmployeeInventory.css";
 import { Container, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
 
-export default function EmployeeInventory() {
+import { GET } from "./../../../utils/Functions";
+import ApiUrls from "./../../../utils/ApiUrls";
+function EmployeeInventory(props) {
+   const [data, setData] = React.useState([]);
+  const handleFetchData = async () => {
+    let res = await GET(ApiUrls.GET_USER_VIEWABLE_INVENTORIES +  props.userInfo.id);
+    console.log(res);
+    if (res.success != false) {
+      setData(res.data.inventories);
+    }
+  };
+  React.useEffect(() => {
+    handleFetchData();
+  }, []);
+   const Table = ({ item ,index}) => {
+    return (
+      <tr>                                                                                                                                                                                                                                                                                                                                                                          
+        <td scope="row">{index+1}</td>
+              <td>{item.project.name}</td>
+              <td>{item.inventory_category}</td>
+              {/* <td>{item.block_name}</td> */}
+              <td>{item.block_name}</td>
+              <td>{item.property_status}</td>
+              {/* <td>{item.block_name}</td> */}
+          </tr>
+    );
+  };
   return (
     <Container fluid className="Laa">
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
@@ -28,67 +55,25 @@ export default function EmployeeInventory() {
                     <th scope="col" style={{ color: "#818181" }}>
                       Category
                     </th>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    {/* <th scope="col" style={{ color: "#818181" }}>
                       Type of Unit
-                    </th>
+                    </th> */}
                     <th scope="col" style={{ color: "#818181" }}>
                       Block
                     </th>
                     <th scope="col" style={{ color: "#818181" }}>
                       Status
                     </th>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    {/* <th scope="col" style={{ color: "#818181" }}>
                       Viewable To
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>LDA city</td>
-                    <td>Sale</td>
-                    <td>Sale</td>
-                    <td>Block A</td>
-                    <td>Sold</td>
-                    <td>Rabia</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>LDA city</td>
-                    <td>Sale</td>
-                    <td>Sale</td>
-                    <td>Block A</td>
-                    <td>Sold</td>
-                    <td>Rabia</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>LDA city</td>
-                    <td>Sale</td>
-                    <td>Sale</td>
-                    <td>Block A</td>
-                    <td>Sold</td>
-                    <td>Rabia</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>LDA city</td>
-                    <td>Sale</td>
-                    <td>Sale</td>
-                    <td>Block A</td>
-                    <td>Sold</td>
-                    <td>Rabia</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>LDA city</td>
-                    <td>Sale</td>
-                    <td>Sale</td>
-                    <td>Block A</td>
-                    <td>Sold</td>
-                    <td>Rabia</td>
-                  </tr>
-                </tbody>
+                  <tbody>
+                {data.map((item,index) => (
+                  <Table item={item} index={index} />
+                ))}
+              </tbody>
               </table>
             </div>
           </Col>
@@ -97,3 +82,14 @@ export default function EmployeeInventory() {
     </Container>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  console.log("state is --------------", state);
+  return {
+    userInfo: state.auth.user_info,
+  };
+};
+
+// export default Login;
+export default connect(mapStateToProps)(EmployeeInventory);
