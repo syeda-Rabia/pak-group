@@ -61,6 +61,9 @@ export const POST = async (url, formData) => {
 
 export const GET = async (url) => {
   console.log("GET method , coming URL is ------,     ", url);
+  console.log("token is --------------", token);
+
+  console.log("===================== > " + server_url + url);
 
   try {
     return fetch(server_url + url, {
