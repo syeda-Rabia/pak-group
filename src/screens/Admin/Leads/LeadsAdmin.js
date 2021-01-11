@@ -243,17 +243,18 @@ export default function LeadsAdmin() {
     const getProjectDetails = async () => {
       console.log("getProjectDetails is call ----- ");
 
-      let resp = await GET("admin/project/all");
+      let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
-      let { data } = resp;
-      if (data != null) {
-        setAllProjects(resp.data.users.data);
+      console.log("response in Leads ------", JSON.stringify(resp));
+
+      if (resp.data != null) {
+        setAllProjects(resp.data.projects.data);
       }
 
-      console.log(
-        "response in Leads ------",
-        JSON.stringify(resp.data.users.data)
-      );
+      // console.log(
+      //   "response in Leads ------",
+      //   JSON.stringify(resp.data.users.data)
+      // );
     };
 
     const getInventroyDataAgaintsProject = async (id) => {
