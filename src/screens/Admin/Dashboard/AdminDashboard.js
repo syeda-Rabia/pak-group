@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import LeadReport_chart from "../../../components/Charts/LeadReport_chart";
 import QuarterlyLead_chart from "../../../components/Charts/QuarterlyLead_chart";
 import RecordTable from "./RecordTable";
-import SwipeableTemporaryDrawer from "../../../components/Sidebar/SwipableSidebar";
+import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import EnhancedTable from "./MaterialUITable";
 import "./AdminDashboard.css";
 import DataTable from "./DataTable";
@@ -17,7 +17,7 @@ function AdminDashboard() {
             <h4 style={{ color: "#818181" }}>Admin Dashboard</h4>
           </Col>
           <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-            <div className="float-right drawer-div" style={{ bottom: "-5px" }}>
+            <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
             </div>
           </Col>

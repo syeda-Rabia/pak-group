@@ -6,7 +6,45 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-export default function EmployeeLeads() {
+import { connect } from "react-redux";
+
+import { GET } from "./../../../utils/Functions";
+import ApiUrls from "./../../../utils/ApiUrls";
+function EmployeeLeads(props) {
+  const [data, setData] = React.useState([]);
+  const handleFetchData = async () => {
+    let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
+    console.log(res);
+    if (res.success != false) {
+      setData(res.data.leads);
+    }
+  };
+  React.useEffect(() => {
+    handleFetchData();
+  }, []);
+  const Table = ({ item,index }) => {
+    return (
+      <tr>                                                                                                                                                                                                                                                                                                                                                                          
+        <td scope="row">{index+1}</td>
+        <td>{item.client_name}</td>
+        <td>{item.contact}</td>
+        <td>{item.project.name}</td>
+        <td>{item.budget}</td>
+        <td>{item.time_to_call}</td>
+        <td>{item.country_city}</td>
+        <td>{item.status}</td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+        <td>----</td> 
+        <td>{props.userInfo.first_name}</td>                                                                            
+        <td>{item.email}</td>
+        <td>{item.task}</td>
+        <td>{item.dead_line}</td>
+        <td>
+          <input type="file" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+        </td>                                                                                                                                                                                                                                                                                                                                                           
+      </tr>
+    );
+  };
   return (
     <Container fluid className="Laa">
       <Row>
@@ -94,57 +132,9 @@ export default function EmployeeLeads() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>Rabia</td>
-                  <td>contact</td>
-                  <td>Project Name</td>
-                  <td>400 PKR</td>
-                  <td>10:00 PM</td>
-                  <td>London</td>
-                  <td>On</td>
-
-                  <td>5 Marla Residential</td>
-                  <td>Atif</td>
-                  <td>Rabia@gmail</td>
-                  <td>Sale</td>
-                  <td>04/01/2021</td>
-                  <td>Recording 2</td>
-                </tr>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>Rabia</td>
-                  <td>contact</td>
-                  <td>Project Name</td>
-                  <td>400 PKR</td>
-                  <td>10:00 PM</td>
-                  <td>London</td>
-                  <td>On</td>
-
-                  <td>5 Marla Residential</td>
-                  <td>Atif</td>
-                  <td>Rabia@gmail</td>
-                  <td>Sale</td>
-                  <td>04/01/2021</td>
-                  <td>Recording 2</td>
-                </tr>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>Rabia</td>
-                  <td>contact</td>
-                  <td>Project Name</td>
-                  <td>400 PKR</td>
-                  <td>10:00 PM</td>
-                  <td>London</td>
-                  <td>On</td>
-
-                  <td>5 Marla Residential</td>
-                  <td>Atif</td>
-                  <td>Rabia@gmail</td>
-                  <td>Sale</td>
-                  <td>04/01/2021</td>
-                  <td>Recording 2</td>
-                </tr>
+                {data.map((item,index) => (
+                  <Table item={item.lead} index={index} />
+                ))}
               </tbody>
             </table>
           </div>
@@ -153,3 +143,13 @@ export default function EmployeeLeads() {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log("state is --------------", state);
+  return {
+    userInfo: state.auth.user_info,
+  };
+};
+
+// export default Login;
+export default connect(mapStateToProps)(EmployeeLeads);

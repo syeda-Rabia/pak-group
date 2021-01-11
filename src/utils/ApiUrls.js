@@ -25,8 +25,8 @@ const ApiUrls = {
 
   //   VIEWABLE
   ASSIGN_VIEWABLE_INVETORIES: "",
+  GET_USER_VIEWABLE_INVENTORIES: "employee/inventory/all/",
   GET_ALL_VIEWABLE_INVENTORIES: "admin/viewable/getProjects",
-  GET_USER_VIEWABLE_INVENTORIES: "",
   GET_ALL_EMPLOYEES: "admin/viewable/getEmployees",
   POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY: "admin/viewable/add ",
 
@@ -35,7 +35,7 @@ const ApiUrls = {
   EDIT_LEAD: "",
   DELETE_LEAD: "",
   GET_ALL_LEADS: "admin/lead/all",
-  GET_USER_LEADS: "",
+  GET_USER_LEADS: "employee/lead/all/",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",

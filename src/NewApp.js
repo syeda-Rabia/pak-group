@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import HeaderNavBar from "./components/Header/HeaderNavBar";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
 import { Container, Row, Col } from "react-bootstrap";
@@ -31,9 +31,11 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
+import { token } from "../src/utils/Config";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
+  const [TOKEN, setTOKEN] = useState(token);
   console.log("user app --------", props.user);
   const AdminRoute = () => {
     console.log("Admin Route is call");

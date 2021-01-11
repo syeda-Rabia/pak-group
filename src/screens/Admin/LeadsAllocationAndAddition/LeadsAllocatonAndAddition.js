@@ -18,11 +18,13 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
 import axios from "axios";
+import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
 import { Divider } from "antd";
+import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
@@ -148,27 +150,20 @@ export default function LeadsAllocatonAndAddition() {
     );
   };
   return (
-    <Container
-      fluid
-      className="Laa"
-      // style={{
-      //   // backgroundColor: 'red',
-      //   margin: "auto",
-      //   width: "100%",
-      //   // border: '3px solid green',
-      //   padding: "10px",
-      //   marginTop: "10px",
-      // }}
-    >
-      <Row>
-        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+    <Container fluid>
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
-        </div>
+        </Col>
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <SwipeableTemporaryDrawer />
+          </div>
+        </Col>
       </Row>
+
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
-          <span></span>
-
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>
