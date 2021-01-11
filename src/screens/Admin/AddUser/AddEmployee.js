@@ -17,6 +17,7 @@ import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { server_url, token } from "../../../utils/Config";
+import { validateEmail } from "../../../utils/Validation";
 // import GetRecordFromServer from "../../../utils/Functions";
 import {
   Backdrop,
@@ -25,6 +26,7 @@ import {
   Slide,
   Grow,
   Snackbar,
+  Input,
 } from "@material-ui/core";
 import Pagination from "../../../components/Pagination/Pagination";
 
@@ -524,6 +526,7 @@ export default function AddEmployee() {
     const [user_type, setUser_type] = useState("Employee");
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
+    const [emailError, setEmailError] = useState(false);
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
@@ -616,9 +619,10 @@ export default function AddEmployee() {
             <Modal.Body>
               <div className="pb-3">
                 <h6>First Name</h6>
-                <input
+                <Input
                   className="form-control  w-100 "
                   placeholder="Enter First Name"
+                  required="true"
                   type="text"
                   minLength="3"
                   maxLength="10"
@@ -630,9 +634,10 @@ export default function AddEmployee() {
               </div>
               <div className="pb-3">
                 <h6>Last Name</h6>
-                <input
+                <Input
                   className="form-control  w-100 "
                   placeholder="Enter Last Name"
+                  required="true"
                   type="text"
                   minLength="0"
                   maxLength="10"
@@ -644,12 +649,23 @@ export default function AddEmployee() {
               </div>
               <div className="pb-3">
                 <h6>Email</h6>
-                <input
+                <Input
                   className="form-control  w-100"
+                  // {true ?  error :null}
+                  error={emailError ? true : false}
+                  // style={{ borderColor: "red !important" }}
                   placeholder="Enter Email"
+                  required="true"
                   type="email"
                   value={email}
                   onChange={(e) => {
+                    if (validateEmail(e.target.value)) {
+                      // DO Somtin
+                      setEmailError(false);
+                    } else {
+                      // do some
+                      setEmailError(true);
+                    }
                     setEmail(e.target.value);
                   }}
                 />
@@ -657,9 +673,10 @@ export default function AddEmployee() {
 
               <div className="pb-3">
                 <h6>Phone</h6>
-                <input
+                <Input
                   className="form-control  w-100"
                   placeholder="Enter Phone"
+                  required="true"
                   type="tel"
                   value={phone_no}
                   onChange={(e) => {
@@ -696,9 +713,10 @@ export default function AddEmployee() {
               </div>
               <div className="pb-3">
                 <h6>Initial Password</h6>
-                <input
+                <Input
                   className="form-control  w-100 "
                   placeholder="Enter password"
+                  required="true"
                   type="password"
                   value={password}
                   onChange={(e) => {
@@ -716,11 +734,7 @@ export default function AddEmployee() {
               >
                 Close
               </Button>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                type="submit"
-                value="Submit"
-              >
+              <Button style={{ backgroundColor: "#2258BF" }} type="submit">
                 Submit
               </Button>
             </Modal.Footer>
