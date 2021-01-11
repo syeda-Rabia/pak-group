@@ -35,7 +35,7 @@ export default function HeaderNavBar(props) {
               <Link
                 id="R-navlink"
                 to={{
-                  pathname: "/admin/dashboard",
+                  pathname: "/",
                   state: { from: "AdminHeader" },
                 }}
               >
