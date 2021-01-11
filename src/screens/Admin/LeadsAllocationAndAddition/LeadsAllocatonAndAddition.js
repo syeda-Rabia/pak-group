@@ -24,13 +24,32 @@ import {
 } from "../../../utils/KeyboardTimePickerExample";
 import { Divider } from "antd";
 
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
+
 export default function LeadsAllocatonAndAddition() {
+  const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
+  const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
+
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+
+  useEffect(() => {
+    getAllLeads();
+  }, []);
+
+  const getAllLeads = async () => {
+    let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
+
+    if (resp.data != null) {
+      console.log("unallocated leads is ---------");
+      console.log(JSON.stringify(resp));
+    }
+  };
 
   const TableEmployee = ({ item, index }) => {
     return (
