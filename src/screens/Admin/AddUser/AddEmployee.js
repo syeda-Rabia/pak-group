@@ -147,7 +147,6 @@ export default function AddEmployee() {
             );
           }
         },
-
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -953,17 +952,22 @@ export default function AddEmployee() {
             </div>
           </Col>
         </Row>
-        <Pagination
-          itemsCount={totalRecord}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          show={handleShow}
-        />
-        <br />
-        <br />
-        <br />
-        <br />
+        <Row>
+          <Col>
+            <p className="page-info">
+              Showing {currentPage} from {pageCount}
+            </p>
+          </Col>
+          <Col>
+            <Pagination
+              itemsCount={totalRecord}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+              show={handleShow}
+            />
+          </Col>
+        </Row>
       </div>
     </Container>
   );
