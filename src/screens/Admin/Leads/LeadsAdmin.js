@@ -202,30 +202,30 @@ export default function LeadsAdmin() {
 
     const [country, setCountry] = useState("");
     const [status, setStatus] = useState("New");
-    const [interest, setInterest] = useState([
-      {
-        id: 4,
-        project_id: 1,
-        inventory_name: "resen all",
-        block_name: "V",
-        inventory_category: "Rent",
-        property_status: "Open",
-        is_deleted: 0,
-        created_at: null,
-        updated_at: "2021-01-09T08:31:48.000000Z",
-      },
-      {
-        id: 1,
-        project_id: 1,
-        inventory_name: "house",
-        block_name: "V",
-        inventory_category: "Rent",
-        property_status: "Open",
-        is_deleted: 0,
-        created_at: null,
-        updated_at: "2021-01-09T08:31:48.000000Z",
-      },
-    ]);
+    const [interest, setInterest] = useState([]);
+
+    // {
+    //   id: 4,
+    //   project_id: 1,
+    //   inventory_name: "resen all",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
+    // {
+    //   id: 1,
+    //   project_id: 1,
+    //   inventory_name: "house",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
     const [allocate_to, setAllocate] = useState("Rabia");
     const [email, setEmail] = useState("");
     const [task, setTask] = useState("Sale");
@@ -262,7 +262,7 @@ export default function LeadsAdmin() {
 
       if (resp.data != null) {
         let { inventories } = resp.data;
-        // setInterest(inventories);
+        setInterest(inventories);
       }
       console.log("inventory -----------------", JSON.stringify(resp));
     };
