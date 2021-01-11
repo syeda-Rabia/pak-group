@@ -20,6 +20,7 @@ import InventoryAdmin from "./InventoryAdmin";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
+import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 
 export default function ProjectList() {
   const [allProjects, setAAllProjects] = useState([]);
@@ -31,8 +32,18 @@ export default function ProjectList() {
 
   const [data, setData] = useState(ProjectListData);
   const [selectedID, setSelectedID] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
 
   useEffect(() => {
+    setIsLoading(true);
     getAllProjects();
   }, []);
 
@@ -42,6 +53,7 @@ export default function ProjectList() {
     if (resp.data != null) {
       setAAllProjects(resp.data.projects.data);
     }
+    setIsLoading(false);
   };
 
   const ModalEdit = ({ item }) => {
@@ -188,11 +200,6 @@ export default function ProjectList() {
     );
   };
 
-  const ViewCurrent = ({ item }) => {
-    console.log("itnegshgshgnn", item);
-
-    return null;
-  };
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
@@ -277,6 +284,13 @@ export default function ProjectList() {
           </h2>
         </div>
       </Row>
+      {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
           <Link to="/admin/add-project">
@@ -326,7 +340,6 @@ export default function ProjectList() {
               {data.length > 0 ? (
                 <>
                   <ModalDelete item={data[selectedID]} />
-                  <ViewCurrent item={data[selectedID]} />
 
                   {/* <ModalEdit item={data[selectedID]} /> */}
                 </>

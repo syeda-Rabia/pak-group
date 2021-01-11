@@ -1,6 +1,21 @@
 body {
   font-family: arial;
 }
+#error {
+  border-color: red !important;
+}
+
+/* #noError {
+  border-color: green !important;
+} */
+.emailIcon {
+  margin-right: 0.7rem !important;
+}
+#component-error-text {
+  margin-bottom: 15px !important;
+  padding-bottom: 15px !important;
+}
+
 #img_container {
   border: "1px solid black";
 }
@@ -29,6 +44,7 @@ h2 {
 
   /* height: 56px; */
   border-radius: 174px !important;
+  /* border-color: blue !important; */
   height: 40px !important;
 
   box-sizing: border-box;
