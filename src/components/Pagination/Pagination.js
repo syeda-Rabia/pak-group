@@ -5,13 +5,14 @@ import "./Pagination.css";
 
 const Pagination = (props) => {
   const { itemsCount, pageSize, onPageChange, currentPage } = props;
-  console.log("Current ", typeOf(currentPage));
+  console.log("Current ", currentPage);
   console.log("itemsCount ", itemsCount);
   console.log("pageSize ", pageSize);
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
   props.show(pagesCount);
+  console.log("pagessss", pages.length);
 
   //  const [ SelectedBtn , setSelectedbtn]  = React.useState('btn1');
 
@@ -25,8 +26,10 @@ const Pagination = (props) => {
             id="pagelink"
             class="page-link"
             onClick={() => {
-              const page = currentPage + 1;
-              onPageChange(page);
+              const page = currentPage - 1;
+              if (page > 0) {
+                onPageChange(page);
+              }
             }}
           >
             Previous
@@ -47,7 +50,16 @@ const Pagination = (props) => {
           </li>
         ))}
         <li class="page-item">
-          <a id="pagelink" class="page-link" onClick={() => onPageChange()}>
+          <a
+            id="pagelink"
+            class="page-link"
+            onClick={() => {
+              const page = currentPage + 1;
+              if (page <= pages.length) {
+                onPageChange(page);
+              }
+            }}
+          >
             Next
           </a>
         </li>
