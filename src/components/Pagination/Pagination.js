@@ -5,7 +5,7 @@ import "./Pagination.css";
 
 const Pagination = (props) => {
   const { itemsCount, pageSize, onPageChange, currentPage } = props;
-  // console.log("Current ", typeOf(currentPage));
+  console.log("Current ", currentPage);
   console.log("itemsCount ", itemsCount);
   console.log("pageSize ", pageSize);
   const pagesCount = Math.ceil(itemsCount / pageSize);
