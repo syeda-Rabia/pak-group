@@ -16,18 +16,56 @@ import axios from "axios";
 import { POST } from "../../../utils/Functions";
 import { connect } from "react-redux";
 import { setUser } from "../../../modules/Auth/actions";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { validateEmail, validateLength } from "../../../utils/Validation";
+import {
+  FormControl,
+  TextField,
+  InputAdornment,
+  IconButton,
+  Input,
+  makeStyles,
+  FormHelperText,
+  Slide,
+  Snackbar,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
+import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
+import { set } from "lodash";
 
 const SignIn = (props) => {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [errorResponce, setErrorResponce] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleClose = () => {
+    setShowAlert(false);
+  };
 
   const SignInFun = async (event) => {
     // loding dstasrt
     event.preventDefault();
+    setIsLoading(true);
 
     console.log("SignInFun is call ------");
 
@@ -41,12 +79,26 @@ const SignIn = (props) => {
 
     if (resp.data != null) {
       let { user, Access_token } = resp.data;
-
       props.OnLoginSuccess(user, Access_token);
     } else {
-      alert("Error , see console");
-
       console.log("resp is sigin in file ----", JSON.stringify(resp));
+
+      try {
+        if (resp.error.hasOwnProperty("email")) {
+          console.log("-----------------------", resp.error.email[0]);
+          setErrorResponce(resp.error.email[0]);
+        } else if (resp.error.hasOwnProperty("password")) {
+          console.log("-----------------------", resp.error.password[0]);
+
+          setErrorResponce(resp.error.password[0]);
+        } else {
+          setErrorResponce(resp.error);
+        }
+        setShowAlert(true);
+        setIsLoading(false);
+      } catch {
+        console.log("error");
+      }
     }
 
     // lodimg false
@@ -55,10 +107,31 @@ const SignIn = (props) => {
   return (
     <Container fluid>
       <div className="row">
-        {/* 
-              <div className="col-lg-6 col-md-6 mx-5">
-        
-        */}
+        {isLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
+        {showAlert == true ? (
+          <Slide in={showAlert} direction="up">
+            <Snackbar
+              open={showAlert}
+              autoHideDuration={2000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            >
+              <Alert variant="filled" severity="error">
+                <AlertTitle>Error</AlertTitle>
+                <span className="mr-5" style={{ textAlign: "center" }}>
+                  {errorResponce}
+                </span>
+              </Alert>
+            </Snackbar>
+          </Slide>
+        ) : null}
+
         <div
           className="col-lg-7 col-md-6"
           style={{ backgroundColor: "#F7FAFD", border: "1px black" }}
@@ -117,7 +190,7 @@ const SignIn = (props) => {
                     marginTop: "50px",
                   }}
                 >
-                  <input
+                  {/* <input
                     className="form-control input1"
                     type="email"
                     name="email"
@@ -126,17 +199,43 @@ const SignIn = (props) => {
                       setEmail(e.target.value);
                     }}
                     placeholder="Username or Email "
-                  />
+                  /> */}
+                  {/* Material UI */}
+                  <div
+                    className="form-control input1"
+                    id={emailError ? "error" : null}
+                  >
+                    <Input
+                      disableUnderline="false"
+                      fullWidth="true"
+                      placeholder="Enter Email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        if (validateEmail(e.target.value)) {
+                          setEmailError(false);
+                        } else {
+                          setEmailError(true);
+                        }
+                        setEmail(e.target.value);
+                      }}
+                    />
+                    {emailError ? (
+                      <FormHelperText id="component-error-text">
+                        <span className="mb-5">Enter Valid Email</span>
+                      </FormHelperText>
+                    ) : null}
+                  </div>
                 </div>
                 <div
-                  className="form-group "
+                  className="form-group"
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <input
+                  {/* <input
                     className="form-control input1"
                     type="password"
                     name="psw"
@@ -145,7 +244,43 @@ const SignIn = (props) => {
                     onChange={(e) => {
                       setPassword(e.target.value);
                     }}
-                  />
+                  /> */}
+                  <div
+                    className="form-control input1"
+                    id={passwordError ? "error" : null}
+                  >
+                    <Input
+                      id="standard-adornment-password"
+                      disableUnderline="false"
+                      fullWidth="true"
+                      placeholder="Enter Password"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => {
+                        if (validateLength(e.target.value, 8)) {
+                          setPasswordError(false);
+                        } else {
+                          setPasswordError(true);
+                        }
+                        setPassword(e.target.value);
+                      }}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                    {passwordError ? (
+                      <FormHelperText id="component-error-text">
+                        <span className="mb-5">Min Length 8 Characters</span>
+                      </FormHelperText>
+                    ) : null}
+                  </div>
                 </div>
                 <div
                   className="flx"
@@ -213,37 +348,10 @@ const SignIn = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <button
-                    type="submit"
-                    className="btn btn-primary button1"
-                    // onClick={() => {
-                    //   props.setUser("admin");
-                    // }}
-                  >
+                  <button type="submit" className="btn btn-primary button1">
                     Login
                   </button>
                 </div>
-                {/* </Link> */}
-                {/* <Link to="/employee/dashboard" style={{ color: "white" }}>
-                  <div
-                    className="form-group"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <button
-                      type="submit"
-                      className="btn btn-primary button1"
-                      // onClick={() => {
-                      //   props.setUser("employee");
-                      // }}
-                    >
-                      Employee login
-                    </button>
-                  </div>
-                </Link> */}
               </div>
             </form>
           </div>

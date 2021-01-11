@@ -827,7 +827,6 @@ export default function AddEmployee() {
           </Backdrop>
         </>
       ) : null}
-      {/* Success Alert */}
       {showAlert == true ? (
         <Slide in={showAlert} direction="up">
           <Snackbar
