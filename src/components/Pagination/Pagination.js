@@ -1,11 +1,13 @@
-import React from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import './Pagination.css';
+import React from "react";
+import _ from "lodash";
+import PropTypes from "prop-types";
+import "./Pagination.css";
 
 const Pagination = (props) => {
   const { itemsCount, pageSize, onPageChange, currentPage } = props;
-  // console.log('Current ', currentPage);
+  console.log("Current ", currentPage);
+  console.log("itemsCount ", itemsCount);
+  console.log("pageSize ", pageSize);
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
@@ -18,15 +20,15 @@ const Pagination = (props) => {
       {/* <Button onClick={() =>setSelectedbtn('btn1')} style={{backgroundColor: SelectedBtn=="btn" ?'dardkBlie':'second '}} /> */}
 
       <ul className="pagination">
-        <li class="page-item">
-          <a id="pagelink" class="page-link">
+        {/* <li class="page-item">
+          <a id="pagelink" class="page-link" onClick={() => onPageChange()}>
             Previous
           </a>
-        </li>
+        </li> */}
         {pages.map((page) => (
           <li
             key={page}
-            className={page === currentPage ? 'page-item active' : 'page-item'}
+            className={page === currentPage ? "page-item active" : "page-item"}
           >
             <a
               id="pagelink"
@@ -37,11 +39,11 @@ const Pagination = (props) => {
             </a>
           </li>
         ))}
-        <li class="page-item">
-          <a id="pagelink" class="page-link">
+        {/* <li class="page-item">
+          <a id="pagelink" class="page-link" onClick={() => onPageChange()}>
             Next
           </a>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

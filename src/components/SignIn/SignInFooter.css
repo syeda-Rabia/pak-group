@@ -38,6 +38,10 @@ option {
 .footr {
   display: flex;
 }
+.text1 {
+  font-size: 15px;
+  margin-left: 60px;
+}
 @media only screen and (max-width: 600px) {
   .footr {
     flex-direction: column;
@@ -45,9 +49,60 @@ option {
   }
   .text1 {
     text-align: center;
+    font-size: 15px;
+    margin-left: 15px;
+  }
+
+  .item {
+    align-items: center;
+    justify-content: center;
+  }
+  .flx1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .footr {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .text1 {
+    text-align: center;
+    font-size: 12px;
+    margin-left: 15px;
   }
   .item {
     align-items: center;
     justify-content: center;
+  }
+  .flx1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .footr {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .text1 {
+    text-align: center;
+    font-size: 12px;
+    margin-left: 15px;
+  }
+  .item {
+    align-items: center;
+    justify-content: center;
+  }
+  .flx1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
   }
 }
