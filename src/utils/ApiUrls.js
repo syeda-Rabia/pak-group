@@ -21,7 +21,7 @@ const ApiUrls = {
   EDIT_PROJECT: "",
   DELETE_PROJECT: "",
   GET_ALL_PROJECTS: "admin/project/all",
-  GET_PROECT_INVENTORIES: "",
+  GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
 
   //   VIEWABLE
   ASSIGN_VIEWABLE_INVETORIES: "",
