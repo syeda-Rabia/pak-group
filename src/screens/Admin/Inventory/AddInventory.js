@@ -24,6 +24,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
+import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
 export default function AddInventory() {
   const [allProjectCategories, setAllProjectCategories] = React.useState([]);
@@ -106,10 +107,15 @@ export default function AddInventory() {
     return (
       <React.Fragment>
         <Container fluid>
-          <Row>
-            <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+          <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+            <Col lg={10} sm={10} xs={10} xl={11}>
               <h3 style={{ color: "#818181" }}>Add Project</h3>
-            </div>
+            </Col>
+            <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+              <div className="float-right ">
+                <InventoryMobileViewSidebar />
+              </div>
+            </Col>
           </Row>
           <Row>
             <div class="col-lg-12 shadow p-3  bg-white rounded ">
@@ -366,59 +372,6 @@ export default function AddInventory() {
                         );
                       }}
                     />
-                  </Col>
-                  <Col>
-                    <Form.Group
-                      // style={{ backgroundColor: "#F2F4F5" }}
-                      controlId="projectCategory"
-                    >
-                      {/* <Form.Control
-                        style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
-                        as="select"
-                        className="w-100"
-                        placeholder="Project Category"
-                        value={item.category}
-                        onChange={(e) => {
-                          // setInventoryData()
-                          viewData({ category: e.target.value }, item.id,index);
-                        }}
-                      >
-                        <option value={"null"}>Select Category</option>
-                        <option value={"Sale"}>Sale</option>
-                        <option value={"Rent"}>Rent</option>
-                      </Form.Control> */}
-                      <FormControl
-                        variant="filled"
-                        className="w-100 bg-blue"
-                        style={{ height: "calc(1.5em + 0.75rem + -4px)" }}
-                      >
-                        <InputLabel id="demo-simple-select-filled-label">
-                          Select Category
-                        </InputLabel>
-
-                        <Select
-                          // style={{ backgroundColor: "#F2F4F5" }}
-                          // labelId="demo-simple-select-label"
-                          // id="demo-simple-select"
-                          labelId="demo-simple-select-filled-label"
-                          id="demo-simple-select-filled"
-                          value={item.category}
-                          onChange={(e) => {
-                            // setInventoryData()
-                            viewData(
-                              { category: e.target.value },
-                              item.id,
-                              index
-                            );
-                          }}
-                        >
-                          {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
-                          <MenuItem value={"Sales"}>Sales</MenuItem>
-                          <MenuItem value={"Rent"}>Rent</MenuItem>
-                          <MenuItem value={"Other"}>Other</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Form.Group>
                   </Col>
 
                   <Col>

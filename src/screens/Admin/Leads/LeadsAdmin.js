@@ -30,7 +30,15 @@ import { Divider } from "antd";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
-import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
+import {
+  makeStyles,
+  Backdrop,
+  CircularProgress,
+  Input,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
+import { validateEmail } from "../../../utils/Validation";
 
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
@@ -219,6 +227,8 @@ export default function LeadsAdmin() {
     const [status, setStatus] = useState("New");
     const [interest, setInterest] = useState([]);
 
+    const [emailError, setEmailError] = useState(false);
+
     // {
     //   id: 4,
     //   project_id: 1,
@@ -367,17 +377,15 @@ export default function LeadsAdmin() {
                   flexDirection: "row",
                   justifyContent: "space-around",
                 }}
-                className=""
               >
-                <div>
+                <Col>
                   <div className="pb-3">
                     <h6>Client</h6>
-                    <input
+                    <Input
+                      required="true"
                       className="form-control input-width w-100 "
                       placeholder="Enter  Name"
                       type="text"
-                      minLength="3"
-                      maxLength="10"
                       value={client}
                       onChange={(e) => {
                         setClient(e.target.value);
@@ -386,10 +394,11 @@ export default function LeadsAdmin() {
                   </div>
                   <div className="pb-3">
                     <h6>Contact</h6>
-                    <input
+                    <Input
+                      required="true"
                       className="form-control input-width w-100 "
                       placeholder="Enter Contact"
-                      type="number"
+                      type="tel"
                       minLength="11"
                       maxLength="11"
                       value={contact}
@@ -399,47 +408,30 @@ export default function LeadsAdmin() {
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Project</h6>
-                    <select
-                      value={project}
-                      onChange={(e) => {
-                        console.log(
-                          "select project ID is -----",
-                          e.target.value
-                        );
-                        setProject(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      {allProjects.length > 0
-                        ? allProjects.map((pro) => (
-                            <option key={pro.id} value={pro.id}>
-                              {pro.name}
-                            </option>
-                          ))
-                        : null}
-
-                      {/* <option value={"LDA"}>LDA City</option>
-                      <option value={"DHA"}>DHA </option> */}
-                    </select>
-                  </div>
-                  <div className="pb-3">
-                    <h6>Budget</h6>
-                    <input
+                    <h6>Email</h6>
+                    <Input
+                      required="true"
+                      error={emailError ? true : false}
                       className="form-control input-width w-100"
-                      placeholder="Enter Budget"
-                      type="text"
-                      value={budget}
+                      placeholder="Enter email"
+                      type="email"
+                      value={email}
                       onChange={(e) => {
-                        setBudget(e.target.value);
+                        if (validateEmail(e.target.value)) {
+                          // DO Somtin
+                          setEmailError(false);
+                        } else {
+                          // do some
+                          setEmailError(true);
+                        }
+                        setEmail(e.target.value);
                       }}
                     />
                   </div>
-                </div>
-                <div className="ml-3">
                   <div className="pb-3">
                     <h6>Country/city</h6>
-                    <input
+                    <Input
+                      required="true"
                       className="form-control input-width w-100"
                       placeholder="Enter Country"
                       type="text"
@@ -451,8 +443,46 @@ export default function LeadsAdmin() {
                   </div>
 
                   <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div>
+                </Col>
+                <Col className="ml-3">
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      value={project}
+                      onChange={(e) => {
+                        console.log(
+                          "select project ID is -----",
+                          e.target.value
+                        );
+                        setProject(e.target.value);
+                      }}
+                    >
+                      {allProjects.length > 0
+                        ? allProjects.map((pro) => (
+                            <MenuItem key={pro.id} value={pro.id}>
+                              {pro.name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+                  <div className="pb-3">
                     <h6>Interest</h6>
-                    <select
+                    <Select
+                      className="form-control form-control-sm w-100"
                       value={inventory}
                       onChange={(e) => {
                         console.log(
@@ -461,48 +491,35 @@ export default function LeadsAdmin() {
                         );
                         setInventory(e.target.value);
                       }}
-                      className="form-control form-control-sm w-100"
                     >
                       {interest.length > 0
                         ? interest.map((int, index) => (
-                            <option key={int.id} value={int.id}>
+                            <MenuItem key={int.id} value={int.id}>
                               {int.inventory_name} - {int.block_name}
-                            </option>
+                            </MenuItem>
                           ))
                         : null}
-                    </select>
+                    </Select>
                   </div>
 
                   <div className="pb-3">
-                    <h6>Email</h6>
-                    <input
-                      className="form-control input-width w-100"
-                      placeholder="Enter email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
                     <h6>Task</h6>
-                    <select
+                    <Select
                       value={task}
                       onChange={(e) => {
                         setTask(e.target.value);
                       }}
                       className="form-control form-control-sm w-100"
                     >
-                      <option value={"Sale"}>Sale</option>
-                      <option value={"rent"}>Rent</option>
-                      <option value={"other"}>other</option>
-                    </select>
+                      <MenuItem value={"Sale"}>Sale</MenuItem>
+                      <MenuItem value={"rent"}>Rent</MenuItem>
+                      <MenuItem value={"other"}>other</MenuItem>
+                    </Select>
                   </div>
 
                   <div className="pb-3">
                     <h6>Source</h6>
-                    <select
+                    <Select
                       value={selectedSource}
                       onChange={(e) => {
                         setSelectedSource(e.target.value);
@@ -511,14 +528,14 @@ export default function LeadsAdmin() {
                     >
                       {allSource.length > 0
                         ? allSource.map((src) => (
-                            <option key={src} value={src}>
+                            <MenuItem key={src} value={src}>
                               {src}
-                            </option>
+                            </MenuItem>
                           ))
                         : null}
-                    </select>
+                    </Select>
                   </div>
-                </div>
+                </Col>
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -1137,9 +1154,6 @@ export default function LeadsAdmin() {
             <Dropfile />
           </div>
 
-          <ReactTooltip id="AddTip" place="top" effect="solid">
-            import Excel
-          </ReactTooltip>
           <div className=" float-right pl-2">
             <button
               data-tip

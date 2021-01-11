@@ -69,7 +69,7 @@ export default function LAASidebar(props) {
       <button className="toggle-button" onClick={displayList}>
         <img src={buttonImg} />
         <span>
-          {props.name} <ExpandMoreIcon />
+          Leads Allocation and Addition <ExpandMoreIcon />
         </span>
       </button>
       {toggle === true ? <List /> : null}

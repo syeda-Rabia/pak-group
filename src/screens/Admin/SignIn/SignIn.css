@@ -5,9 +5,9 @@ body {
   border-color: red !important;
 }
 
-/* #noError {
+#noError {
   border-color: green !important;
-} */
+}
 .emailIcon {
   margin-right: 0.7rem !important;
 }

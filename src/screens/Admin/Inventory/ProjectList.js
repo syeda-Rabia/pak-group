@@ -21,6 +21,7 @@ import InventoryAdmin from "./InventoryAdmin";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
+import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
 export default function ProjectList() {
   const [allProjects, setAAllProjects] = useState([]);
@@ -272,8 +273,8 @@ export default function ProjectList() {
 
   return (
     <Container fluid className="Laa">
-      <Row>
-        <div className=" col-lg-12 shadow p-3  bg-white rounded mt-4">
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Col lg={10} sm={10} xs={10} xl={11}>
           <h2
             style={{
               color: "#818181",
@@ -282,7 +283,12 @@ export default function ProjectList() {
           >
             Project List
           </h2>
-        </div>
+        </Col>
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <InventoryMobileViewSidebar />
+          </div>
+        </Col>
       </Row>
       {isLoading == true ? (
         <>
