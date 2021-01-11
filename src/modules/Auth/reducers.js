@@ -68,8 +68,6 @@ export default function authReducer(state = initialState, action) {
         token: action.payload.token,
       };
     case types.SIGN_OUT:
-      console.log("SIGN_OUT is call");
-
       logout();
       return {
         ...state,
