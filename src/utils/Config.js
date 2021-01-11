@@ -1,3 +1,20 @@
+const getToken = async () => {
+  console.log("getToken sis call ");
+  try {
+    let res2 = await localStorage.getItem("token");
+
+    if (res2 != null) {
+      console.log("TOKEN----------------------------------", JSON.parse(res2));
+      return JSON.parse(res2);
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 // export const server_url = "https://pak-group.herokuapp.com/";
 export const server_url = "http://192.168.100.12:8000/api/";
 // export const server_url = "http://192.168.0.105:8000/api/";

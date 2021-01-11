@@ -40,8 +40,6 @@ export default function ProjectList() {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
     if (resp.data != null) {
-      console.log("---------------------");
-      console.log(JSON.stringify(resp.data.projects.data));
       setAAllProjects(resp.data.projects.data);
     }
   };
@@ -199,8 +197,9 @@ export default function ProjectList() {
     return (
       <tr>
         <td>{item.id}</td>
-        <td>{item.Name}</td>
-        <td>{item.inventory.length}</td>
+        <td>{item.name}</td>
+        <td>{item.category.name}</td>
+        <td>{item.unit}</td>
         {/* <td>{item.Units}</td> */}
 
         <td>
@@ -215,18 +214,12 @@ export default function ProjectList() {
               data-for="ViewTip"
               type="button"
               className="bg-transparent  button-focus mr-2"
-              onClick={() => {
-                setShowView(true);
-                setSelectedID(index);
-              }}
+              // onClick={() => {
+              //   // setShowView(true);
+              //   setSelectedID(index);
+              // }}
             >
               <Link to={{ pathname: "/admin/projects", query: { item } }}>
-                {/* <Link
-                to={{
-                  pathname: "/admin/projects",
-                  aboutProps: { name: "Atif" },
-                }}
-              > */}
                 <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
               </Link>
             </button>
@@ -307,6 +300,10 @@ export default function ProjectList() {
                   <th scope="col" style={{ color: "#818181" }}>
                     Project Name
                   </th>
+
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Project Category
+                  </th>
                   <th scope="col" style={{ color: "#818181" }}>
                     Units
                   </th>
@@ -317,12 +314,14 @@ export default function ProjectList() {
                 </tr>
               </thead>
               <tbody>
-                {/* {allProjects.length > 0 ?
-                  allProjects.map( (pro,index) =>  )
-                :null} */}
-                {data.map((item, index) => {
+                {allProjects.length > 0
+                  ? allProjects.map((item, index) => (
+                      <TableEmployee item={item} index={index} />
+                    ))
+                  : null}
+                {/* {data.map((item, index) => {
                   return <TableEmployee item={item} index={index} />;
-                })}
+                })} */}
               </tbody>
               {data.length > 0 ? (
                 <>

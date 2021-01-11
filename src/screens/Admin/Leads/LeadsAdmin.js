@@ -55,8 +55,8 @@ export default function LeadsAdmin() {
       setAllLeads(resp.data.leads.data);
     }
 
-    console.log("***********************");
-    console.log(JSON.stringify(resp.data.leads));
+    // console.log("***********************");
+    // console.log(JSON.stringify(resp.data.leads));
   };
 
   const ModalPlay = ({ item }) => {
