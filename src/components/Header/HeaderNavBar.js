@@ -4,7 +4,10 @@ import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
 import { Link } from "react-router-dom";
 
-export default function HeaderNavBar(props) {
+import { connect } from "react-redux";
+import { signOut } from "../../modules/Auth/actions";
+
+const HeaderNavBar = (props) => {
   console.log(props);
   return (
     <Container
@@ -114,6 +117,24 @@ export default function HeaderNavBar(props) {
             <Nav.Item href="#Documentation" id="hr">
               HR
             </Nav.Item>
+
+            <Nav.Item
+              href="#"
+              id=""
+              onClick={() => {
+                props.LOGOUT();
+              }}
+            >
+              <Link
+                id="R-navlink"
+                to={{
+                  pathname: "/",
+                  state: { from: "AdminHeader" },
+                }}
+              >
+                LOGOUT
+              </Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
         <Nav id="profile">
@@ -136,4 +157,14 @@ export default function HeaderNavBar(props) {
       </Navbar>
     </Container>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    LOGOUT: () => dispatch(signOut()),
+  };
+};
+
+const mapStateToProps = (state) => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderNavBar);

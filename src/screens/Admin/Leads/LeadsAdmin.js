@@ -236,9 +236,9 @@ export default function LeadsAdmin() {
       getProjectDetails();
     }, []);
 
-    // useEffect(() => {
-    //   getInventroyDataAgaintsProject(project);
-    // }, [project]);
+    useEffect(() => {
+      getInventroyDataAgaintsProject(project);
+    }, [project]);
 
     const getProjectDetails = async () => {
       console.log("getProjectDetails is call ----- ");
