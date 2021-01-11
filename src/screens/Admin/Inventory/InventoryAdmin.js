@@ -4,12 +4,24 @@ import { Container, Row, Col } from "react-bootstrap";
 import { ProjectListData } from "./../../../assests/constants/ProjectListDemoData";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
+import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 
 export default function InventoryAdmin(props) {
   const [data, setData] = useState(ProjectListData);
   const [allInventories, setAllInventories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
 
   useEffect(() => {
+    setIsLoading(true);
+
     getALlInv();
   }, []);
 
@@ -27,6 +39,7 @@ export default function InventoryAdmin(props) {
 
       console.log("----------------data -------------");
     }
+    setIsLoading(false);
   };
 
   let listData = [];
@@ -55,6 +68,13 @@ export default function InventoryAdmin(props) {
           </h3>
         </div>
       </Row>
+      {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <div className="table-responsive">

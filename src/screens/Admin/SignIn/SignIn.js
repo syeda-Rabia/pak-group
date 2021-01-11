@@ -16,8 +16,7 @@ import axios from "axios";
 import { POST } from "../../../utils/Functions";
 import { connect } from "react-redux";
 import { setUser } from "../../../modules/Auth/actions";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { VisibilityOff, AccountCircle, Visibility } from "@material-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { validateEmail, validateLength } from "../../../utils/Validation";
@@ -211,6 +210,13 @@ const SignIn = (props) => {
                       placeholder="Enter Email"
                       type="email"
                       value={email}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <div className="emailIcon">
+                            <AccountCircle />
+                          </div>
+                        </InputAdornment>
+                      }
                       onChange={(e) => {
                         if (validateEmail(e.target.value)) {
                           setEmailError(false);
@@ -268,6 +274,7 @@ const SignIn = (props) => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
+                            style={{ outline: "none" }}
                             onClick={handleClickShowPassword}
                           >
                             {showPassword ? <Visibility /> : <VisibilityOff />}

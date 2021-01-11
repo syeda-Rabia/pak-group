@@ -8,6 +8,9 @@ body {
 /* #noError {
   border-color: green !important;
 } */
+.emailIcon {
+  margin-right: 0.7rem !important;
+}
 #component-error-text {
   margin-bottom: 15px !important;
   padding-bottom: 15px !important;
