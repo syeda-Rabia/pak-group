@@ -13,7 +13,7 @@ import img4 from "./../../../assests/g-2.svg";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import POST from "../../../utils/Functions";
+import { POST } from "../../../utils/Functions";
 import { connect } from "react-redux";
 import { setUser } from "../../../modules/Auth/actions";
 

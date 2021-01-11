@@ -25,7 +25,12 @@ import {
 } from "../../../utils/KeyboardTimePickerExample";
 import { Divider } from "antd";
 
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
+
 export default function LeadsAdmin() {
+  const [allLeads, setAllLeads] = useState([]);
+
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -36,6 +41,23 @@ export default function LeadsAdmin() {
   const [selectedID, setSelectedID] = useState(0);
   const audioTune = new Audio(sample);
   const audioTune2 = new Audio(sample2);
+
+  useEffect(() => {
+    getAllLeadsData();
+  }, []);
+
+  const getAllLeadsData = async () => {
+    console.log("get all lead call ");
+
+    let resp = await GET(ApiUrls.GET_ALL_LEADS);
+
+    if (resp.data != null) {
+      setAllLeads(resp.data.leads.data);
+    }
+
+    console.log("***********************");
+    console.log(JSON.stringify(resp.data.leads));
+  };
 
   const ModalPlay = ({ item }) => {
     const [playAudio, setPlayAudio] = useState(false);
@@ -156,73 +178,139 @@ export default function LeadsAdmin() {
       </Modal>
     );
   };
+
   const ModalAdd = ({ item }) => {
+    const [allProjects, setAllProjects] = useState([]);
+    const [project, setProject] = useState();
+    const [inventory, setInventory] = useState();
+    const [allSource, setAllSource] = useState([
+      "Newspaper",
+      "Digital Marketing",
+      "Other",
+      "TV",
+      "Personal Personal",
+      "SMS",
+      "Outdoor",
+    ]);
+
+    const [selectedSource, setSelectedSource] = useState("");
+
     const [client, setClient] = useState("");
     const [contact, setContact] = useState("");
-    const [project, setProject] = useState("LDA City");
     const [budget, setBudget] = useState("");
     const [toc, setToc] = useState("");
 
     const [country, setCountry] = useState("");
     const [status, setStatus] = useState("New");
-    const [interest, setInterest] = useState("5 marla Residential");
+    const [interest, setInterest] = useState([
+      {
+        id: 4,
+        project_id: 1,
+        inventory_name: "resen all",
+        block_name: "V",
+        inventory_category: "Rent",
+        property_status: "Open",
+        is_deleted: 0,
+        created_at: null,
+        updated_at: "2021-01-09T08:31:48.000000Z",
+      },
+      {
+        id: 1,
+        project_id: 1,
+        inventory_name: "house",
+        block_name: "V",
+        inventory_category: "Rent",
+        property_status: "Open",
+        is_deleted: 0,
+        created_at: null,
+        updated_at: "2021-01-09T08:31:48.000000Z",
+      },
+    ]);
     const [allocate_to, setAllocate] = useState("Rabia");
-    const [email, setEmail] = useState("someone@gmail.com");
+    const [email, setEmail] = useState("");
     const [task, setTask] = useState("Sale");
     const [deadline, setDeadline] = useState("");
     const [source, setSource] = useState("newspaper");
 
+    useEffect(() => {
+      getProjectDetails();
+    }, []);
+
+    // useEffect(() => {
+    //   getInventroyDataAgaintsProject(project);
+    // }, [project]);
+
+    const getProjectDetails = async () => {
+      console.log("getProjectDetails is call ----- ");
+
+      let resp = await GET("admin/project/all");
+
+      let { data } = resp;
+      if (data != null) {
+        setAllProjects(resp.data.users.data);
+      }
+
+      console.log(
+        "response in Leads ------",
+        JSON.stringify(resp.data.users.data)
+      );
+    };
+
+    const getInventroyDataAgaintsProject = async (id) => {
+      let resp = await GET("admin/inventory/all/" + id);
+
+      if (resp.data != null) {
+        let { inventories } = resp.data;
+        // setInterest(inventories);
+      }
+      console.log("inventory -----------------", JSON.stringify(resp));
+    };
+
     const SendRecordToServer = async (event) => {
       event.preventDefault();
 
-      let user = {
-        id: "1",
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: "----",
-        Country: country,
-        Status: "----",
-        Interest: interest,
-        Allocate: "----",
-        Email: email,
-        Task: task,
-        Deadline: "----",
+      // send data to server
+      let formData = {
+        client_name: client,
+        contact: contact,
+        source: selectedSource,
+        phone: contact,
+        email: email,
+        inventory_id: inventory,
+        project_id: project,
+        budget: budget,
+        "country/city": country,
       };
-      // await
-      axios
-        .post(
-          // "https://pak-group.herokuapp.com/ZaX*m=1/OP/J-D1e8a7z",
-          "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-          {
-            // firstName: f_name,
-            // lastName: l_name,
-            // email: email,
-            // gender: gender,
-            // phone: phone_no,
-            // password: password,
-            // type: user_type,
-          },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then(
-          (res) => {
-            console.log(res);
-            console.log(res.data);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
 
-      let arr = data;
-      arr.push(user);
-      setData(arr);
+      console.log("sending data is ----- ", formData);
+
+      let resp = await POST(ApiUrls.CREATE_LEAD, formData);
+
+      console.log("Receving data after submission-----------------");
+      console.log(JSON.stringify(resp.data));
+
+      // let user = {
+      //   id: "1",
+      //   Name: client,
+      //   Contact: contact,
+      //   Project: project,
+      //   Budget: budget,
+      //   Country: country,
+      //   Interest: inventory,
+      //   Email: email,
+      //   Task: task,
+      //   Toc: "----",
+      //   Status: "----",
+      //   Allocate: "----",
+      //   Deadline: "----",
+      // };
+      // console.log("sending user is -----> ", user);
+
+      // // await
+
+      // let arr = data;
+      // arr.push(user);
+      // setData(arr);
       setShowAdd(false);
     };
 
@@ -288,12 +376,24 @@ export default function LeadsAdmin() {
                     <select
                       value={project}
                       onChange={(e) => {
+                        console.log(
+                          "select project ID is -----",
+                          e.target.value
+                        );
                         setProject(e.target.value);
                       }}
                       className="form-control form-control-sm w-100"
                     >
-                      <option value={"LDA"}>LDA City</option>
-                      <option value={"DHA"}>DHA </option>
+                      {allProjects.length > 0
+                        ? allProjects.map((pro) => (
+                            <option key={pro.id} value={pro.id}>
+                              {pro.name}
+                            </option>
+                          ))
+                        : null}
+
+                      {/* <option value={"LDA"}>LDA City</option>
+                      <option value={"DHA"}>DHA </option> */}
                     </select>
                   </div>
                   <div className="pb-3">
@@ -326,14 +426,23 @@ export default function LeadsAdmin() {
                   <div className="pb-3">
                     <h6>Interest</h6>
                     <select
-                      value={interest}
+                      value={inventory}
                       onChange={(e) => {
-                        setInterest(e.target.value);
+                        console.log(
+                          "selected Inventriry is ---- ",
+                          e.target.value
+                        );
+                        setInventory(e.target.value);
                       }}
                       className="form-control form-control-sm w-100"
                     >
-                      <option value={"5marla"}>5 Marla</option>
-                      <option value={"10marla"}>10 Marla</option>
+                      {interest.length > 0
+                        ? interest.map((int, index) => (
+                            <option key={int.id} value={int.id}>
+                              {int.inventory_name} - {int.block_name}
+                            </option>
+                          ))
+                        : null}
                     </select>
                   </div>
 
@@ -361,6 +470,25 @@ export default function LeadsAdmin() {
                       <option value={"Sale"}>Sale</option>
                       <option value={"rent"}>Rent</option>
                       <option value={"other"}>other</option>
+                    </select>
+                  </div>
+
+                  <div className="pb-3">
+                    <h6>Source</h6>
+                    <select
+                      value={selectedSource}
+                      onChange={(e) => {
+                        setSelectedSource(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      {allSource.length > 0
+                        ? allSource.map((src) => (
+                            <option key={src} value={src}>
+                              {src}
+                            </option>
+                          ))
+                        : null}
                     </select>
                   </div>
                 </div>
@@ -850,23 +978,43 @@ export default function LeadsAdmin() {
   };
 
   const TableEmployee = ({ item, index }) => {
+    let country_city = "country/city";
+
     return (
       <tr>
         <td>{item.id}</td>
-        <td>{item.Name}</td>
-        <td>{item.Contact}</td>
+        <td>{item.client_name}</td>
+        <td>{item.contact}</td>
 
-        <td>{item.Project}</td>
-        <td>{item.Budget}</td>
-        <td>{item.Toc}</td>
+        <td>{item.project_id}</td>
+        <td>{item.budget} PKR</td>
 
-        <td>{item.Country}</td>
-        <td>{item.Status}</td>
-        <td>{item.Interest}</td>
-        <td>{item.Allocate}</td>
+        <td>
+          {item.hasOwnProperty("time_to_call") == true
+            ? item.time_to_call
+            : "-------"}
+        </td>
+        <td>
+          {item.hasOwnProperty("country_city") == true
+            ? item.country_city
+            : "-------"}
+        </td>
+
+        <td>
+          {item.hasOwnProperty("Status") == true ? item.Status : "-------"}
+        </td>
+        <td>{item.source}</td>
+        <td>{item.inventory_id}</td>
+
+        <td>{"-------"}</td>
+        <td>{"-------"}</td>
+        <td>{"-------"}</td>
+        <td>{"-------"}</td>
+
+        {/* <td>{item.Allocate}</td>
         <td>{item.Email}</td>
         <td>{item.Task}</td>
-        <td>{item.Deadline}</td>
+        <td>{item.Deadline}</td> */}
 
         <td>
           <button
@@ -885,6 +1033,12 @@ export default function LeadsAdmin() {
             play
           </ReactTooltip>
         </td>
+
+        <td>
+          <Button variant="primary">CTA</Button>
+        </td>
+
+        <td>{"-------"}</td>
         <td>
           <div className="d-flex d-inline">
             <button
@@ -937,19 +1091,9 @@ export default function LeadsAdmin() {
       </tr>
     );
   };
+
   return (
-    <Container
-      fluid
-      className="Laa"
-      // style={{
-      //   // backgroundColor: 'red',
-      //   margin: "auto",
-      //   width: "100%",
-      //   // border: '3px solid green',
-      //   padding: "10px",
-      //   marginTop: "10px",
-      // }}
-    >
+    <Container fluid className="Laa">
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads </h3>
       </div>
@@ -1036,6 +1180,11 @@ export default function LeadsAdmin() {
                     </th>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
+                        Source
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
                         Interest
                       </span>
                     </th>
@@ -1066,6 +1215,13 @@ export default function LeadsAdmin() {
                         Recording
                       </span>
                     </th>
+
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Call_To_Action
+                      </span>
+                    </th>
+
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Action
@@ -1074,9 +1230,16 @@ export default function LeadsAdmin() {
                   </tr>
                 </thead>
                 <tbody>
+                  {allLeads.length > 0
+                    ? allLeads.map((lead, index) => (
+                        <TableEmployee item={lead} index={index} />
+                      ))
+                    : null}
+
+                  {/* <h1>Other Leads</h1>
                   {data.map((item, index) => {
                     return <TableEmployee item={item} index={index} />;
-                  })}
+                  })} */}
                 </tbody>
                 {data.length > 0 ? (
                   <>
