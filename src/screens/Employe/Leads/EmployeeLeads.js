@@ -6,7 +6,37 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { GET } from "./../../../utils/Functions";
 export default function EmployeeLeads() {
+  const [data, setData] = React.useState([]);
+  const handleFetchData = async () => {
+    let res = await GET("employee/lead/all/id");
+    console.log(res);
+  };
+  React.useEffect(() => {
+    handleFetchData();
+  }, []);
+  const Table = (item) => {
+    return (
+      <tr>
+        <td scope="row">1</td>
+        <td>Rabia</td>
+        <td>contact</td>
+        <td>Project Name</td>
+        <td>400 PKR</td>
+        <td>10:00 PM</td>
+        <td>London</td>
+        <td>On</td>
+
+        <td>5 Marla Residential</td>
+        <td>Atif</td>
+        <td>Rabia@gmail</td>
+        <td>Sale</td>
+        <td>04/01/2021</td>
+        <td>Recording 2</td>
+      </tr>
+    );
+  };
   return (
     <Container fluid className="Laa">
       <Row>
@@ -94,23 +124,9 @@ export default function EmployeeLeads() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">1</td>
-                  <td>Rabia</td>
-                  <td>contact</td>
-                  <td>Project Name</td>
-                  <td>400 PKR</td>
-                  <td>10:00 PM</td>
-                  <td>London</td>
-                  <td>On</td>
-
-                  <td>5 Marla Residential</td>
-                  <td>Atif</td>
-                  <td>Rabia@gmail</td>
-                  <td>Sale</td>
-                  <td>04/01/2021</td>
-                  <td>Recording 2</td>
-                </tr>
+                {data.map((item) => (
+                  <Table item={item} />
+                ))}
                 <tr>
                   <td scope="row">1</td>
                   <td>Rabia</td>
