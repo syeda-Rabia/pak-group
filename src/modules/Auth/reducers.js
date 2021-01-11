@@ -53,6 +53,10 @@ const getDataFromLocalStorage = async () => {
 
 getDataFromLocalStorage();
 
+const logout = async () => {
+  localStorage.clear();
+};
+
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case types.SET_USER:
@@ -64,6 +68,9 @@ export default function authReducer(state = initialState, action) {
         token: action.payload.token,
       };
     case types.SIGN_OUT:
+      console.log("SIGN_OUT is call");
+
+      logout();
       return {
         ...state,
         logged: false,
