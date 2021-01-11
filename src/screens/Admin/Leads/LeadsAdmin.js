@@ -3,13 +3,16 @@ import "./LeadsAdmin.css";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { faPause } from "@fortawesome/free-solid-svg-icons";
-import { faStop } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faPencilAlt,
+  faTrash,
+  faPlusSquare,
+  faPlay,
+  faPause,
+  faStop,
+} from "@fortawesome/free-solid-svg-icons";
+
 import sample from "./../../../assests/sample.mp3";
 import sample2 from "./../../../assests/sample2.mp3";
 import { Modal } from "react-bootstrap";
@@ -27,6 +30,7 @@ import { Divider } from "antd";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
+import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
@@ -41,8 +45,18 @@ export default function LeadsAdmin() {
   const [selectedID, setSelectedID] = useState(0);
   const audioTune = new Audio(sample);
   const audioTune2 = new Audio(sample2);
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
 
   useEffect(() => {
+    setIsLoading(true);
     getAllLeadsData();
   }, []);
 
@@ -54,6 +68,7 @@ export default function LeadsAdmin() {
     if (resp.data != null) {
       setAllLeads(resp.data.leads.data);
     }
+    setIsLoading(false);
 
     // console.log("***********************");
     // console.log(JSON.stringify(resp.data.leads));
@@ -231,8 +246,10 @@ export default function LeadsAdmin() {
     const [task, setTask] = useState("Sale");
     const [deadline, setDeadline] = useState("");
     const [source, setSource] = useState("newspaper");
+    const [innerLoading, setInnerLoading] = useState(false);
 
     useEffect(() => {
+      setInnerLoading(true);
       getProjectDetails();
     }, []);
 
@@ -250,6 +267,7 @@ export default function LeadsAdmin() {
       if (resp.data != null) {
         setAllProjects(resp.data.projects.data);
       }
+      setInnerLoading(false);
 
       // console.log(
       //   "response in Leads ------",
@@ -322,6 +340,14 @@ export default function LeadsAdmin() {
           setShowAdd(false);
         }}
       >
+        {innerLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
+
         <Modal.Header
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
@@ -1098,6 +1124,13 @@ export default function LeadsAdmin() {
       <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads </h3>
       </div>
+      {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Row className="mb-2">
           <div className=" pl-2">
