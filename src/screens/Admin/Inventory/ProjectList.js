@@ -10,7 +10,7 @@ import {
   faPlusSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProjectListData } from "./../../../assests/constants/ProjectListDemoData";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
@@ -18,7 +18,12 @@ import AddIcon from "@material-ui/icons/Add";
 import { Link, Route } from "react-router-dom";
 import InventoryAdmin from "./InventoryAdmin";
 
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
+
 export default function ProjectList() {
+  const [allProjects, setAAllProjects] = useState([]);
+
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -26,6 +31,20 @@ export default function ProjectList() {
 
   const [data, setData] = useState(ProjectListData);
   const [selectedID, setSelectedID] = useState(0);
+
+  useEffect(() => {
+    getAllProjects();
+  }, []);
+
+  const getAllProjects = async () => {
+    let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+
+    if (resp.data != null) {
+      console.log("---------------------");
+      console.log(JSON.stringify(resp.data.projects.data));
+      setAAllProjects(resp.data.projects.data);
+    }
+  };
 
   const ModalEdit = ({ item }) => {
     const [ProjectName, setProjectName] = useState(item.Name);
@@ -250,11 +269,19 @@ export default function ProjectList() {
       </tr>
     );
   };
+
   return (
     <Container fluid className="Laa">
       <Row>
         <div className=" col-lg-12 shadow p-3  bg-white rounded mt-4">
-          <h2 style={{ color: "#818181" }}>Project List</h2>
+          <h2
+            style={{
+              color: "#818181",
+              textAlign: "left",
+            }}
+          >
+            Project List
+          </h2>
         </div>
       </Row>
       <Row>
@@ -290,6 +317,9 @@ export default function ProjectList() {
                 </tr>
               </thead>
               <tbody>
+                {/* {allProjects.length > 0 ?
+                  allProjects.map( (pro,index) =>  )
+                :null} */}
                 {data.map((item, index) => {
                   return <TableEmployee item={item} index={index} />;
                 })}

@@ -25,7 +25,7 @@ const GetRecordFromServer = async (url) => {
     );
 };
 
-const POST = async (url, formData) => {
+export const POST = async (url, formData) => {
   console.log("POST method , coming URL is ------,     ", url);
   console.log(
     "form data to submut ----------,      ",
@@ -59,4 +59,36 @@ const POST = async (url, formData) => {
   }
 };
 
-export default POST;
+export const GET = async (url) => {
+  console.log("GET method , coming URL is ------,     ", url);
+
+  try {
+    return fetch(server_url + url, {
+      method: "get",
+      // mode: "no-cors",
+      crossDomain: true,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("resp in GET func", JSON.stringify(res));
+        return res;
+      })
+      .catch((error) => {
+        console.error(error);
+        return error;
+      });
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+};
+
+// export default {
+//   POST,
+//   GET,
+// };

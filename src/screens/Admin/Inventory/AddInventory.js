@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Alert, AlertTitle } from "@material-ui/lab";
+
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
 
 import {
   IconButton,
@@ -23,6 +26,8 @@ import {
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
 
 export default function AddInventory() {
+  const [allProjectCategories, setAllProjectCategories] = React.useState([]);
+
   const [form, setForm] = React.useState(true); //
   const [dummy, setDummy] = React.useState([]);
   const [projectDetails, setProjectDetails] = React.useState({});
@@ -33,6 +38,20 @@ export default function AddInventory() {
   const [redirectPage, setRedirectPage] = React.useState(false);
 
   const [showProgress, setShowProgress] = React.useState(false);
+
+  useEffect(() => {
+    getAllProjectCategories();
+  }, []);
+
+  const getAllProjectCategories = async () => {
+    console.log("gett all cate-----------");
+    let resp = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
+
+    if (resp.data != null) {
+      setAllProjectCategories(resp.data.ProjectCategory);
+    }
+    console.log(JSON.stringify(resp.data.ProjectCategory));
+  };
 
   const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -55,6 +74,7 @@ export default function AddInventory() {
     const [name, setName] = React.useState(nameParent);
     const [units, setUnits] = React.useState(unitsParent);
     const [category, setCategory] = React.useState(categoryParent);
+
     const handleForm = () => {
       setForm(false);
       setNameParent(name);
@@ -65,8 +85,11 @@ export default function AddInventory() {
         arr.push({
           id: i + 1,
           name: "",
-          category: category === "Both" ? "" : category,
           block_name: "",
+
+          // category: category === "Both" ? "" : category,
+          category: category,
+
           status: "",
         });
       }
@@ -82,17 +105,7 @@ export default function AddInventory() {
 
     return (
       <React.Fragment>
-        <Container
-          fluid
-          // style={{
-          //   // backgroundColor: 'red',
-          //   margin: "auto",
-          //   width: "100%",
-          //   // border: '3px solid green',
-          //   padding: "10px",
-          //   marginTop: "10px",
-          // }}
-        >
+        <Container fluid>
           <Row>
             <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
               <h3 style={{ color: "#818181" }}>Add Project</h3>
@@ -115,9 +128,10 @@ export default function AddInventory() {
                     type="text"
                   />
                 </Form.Group>
+
                 <Form.Group controlId="projectCategory">
                   <Form.Label>Project Category</Form.Label>
-                  <Form.Control
+                  {/* <Form.Control
                     value={category}
                     as="select"
                     className="w-100"
@@ -125,11 +139,32 @@ export default function AddInventory() {
                       setCategory(e.target.value);
                     }}
                   >
-                    <option value={"Both"}>Sale & Rent</option>
+                    <option value={"Both"}>Sale & Rent1</option>
                     <option value={"Sale"}>Sale</option>
                     <option value={"Rent"}>Rent</option>
-                  </Form.Control>
+                  </Form.Control> */}
+
+                  <select
+                    value={category}
+                    onChange={(e) => {
+                      console.log(
+                        "select category ID is -----",
+                        e.target.value
+                      );
+                      setCategory(e.target.value);
+                    }}
+                    className="form-control form-control-sm w-100"
+                  >
+                    {allProjectCategories.length > 0
+                      ? allProjectCategories.map((proCat, index) => (
+                          <option key={index} value={proCat.id}>
+                            {proCat.name}
+                          </option>
+                        ))
+                      : null}
+                  </select>
                 </Form.Group>
+
                 <Form.Group controlId="units">
                   <Form.Label>Units</Form.Label>
                   <Form.Control
@@ -164,86 +199,87 @@ export default function AddInventory() {
     const [InventoryData, setInventoryData] = React.useState(dummy);
 
     const viewData = (data, id, index) => {
-      // console.log('index', id);
-      // console.log('data', data);
       let key = Object.keys(data)[0];
-      // let inData = InventoryData.map((item) => {
-      //   if (item.id == id) {
-      //     item[key] = data[key];
-      //   }
-      //   return item;
-      // });
-      // console.log(inData);
-      // let inData = InventoryData;
-      // inData[index][key] = data[key];
-      // console.log(inData[index]);
+
       setInventoryData((state) => {
         const temp = [...state];
         const objectChange = temp[index];
         objectChange[key] = data[key];
         temp[index] = { ...objectChange };
-        // state[index] = { ...temp };
+
         console.log(state);
         return temp;
       });
-      // setInventoryData(inData);
     };
-    const handlePostRequest = async () => {
-      console.log("state");
-      setShowProgress(true);
 
+    const handlePostRequest = async () => {
+      setShowProgress(true);
       setProjectDetails((state) => {
         state.inventory = InventoryData;
         return state;
       });
       var postData = projectDetails;
       postData.inventory = InventoryData;
-      // setProjectDetails((state) => {
-      //   console.log("Before Updation", state);
-      //   return {
-      //     //return the new data layer
-      //     ...state,
-      //     inventory: [InventoryData],
-      //   };
-      //   console.log("After Updation", state);
-      // });
-      console.log(projectDetails, "STATE UPDATE");
-      console.log(postData, "POST DATA");
-      console.log("LEVEL", InventoryData);
 
-      await fetch(
-        // "https://pak-group.herokuapp.com/admin/createProject",
-        "https://webhook.site/3abd16e7-5188-4930-9571-c2997d67d6aa",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(projectDetails),
+      // console.log(projectDetails, "STATE UPDATE");
+      // console.log(postData, "POST DATA");
+      // console.log("LEVEL", InventoryData);
+
+      // console.log("------------------------------");
+      // console.log(JSON.stringify(projectDetails));
+
+      let inventoriesArray = [];
+
+      if (projectDetails.inventory.length > 0) {
+        for (let index = 0; index < projectDetails.inventory.length; index++) {
+          let obj = {
+            inventory_name: projectDetails.inventory[index].name,
+            block_name: projectDetails.inventory[index].block_name,
+            inventory_category: projectDetails.inventory[index].category,
+            property_status: projectDetails.inventory[index].status,
+          };
+          inventoriesArray.push(obj);
         }
-      )
-        .then((response) => {
-          console.log("response", response);
-          console.log("response Data", response.data);
+      }
+      let formData = {
+        name: projectDetails.name,
+        unit: projectDetails.units,
+        category_id: projectDetails.category,
+        inventories: inventoriesArray,
+      };
+      console.log("form to submit on server is --------------");
+      console.log(JSON.stringify(formData));
+      console.log("-------------------------------------------------");
+      let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
 
-          if (response.status === 200) {
-            // alert("skjdhfkjd");
-            setTimeout(() => {
-              setShowProgress(false);
-              setShowAlert(true);
-            }, 2000);
-          }
-        })
-        // .then((response) => response.json())
-        // .then((json) => {
-        //   console.log(json);
-        // })
+      setShowProgress(false);
 
-        .catch((error) => {
-          console.error(error);
-        });
+      // await fetch("https://webhook.site/ed44da3f-bdcd-4b1a-9122-a85ebebaf9d1", {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(projectDetails),
+      // })
+      //   .then((response) => {
+      //     console.log("response", response);
+      //     console.log("response Data", response.data);
+
+      //     if (response.status === 200) {
+      //       // alert("skjdhfkjd");
+      //       setTimeout(() => {
+      //         setShowAlert(true);
+      //       }, 2000);
+      //     }
+      //   })
+
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+      // setShowProgress(false);
     };
+
     const history = useHistory();
     const classes = useStyles();
 
@@ -377,8 +413,9 @@ export default function AddInventory() {
                           }}
                         >
                           {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
-                          <MenuItem value={"Sale"}>Sale</MenuItem>
+                          <MenuItem value={"Sales"}>Sales</MenuItem>
                           <MenuItem value={"Rent"}>Rent</MenuItem>
+                          <MenuItem value={"Other"}>Other</MenuItem>
                         </Select>
                       </FormControl>
                     </Form.Group>
@@ -437,9 +474,9 @@ export default function AddInventory() {
                           }}
                         >
                           {/* <MenuItem value={"null"}>Select Category</MenuItem> */}
-                          <MenuItem value={"Hold"}>Hold</MenuItem>
-                          <MenuItem value={"Sale"}>Sale</MenuItem>
-                          <MenuItem value={"Rent"}>Rent</MenuItem>
+                          <MenuItem value={"Open"}>Open</MenuItem>
+                          <MenuItem value={"Sold"}>Sold</MenuItem>
+                          {/* <MenuItem value={"Rent"}>Rent</MenuItem> */}
                         </Select>
                       </FormControl>
                     </FormGroup>
