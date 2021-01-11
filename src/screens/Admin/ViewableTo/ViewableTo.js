@@ -7,11 +7,14 @@ import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ReactTooltip from "react-tooltip";
 import Select from "react-select";
 import { toDate } from "date-fns";
-
+import { server_url, token } from "../../../utils/Config";
+import { GET, POST } from "./../../../utils/Functions";
+import ApiUrls from "./../../../utils/ApiUrls";
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
   const [viewable, setViewable] = React.useState([]);
   const [name, setName] = React.useState([]);
+  const [data, setData] = React.useState([]);
 
   const Employees = [
     { label: "Sana", value: "Sana" },
@@ -28,6 +31,16 @@ export default function ViewableTo() {
   console.log(select);
   console.log(viewable);
   console.log(name);
+  const handleInventoryData = async () => {
+    let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
+    console.log(res);
+    if (res.success != false) {
+      // setData(res.data.ProjectCategory);
+    }
+  };
+  React.useEffect(() => {
+    handleInventoryData();
+  }, []);
   return (
     <Container fluid>
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
