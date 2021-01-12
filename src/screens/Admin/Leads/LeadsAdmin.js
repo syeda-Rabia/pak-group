@@ -1063,7 +1063,11 @@ export default function LeadsAdmin() {
 
         <td>{item.status != "" ? item.status : "-------"}</td>
 
-        <td>{"-------"}</td>
+        <td>
+          {item.allocation.length > 0
+            ? item.allocation[0].allocated_to.first_name
+            : "-------"}
+        </td>
         <td>{item.task}</td>
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 

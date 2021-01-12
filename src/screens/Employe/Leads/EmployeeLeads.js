@@ -22,26 +22,26 @@ function EmployeeLeads(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
-  const Table = ({ item,index }) => {
+  const Table = ({ item, index }) => {
     return (
-      <tr>                                                                                                                                                                                                                                                                                                                                                                          
-        <td scope="row">{index+1}</td>
+      <tr>
+        <td scope="row">{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
         <td>{item.time_to_call}</td>
         <td>{item.country_city}</td>
-        <td>{item.status}</td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        <td>{item.status}</td>
 
-        <td>----</td> 
-        <td>{props.userInfo.first_name}</td>                                                                            
+        <td>{item.inventory.inventory_name}</td>
+        <td>{props.userInfo.first_name}</td>
         <td>{item.email}</td>
         <td>{item.task}</td>
         <td>{item.dead_line}</td>
         <td>
-          <input type="file" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-        </td>                                                                                                                                                                                                                                                                                                                                                           
+          <input type="file" />
+        </td>
       </tr>
     );
   };
@@ -132,7 +132,7 @@ function EmployeeLeads(props) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item,index) => (
+                {data.map((item, index) => (
                   <Table item={item.lead} index={index} />
                 ))}
               </tbody>

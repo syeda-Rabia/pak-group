@@ -6,11 +6,14 @@ const ApiUrls = {
   LOGOUT: "",
 
   // USERS
-  CREATE_USER: "",
+  CREATE_USER: "admin/employee/add",
   EDIT_USER: "",
   DELETE_USER: "",
   BLOCK_USER: "",
   GET_ALL_USER: "admin/employee/all",
+  GET_ALL_DASHBOARD_USER: "admin/dashboard/employee/all",
+  GET_ALL_DASHBOARD_USER_LEADS: "admin/dashboard/allocatedLeads/",
+
   USER_DATA_PAGINATION: "admin/employee/all?page=",
 
   // PROJECT CATEGORIES

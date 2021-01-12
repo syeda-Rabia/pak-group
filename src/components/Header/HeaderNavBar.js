@@ -7,7 +7,23 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) => ({
+  white: {
+    color: "#818181",
+    backgroundColor: "#fff",
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    border: 0,
+  },
+}));
+
 const HeaderNavBar = (props) => {
+  const classes = useStyles();
+
   console.log(props);
   return (
     <Container
@@ -31,114 +47,97 @@ const HeaderNavBar = (props) => {
             />{" "}
           </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{}} />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                Dashboard
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/todolist",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                To Do
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/leads",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                Leads
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/leadsallocation",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                Allocation
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/inventory",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                Inventory
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/user",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                User
-              </Link>
-            </Nav.Item>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>Dashboard</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/todolist",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>To Do</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/leads",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>Leads</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/leadsallocation",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>Allocation</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/inventory",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>Inventory</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/user",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>User</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/admin/policies",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item>Policies</Nav.Item>
+            </Link>
 
-            <Nav.Item>
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/admin/policies",
-                  state: { from: "AdminHeader" },
-                }}
-              >
-                Policies
-              </Link>
-            </Nav.Item>
-            <Nav.Item href="#Accounts">Accounts</Nav.Item>
-            <Nav.Item href="#Documentation">Documentation</Nav.Item>
+            {/* <Nav.Item href="#Accounts">Accounts</Nav.Item>
+            <Nav.Item href="#Documentation">Documentation</Nav.Item> */}
             <Nav.Item href="#Documentation" id="hr">
               HR
             </Nav.Item>
-
-            <Nav.Item
-              href="#"
-              id=""
-              onClick={() => {
-                props.LOGOUT();
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/",
+                state: { from: "AdminHeader" },
               }}
             >
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/",
-                  state: { from: "AdminHeader" },
+              <Nav.Item
+                onClick={() => {
+                  props.LOGOUT();
                 }}
               >
                 LOGOUT
-              </Link>
-            </Nav.Item>
+              </Nav.Item>
+            </Link>
           </Nav>
         </Navbar.Collapse>
         <Nav id="profile">
-          <Nav.Link
+          {/* <Nav.Link
             href="#profile"
             style={{
               backgroundColor: "white",
@@ -152,7 +151,8 @@ const HeaderNavBar = (props) => {
             }}
           >
             <span style={{ color: "black" }}>HR</span>
-          </Nav.Link>
+          </Nav.Link> */}
+          <Avatar className={classes.white}>HR</Avatar>
         </Nav>
       </Navbar>
     </Container>

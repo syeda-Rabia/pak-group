@@ -21,11 +21,15 @@ import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
+import { GET } from "./../../../utils/Functions";
+import ApiUrls from "./../../../utils/ApiUrls";
 
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 export default function RecordTable() {
-  const [data, setData] = React.useState(dummyData);
+  const [data, setData] = React.useState([]);
+  const [employees, setEmployees] = React.useState([]);
+
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -46,7 +50,27 @@ export default function RecordTable() {
   const handleClickAway = () => {
     setOpen(false);
   };
-
+  const handleFetchEmployeesLeads = async () => {
+    let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
+    console.log(res, "EMPLOYEE LEADS");
+    if (res.success != false) {
+      setData(res.data.leads);
+    }
+  };
+  React.useEffect(() => {
+    handleFetchEmployeesLeads();
+  }, [filterData]);
+  const handleFetchRequest = async () => {
+    let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
+    console.log(res, "GET ALL EMPLOYES");
+    if (res.success != false) {
+      setEmployees(res.data.users);
+      setFilterData(res.data.users[0].id);
+    }
+  };
+  React.useEffect(() => {
+    handleFetchRequest();
+  }, []);
   const optionsArray = [
     { id: "1", title: "Instruct", options: [] },
     { title: "Call Explanation", options: [] },
@@ -86,7 +110,7 @@ export default function RecordTable() {
           <Modal.Body>
             <form>
               <p>
-                <textarea id="myTextArea" rows="3" cols="62">
+                <textarea id="myTextArea" rows="3" cols="55">
                   Your text here
                 </textarea>
               </p>
@@ -199,57 +223,72 @@ export default function RecordTable() {
     }
   };
   const TableRow = ({ index, item }) => {
-    // console.log('item', item);
+    console.log("item--------", item);
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <td scope="row" key={item.id}>
-          {item.id}
+        <td scope="row" key={index + 1}>
+          {index + 1}
         </td>
-        <td>{item.Clients}</td>
-        <td>{item.Contacts}</td>
+        <td>{item.client_name}</td>
+        <td>{item.contact}</td>
         <td>
-          <select key={item.id} className="form-control form-control-sm w-100">
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
             {item.Project.map((project) => (
               <option>{project}</option>
             ))}
-          </select>
+          </select> */}
+          {item.project.name}
         </td>
-        <td key={item.id}>{item.Budget}</td>
-        <td key={item.id}>{item.TOC}</td>
-        <td key={item.id}>{item.Country}</td>
+        <td>{item.budget}</td>
+        <td>{item.time_to_call}</td>
+        <td>{item.country_city}</td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm w-100">
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
             {item.Status.map((status) => {
               return <option>{status}</option>;
             })}
-          </select>
+          </select> */}
+          {item.status}
         </td>
 
         <td>
-          <select key={item.id} className="form-control form-control-sm w-100">
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
             {item.Interest.map((interest) => {
               return <option>{interest}</option>;
             })}
-          </select>
+          </select> */}
+          {item.inventory.serial_no}
+        </td>
+
+        <td>
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
+            {item.Interest.map((interest) => {
+              return <option>{interest}</option>;
+            })}
+          </select> */}
+          {item.inventory.inventory_name}
         </td>
         <td>
-          <input
+          {item.email}
+
+          {/* <input
             key={item.id}
-            placeholder={item.Email}
+            placeholder={item.email}
             className="form-control w-100"
-          />
+          /> */}
         </td>
         <td>
-          <select key={item.id} className="form-control form-control-sm w-100">
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
             {item.Task.map((task) => {
               return <option>{task}</option>;
             })}
-          </select>
+          </select> */}
+          {item.project.category.name}
         </td>
-        <td key={item.id}>{item.Deadline}</td>
-        <td>Rabia</td>
+        <td>{item.dead_line}</td>
+        {/* <td>Rabia</td> */}
         <td>
           <DropdownButton
             id="CTA-button"
@@ -322,13 +361,15 @@ export default function RecordTable() {
 
         <select
           className="form-control form-control-sm w-100"
+          value={filterData}
           onChange={(e) => {
             setFilterData(e.target.value);
+            // console.log(e.target.value, e.target.name);
           }}
         >
           select employee
-          {data.map((item) => {
-            return <option>{item.Clients}</option>;
+          {employees.map((item) => {
+            return <option value={item.id}>{item.first_name}</option>;
           })}
         </select>
       </div>
@@ -342,7 +383,7 @@ export default function RecordTable() {
               <table
                 className="table table-hover"
                 style={{
-                  minHeight: "220px",
+                  minHeight: data.length > 0 ? "220px" : "0px",
                   textAlign: "center",
                   width: "100%",
                 }}
@@ -374,6 +415,9 @@ export default function RecordTable() {
                       <span id="sp">Status</span>
                     </th>
                     <th scope="col">
+                      <span id="sp">Serial_No</span>
+                    </th>
+                    <th scope="col">
                       <span id="sp">Interest</span>
                     </th>
                     <th scope="col">
@@ -385,21 +429,24 @@ export default function RecordTable() {
                     <th scope="col">
                       <span id="sp">Deadline</span>
                     </th>
-                    <th scope="col">
+                    {/* <th scope="col">
                       <span id="sp">Returned_From</span>
-                    </th>
+                    </th> */}
                     <th scope="col">
                       <span id="sp">Call_To_Action</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentData.map((item, index) => {
+                  {/* {currentData.map((item, index) => {
                     // console.log(item.Clients, filterData);
-                    if (filterData == "All")
+                    if (filterData.value == "All")
                       return <TableRow index={index} item={item} />;
-                    else if (item.Clients == filterData)
+                    else if (item.Clients == filterData.value)
                       return <TableRow index={index} item={item} />;
+                  })} */}
+                  {data.map((item, index) => {
+                    return <TableRow index={index} item={item.lead} />;
                   })}
                 </tbody>
               </table>

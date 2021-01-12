@@ -1,33 +1,20 @@
 // import React from 'react';
 import "./LeadsAllocatonAndAddition.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Dropfile from "../../../utils/Dropfile";
 
-import img2 from "./../../../assests/tiwtr-2.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faBan } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
-import axios from "axios";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
-import { Divider } from "antd";
-import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
+import { Backdrop, makeStyles, CircularProgress } from "@material-ui/core";
 
 export default function LeadsAllocatonAndAddition() {
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
@@ -40,6 +27,15 @@ export default function LeadsAllocatonAndAddition() {
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
 
   useEffect(() => {
     getAllLeads();
@@ -47,6 +43,8 @@ export default function LeadsAllocatonAndAddition() {
   }, []);
 
   const getAllLeads = async () => {
+    setIsLoading(true);
+
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
 
     if (resp.data != null) {
@@ -54,6 +52,7 @@ export default function LeadsAllocatonAndAddition() {
       console.log(JSON.stringify(resp));
       setAllLeadsToAllocate(resp.data.leads);
     }
+    setIsLoading(false);
   };
 
   const getAllEmployees = async () => {
@@ -66,13 +65,15 @@ export default function LeadsAllocatonAndAddition() {
     }
   };
   const TableEmployee = ({ item, index }) => {
+    console.log("index ----------- ,", item);
+
     return (
       <tr>
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
 
-        <td>{item.id}</td>
+        <td>{item.project.name}</td>
         <td>{item.budget}</td>
         <td>
           <KeyboardTimePickerExample />
@@ -88,7 +89,11 @@ export default function LeadsAllocatonAndAddition() {
             <option value={"onhold"}>On Hold</option>
           </select> */}
         </td>
-        <td>{"---------"}</td>
+        <td>
+          {item.returned_allocations.length > 0
+            ? item.returned_allocations[0].returned_from.first_name
+            : "------"}
+        </td>
 
         <td>
           <select
@@ -155,6 +160,13 @@ export default function LeadsAllocatonAndAddition() {
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
         </Col>
+        {isLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
             <SwipeableTemporaryDrawer />
