@@ -11,6 +11,7 @@ const ApiUrls = {
   DELETE_USER: "",
   BLOCK_USER: "",
   GET_ALL_USER: "admin/employee/all",
+  USER_DATA_PAGINATION: "admin/employee/all?page=",
 
   // PROJECT CATEGORIES
   CREATE_PROJECT_CATEGORY: "admin/projectCategory/add",
