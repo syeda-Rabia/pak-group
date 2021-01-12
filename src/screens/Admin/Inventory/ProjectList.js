@@ -204,7 +204,7 @@ export default function ProjectList() {
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
-        <td>{item.id}</td>
+        <td>{index + 1}</td>
         <td>{item.name}</td>
         <td>{item.category.name}</td>
         <td>{item.unit}</td>
@@ -250,7 +250,7 @@ export default function ProjectList() {
             <ReactTooltip id="EditTip" place="top" effect="solid">
               Edit Details
             </ReactTooltip> */}
-            <button
+            {/* <button
               data-tip
               data-for="DeleteTip"
               type="button"
@@ -264,7 +264,7 @@ export default function ProjectList() {
             </button>
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
-            </ReactTooltip>
+            </ReactTooltip> */}
           </div>
         </td>
       </tr>

@@ -35,7 +35,8 @@ export default function ViewableTo() {
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
     console.log(res, "ali");
     if (res.success != false) {
-      setData(res.data.projects.data);
+      // console.log('get all inde')
+      setData(res.data.projects);
     }
   };
   const handleEmployeeName = async () => {
@@ -102,6 +103,8 @@ export default function ViewableTo() {
       postData
     );
     console.log(res);
+    setSelect([]);
+    setViewable([]);
     let arr = data;
   };
   return (
@@ -203,17 +206,18 @@ export default function ViewableTo() {
                 </thead>
                 <tbody>
                   {data.map((item, index) => {
-                    return item.inventories.map((inventories, id) => {
-                      i++;
-                      return (
-                        <Table
-                          item={item}
-                          inventories={inventories}
-                          ids={inventories.id}
-                          index={i}
-                        />
-                      );
-                    });
+                    if (item.inventories != null)
+                      return item.inventories.map((inventories, id) => {
+                        i++;
+                        return (
+                          <Table
+                            item={item}
+                            inventories={inventories}
+                            ids={inventories.id}
+                            index={i}
+                          />
+                        );
+                      });
                   })}
                 </tbody>
               </table>
