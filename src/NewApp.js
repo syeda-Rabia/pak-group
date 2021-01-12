@@ -139,7 +139,7 @@ const NewApp = (props) => {
     <Router>
       <Switch>
         {props.user.logged != false && props.user.token != null ? (
-          props.user.user_info.user_type === 1 ? (
+          parseInt(props.user.user_info.user_type) === 1 ? (
             <AdminRoute />
           ) : (
             <EmployeeRoute />
@@ -157,7 +157,12 @@ const NewApp = (props) => {
 const mapDispatchToProps = (dispatch) => {};
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // let userType = state.auth.user_info.user_type;
+  // console.log("user type is 1---> ", typeof userType);
+
+  // userType = parseInt(state.auth.user_info.user_type);
+
+  // console.log("user type is 2---> ", typeof userType);
   return {
     user: state.auth,
   };
