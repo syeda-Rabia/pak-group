@@ -69,12 +69,12 @@ export default function LeadsAdmin() {
   }, []);
 
   const getAllLeadsData = async () => {
-    console.log("get all lead call ");
+    // console.log("get all lead call ");
 
     let resp = await GET(ApiUrls.GET_ALL_LEADS);
 
     if (resp.data != null) {
-      setAllLeads(resp.data.leads.data);
+      setAllLeads(resp.data.leads);
     }
     setIsLoading(false);
 
@@ -308,7 +308,7 @@ export default function LeadsAdmin() {
         inventory_id: inventory,
         project_id: project,
         budget: budget,
-        "country/city": country,
+        country_city: country,
       };
 
       console.log("sending data is ----- ", formData);
@@ -429,7 +429,7 @@ export default function LeadsAdmin() {
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Country/city</h6>
+                    <h6>Country_City</h6>
                     <Input
                       required="true"
                       className="form-control input-width w-100"
@@ -442,7 +442,7 @@ export default function LeadsAdmin() {
                     />
                   </div>
 
-                  <div className="pb-3">
+                  {/* <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
                       required="true"
@@ -454,7 +454,7 @@ export default function LeadsAdmin() {
                         setBudget(e.target.value);
                       }}
                     />
-                  </div>
+                  </div> */}
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
@@ -480,7 +480,7 @@ export default function LeadsAdmin() {
                     </Select>
                   </div>
                   <div className="pb-3">
-                    <h6>Interest</h6>
+                    <h6 style={{ marginTop: 7 }}>Interest</h6>
                     <Select
                       className="form-control form-control-sm w-100"
                       value={inventory}
@@ -502,7 +502,7 @@ export default function LeadsAdmin() {
                     </Select>
                   </div>
 
-                  <div className="pb-3">
+                  {/* <div className="pb-3">
                     <h6>Task</h6>
                     <Select
                       value={task}
@@ -515,6 +515,20 @@ export default function LeadsAdmin() {
                       <MenuItem value={"rent"}>Rent</MenuItem>
                       <MenuItem value={"other"}>other</MenuItem>
                     </Select>
+                  </div> */}
+
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
                   </div>
 
                   <div className="pb-3">
