@@ -11,10 +11,13 @@ const ApiUrls = {
   DELETE_USER: "",
   BLOCK_USER: "",
   GET_ALL_USER: "admin/employee/all",
+  USER_DATA_PAGINATION: "admin/employee/all?page=",
 
   // PROJECT CATEGORIES
   CREATE_PROJECT_CATEGORY: "admin/projectCategory/add",
   GET_ALL_PROJECT_CATEGORIES: "admin/projectCategory/all",
+  GET_DELETED_PROJECT_CATEGORIES: "admin/projectCategory/delete/",
+  POST_All_EDITED_CATEGORIES: "admin/projectCategory/edit ",
 
   // INVENTORIES
   CREATE_PROJECT: "admin/project/add",

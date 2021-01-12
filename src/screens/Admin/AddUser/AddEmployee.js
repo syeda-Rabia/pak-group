@@ -17,6 +17,9 @@ import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { server_url, token } from "../../../utils/Config";
+import ApiUrls from "../../../utils/ApiUrls";
+import { GET, POST } from "../../../utils/Functions";
+
 import { validateEmail } from "../../../utils/Validation";
 // import GetRecordFromServer from "../../../utils/Functions";
 import {
@@ -68,26 +71,32 @@ export default function AddEmployee() {
     Api Call
     
     */
+    let resp = await GET(ApiUrls.USER_DATA_PAGINATION + page);
 
-    let res = await fetch(server_url + "admin/employee/all?page=" + page, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log("Pagination Button hit", result.data.users);
-          setCurrentPage(result.data.users.current_page);
-          setUserRecord(result.data.users.data);
-        },
+    if (resp.data != null) {
+      setCurrentPage(resp.data.users.current_page);
+      setUserRecord(resp.data.users.data);
+    }
 
-        (error) => {
-          console.log(error);
-        }
-      );
+    // let res = await fetch(server_url + "admin/employee/all?page=" + page, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       console.log("Pagination Button hit", result.data.users);
+    //       setCurrentPage(result.data.users.current_page);
+    //       setUserRecord(result.data.users.data);
+    //     },
+
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
   };
 
   const handleShow = (pageCount) => {
@@ -121,42 +130,53 @@ export default function AddEmployee() {
   const GetUserRecordFromServer = async () => {
     console.log("GetUserRecordFromServer is run");
 
-    setIsLoading(true);
+    // setIsLoading(true);
 
-    let res = await fetch(server_url + "admin/employee/all", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          // setItems(result);
+    let resp = await GET(ApiUrls.GET_ALL_USER);
 
-          if (result.error != true) {
-            setUserRecord(result.data.users.data);
-            setPageSize(result.data.users.per_page);
-            setTotalRecord(result.data.users.total);
-            setCurrentPage(result.data.users.current_page);
-            console.log("------------------------", result.data);
-          } else {
-            console.log(
-              "server throw error ---------> ",
-              JSON.stringify(result)
-            );
-          }
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-          console.log(error);
-        }
-      );
+    // console.log("res --------------------------------------------------------");
+    // console.log(JSON.stringify(resp));
+    if (resp.data != null) {
+      setUserRecord(resp.data.users.data);
+      setPageSize(resp.data.users.per_page);
+      setTotalRecord(resp.data.users.total);
+      setCurrentPage(resp.data.users.current_page);
+    }
 
-    setIsLoading(false);
+    // setIsLoaded(false);
+
+    // let res = await fetch(server_url + "admin/employee/all", {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       setIsLoaded(true);
+    //       // setItems(result);
+
+    //       if (result.error != true) {
+    //         setUserRecord(result.data.users.data);
+    //         setPageSize(result.data.users.per_page);
+    //         setTotalRecord(result.data.users.total);
+    //         setCurrentPage(result.data.users.current_page);
+    //         console.log("------------------------", result.data);
+    //       } else {
+    //         console.log(
+    //           "server throw error ---------> ",
+    //           JSON.stringify(result)
+    //         );
+    //       }
+    //     },
+    //     (error) => {
+    //       setIsLoaded(true);
+    //       setError(error);
+    //       console.log(error);
+    //     }
+    //   );
   };
 
   const ModalView = ({ item }) => {
@@ -531,6 +551,11 @@ export default function AddEmployee() {
     const SendRecordToServer = async (event) => {
       event.preventDefault();
       setIsLoading(true);
+
+      // let resp = await POST(ApiUrls.GET_ALL_USER);
+      // if(resp.data !=''){
+
+      // }
 
       let user = {
         id: "1",
