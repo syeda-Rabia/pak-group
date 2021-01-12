@@ -33,19 +33,19 @@ export default function ViewableTo() {
   // console.log(name);
   const handleInventoryData = async () => {
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
-    console.log(res, "sana");
+    console.log(res, "ali");
     if (res.success != false) {
       setData(res.data.projects.data);
     }
   };
   const handleEmployeeName = async () => {
     let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
-    console.log(res, "rabia");
+    console.log(res, "hashmi");
     if (res.success != false) {
       // setViewable(res.data.users.data);
       let arr = [];
       res.data.users.map((item) => {
-        arr.push({ label: item.first_name, value: item.first_name });
+        arr.push({ label: item.first_name, value: item.id });
       });
       setEmployees(arr);
     }
@@ -56,14 +56,16 @@ export default function ViewableTo() {
     handleEmployeeName();
   }, []);
 
-  const Table = ({ item, inventories, index }) => {
+  const Table = ({ item, inventories, index, ids }) => {
     return (
       <tr>
         <td>
           <input
             type="checkBox"
-            onClick={(e) => {
-              HandleName(index);
+            checked={select.includes(ids)}
+            onChange={(e) => {
+              console.log("sana");
+              HandleName(ids);
             }}
           />
         </td>
@@ -75,9 +77,16 @@ export default function ViewableTo() {
         <td>{inventories.inventory_category}</td>
         <td>{inventories.property_status}</td>
         <td>
-          {viewable != null
+          {/* {viewable != null
             ? viewable.map((task) => {
                 return `${task.value} `;
+              })
+            : null} */}
+          {select.includes(ids) == true
+            ? viewable.map((task, index) => {
+                return `${task.label}${
+                  index != viewable.length - 1 ? "," : ""
+                } `;
               })
             : null}
         </td>
@@ -87,9 +96,10 @@ export default function ViewableTo() {
   const SelectData = async (event) => {
     event.preventDefault();
     let postData = {
-      // inventory_ids: id,
-      // user_ids: id,
+      inventory_ids: select,
+      user_ids: viewable.map((item) => item.value),
     };
+    console.log(postData);
     let res = await POST(
       ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
       postData
@@ -115,7 +125,10 @@ export default function ViewableTo() {
                     // disabled={!select.every((v) => v === true)}
                     options={Employees}
                     isMulti
-                    onChange={(opt) => setViewable(opt)}
+                    onChange={(opt) => {
+                      console.log(opt, "imtesal");
+                      setViewable(opt);
+                    }}
                     onClick={(e) => {
                       HandleName(0);
                     }}
@@ -199,6 +212,7 @@ export default function ViewableTo() {
                         <Table
                           item={item}
                           inventories={inventories}
+                          ids={inventories.id}
                           index={i}
                         />
                       );

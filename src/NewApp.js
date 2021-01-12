@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import HeaderNavBar from "./components/Header/HeaderNavBar";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
 import { Container, Row, Col } from "react-bootstrap";
@@ -32,9 +32,11 @@ import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
+import { token } from "../src/utils/Config";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
+  const [TOKEN, setTOKEN] = useState(token);
   console.log("user app --------", props.user);
   const AdminRoute = () => {
     console.log("Admin Route is call");
@@ -142,7 +144,7 @@ const NewApp = (props) => {
     <Router>
       <Switch>
         {props.user.logged != false && props.user.token != null ? (
-          props.user.user_info.user_type === 1 ? (
+          parseInt(props.user.user_info.user_type) === 1 ? (
             <AdminRoute />
           ) : (
             <EmployeeRoute />
@@ -160,7 +162,12 @@ const NewApp = (props) => {
 const mapDispatchToProps = (dispatch) => {};
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // let userType = state.auth.user_info.user_type;
+  // console.log("user type is 1---> ", typeof userType);
+
+  // userType = parseInt(state.auth.user_info.user_type);
+
+  // console.log("user type is 2---> ", typeof userType);
   return {
     user: state.auth,
   };

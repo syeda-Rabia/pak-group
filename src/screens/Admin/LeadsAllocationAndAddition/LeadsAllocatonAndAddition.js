@@ -26,7 +26,14 @@ import {
 import { Divider } from "antd";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
+
 export default function LeadsAllocatonAndAddition() {
+  const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
+  const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState();
+
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
@@ -34,49 +41,94 @@ export default function LeadsAllocatonAndAddition() {
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
 
+  useEffect(() => {
+    getAllLeads();
+    getAllEmployees();
+  }, []);
+
+  const getAllLeads = async () => {
+    let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
+
+    if (resp.data != null) {
+      console.log("unallocated leads is ---------");
+      console.log(JSON.stringify(resp));
+      setAllLeadsToAllocate(resp.data.leads);
+    }
+  };
+
+  const getAllEmployees = async () => {
+    let resp = await GET(ApiUrls.GET_ALL_EMPLOYEES);
+
+    if (resp.data != null) {
+      console.log("All EMployeess are ---------");
+      console.log(JSON.stringify(resp.data));
+      setEmployeesToAllocateLeads(resp.data.users);
+    }
+  };
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
-        <td>{item.id}</td>
-        <td>{item.Name}</td>
-        <td>{item.Contact}</td>
+        <td>{index + 1}</td>
+        <td>{item.client_name}</td>
+        <td>{item.contact}</td>
 
-        <td>{item.Project}</td>
-        <td>{item.Budget}</td>
+        <td>{item.id}</td>
+        <td>{item.budget}</td>
         <td>
           <KeyboardTimePickerExample />
         </td>
 
-        <td>{item.Source}</td>
-        <td>{item.Country}</td>
+        <td>{item.source}</td>
+        <td>{item.country_city}</td>
         <td>
-          <select className="form-control form-control-sm w-100">
+          {item.status != "" ? item.status : "------"}
+          {/* <select className="form-control form-control-sm w-100">
             <option value={"sold"}>Sold</option>
             <option value={"open"}>Open</option>
             <option value={"onhold"}>On Hold</option>
+          </select> */}
+        </td>
+        <td>{"---------"}</td>
+
+        <td>
+          <select
+            className="form-control form-control-sm w-100"
+            value={selectedEmployee}
+            onChange={(e) => {
+              console.log("select employee ID is -----", e.target.value);
+              setSelectedEmployee(e.target.value);
+            }}
+          >
+            {employeesToAllocateLeads.length > 0
+              ? employeesToAllocateLeads.map((emp) => (
+                  <option key={emp.id} value={emp.id}>
+                    {emp.first_name} {emp.last_name}
+                  </option>
+                ))
+              : null}
           </select>
         </td>
-        <td>{item.Interest}</td>
-        <td>
+        {/* <td>
           <select className="form-control form-control-sm w-100">
             <option value={"Rabia"}>Rabia</option>
             <option value={"sana"}>Sana</option>
             <option value={"atif"}>Atif</option>
             <option value={"ali"}>Ali</option>
           </select>
-        </td>
+        </td> */}
 
         <td>
-          <select className="form-control form-control-sm w-100">
+          {item.task != null ? item.task : "-------"}
+          {/* <select className="form-control form-control-sm w-100">
             <option value={"sale"}>Sale</option>
             <option value={"rent"}>Rent</option>
             <option value={"other"}>Other</option>
-          </select>
+          </select> */}
         </td>
         <td>
           <KeyboardDatePickerExample />
         </td>
-        <td>{item.Returned}</td>
+        <td>{"------"}</td>
         <td>
           {" "}
           <button
@@ -195,9 +247,14 @@ export default function LeadsAllocatonAndAddition() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => {
+                {AllleadsToAllocate.length > 0
+                  ? AllleadsToAllocate.map((lead, index) => (
+                      <TableEmployee item={lead} index={index} />
+                    ))
+                  : null}
+                {/* {data.map((item, index) => {
                   return <TableEmployee item={item} index={index} />;
-                })}
+                })} */}
               </tbody>
               {data.length > 0 ? <></> : null}
             </table>
