@@ -6,7 +6,7 @@ const ApiUrls = {
   LOGOUT: "",
 
   // USERS
-  CREATE_USER: "",
+  CREATE_USER: "admin/employee/add",
   EDIT_USER: "",
   DELETE_USER: "",
   BLOCK_USER: "",

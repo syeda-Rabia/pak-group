@@ -44,15 +44,11 @@ export default function AddEmployee() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
-  const [value, setValue] = useState();
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
 
   /*  Pagination data  */
 
@@ -130,7 +126,7 @@ export default function AddEmployee() {
   const GetUserRecordFromServer = async () => {
     console.log("GetUserRecordFromServer is run");
 
-    // setIsLoading(true);
+    setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_USER);
 
@@ -143,7 +139,7 @@ export default function AddEmployee() {
       setCurrentPage(resp.data.users.current_page);
     }
 
-    // setIsLoaded(false);
+    setIsLoading(false);
 
     // let res = await fetch(server_url + "admin/employee/all", {
     //   headers: {
@@ -551,11 +547,25 @@ export default function AddEmployee() {
     const SendRecordToServer = async (event) => {
       event.preventDefault();
       setIsLoading(true);
+      let formData = {
+        first_name: f_name,
+        last_name: l_name,
+        email: email,
+        gender: gender == "male" ? "Male" : "Female",
+        phone: phone_no,
+        password: password,
+        user_type: user_type == "Admin" ? "Admin" : "Employee",
+      };
+      let resp = await POST(ApiUrls.CREATE_USER, formData);
+      if (resp.error == false) {
+        setShowAlert(true);
+        console.log("DATA SET SUCCESSFULLY");
 
-      // let resp = await POST(ApiUrls.GET_ALL_USER);
-      // if(resp.data !=''){
-
-      // }
+        setUserRecord((state) => [formData].concat(state));
+      } else {
+        console.log("-------------------------------", resp);
+        setErrorAlert(true);
+      }
 
       let user = {
         id: "1",
@@ -567,52 +577,52 @@ export default function AddEmployee() {
         Password: password,
         Type: user_type,
       };
-      const formData = {
-        first_name: f_name,
-        last_name: l_name,
-        email: email,
-        gender: gender,
-        phone: phone_no,
-        password: password,
-        user_type: user_type,
-      };
+      // const formData = {
+      //   first_name: f_name,
+      //   last_name: l_name,
+      //   email: email,
+      //   gender: gender,
+      //   phone: phone_no,
+      //   password: password,
+      //   user_type: user_type,
+      // };
 
-      try {
-        let resp = await fetch(server_url + "admin/employee/add", {
-          method: "post",
-          // mode: "no-cors",
-          crossDomain: true,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            first_name: f_name,
-            last_name: l_name,
-            email: email,
-            gender: gender == "male" ? "Male" : "Female",
-            phone: phone_no,
-            password: password,
-            user_type: user_type == "Admin" ? "Admin" : "Employee",
-          }),
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            console.log("response from server  -------- ,", json);
-            if (json.success != false) {
-              setShowAlert(true);
-              console.log("DATA SET SUCCESSFULLY");
+      // try {
+      //   let resp = await fetch(server_url + "admin/employee/add", {
+      //     method: "post",
+      //     // mode: "no-cors",
+      //     crossDomain: true,
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //     body: JSON.stringify({
+      //       first_name: f_name,
+      //       last_name: l_name,
+      //       email: email,
+      //       gender: gender == "male" ? "Male" : "Female",
+      //       phone: phone_no,
+      //       password: password,
+      //       user_type: user_type == "Admin" ? "Admin" : "Employee",
+      //     }),
+      //   })
+      //     .then((response) => response.json())
+      //     .then((json) => {
+      //       console.log("response from server  -------- ,", json);
+      //       if (json.success != false) {
+      //         setShowAlert(true);
+      //         console.log("DATA SET SUCCESSFULLY");
 
-              setUserRecord((state) => [formData].concat(state));
-            }
-            if (json.success == false) {
-              setErrorAlert(true);
-            }
-          });
-      } catch (e) {
-        console.log(e);
-      }
+      //         setUserRecord((state) => [formData].concat(state));
+      //       }
+      //       if (json.success == false) {
+      //         setErrorAlert(true);
+      //       }
+      //     });
+      // } catch (e) {
+      //   console.log(e);
+      // }
 
       setIsLoading(false);
 

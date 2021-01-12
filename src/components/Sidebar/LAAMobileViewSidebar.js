@@ -80,7 +80,7 @@ export default function TemporaryDrawer() {
                   To Do List
                 </Link>
               </li>
-              <li id="list-item" className="list-group-item">
+              {/* <li id="list-item" className="list-group-item">
                 <Link
                   className="navLink"
                   id="list-item"
@@ -90,7 +90,7 @@ export default function TemporaryDrawer() {
                 >
                   Closed Leads
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </SwipeableDrawer>
         </React.Fragment>
