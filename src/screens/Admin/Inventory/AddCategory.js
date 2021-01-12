@@ -187,7 +187,7 @@ export default function AddCategories() {
       //   setData(arr);
       //   setShowAdd(false);
     };
-    const EditRecordToServer = (event) => {
+    const EditRecordToServer = async (event) => {
       event.preventDefault();
 
       console.log("EditRecordToServer", event);
@@ -198,8 +198,8 @@ export default function AddCategories() {
         id: item.id,
         name: category,
       };
-      //    let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, user);
-      //   console.log(res);
+      let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
+      console.log(res);
       console.log(user, item);
       let arr = data.map((val) => {
         if (val.id == user.id) val = user;
