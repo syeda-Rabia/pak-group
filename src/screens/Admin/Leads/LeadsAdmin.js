@@ -74,6 +74,7 @@ export default function LeadsAdmin() {
     let resp = await GET(ApiUrls.GET_ALL_LEADS);
 
     if (resp.data != null) {
+      // alert("count", resp.data.leads.count());
       setAllLeads(resp.data.leads);
     }
     setIsLoading(false);
@@ -1037,15 +1038,20 @@ export default function LeadsAdmin() {
 
   const TableEmployee = ({ item, index }) => {
     let country_city = "country/city";
+    console.log("index is -----------", index);
 
     return (
       <tr>
-        <td>{item.id}</td>
+        <td>{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
+        <td>{item.email}</td>
 
         <td>{item.project.name}</td>
-        <td>{item.budget} PKR</td>
+        <td>{item.budget}</td>
+
+        <td>{item.inventory.serial_no}</td>
+        <td>{item.inventory.inventory_name}</td>
 
         <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
         <td>
@@ -1053,14 +1059,11 @@ export default function LeadsAdmin() {
             ? item.country_city
             : "-------"}
         </td>
+        <td>{item.source}</td>
 
         <td>{item.status != "" ? item.status : "-------"}</td>
-        <td>{item.source}</td>
-        <td>{item.inventory.serial_no}</td>
-        <td>{item.inventory.inventory_name}</td>
 
         <td>{"-------"}</td>
-        <td>{item.email}</td>
         <td>{item.task}</td>
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 
@@ -1208,6 +1211,13 @@ export default function LeadsAdmin() {
                         Contacts
                       </span>
                     </th>
+
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Email
+                      </span>
+                    </th>
+
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Project
@@ -1221,6 +1231,17 @@ export default function LeadsAdmin() {
                     </th>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
+                        Serial_No
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Interest
+                      </span>
+                    </th>
+
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
                         TOC
                       </span>
                     </th>
@@ -1232,35 +1253,28 @@ export default function LeadsAdmin() {
                     </th>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Status
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
                         Source
                       </span>
                     </th>
+
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Serial_No
+                        Status
                       </span>
                     </th>
-                    <th scope="col">
+
+                    {/* <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Interest
                       </span>
-                    </th>
+                    </th> */}
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         {" "}
                         Allocated_To
                       </span>
                     </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Email
-                      </span>
-                    </th>
+
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Task
