@@ -276,7 +276,12 @@ export default function AddCategories() {
     );
   };
   const ModalDelete = ({ item }) => {
-    const DeleteRecordFromData = (item) => {
+    const DeleteRecordFromData = async (item) => {
+      let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
+      console.log(res, "deleted");
+      if (res.success != false) {
+        // setData(res.data.ProjectCategory);
+      }
       console.log("item is ", item);
       let { id } = item;
       console.log("ID is ", id);
@@ -448,9 +453,11 @@ export default function AddCategories() {
                       //     null
                       // <Skeleton variant="rect" width={"100%"} height={"100%"} />
                     }
-                    {data.map((item, index) => {
-                      return <Table item={item} index={index} />;
-                    })}
+                    {data
+                      .filter((item) => item.is_deleted == 0)
+                      .map((item, index) => {
+                        return <Table item={item} index={index} />;
+                      })}
                   </tbody>
                   {data.length > 0 ? (
                     <>
