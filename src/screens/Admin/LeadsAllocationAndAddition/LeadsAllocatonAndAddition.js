@@ -49,7 +49,7 @@ export default function LeadsAllocatonAndAddition() {
 
     if (resp.data != null) {
       console.log("unallocated leads is ---------");
-      console.log(JSON.stringify(resp));
+      console.trace(JSON.stringify(resp));
       setAllLeadsToAllocate(resp.data.leads);
     }
     setIsLoading(false);
@@ -64,7 +64,13 @@ export default function LeadsAllocatonAndAddition() {
       setEmployeesToAllocateLeads(resp.data.users);
     }
   };
-  const TableEmployee = ({ item, index }) => {
+  const handlePostUpdate = () => {
+    console.log("update ");
+  };
+  const HandleTimeValue = (value) => {
+    console.log(value);
+  };
+  const LeadsAllocationAndAdditionTable = ({ item, index }) => {
     return (
       <tr>
         <td>{index + 1}</td>
@@ -74,7 +80,7 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.id}</td>
         <td>{item.budget}</td>
         <td>
-          <KeyboardTimePickerExample />
+          <KeyboardTimePickerExample showTime={HandleTimeValue} />
         </td>
 
         <td>{item.source}</td>
@@ -131,19 +137,15 @@ export default function LeadsAllocatonAndAddition() {
         <td>
           {" "}
           <button
-            data-tip
-            data-for="update"
             type="button"
             className="btn btn-primary"
+            onClick={() => handlePostUpdate()}
             style={{
               backgroundColor: "#2258BF",
             }}
           >
             Update
           </button>
-          <ReactTooltip id="update" place="top" effect="solid">
-            update
-          </ReactTooltip>
         </td>
       </tr>
     );
@@ -255,7 +257,10 @@ export default function LeadsAllocatonAndAddition() {
               <tbody>
                 {AllleadsToAllocate.length > 0
                   ? AllleadsToAllocate.map((lead, index) => (
-                      <TableEmployee item={lead} index={index} />
+                      <LeadsAllocationAndAdditionTable
+                        item={lead}
+                        index={index}
+                      />
                     ))
                   : null}
                 {/* {data.map((item, index) => {

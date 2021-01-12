@@ -7,16 +7,19 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 
-export function KeyboardTimePickerExample() {
-  const [selectedDate, handleDateChange] = useState(new Date());
+export function KeyboardTimePickerExample(props) {
+  const [selectedTime, handleTimeChange] = useState(new Date());
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardTimePicker
         placeholder="00:00 AM"
         mask="__:__ _M"
-        value={selectedDate}
-        onChange={(date) => handleDateChange(date)}
+        value={selectedTime}
+        onChange={(time) => {
+          handleTimeChange(time);
+          props.showTime(time);
+        }}
       />
     </MuiPickersUtilsProvider>
   );

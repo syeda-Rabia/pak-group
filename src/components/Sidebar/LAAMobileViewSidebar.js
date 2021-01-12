@@ -89,7 +89,7 @@ export default function TemporaryDrawer() {
                   }}
                 >
                   Closed Leads
-                </Link>
+                </Link> 
               </li> */}
             </ul>
           </SwipeableDrawer>
