@@ -39,6 +39,7 @@ export default function TemporaryDrawer() {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
+      event &&
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
@@ -47,26 +48,10 @@ export default function TemporaryDrawer() {
 
     setState({ ...state, [anchor]: open });
   };
-
   return (
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          {/* <button
-            // className="toggle-button"
-            style={{
-              width: "63px !important",
-              backgroundColor: "#e5eeff",
-              color: "#2258bf",
-              padding: "10px",
-              // marginTop: "20px",
-              borderRadius: "41px",
-              border: "none",
-            }}
-            onClick={toggleDrawer(anchor, true)}
-          >
-            <img src={buttonImg} />
-          </button> */}
           <Fab onClick={toggleDrawer(anchor, true)} aria-label="add">
             <img src={buttonImg} />
           </Fab>

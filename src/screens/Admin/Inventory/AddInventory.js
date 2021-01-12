@@ -118,7 +118,7 @@ export default function AddInventory() {
             </Col>
           </Row>
           <Row>
-            <div class="col-lg-12 shadow p-3  bg-white rounded ">
+            <div className="col-lg-12 shadow p-3  bg-white rounded ">
               <Form onSubmit={submit}>
                 <Form.Group controlId="inventoryName">
                   <Form.Label>Project Name</Form.Label>

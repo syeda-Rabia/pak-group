@@ -267,13 +267,13 @@ export default function ToDoListAdmin() {
   return (
     <Container fluid className="Laa">
       <Row>
-        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
           <h3 style={{ color: "#818181" }}>To Do List </h3>
         </div>
       </Row>
 
       <Row>
-        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <div className="table-responsive">
             <table id="todolistTable" className="table table-hover">
               <thead>

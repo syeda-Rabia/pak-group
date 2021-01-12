@@ -31,6 +31,7 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
+import ClosedLeads from "./screens/ClosedLeads";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
@@ -93,6 +94,10 @@ const NewApp = (props) => {
         <Route exact path="/admin/viewable">
           <HeaderNavBar />
           <ViewableTo />
+        </Route>
+        <Route exact path="/admin/closedleads">
+          <HeaderNavBar />
+          <ClosedLeads />
         </Route>
         <Route path="/admin/upload-file">
           <HeaderNavBar />

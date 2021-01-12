@@ -32,6 +32,7 @@ import {
   Snackbar,
   Backdrop,
   CircularProgress,
+  ClickAwayListener,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { set } from "lodash";
@@ -41,7 +42,7 @@ const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  const [emailError, setEmailError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [errorResponce, setErrorResponce] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +60,9 @@ const SignIn = (props) => {
 
   const handleClose = () => {
     setShowAlert(false);
+  };
+  const handleClickAway = () => {
+    setEmailError(null);
   };
 
   const SignInFun = async (event) => {
@@ -200,33 +204,41 @@ const SignIn = (props) => {
                     placeholder="Username or Email "
                   /> */}
                   {/* Material UI */}
-                  <div
-                    className="form-control input1"
-                    id={emailError ? "error" : "noError"}
-                  >
-                    <Input
-                      disableUnderline="false"
-                      fullWidth="true"
-                      placeholder="Enter Email"
-                      type="email"
-                      value={email}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <div className="emailIcon">
-                            <AccountCircle />
-                          </div>
-                        </InputAdornment>
+                  <ClickAwayListener onClickAway={handleClickAway}>
+                    <div
+                      className="form-control input1"
+                      id={
+                        emailError
+                          ? "error"
+                          : emailError == false
+                          ? "noError"
+                          : null
                       }
-                      onChange={(e) => {
-                        if (validateEmail(e.target.value)) {
-                          setEmailError(false);
-                        } else {
-                          setEmailError(true);
+                    >
+                      <Input
+                        disableUnderline={true}
+                        fullWidth={true}
+                        placeholder="Enter Email"
+                        type="email"
+                        value={email}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <div className="emailIcon">
+                              <AccountCircle />
+                            </div>
+                          </InputAdornment>
                         }
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
+                        onChange={(e) => {
+                          if (validateEmail(e.target.value)) {
+                            setEmailError(false);
+                          } else {
+                            setEmailError(true);
+                          }
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </ClickAwayListener>
                 </div>
                 <div
                   className="form-group"
@@ -252,8 +264,8 @@ const SignIn = (props) => {
                   >
                     <Input
                       id="standard-adornment-password"
-                      disableUnderline="false"
-                      fullWidth="true"
+                      disableUnderline={true}
+                      fullWidth={true}
                       placeholder="Enter Password"
                       type={showPassword ? "text" : "password"}
                       value={password}

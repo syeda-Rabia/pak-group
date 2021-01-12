@@ -316,28 +316,10 @@ export default function RecordTable() {
   };
   // console.log(filterData);
   return (
-    <Container
-      fluid
-      className="Laa"
-      style={{
-        // backgroundColor: 'red',
-        margin: "auto",
-        width: "100%",
-        // border: '3px solid green',
-        padding: "10px",
-        marginTop: "10px",
-      }}
-    >
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+    <>
+      <div className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         <h3 style={{ color: "#818181" }}>Employee Leads</h3>
-        {/* <div>
-          <DatePicker onChange={onChange} value={value} />
-        </div> */}
-        {/* <DatePicker
-      selected={startDate}
-      onChange={date => setStartDate(date)}
-      calendarContainer={MyContainer}
-    /> */}
+
         <select
           className="form-control form-control-sm w-100"
           onChange={(e) => {
@@ -350,7 +332,7 @@ export default function RecordTable() {
           })}
         </select>
       </div>
-      <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
+      <div className="col-lg-12 shadow p-3 mb-5 bg-white rounded ">
         <Row>
           <Col
             lg="12"
@@ -442,6 +424,6 @@ export default function RecordTable() {
         </Row>
       </div>
       <ModalCTA />
-    </Container>
+    </>
   );
 }

@@ -11,7 +11,7 @@ export default function AdminProjectListScreen() {
         <Row>
           <Col
             id="sidebar-component"
-            class="shadow"
+            className="shadow"
             lg={2}
             md={2}
             sm={0}
