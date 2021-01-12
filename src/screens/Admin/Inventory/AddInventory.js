@@ -85,6 +85,7 @@ export default function AddInventory() {
       for (let i = 0; i < units; i++) {
         arr.push({
           id: i + 1,
+          serial_no: "",
           name: "",
           block_name: "",
 
@@ -212,7 +213,6 @@ export default function AddInventory() {
         const objectChange = temp[index];
         objectChange[key] = data[key];
         temp[index] = { ...objectChange };
-
         console.log(state);
         return temp;
       });
@@ -239,9 +239,10 @@ export default function AddInventory() {
       if (projectDetails.inventory.length > 0) {
         for (let index = 0; index < projectDetails.inventory.length; index++) {
           let obj = {
+            serial_no: projectDetails.inventory[index].serial_no,
             inventory_name: projectDetails.inventory[index].name,
             block_name: projectDetails.inventory[index].block_name,
-            inventory_category: projectDetails.inventory[index].category,
+            // inventory_category: projectDetails.inventory[index].category,
             property_status: projectDetails.inventory[index].status,
           };
           inventoriesArray.push(obj);
@@ -345,6 +346,18 @@ export default function AddInventory() {
             {InventoryData.map((item, index) => {
               return (
                 <Form.Row style={{ marginBottom: "8px" }}>
+                  <Col>
+                    <Form.Control
+                      className="w-100"
+                      placeholder="Serial No"
+                      value={item.serial_no}
+                      style={{ height: "calc(1.5em + 1.99rem + 2px)" }}
+                      onChange={(e) => {
+                        // setInventoryData()
+                        viewData({ serial_no: e.target.value }, item.id, index);
+                      }}
+                    />
+                  </Col>
                   <Col>
                     <Form.Control
                       className="w-100"

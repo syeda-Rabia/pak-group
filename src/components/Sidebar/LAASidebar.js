@@ -51,7 +51,7 @@ export default function LAASidebar(props) {
               To Do List
             </Link>
           </li>
-          <li id="list-item" className="list-group-item">
+          {/* <li id="list-item" className="list-group-item">
             <Link
               className="navLink"
               id="list-item"
@@ -61,7 +61,7 @@ export default function LAASidebar(props) {
             >
               Closed Leads
             </Link>
-          </li>
+          </li> */}
         </ul>
       </React.Fragment>
     );
