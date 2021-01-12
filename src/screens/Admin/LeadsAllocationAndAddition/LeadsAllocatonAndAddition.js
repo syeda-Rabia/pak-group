@@ -77,7 +77,7 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
 
-        <td>{item.id}</td>
+        <td>{item.project.name}</td>
         <td>{item.budget}</td>
         <td>
           <KeyboardTimePickerExample showTime={HandleTimeValue} />
@@ -93,7 +93,11 @@ export default function LeadsAllocatonAndAddition() {
             <option value={"onhold"}>On Hold</option>
           </select> */}
         </td>
-        <td>{"---------"}</td>
+        <td>
+          {item.returned_allocations.length > 0
+            ? item.returned_allocations[0].returned_from.first_name
+            : "------"}
+        </td>
 
         <td>
           <select

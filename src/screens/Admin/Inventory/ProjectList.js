@@ -204,7 +204,7 @@ export default function ProjectList() {
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
-        <td>{item.id}</td>
+        <td>{index + 1}</td>
         <td>{item.name}</td>
         <td>{item.category.name}</td>
         <td>{item.unit}</td>

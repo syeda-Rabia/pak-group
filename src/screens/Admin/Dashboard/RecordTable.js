@@ -223,12 +223,12 @@ export default function RecordTable() {
     }
   };
   const TableRow = ({ index, item }) => {
-    // console.log('item', item);
+    console.log("item--------", item);
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
         <td scope="row" key={index + 1}>
-          {item.id}
+          {index + 1}
         </td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
@@ -259,14 +259,25 @@ export default function RecordTable() {
               return <option>{interest}</option>;
             })}
           </select> */}
+          {item.inventory.serial_no}
+        </td>
+
+        <td>
+          {/* <select key={item.id} className="form-control form-control-sm w-100">
+            {item.Interest.map((interest) => {
+              return <option>{interest}</option>;
+            })}
+          </select> */}
           {item.inventory.inventory_name}
         </td>
         <td>
-          <input
+          {item.email}
+
+          {/* <input
             key={item.id}
             placeholder={item.email}
             className="form-control w-100"
-          />
+          /> */}
         </td>
         <td>
           {/* <select key={item.id} className="form-control form-control-sm w-100">
@@ -274,7 +285,7 @@ export default function RecordTable() {
               return <option>{task}</option>;
             })}
           </select> */}
-          {item.task}
+          {item.project.category.name}
         </td>
         <td>{item.dead_line}</td>
         {/* <td>Rabia</td> */}
@@ -402,6 +413,9 @@ export default function RecordTable() {
                     </th>
                     <th scope="col">
                       <span id="sp">Status</span>
+                    </th>
+                    <th scope="col">
+                      <span id="sp">Serial_No</span>
                     </th>
                     <th scope="col">
                       <span id="sp">Interest</span>
