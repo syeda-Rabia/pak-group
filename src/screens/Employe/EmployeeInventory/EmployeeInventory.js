@@ -2,13 +2,23 @@ import React from "react";
 import "./EmployeeInventory.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
-
+import { Backdrop, CircularProgress, makeStyles } from "@material-ui/core";
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 function EmployeeInventory(props) {
-   const [data, setData] = React.useState([]);
+  // const useStyles = makeStyles((theme) => ({
+  //   backdrop: {
+  //     zIndex: theme.zIndex.drawer + 1,
+  //     color: "#fff",
+  //   },
+  // }));
+
+  // const classes = useStyles();
+  const [data, setData] = React.useState([]);
   const handleFetchData = async () => {
-    let res = await GET(ApiUrls.GET_USER_VIEWABLE_INVENTORIES +  props.userInfo.id);
+    let res = await GET(
+      ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
+    );
     console.log(res);
     if (res.success != false) {
       setData(res.data.inventories);
@@ -17,21 +27,28 @@ function EmployeeInventory(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
-   const Table = ({ item ,index}) => {
+  const Table = ({ item, index }) => {
     return (
-      <tr>                                                                                                                                                                                                                                                                                                                                                                          
-        <td scope="row">{index+1}</td>
-              <td>{item.project.name}</td>
-              <td>{item.inventory_category}</td>
-              {/* <td>{item.block_name}</td> */}
-              <td>{item.block_name}</td>
-              <td>{item.property_status}</td>
-              {/* <td>{item.block_name}</td> */}
-          </tr>
+      <tr>
+        <td scope="row">{item.serial_no}</td>
+        <td>{item.project.name}</td>
+        <td>{item.inventory_category}</td>
+        {/* <td>{item.block_name}</td> */}
+        <td>{item.block_name}</td>
+        <td>{item.property_status}</td>
+        {/* <td>{item.block_name}</td> */}
+      </tr>
     );
   };
   return (
     <Container fluid className="Laa">
+      {/* {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null} */}
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
       </div>
@@ -69,11 +86,11 @@ function EmployeeInventory(props) {
                     </th> */}
                   </tr>
                 </thead>
-                  <tbody>
-                {data.map((item,index) => (
-                  <Table item={item} index={index} />
-                ))}
-              </tbody>
+                <tbody>
+                  {data.map((item, index) => (
+                    <Table item={item} index={index} />
+                  ))}
+                </tbody>
               </table>
             </div>
           </Col>
@@ -82,7 +99,6 @@ function EmployeeInventory(props) {
     </Container>
   );
 }
-
 
 const mapStateToProps = (state) => {
   console.log("state is --------------", state);
