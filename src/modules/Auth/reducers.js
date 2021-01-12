@@ -54,7 +54,15 @@ const getDataFromLocalStorage = async () => {
 getDataFromLocalStorage();
 
 const logout = async () => {
-  localStorage.clear();
+  try {
+    // localStorage.clear();
+
+    localStorage.setItem("user_info", "");
+    localStorage.setItem("token", null);
+    localStorage.setItem("logged", null);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default function authReducer(state = initialState, action) {

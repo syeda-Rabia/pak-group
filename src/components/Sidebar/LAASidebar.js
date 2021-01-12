@@ -30,7 +30,15 @@ export default function LAASidebar(props) {
         <FormPopover name="Search Leads" alignText="left" leftPadding="22px" />
         <ul className="list-group">
           <li id="list-item" className="list-group-item">
-            Add News Leads
+            <Link
+              className="navLink"
+              id="list-item"
+              to={{
+                pathname: "/admin/leads",
+              }}
+            >
+              Add News Leads
+            </Link>
           </li>
           <li id="list-item" className="list-group-item">
             <Link

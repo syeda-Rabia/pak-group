@@ -16,10 +16,10 @@ const Pagination = (props) => {
   return (
     <nav>
       <ul className="pagination">
-        <li class="page-item">
+        <li className="page-item">
           <a
             id="pagelink"
-            class="page-link"
+            className="page-link"
             onClick={() => {
               const page = currentPage - 1;
               if (page > 0) {
@@ -44,10 +44,10 @@ const Pagination = (props) => {
             </a>
           </li>
         ))}
-        <li class="page-item">
+        <li className="page-item">
           <a
             id="pagelink"
-            class="page-link"
+            className="page-link"
             onClick={() => {
               const page = currentPage + 1;
               if (page <= pages.length) {

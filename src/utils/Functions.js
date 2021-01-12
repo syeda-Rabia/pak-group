@@ -23,6 +23,8 @@ const GetRecordFromServer = async (url) => {
 };
 
 export const POST = async (url, formData) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+
   console.log("POST method , coming URL is ------,     ", url);
   console.log(
     "form data to submut ----------,      ",
@@ -57,8 +59,10 @@ export const POST = async (url, formData) => {
 };
 
 export const GET = async (url) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+  console.log("token is ----------", token);
+
   console.log("GET method , coming URL is ------,     ", url);
-  console.log("token is --------------", token);
 
   console.log("===================== > " + server_url + url);
 

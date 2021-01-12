@@ -112,14 +112,14 @@ export default function ViewableTo() {
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>ViewAble To </h3>
       </div>
-      <div class="Laa shadow p-3 mb-3 bg-white rounded mt-2">
+      <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
         <Row>
           <Col
             lg="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
             <Row>
-              <div class="col-lg-11">
+              <div className="col-lg-11">
                 {select.length > 0 ? (
                   <Select
                     // disabled={!select.every((v) => v === true)}
@@ -139,7 +139,7 @@ export default function ViewableTo() {
                 {viewable != null ? (
                   viewable.length > 0 ? (
                     <button
-                      class="col-lg-12 btn btn-primary"
+                      className="col-lg-12 btn btn-primary"
                       type="submit"
                       style={{ backgroundColor: "#2258BF" }}
                       // disabled={!select.every((v) => v === true)}

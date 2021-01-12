@@ -62,7 +62,7 @@ export default function InventoryAdmin(props) {
   return (
     <Container fluid className="Laa">
       <Row>
-        <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
           <h3 style={{ color: "#818181" }}>
             Inventory Details <sub>(Admin)</sub>
           </h3>

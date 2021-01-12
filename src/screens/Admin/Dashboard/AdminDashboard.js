@@ -12,7 +12,7 @@ function AdminDashboard() {
     <Container fluid>
       {/* Ist Row */}
       <Container fluid>
-        <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+        <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
           <Col lg={10} sm={10} xs={10} xl={11}>
             <h4 style={{ color: "#818181" }}>Admin Dashboard</h4>
           </Col>
@@ -31,10 +31,11 @@ function AdminDashboard() {
             lg={6}
             sm={12}
             xs={12}
-            className="mt-2 pt-3 mr-5"
+            className="mt-2 pt-3"
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
+              marginRight: "5.5rem",
             }}
           >
             <Row
@@ -165,10 +166,11 @@ function AdminDashboard() {
             lg={6}
             sm={12}
             xs={12}
-            className="mt-2 pt-3 mr-5"
+            className="mt-2 pt-3"
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
+              marginRight: "5.5rem",
             }}
           >
             <Row
@@ -213,8 +215,7 @@ function AdminDashboard() {
               backgroundColor: "white",
               borderRadius: "10px",
               marginTop: "30px",
-              marginRight: "30px",
-              marginLeft: "10px",
+              marginRight: "5.5rem",
               marginBottom: "30px",
               padding: "30px",
             }}
@@ -233,8 +234,6 @@ function AdminDashboard() {
               marginTop: "30px",
               marginBottom: "30px",
               padding: "30px",
-              marginLeft: "10px",
-              marginRight: "30px",
             }}
           >
             <EnhancedTable />

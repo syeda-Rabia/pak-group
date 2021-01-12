@@ -369,7 +369,7 @@ export default function LeadsAdmin() {
             SendRecordToServer(e);
           }}
         >
-          <div class="col-lg-12 shadow bg-white rounded ">
+          <div className="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
               <div
                 style={{
@@ -575,7 +575,7 @@ export default function LeadsAdmin() {
         >
           <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow   bg-white rounded ">
+        <div className="col-lg-12 shadow   bg-white rounded ">
           <form>
             <Modal.Body>
               <div
@@ -814,7 +814,7 @@ export default function LeadsAdmin() {
             EditRecordToServer(e);
           }}
         >
-          <div class="col-lg-12 shadow  bg-white rounded ">
+          <div className="col-lg-12 shadow  bg-white rounded ">
             <Modal.Body>
               <form>
                 <div
@@ -995,7 +995,7 @@ export default function LeadsAdmin() {
         >
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <Modal.Body>Do you really want to delete this Record!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -1138,7 +1138,7 @@ export default function LeadsAdmin() {
 
   return (
     <Container fluid className="Laa">
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>Leads </h3>
       </div>
       {isLoading == true ? (

@@ -175,7 +175,7 @@ export default function AddEmployee() {
             Employee Record
           </Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow   bg-white rounded ">
+        <div className="col-lg-12 shadow   bg-white rounded ">
           <form>
             <Modal.Body>
               <div style={{ alignContent: "center" }}>
@@ -302,7 +302,7 @@ export default function AddEmployee() {
             EditRecordToServer(e);
           }}
         >
-          <div class="col-lg-12 shadow  bg-white rounded ">
+          <div className="col-lg-12 shadow  bg-white rounded ">
             <Modal.Body>
               {/*             
             <h6>ID</h6>
@@ -454,7 +454,7 @@ export default function AddEmployee() {
         >
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <Modal.Body>Do you really want to delete this Record!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -493,7 +493,7 @@ export default function AddEmployee() {
         >
           <Modal.Title style={{ color: "#818181" }}>Block User</Modal.Title>
         </Modal.Header>
-        <div class="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <Modal.Body>Do you really want to Block this Employee!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -615,7 +615,7 @@ export default function AddEmployee() {
             SendRecordToServer(e);
           }}
         >
-          <div class="col-lg-12 shadow bg-white rounded ">
+          <div className="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
               <div className="pb-3">
                 <h6>First Name</h6>
@@ -878,10 +878,10 @@ export default function AddEmployee() {
         </Slide>
       ) : null}
 
-      <div class="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Employees Record</h3>
       </div>
-      <div class="col-lg-12 shadow p-3  bg-white rounded ">
+      <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <button
           data-tip
           data-for="AddTip"
