@@ -69,12 +69,12 @@ export default function LeadsAdmin() {
   }, []);
 
   const getAllLeadsData = async () => {
-    console.log("get all lead call ");
+    // console.log("get all lead call ");
 
     let resp = await GET(ApiUrls.GET_ALL_LEADS);
 
     if (resp.data != null) {
-      setAllLeads(resp.data.leads.data);
+      setAllLeads(resp.data.leads);
     }
     setIsLoading(false);
 
@@ -308,7 +308,7 @@ export default function LeadsAdmin() {
         inventory_id: inventory,
         project_id: project,
         budget: budget,
-        "country/city": country,
+        country_city: country,
       };
 
       console.log("sending data is ----- ", formData);
@@ -429,7 +429,7 @@ export default function LeadsAdmin() {
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Country/city</h6>
+                    <h6>Country_City</h6>
                     <Input
                       required="true"
                       className="form-control input-width w-100"
@@ -442,7 +442,7 @@ export default function LeadsAdmin() {
                     />
                   </div>
 
-                  <div className="pb-3">
+                  {/* <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
                       required="true"
@@ -454,7 +454,7 @@ export default function LeadsAdmin() {
                         setBudget(e.target.value);
                       }}
                     />
-                  </div>
+                  </div> */}
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
@@ -480,7 +480,7 @@ export default function LeadsAdmin() {
                     </Select>
                   </div>
                   <div className="pb-3">
-                    <h6>Interest</h6>
+                    <h6 style={{ marginTop: 7 }}>Interest</h6>
                     <Select
                       className="form-control form-control-sm w-100"
                       value={inventory}
@@ -502,7 +502,7 @@ export default function LeadsAdmin() {
                     </Select>
                   </div>
 
-                  <div className="pb-3">
+                  {/* <div className="pb-3">
                     <h6>Task</h6>
                     <Select
                       value={task}
@@ -515,6 +515,20 @@ export default function LeadsAdmin() {
                       <MenuItem value={"rent"}>Rent</MenuItem>
                       <MenuItem value={"other"}>other</MenuItem>
                     </Select>
+                  </div> */}
+
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
                   </div>
 
                   <div className="pb-3">
@@ -1030,30 +1044,25 @@ export default function LeadsAdmin() {
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
 
-        <td>{item.project_id}</td>
+        <td>{item.project.name}</td>
         <td>{item.budget} PKR</td>
 
-        <td>
-          {item.hasOwnProperty("time_to_call") == true
-            ? item.time_to_call
-            : "-------"}
-        </td>
+        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
         <td>
           {item.hasOwnProperty("country_city") == true
             ? item.country_city
             : "-------"}
         </td>
 
-        <td>
-          {item.hasOwnProperty("Status") == true ? item.Status : "-------"}
-        </td>
+        <td>{item.status != "" ? item.status : "-------"}</td>
         <td>{item.source}</td>
-        <td>{item.inventory_id}</td>
+        <td>{item.inventory.serial_no}</td>
+        <td>{item.inventory.inventory_name}</td>
 
         <td>{"-------"}</td>
-        <td>{"-------"}</td>
-        <td>{"-------"}</td>
-        <td>{"-------"}</td>
+        <td>{item.email}</td>
+        <td>{item.task}</td>
+        <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 
         {/* <td>{item.Allocate}</td>
         <td>{item.Email}</td>
@@ -1082,7 +1091,6 @@ export default function LeadsAdmin() {
           <Button variant="primary">CTA</Button>
         </td>
 
-        <td>{"-------"}</td>
         <td>
           <div className="d-flex d-inline">
             <button
@@ -1205,6 +1213,7 @@ export default function LeadsAdmin() {
                         Project
                       </span>
                     </th>
+
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Budget
@@ -1229,6 +1238,11 @@ export default function LeadsAdmin() {
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Source
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Serial_No
                       </span>
                     </th>
                     <th scope="col">

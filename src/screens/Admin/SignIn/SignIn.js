@@ -3,8 +3,8 @@ import ReactDom from "react-dom";
 import "./SignIn.css";
 import Header_login from "../../../components/SignIn/SignInHeader";
 import Footer from "../../../components/SignIn/SignInFooter";
-import Image_pak from "./../../../assests/Image_pak.png";
-import pkgrp_logo_1 from "./../../../assests/pkgrp_logo_1.png";
+import pakGroup from "./../../../assests/pakGroup.jpg";
+import pkgrp from "./../../../assests/pakGroup-logo.png";
 import logo from "./../../../assests/Ellipse 2 (1).svg";
 import img from "./../../../assests/fb-2.svg";
 import img2 from "./../../../assests/tiwtr-2.svg";
@@ -140,10 +140,7 @@ const SignIn = (props) => {
           style={{ backgroundColor: "#F7FAFD", border: "1px black" }}
         >
           <div className="first-logo" style={{ height: "119px" }}>
-            <img
-              style={{ width: "190px", height: "80px" }}
-              src={pkgrp_logo_1}
-            />
+            <img style={{ width: "200px", height: "80px" }} src={pkgrp} />
           </div>
 
           {/* <Container fluid style={{marginLeft:'30px',marginRight:'300px',border:'1px solid black'}}> */}
@@ -151,7 +148,7 @@ const SignIn = (props) => {
             className="signin-image"
             style={{ marginRight: "30px", marginLeft: "30px" }}
           >
-            <img style={{ width: "90%", height: "100%" }} src={Image_pak} />
+            <img style={{ width: "90%", height: "300px" }} src={pakGroup} />
           </div>
           {/* </Container> */}
           <div
@@ -179,8 +176,8 @@ const SignIn = (props) => {
                 SignInFun(e);
               }}
             >
-              <div className="container fluid">
-                <h2>Sign In</h2>
+              <div className="container fluid" style={{ paddingTop: "100px" }}>
+                <h2 style={{ color: "#2258BF" }}>Sign In</h2>
                 <h6 style={{ textAlign: "center" }}>
                   Sign in using your email address{" "}
                 </h6>{" "}
@@ -301,6 +298,7 @@ const SignIn = (props) => {
                   style={{
                     // backgroundColor: "red",
                     width: "100%",
+                    paddingTop: "20px",
                     // height: 50,
                     display: "flex",
                     // paddingRight: 20,

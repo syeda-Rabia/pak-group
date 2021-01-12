@@ -29,7 +29,7 @@ export default function ViewableTo() {
     else setSelect((state) => state.filter((item) => item != id));
   };
   // console.log(select);
-  // console.log(viewable);
+  console.log(viewable, "qasim");
   // console.log(name);
   const handleInventoryData = async () => {
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
@@ -77,17 +77,14 @@ export default function ViewableTo() {
         <td>{inventories.inventory_category}</td>
         <td>{inventories.property_status}</td>
         <td>
-          {/* {viewable != null
-            ? viewable.map((task) => {
-                return `${task.value} `;
-              })
-            : null} */}
           {select.includes(ids) == true
-            ? viewable.map((task, index) => {
-                return `${task.label}${
-                  index != viewable.length - 1 ? "," : ""
-                } `;
-              })
+            ? viewable != null
+              ? viewable.map((task, index) => {
+                  return `${task.label}${
+                    index != viewable.length - 1 ? "," : ""
+                  } `;
+                })
+              : null
             : null}
         </td>
       </tr>

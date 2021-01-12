@@ -5,7 +5,11 @@ import { ProjectListData } from "./../../../assests/constants/ProjectListDemoDat
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
-
+import ReactTooltip from "react-tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function InventoryAdmin(props) {
   const [data, setData] = useState(ProjectListData);
   const [allInventories, setAllInventories] = useState([]);
@@ -49,12 +53,66 @@ export default function InventoryAdmin(props) {
     return (
       <tr>
         <td>{index + 1} </td>
-        <td>{item.serial_no}-</td>
+        <td>{item.serial_no}</td>
         <td>{props.listData.item.name}</td>
         <td>{item.inventory_category}</td>
         <td>{item.inventory_name}</td>
         <td>{item.block_name}</td>
         <td>{item.property_status}</td>
+        <td>
+          <div
+            className="d-flex d-inline "
+            style={{
+              justifyContent: "center",
+            }}
+          >
+            <button
+              data-tip
+              data-for="ViewTip"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                // setShowView(true);
+                // setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
+            </button>
+            <ReactTooltip id="ViewTip" place="top" effect="solid">
+              View Details
+            </ReactTooltip>
+            <button
+              data-tip
+              data-for="EditTip"
+              type="button "
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                // setShowEdit(true);
+                // setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
+            </button>
+            <ReactTooltip id="EditTip" place="top" effect="solid">
+              Edit Details
+            </ReactTooltip>
+            <button
+              data-tip
+              data-for="DeleteTip"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                // setShowDelete(true);
+                // setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
+            </button>
+            <ReactTooltip id="DeleteTip" place="top" effect="solid">
+              Delete Record
+            </ReactTooltip>
+          </div>
+        </td>
       </tr>
     );
   };
