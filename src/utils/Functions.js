@@ -27,7 +27,7 @@ export const POST = async (url, formData) => {
 
   console.log("POST method , coming URL is ------,     ", url);
   console.log(
-    "form data to submut ----------,      ",
+    "form data to submit ----------,      ",
     JSON.stringify(formData)
   );
 

@@ -46,6 +46,7 @@ const ApiUrls = {
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
   ASSIGN_LEAD_TO_USER: "leadAllocation/assign",
+  UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
 
   //   DASHBOARD
 };

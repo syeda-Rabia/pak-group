@@ -14,12 +14,23 @@ import {
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
-import { Backdrop, makeStyles, CircularProgress } from "@material-ui/core";
+import {
+  Backdrop,
+  makeStyles,
+  CircularProgress,
+  Select,
+  MenuItem,
+  Snackbar,
+  Slide,
+} from "@material-ui/core";
+import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 
 export default function LeadsAllocatonAndAddition() {
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [errorAlert, setErrorAlert] = React.useState(false);
+
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
-  const [selectedEmployee, setSelectedEmployee] = useState();
 
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
@@ -28,12 +39,35 @@ export default function LeadsAllocatonAndAddition() {
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+
+  const formatDate = (date) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
+
+  var today = new Date();
+  var datee = formatDate(today);
+
+  var timee =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
     },
   }));
+  const handleClose = () => {
+    setShowAlert(false);
+    setErrorAlert(false);
+  };
 
   const classes = useStyles();
 
@@ -49,7 +83,7 @@ export default function LeadsAllocatonAndAddition() {
 
     if (resp.data != null) {
       console.log("unallocated leads is ---------");
-      console.trace(JSON.stringify(resp));
+      // console.trace(JSON.stringify(resp));
       setAllLeadsToAllocate(resp.data.leads);
     }
     setIsLoading(false);
@@ -64,13 +98,58 @@ export default function LeadsAllocatonAndAddition() {
       setEmployeesToAllocateLeads(resp.data.users);
     }
   };
-  const handlePostUpdate = () => {
-    console.log("update ");
-  };
-  const HandleTimeValue = (value) => {
-    console.log(value);
-  };
-  const LeadsAllocationAndAdditionTable = ({ item, index }) => {
+
+  const LeadsAllocationAndAdditionTable = ({ item, index, leads }) => {
+    const [time, setTime] = useState(timee);
+    const [date, setDate] = useState(datee);
+    const [selectedEmployee, setSelectedEmployee] = useState();
+
+    const handlePostUpdate = async () => {
+      setIsLoading(true);
+
+      let formData;
+      setAllLeadsToAllocate((state) => {
+        const temp = [...state];
+        const objectChange = temp[index];
+        objectChange.time_to_call = time;
+        objectChange.dead_line = date;
+        objectChange.allocated_to = selectedEmployee;
+        objectChange.lead_id = item.id;
+        objectChange.task = item.project.category.name;
+        temp[index] = { ...objectChange };
+        formData = { ...objectChange };
+        console.log("statee-----------", state);
+        return temp;
+      });
+
+      let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, formData);
+      setIsLoading(false);
+
+      if (resp.error === false) {
+        setShowAlert(true);
+      }
+      if (resp.error.hasOwnProperty("allocated_to")) {
+        setErrorAlert(true);
+      }
+      console.log("Receving data after submission-----------------");
+      console.log(JSON.stringify(resp.data));
+    };
+
+    const HandleTimeValue = (value) => {
+      const str = value.toString();
+      var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
+
+      console.log(res);
+      setTime(res);
+    };
+
+    const handleDateValue = (value) => {
+      const str = value.toString();
+
+      // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
+      setDate(formatDate(value));
+      console.log(formatDate(value));
+    };
     return (
       <tr>
         <td>{index + 1}</td>
@@ -80,7 +159,7 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
         <td>
-          <KeyboardTimePickerExample showTime={HandleTimeValue} />
+          <KeyboardTimePickerExample value={today} showTime={HandleTimeValue} />
         </td>
 
         <td>{item.source}</td>
@@ -100,7 +179,7 @@ export default function LeadsAllocatonAndAddition() {
         </td>
 
         <td>
-          <select
+          <Select
             className="form-control form-control-sm w-100"
             value={selectedEmployee}
             onChange={(e) => {
@@ -108,14 +187,14 @@ export default function LeadsAllocatonAndAddition() {
               setSelectedEmployee(e.target.value);
             }}
           >
-            {employeesToAllocateLeads.length > 0
-              ? employeesToAllocateLeads.map((emp) => (
-                  <option key={emp.id} value={emp.id}>
+            {leads.length > 0
+              ? leads.map((emp) => (
+                  <MenuItem key={emp.id} value={emp.id}>
                     {emp.first_name} {emp.last_name}
-                  </option>
+                  </MenuItem>
                 ))
               : null}
-          </select>
+          </Select>
         </td>
         {/* <td>
           <select className="form-control form-control-sm w-100">
@@ -127,7 +206,8 @@ export default function LeadsAllocatonAndAddition() {
         </td> */}
 
         <td>
-          {item.task != null ? item.task : "-------"}
+          {item.project.category.name}
+          {/* {item.task != null ? item.task : "-------"} */}
           {/* <select className="form-control form-control-sm w-100">
             <option value={"sale"}>Sale</option>
             <option value={"rent"}>Rent</option>
@@ -135,7 +215,7 @@ export default function LeadsAllocatonAndAddition() {
           </select> */}
         </td>
         <td>
-          <KeyboardDatePickerExample />
+          <KeyboardDatePickerExample value={today} showDate={handleDateValue} />
         </td>
         <td>{"------"}</td>
         <td>
@@ -154,6 +234,7 @@ export default function LeadsAllocatonAndAddition() {
       </tr>
     );
   };
+  // console.trace("------------------", AllleadsToAllocate);
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
@@ -166,6 +247,40 @@ export default function LeadsAllocatonAndAddition() {
               <CircularProgress disableShrink />
             </Backdrop>
           </>
+        ) : null}
+        {showAlert == true ? (
+          <Slide in={showAlert} direction="up">
+            <Snackbar
+              open={showAlert}
+              autoHideDuration={2000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            >
+              <Alert variant="filled" severity="success">
+                <AlertTitle>Success</AlertTitle>
+                <span className="mr-5" style={{ textAlign: "center" }}>
+                  Lead Updated Sucessfully
+                </span>
+              </Alert>
+            </Snackbar>
+          </Slide>
+        ) : null}
+        {errorAlert == true ? (
+          <Slide in={errorAlert} direction="up">
+            <Snackbar
+              open={errorAlert}
+              autoHideDuration={2000}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            >
+              <Alert variant="filled" severity="error">
+                <AlertTitle>Error</AlertTitle>
+                <span className="mr-5" style={{ textAlign: "center" }}>
+                  The allocated to field is required.
+                </span>
+              </Alert>
+            </Snackbar>
+          </Slide>
         ) : null}
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
@@ -264,6 +379,7 @@ export default function LeadsAllocatonAndAddition() {
                       <LeadsAllocationAndAdditionTable
                         item={lead}
                         index={index}
+                        leads={employeesToAllocateLeads}
                       />
                     ))
                   : null}

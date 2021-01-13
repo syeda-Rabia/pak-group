@@ -54,6 +54,7 @@ export default function LeadsAdmin() {
   const audioTune = new Audio(sample);
   const audioTune2 = new Audio(sample2);
   const [isLoading, setIsLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -67,6 +68,10 @@ export default function LeadsAdmin() {
     setIsLoading(true);
     getAllLeadsData();
   }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    getAllLeadsData();
+  }, [refresh]);
 
   const getAllLeadsData = async () => {
     // console.log("get all lead call ");
@@ -312,10 +317,11 @@ export default function LeadsAdmin() {
         country_city: country,
       };
 
-      console.log("sending data is ----- ", formData);
+      console.log("sending data is ---------------- ", formData);
 
       let resp = await POST(ApiUrls.CREATE_LEAD, formData);
 
+      setRefresh(!refresh);
       console.log("Receving data after submission-----------------");
       console.log(JSON.stringify(resp.data));
 
@@ -1079,7 +1085,7 @@ export default function LeadsAdmin() {
         <td>
           <button
             data-tip
-            data-for="ViewTip"
+            data-for="play"
             type="button"
             className="bg-transparent  button-focus mr-2"
             onClick={() => {
@@ -1089,7 +1095,7 @@ export default function LeadsAdmin() {
           >
             <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
           </button>
-          <ReactTooltip id="ViewTip" place="top" effect="solid">
+          <ReactTooltip id="play" place="top" effect="solid">
             play
           </ReactTooltip>
         </td>
@@ -1102,7 +1108,7 @@ export default function LeadsAdmin() {
           <div className="d-flex d-inline">
             <button
               data-tip
-              data-for="ViewTip"
+              data-for="delete"
               type="button"
               className="bg-transparent  button-focus mr-2"
               onClick={() => {
@@ -1112,7 +1118,7 @@ export default function LeadsAdmin() {
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-            <ReactTooltip id="ViewTip" place="top" effect="solid">
+            <ReactTooltip id="delete" place="top" effect="solid">
               View Details
             </ReactTooltip>
             <button
