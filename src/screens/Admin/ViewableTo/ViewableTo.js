@@ -57,7 +57,12 @@ export default function ViewableTo() {
     handleEmployeeName();
   }, []);
 
-  const Table = ({ item, inventories, index, ids }) => {
+  const Table = ({ item, inventories, index, ids, viewableInventories }) => {
+    let viewableInventoriesArray = viewableInventories.map((item) => {
+      return { label: item.user.first_name };
+    });
+    let viewableData = select.includes(ids) == true ? viewable : [];
+    console.log([...viewableInventoriesArray, ...viewable]);
     return (
       <tr>
         <td>
@@ -78,15 +83,20 @@ export default function ViewableTo() {
         <td>{inventories.inventory_category}</td>
         <td>{inventories.property_status}</td>
         <td>
-          {select.includes(ids) == true
-            ? viewable != null
-              ? viewable.map((task, index) => {
-                  return `${task.label}${
-                    index != viewable.length - 1 ? "," : ""
-                  } `;
-                })
+          {
+            // select.includes(ids) == true
+            //   ?
+            [...viewableInventoriesArray, ...viewable] != null
+              ? [...viewableInventoriesArray, ...viewableData].map(
+                  (task, index) => {
+                    return `${task.label}${
+                      index != viewable.length - 1 ? "," : ""
+                    } `;
+                  }
+                )
               : null
-            : null}
+            // : null
+          }
         </td>
       </tr>
     );
@@ -127,7 +137,8 @@ export default function ViewableTo() {
                     isMulti
                     onChange={(opt) => {
                       console.log(opt, "imtesal");
-                      setViewable(opt);
+                      if (opt != null) setViewable(opt);
+                      else setViewable([]);
                     }}
                     onClick={(e) => {
                       HandleName(0);
@@ -214,6 +225,9 @@ export default function ViewableTo() {
                             item={item}
                             inventories={inventories}
                             ids={inventories.id}
+                            viewableInventories={
+                              inventories.viewable_inventories
+                            }
                             index={i}
                           />
                         );
