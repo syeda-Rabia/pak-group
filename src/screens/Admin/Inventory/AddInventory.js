@@ -421,14 +421,7 @@ export default function AddInventory() {
                         </InputLabel>
 
                         <Select
-                          // style={{
-                          //   backgroundColor: "#F2F4F5",
-
-                          // }}
-                          // labelId="demo-simple-select-label"
-                          // id="demo-simple-select"
-                          labelId="demo-simple-select-filled-label"
-                          id="demo-simple-select-filled"
+                          variant="outlined"
                           value={item.status}
                           onChange={(e) => {
                             // setInventoryData()
