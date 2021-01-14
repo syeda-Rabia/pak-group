@@ -24,7 +24,7 @@ import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 
 export default function ProjectList() {
-  const [allProjects, setAAllProjects] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
 
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -52,14 +52,13 @@ export default function ProjectList() {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
     if (resp.data != null) {
-      setAAllProjects(resp.data.projects.data);
+      setAllProjects(resp.data.projects.data);
     }
     setIsLoading(false);
   };
 
   const ModalEdit = ({ item }) => {
-    const [ProjectName, setProjectName] = useState(item.Name);
-    const [Units, setUnits] = useState(item.Units);
+    const [ProjectName, setProjectName] = useState(item.name);
 
     const SendRecordToServer = (event) => {
       event.preventDefault();
@@ -70,16 +69,15 @@ export default function ProjectList() {
 
       let projects = {
         id: "1",
-        Name: ProjectName,
-        Units: Units,
+        name: ProjectName,
       };
 
-      let arr = data;
-      arr.push(projects);
-      setData(arr);
-      setShowAdd(false);
+      //   let arr = data;
+      //   arr.push(projects);
+      //   setData(arr);
+      //   setShowAdd(false);
     };
-    const EditRecordToServer = (event) => {
+    const EditRecordToServer = async (event) => {
       event.preventDefault();
 
       console.log("EditRecordToServer", event);
@@ -88,18 +86,22 @@ export default function ProjectList() {
 
       let projects = {
         id: item.id,
-        Name: ProjectName,
-        Units: Units,
+        name: ProjectName,
       };
+      let res = await POST(ApiUrls.EDIT_PROJECT, projects);
+      console.log(res, "response");
+      console.log(projects, item);
+      if (res.success != false) {
+        let arr = allProjects.map((val) => {
+          if (val.id == projects.id) val = projects;
+          return val;
+        });
 
-      let arr = data.map((val) => {
-        if (val.id == projects.id) val = projects;
-        return val;
-      });
-
-      // arr.push(user);
-      setData(arr);
-      setShowEdit(false);
+        // arr.push(projects);
+        setData(arr);
+        setAllProjects(arr);
+        setShowEdit(false);
+      }
     };
 
     return (
@@ -109,61 +111,82 @@ export default function ProjectList() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Project</Modal.Title>
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>
+            Edit Project Name
+          </Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
             EditRecordToServer(e);
           }}
         >
-          <Modal.Body>
-            <h6>Enter Project Name</h6>
-            <input
-              className="form-control input-width"
-              placeholder="Enter First Name"
-              type="text"
-              value={ProjectName}
-              onChange={(e) => {
-                setProjectName(e.target.value);
-              }}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              style={{ backgroundColor: "#2258bf" }}
-              onClick={() => {
-                setShowEdit(false);
-              }}
-            >
-              Close
-            </Button>
-            <Button style={{ backgroundColor: "#2258bf" }} onClick={() => {}}>
-              Submit
-            </Button>
-          </Modal.Footer>
+          <div className="col-lg-12 shadow  bg-white rounded ">
+            <Modal.Body>
+              {/*             
+            <h6>ID</h6>
+            <input className="form-control w-100"    placeholder="Enter id" /> */}
+              <form>
+                <div className="pb-3">
+                  <h6>Project Name</h6>
+                  <input
+                    className="form-control w-100 "
+                    placeholder="Enter project name"
+                    type="text"
+                    value={ProjectName}
+                    onChange={(e) => {
+                      setProjectName(e.target.value);
+                    }}
+                  />
+                </div>
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowEdit(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                type="submit"
+                value="Submit"
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={(e) => {
+                  setShowEdit(false);
+                  EditRecordToServer(e);
+                }}
+              >
+                Edit
+              </Button>
+            </Modal.Footer>
+          </div>
         </form>
       </Modal>
     );
   };
-
   const ModalDelete = ({ item }) => {
-    const DeleteRecordFromData = (item) => {
-      console.log("item is ", item);
+    const DeleteRecordFromData = async (item) => {
+      let res = await GET(ApiUrls.DELETE_PROJECT + item.id);
+      console.log(res, "deleted");
 
+      console.log("item is ", item);
       let { id } = item;
       console.log("ID is ", id);
-
-      let arr = data;
-
-      arr = arr.filter((projects) => projects.id != id.toString());
-
+      let arr = allProjects;
+      arr = arr.filter((user, index) => user.id != id.toString());
       console.log("arr length ", arr.length, arr, selectedID);
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;
       });
-      setData(arr);
+      // setData(arr);
+      setAllProjects(arr);
     };
     return (
       <Modal
@@ -234,7 +257,7 @@ export default function ProjectList() {
             <ReactTooltip id="ViewTip" place="top" effect="solid">
               View or Edit Details
             </ReactTooltip>
-            {/* 
+
             <button
               data-tip
               data-for="EditTip"
@@ -249,8 +272,8 @@ export default function ProjectList() {
             </button>
             <ReactTooltip id="EditTip" place="top" effect="solid">
               Edit Details
-            </ReactTooltip> */}
-            {/* <button
+            </ReactTooltip>
+            <button
               data-tip
               data-for="DeleteTip"
               type="button"
@@ -264,7 +287,7 @@ export default function ProjectList() {
             </button>
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
-            </ReactTooltip> */}
+            </ReactTooltip>
           </div>
         </td>
       </tr>
@@ -343,11 +366,11 @@ export default function ProjectList() {
                   return <TableEmployee item={item} index={index} />;
                 })} */}
               </tbody>
-              {data.length > 0 ? (
+              {allProjects.length > 0 ? (
                 <>
-                  <ModalDelete item={data[selectedID]} />
+                  <ModalDelete item={allProjects[selectedID]} />
 
-                  {/* <ModalEdit item={data[selectedID]} /> */}
+                  <ModalEdit item={allProjects[selectedID]} />
                 </>
               ) : null}
             </table>

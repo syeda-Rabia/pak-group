@@ -24,8 +24,9 @@ const ApiUrls = {
 
   // INVENTORIES
   CREATE_PROJECT: "admin/project/add",
-  EDIT_PROJECT: "",
-  DELETE_PROJECT: "",
+  EDIT_PROJECT: "admin/project/edit",
+  DELETE_PROJECT: "admin/project/delete/",
+
   GET_ALL_PROJECTS: "admin/project/all",
   GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
   POST_All_EDITED_INVENTORIES: "admin/inventory/edit",
