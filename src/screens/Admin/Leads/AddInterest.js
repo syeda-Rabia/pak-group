@@ -1,15 +1,14 @@
-import "./InventoryAdmin.css";
+import "./LeadsAdmin.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
+
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { AddCategory } from "./../../../assests/constants/addcategory";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { server_url, token } from "../../../utils/Config";
@@ -32,73 +31,21 @@ export default function AddInterest() {
     }
   };
   React.useEffect(() => {
-    // console.log(data, "KYA MASIBAT HAI");
     handleFetchData();
   }, []);
 
   const ModalAdd = ({ item }) => {
-    const [category, setCategory] = useState("");
-
-    // const SendRecordToServer = async (event) => {
-    //   event.preventDefault();
-    //   setIsLoading(true);
+    const [interest, SetInterest] = useState("");
 
     let user = {
       id: data.length + 1,
-      name: category,
+      name: interest,
     };
-    //    const formData = {
-    //      first_name: f_name,
-    //      last_name: l_name,
-    //      email: email,
-    //      gender: gender,
-    //      phone: phone_no,
-    //      password: password,
-    //      user_type: user_type,
-    //    };
 
-    //    try {
-    //      let resp = await fetch(server_url + "admin/employee/add", {
-    //        method: "post",
-    //        // mode: "no-cors",
-    //        crossDomain: true,
-    //        headers: {
-    //          Accept: "application/json",
-    //          "Content-Type": "application/json",
-    //          Authorization: `Bearer ${token}`,
-    //        },
-    //        body: JSON.stringify({
-    //          first_name: f_name,
-    //          last_name: l_name,
-    //          email: email,
-    //          gender: gender == "male" ? "Male" : "Female",
-    //          phone: phone_no,
-    //          password: password,
-    //          user_type: user_type == "Admin" ? "Admin" : "Employee",
-    //        }),
-    //      })
-    //        .then((response) => response.json())
-    //        .then((json) => {
-    //          console.log("response from server  -------- ,", json);
-    //          if (json.success != false) {
-    //            setShowAlert(true);
-    //            console.log("DATA SET SUCCESSFULLY");
-
-    //            setUserRecord((state) => [formData].concat(state));
-    //          }
-    //          if (json.success == false) {
-    //            setErrorAlert(true);
-    //          }
-    //        });
-    //    } catch (e) {
-    //      console.log(e);
-    //    }
-
-    //    setIsLoading(false);
     const addData = async (event) => {
       event.preventDefault();
       let postData = {
-        name: category,
+        name: interest,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
       console.log(res);
@@ -137,9 +84,9 @@ export default function AddInterest() {
                   type="text"
                   minLength="3"
                   maxLength="30"
-                  value={category}
+                  value={interest}
                   onChange={(e) => {
-                    setCategory(e.target.value);
+                    SetInterest(e.target.value);
                   }}
                 />
               </div>
@@ -168,7 +115,7 @@ export default function AddInterest() {
     );
   };
   const ModalEdit = ({ item }) => {
-    const [category, setCategory] = useState(item.name);
+    const [interest, SetInterest] = useState(item.name);
 
     const SendRecordToServer = (event) => {
       event.preventDefault();
@@ -179,7 +126,7 @@ export default function AddInterest() {
 
       let user = {
         id: "1",
-        name: category,
+        name: interest,
       };
 
       //   let arr = data;
@@ -196,7 +143,7 @@ export default function AddInterest() {
 
       let user = {
         id: item.id,
-        name: category,
+        name: interest,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
       console.log(res);
@@ -236,14 +183,14 @@ export default function AddInterest() {
             <input className="form-control w-100"    placeholder="Enter id" /> */}
               <form>
                 <div className="pb-3">
-                  <h6>Category Name</h6>
+                  <h6>Interest </h6>
                   <input
                     className="form-control w-100 "
-                    placeholder="Enter category"
+                    placeholder="Enter interest"
                     type="text"
-                    value={category}
+                    value={interest}
                     onChange={(e) => {
-                      setCategory(e.target.value);
+                      SetInterest(e.target.value);
                     }}
                   />
                 </div>
@@ -383,30 +330,25 @@ export default function AddInterest() {
     <Container
       fluid
       className="Laa"
-      style={{
-        margin: "auto",
-        width: "100%",
-        padding: "10px",
-        marginTop: "10px",
-      }}
+      // style={{
+      //   margin: "auto",
+      //   width: "100%",
+      //   padding: "10px",
+      //   marginTop: "10px",
+      // }}
     >
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Categories</h3>
-        </Col>
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <InventoryMobileViewSidebar />
-          </div>
-        </Col>
+      <Row>
+        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 ml-4">
+          <h3 style={{ color: "#818181" }}>Interest </h3>
+        </div>
       </Row>
       <Row>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="col-lg-12 shadow p-3  bg-white rounded ml-4">
           <button
             data-tip
             data-for="AddTip"
             type="button"
-            className="btn btn-primary my-4"
+            className="btn btn-primary "
             style={{
               backgroundColor: "#2258BF",
             }}
@@ -414,63 +356,55 @@ export default function AddInterest() {
               setShowAdd(true);
             }}
           >
-            <FontAwesomeIcon icon={faPlusSquare} /> Add Category
+            <FontAwesomeIcon icon={faPlusSquare} /> Add interest
           </button>
           <ReactTooltip id="AddTip" place="top" effect="solid">
-            Add new category
+            Add new interest
           </ReactTooltip>
 
-          <Row>
-            <Col
-              lg
-              md="12"
-              style={{ backgroundColor: "white", borderRadius: "5px" }}
-            >
-              <div className="table-responsive">
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col" style={{ color: "#818181" }}>
-                        ID
-                      </th>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    ID
+                  </th>
 
-                      <th scope="col" style={{ color: "#818181" }}>
-                        Category_Name
-                      </th>
-                      <th scope="col" style={{ color: "#818181" }}>
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      // userRecord != ""
-                      //   ? userRecord.map((user, index) => (
-                      //       <>
-                      //         <Table item={user} index={index} />
-                      //       </>
-                      //     ))
-                      //   : // <h1>No Data</h1>
-                      //     null
-                      // <Skeleton variant="rect" width={"100%"} height={"100%"} />
-                    }
-                    {data
-                      .filter((item) => item.is_deleted == 0)
-                      .map((item, index) => {
-                        return <Table item={item} index={index} />;
-                      })}
-                  </tbody>
-                  {data.length > 0 ? (
-                    <>
-                      <ModalDelete item={data[selectedID]} />
-                      <ModalEdit item={data[selectedID]} />
-                    </>
-                  ) : null}
-                </table>
-                <ModalAdd />
-              </div>
-            </Col>
-          </Row>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Interest
+                  </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  // userRecord != ""
+                  //   ? userRecord.map((user, index) => (
+                  //       <>
+                  //         <Table item={user} index={index} />
+                  //       </>
+                  //     ))
+                  //   : // <h1>No Data</h1>
+                  //     null
+                  // <Skeleton variant="rect" width={"100%"} height={"100%"} />
+                }
+                {data
+                  .filter((item) => item.is_deleted == 0)
+                  .map((item, index) => {
+                    return <Table item={item} index={index} />;
+                  })}
+              </tbody>
+              {data.length > 0 ? (
+                <>
+                  <ModalDelete item={data[selectedID]} />
+                  <ModalEdit item={data[selectedID]} />
+                </>
+              ) : null}
+            </table>
+            <ModalAdd />
+          </div>
         </div>
       </Row>
     </Container>

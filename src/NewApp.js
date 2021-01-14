@@ -27,7 +27,7 @@ import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInven
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
-
+import AddInterest from "./screens/Admin/Leads/AddInterest";
 import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
@@ -61,6 +61,10 @@ const NewApp = (props) => {
         <Route path="/admin/add-category">
           <HeaderNavBar />
           <AdminCategoriesDetailScreen />
+        </Route>
+        <Route path="/admin/add-interest">
+          <HeaderNavBar />
+          <AddInterest />
         </Route>
 
         <Route path="/admin/inventory">

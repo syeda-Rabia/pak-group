@@ -2,6 +2,7 @@
 import "./LeadsAdmin.css";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Dropfile from "../../../utils/Dropfile";
+import { Link, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
@@ -1283,20 +1284,17 @@ export default function LeadsAdmin() {
             </ReactTooltip>
           </div>
           <div>
-            <button
-              data-tip
-              data-for="adTip"
-              type="button"
-              className="btn btn-primary ml-2"
-              style={{
-                backgroundColor: "#2258BF",
-              }}
-              onClick={() => {
-                setAddInterest(true);
-              }}
-            >
-              <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
-            </button>
+            <Link to="/admin/add-interest">
+              <button
+                type="button"
+                className="btn btn-primary my-4"
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
+              >
+                <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
+              </button>
+            </Link>
             <ReactTooltip id="adTip" place="top" effect="solid">
               Add new Interest
             </ReactTooltip>
