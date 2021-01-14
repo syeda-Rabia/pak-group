@@ -107,22 +107,27 @@ export default function LeadsAllocatonAndAddition() {
     const handlePostUpdate = async () => {
       setIsLoading(true);
 
-      let formData;
-      setAllLeadsToAllocate((state) => {
-        const temp = [...state];
-        const objectChange = temp[index];
-        objectChange.time_to_call = time;
-        objectChange.dead_line = date;
-        objectChange.allocated_to = selectedEmployee;
-        objectChange.lead_id = item.id;
-        objectChange.task = item.project.category.name;
-        temp[index] = { ...objectChange };
-        formData = { ...objectChange };
-        console.log("statee-----------", state);
-        return temp;
-      });
+      // setAllLeadsToAllocate((state) => {
+      //   const temp = [...state];
+      //   const objectChange = temp[index];
+      //   objectChange.time_to_call = time;
+      //   objectChange.dead_line = date;
+      //   objectChange.allocated_to = selectedEmployee;
+      //   objectChange.lead_id = item.id;
+      //   objectChange.task = item.project.category.name;
+      //   temp[index] = { ...objectChange };
+      //   formData = { ...objectChange };
+      //   return temp;
+      // });
+      // console.log("statee-----------", newformData);
 
-      let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, formData);
+      let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
+        time_to_call: time,
+        dead_line: date,
+        allocated_to: selectedEmployee,
+        lead_id: item.id,
+        task: item.project.category.name,
+      });
       setIsLoading(false);
 
       if (resp.error === false) {

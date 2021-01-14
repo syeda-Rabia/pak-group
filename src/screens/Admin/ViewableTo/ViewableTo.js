@@ -10,8 +10,12 @@ import { toDate } from "date-fns";
 import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
+  const [refresh, setRefresh] = React.useState(false);
   const [viewable, setViewable] = React.useState([]);
   const [name, setName] = React.useState([]);
   const [data, setData] = React.useState([]);
@@ -56,6 +60,10 @@ export default function ViewableTo() {
     handleInventoryData();
     handleEmployeeName();
   }, []);
+  React.useEffect(() => {
+    handleInventoryData();
+    handleEmployeeName();
+  }, [refresh]);
 
   const Table = ({ item, inventories, index, ids, viewableInventories }) => {
     let viewableInventoriesArray = viewableInventories.map((item) => {
@@ -83,20 +91,31 @@ export default function ViewableTo() {
         <td>{inventories.inventory_category}</td>
         <td>{inventories.property_status}</td>
         <td>
-          {
-            // select.includes(ids) == true
-            //   ?
-            [...viewableInventoriesArray, ...viewable] != null
-              ? [...viewableInventoriesArray, ...viewableData].map(
-                  (task, index) => {
-                    return `${task.label}${
-                      index != viewable.length - 1 ? "," : ""
-                    } `;
-                  }
-                )
-              : null
-            // : null
-          }
+          <Box display="flex">
+            {
+              [...viewableInventoriesArray, ...viewable] != null
+                ? [...viewableInventoriesArray, ...viewableData].map(
+                    (task, index) => {
+                      return (
+                        <Chip
+                          variant="outlined"
+                          label={task.label}
+                          style={{ marginRight: "5px" }}
+                        />
+                      );
+
+                      // return `${task.label}${
+                      //   index !=
+                      //   [...viewableInventoriesArray, ...viewableData].length - 1
+                      //     ? ","
+                      //     : ""
+                      // } `;
+                    }
+                  )
+                : null
+              // : null
+            }
+          </Box>
         </td>
       </tr>
     );
@@ -112,6 +131,7 @@ export default function ViewableTo() {
       ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
       postData
     );
+    setRefresh(!refresh);
     console.log(res);
     setSelect([]);
     setViewable([]);

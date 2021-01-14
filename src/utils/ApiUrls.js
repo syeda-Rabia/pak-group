@@ -40,7 +40,7 @@ const ApiUrls = {
 
   // LEADS
   CREATE_LEAD: "admin/lead/add",
-  EDIT_LEAD: "",
+  EDIT_LEAD: "admin/lead/edit",
   DELETE_LEAD: "",
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",

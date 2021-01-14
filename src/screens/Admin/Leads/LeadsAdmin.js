@@ -1,6 +1,14 @@
 // import React from 'react';
 import "./LeadsAdmin.css";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Dropdown,
+  DropdownButton,
+  Button,
+} from "react-bootstrap";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -37,8 +45,10 @@ import {
   Input,
   Select,
   MenuItem,
+  Menu,
 } from "@material-ui/core";
 import { validateEmail } from "../../../utils/Validation";
+import CTAButton from "../../../components/CTAButton";
 
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
@@ -47,7 +57,6 @@ export default function LeadsAdmin() {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
-  const [value, setValue] = useState();
   const [showAdd, setShowAdd] = useState(false);
   const [data, setData] = useState(LeadsData);
   const [selectedID, setSelectedID] = useState(0);
@@ -55,6 +64,7 @@ export default function LeadsAdmin() {
   const audioTune2 = new Audio(sample2);
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -278,7 +288,7 @@ export default function LeadsAdmin() {
 
       let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
-      console.log("response in Leads ------", JSON.stringify(resp));
+      // console.log("response in Leads ------", JSON.stringify(resp));
 
       if (resp.data != null) {
         setAllProjects(resp.data.projects.data);
@@ -298,7 +308,7 @@ export default function LeadsAdmin() {
         let { inventories } = resp.data;
         setInterest(inventories);
       }
-      console.log("inventory -----------------", JSON.stringify(resp));
+      // console.log("inventory -----------------", JSON.stringify(resp));
     };
 
     const SendRecordToServer = async (event) => {
@@ -323,7 +333,7 @@ export default function LeadsAdmin() {
 
       setRefresh(!refresh);
       console.log("Receving data after submission-----------------");
-      console.log(JSON.stringify(resp.data));
+      // console.log(JSON.stringify(resp.data));
 
       // let user = {
       //   id: "1",
@@ -726,94 +736,126 @@ export default function LeadsAdmin() {
   };
 
   const ModalEdit = ({ item }) => {
-    const [client, setClient] = useState(item.Name);
-    const [contact, setContact] = useState(item.Contact);
-    const [project, setProject] = useState(item.Project);
-    const [budget, setBudget] = useState(item.Budget);
-    const [toc, setToc] = useState(item.Toc);
+    // console.log(
+    //   "____________________________________________________________________",
+    //   item
+    // );
 
-    const [country, setCountry] = useState(item.Country);
-    const [status, setStatus] = useState(item.Status);
-    const [interest, setInterest] = useState(item.Interest);
-    const [allocate_to, setAllocate] = useState(item.Allocate);
-    const [email, setEmail] = useState(item.Email);
-    const [task, setTask] = useState(item.Task);
-    const [deadline, setDeadline] = useState(item.Deadline);
-    const [source, setSource] = useState(item.Source);
+    const [allProjects, setAllProjects] = useState([]);
+    const [project, setProject] = useState();
+    const [inventory, setInventory] = useState();
+    const [allSource, setAllSource] = useState([
+      "Newspaper",
+      "Digital Marketing",
+      "Other",
+      "TV",
+      "Personal Personal",
+      "SMS",
+      "Outdoor",
+    ]);
 
-    const SendRecordToServer = (event) => {
-      event.preventDefault();
+    const [selectedSource, setSelectedSource] = useState(item.source);
 
-      console.log("SendRecordToServer", event);
-      // add validations
-      // push
+    const [client, setClient] = useState(item.client_name);
+    const [contact, setContact] = useState(item.contact);
+    const [budget, setBudget] = useState(item.budget);
 
-      let user = {
-        id: "1",
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: toc,
-        Country: country,
-        Status: status,
-        Interest: interest,
-        Allocate: allocate_to,
-        Email: email,
-        Task: task,
-        Deadline: deadline,
-      };
+    const [country, setCountry] = useState(item.country_city);
+    // const [status, setStatus] = useState("New");
+    const [interest, setInterest] = useState([]);
 
-      let arr = data;
-      arr.push(user);
-      setData(arr);
-      setShowAdd(false);
+    const [emailError, setEmailError] = useState(false);
+
+    // {
+    //   id: 4,
+    //   project_id: 1,
+    //   inventory_name: "resen all",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
+    // {
+    //   id: 1,
+    //   project_id: 1,
+    //   inventory_name: "house",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
+    const [email, setEmail] = useState(item.email);
+    const [task, setTask] = useState("Sale");
+    const [deadline, setDeadline] = useState("");
+    const [source, setSource] = useState("newspaper");
+    const [innerLoading, setInnerLoading] = useState(false);
+
+    useEffect(() => {
+      setInnerLoading(true);
+      getProjectDetails();
+    }, []);
+
+    useEffect(() => {
+      getInventroyDataAgaintsProject(project);
+    }, [project]);
+
+    const getProjectDetails = async () => {
+      console.log("getProjectDetails is call ----- ");
+
+      let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+
+      // console.log("response in Leads ------", JSON.stringify(resp));
+
+      if (resp.data != null) {
+        setAllProjects(resp.data.projects.data);
+      }
+      setInnerLoading(false);
+
+      // console.log(
+      //   "response in Leads ------",
+      //   JSON.stringify(resp.data.users.data)
+      // );
     };
-    const EditRecordToServer = (event) => {
+
+    const getInventroyDataAgaintsProject = async (id) => {
+      let resp = await GET("admin/inventory/all/" + id);
+
+      if (resp.data != null) {
+        let { inventories } = resp.data;
+        setInterest(inventories);
+      }
+      // console.log("inventory -----------------", JSON.stringify(resp));
+    };
+
+    const SendRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
-      // add validations
-      // push
-
-      // let user = {
-      // id: item.id,
-      // Name: client,
-      // Contact: contact,
-      // Project: project,
-      // Budget: budget,
-      // Toc: toc,
-      // Source: source,
-      // Country: country,
-      // Status: status,
-      // Interest: interest,
-      // Allocate: allocate_to,
-      // Task: task,
-      // Deadline: deadline,
-      // Returned: returned_from,
-      // };
-      let user = {
+      // send data to server
+      let formData = {
         id: item.id,
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: toc,
-        Country: country,
-        Status: status,
-        Interest: interest,
-        Allocate: allocate_to,
-        Email: email,
-        Task: task,
-        Deadline: deadline,
+        client_name: client,
+        contact: contact,
+        source: selectedSource,
+        phone: contact,
+        email: email,
+        inventory_id: inventory,
+        project_id: project,
+        budget: budget,
+        country_city: country,
       };
-      let arr = data.map((val) => {
-        if (val.id == user.id) val = user;
-        return val;
-      });
 
-      // arr.push(user);
-      setData(arr);
+      console.log("sending data is ---------------- ", formData);
+
+      let resp = await POST(ApiUrls.EDIT_LEAD, formData);
+
+      setRefresh(!refresh);
+      console.log("Receving data after submission-----------------");
+      console.trace(JSON.stringify(resp.data));
+
       setShowEdit(false);
     };
 
@@ -824,140 +866,208 @@ export default function LeadsAdmin() {
           setShowEdit(false);
         }}
       >
+        {innerLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
+
         <Modal.Header
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
-          <Modal.Title style={{ color: "#818181" }}>Edit Record</Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
-            EditRecordToServer(e);
+            SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div className="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
-              <form>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                  className=""
-                >
-                  <div>
-                    <div className="pb-3">
-                      <h6>Client</h6>
-                      <input
-                        className="form-control input-width w-100 "
-                        placeholder="Enter  Name"
-                        type="text"
-                        minLength="3"
-                        maxLength="10"
-                        value={client}
-                        onChange={(e) => {
-                          setClient(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Contact</h6>
-                      <input
-                        className="form-control input-width w-100 "
-                        placeholder="Enter Contact"
-                        type="number"
-                        minLength="11"
-                        maxLength="11"
-                        value={contact}
-                        onChange={(e) => {
-                          setContact(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Project</h6>
-                      <select
-                        value={project}
-                        onChange={(e) => {
-                          setProject(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"LDA"}>LDA City</option>
-                        <option value={"DHA"}>DHA </option>
-                      </select>
-                    </div>
-                    <div className="pb-3">
-                      <h6>Budget</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter Budget"
-                        type="text"
-                        value={budget}
-                        onChange={(e) => {
-                          setBudget(e.target.value);
-                        }}
-                      />
-                    </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Col>
+                  <div className="pb-3">
+                    <h6>Client</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100 "
+                      placeholder="Enter  Name"
+                      type="text"
+                      value={client}
+                      onChange={(e) => {
+                        setClient(e.target.value);
+                      }}
+                    />
                   </div>
-                  <div className="ml-3">
-                    <div className="pb-3">
-                      <h6>Country/city</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter Country"
-                        type="text"
-                        value={country}
-                        onChange={(e) => {
-                          setCountry(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="pb-3">
-                      <h6>Interest</h6>
-                      <select
-                        value={interest}
-                        onChange={(e) => {
-                          setInterest(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"5marla"}>5 Marla</option>
-                        <option value={"10marla"}>10 Marla</option>
-                      </select>
-                    </div>
-
-                    <div className="pb-3">
-                      <h6>Email</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Task</h6>
-                      <select
-                        value={task}
-                        onChange={(e) => {
-                          setTask(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"Sale"}>Sale</option>
-                        <option value={"rent"}>Rent</option>
-                        <option value={"other"}>other</option>
-                      </select>
-                    </div>
+                  <div className="pb-3">
+                    <h6>Contact</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100 "
+                      placeholder="Enter Contact"
+                      type="tel"
+                      minLength="11"
+                      maxLength="11"
+                      value={contact}
+                      onChange={(e) => {
+                        setContact(e.target.value);
+                      }}
+                    />
                   </div>
-                </div>
-              </form>
+                  <div className="pb-3">
+                    <h6>Email</h6>
+                    <Input
+                      required="true"
+                      error={emailError ? true : false}
+                      className="form-control input-width w-100"
+                      placeholder="Enter email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        if (validateEmail(e.target.value)) {
+                          // DO Somtin
+                          setEmailError(false);
+                        } else {
+                          // do some
+                          setEmailError(true);
+                        }
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Country_City</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  {/* <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div> */}
+                </Col>
+                <Col className="ml-3">
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      defaultValue={item.project.name}
+                      onChange={(e) => {
+                        console.log(
+                          "select project ID is -----",
+                          e.target.value
+                        );
+                        setProject(e.target.value);
+                      }}
+                    >
+                      {allProjects.length > 0
+                        ? allProjects.map((pro) => (
+                            <MenuItem key={pro.id} value={pro.id}>
+                              {pro.name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+                  <div className="pb-3">
+                    <h6 style={{ marginTop: 7 }}>Interest</h6>
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      defaultValue={item.project}
+                      onChange={(e) => {
+                        console.log(
+                          "selected Inventriry is ---- ",
+                          e.target.value
+                        );
+                        setInventory(e.target.value);
+                      }}
+                    >
+                      {interest.length > 0
+                        ? interest.map((int, index) => (
+                            <MenuItem key={int.id} value={int.id}>
+                              {int.inventory_name} - {int.block_name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+
+                  {/* <div className="pb-3">
+                    <h6>Task</h6>
+                    <Select
+                      value={task}
+                      onChange={(e) => {
+                        setTask(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <MenuItem value={"Sale"}>Sale</MenuItem>
+                      <MenuItem value={"rent"}>Rent</MenuItem>
+                      <MenuItem value={"other"}>other</MenuItem>
+                    </Select>
+                  </div> */}
+
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="pb-3">
+                    <h6>Source</h6>
+                    <Select
+                      defaultValue={item.source}
+                      // value={selectedSource}
+                      onChange={(e) => {
+                        setSelectedSource(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      {allSource.length > 0
+                        ? allSource.map((src) => (
+                            <MenuItem key={src} value={src}>
+                              {src}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+                </Col>
+              </div>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -968,16 +1078,12 @@ export default function LeadsAdmin() {
               >
                 Close
               </Button>
-
               <Button
+                style={{ backgroundColor: "#2258BF" }}
                 type="submit"
                 value="Submit"
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowAdd(false);
-                }}
               >
-                Add
+                Submit
               </Button>
             </Modal.Footer>
           </div>
@@ -1101,7 +1207,7 @@ export default function LeadsAdmin() {
         </td>
 
         <td>
-          <Button variant="primary">CTA</Button>
+          <CTAButton />
         </td>
 
         <td>
@@ -1327,12 +1433,12 @@ export default function LeadsAdmin() {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
                 </tbody>
-                {data.length > 0 ? (
+                {allLeads.length > 0 ? (
                   <>
-                    <ModalPlay item={data[selectedID]} />
-                    <ModalDelete item={data[selectedID]} />
-                    <ModalView item={data[selectedID]} />
-                    <ModalEdit item={data[selectedID]} />
+                    <ModalPlay item={allLeads[selectedID]} />
+                    <ModalDelete item={allLeads[selectedID]} />
+                    <ModalView item={allLeads[selectedID]} />
+                    <ModalEdit item={allLeads[selectedID]} />
                   </>
                 ) : null}
               </table>
