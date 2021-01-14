@@ -741,6 +741,7 @@ export default function LeadsAdmin() {
     const [task, setTask] = useState(item.Task);
     const [deadline, setDeadline] = useState(item.Deadline);
     const [source, setSource] = useState(item.Source);
+    const [innerLoading, setInnerLoading] = useState(false);
 
     const SendRecordToServer = (event) => {
       event.preventDefault();
@@ -825,6 +826,14 @@ export default function LeadsAdmin() {
           setShowEdit(false);
         }}
       >
+        {innerLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress color="inherit" disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
+
         <Modal.Header
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
@@ -1425,13 +1434,13 @@ export default function LeadsAdmin() {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
                 </tbody>
-                {data.length > 0 ? (
+                {allLeads.length > 0 ? (
                   <>
-                    <ModalPlay item={data[selectedID]} />
-                    <ModalDelete item={data[selectedID]} />
-                    <ModalView item={data[selectedID]} />
-                    <ModalEdit item={data[selectedID]} />
-                    <ModalAddInterset item={data[selectedID]} />
+                    <ModalPlay item={allLeads[selectedID]} />
+                    <ModalDelete item={allLeads[selectedID]} />
+                    <ModalView item={allLeads[selectedID]} />
+                    <ModalEdit item={allLeads[selectedID]} />
+                    <ModalAddInterset item={allLeads[selectedID]} />
                   </>
                 ) : null}
               </table>

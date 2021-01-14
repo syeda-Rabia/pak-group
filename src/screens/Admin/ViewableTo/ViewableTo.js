@@ -1,17 +1,13 @@
 import React from "react";
 import "./ViewableTo.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import ReactTooltip from "react-tooltip";
 import Select from "react-select";
-import { toDate } from "date-fns";
 import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
-import Chip from "@material-ui/core/Chip";
-import Box from "@material-ui/core/Box";
+import { Chip, Box } from "@material-ui/core";
+
+import FaceIcon from "@material-ui/icons/Face";
 
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
@@ -98,6 +94,7 @@ export default function ViewableTo() {
                     (task, index) => {
                       return (
                         <Chip
+                          icon={<FaceIcon />}
                           variant="outlined"
                           label={task.label}
                           style={{ marginRight: "5px" }}

@@ -126,7 +126,6 @@ const SignIn = (props) => {
               anchorOrigin={{ vertical: "top", horizontal: "left" }}
             >
               <Alert variant="filled" severity="error">
-                <AlertTitle>Error</AlertTitle>
                 <span className="mr-5" style={{ textAlign: "center" }}>
                   {errorResponce}
                 </span>
