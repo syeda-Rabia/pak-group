@@ -869,7 +869,7 @@ export default function LeadsAdmin() {
         {innerLoading == true ? (
           <>
             <Backdrop className={classes.backdrop} open={true}>
-              <CircularProgress disableShrink />
+              <CircularProgress color="inherit" disableShrink />
             </Backdrop>
           </>
         ) : null}
