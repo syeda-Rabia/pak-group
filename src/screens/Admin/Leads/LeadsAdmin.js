@@ -1533,11 +1533,11 @@ export default function LeadsAdmin() {
                 </tbody>
                 {allLeads.length > 0 ? (
                   <>
-                    <ModalPlay item={data[selectedID]} />
-                    <ModalDelete item={data[selectedID]} />
-                    <ModalView item={data[selectedID]} />
-                    <ModalEdit item={data[selectedID]} />
-                    <ModalAddInterset item={data[selectedID]} />
+                    <ModalPlay item={allLeads[selectedID]} />
+                    <ModalDelete item={allLeads[selectedID]} />
+                    <ModalView item={allLeads[selectedID]} />
+                    <ModalEdit item={allLeads[selectedID]} />
+                    <ModalAddInterset item={allLeads[selectedID]} />
                   </>
                 ) : null}
               </table>
