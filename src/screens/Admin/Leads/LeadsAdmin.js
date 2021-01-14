@@ -58,6 +58,7 @@ export default function LeadsAdmin() {
   const [showEdit, setShowEdit] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [addInterest, setAddInterest] = useState(false);
   const [data, setData] = useState(LeadsData);
   const [selectedID, setSelectedID] = useState(0);
   const audioTune = new Audio(sample);
@@ -1147,7 +1148,85 @@ export default function LeadsAdmin() {
       </Modal>
     );
   };
+  const ModalAddInterset = ({ item }) => {
+    const [interest, setInterest] = useState("");
 
+    let user = {
+      id: data.length + 1,
+      name: interest,
+    };
+
+    const AddInterest = async (event) => {
+      event.preventDefault();
+      let postData = {
+        name: interest,
+      };
+      let res = await POST(ApiUrls.abc, postData);
+      console.log(res);
+      let arr = data;
+
+      setData([user].concat(arr));
+      setAddInterest(false);
+    };
+
+    return (
+      <Modal
+        show={addInterest}
+        onHide={() => {
+          setAddInterest(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>Add Category</Modal.Title>
+        </Modal.Header>
+        <form
+          onSubmit={(e) => {
+            // SendRecordToServer(e);
+          }}
+        >
+          <div className="col-lg-12 shadow bg-white rounded ">
+            <Modal.Body>
+              <div className="pb-3">
+                <h6>Interest</h6>
+                <input
+                  className="form-control  w-100 "
+                  placeholder="Enter Interest"
+                  type="text"
+                  minLength="3"
+                  maxLength="30"
+                  value={interest}
+                  onChange={(e) => {
+                    setInterest(e.target.value);
+                  }}
+                />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setAddInterest(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                type="submit"
+                value="Submit"
+                onClick={AddInterest}
+              >
+                Add
+              </Button>
+            </Modal.Footer>
+          </div>
+        </form>
+      </Modal>
+    );
+  };
   const TableEmployee = ({ item, index }) => {
     let country_city = "country/city";
     console.log("index is -----------", index);
@@ -1300,6 +1379,25 @@ export default function LeadsAdmin() {
               Add new Lead
             </ReactTooltip>
           </div>
+          <div>
+            <button
+              data-tip
+              data-for="adTip"
+              type="button"
+              className="btn btn-primary ml-2"
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+              onClick={() => {
+                setAddInterest(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
+            </button>
+            <ReactTooltip id="adTip" place="top" effect="solid">
+              Add new Interest
+            </ReactTooltip>
+          </div>
         </Row>
         <span></span>
         <Row>
@@ -1435,10 +1533,11 @@ export default function LeadsAdmin() {
                 </tbody>
                 {allLeads.length > 0 ? (
                   <>
-                    <ModalPlay item={allLeads[selectedID]} />
-                    <ModalDelete item={allLeads[selectedID]} />
-                    <ModalView item={allLeads[selectedID]} />
-                    <ModalEdit item={allLeads[selectedID]} />
+                    <ModalPlay item={data[selectedID]} />
+                    <ModalDelete item={data[selectedID]} />
+                    <ModalView item={data[selectedID]} />
+                    <ModalEdit item={data[selectedID]} />
+                    <ModalAddInterset item={data[selectedID]} />
                   </>
                 ) : null}
               </table>

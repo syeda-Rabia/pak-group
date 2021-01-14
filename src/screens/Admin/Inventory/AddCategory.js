@@ -21,6 +21,7 @@ export default function AddCategories() {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+
   const [data, setData] = useState(AddCategory);
   const [selectedID, setSelectedID] = useState(0);
   const [value, setValue] = useState();
@@ -419,6 +420,7 @@ export default function AddCategories() {
           <ReactTooltip id="AddTip" place="top" effect="solid">
             Add new category
           </ReactTooltip>
+
           <Row>
             <Col
               lg
