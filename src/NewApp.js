@@ -33,6 +33,7 @@ import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetails
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
 import { token } from "../src/utils/Config";
+import EmployeeRequestTable from "./components/EmployeeRequestTable";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
@@ -45,6 +46,10 @@ const NewApp = (props) => {
         <Route path="/admin/add-project">
           <HeaderNavBar />
           <AdminAddInventoryScreen />
+        </Route>
+        <Route path="/admin/employee-request">
+          <HeaderNavBar />
+          <EmployeeRequestTable />
         </Route>
 
         <Route

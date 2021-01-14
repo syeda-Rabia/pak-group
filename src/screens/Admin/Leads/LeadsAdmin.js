@@ -1227,7 +1227,7 @@ export default function LeadsAdmin() {
       </Modal>
     );
   };
-  const TableEmployee = ({ item, index }) => {
+  const LeadTable = ({ item, index }) => {
     let country_city = "country/city";
     console.log("index is -----------", index);
 
@@ -1331,7 +1331,11 @@ export default function LeadsAdmin() {
                 setSelectedID(index);
               }}
             >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
+              <FontAwesomeIcon
+                style={{ fontSize: 15 }}
+                color="red"
+                icon={faTrash}
+              />
             </button>
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
@@ -1522,7 +1526,7 @@ export default function LeadsAdmin() {
                 <tbody>
                   {allLeads.length > 0
                     ? allLeads.map((lead, index) => (
-                        <TableEmployee item={lead} index={index} />
+                        <LeadTable item={lead} index={index} />
                       ))
                     : null}
 
@@ -1537,7 +1541,7 @@ export default function LeadsAdmin() {
                     <ModalDelete item={allLeads[selectedID]} />
                     <ModalView item={allLeads[selectedID]} />
                     <ModalEdit item={allLeads[selectedID]} />
-                    <ModalAddInterset item={allLeads[selectedID]} />
+                    <ModalAddInterset />
                   </>
                 ) : null}
               </table>
