@@ -2,20 +2,27 @@ import React from "react";
 import "./EmployeeInventory.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Backdrop, CircularProgress, makeStyles } from "@material-ui/core";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  makeStyles,
+} from "@material-ui/core";
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 function EmployeeInventory(props) {
-  // const useStyles = makeStyles((theme) => ({
-  //   backdrop: {
-  //     zIndex: theme.zIndex.drawer + 1,
-  //     color: "#fff",
-  //   },
-  // }));
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
 
-  // const classes = useStyles();
+  const classes = useStyles();
   const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const handleFetchData = async () => {
+    setIsLoading(true);
     let res = await GET(
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
     );
@@ -23,6 +30,7 @@ function EmployeeInventory(props) {
     if (res.success != false) {
       setData(res.data.inventories);
     }
+    setIsLoading(false);
   };
   React.useEffect(() => {
     handleFetchData();
@@ -42,17 +50,18 @@ function EmployeeInventory(props) {
   };
   return (
     <Container fluid className="Laa">
-      {/* {isLoading == true ? (
+      {isLoading == true ? (
         <>
           <Backdrop className={classes.backdrop} open={true}>
             <CircularProgress disableShrink />
           </Backdrop>
         </>
-      ) : null} */}
+      ) : null}
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <Button variant="outlined">Request Inventory </Button>
         <Row>
           <Col
             lg

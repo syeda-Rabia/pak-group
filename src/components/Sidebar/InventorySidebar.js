@@ -19,6 +19,9 @@ export default function InventorySidebar() {
       <Link to="/admin/viewable" className="add-project">
         Viewable
       </Link>
+      <Link to="/admin/employee-request" className="add-project">
+        Employee Requests
+      </Link>
     </div>
   );
 }

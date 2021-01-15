@@ -26,7 +26,7 @@ const EmployeHeader = (props) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link id="navlink" to="/employee/dashboard">
+              <Link id="navlink" to="/">
                 Dashboard
               </Link>
             </Nav.Link>
