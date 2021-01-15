@@ -34,7 +34,7 @@ export function KeyboardDatePickerExample(props) {
         value={selectedDate}
         onChange={(date) => {
           handleDateChange(date);
-          props.showDate(date);
+          if (props !== null) props.showDate(date);
         }}
         format="yyyy/MM/dd"
       />

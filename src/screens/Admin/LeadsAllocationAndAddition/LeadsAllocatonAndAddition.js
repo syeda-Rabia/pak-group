@@ -5,6 +5,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
+import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
@@ -18,7 +19,6 @@ import {
   Backdrop,
   makeStyles,
   CircularProgress,
-  Select,
   MenuItem,
   Snackbar,
   Slide,
@@ -35,11 +35,43 @@ export default function LeadsAllocatonAndAddition() {
   const [showAdd, setShowAdd] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [value, setValue] = useState();
+  const [viewable, setViewable] = React.useState([]);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [select, setSelect] = React.useState([]);
+  const [Employees, setEmployees] = React.useState([
+    { label: "Sana", value: "Sana" },
+    { label: "Atif", value: "Atif" },
+    { label: "Ali", value: "Ali" },
+    { label: "Imtesal", value: "Imtesal" },
+    { label: "Rabia", value: "Rabia" },
+    { label: "Qasim", value: "Qasim" },
+  ]);
+  const handleSelectDate = (value) => {
+    console.log(value);
+  };
+  const HandleName = (id) => {
+    if (!select.includes(id)) setSelect((state) => [...state, id]);
+    else setSelect((state) => state.filter((item) => item != id));
+  };
+  const handleEmployeeName = async () => {
+    let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
+    console.log(res, "hashmi");
+    if (res.success != false) {
+      // setViewable(res.data.users.data);
+      let arr = [];
+      res.data.users.map((item) => {
+        arr.push({ label: item.first_name, value: item.id });
+      });
+      setEmployees(arr);
+    }
+  };
+  console.log(Employees, "hashmi");
+  React.useEffect(() => {
+    handleEmployeeName();
+  }, []);
   const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -160,6 +192,16 @@ export default function LeadsAllocatonAndAddition() {
     };
     return (
       <tr>
+        <td>
+          <input
+            type="checkBox"
+            checked={select.includes(index)}
+            onChange={(e) => {
+              console.log("sana imtesal");
+              HandleName(index);
+            }}
+          />
+        </td>
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
@@ -242,6 +284,23 @@ export default function LeadsAllocatonAndAddition() {
       </tr>
     );
   };
+  const SelectData = async (event) => {
+    //  event.preventDefault();
+    //  let postData = {
+    //    inventory_ids: select,
+    //    user_ids: viewable.map((item) => item.value),
+    //  };
+    //  console.log(postData);
+    //  let res = await POST(
+    //    ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
+    //    postData
+    //  );
+    //  setRefresh(!refresh);
+    //  console.log(res);
+    setSelect([]);
+    setViewable([]);
+    //  let arr = data;
+  };
   // console.trace("------------------", AllleadsToAllocate);
   return (
     <Container fluid>
@@ -300,10 +359,61 @@ export default function LeadsAllocatonAndAddition() {
 
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <Container fluid>
+            <Row>
+              {select.length > 0 ? (
+                <>
+                  <div className="col-lg-7">
+                    <Select
+                      // disabled={!select.every((v) => v === true)}
+                      options={Employees}
+                      onChange={(opt) => {
+                        console.log(opt, "imtesal");
+                        if (opt != null) setViewable(opt);
+                        else setViewable([]);
+                      }}
+                      onClick={(e) => {
+                        HandleName(0);
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="col-lg-3 ml-4 w-100"
+                    style={{
+                      border: " 1px solid #B3B3B3",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    <KeyboardDatePickerExample
+                      value={today}
+                      showDate={handleSelectDate}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="col-lg-12 btn btn-primary ml-3"
+                      type="submit"
+                      style={{ backgroundColor: "#2258BF" }}
+                      // disabled={!select.every((v) => v === true)}
+
+                      onClick={SelectData}
+                    >
+                      save
+                    </button>
+                  </div>
+                </>
+              ) : null}
+            </Row>
+          </Container>
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>
                 <tr>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Select
+                    </span>
+                  </th>
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       ID

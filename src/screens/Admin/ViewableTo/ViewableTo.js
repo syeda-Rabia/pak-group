@@ -63,6 +63,7 @@ export default function ViewableTo() {
       setEmployees(arr);
     }
   };
+  console.log(Employees, "hashmi");
 
   React.useEffect(() => {
     handleInventoryData();
