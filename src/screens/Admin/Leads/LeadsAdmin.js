@@ -1287,7 +1287,7 @@ export default function LeadsAdmin() {
             <Link to="/admin/add-interest">
               <button
                 type="button"
-                className="btn btn-primary my-4"
+                className="btn btn-primary "
                 style={{
                   backgroundColor: "#2258BF",
                 }}
