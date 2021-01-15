@@ -236,6 +236,7 @@ export default function LeadsAdmin() {
     const [interest, setInterest] = useState([]);
 
     const [emailError, setEmailError] = useState(false);
+    const [time, setTime] = useState(timee);
 
     // {
     //   id: 4,
@@ -265,7 +266,30 @@ export default function LeadsAdmin() {
     const [deadline, setDeadline] = useState("");
     const [source, setSource] = useState("newspaper");
     const [innerLoading, setInnerLoading] = useState(false);
+    const formatDate = (date) => {
+      var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
 
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    };
+
+    var today = new Date();
+    var datee = formatDate(today);
+
+    var timee =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const HandleTimeValue = (value) => {
+      const str = value.toString();
+      var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
+
+      console.log(res);
+      setTime(res);
+    };
     useEffect(() => {
       setInnerLoading(true);
       getProjectDetails();
@@ -311,6 +335,7 @@ export default function LeadsAdmin() {
         client_name: client,
         contact: contact,
         source: selectedSource,
+        time_to_call: time,
         phone: contact,
         email: email,
         inventory_id: inventory,
@@ -450,7 +475,16 @@ export default function LeadsAdmin() {
                       }}
                     />
                   </div>
-
+                  <div className="pb-3">
+                    <h6>Time of Call</h6>
+                    <KeyboardTimePickerExample
+                      value={time}
+                      showTime={HandleTimeValue}
+                      onChange={(e) => {
+                        setTime(e.target.value);
+                      }}
+                    />
+                  </div>
                   {/* <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
