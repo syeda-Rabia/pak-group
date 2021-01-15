@@ -15,18 +15,7 @@ import "./SearchLeads.css";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 export default function SearchLeads(props) {
   const popover = (
-    <Popover
-      id="popover-basic"
-      style={{
-        zIndex: "1030",
-        position: "absolute",
-        top: "10",
-        right: "50",
-        left: "90% !important",
-        backgroundColor: "red",
-        border: "10px solid black",
-      }}
-    >
+    <Popover id="popover-basic">
       <Popover.Content>
         <Form>
           <Row>

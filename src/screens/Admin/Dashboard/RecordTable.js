@@ -1,30 +1,19 @@
 import "./RecordTable.css";
-import { dummyData } from "../../../assests/constants/todoList";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  OverlayTrigger,
-  Popover,
-  ListGroup,
-  Dropdown,
-  DropdownButton,
-  Modal,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
-import "react-calendar/dist/Calendar.css";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
-import {
-  KeyboardDatePickerExample,
-  KeyboardTimePickerExample,
-} from "../../../utils/KeyboardTimePickerExample";
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import CTAButton from "../../../components/CTAButton";
+import {
+  Paper,
+  makeStyles,
+  Backdrop,
+  CircularProgress,
+  Skeleton,
+} from "@material-ui/core";
 
 export default function RecordTable() {
   const [data, setData] = React.useState([]);
@@ -36,6 +25,8 @@ export default function RecordTable() {
   const [pageCount, setPageCount] = React.useState(0);
   const [filterData, setFilterData] = React.useState("All");
   const [showModalCTA, setShowModalCTA] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -43,6 +34,17 @@ export default function RecordTable() {
 
   const [open, setOpen] = React.useState(false);
 
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
+    },
+  }));
+
+  const classes = useStyles();
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
@@ -51,11 +53,13 @@ export default function RecordTable() {
     setOpen(false);
   };
   const handleFetchEmployeesLeads = async () => {
+    setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     console.log(res, "EMPLOYEE LEADS");
     if (res.success != false) {
       setData(res.data.leads);
     }
+    setIsLoading(false);
   };
   React.useEffect(() => {
     handleFetchEmployeesLeads();
@@ -180,7 +184,6 @@ export default function RecordTable() {
             // console.log(e.target.value, e.target.name);
           }}
         >
-          select employee
           {employees.map((item) => {
             return <option value={item.id}>{item.first_name}</option>;
           })}
@@ -196,6 +199,7 @@ export default function RecordTable() {
               <table
                 className="table table-hover"
                 style={{
+                  // minHeight: "320px",
                   minHeight: data.length > 0 ? "220px" : "0px",
                   textAlign: "center",
                   width: "100%",
@@ -250,6 +254,7 @@ export default function RecordTable() {
                     </th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {/* {currentData.map((item, index) => {
                     // console.log(item.Clients, filterData);
@@ -263,6 +268,13 @@ export default function RecordTable() {
                   })}
                 </tbody>
               </table>
+              {isLoading ? (
+                <>
+                  <Backdrop className={classes.backdrop} open={true}>
+                    <CircularProgress disableShrink />
+                  </Backdrop>
+                </>
+              ) : null}
             </div>
           </Col>
         </Row>

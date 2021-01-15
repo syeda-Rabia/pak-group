@@ -62,6 +62,9 @@ export default function LeadsAllocatonAndAddition() {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
   }));
   const handleClose = () => {
@@ -246,53 +249,54 @@ export default function LeadsAllocatonAndAddition() {
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
         </Col>
-        {isLoading == true ? (
-          <>
-            <Backdrop className={classes.backdrop} open={true}>
-              <CircularProgress disableShrink />
-            </Backdrop>
-          </>
-        ) : null}
-        {showAlert == true ? (
-          <Slide in={showAlert} direction="up">
-            <Snackbar
-              open={showAlert}
-              autoHideDuration={2000}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "top", horizontal: "left" }}
-            >
-              <Alert variant="filled" severity="success">
-                <AlertTitle>Success</AlertTitle>
-                <span className="mr-5" style={{ textAlign: "center" }}>
-                  Lead Updated Sucessfully
-                </span>
-              </Alert>
-            </Snackbar>
-          </Slide>
-        ) : null}
-        {errorAlert == true ? (
-          <Slide in={errorAlert} direction="up">
-            <Snackbar
-              open={errorAlert}
-              autoHideDuration={2000}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "top", horizontal: "left" }}
-            >
-              <Alert variant="filled" severity="error">
-                <AlertTitle>Error</AlertTitle>
-                <span className="mr-5" style={{ textAlign: "center" }}>
-                  The allocated to field is required.
-                </span>
-              </Alert>
-            </Snackbar>
-          </Slide>
-        ) : null}
+
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
             <SwipeableTemporaryDrawer />
           </div>
         </Col>
       </Row>
+      {isLoading == true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
+      {showAlert == true ? (
+        <Slide in={showAlert} direction="up">
+          <Snackbar
+            open={showAlert}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          >
+            <Alert variant="filled" severity="success">
+              <AlertTitle>Success</AlertTitle>
+              <span className="mr-5" style={{ textAlign: "center" }}>
+                Lead Updated Sucessfully
+              </span>
+            </Alert>
+          </Snackbar>
+        </Slide>
+      ) : null}
+      {errorAlert == true ? (
+        <Slide in={errorAlert} direction="up">
+          <Snackbar
+            open={errorAlert}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          >
+            <Alert variant="filled" severity="error">
+              <AlertTitle>Error</AlertTitle>
+              <span className="mr-5" style={{ textAlign: "center" }}>
+                The allocated to field is required.
+              </span>
+            </Alert>
+          </Snackbar>
+        </Slide>
+      ) : null}
 
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">

@@ -6,6 +6,7 @@ import FormPopover from "./FormPopover";
 import buttonImg from "./../../assests/resource.svg";
 import Fab from "@material-ui/core/Fab";
 import { Link } from "react-router-dom";
+import LeadsSidebar from "./LeadsSidebar";
 
 const useStyles = makeStyles({
   list: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer() {
+export default function LeadsMobileViewSidebar() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -63,35 +64,7 @@ export default function TemporaryDrawer() {
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >
-            {/* <LAASidebar /> */}
-            <FormPopover name="Search Leads" />
-            <ul className="list-group">
-              <li id="list-item" className="list-group-item">
-                Add News Leads
-              </li>
-              <li id="list-item" className="list-group-item">
-                <Link
-                  className="navLink"
-                  id="list-item"
-                  to={{
-                    pathname: "/admin/todolist",
-                  }}
-                >
-                  To Do List
-                </Link>
-              </li>
-              <li id="list-item" className="list-group-item">
-                <Link
-                  className="navLink"
-                  id="list-item"
-                  to={{
-                    pathname: "/admin/closedleads",
-                  }}
-                >
-                  Closed Leads
-                </Link>
-              </li>
-            </ul>
+            <LeadsSidebar />
           </SwipeableDrawer>
         </React.Fragment>
       ))}

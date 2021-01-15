@@ -6,11 +6,14 @@ import { Container, Col, Row, Table } from "react-bootstrap";
 export default function EmployeeRequestTable() {
   return (
     <Container fluid>
-      <Row>
-        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 mr-3 ml-3">
-          <h3 style={{ color: "#818181" }}>Employee Requests </h3>
-        </div>
-      </Row>
+      <Container fluid>
+        <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+          <Col>
+            <h3 style={{ color: "#818181" }}>Employee Requests</h3>
+          </Col>
+        </Row>
+      </Container>
+
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Table hover size="lg">
           <thead>

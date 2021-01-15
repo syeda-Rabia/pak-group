@@ -67,32 +67,14 @@ export default function AddEmployee() {
     Api Call
     
     */
+    setIsLoading(true);
     let resp = await GET(ApiUrls.USER_DATA_PAGINATION + page);
 
     if (resp.data != null) {
       setCurrentPage(resp.data.users.current_page);
       setUserRecord(resp.data.users.data);
     }
-
-    // let res = await fetch(server_url + "admin/employee/all?page=" + page, {
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then(
-    //     (result) => {
-    //       console.log("Pagination Button hit", result.data.users);
-    //       setCurrentPage(result.data.users.current_page);
-    //       setUserRecord(result.data.users.data);
-    //     },
-
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
+    setIsLoading(false);
   };
 
   const handleShow = (pageCount) => {
@@ -113,6 +95,9 @@ export default function AddEmployee() {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
   }));
 

@@ -2,7 +2,6 @@ import React from "react";
 import {
   ListGroup,
   OverlayTrigger,
-  Button,
   Form,
   Popover,
   Row,
@@ -16,6 +15,7 @@ import { Link } from "react-router-dom";
 import SearchLeads from "./SearchLeads";
 import "./LAASidebar.css";
 import FormPopover from "./FormPopover";
+import { Button } from "@material-ui/core";
 export default function LAASidebar(props) {
   const [toggle, setToggle] = React.useState(false);
   const displayList = () => {
@@ -51,7 +51,7 @@ export default function LAASidebar(props) {
               To Do List
             </Link>
           </li>
-          {/* <li id="list-item" className="list-group-item">
+          <li id="list-item" className="list-group-item">
             <Link
               className="navLink"
               id="list-item"
@@ -61,7 +61,7 @@ export default function LAASidebar(props) {
             >
               Closed Leads
             </Link>
-          </li> */}
+          </li>
         </ul>
       </React.Fragment>
     );
@@ -74,12 +74,24 @@ export default function LAASidebar(props) {
         // border: '2px solid blue',
       }}
     >
-      <button className="toggle-button" onClick={displayList}>
+      <button className=" toggle-button" onClick={displayList}>
         <img src={buttonImg} />
         <span>
           Leads Allocation and Addition <ExpandMoreIcon />
         </span>
       </button>
+      {/* <Button
+        // aria-describedby={id}
+        variant="contained"
+        // color="primary"
+        // className="mb-2"
+        style={{ backgroundColor: "#e5eeff" }}
+        id="searchLeads"
+        // onClick={handleClick}
+      >
+        <img src={buttonImg} />
+        Leads Allocation and Addition <ExpandMoreIcon />
+      </Button> */}
       {toggle === true ? <List /> : null}
     </div>
   );

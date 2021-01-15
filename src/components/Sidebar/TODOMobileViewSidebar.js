@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer() {
+export default function TODOMobileViewSidebar() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -53,7 +53,7 @@ export default function TemporaryDrawer() {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Fab onClick={toggleDrawer(anchor, true)} aria-label="add">
-            <img src={buttonImg} />
+            <img alt="Sidebar" src={buttonImg} />
           </Fab>
 
           {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
@@ -63,35 +63,8 @@ export default function TemporaryDrawer() {
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >
-            {/* <LAASidebar /> */}
             <FormPopover name="Search Leads" />
-            <ul className="list-group">
-              <li id="list-item" className="list-group-item">
-                Add News Leads
-              </li>
-              <li id="list-item" className="list-group-item">
-                <Link
-                  className="navLink"
-                  id="list-item"
-                  to={{
-                    pathname: "/admin/todolist",
-                  }}
-                >
-                  To Do List
-                </Link>
-              </li>
-              <li id="list-item" className="list-group-item">
-                <Link
-                  className="navLink"
-                  id="list-item"
-                  to={{
-                    pathname: "/admin/closedleads",
-                  }}
-                >
-                  Closed Leads
-                </Link>
-              </li>
-            </ul>
+            <FormPopover name="Add new Lead" />
           </SwipeableDrawer>
         </React.Fragment>
       ))}

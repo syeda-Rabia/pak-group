@@ -16,6 +16,7 @@ import {
   KeyboardTimePickerExample,
   KeyboardDatePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
+import TODOMobileViewSidebar from "../../../components/Sidebar/TODOMobileViewSidebar";
 
 export default function ToDoListAdmin() {
   const [data, setData] = React.useState(dummyData);
@@ -32,6 +33,7 @@ export default function ToDoListAdmin() {
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
+  var today = new Date();
 
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
@@ -41,6 +43,9 @@ export default function ToDoListAdmin() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     // console.log('page', page);
+  };
+  const handleDateTime = (value) => {
+    console.log(value);
   };
   const ModalPlay = ({ item }) => {
     const [playAudio, setPlayAudio] = useState(false);
@@ -201,7 +206,10 @@ export default function ToDoListAdmin() {
           <div
             style={{ marginLeft: "10px", marginRight: "60px", width: "100%" }}
           >
-            <KeyboardTimePickerExample />
+            <KeyboardTimePickerExample
+              value={today}
+              showTime={handleDateTime}
+            />
           </div>
         </td>
         <td key={item.id}>{item.Country}</td>
@@ -240,7 +248,10 @@ export default function ToDoListAdmin() {
             className=""
             style={{ marginLeft: "15px", marginRight: "70px", width: "100%" }}
           >
-            <KeyboardDatePickerExample />
+            <KeyboardDatePickerExample
+              value={today}
+              showDate={handleDateTime}
+            />
           </div>
         </td>
         <td>Rabia</td>
@@ -266,10 +277,18 @@ export default function ToDoListAdmin() {
   };
   return (
     <Container fluid className="Laa">
-      <Row>
-        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-          <h3 style={{ color: "#818181" }}>To Do List </h3>
-        </div>
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>
+            TODO List <sub>(Admin)</sub>
+          </h3>
+        </Col>
+
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <TODOMobileViewSidebar />{" "}
+          </div>
+        </Col>
       </Row>
 
       <Row>

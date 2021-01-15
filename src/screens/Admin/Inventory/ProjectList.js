@@ -38,6 +38,9 @@ export default function ProjectList() {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
   }));
 

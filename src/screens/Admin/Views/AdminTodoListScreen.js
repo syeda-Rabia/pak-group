@@ -1,25 +1,39 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import FormPopover from "../../../components/Sidebar/FormPopover";
 import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
 import ToDoListAdmin from "../TodoList/ToDoListAdmin";
 export default function AdminTodoListScreen() {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
-        {/* <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <LeadsSidebar />
-          </Col> */}
-        {/* <Col
+        <Row>
+          <Col
+            id="sidebar-component"
+            className="shadow"
+            lg={2}
+            md={2}
+            sm={0}
+            xs={0}
+            style={{ backgroundColor: "white" }}
+          >
+            <Container fluid>
+              <FormPopover name="Search Leads" />
+              <FormPopover name="Add new Lead" />
+            </Container>
+
+            {/* <LeadsSidebar /> */}
+          </Col>
+          <Col
             lg={10}
             md={10}
-            sm={7}
-            xs={7}
+            sm={12}
+            xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
-          > */}
-        <ToDoListAdmin />
-        {/* </Col>
-        </Row> */}
+          >
+            <ToDoListAdmin />
+          </Col>
+        </Row>
       </Container>
     </React.Fragment>
   );

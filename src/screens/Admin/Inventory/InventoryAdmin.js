@@ -25,6 +25,9 @@ export default function InventoryAdmin(props) {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
   }));
 

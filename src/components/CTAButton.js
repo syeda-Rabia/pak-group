@@ -1,14 +1,97 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
+import { Dropdown, DropdownButton, Modal } from "react-bootstrap";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "./../utils/KeyboardTimePickerExample";
+import {
+  Box,
+  Container,
+  Divider,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+import { GET } from "./../utils/Functions";
+import ApiUrls from "./../utils/ApiUrls";
+
 export default function CTAButton() {
   const [value, setValue] = useState("");
   const [showModalCTA, setShowModalCTA] = React.useState(false);
+  const [employees, setEmployees] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  var today = new Date();
 
+  const EmployeeList = () => {
+    return (
+      <>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          scroll="paper"
+          maxWidth="xs"
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DialogTitle id="scroll-dialog-title">Shift And Warn</DialogTitle>
+          <DialogContent dividers={true}>
+            <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
+              <List component="nav" aria-label="main mailbox folders">
+                {employees.map((e) => (
+                  <ListItem
+                    button
+                    onClick={(e) => {
+                      setValue("shift-and-Warn");
+                      handleClose();
+                    }}
+                  >
+                    <ListItemText primary={e.first_name + " " + e.last_name} />
+                  </ListItem>
+                ))}
+              </List>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Shift And Warn
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // React.useEffect(() => {
+  //   handleFetchRequest();
+  // }, []);
+  const handleFetchRequest = async () => {
+    let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
+    console.log(res, "GET ALL EMPLOYES");
+    if (res.success != false) {
+      setEmployees(res.data.users);
+    }
+  };
   const ModalCTA = () => {
+    const [message, setMessage] = useState("");
+    const handleChange = (value) => {
+      setMessage(value);
+    };
+    const handleDateTime = (value) => {
+      console.log(value);
+    };
     // if (options.title === optionsArray[0].title)
     //
     if (value === "instruct") {
@@ -24,16 +107,24 @@ export default function CTAButton() {
           </Modal.Header>
           <Modal.Body>
             <form>
-              <p>
-                <textarea id="myTextArea" rows="3" cols="55">
-                  Your text here
-                </textarea>
-              </p>
+              <TextField
+                variant="outlined"
+                autoFocus
+                margin="dense"
+                multiline
+                required
+                fullWidth
+                label="Instruction"
+                value={message}
+                onChange={(e) => {
+                  handleChange(e.target.value);
+                }}
+              />
             </form>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -41,7 +132,8 @@ export default function CTAButton() {
               Close
             </Button>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              type="submit"
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -65,18 +157,25 @@ export default function CTAButton() {
             <Modal.Title>Select date and time</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="container-fluid" style={{ marginLeft: "110px" }}>
-              <div className="row mb-4">
-                <KeyboardDatePickerExample />
-              </div>
-              <div className="row ">
-                <KeyboardTimePickerExample />
-              </div>
-            </div>
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Box>
+                <KeyboardDatePickerExample
+                  value={today}
+                  showDate={handleDateTime}
+                />
+              </Box>
+              <br />
+              <Box>
+                <KeyboardTimePickerExample
+                  value={today}
+                  showTime={handleDateTime}
+                />
+              </Box>
+            </Box>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -84,7 +183,7 @@ export default function CTAButton() {
               Close
             </Button>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -97,7 +196,7 @@ export default function CTAButton() {
     }
 
     // if (options.title === optionsArray[2].title)
-    else if (value === "shift-and-warn") {
+    else if (value === "shift-and-Warn") {
       return (
         <Modal
           show={showModalCTA}
@@ -115,7 +214,7 @@ export default function CTAButton() {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -123,7 +222,7 @@ export default function CTAButton() {
               Close
             </Button>
             <Button
-              style={{ backgroundColor: "#2258BF" }}
+              // style={{ backgroundColor: "#2258BF" }}
               onClick={() => {
                 setShowModalCTA(false);
               }}
@@ -137,6 +236,7 @@ export default function CTAButton() {
       return null;
     }
   };
+  // console.log("e--------------------", employees);
   return (
     <>
       <DropdownButton
@@ -144,9 +244,9 @@ export default function CTAButton() {
         variant="info"
         title="CTA"
         onSelect={(e) => {
+          console.log(e);
           setValue(e);
           setShowModalCTA(true);
-          console.log(e);
         }}
       >
         <Dropdown.Item
@@ -163,42 +263,34 @@ export default function CTAButton() {
         >
           Call Explanation
         </Dropdown.Item>
-        {/* <Dropdown.Item
-              as="button"
-              eventKey="shift-and-Warn"
-              style={{ color: "black", outline: "none" }}
-            >
-              Shift and Warn
-            </Dropdown.Item> */}
-        <DropdownButton
+        <Dropdown.Item
+          as="button"
+          onClick={() => {
+            handleFetchRequest();
+
+            setOpen(true);
+          }}
+          style={{ color: "black", outline: "none" }}
+        >
+          Shift and Warn
+        </Dropdown.Item>
+        {/* <DropdownButton
           id="shiftAndWarnButton"
           title="Shift and Warn"
           drop="left"
         >
-          <Dropdown.Item
-            as="button"
-            eventKey="instruct"
-            style={{ color: "black", outline: "none" }}
-          >
-            Atif
-          </Dropdown.Item>
-          <Dropdown.Item
-            as="button"
-            eventKey="call-Explanation"
-            style={{ color: "black", outline: "none" }}
-          >
-            Rabia
-          </Dropdown.Item>
-          <Dropdown.Item
-            as="button"
-            eventKey="shift-and-Warn"
-            style={{ color: "black", outline: "none" }}
-          >
-            Qasim
-          </Dropdown.Item>
-        </DropdownButton>
+          {employees.map((e) => (
+            <Dropdown.Item
+              as="button"
+              style={{ color: "black", outline: "none" }}
+            >
+              <span>{e.first_name}</span>
+            </Dropdown.Item>
+          ))}
+        </DropdownButton> */}
       </DropdownButton>
-      <ModalCTA />
+      {open ? <EmployeeList /> : null}
+      {showModalCTA ? <ModalCTA /> : null}
     </>
   );
 }

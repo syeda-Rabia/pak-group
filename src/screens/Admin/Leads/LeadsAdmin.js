@@ -40,6 +40,8 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { validateEmail } from "../../../utils/Validation";
+import CTAButton from "../../../components/CTAButton";
+import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
 
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
@@ -61,6 +63,9 @@ export default function LeadsAdmin() {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
   }));
 
@@ -728,95 +733,126 @@ export default function LeadsAdmin() {
   };
 
   const ModalEdit = ({ item }) => {
-    const [client, setClient] = useState(item.Name);
-    const [contact, setContact] = useState(item.Contact);
-    const [project, setProject] = useState(item.Project);
-    const [budget, setBudget] = useState(item.Budget);
-    const [toc, setToc] = useState(item.Toc);
+    // console.log(
+    //   "____________________________________________________________________",
+    //   item
+    // );
 
-    const [country, setCountry] = useState(item.Country);
-    const [status, setStatus] = useState(item.Status);
-    const [interest, setInterest] = useState(item.Interest);
-    const [allocate_to, setAllocate] = useState(item.Allocate);
-    const [email, setEmail] = useState(item.Email);
-    const [task, setTask] = useState(item.Task);
-    const [deadline, setDeadline] = useState(item.Deadline);
-    const [source, setSource] = useState(item.Source);
+    const [allProjects, setAllProjects] = useState([]);
+    const [project, setProject] = useState();
+    const [inventory, setInventory] = useState();
+    const [allSource, setAllSource] = useState([
+      "Newspaper",
+      "Digital Marketing",
+      "Other",
+      "TV",
+      "Personal Personal",
+      "SMS",
+      "Outdoor",
+    ]);
+
+    const [selectedSource, setSelectedSource] = useState(item.source);
+
+    const [client, setClient] = useState(item.client_name);
+    const [contact, setContact] = useState(item.contact);
+    const [budget, setBudget] = useState(item.budget);
+
+    const [country, setCountry] = useState(item.country_city);
+    // const [status, setStatus] = useState("New");
+    const [interest, setInterest] = useState([]);
+
+    const [emailError, setEmailError] = useState(false);
+
+    // {
+    //   id: 4,
+    //   project_id: 1,
+    //   inventory_name: "resen all",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
+    // {
+    //   id: 1,
+    //   project_id: 1,
+    //   inventory_name: "house",
+    //   block_name: "V",
+    //   inventory_category: "Rent",
+    //   property_status: "Open",
+    //   is_deleted: 0,
+    //   created_at: null,
+    //   updated_at: "2021-01-09T08:31:48.000000Z",
+    // },
+    const [email, setEmail] = useState(item.email);
+    const [task, setTask] = useState("Sale");
+    const [deadline, setDeadline] = useState("");
+    const [source, setSource] = useState("newspaper");
     const [innerLoading, setInnerLoading] = useState(false);
 
-    const SendRecordToServer = (event) => {
-      event.preventDefault();
+    useEffect(() => {
+      setInnerLoading(true);
+      getProjectDetails();
+    }, []);
 
-      console.log("SendRecordToServer", event);
-      // add validations
-      // push
+    useEffect(() => {
+      getInventroyDataAgaintsProject(project);
+    }, [project]);
 
-      let user = {
-        id: "1",
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: toc,
-        Country: country,
-        Status: status,
-        Interest: interest,
-        Allocate: allocate_to,
-        Email: email,
-        Task: task,
-        Deadline: deadline,
-      };
+    const getProjectDetails = async () => {
+      console.log("getProjectDetails is call ----- ");
 
-      let arr = data;
-      arr.push(user);
-      setData(arr);
-      setShowAdd(false);
+      let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+
+      // console.log("response in Leads ------", JSON.stringify(resp));
+
+      if (resp.data != null) {
+        setAllProjects(resp.data.projects.data);
+      }
+      setInnerLoading(false);
+
+      // console.log(
+      //   "response in Leads ------",
+      //   JSON.stringify(resp.data.users.data)
+      // );
     };
-    const EditRecordToServer = (event) => {
+
+    const getInventroyDataAgaintsProject = async (id) => {
+      let resp = await GET("admin/inventory/all/" + id);
+
+      if (resp.data != null) {
+        let { inventories } = resp.data;
+        setInterest(inventories);
+      }
+      // console.log("inventory -----------------", JSON.stringify(resp));
+    };
+
+    const SendRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
-      // add validations
-      // push
-
-      // let user = {
-      // id: item.id,
-      // Name: client,
-      // Contact: contact,
-      // Project: project,
-      // Budget: budget,
-      // Toc: toc,
-      // Source: source,
-      // Country: country,
-      // Status: status,
-      // Interest: interest,
-      // Allocate: allocate_to,
-      // Task: task,
-      // Deadline: deadline,
-      // Returned: returned_from,
-      // };
-      let user = {
+      // send data to server
+      let formData = {
         id: item.id,
-        Name: client,
-        Contact: contact,
-        Project: project,
-        Budget: budget,
-        Toc: toc,
-        Country: country,
-        Status: status,
-        Interest: interest,
-        Allocate: allocate_to,
-        Email: email,
-        Task: task,
-        Deadline: deadline,
+        client_name: client,
+        contact: contact,
+        source: selectedSource,
+        phone: contact,
+        email: email,
+        inventory_id: inventory,
+        project_id: project,
+        budget: budget,
+        country_city: country,
       };
-      let arr = data.map((val) => {
-        if (val.id == user.id) val = user;
-        return val;
-      });
 
-      // arr.push(user);
-      setData(arr);
+      console.log("sending data is ---------------- ", formData);
+
+      let resp = await POST(ApiUrls.EDIT_LEAD, formData);
+
+      setRefresh(!refresh);
+      console.log("Receving data after submission-----------------");
+      console.trace(JSON.stringify(resp.data));
+
       setShowEdit(false);
     };
 
@@ -830,7 +866,7 @@ export default function LeadsAdmin() {
         {innerLoading == true ? (
           <>
             <Backdrop className={classes.backdrop} open={true}>
-              <CircularProgress color="inherit" disableShrink />
+              <CircularProgress disableShrink />
             </Backdrop>
           </>
         ) : null}
@@ -839,136 +875,196 @@ export default function LeadsAdmin() {
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
-          <Modal.Title style={{ color: "#818181" }}>Edit Record</Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
-            EditRecordToServer(e);
+            SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div className="col-lg-12 shadow bg-white rounded ">
             <Modal.Body>
-              <form>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                  className=""
-                >
-                  <div>
-                    <div className="pb-3">
-                      <h6>Client</h6>
-                      <input
-                        className="form-control input-width w-100 "
-                        placeholder="Enter  Name"
-                        type="text"
-                        minLength="3"
-                        maxLength="10"
-                        value={client}
-                        onChange={(e) => {
-                          setClient(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Contact</h6>
-                      <input
-                        className="form-control input-width w-100 "
-                        placeholder="Enter Contact"
-                        type="number"
-                        minLength="11"
-                        maxLength="11"
-                        value={contact}
-                        onChange={(e) => {
-                          setContact(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Project</h6>
-                      <select
-                        value={project}
-                        onChange={(e) => {
-                          setProject(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"LDA"}>LDA City</option>
-                        <option value={"DHA"}>DHA </option>
-                      </select>
-                    </div>
-                    <div className="pb-3">
-                      <h6>Budget</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter Budget"
-                        type="text"
-                        value={budget}
-                        onChange={(e) => {
-                          setBudget(e.target.value);
-                        }}
-                      />
-                    </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Col>
+                  <div className="pb-3">
+                    <h6>Client</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100 "
+                      placeholder="Enter  Name"
+                      type="text"
+                      value={client}
+                      onChange={(e) => {
+                        setClient(e.target.value);
+                      }}
+                    />
                   </div>
-                  <div className="ml-3">
-                    <div className="pb-3">
-                      <h6>Country/city</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter Country"
-                        type="text"
-                        value={country}
-                        onChange={(e) => {
-                          setCountry(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="pb-3">
-                      <h6>Interest</h6>
-                      <select
-                        value={interest}
-                        onChange={(e) => {
-                          setInterest(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"5marla"}>5 Marla</option>
-                        <option value={"10marla"}>10 Marla</option>
-                      </select>
-                    </div>
-
-                    <div className="pb-3">
-                      <h6>Email</h6>
-                      <input
-                        className="form-control input-width w-100"
-                        placeholder="Enter email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Task</h6>
-                      <select
-                        value={task}
-                        onChange={(e) => {
-                          setTask(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        <option value={"Sale"}>Sale</option>
-                        <option value={"rent"}>Rent</option>
-                        <option value={"other"}>other</option>
-                      </select>
-                    </div>
+                  <div className="pb-3">
+                    <h6>Contact</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100 "
+                      placeholder="Enter Contact"
+                      type="tel"
+                      minLength="11"
+                      maxLength="11"
+                      value={contact}
+                      onChange={(e) => {
+                        setContact(e.target.value);
+                      }}
+                    />
                   </div>
-                </div>
-              </form>
+                  <div className="pb-3">
+                    <h6>Email</h6>
+                    <Input
+                      required="true"
+                      error={emailError ? true : false}
+                      className="form-control input-width w-100"
+                      placeholder="Enter email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        if (validateEmail(e.target.value)) {
+                          // DO Somtin
+                          setEmailError(false);
+                        } else {
+                          // do some
+                          setEmailError(true);
+                        }
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Country_City</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  {/* <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div> */}
+                </Col>
+                <Col className="ml-3">
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      defaultValue={item.project.name}
+                      onChange={(e) => {
+                        console.log(
+                          "select project ID is -----",
+                          e.target.value
+                        );
+                        setProject(e.target.value);
+                      }}
+                    >
+                      {allProjects.length > 0
+                        ? allProjects.map((pro) => (
+                            <MenuItem key={pro.id} value={pro.id}>
+                              {pro.name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+                  <div className="pb-3">
+                    <h6 style={{ marginTop: 7 }}>Interest</h6>
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      defaultValue={item.project}
+                      onChange={(e) => {
+                        console.log(
+                          "selected Inventriry is ---- ",
+                          e.target.value
+                        );
+                        setInventory(e.target.value);
+                      }}
+                    >
+                      {interest.length > 0
+                        ? interest.map((int, index) => (
+                            <MenuItem key={int.id} value={int.id}>
+                              {int.inventory_name} - {int.block_name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+
+                  {/* <div className="pb-3">
+                    <h6>Task</h6>
+                    <Select
+                      value={task}
+                      onChange={(e) => {
+                        setTask(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      <MenuItem value={"Sale"}>Sale</MenuItem>
+                      <MenuItem value={"rent"}>Rent</MenuItem>
+                      <MenuItem value={"other"}>other</MenuItem>
+                    </Select>
+                  </div> */}
+
+                  <div className="pb-3">
+                    <h6>Budget</h6>
+                    <Input
+                      required="true"
+                      className="form-control input-width w-100"
+                      placeholder="Enter Budget"
+                      type="text"
+                      value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="pb-3">
+                    <h6>Source</h6>
+                    <Select
+                      defaultValue={item.source}
+                      // value={selectedSource}
+                      onChange={(e) => {
+                        setSelectedSource(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      {allSource.length > 0
+                        ? allSource.map((src) => (
+                            <MenuItem key={src} value={src}>
+                              {src}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
+                  </div>
+                </Col>
+              </div>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -979,16 +1075,12 @@ export default function LeadsAdmin() {
               >
                 Close
               </Button>
-
               <Button
+                style={{ backgroundColor: "#2258BF" }}
                 type="submit"
                 value="Submit"
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowAdd(false);
-                }}
               >
-                Add
+                Submit
               </Button>
             </Modal.Footer>
           </div>
@@ -1190,7 +1282,7 @@ export default function LeadsAdmin() {
         </td>
 
         <td>
-          <Button variant="primary">CTA</Button>
+          <CTAButton />
         </td>
 
         <td>
@@ -1251,10 +1343,20 @@ export default function LeadsAdmin() {
   };
 
   return (
-    <Container fluid className="Laa">
-      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-        <h3 style={{ color: "#818181" }}>Leads </h3>
-      </div>
+    <Container fluid>
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>
+            Leads<sub>(Admin)</sub>
+          </h3>
+        </Col>
+
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <LeadsMobileViewSidebar />
+          </div>
+        </Col>
+      </Row>
       {isLoading == true ? (
         <>
           <Backdrop className={classes.backdrop} open={true}>
@@ -1262,8 +1364,9 @@ export default function LeadsAdmin() {
           </Backdrop>
         </>
       ) : null}
-      <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <Row className="mb-2">
+
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Row>
           <div className=" pl-2">
             <Dropfile />
           </div>
@@ -1291,7 +1394,7 @@ export default function LeadsAdmin() {
             <Link to="/admin/add-interest">
               <button
                 type="button"
-                className="btn btn-primary my-4"
+                className="btn btn-primary"
                 style={{
                   backgroundColor: "#2258BF",
                 }}
@@ -1304,153 +1407,144 @@ export default function LeadsAdmin() {
             </ReactTooltip>
           </div>
         </Row>
-        <span></span>
-        <Row>
-          <Col
-            lg
-            md="12"
-            style={{ backgroundColor: "white", borderRadius: "5px" }}
-          >
-            <div className="table-responsive">
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        ID
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Clients
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Contacts
-                      </span>
-                    </th>
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    ID
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Clients
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Contacts
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Email
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Email
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Project
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Project
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Budget
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Serial_No
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Interest
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Budget
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Serial_No
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Interest
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        TOC
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    TOC
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Country/City
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Source
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Country/City
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Source
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Status
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Status
+                  </span>
+                </th>
 
-                    {/* <th scope="col">
+                {/* <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Interest
                       </span>
                     </th> */}
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        {" "}
-                        Allocated_To
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Allocated_To
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Task
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Deadline
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Task
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Deadline
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Recording
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Recording
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Call_To_Action
-                      </span>
-                    </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Call_To_Action
+                  </span>
+                </th>
 
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Action
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allLeads.length > 0
-                    ? allLeads.map((lead, index) => (
-                        <LeadTable item={lead} index={index} />
-                      ))
-                    : null}
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Action
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {allLeads.length > 0
+                ? allLeads.map((lead, index) => (
+                    <LeadTable item={lead} index={index} />
+                  ))
+                : null}
 
-                  {/* <h1>Other Leads</h1>
+              {/* <h1>Other Leads</h1>
                   {data.map((item, index) => {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
-                </tbody>
-                {allLeads.length > 0 ? (
-                  <>
-                    <ModalPlay item={allLeads[selectedID]} />
-                    <ModalDelete item={allLeads[selectedID]} />
-                    <ModalView item={allLeads[selectedID]} />
-                    <ModalEdit item={allLeads[selectedID]} />
-                    <ModalAddInterset />
-                  </>
-                ) : null}
-              </table>
-            </div>
-            <ModalAdd />
-          </Col>
-        </Row>
-      </div>
+            </tbody>
+            {allLeads.length > 0 ? (
+              <>
+                <ModalPlay item={allLeads[selectedID]} />
+                <ModalDelete item={allLeads[selectedID]} />
+                <ModalView item={allLeads[selectedID]} />
+                <ModalEdit item={allLeads[selectedID]} />
+                <ModalAddInterset />
+              </>
+            ) : null}
+          </table>
+        </div>
+        <ModalAdd />
+      </Row>
     </Container>
   );
 }

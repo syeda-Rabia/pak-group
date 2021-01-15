@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ViewableTo.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Select from "react-select";
@@ -6,7 +6,7 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import { Chip, Box } from "@material-ui/core";
-
+import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 
 export default function ViewableTo() {
@@ -15,6 +15,16 @@ export default function ViewableTo() {
   const [viewable, setViewable] = React.useState([]);
   const [name, setName] = React.useState([]);
   const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+
+  const classes = useStyles();
+
   let i = 0;
   const [Employees, setEmployees] = React.useState([
     { label: "Sana", value: "Sana" },
@@ -32,12 +42,14 @@ export default function ViewableTo() {
   console.log(viewable, "qasim");
   // console.log(name);
   const handleInventoryData = async () => {
+    setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
     console.log(res, "ali");
     if (res.success != false) {
       // console.log('get all inde')
       setData(res.data.projects);
     }
+    setIsLoading(false);
   };
   const handleEmployeeName = async () => {
     let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
@@ -139,6 +151,14 @@ export default function ViewableTo() {
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
         <h3 style={{ color: "#818181" }}>ViewAble To </h3>
       </div>
+
+      {isLoading === true ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
         <Row>
           <Col
