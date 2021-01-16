@@ -58,22 +58,9 @@ export default function LeadsAllocatonAndAddition() {
     if (!select.includes(id)) setSelect((state) => [...state, id]);
     else setSelect((state) => state.filter((item) => item != id));
   };
-  const handleEmployeeName = async () => {
-    let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
-    console.log(res, "hashmi");
-    if (res.success != false) {
-      // setViewable(res.data.users.data);
-      let arr = [];
-      res.data.users.map((item) => {
-        arr.push({ label: item.first_name, value: item.id });
-      });
-      setEmployees(arr);
-    }
-  };
+
   console.log(Employees, "hashmi");
-  React.useEffect(() => {
-    handleEmployeeName();
-  }, []);
+
   const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),

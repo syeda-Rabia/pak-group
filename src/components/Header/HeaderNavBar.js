@@ -10,6 +10,13 @@ import { signOut } from "../../modules/Auth/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { IconButton, Tooltip, Button } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles((theme) => ({
   white: {
@@ -19,9 +26,15 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(6),
     border: 0,
   },
+  logout: {
+    "&, .MuiIconButton-root": {
+      outline: "none !important",
+    },
+  },
 }));
 
 const HeaderNavBar = (props) => {
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
   console.log(props);
@@ -113,14 +126,17 @@ const HeaderNavBar = (props) => {
             >
               <Nav.Item>Policies</Nav.Item>
             </Link>
+            <Link id="R-navlink">
+              <Nav.Item>HR</Nav.Item>
+            </Link>
 
             {/* <Nav.Item href="#Accounts">Accounts</Nav.Item>
             <Nav.Item href="#Documentation">Documentation</Nav.Item> */}
-            <Nav.Item href="#Documentation" id="hr">
+            {/* <Nav.Item href="#Documentation" id="hr">
               HR
-            </Nav.Item>
+            </Nav.Item> */}
             <Link
-              id="R-navlink"
+              id="mobileLogout"
               to={{
                 pathname: "/",
                 state: { from: "AdminHeader" },
@@ -128,7 +144,8 @@ const HeaderNavBar = (props) => {
             >
               <Nav.Item
                 onClick={() => {
-                  props.LOGOUT();
+                  setOpen(true);
+                  // props.LOGOUT();
                 }}
               >
                 LOGOUT
@@ -152,9 +169,56 @@ const HeaderNavBar = (props) => {
           >
             <span style={{ color: "black" }}>HR</span>
           </Nav.Link> */}
-          <Avatar className={classes.white}>HR</Avatar>
+          <Link
+            id="R-navlink"
+            to={{
+              pathname: "/",
+              state: { from: "AdminHeader" },
+            }}
+            onClick={() => {
+              setOpen(true);
+              // props.LOGOUT();
+            }}
+          >
+            <Tooltip title="Logout" placement="left">
+              <Avatar className={classes.white}>
+                <IconButton className={classes.logout}>
+                  <ExitToAppIcon />
+                </IconButton>
+              </Avatar>
+            </Tooltip>
+          </Link>
         </Nav>
       </Navbar>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        {/* <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to Logout?"}
+        </DialogTitle> */}
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to Logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              props.LOGOUT();
+            }}
+            color="primary"
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

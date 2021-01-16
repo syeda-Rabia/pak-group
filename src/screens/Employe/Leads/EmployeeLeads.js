@@ -1,6 +1,6 @@
 import React from "react";
 import "./EmployeeLeads.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { KeyboardDatePickerExample } from "../../../utils/KeyboardTimePickerExample";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
+import { Select, MenuItem } from "@material-ui/core";
 function EmployeeLeads(props) {
   const [data, setData] = React.useState([]);
   const handleFetchData = async () => {
@@ -30,17 +31,34 @@ function EmployeeLeads(props) {
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
-        <td>{item.time_to_call}</td>
+        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
         <td>{item.country_city}</td>
         <td>{item.status}</td>
 
         <td>{item.inventory.inventory_name}</td>
         <td>{props.userInfo.first_name}</td>
         <td>{item.email}</td>
-        <td>{item.task}</td>
-        <td>{item.dead_line}</td>
+        <td>{item.task != null ? item.task : "-------"}</td>
+        <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
         <td>
           <input type="file" />
+        </td>
+        <td>
+          <Select
+            disableUnderline
+            className="form-control form-control-sm w-100"
+            // value={}
+            // onChange={(e) => {
+            //   console.log("select employee ID is -----", e.target.value);
+            //   (e.target.value);
+            // }}
+          >
+            <MenuItem value="followUp">Follow Up</MenuItem>
+            <MenuItem value="complete">Complete</MenuItem>
+          </Select>
+        </td>
+        <td>
+          <Button>Update</Button>
         </td>
       </tr>
     );
@@ -127,6 +145,16 @@ function EmployeeLeads(props) {
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Recordings
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Action
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Update
                     </span>
                   </th>
                 </tr>
