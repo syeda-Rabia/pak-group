@@ -306,7 +306,7 @@ export default function LeadsAllocatonAndAddition() {
   // console.trace("------------------", AllleadsToAllocate);
   return (
     <Container fluid>
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+      <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
         </Col>
@@ -358,63 +358,57 @@ export default function LeadsAllocatonAndAddition() {
           </Snackbar>
         </Slide>
       ) : null}
+      {select.length > 0 ? (
+        <>
+          <Row className="shadow py-2  bg-white rounded mb-2 ">
+            <div className="col-lg-7">
+              <Select
+                disableUnderline
+                className="form-control form-control-sm w-100"
+                value={selectedEmployee}
+                onChange={(e) => {
+                  console.log("select employee ID is -----", e.target.value);
+                  setSelectedEmployee(e.target.value);
+                }}
+              >
+                {employeesToAllocateLeads.length > 0
+                  ? employeesToAllocateLeads.map((emp) => (
+                      <MenuItem key={emp.id} value={emp.id}>
+                        {emp.first_name} {emp.last_name}
+                      </MenuItem>
+                    ))
+                  : null}
+              </Select>
+            </div>
+            <div
+              className="col-lg-3 ml-4 w-100"
+              style={{
+                border: " 1px solid #B3B3B3",
+                borderRadius: "4px",
+              }}
+            >
+              <KeyboardDatePickerExample
+                value={today}
+                showDate={handleSelectDate}
+              />
+            </div>
+            <div>
+              <button
+                className="col-lg-12 btn btn-primary ml-3"
+                type="submit"
+                style={{ backgroundColor: "#2258BF" }}
+                // disabled={!select.every((v) => v === true)}
 
+                onClick={SelectData}
+              >
+                save
+              </button>
+            </div>
+          </Row>
+        </>
+      ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
-          <Container fluid>
-            <Row>
-              {select.length > 0 ? (
-                <>
-                  <div className="col-lg-7">
-                    <Select
-                      disableUnderline
-                      className="form-control form-control-sm w-100"
-                      value={selectedEmployee}
-                      onChange={(e) => {
-                        console.log(
-                          "select employee ID is -----",
-                          e.target.value
-                        );
-                        setSelectedEmployee(e.target.value);
-                      }}
-                    >
-                      {employeesToAllocateLeads.length > 0
-                        ? employeesToAllocateLeads.map((emp) => (
-                            <MenuItem key={emp.id} value={emp.id}>
-                              {emp.first_name} {emp.last_name}
-                            </MenuItem>
-                          ))
-                        : null}
-                    </Select>
-                  </div>
-                  <div
-                    className="col-lg-3 ml-4 w-100"
-                    style={{
-                      border: " 1px solid #B3B3B3",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    <KeyboardDatePickerExample
-                      value={today}
-                      showDate={handleSelectDate}
-                    />
-                  </div>
-                  <div>
-                    <button
-                      className="col-lg-12 btn btn-primary ml-3"
-                      type="submit"
-                      style={{ backgroundColor: "#2258BF" }}
-                      // disabled={!select.every((v) => v === true)}
-
-                      onClick={SelectData}
-                    >
-                      save
-                    </button>
-                  </div>
-                </>
-              ) : null}
-            </Row>
-          </Container>
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>

@@ -1361,11 +1361,7 @@ export default function LeadsAdmin() {
                 setSelectedID(index);
               }}
             >
-              <FontAwesomeIcon
-                style={{ fontSize: 15 }}
-                color="red"
-                icon={faTrash}
-              />
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
             </button>
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
@@ -1400,11 +1396,26 @@ export default function LeadsAdmin() {
       ) : null}
 
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        <Row>
-          <div className=" pl-2">
+        <Row className=" pl-2 md-5">
+          <div className=" pl-2 ">
             <Dropfile />
           </div>
-
+          <div>
+            <Link to="/admin/add-interest">
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
+              >
+                <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
+              </button>
+            </Link>
+            <ReactTooltip id="adTip" place="top" effect="solid">
+              Add new Interest
+            </ReactTooltip>
+          </div>
           <div className=" float-right pl-2">
             <button
               data-tip
@@ -1422,22 +1433,6 @@ export default function LeadsAdmin() {
             </button>
             <ReactTooltip id="AddTip" place="top" effect="solid">
               Add new Lead
-            </ReactTooltip>
-          </div>
-          <div>
-            <Link to="/admin/add-interest">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#2258BF",
-                }}
-              >
-                <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
-              </button>
-            </Link>
-            <ReactTooltip id="adTip" place="top" effect="solid">
-              Add new Interest
             </ReactTooltip>
           </div>
         </Row>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CTAButton.css";
 import { Col, Dropdown, DropdownButton, Modal, Row } from "react-bootstrap";
 import {
   KeyboardDatePickerExample,
@@ -256,8 +257,12 @@ export default function CTAButton() {
   return (
     <>
       <DropdownButton
-        id="CTA-button"
-        variant="info"
+        // id="CTA-button"
+
+        id="dropdown-variants-primary"
+        key={"primary"}
+        variant={"primary"}
+        // style={{ backgroundColor: "red" }}
         title="CTA"
         onSelect={(e) => {
           console.log(e);
