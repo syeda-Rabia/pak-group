@@ -6,8 +6,38 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
+import {
+  IconButton,
+  Tooltip,
+  Button,
+  Avatar,
+  makeStyles,
+} from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const EmployeHeader = (props) => {
+  const [open, setOpen] = React.useState(false);
+  const useStyles = makeStyles((theme) => ({
+    white: {
+      color: "#818181",
+      backgroundColor: "#fff",
+      width: theme.spacing(6),
+      height: theme.spacing(6),
+      border: 0,
+    },
+    logout: {
+      "&, .MuiIconButton-root": {
+        outline: "none !important",
+      },
+    },
+  }));
+  const classes = useStyles();
+
   return (
     <React.Fragment>
       <Navbar collapseOnSelect expand="lg" className="color-nav">
@@ -19,80 +49,128 @@ const EmployeHeader = (props) => {
               width="150px"
               height="50px"
               className="d-inline-block align-top"
-            />{" "}
+            />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link>
-              <Link id="navlink" to="/">
-                Dashboard
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link id="navlink" to="/employee/todolist">
-                To Do
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link id="navlink" to="/employee/leads">
-                Leads
-              </Link>
-            </Nav.Link>
-
-            <Nav.Link>
-              <Link id="navlink" to="/employee/inventory">
-                Inventory
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link id="navlink" to="/employee/policies">
-                Policies
-              </Link>
-            </Nav.Link>
-
-            <Nav.Link href="#Documentation" id="hr">
-              HR
-            </Nav.Link>
-
-            <Nav.Item
-              href="#"
-              id=""
-              onClick={() => {
-                props.LOGOUT();
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/",
+                state: { from: "employeeHeader" },
               }}
             >
-              <Link
-                id="R-navlink"
-                to={{
-                  pathname: "/",
-                  state: { from: "AdminHeader" },
+              <Nav.Item>Dashboard</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/employee/todolist",
+                state: { from: "employeeHeader" },
+              }}
+            >
+              <Nav.Item>To Do</Nav.Item>
+            </Link>
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/employee/leads",
+                state: { from: "employeeHeader" },
+              }}
+            >
+              <Nav.Item>Leads</Nav.Item>
+            </Link>
+
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/employee/inventory",
+                state: { from: "employeeHeader" },
+              }}
+            >
+              <Nav.Item>Inventory</Nav.Item>
+            </Link>
+
+            <Link
+              id="R-navlink"
+              to={{
+                pathname: "/employee/policies",
+                state: { from: "employeeHeader" },
+              }}
+            >
+              <Nav.Item>Policies</Nav.Item>
+            </Link>
+            <Link id="R-navlink">
+              <Nav.Item>HR</Nav.Item>
+            </Link>
+
+            <Link
+              id="mobileLogout"
+              to={{
+                pathname: "/",
+                state: { from: "employeeHeader" },
+              }}
+            >
+              <Nav.Item
+                onClick={() => {
+                  setOpen(true);
+                  // props.LOGOUT();
                 }}
               >
                 LOGOUT
-              </Link>
-            </Nav.Item>
+              </Nav.Item>
+            </Link>
           </Nav>
         </Navbar.Collapse>
         <Nav id="profile">
-          <Nav.Link
-            href="#profile"
-            style={{
-              backgroundColor: "white",
-              borderRadius: "50%",
-              width: "50px",
-              height: "50px",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              lineHeight: "20px",
+          <Link
+            id="R-navlink"
+            onClick={() => {
+              setOpen(true);
+              // props.LOGOUT();
             }}
           >
-            <span style={{ color: "black" }}>HR</span>
-          </Nav.Link>
+            <Tooltip title="Logout" placement="left">
+              <Avatar className={classes.white}>
+                <IconButton className={classes.logout}>
+                  <ExitToAppIcon />
+                </IconButton>
+              </Avatar>
+            </Tooltip>
+          </Link>
         </Nav>
       </Navbar>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        {/* <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to Logout?"}
+        </DialogTitle> */}
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to Logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              props.LOGOUT();
+            }}
+            color="primary"
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 };

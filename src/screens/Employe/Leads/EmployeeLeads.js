@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
-import { Select, MenuItem } from "@material-ui/core";
+import { Select, MenuItem, Chip, makeStyles } from "@material-ui/core";
 function EmployeeLeads(props) {
   const [data, setData] = React.useState([]);
   const handleFetchData = async () => {
@@ -23,17 +23,70 @@ function EmployeeLeads(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
+  const useStyles = makeStyles((theme) => ({
+    chipGracePeriod: {
+      color: "#fff",
+      backgroundColor: "red !important",
+    },
+    chipComplete: {
+      color: "#fff",
+      backgroundColor: "green !important",
+    },
+    chipFollowUp: {
+      color: "#fff",
+      backgroundColor: "yellow !important",
+    },
+    chipOverdue: {
+      color: "#fff",
+      backgroundColor: "orange !important",
+    },
+  }));
+
+  const classes = useStyles();
   const Table = ({ item, index }) => {
+    const formatTime = () => {
+      if (item.time_to_call !== null) {
+        let str = item.time_to_call;
+        let res = str.match(/(\d\d)/g);
+        let hours = res[0];
+        let min = res[1];
+
+        let AmOrPm = hours >= 12 ? "pm" : "am";
+        hours = hours % 12 || 12;
+        return hours + ":" + min + " " + AmOrPm;
+        // console.log("ressssssssssss", hours, ":", AmOrPm);
+      }
+    };
     return (
       <tr>
         <td scope="row">{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
-        <td>{item.budget}</td>
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        <td>
+          {item.budget}
+          {" PKR"}
+        </td>
+        {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
+        <td>{item.time_to_call != null ? formatTime() : "-----"}</td>
         <td>{item.country_city}</td>
-        <td>{item.status}</td>
+        <td>
+          <Chip
+            classes={{
+              root:
+                item.status === "Overdue"
+                  ? classes.chipOverdue
+                  : item.status === "Grace Period"
+                  ? classes.chipGracePeriod
+                  : item.status === "Complete"
+                  ? classes.chipComplete
+                  : item.status === "Follow up"
+                  ? classes.chipFollowUp
+                  : null,
+            }}
+            label={item.status}
+          />
+        </td>
 
         <td>{item.inventory.inventory_name}</td>
         <td>{props.userInfo.first_name}</td>
@@ -47,7 +100,6 @@ function EmployeeLeads(props) {
           <Select
             disableUnderline
             className="form-control form-control-sm w-100"
-            // value={}
             // onChange={(e) => {
             //   console.log("select employee ID is -----", e.target.value);
             //   (e.target.value);
