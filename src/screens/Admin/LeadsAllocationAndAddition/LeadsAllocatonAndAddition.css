@@ -17,7 +17,7 @@ input.form-control {
 select.form-control.form-control-sm {
   width: auto;
 }
-.table thead tr th {
+/* .table thead tr th {
   .container {
     padding: 2rem 0rem;
   }
@@ -75,8 +75,8 @@ select.form-control.form-control-sm {
   background-color: #2258BF;
 } */
 
-  border-top: none;
-}
+/* border-top: none; */
+/* } */
 #sn {
   margin-left: 50px;
   margin-right: 50px;

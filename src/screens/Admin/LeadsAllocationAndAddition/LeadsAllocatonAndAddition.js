@@ -5,7 +5,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
-import Select from "react-select";
+// import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
@@ -22,12 +22,14 @@ import {
   MenuItem,
   Snackbar,
   Slide,
+  Select,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 
 export default function LeadsAllocatonAndAddition() {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState();
 
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
@@ -365,17 +367,25 @@ export default function LeadsAllocatonAndAddition() {
                 <>
                   <div className="col-lg-7">
                     <Select
-                      // disabled={!select.every((v) => v === true)}
-                      options={Employees}
-                      onChange={(opt) => {
-                        console.log(opt, "imtesal");
-                        if (opt != null) setViewable(opt);
-                        else setViewable([]);
+                      disableUnderline
+                      className="form-control form-control-sm w-100"
+                      value={selectedEmployee}
+                      onChange={(e) => {
+                        console.log(
+                          "select employee ID is -----",
+                          e.target.value
+                        );
+                        setSelectedEmployee(e.target.value);
                       }}
-                      onClick={(e) => {
-                        HandleName(0);
-                      }}
-                    />
+                    >
+                      {employeesToAllocateLeads.length > 0
+                        ? employeesToAllocateLeads.map((emp) => (
+                            <MenuItem key={emp.id} value={emp.id}>
+                              {emp.first_name} {emp.last_name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
                   </div>
                   <div
                     className="col-lg-3 ml-4 w-100"

@@ -74,7 +74,7 @@ export default function LAASidebar(props) {
         // border: '2px solid blue',
       }}
     >
-      <button className=" toggle-button" onClick={displayList}>
+      <button className="toggle-button" onClick={displayList}>
         <img src={buttonImg} />
         <span>
           Leads Allocation and Addition <ExpandMoreIcon />

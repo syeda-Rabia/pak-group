@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton, Modal } from "react-bootstrap";
+import { Col, Dropdown, DropdownButton, Modal, Row } from "react-bootstrap";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "./../utils/KeyboardTimePickerExample";
 import {
   Box,
-  Container,
-  Divider,
   TextField,
   Button,
   Dialog,
@@ -19,6 +17,8 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 import { GET } from "./../utils/Functions";
 import ApiUrls from "./../utils/ApiUrls";
 
@@ -27,6 +27,7 @@ export default function CTAButton() {
   const [showModalCTA, setShowModalCTA] = React.useState(false);
   const [employees, setEmployees] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   var today = new Date();
 
   const EmployeeList = () => {
@@ -43,19 +44,30 @@ export default function CTAButton() {
           <DialogTitle id="scroll-dialog-title">Shift And Warn</DialogTitle>
           <DialogContent dividers={true}>
             <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
-              <List component="nav" aria-label="main mailbox folders">
-                {employees.map((e) => (
-                  <ListItem
-                    button
-                    onClick={(e) => {
-                      setValue("shift-and-Warn");
-                      handleClose();
-                    }}
-                  >
-                    <ListItemText primary={e.first_name + " " + e.last_name} />
-                  </ListItem>
-                ))}
-              </List>
+              {loading ? (
+                [1, 1, 1, 1, 1, 1, 1, 1].map(() => (
+                  <div className="d-flex flex-row m-2 p-2">
+                    <Skeleton className="mr-3" variant="text" width="50%" />
+                    <Skeleton variant="text" width="100%" />
+                  </div>
+                ))
+              ) : (
+                <List>
+                  {employees.map((e) => (
+                    <ListItem
+                      button
+                      onClick={(e) => {
+                        setValue("shift-and-Warn");
+                        handleClose();
+                      }}
+                    >
+                      <ListItemText
+                        primary={e.first_name + " " + e.last_name}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              )}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -78,11 +90,15 @@ export default function CTAButton() {
   //   handleFetchRequest();
   // }, []);
   const handleFetchRequest = async () => {
+    setOpen(true);
+
+    setLoading(true);
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
     console.log(res, "GET ALL EMPLOYES");
-    if (res.success != false) {
+    if (res.success !== false) {
       setEmployees(res.data.users);
     }
+    setLoading(false);
   };
   const ModalCTA = () => {
     const [message, setMessage] = useState("");
@@ -267,8 +283,6 @@ export default function CTAButton() {
           as="button"
           onClick={() => {
             handleFetchRequest();
-
-            setOpen(true);
           }}
           style={{ color: "black", outline: "none" }}
         >
