@@ -25,6 +25,7 @@ import {
   Select,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
+import { Label } from "@material-ui/icons";
 
 export default function LeadsAllocatonAndAddition() {
   const [showAlert, setShowAlert] = React.useState(false);
@@ -349,8 +350,7 @@ export default function LeadsAllocatonAndAddition() {
         <>
           <Row className="shadow py-2  bg-white rounded mb-2 ">
             <div className="col-lg-7">
-              <Select
-                disableUnderline
+              {/* <select
                 className="form-control form-control-sm w-100"
                 value={selectedEmployee}
                 onChange={(e) => {
@@ -358,16 +358,83 @@ export default function LeadsAllocatonAndAddition() {
                   setSelectedEmployee(e.target.value);
                 }}
               >
+                <option value="grapefruit">Grapefruit</option>
+                <option value="lime">Lime</option>
+                <option selected value="coconut">
+                  Coconut
+                </option>
+                <option value="mango">Mango</option>
+
                 {employeesToAllocateLeads.length > 0
                   ? employeesToAllocateLeads.map((emp) => (
-                      <MenuItem key={emp.id} value={emp.id}>
+                      
+                      <option key={emp.id} value={emp.id}>
                         {emp.first_name} {emp.last_name}
-                      </MenuItem>
+                      </option>
                     ))
                   : null}
-              </Select>
+              </select> */}
+              <Row>
+                <div className="col-lg-3 p-2 ml-3">
+                  <span>Select Employee</span>
+                </div>
+                <div className="col-lg-7">
+                  <Select
+                    disableUnderline
+                    className="form-control form-control-sm w-100"
+                    value={selectedEmployee}
+                    onChange={(e) => {
+                      console.log(
+                        "select employee ID is -----",
+                        e.target.value
+                      );
+                      setSelectedEmployee(e.target.value);
+                    }}
+                  >
+                    {employeesToAllocateLeads.length > 0
+                      ? employeesToAllocateLeads.map((emp) => (
+                          <MenuItem key={emp.id} value={emp.id}>
+                            {emp.first_name} {emp.last_name}
+                          </MenuItem>
+                        ))
+                      : null}
+                  </Select>
+                </div>
+              </Row>
             </div>
-            <div
+
+            <Row className="ml-3">
+              <div className="col-lg-4 p-2  ">
+                <span>Select_Deadline</span>
+              </div>
+
+              <div
+                className="col-lg-6"
+                style={{
+                  // border: " 1px solid #B3B3B3",
+                  borderRadius: "4px",
+                }}
+              >
+                <KeyboardDatePickerExample
+                  value={today}
+                  showDate={handleSelectDate}
+                />
+              </div>
+
+              <div className="col-lg-2">
+                <button
+                  className=" btn btn-primary "
+                  type="submit"
+                  style={{ backgroundColor: "#2258BF" }}
+                  // disabled={!select.every((v) => v === true)}
+
+                  onClick={SelectData}
+                >
+                  save
+                </button>
+              </div>
+            </Row>
+            {/* <div
               className="col-lg-3 ml-4 w-100"
               style={{
                 border: " 1px solid #B3B3B3",
@@ -390,7 +457,7 @@ export default function LeadsAllocatonAndAddition() {
               >
                 save
               </button>
-            </div>
+            </div> */}
           </Row>
         </>
       ) : null}
