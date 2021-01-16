@@ -59,7 +59,7 @@ a.dropdown-item {
   }
 }
 @media only screen and (min-width: 991px) {
-  #hr {
+  #mobileLogout {
     display: none;
   }
 }

@@ -1,12 +1,18 @@
 import React from "react";
 import "./EmployeeInventory.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
   Backdrop,
-  Button,
   CircularProgress,
   makeStyles,
+  Dialog,
+  DialogTitle,
+  Input,
+  DialogActions,
+  DialogContent,
+  TextField,
+  OutlinedInput,
 } from "@material-ui/core";
 import { GET } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
@@ -16,11 +22,18 @@ function EmployeeInventory(props) {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
     },
+    dialog: {
+      "&.MuiDialogActions-root": {
+        // justifyContent: "center",
+        marginRight: theme.spacing(1.5),
+      },
+    },
   }));
 
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [openRequest, setOpenRequest] = React.useState(false);
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(
@@ -61,13 +74,16 @@ function EmployeeInventory(props) {
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <Button variant="outlined">Request Inventory </Button>
         <Row>
           <Col
             lg
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
+            <Button onClick={() => setOpenRequest(true)}>
+              Request Inventory
+            </Button>
+
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
@@ -105,6 +121,22 @@ function EmployeeInventory(props) {
           </Col>
         </Row>
       </div>
+      <Dialog
+        onClose={() => setOpenRequest(false)}
+        aria-labelledby="simple-dialog-title"
+        open={openRequest}
+        width="xl"
+        // className=
+      >
+        <DialogTitle id="simple-dialog-title">Request Inventory</DialogTitle>
+        <DialogContent dividers={true}>
+          <OutlinedInput multiline fullWidth size="large" />
+        </DialogContent>
+        <DialogActions className={classes.dialog}>
+          <Button onClick={() => setOpenRequest(false)}>Cancel</Button>
+          <Button onClick={() => setOpenRequest(false)}>Send</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
