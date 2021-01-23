@@ -19,7 +19,7 @@ export default function AdminTodoListScreen() {
           >
             <Container fluid>
               <FormPopover name="Search Leads" />
-              <FormPopover name="Add new Lead" />
+              {/* <FormPopover name="Add new Lead" /> */}
             </Container>
 
             {/* <LeadsSidebar /> */}

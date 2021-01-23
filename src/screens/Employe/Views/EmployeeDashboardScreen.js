@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import EmployeeLAASidebar from "../../../components/Sidebar/EmployeeLAASidebar";
+import LAASidebar from "../../../components/Sidebar/LAASidebar";
 import EmployeeDashboard from "../EmployeeDashboard/EmployeeDashboard";
 export default function EmployeeDashboardScreen() {
   return (
@@ -8,7 +9,8 @@ export default function EmployeeDashboardScreen() {
       <Container fluid style={{ height: "100vh" }}>
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
-            <EmployeeLAASidebar />
+            {/* <EmployeeLAASidebar /> */}
+            <LAASidebar />
           </Col>
           <Col
             lg={10}

@@ -624,6 +624,22 @@ export default function LeadsAdmin() {
   };
 
   const ModalView = ({ item }) => {
+    console.log(
+      "____________________________________________________________________",
+      item
+    );
+
+    const [client, setClient] = useState(item.client_name);
+    const [contact, setContact] = useState(item.contact);
+    const [budget, setBudget] = useState(item.budget);
+
+    const [country, setCountry] = useState(item.country_city);
+    // const [status, setStatus] = useState("New");
+
+    const [emailError, setEmailError] = useState(false);
+
+    const [email, setEmail] = useState(item.email);
+
     return (
       <Modal
         show={showView}
@@ -633,134 +649,126 @@ export default function LeadsAdmin() {
       >
         <Modal.Header
           closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
           <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow   bg-white rounded ">
-          <form>
-            <Modal.Body>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                }}
-                className=""
-              >
-                {/* <div> */}
-                <div className="">
-                  <div className="pb-3">
-                    <h6>Client </h6>
-                    <input
-                      className="form-control  input-width w-100"
-                      value={item.Name}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Contact</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Contact}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Project</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Project}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Budget</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Budget}
-                    />
-                  </div>
-
-                  <div className="pb-3">
-                    <h6>Toc</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Toc}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Country/city</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Country}
-                    />
-                  </div>
+        <div>
+          <Modal.Body>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <Col>
+                <div className="pb-3">
+                  <h6>Client</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100 "
+                    placeholder="Enter  Name"
+                    type="text"
+                    value={client}
+                  />
                 </div>
-                <div className="">
-                  <div className="pb-3">
-                    <h6>Status</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Status}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Interest</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Interest}
-                    />
-                  </div>
-
-                  <div className="pb-3">
-                    <h6>Allocated To</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Allocate}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Email</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Email}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Task</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Task}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Deadline</h6>
-                    <input
-                      className="form-control input-width w-100 "
-                      value={item.Deadline}
-                    />
-                  </div>
+                <div className="pb-3">
+                  <h6>Contact</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100 "
+                    placeholder="Enter Contact"
+                    type="tel"
+                    minLength="11"
+                    maxLength="11"
+                    value={contact}
+                  />
                 </div>
-                {/* <label>ID</label>
-          <input type="number">{item.id}</input>
-          <label>Name</label>
-          <input type="name">{item.Name}</input>
-          <label>Email</label>
-          <input type="email">{item.Email}</input>
-          <label>Type</label>
-          <input type="type">{item.Type}</input> */}
-                {/* </div> */}
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowView(false);
-                }}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </form>
+                <div className="pb-3">
+                  <h6>Email</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    error={emailError ? true : false}
+                    className="form-control input-width w-100"
+                    placeholder="Enter email"
+                    type="email"
+                    value={email}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Country_City</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    value={country}
+                  />
+                </div>
+              </Col>
+              <Col className="ml-3">
+                <div className="pb-3">
+                  <h6>Project</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.project.name}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6 style={{ marginTop: 7 }}>Interest</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.inventory.inventory_name}
+                  />
+                </div>
+
+                <div className="pb-3">
+                  <h6>Budget</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Budget"
+                    type="text"
+                    value={budget}
+                  />
+                </div>
+
+                <div className="pb-3">
+                  <h6>Source</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.source}
+                  />
+                </div>
+              </Col>
+            </div>
+          </Modal.Body>
         </div>
       </Modal>
     );
@@ -797,28 +805,6 @@ export default function LeadsAdmin() {
 
     const [emailError, setEmailError] = useState(false);
 
-    // {
-    //   id: 4,
-    //   project_id: 1,
-    //   inventory_name: "resen all",
-    //   block_name: "V",
-    //   inventory_category: "Rent",
-    //   property_status: "Open",
-    //   is_deleted: 0,
-    //   created_at: null,
-    //   updated_at: "2021-01-09T08:31:48.000000Z",
-    // },
-    // {
-    //   id: 1,
-    //   project_id: 1,
-    //   inventory_name: "house",
-    //   block_name: "V",
-    //   inventory_category: "Rent",
-    //   property_status: "Open",
-    //   is_deleted: 0,
-    //   created_at: null,
-    //   updated_at: "2021-01-09T08:31:48.000000Z",
-    // },
     const [email, setEmail] = useState(item.email);
     const [task, setTask] = useState("Sale");
     const [deadline, setDeadline] = useState("");
@@ -907,7 +893,7 @@ export default function LeadsAdmin() {
 
         <Modal.Header
           closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
           <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
         </Modal.Header>
@@ -916,7 +902,7 @@ export default function LeadsAdmin() {
             SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
+          <div>
             <Modal.Body>
               <div
                 style={{
@@ -1030,7 +1016,7 @@ export default function LeadsAdmin() {
                     <h6 style={{ marginTop: 7 }}>Interest</h6>
                     <Select
                       className="form-control form-control-sm w-100"
-                      defaultValue={item.project}
+                      defaultValue={item.inventory.inventory_name}
                       onChange={(e) => {
                         console.log(
                           "selected Inventriry is ---- ",
@@ -1039,13 +1025,17 @@ export default function LeadsAdmin() {
                         setInventory(e.target.value);
                       }}
                     >
-                      {interest.length > 0
-                        ? interest.map((int, index) => (
-                            <MenuItem key={int.id} value={int.id}>
-                              {int.inventory_name} - {int.block_name}
-                            </MenuItem>
-                          ))
-                        : null}
+                      {interest.length > 0 ? (
+                        interest.map((int, index) => (
+                          <MenuItem key={int.id} value={int.id}>
+                            {int.inventory_name} - {int.block_name}
+                          </MenuItem>
+                        ))
+                      ) : (
+                        <MenuItem value="">
+                          <em>Select Project Please.</em>
+                        </MenuItem>
+                      )}
                     </Select>
                   </div>
 

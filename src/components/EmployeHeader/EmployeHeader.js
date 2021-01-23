@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "./EmployeHeader.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
-import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
@@ -19,9 +18,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useHistory, Link } from "react-router-dom";
 
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
+
   const useStyles = makeStyles((theme) => ({
     white: {
       color: "#818181",
@@ -127,6 +129,10 @@ const EmployeHeader = (props) => {
         <Nav id="profile">
           <Link
             id="R-navlink"
+            // to={{
+            //   pathname: "/",
+            //   state: { from: "EmployeeHeader" },
+            // }}
             onClick={() => {
               setOpen(true);
               // props.LOGOUT();
@@ -142,6 +148,7 @@ const EmployeHeader = (props) => {
           </Link>
         </Nav>
       </Navbar>
+
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -164,6 +171,7 @@ const EmployeHeader = (props) => {
             onClick={() => {
               setOpen(false);
               props.LOGOUT();
+              history.push("/");
             }}
             color="primary"
           >

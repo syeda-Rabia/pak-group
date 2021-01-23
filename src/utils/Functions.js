@@ -11,13 +11,13 @@ const GetRecordFromServer = async (url) => {
     .then((res) => res.json())
     .then(
       (result) => {
-        console.log("coming URL OF API --------, ", url);
-        console.log("GetRecordFromServer------------------------", result);
+        // console.log("coming URL OF API --------, ", url);
+        // console.log("GetRecordFromServer------------------------", result);
         return result;
       },
 
       (error) => {
-        console.log("error while fetching data ", error);
+        // console.log("error while fetching data ", error);
       }
     );
 };
@@ -25,11 +25,11 @@ const GetRecordFromServer = async (url) => {
 export const POST = async (url, formData) => {
   let token = JSON.parse(localStorage.getItem("token"));
 
-  console.log("POST method , coming URL is ------,     ", url);
-  console.log(
-    "form data to submit ----------,      ",
-    JSON.stringify(formData)
-  );
+  // console.log("POST method , coming URL is ------,     ", url);
+  // console.log(
+  //   "form data to submit ----------,      ",
+  //   JSON.stringify(formData)
+  // );
 
   try {
     return fetch(server_url + url, {
@@ -45,7 +45,7 @@ export const POST = async (url, formData) => {
     })
       .then((response) => response.json())
       .then((res) => {
-        console.log("resp in POST func", JSON.stringify(res));
+        // console.log("resp in POST func", JSON.stringify(res));
         return res;
       })
       .catch((error) => {
@@ -53,18 +53,18 @@ export const POST = async (url, formData) => {
         return error;
       });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     return e;
   }
 };
 
 export const GET = async (url) => {
   let token = JSON.parse(localStorage.getItem("token"));
-  // console.log("token is ----------", token);
+  console.log("token is ----------", token);
 
-  console.log("GET method , coming URL is ------,     ", url);
+  // console.log("GET method , coming URL is ------,     ", url);
 
-  console.log("===================== > " + server_url + url);
+  // console.log("===================== > " + server_url + url);
 
   try {
     return fetch(server_url + url, {
@@ -79,7 +79,7 @@ export const GET = async (url) => {
     })
       .then((response) => response.json())
       .then((res) => {
-        console.log("resp in GET func", JSON.stringify(res));
+        // console.log("resp in GET func", JSON.stringify(res));
         return res;
       })
       .catch((error) => {
@@ -87,7 +87,7 @@ export const GET = async (url) => {
         return error;
       });
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     return e;
   }
 };

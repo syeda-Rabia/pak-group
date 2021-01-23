@@ -1,10 +1,10 @@
-.Laa h1 {
-  text-align: left;
-  color: #342e59;
-  font-size: 34px;
-  margin-top: 25px;
-  margin-bottom: 20px;
+button#dropdown {
+  width: 100%;
 }
+.dropdown-toggle::before {
+  display: none !important;
+}
+
 thead tr p {
   margin: 0; /* zero out margin */
 
@@ -33,19 +33,19 @@ select.form-control.form-control-sm {
 .table thead tr th {
   border-top: none;
 }
-#sn{
+#sn {
   margin-left: 50px;
   margin-right: 50px;
 }
 .btn-primary.dropdown-toggle {
-    color: #1f1b1b;
-    background-color: white;
-    /* border-color: #005cbf; */
+  color: #1f1b1b;
+  background-color: white;
+  /* border-color: #005cbf; */
 }
-.btn-primary{
-    border-color:white !important;
+.btn-primary {
+  border-color: white !important;
 }
-.btn-primary.dropdown-toggle :hover{
-    color:  #1f1b1b;
-    background-color:white;
+.btn-primary.dropdown-toggle :hover {
+  color: #1f1b1b;
+  background-color: white;
 }

@@ -2,14 +2,13 @@ import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IconButton, Tooltip, Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
@@ -34,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HeaderNavBar = (props) => {
+  const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -171,10 +172,6 @@ const HeaderNavBar = (props) => {
           </Nav.Link> */}
           <Link
             id="R-navlink"
-            to={{
-              pathname: "/",
-              state: { from: "AdminHeader" },
-            }}
             onClick={() => {
               setOpen(true);
               // props.LOGOUT();
@@ -212,6 +209,7 @@ const HeaderNavBar = (props) => {
             onClick={() => {
               setOpen(false);
               props.LOGOUT();
+              history.push("/");
             }}
             color="primary"
           >

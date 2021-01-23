@@ -64,7 +64,7 @@ export default function TODOMobileViewSidebar() {
             onOpen={toggleDrawer(anchor, true)}
           >
             <FormPopover name="Search Leads" />
-            <FormPopover name="Add new Lead" />
+            {/* <FormPopover name="Add new Lead" /> */}
           </SwipeableDrawer>
         </React.Fragment>
       ))}

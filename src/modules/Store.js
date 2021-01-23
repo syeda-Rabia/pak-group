@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
+import { devToolsEnhancer } from "redux-devtools-extension";
 
 import authReducer from "./Auth/reducers";
 // import homeReducer from "@modules/home/reducers";
@@ -24,7 +25,7 @@ const rootReducer = combineReducers({
 
 // const persistedReducer = persistReducer(peresistConfig, rootReducer);
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, devToolsEnhancer({ trace: true }));
 
 // const store = createStore(persistedReducer, applyMiddleware(createLogger()));
 

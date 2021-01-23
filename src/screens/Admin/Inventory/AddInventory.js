@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
-import { Form, Button, Col, Container, Row } from "react-bootstrap";
+import { Form, Button, Col, Container, Row, Overlay } from "react-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -34,12 +34,13 @@ export default function AddInventory() {
   const [projectDetails, setProjectDetails] = React.useState({});
   const [nameParent, setNameParent] = React.useState("");
   const [unitsParent, setUnitsParent] = React.useState(1);
-  const [categoryParent, setCategoryParent] = React.useState("Both");
+  const [categoryParent, setCategoryParent] = React.useState(null);
   const [showAlert, setShowAlert] = React.useState(false);
   const [redirectPage, setRedirectPage] = React.useState(false);
 
   const [showProgress, setShowProgress] = React.useState(false);
 
+  console.log("i am parent ");
   useEffect(() => {
     getAllProjectCategories();
   }, []);
@@ -58,8 +59,13 @@ export default function AddInventory() {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      width: "100%",
+    },
+    progress: {
+      width: "100%",
     },
   }));
+  const classes = useStyles();
 
   const submit = (e) => {
     e.preventDefault();
@@ -75,9 +81,10 @@ export default function AddInventory() {
     const [name, setName] = React.useState(nameParent);
     const [units, setUnits] = React.useState(unitsParent);
     const [category, setCategory] = React.useState(categoryParent);
+    const [categoryError, setCategoryError] = React.useState(null);
+    const [showProgressInside, setShowProgressInside] = React.useState(false);
 
-    const handleForm = () => {
-      setForm(false);
+    const handleForm = async () => {
       setNameParent(name);
       setUnitsParent(units);
       setCategoryParent(category);
@@ -103,10 +110,20 @@ export default function AddInventory() {
         status: "open",
         inventory: [],
       });
+      setForm(false);
     };
+    React.useEffect(() => {
+      return () => {
+        console.log("i am unmount");
+        setShowProgressInside(false);
+      };
+    });
 
     return (
       <React.Fragment>
+        <Backdrop className={classes.backdrop} open={showProgressInside}>
+          <CircularProgress disableShrink />
+        </Backdrop>
         <Container fluid>
           <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
             <Col lg={10} sm={10} xs={10} xl={11}>
@@ -138,22 +155,16 @@ export default function AddInventory() {
 
                 <Form.Group controlId="projectCategory">
                   <Form.Label>Project Category</Form.Label>
-                  {/* <Form.Control
-                    value={category}
-                    as="select"
-                    className="w-100"
-                    onChange={(e) => {
-                      setCategory(e.target.value);
-                    }}
-                  >
-                    <option value={"Both"}>Sale & Rent1</option>
-                    <option value={"Sale"}>Sale</option>
-                    <option value={"Rent"}>Rent</option>
-                  </Form.Control> */}
 
-                  <select
+                  <Select
                     value={category}
+                    disableUnderline
+                    error
+                    // variant="filled"
                     onChange={(e) => {
+                      if (categoryError) {
+                        setCategoryError(false);
+                      }
                       console.log(
                         "select category ID is -----",
                         e.target.value
@@ -164,20 +175,32 @@ export default function AddInventory() {
                   >
                     {allProjectCategories.length > 0
                       ? allProjectCategories.map((proCat, index) => (
-                          <option key={index} value={proCat.id}>
+                          <MenuItem key={index} value={proCat.id}>
                             {proCat.name}
-                          </option>
+                          </MenuItem>
                         ))
                       : null}
-                  </select>
+                  </Select>
+
+                  {categoryError ? (
+                    <p style={{ color: "red" }}>
+                      Please Enter Project Category.
+                    </p>
+                  ) : null}
                 </Form.Group>
 
                 <Form.Group controlId="units">
                   <Form.Label>Units</Form.Label>
                   <Form.Control
+                    min="1"
+                    max="250"
                     value={units}
                     onChange={(e) => {
-                      setUnits(e.target.value);
+                      if (e.target.value > 250) {
+                        alert("You can add max 250 properties at one time");
+                      } else {
+                        setUnits(e.target.value);
+                      }
                     }}
                     className="w-100"
                     type="number"
@@ -189,8 +212,24 @@ export default function AddInventory() {
                     className="w-100"
                     variant="primary"
                     type="submit"
-                    disabled={!name}
-                    onClick={handleForm}
+                    // disabled={category === null ? true : false}
+                    // onClick={handleForm}
+                    onClick={() => {
+                      if (category === null) {
+                        setCategoryError(true);
+                      } else {
+                        const promiseA = new Promise(
+                          (resolutionFunc, rejectionFunc) => {
+                            resolutionFunc(() => setShowProgressInside(true));
+                          }
+                        );
+                        // At this point, "promiseA" is already settled.
+                        promiseA.then(() => {
+                          console.log("inside promise");
+                          handleForm();
+                        });
+                      }
+                    }}
                   >
                     Add Inventory
                   </Button>
@@ -288,7 +327,6 @@ export default function AddInventory() {
     };
 
     const history = useHistory();
-    const classes = useStyles();
 
     React.useEffect(() => {
       if (InventoryData.length === 0) setForm((state) => !state);

@@ -63,27 +63,9 @@ export default function ProjectList() {
   const ModalEdit = ({ item }) => {
     const [ProjectName, setProjectName] = useState(item.name);
 
-    const SendRecordToServer = (event) => {
-      event.preventDefault();
-
-      console.log("SendRecordToServer", event);
-      // add validations
-      // push
-
-      let projects = {
-        id: "1",
-        name: ProjectName,
-      };
-
-      //   let arr = data;
-      //   arr.push(projects);
-      //   setData(arr);
-      //   setShowAdd(false);
-    };
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
       // add validations
       // push
 
@@ -91,20 +73,19 @@ export default function ProjectList() {
         id: item.id,
         name: ProjectName,
       };
-      let res = await POST(ApiUrls.EDIT_PROJECT, projects);
+      let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
       console.log(res, "response");
       console.log(projects, item);
-      if (res.success != false) {
-        let arr = allProjects.map((val) => {
-          if (val.id == projects.id) val = projects;
-          return val;
-        });
+      // if (res.success != false) {
+      //   let arr = allProjects.map((val) => {
+      //     if (val.id == projects.id) val = projects;
+      //     return val;
+      //   });
 
-        // arr.push(projects);
-        setData(arr);
-        setAllProjects(arr);
-        setShowEdit(false);
-      }
+      //   // arr.push(projects);
+      //   setData(arr);
+      //   setAllProjects(arr);
+      setShowEdit(false);
     };
 
     return (

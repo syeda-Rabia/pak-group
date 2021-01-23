@@ -1,28 +1,3 @@
-.Laa h1 {
-  text-align: left;
-  color: #342e59;
-  font-size: 34px;
-  margin-top: 25px;
-  margin-bottom: 20px;
-}
-#CTA-button:after {
-  display: none;
-}
-
-#shiftAndWarnButton:before {
-  display: none;
-}
-#shiftAndWarnButton {
-  color: black;
-  background-color: white;
-  outline: none;
-  margin-left: 13px;
-  border: none;
-}
-.ctaContent {
-  width: "190px !important";
-  background-color: white;
-}
 .page-info {
   margin-top: 27px;
   margin-bottom: 0px;

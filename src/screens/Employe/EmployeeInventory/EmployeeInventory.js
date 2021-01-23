@@ -1,6 +1,6 @@
 import React from "react";
 import "./EmployeeInventory.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
   Backdrop,
@@ -21,6 +21,9 @@ function EmployeeInventory(props) {
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
     },
     dialog: {
       "&.MuiDialogActions-root": {
@@ -121,22 +124,54 @@ function EmployeeInventory(props) {
           </Col>
         </Row>
       </div>
-      <Dialog
-        onClose={() => setOpenRequest(false)}
-        aria-labelledby="simple-dialog-title"
-        open={openRequest}
-        width="xl"
-        // className=
+      <Modal
+        show={openRequest}
+        onHide={() => {
+          setOpenRequest(false);
+        }}
       >
-        <DialogTitle id="simple-dialog-title">Request Inventory</DialogTitle>
-        <DialogContent dividers={true}>
-          <OutlinedInput multiline fullWidth size="large" />
-        </DialogContent>
-        <DialogActions className={classes.dialog}>
-          <Button onClick={() => setOpenRequest(false)}>Cancel</Button>
-          <Button onClick={() => setOpenRequest(false)}>Send</Button>
-        </DialogActions>
-      </Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>
+            Request Inventory
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <TextField
+              variant="outlined"
+              autoFocus
+              margin="dense"
+              multiline
+              required
+              fullWidth
+              label="Request Inventroy"
+              // value={message}
+              // onChange={(e) => {
+              //   handleChange(e.target.value);
+              // }}
+            />
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={() => {
+              setOpenRequest(false);
+            }}
+          >
+            Close
+          </Button>
+          <Button
+            type="submit"
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={() => {
+              setOpenRequest(false);
+            }}
+          >
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

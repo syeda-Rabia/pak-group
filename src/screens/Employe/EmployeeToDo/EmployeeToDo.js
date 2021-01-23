@@ -18,8 +18,7 @@ export default function LeadsAllocatonAndAddition() {
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
-    const [value, setValue] = React.useState("");
-
+  const [value, setValue] = React.useState("");
 
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
@@ -30,7 +29,163 @@ export default function LeadsAllocatonAndAddition() {
     setCurrentPage(page);
     // console.log('page', page);
   };
+  const ActionButton = () => {
+    return (
+      <DropdownButton id="CTA-button" variant="info" title="Action">
+        <DropdownButton
+          className="mb-1"
+          id="dropdown"
+          title="Call Received"
+          drop="left"
+          style={{
+            width: "100%",
+            color: "black",
+            outline: "none",
+            backgroundColor: "white",
+          }}
+        >
+          <DropdownButton
+            className="mb-1"
+            id="shiftAndWarnButton"
+            title="Shift and Warn"
+            drop="left"
+            style={{
+              paddingLeft: "10px",
+              paddingRight: "10px",
+            }}
+          >
+            <Dropdown.Item
+              as="button"
+              style={{ color: "black", outline: "none" }}
+            >
+              <div>{/* <KeyboardDatePickerExample /> */}</div>
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              eventKey="call-Explanation"
+              style={{ color: "black", outline: "none" }}
+            >
+              {/* <KeyboardTimePickerExample /> */}
+            </Dropdown.Item>
+          </DropdownButton>
+        </DropdownButton>
+        <DropdownButton
+          className="mb-1"
+          id="dropdown"
+          title="Call declined"
+          drop="left"
+        >
+          {/* <Dropdown.Item
+      as="button"
+      eventKey="instruct"
+      style={{ color: "black", outline: "none" }}
+    >
+      Atif
+    </Dropdown.Item>
+    <Dropdown.Item
+      as="button"
+      eventKey="call-Explanation"
+      style={{ color: "black", outline: "none" }}
+    >
+      Rabia
+    </Dropdown.Item>
+    <Dropdown.Item
+      as="button"
+      eventKey="shift-and-Warn"
+      style={{ color: "black", outline: "none" }}
+    >
+      Qasim
+    </Dropdown.Item> */}
+        </DropdownButton>
 
+        <DropdownButton
+          className="mb-1"
+          id="dropdown"
+          title="Asked To Send Whatsapp"
+          drop="left"
+        >
+          {/* <Dropdown.Item
+      as="button"
+      eventKey="instruct"
+      style={{ color: "black", outline: "none" }}
+    >
+      Atif
+    </Dropdown.Item>
+    <Dropdown.Item
+      as="button"
+      eventKey="call-Explanation"
+      style={{ color: "black", outline: "none" }}
+    >
+      Rabia
+    </Dropdown.Item>
+    <Dropdown.Item
+      as="button"
+      eventKey="shift-and-Warn"
+      style={{ color: "black", outline: "none" }}
+    >
+      Qasim
+    </Dropdown.Item> */}
+        </DropdownButton>
+        <DropdownButton
+          className="mb-1"
+          id="dropdown"
+          title="Asked To send sms"
+          drop="left"
+        >
+          <Dropdown.Item
+            as="button"
+            eventKey="instruct"
+            style={{ color: "black", outline: "none" }}
+          >
+            Atif
+          </Dropdown.Item>
+          <Dropdown.Item
+            as="button"
+            eventKey="call-Explanation"
+            style={{ color: "black", outline: "none" }}
+          >
+            Rabia
+          </Dropdown.Item>
+          <Dropdown.Item
+            as="button"
+            eventKey="shift-and-Warn"
+            style={{ color: "black", outline: "none" }}
+          >
+            Qasim
+          </Dropdown.Item>
+        </DropdownButton>
+        <DropdownButton
+          className="mb-1"
+          id="dropdown"
+          title="Meeting Scheduled"
+          drop="left"
+          style={{ color: "black", outline: "none" }}
+        >
+          <Dropdown.Item
+            as="button"
+            eventKey="instruct"
+            style={{ color: "black", outline: "none" }}
+          >
+            Atif
+          </Dropdown.Item>
+          <Dropdown.Item
+            as="button"
+            eventKey="call-Explanation"
+            style={{ color: "black", outline: "none" }}
+          >
+            Rabia
+          </Dropdown.Item>
+          <Dropdown.Item
+            as="button"
+            eventKey="shift-and-Warn"
+            style={{ color: "black", outline: "none" }}
+          >
+            Qasim
+          </Dropdown.Item>
+        </DropdownButton>
+      </DropdownButton>
+    );
+  };
   const TableRow = ({ index, item }) => {
     // console.log('item', item);
     const records = paginate(data, currentPage, pageSize);
@@ -67,168 +222,7 @@ export default function LeadsAllocatonAndAddition() {
         <td> Recording 1</td>
         <td>comments</td>
         <td>
-          <DropdownButton id="Action-button" variant="info" title="Action">
-            <DropdownButton
-              className="mb-1 "
-              id="callreceived"
-              title="Call Received"
-              drop="left"
-              style={{
-                color: "black",
-                outline: "none",
-                backgroundColor: "white",
-              }}
-            >
-              <DropdownButton
-                className="mb-1"
-                id="shiftAndWarnButton"
-                title="Shift and Warn"
-                drop="left"
-                style={{
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                }}
-              >
-                <Dropdown.Item
-                  as="button"
-                  eventKey="instruct"
-                  style={{ color: "black", outline: "none" }}
-                >
-                  <div
-                    style={
-                      {
-                        // marginLeft: "10px",
-                        // marginRight: "60px",
-                      }
-                    }
-                  >
-                    <KeyboardDatePickerExample />
-                  </div>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  as="button"
-                  eventKey="call-Explanation"
-                  style={{ color: "black", outline: "none" }}
-                >
-                  <KeyboardTimePickerExample />
-                </Dropdown.Item>
-              </DropdownButton>
-            </DropdownButton>
-            <DropdownButton
-              className="mb-1"
-              id="calldeclined"
-              title="Call declined"
-              drop="left"
-            >
-              {/* <Dropdown.Item
-                as="button"
-                eventKey="instruct"
-                style={{ color: "black", outline: "none" }}
-              >
-                Atif
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="call-Explanation"
-                style={{ color: "black", outline: "none" }}
-              >
-                Rabia
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="shift-and-Warn"
-                style={{ color: "black", outline: "none" }}
-              >
-                Qasim
-              </Dropdown.Item> */}
-            </DropdownButton>
-
-            <DropdownButton
-              className="mb-1"
-              id="askforhatsapp"
-              title="Asked To Send Whatsapp"
-              drop="left"
-            >
-              {/* <Dropdown.Item
-                as="button"
-                eventKey="instruct"
-                style={{ color: "black", outline: "none" }}
-              >
-                Atif
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="call-Explanation"
-                style={{ color: "black", outline: "none" }}
-              >
-                Rabia
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="shift-and-Warn"
-                style={{ color: "black", outline: "none" }}
-              >
-                Qasim
-              </Dropdown.Item> */}
-            </DropdownButton>
-            <DropdownButton
-              className="mb-1"
-              id="askforsms"
-              title="Asked To send sms"
-              drop="left"
-            >
-              <Dropdown.Item
-                as="button"
-                eventKey="instruct"
-                style={{ color: "black", outline: "none" }}
-              >
-                Atif
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="call-Explanation"
-                style={{ color: "black", outline: "none" }}
-              >
-                Rabia
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="shift-and-Warn"
-                style={{ color: "black", outline: "none" }}
-              >
-                Qasim
-              </Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton
-              className="mb-1"
-              id="MeetingScedule"
-              title="Meeting Scheduled"
-              drop="left"
-              style={{ color: "black", outline: "none" }}
-            >
-              <Dropdown.Item
-                as="button"
-                eventKey="instruct"
-                style={{ color: "black", outline: "none" }}
-              >
-                Atif
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="call-Explanation"
-                style={{ color: "black", outline: "none" }}
-              >
-                Rabia
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                eventKey="shift-and-Warn"
-                style={{ color: "black", outline: "none" }}
-              >
-                Qasim
-              </Dropdown.Item>
-            </DropdownButton>
-          </DropdownButton>
+          <ActionButton />
         </td>
         <td>
           <DropdownButton
@@ -237,7 +231,7 @@ export default function LeadsAllocatonAndAddition() {
             title="CTA"
             onSelect={(e) => {
               setValue(e);
-              
+
               console.log(e);
             }}
           >
@@ -255,13 +249,7 @@ export default function LeadsAllocatonAndAddition() {
             >
               Call Explanation
             </Dropdown.Item>
-            {/* <Dropdown.Item
-              as="button"
-              eventKey="shift-and-Warn"
-              style={{ color: "black", outline: "none" }}
-            >
-              Shift and Warn
-            </Dropdown.Item> */}
+
             <DropdownButton
               id="shiftAndWarnButton"
               title="Shift and Warn"
@@ -276,14 +264,12 @@ export default function LeadsAllocatonAndAddition() {
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
-                eventKey="call-Explanation"
                 style={{ color: "black", outline: "none" }}
               >
                 Rabia
               </Dropdown.Item>
               <Dropdown.Item
                 as="button"
-                eventKey="shift-and-Warn"
                 style={{ color: "black", outline: "none" }}
               >
                 Qasim

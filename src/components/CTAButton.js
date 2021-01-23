@@ -17,6 +17,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  makeStyles,
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
@@ -30,7 +31,15 @@ export default function CTAButton() {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   var today = new Date();
+  const useStyles = makeStyles((theme) => ({
+    dialogColor: {
+      "& .MuiTypography-root": {
+        color: "#818181",
+      },
+    },
+  }));
 
+  const classes = useStyles();
   const EmployeeList = () => {
     return (
       <>
@@ -42,7 +51,12 @@ export default function CTAButton() {
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
         >
-          <DialogTitle id="scroll-dialog-title">Shift And Warn</DialogTitle>
+          <DialogTitle
+            classes={{ root: classes.dialogColor }}
+            id="scroll-dialog-title"
+          >
+            Shift And Warn
+          </DialogTitle>
           <DialogContent dividers={true}>
             <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
               {loading ? (
@@ -96,9 +110,14 @@ export default function CTAButton() {
     setLoading(true);
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
     console.log(res, "GET ALL EMPLOYES");
-    if (res.success !== false) {
-      setEmployees(res.data.users);
+    try {
+      if (res.success !== false) {
+        setEmployees(res.data.users);
+      }
+    } catch {
+      console.log("user Fetch Error");
     }
+
     setLoading(false);
   };
   const ModalCTA = () => {
@@ -257,9 +276,8 @@ export default function CTAButton() {
   return (
     <>
       <DropdownButton
-        // id="CTA-button"
-
-        id="dropdown-variants-primary"
+        id="CTA-button"
+        // id="dropdown-variants-primary"
         key={"primary"}
         variant={"primary"}
         // style={{ backgroundColor: "red" }}
