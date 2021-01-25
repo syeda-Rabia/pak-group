@@ -40,7 +40,7 @@ export default function AddInventory() {
 
   const [showProgress, setShowProgress] = React.useState(false);
 
-  console.log("i am parent ");
+  // console.log("i am parent ");
   useEffect(() => {
     getAllProjectCategories();
   }, []);
@@ -114,7 +114,6 @@ export default function AddInventory() {
     };
     React.useEffect(() => {
       return () => {
-        console.log("i am unmount");
         setShowProgressInside(false);
       };
     });
@@ -297,6 +296,7 @@ export default function AddInventory() {
       console.log(JSON.stringify(formData));
       console.log("-------------------------------------------------");
       let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
+      console.log("responce____________________", resp);
 
       setShowProgress(false);
 
@@ -496,20 +496,20 @@ export default function AddInventory() {
                 </Form.Row>
               );
             })}
-            <Link>
-              <Button
-                onClick={() => {
-                  handlePostRequest();
-                  // setProjectDetails((state) => {
-                  //   state.inventory = InventoryData;
-                  //   return state;
-                  // });
-                  // setTimeout(() => {}, 3000);
-                }}
-              >
-                Save
-              </Button>
-            </Link>
+            {/* <Link> */}
+            <Button
+              onClick={() => {
+                handlePostRequest();
+                // setProjectDetails((state) => {
+                //   state.inventory = InventoryData;
+                //   return state;
+                // });
+                // setTimeout(() => {}, 3000);
+              }}
+            >
+              Save
+            </Button>
+            {/* </Link> */}
           </Form>
         </Container>
       </div>

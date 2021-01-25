@@ -22,7 +22,7 @@ export default function RecordTable() {
   const totalCount = data.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [pageCount, setPageCount] = React.useState(0);
+  const [pageCount, setPageCount] = React.useState(1);
   const [filterData, setFilterData] = React.useState("All");
   const [showModalCTA, setShowModalCTA] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,10 +53,9 @@ export default function RecordTable() {
     setOpen(false);
   };
   const handleFetchEmployeesLeads = async () => {
-    setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     console.log(res, "EMPLOYEE LEADS");
-    if (res.success != false) {
+    if (res.success !== false) {
       setData(res.data.leads);
     }
     setIsLoading(false);
@@ -75,22 +74,12 @@ export default function RecordTable() {
   React.useEffect(() => {
     handleFetchRequest();
   }, []);
-  const optionsArray = [
-    { id: "1", title: "Instruct", options: [] },
-    { title: "Call Explanation", options: [] },
-    {
-      title: "Shift and Warn",
-      options: ["Amjad", "Nakash", "Uzma", "Adil", "Waqar", "kashif", "other"],
-    },
-  ];
-  const [options, setOptions] = React.useState({
-    title: optionsArray[0].title,
-    subID: null,
-  });
+
   // console.log('Page Size:', pageSize);
   // console.log('Total Count: ', totalCount);
   const handleShow = (pageCount) => {
-    setPageCount(pageCount);
+    if (pageCount === 0) setPageCount(1);
+    else setPageCount(pageCount);
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -180,6 +169,8 @@ export default function RecordTable() {
           className="form-control form-control-sm w-100"
           value={filterData}
           onChange={(e) => {
+            setIsLoading(true);
+
             setFilterData(e.target.value);
             // console.log(e.target.value, e.target.name);
           }}

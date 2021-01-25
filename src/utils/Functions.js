@@ -60,7 +60,7 @@ export const POST = async (url, formData) => {
 
 export const GET = async (url) => {
   let token = JSON.parse(localStorage.getItem("token"));
-  console.log("token is ----------", token);
+  // console.log("token is ----------", token);
 
   // console.log("GET method , coming URL is ------,     ", url);
 

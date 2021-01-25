@@ -30,6 +30,7 @@ import {
   Grow,
   Snackbar,
   Input,
+  Tooltip,
 } from "@material-ui/core";
 import Pagination from "../../../components/Pagination/Pagination";
 
@@ -46,9 +47,12 @@ export default function AddEmployee() {
   const [showBan, setShowBan] = useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const [data, setData] = useState(ModalData);
   const [selectedID, setSelectedID] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [isBlocked, setIsBlocked] = useState("");
 
   /*  Pagination data  */
 
@@ -106,7 +110,7 @@ export default function AddEmployee() {
   useEffect(() => {
     console.log("use efect is run");
     GetUserRecordFromServer();
-  }, []);
+  }, [refresh]);
 
   const GetUserRecordFromServer = async () => {
     console.log("GetUserRecordFromServer is run");
@@ -160,129 +164,117 @@ export default function AddEmployee() {
     //   );
   };
 
-  const ModalView = ({ item }) => {
-    return (
-      <Modal
-        show={showView}
-        onHide={() => {
-          setShowView(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>
-            Employee Record
-          </Modal.Title>
-        </Modal.Header>
-        <div className="col-lg-12 shadow   bg-white rounded ">
-          <form>
-            <Modal.Body>
-              <div style={{ alignContent: "center" }}>
-                <div className="pb-3">
-                  <h6>First Name </h6>
-                  <input className="form-control  w-100" value={item.Name} />
-                </div>
-                <div className="pb-3">
-                  <h6>Last name</h6>
-                  <input
-                    className="form-control w-100 "
-                    value={item.Last_Name}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Email</h6>
-                  <input className="form-control w-100 " value={item.Email} />
-                </div>
-                <div className="pb-3">
-                  <h6>Gender</h6>
-                  <input className="form-control w-100 " value={item.Gender} />
-                </div>
+  // const ModalView = ({ item }) => {
+  //   return (
+  //     <Modal
+  //       show={showView}
+  //       onHide={() => {
+  //         setShowView(false);
+  //       }}
+  //     >
+  //       <Modal.Header
+  //         closeButton
+  //         className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+  //       >
+  //         <Modal.Title style={{ color: "#818181" }}>
+  //           Employee Record
+  //         </Modal.Title>
+  //       </Modal.Header>
+  //       <div className="col-lg-12 shadow   bg-white rounded ">
+  //         <form>
+  //           <Modal.Body>
+  //             <div style={{ alignContent: "center" }}>
+  //               <div className="pb-3">
+  //                 <h6>First Name </h6>
+  //                 <input className="form-control  w-100" value={item.Name} />
+  //               </div>
+  //               <div className="pb-3">
+  //                 <h6>Last name</h6>
+  //                 <input
+  //                   className="form-control w-100 "
+  //                   value={item.Last_Name}
+  //                 />
+  //               </div>
+  //               <div className="pb-3">
+  //                 <h6>Email</h6>
+  //                 <input className="form-control w-100 " value={item.Email} />
+  //               </div>
+  //               <div className="pb-3">
+  //                 <h6>Gender</h6>
+  //                 <input className="form-control w-100 " value={item.Gender} />
+  //               </div>
 
-                <div className="pb-3">
-                  <h6>Contact</h6>
-                  <input className="form-control w-100 " value={item.Contact} />
-                </div>
-                <div className="pb-3">
-                  <h6>Type</h6>
-                  <input className="form-control w-100 " value={item.Type} />
-                </div>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowView(false);
-                }}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </form>
-        </div>
-      </Modal>
-    );
-  };
+  //               <div className="pb-3">
+  //                 <h6>Contact</h6>
+  //                 <input className="form-control w-100 " value={item.Contact} />
+  //               </div>
+  //               <div className="pb-3">
+  //                 <h6>Type</h6>
+  //                 <input className="form-control w-100 " value={item.Type} />
+  //               </div>
+  //             </div>
+  //           </Modal.Body>
+  //           <Modal.Footer>
+  //             <Button
+  //               style={{ backgroundColor: "#2258BF" }}
+  //               onClick={() => {
+  //                 setShowView(false);
+  //               }}
+  //             >
+  //               Close
+  //             </Button>
+  //           </Modal.Footer>
+  //         </form>
+  //       </div>
+  //     </Modal>
+  //   );
+  // };
 
   const ModalEdit = ({ item }) => {
-    const [f_name, setF_name] = useState(item.Name);
-    const [l_name, setL_name] = useState(item.Last_Name);
-    const [email, setEmail] = useState(item.Email);
-    const [gender, setGender] = useState(item.Gender);
+    console.log("_____________ itmeee", item);
+    const [f_name, setF_name] = useState(item.first_name);
+    const [l_name, setL_name] = useState(item.last_name);
+    const [email, setEmail] = useState(item.email);
+    const [gender, setGender] = useState(item.gender);
     const [password, setPassword] = useState("");
 
-    const [user_type, setUser_type] = useState(item.Type);
-    const [phone_no, setPhone_no] = useState(item.Contact);
+    const [user_type, setUser_type] = useState(item.user_type);
+    const [phone_no, setPhone_no] = useState(item.phone);
 
-    const SendRecordToServer = (event) => {
+    const SendRecordToServer = async (event) => {
       event.preventDefault();
-
-      console.log("SendRecordToServer", event);
-      // add validations
-      // push
-
-      let user = {
-        id: "1",
-        Name: f_name,
-        Last_Name: l_name,
-        Email: email,
-        Gender: gender,
-        Contact: phone_no,
-        Type: user_type,
-      };
-
-      let arr = data;
-      arr.push(user);
-      setData(arr);
-      setShowAdd(false);
-    };
-    const EditRecordToServer = (event) => {
-      event.preventDefault();
-
-      console.log("EditRecordToServer", event);
-      // add validations
-      // push
-
-      let user = {
+      setIsLoading(true);
+      let formData = {
         id: item.id,
-        Name: f_name,
-        Last_Name: l_name,
-        Email: email,
-        Gender: gender,
-        Contact: phone_no,
-        Type: user_type,
+        first_name: f_name,
+        last_name: l_name,
+        email: email,
+        gender: gender == "male" ? "Male" : "Female",
+        phone: phone_no,
+        password: password,
+        user_type: user_type == "Admin" ? "Admin" : "Employee",
       };
+      let resp = await POST(ApiUrls.EDIT_USER, formData);
+      console.log("responce____________", resp);
+      try {
+        if (resp.error == false) {
+          setMessage(resp.success);
+          setShowAlert(true);
 
-      let arr = data.map((val) => {
-        if (val.id == user.id) val = user;
-        return val;
-      });
+          console.log("DATA SET SUCCESSFULLY");
 
-      // arr.push(user);
-      setData(arr);
-      setShowEdit(false);
+          setUserRecord((state) => [formData].concat(state));
+        } else {
+          console.log("-------------------------------", resp);
+          setErrorAlert(true);
+        }
+        setShowEdit(false);
+        setRefresh(!refresh);
+      } catch {
+        console.log("Message Not Set Successfully");
+      }
+
+      setIsLoading(false);
     };
 
     return (
@@ -292,18 +284,15 @@ export default function AddEmployee() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Edit Employee</Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
-            EditRecordToServer(e);
+            SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div>
             <Modal.Body>
               {/*             
             <h6>ID</h6>
@@ -374,7 +363,7 @@ export default function AddEmployee() {
                 <div className="pb-3">
                   <h6>Type</h6>
                   <select
-                    value={user_type}
+                    value={user_type === 2 ? "Admin" : "Employee"}
                     onChange={(e) => {
                       setUser_type(e.target.value);
                     }}
@@ -416,7 +405,7 @@ export default function AddEmployee() {
                   setShowAdd(false);
                 }}
               >
-                Add
+                Update
               </Button>
             </Modal.Footer>
           </div>
@@ -425,22 +414,18 @@ export default function AddEmployee() {
     );
   };
   const ModalDelete = ({ item }) => {
-    const DeleteRecordFromData = (item) => {
-      console.log("item is ", item);
-
-      let { id } = item;
-      console.log("ID is ", id);
-
-      let arr = data;
-
-      arr = arr.filter((user) => user.id != id.toString());
-
-      console.log("arr length ", arr.length, arr, selectedID);
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      setData(arr);
+    const DeleteRecordFromData = async (item) => {
+      let resp = await GET(ApiUrls.DELETE_USER + item.id);
+      console.log("delete responce __________________", resp);
+      try {
+        if (resp.error === false) {
+          setShowAlert(true);
+          setMessage(resp.success);
+        }
+      } catch {
+        console.log("Message not set successfully");
+      }
+      setRefresh(!refresh);
     };
     return (
       <Modal
@@ -449,13 +434,10 @@ export default function AddEmployee() {
           setShowDelete(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div>
           <Modal.Body>Do you really want to delete this Record!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -481,6 +463,38 @@ export default function AddEmployee() {
     );
   };
   const ModalBan = ({ item }) => {
+    const SendRecordToServer = async (event) => {
+      event.preventDefault();
+      // setIsLoading(true);
+      console.log(
+        ApiUrls.BLOCK_USER,
+        item.id,
+        "/",
+        isBlocked,
+        "________________"
+      );
+      let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
+      console.log("responce block ____________", resp);
+      if (resp.error == false) {
+        setMessage("User Blocked Successfully");
+        setShowAlert(true);
+        console.log("DATA SET SUCCESSFULLY");
+      } else {
+        setMessage(resp.error);
+        setErrorAlert(true);
+      }
+      //   setUserRecord((state) => [formData].concat(state));
+      // } else {
+      //   console.log("-------------------------------", resp);
+      //   setErrorAlert(true);
+      // }
+
+      // setIsLoading(false);
+      setTimeout(() => {
+        setRefresh(!refresh);
+      }, 1000);
+      setShowBan(false);
+    };
     return (
       <Modal
         show={showBan}
@@ -488,13 +502,10 @@ export default function AddEmployee() {
           setShowBan(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Block User</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div>
           <Modal.Body>Do you really want to Block this Employee!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -507,7 +518,8 @@ export default function AddEmployee() {
             </Button>
             <Button
               style={{ backgroundColor: "#2258BF" }}
-              onClick={() => {
+              onClick={(e) => {
+                SendRecordToServer(e);
                 setShowBan(false);
               }}
             >
@@ -552,68 +564,10 @@ export default function AddEmployee() {
         setErrorAlert(true);
       }
 
-      let user = {
-        id: "1",
-        Name: f_name,
-        Last_Name: l_name,
-        Email: email,
-        Gender: gender,
-        Contact: phone_no,
-        Password: password,
-        Type: user_type,
-      };
-      // const formData = {
-      //   first_name: f_name,
-      //   last_name: l_name,
-      //   email: email,
-      //   gender: gender,
-      //   phone: phone_no,
-      //   password: password,
-      //   user_type: user_type,
-      // };
-
-      // try {
-      //   let resp = await fetch(server_url + "admin/employee/add", {
-      //     method: "post",
-      //     // mode: "no-cors",
-      //     crossDomain: true,
-      //     headers: {
-      //       Accept: "application/json",
-      //       "Content-Type": "application/json",
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //     body: JSON.stringify({
-      //       first_name: f_name,
-      //       last_name: l_name,
-      //       email: email,
-      //       gender: gender == "male" ? "Male" : "Female",
-      //       phone: phone_no,
-      //       password: password,
-      //       user_type: user_type == "Admin" ? "Admin" : "Employee",
-      //     }),
-      //   })
-      //     .then((response) => response.json())
-      //     .then((json) => {
-      //       console.log("response from server  -------- ,", json);
-      //       if (json.success != false) {
-      //         setShowAlert(true);
-      //         console.log("DATA SET SUCCESSFULLY");
-
-      //         setUserRecord((state) => [formData].concat(state));
-      //       }
-      //       if (json.success == false) {
-      //         setErrorAlert(true);
-      //       }
-      //     });
-      // } catch (e) {
-      //   console.log(e);
-      // }
-
       setIsLoading(false);
-
-      let arr = data;
-      arr.push(user);
-      setData(arr);
+      setTimeout(() => {
+        setRefresh(!refresh);
+      }, 1000);
       setShowAdd(false);
     };
 
@@ -778,7 +732,7 @@ export default function AddEmployee() {
         <td>{item.user_type == 1 ? "Admin" : "Employee"}</td>
         <td>
           <div className="d-flex d-inline">
-            <button
+            {/* <button
               data-tip
               data-for="ViewTip"
               type="button"
@@ -789,55 +743,69 @@ export default function AddEmployee() {
               }}
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
-            </button>
-            <ReactTooltip id="ViewTip" place="top" effect="solid">
+            </button> */}
+            {/* <ReactTooltip id="ViewTip" place="top" effect="solid">
               View Details
-            </ReactTooltip>
-            <button
-              data-tip
-              data-for="EditTip"
-              type="button "
-              className="bg-transparent  button-focus mr-2"
-              onClick={() => {
-                setShowEdit(true);
-                setSelectedID(index);
-              }}
+            </ReactTooltip> */}
+            <Tooltip placement="top-start" title="Edit Record">
+              <button
+                data-tip
+                data-for="EditTip"
+                type="button "
+                className="bg-transparent  button-focus mr-2"
+                onClick={() => {
+                  setShowEdit(true);
+                  setSelectedID(index);
+                }}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
+              </button>
+            </Tooltip>
+
+            <Tooltip placement="top-start" title="Delete Record">
+              <button
+                data-tip
+                data-for="DeleteTip"
+                type="button"
+                className="bg-transparent  button-focus mr-2"
+                onClick={() => {
+                  setShowDelete(true);
+                  setSelectedID(index);
+                }}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
+              </button>
+            </Tooltip>
+
+            <Tooltip
+              placement="top-start"
+              title={item.is_blocked === "0" ? "Block User" : "UnbLock User"}
             >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
-            </button>
-            <ReactTooltip id="EditTip" place="top" effect="solid">
-              Edit Details
-            </ReactTooltip>
-            <button
-              data-tip
-              data-for="DeleteTip"
-              type="button"
-              className="bg-transparent  button-focus mr-2"
-              onClick={() => {
-                setShowDelete(true);
-                setSelectedID(index);
-              }}
-            >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
-            </button>
-            <ReactTooltip id="DeleteTip" place="top" effect="solid">
-              Delete Record
-            </ReactTooltip>
-            <button
-              data-tip
-              data-for="BlockTip"
-              type="button "
-              className="bg-transparent  button-focus mr-2 button-bg "
-              onClick={() => {
-                setShowBan(true);
-                setSelectedID(index);
-              }}
-            >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faBan} />
-            </button>
-            <ReactTooltip id="BlockTip" place="top" effect="solid">
-              Block User
-            </ReactTooltip>
+              <button
+                data-tip
+                data-for="BlockTip"
+                type="button "
+                className="bg-transparent  button-focus mr-2 button-bg "
+                onClick={() => {
+                  if (item.is_blocked === "0") {
+                    setIsBlocked(1);
+                  } else {
+                    setIsBlocked(0);
+                  }
+                  setShowBan(true);
+                  setSelectedID(index);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ fontSize: 15 }}
+                  icon={faBan}
+                  color={item.is_blocked === "1" ? "red" : null}
+                />
+              </button>
+            </Tooltip>
+            {/* <ReactTooltip id="BlockTip" place="top" effect="solid">
+              {item.is_blocked == "1" ? "UnBlock User" : "Block User"}
+            </ReactTooltip> */}
           </div>
         </td>
       </tr>
@@ -872,7 +840,9 @@ export default function AddEmployee() {
             <Alert variant="filled" severity="success">
               <AlertTitle>Success</AlertTitle>
               <span className="mr-5" style={{ textAlign: "center" }}>
-                Record Submitted
+                {message === null || message === undefined
+                  ? "Record Submitted"
+                  : message}
               </span>
             </Alert>
           </Snackbar>
@@ -891,7 +861,9 @@ export default function AddEmployee() {
             <Alert variant="filled" severity="error">
               <AlertTitle>Error</AlertTitle>
               <span className="mr-5" style={{ textAlign: "center" }}>
-                Record not Submitted
+                {message === null || message === undefined
+                  ? "Record not Submitted"
+                  : message}
               </span>
             </Alert>
           </Snackbar>
@@ -972,12 +944,12 @@ export default function AddEmployee() {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
                 </tbody>
-                {data.length > 0 ? (
+                {userRecord.length > 0 ? (
                   <>
-                    <ModalDelete item={data[selectedID]} />
-                    <ModalView item={data[selectedID]} />
-                    <ModalEdit item={data[selectedID]} />
-                    <ModalBan item={data[selectedID]} />
+                    <ModalDelete item={userRecord[selectedID]} />
+                    {/* <ModalView item={userRecord[selectedID]} /> */}
+                    <ModalEdit item={userRecord[selectedID]} />
+                    <ModalBan item={userRecord[selectedID]} />
                   </>
                 ) : null}
               </table>

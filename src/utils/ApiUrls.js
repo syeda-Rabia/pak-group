@@ -7,9 +7,9 @@ const ApiUrls = {
 
   // USERS
   CREATE_USER: "admin/employee/add",
-  EDIT_USER: "",
-  DELETE_USER: "",
-  BLOCK_USER: "",
+  EDIT_USER: "admin/employee/edit",
+  DELETE_USER: "admin/employee/delete/",
+  BLOCK_USER: "admin/employee/blocked/  ",
   GET_ALL_USER: "admin/employee/all",
   GET_ALL_DASHBOARD_USER: "admin/dashboard/employee/all",
   GET_ALL_DASHBOARD_USER_LEADS: "admin/dashboard/allocatedLeads/",
@@ -52,6 +52,12 @@ const ApiUrls = {
   UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
 
   //   DASHBOARD
+
+  // Interest
+  GET_ALL_INTEREST: "admin/interest/all",
+  EDIT_INTEREST: "",
+  DELETE_INTEREST: "",
+  ADD_INTEREST: "admin/interest/add",
 };
 
 export default ApiUrls;

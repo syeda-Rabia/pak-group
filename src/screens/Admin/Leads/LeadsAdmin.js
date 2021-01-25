@@ -38,45 +38,42 @@ import {
   Input,
   Select,
   MenuItem,
+  TextField,
 } from "@material-ui/core";
 import { validateEmail } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+    "& .MuiCircularProgress-colorPrimary": {
+      color: "#fff",
+    },
+  },
+}));
 
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
 
-  const [showView, setShowView] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
-  const [setPlay, setShowPlay] = useState(false);
-  const [value, setValue] = useState();
+  // const [showView, setShowView] = useState(false);
+  // const [showDelete, setShowDelete] = useState(false);
+  // const [showEdit, setShowEdit] = useState(false);
+  // const [setPlay, setShowPlay] = useState(false);
+  // const [value, setValue] = useState();
   const [showAdd, setShowAdd] = useState(false);
-  const [addInterest, setAddInterest] = useState(false);
-  const [data, setData] = useState(LeadsData);
-  const [selectedID, setSelectedID] = useState(0);
+  // const [addInterest, setAddInterest] = useState(false);
+  // const [data, setData] = useState(LeadsData);
+  // const [selectedID, setSelectedID] = useState(null);
   const audioTune = new Audio(sample);
   const audioTune2 = new Audio(sample2);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
-  const useStyles = makeStyles((theme) => ({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-      "& .MuiCircularProgress-colorPrimary": {
-        color: "#fff",
-      },
-    },
-  }));
 
   const classes = useStyles();
 
   useEffect(() => {
-    setIsLoading(true);
-    getAllLeadsData();
-  }, []);
-  useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     getAllLeadsData();
   }, [refresh]);
 
@@ -93,126 +90,6 @@ export default function LeadsAdmin() {
 
     // console.log("***********************");
     // console.log(JSON.stringify(resp.data.leads));
-  };
-
-  const ModalPlay = ({ item }) => {
-    const [playAudio, setPlayAudio] = useState(false);
-    const [playAudio2, setPlayAudio2] = useState(false);
-
-    useEffect(() => {
-      audioTune.load();
-    }, []);
-
-    const playSound = () => {
-      audioTune.play();
-      setPlayAudio(true);
-    };
-
-    const pauseSound = () => {
-      audioTune.pause();
-      setPlayAudio(false);
-    };
-
-    useEffect(() => {
-      audioTune2.load();
-    }, []);
-
-    const playSound2 = () => {
-      audioTune2.play();
-      setPlayAudio2(true);
-    };
-
-    const pauseSound2 = () => {
-      audioTune2.pause();
-      setPlayAudio2(false);
-    };
-
-    return (
-      <Modal
-        show={setPlay}
-        onHide={() => {
-          setShowPlay(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
-        </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
-          <Modal.Body>
-            <Card
-              className="shadow  bg-white rounded "
-              style={{ width: "80%", height: "40px", marginLeft: "35px" }}
-            >
-              <Card.Body>
-                <span className="spn1">01/12/2020</span>
-                <span className="spn2">Recording 1</span>
-                {playAudio ? (
-                  <button
-                    type="button"
-                    className="bg-transparent  button-focus mr-2 button-bg"
-                    onClick={pauseSound}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="bg-transparent  button-focus mr-2 button-bg"
-                    onClick={playSound}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                  </button>
-                )}
-              </Card.Body>
-            </Card>
-            <Card
-              className="shadow  bg-white rounded "
-              style={{
-                width: "80%",
-                height: "40px",
-                marginTop: "20px",
-                marginLeft: "35px",
-              }}
-            >
-              <Card.Body>
-                <span className="spn1">31/12/2020</span>
-                <span className="spn2">Recording 2</span>
-                {playAudio2 ? (
-                  <button
-                    type="button"
-                    className="bg-transparent  button-focus mr-2 button-bg"
-                    onClick={pauseSound2}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="bg-transparent  button-focus mr-2 button-bg"
-                    onClick={playSound2}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                  </button>
-                )}
-              </Card.Body>
-            </Card>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              style={{ backgroundColor: "#2258BF" }}
-              onClick={() => {
-                setShowPlay(false);
-              }}
-            >
-              Close
-            </Button>
-          </Modal.Footer>
-        </div>
-      </Modal>
-    );
   };
 
   const ModalAdd = ({ item }) => {
@@ -397,10 +274,7 @@ export default function LeadsAdmin() {
           </>
         ) : null}
 
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Add Lead</Modal.Title>
         </Modal.Header>
         <form
@@ -408,7 +282,7 @@ export default function LeadsAdmin() {
             SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
+          <div>
             <Modal.Body>
               <div
                 style={{
@@ -491,18 +365,18 @@ export default function LeadsAdmin() {
                     />
                   </div>
                   {/* <div className="pb-3">
-                    <h6>Budget</h6>
-                    <Input
-                      required="true"
-                      className="form-control input-width w-100"
-                      placeholder="Enter Budget"
-                      type="text"
-                      value={budget}
-                      onChange={(e) => {
-                        setBudget(e.target.value);
-                      }}
-                    />
-                  </div> */}
+                  <h6>Budget</h6>
+                  <Input
+                    required="true"
+                    className="form-control input-width w-100"
+                    placeholder="Enter Budget"
+                    type="text"
+                    value={budget}
+                    onChange={(e) => {
+                      setBudget(e.target.value);
+                    }}
+                  />
+                </div> */}
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
@@ -551,19 +425,19 @@ export default function LeadsAdmin() {
                   </div>
 
                   {/* <div className="pb-3">
-                    <h6>Task</h6>
-                    <Select
-                      value={task}
-                      onChange={(e) => {
-                        setTask(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <MenuItem value={"Sale"}>Sale</MenuItem>
-                      <MenuItem value={"rent"}>Rent</MenuItem>
-                      <MenuItem value={"other"}>other</MenuItem>
-                    </Select>
-                  </div> */}
+                  <h6>Task</h6>
+                  <Select
+                    value={task}
+                    onChange={(e) => {
+                      setTask(e.target.value);
+                    }}
+                    className="form-control form-control-sm w-100"
+                  >
+                    <MenuItem value={"Sale"}>Sale</MenuItem>
+                    <MenuItem value={"rent"}>Rent</MenuItem>
+                    <MenuItem value={"other"}>other</MenuItem>
+                  </Select>
+                </div> */}
 
                   <div className="pb-3">
                     <h6>Budget</h6>
@@ -597,6 +471,16 @@ export default function LeadsAdmin() {
                         : null}
                     </Select>
                   </div>
+                  <div className="mt-1">
+                    <h6>Deadline</h6>
+                    <KeyboardDatePickerExample
+                      value={time}
+                      showDate={HandleTimeValue}
+                      onChange={(e) => {
+                        setTime(e.target.value);
+                      }}
+                    />
+                  </div>
                 </Col>
               </div>
             </Modal.Body>
@@ -623,359 +507,215 @@ export default function LeadsAdmin() {
     );
   };
 
-  const ModalView = ({ item }) => {
-    console.log(
-      "____________________________________________________________________",
-      item
-    );
+  const LeadTable = ({ item, index }) => {
+    const [showEdit, setShowEdit] = useState(false);
+    const [selectedID, setSelectedID] = useState(null);
+    const [showView, setShowView] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+    const [setPlay, setShowPlay] = useState(false);
 
-    const [client, setClient] = useState(item.client_name);
-    const [contact, setContact] = useState(item.contact);
-    const [budget, setBudget] = useState(item.budget);
+    const ModalEdit = ({ item }) => {
+      console.log(
+        "____________________________________________________________________",
+        item
+      );
 
-    const [country, setCountry] = useState(item.country_city);
-    // const [status, setStatus] = useState("New");
+      const [allProjects, setAllProjects] = useState([]);
+      const [project, setProject] = useState(item.project.id);
+      const [inventory, setInventory] = useState();
+      const [allSource, setAllSource] = useState([
+        "Newspaper",
+        "Digital Marketing",
+        "Other",
+        "TV",
+        "Personal Personal",
+        "SMS",
+        "Outdoor",
+      ]);
 
-    const [emailError, setEmailError] = useState(false);
+      const [selectedSource, setSelectedSource] = useState(item.source);
 
-    const [email, setEmail] = useState(item.email);
+      const [client, setClient] = useState(item.client_name);
+      const [contact, setContact] = useState(item.contact);
+      const [budget, setBudget] = useState(item.budget);
 
-    return (
-      <Modal
-        show={showView}
-        onHide={() => {
-          setShowView(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
-        </Modal.Header>
-        <div>
-          <Modal.Body>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <Col>
-                <div className="pb-3">
-                  <h6>Client</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100 "
-                    placeholder="Enter  Name"
-                    type="text"
-                    value={client}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Contact</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100 "
-                    placeholder="Enter Contact"
-                    type="tel"
-                    minLength="11"
-                    maxLength="11"
-                    value={contact}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Email</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    error={emailError ? true : false}
-                    className="form-control input-width w-100"
-                    placeholder="Enter email"
-                    type="email"
-                    value={email}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6>Country_City</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100"
-                    placeholder="Enter Country"
-                    type="text"
-                    value={country}
-                  />
-                </div>
-              </Col>
-              <Col className="ml-3">
-                <div className="pb-3">
-                  <h6>Project</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100"
-                    placeholder="Enter Country"
-                    type="text"
-                    defaultValue={item.project.name}
-                  />
-                </div>
-                <div className="pb-3">
-                  <h6 style={{ marginTop: 7 }}>Interest</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100"
-                    placeholder="Enter Country"
-                    type="text"
-                    defaultValue={item.inventory.inventory_name}
-                  />
-                </div>
+      const [country, setCountry] = useState(item.country_city);
+      // const [status, setStatus] = useState("New");
+      const [interest, setInterest] = useState([]);
 
-                <div className="pb-3">
-                  <h6>Budget</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100"
-                    placeholder="Enter Budget"
-                    type="text"
-                    value={budget}
-                  />
-                </div>
+      const [emailError, setEmailError] = useState(false);
 
-                <div className="pb-3">
-                  <h6>Source</h6>
-                  <Input
-                    required="true"
-                    disableUnderline
-                    readOnly
-                    className="form-control input-width w-100"
-                    placeholder="Enter Country"
-                    type="text"
-                    defaultValue={item.source}
-                  />
-                </div>
-              </Col>
-            </div>
-          </Modal.Body>
-        </div>
-      </Modal>
-    );
-  };
+      const [email, setEmail] = useState(item.email);
+      const [task, setTask] = useState("Sale");
+      const [deadline, setDeadline] = useState("");
+      const [source, setSource] = useState("newspaper");
+      const [innerLoading, setInnerLoading] = useState(false);
 
-  const ModalEdit = ({ item }) => {
-    // console.log(
-    //   "____________________________________________________________________",
-    //   item
-    // );
+      useEffect(() => {
+        setInnerLoading(true);
+        getProjectDetails();
+      }, []);
 
-    const [allProjects, setAllProjects] = useState([]);
-    const [project, setProject] = useState();
-    const [inventory, setInventory] = useState();
-    const [allSource, setAllSource] = useState([
-      "Newspaper",
-      "Digital Marketing",
-      "Other",
-      "TV",
-      "Personal Personal",
-      "SMS",
-      "Outdoor",
-    ]);
+      useEffect(() => {
+        getInventroyDataAgaintsProject(project);
+      }, [project]);
 
-    const [selectedSource, setSelectedSource] = useState(item.source);
+      const getProjectDetails = async () => {
+        console.log("getProjectDetails is call ----- ");
 
-    const [client, setClient] = useState(item.client_name);
-    const [contact, setContact] = useState(item.contact);
-    const [budget, setBudget] = useState(item.budget);
+        let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
-    const [country, setCountry] = useState(item.country_city);
-    // const [status, setStatus] = useState("New");
-    const [interest, setInterest] = useState([]);
+        // console.log("response in Leads ------", JSON.stringify(resp));
 
-    const [emailError, setEmailError] = useState(false);
+        if (resp.data != null) {
+          setAllProjects(resp.data.projects.data);
+        }
+        setInnerLoading(false);
 
-    const [email, setEmail] = useState(item.email);
-    const [task, setTask] = useState("Sale");
-    const [deadline, setDeadline] = useState("");
-    const [source, setSource] = useState("newspaper");
-    const [innerLoading, setInnerLoading] = useState(false);
-
-    useEffect(() => {
-      setInnerLoading(true);
-      getProjectDetails();
-    }, []);
-
-    useEffect(() => {
-      getInventroyDataAgaintsProject(project);
-    }, [project]);
-
-    const getProjectDetails = async () => {
-      console.log("getProjectDetails is call ----- ");
-
-      let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
-
-      // console.log("response in Leads ------", JSON.stringify(resp));
-
-      if (resp.data != null) {
-        setAllProjects(resp.data.projects.data);
-      }
-      setInnerLoading(false);
-
-      // console.log(
-      //   "response in Leads ------",
-      //   JSON.stringify(resp.data.users.data)
-      // );
-    };
-
-    const getInventroyDataAgaintsProject = async (id) => {
-      let resp = await GET("admin/inventory/all/" + id);
-
-      if (resp.data != null) {
-        let { inventories } = resp.data;
-        setInterest(inventories);
-      }
-      // console.log("inventory -----------------", JSON.stringify(resp));
-    };
-
-    const SendRecordToServer = async (event) => {
-      event.preventDefault();
-
-      // send data to server
-      let formData = {
-        id: item.id,
-        client_name: client,
-        contact: contact,
-        source: selectedSource,
-        phone: contact,
-        email: email,
-        inventory_id: inventory,
-        project_id: project,
-        budget: budget,
-        country_city: country,
+        // console.log(
+        //   "response in Leads ------",
+        //   JSON.stringify(resp.data.users.data)
+        // );
       };
 
-      console.log("sending data is ---------------- ", formData);
+      const getInventroyDataAgaintsProject = async (id) => {
+        let resp = await GET("admin/inventory/all/" + id);
 
-      let resp = await POST(ApiUrls.EDIT_LEAD, formData);
+        if (resp.data != null) {
+          let { inventories } = resp.data;
+          setInterest(inventories);
+        }
+        // console.log("inventory -----------------", JSON.stringify(resp));
+      };
 
-      setRefresh(!refresh);
-      console.log("Receving data after submission-----------------");
-      console.trace(JSON.stringify(resp.data));
+      const SendRecordToServer = async (event) => {
+        event.preventDefault();
 
-      setShowEdit(false);
-    };
+        // send data to server
+        let formData = {
+          id: item.id,
+          client_name: client,
+          contact: contact,
+          source: selectedSource,
+          phone: contact,
+          email: email,
+          inventory_id: inventory,
+          project_id: project,
+          budget: budget,
+          country_city: country,
+        };
 
-    return (
-      <Modal
-        show={showEdit}
-        onHide={() => {
-          setShowEdit(false);
-        }}
-      >
-        {innerLoading == true ? (
-          <>
-            <Backdrop className={classes.backdrop} open={true}>
-              <CircularProgress disableShrink />
-            </Backdrop>
-          </>
-        ) : null}
+        console.log("sending data is ---------------- ", formData);
 
-        <Modal.Header
-          closeButton
-          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
-        </Modal.Header>
-        <form
-          onSubmit={(e) => {
-            SendRecordToServer(e);
+        let resp = await POST(ApiUrls.EDIT_LEAD, formData);
+
+        setRefresh(!refresh);
+        console.log("Receving data after submission-----------------");
+        console.trace(JSON.stringify(resp.data));
+
+        setShowEdit(false);
+      };
+
+      return (
+        <Modal
+          show={showEdit}
+          onHide={() => {
+            setShowEdit(false);
           }}
         >
-          <div>
-            <Modal.Body>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Col>
-                  <div className="pb-3">
-                    <h6>Client</h6>
-                    <Input
-                      required="true"
-                      className="form-control input-width w-100 "
-                      placeholder="Enter  Name"
-                      type="text"
-                      value={client}
-                      onChange={(e) => {
-                        setClient(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Contact</h6>
-                    <Input
-                      required="true"
-                      className="form-control input-width w-100 "
-                      placeholder="Enter Contact"
-                      type="tel"
-                      minLength="11"
-                      maxLength="11"
-                      value={contact}
-                      onChange={(e) => {
-                        setContact(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Email</h6>
-                    <Input
-                      required="true"
-                      error={emailError ? true : false}
-                      className="form-control input-width w-100"
-                      placeholder="Enter email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        if (validateEmail(e.target.value)) {
-                          // DO Somtin
-                          setEmailError(false);
-                        } else {
-                          // do some
-                          setEmailError(true);
-                        }
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Country_City</h6>
-                    <Input
-                      required="true"
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
-                      value={country}
-                      onChange={(e) => {
-                        setCountry(e.target.value);
-                      }}
-                    />
-                  </div>
+          {innerLoading == true ? (
+            <>
+              <Backdrop className={classes.backdrop} open={true}>
+                <CircularProgress disableShrink />
+              </Backdrop>
+            </>
+          ) : null}
 
-                  {/* <div className="pb-3">
+          <Modal.Header
+            closeButton
+            // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          >
+            <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
+          </Modal.Header>
+          <form
+            onSubmit={(e) => {
+              SendRecordToServer(e);
+            }}
+          >
+            <div>
+              <Modal.Body>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Col>
+                    <div className="pb-3">
+                      <h6>Client</h6>
+                      <Input
+                        required="true"
+                        className="form-control input-width w-100 "
+                        placeholder="Enter  Name"
+                        type="text"
+                        value={client}
+                        onChange={(e) => {
+                          setClient(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Contact</h6>
+                      <Input
+                        required="true"
+                        className="form-control input-width w-100 "
+                        placeholder="Enter Contact"
+                        type="tel"
+                        minLength="11"
+                        maxLength="11"
+                        value={contact}
+                        onChange={(e) => {
+                          setContact(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Email</h6>
+                      <Input
+                        required="true"
+                        error={emailError ? true : false}
+                        className="form-control input-width w-100"
+                        placeholder="Enter email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
+                          if (validateEmail(e.target.value)) {
+                            // DO Somtin
+                            setEmailError(false);
+                          } else {
+                            // do some
+                            setEmailError(true);
+                          }
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Country_City</h6>
+                      <Input
+                        required="true"
+                        className="form-control input-width w-100"
+                        placeholder="Enter Country"
+                        type="text"
+                        value={country}
+                        onChange={(e) => {
+                          setCountry(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    {/* <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
                       required="true"
@@ -988,58 +728,61 @@ export default function LeadsAdmin() {
                       }}
                     />
                   </div> */}
-                </Col>
-                <Col className="ml-3">
-                  <div className="pb-3">
-                    <h6>Project</h6>
-                    <Select
-                      className="form-control form-control-sm w-100"
-                      defaultValue={item.project.name}
-                      onChange={(e) => {
-                        console.log(
-                          "select project ID is -----",
-                          e.target.value
-                        );
-                        setProject(e.target.value);
-                      }}
-                    >
-                      {allProjects.length > 0
-                        ? allProjects.map((pro) => (
-                            <MenuItem key={pro.id} value={pro.id}>
-                              {pro.name}
+                  </Col>
+                  <Col className="ml-3">
+                    <div className="pb-3">
+                      <h6>Project</h6>
+                      {/* <TextField defaultValue={item.project.name} /> */}
+                      <Select
+                        className="form-control form-control-sm w-100"
+                        defaultValue={item.project.id}
+                        onChange={(e) => {
+                          console.log(
+                            "select project ID is -----",
+                            e.target.value
+                          );
+                          setProject(e.target.value);
+                        }}
+                      >
+                        {allProjects.length > 0
+                          ? allProjects.map((pro) => (
+                              <MenuItem key={pro.id} value={pro.id}>
+                                {pro.name}
+                              </MenuItem>
+                            ))
+                          : null}
+                      </Select>
+                    </div>
+                    <div className="pb-3">
+                      <h6 style={{ marginTop: 7 }}>Interest</h6>
+                      {/* <TextField defaultValue={item.inventory.inventory_name} /> */}
+
+                      <Select
+                        className="form-control form-control-sm w-100"
+                        defaultValue={item.inventory.inventory_id}
+                        onChange={(e) => {
+                          console.log(
+                            "selected Inventriry is ---- ",
+                            e.target.value
+                          );
+                          setInventory(e.target.value);
+                        }}
+                      >
+                        {interest.length > 0 ? (
+                          interest.map((int, index) => (
+                            <MenuItem key={int.id} value={int.id}>
+                              {int.inventory_name} - {int.block_name}
                             </MenuItem>
                           ))
-                        : null}
-                    </Select>
-                  </div>
-                  <div className="pb-3">
-                    <h6 style={{ marginTop: 7 }}>Interest</h6>
-                    <Select
-                      className="form-control form-control-sm w-100"
-                      defaultValue={item.inventory.inventory_name}
-                      onChange={(e) => {
-                        console.log(
-                          "selected Inventriry is ---- ",
-                          e.target.value
-                        );
-                        setInventory(e.target.value);
-                      }}
-                    >
-                      {interest.length > 0 ? (
-                        interest.map((int, index) => (
-                          <MenuItem key={int.id} value={int.id}>
-                            {int.inventory_name} - {int.block_name}
+                        ) : (
+                          <MenuItem value="">
+                            <em>No Inventory Against this Project.</em>
                           </MenuItem>
-                        ))
-                      ) : (
-                        <MenuItem value="">
-                          <em>Select Project Please.</em>
-                        </MenuItem>
-                      )}
-                    </Select>
-                  </div>
+                        )}
+                      </Select>
+                    </div>
 
-                  {/* <div className="pb-3">
+                    {/* <div className="pb-3">
                     <h6>Task</h6>
                     <Select
                       value={task}
@@ -1054,200 +797,397 @@ export default function LeadsAdmin() {
                     </Select>
                   </div> */}
 
+                    <div className="pb-3">
+                      <h6>Budget</h6>
+                      <Input
+                        required="true"
+                        className="form-control input-width w-100"
+                        placeholder="Enter Budget"
+                        type="text"
+                        value={budget}
+                        onChange={(e) => {
+                          setBudget(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="pb-3">
+                      <h6>Source</h6>
+                      <Select
+                        defaultValue={item.source}
+                        // value={selectedSource}
+                        onChange={(e) => {
+                          setSelectedSource(e.target.value);
+                        }}
+                        className="form-control form-control-sm w-100"
+                      >
+                        {allSource.length > 0
+                          ? allSource.map((src) => (
+                              <MenuItem key={src} value={src}>
+                                {src}
+                              </MenuItem>
+                            ))
+                          : null}
+                      </Select>
+                    </div>
+                  </Col>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  style={{ backgroundColor: "#2258BF" }}
+                  onClick={() => {
+                    setShowEdit(false);
+                  }}
+                >
+                  Close
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#2258BF" }}
+                  type="submit"
+                  value="Submit"
+                >
+                  Submit
+                </Button>
+              </Modal.Footer>
+            </div>
+          </form>
+        </Modal>
+      );
+    };
+
+    const ModalPlay = ({ item }) => {
+      const [playAudio, setPlayAudio] = useState(false);
+      const [playAudio2, setPlayAudio2] = useState(false);
+
+      useEffect(() => {
+        audioTune.load();
+      }, []);
+
+      const playSound = () => {
+        audioTune.play();
+        setPlayAudio(true);
+      };
+
+      const pauseSound = () => {
+        audioTune.pause();
+        setPlayAudio(false);
+      };
+
+      useEffect(() => {
+        audioTune2.load();
+      }, []);
+
+      const playSound2 = () => {
+        audioTune2.play();
+        setPlayAudio2(true);
+      };
+
+      const pauseSound2 = () => {
+        audioTune2.pause();
+        setPlayAudio2(false);
+      };
+
+      return (
+        <Modal
+          show={setPlay}
+          onHide={() => {
+            setShowPlay(false);
+          }}
+        >
+          <Modal.Header
+            closeButton
+            className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          >
+            <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
+          </Modal.Header>
+          <div className="col-lg-12 shadow p-3  bg-white rounded ">
+            <Modal.Body>
+              <Card
+                className="shadow  bg-white rounded "
+                style={{ width: "80%", height: "40px", marginLeft: "35px" }}
+              >
+                <Card.Body>
+                  <span className="spn1">01/12/2020</span>
+                  <span className="spn2">Recording 1</span>
+                  {playAudio ? (
+                    <button
+                      type="button"
+                      className="bg-transparent  button-focus mr-2 button-bg"
+                      onClick={pauseSound}
+                    >
+                      <FontAwesomeIcon
+                        style={{ fontSize: 15 }}
+                        icon={faPause}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="bg-transparent  button-focus mr-2 button-bg"
+                      onClick={playSound}
+                    >
+                      <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                    </button>
+                  )}
+                </Card.Body>
+              </Card>
+              <Card
+                className="shadow  bg-white rounded "
+                style={{
+                  width: "80%",
+                  height: "40px",
+                  marginTop: "20px",
+                  marginLeft: "35px",
+                }}
+              >
+                <Card.Body>
+                  <span className="spn1">31/12/2020</span>
+                  <span className="spn2">Recording 2</span>
+                  {playAudio2 ? (
+                    <button
+                      type="button"
+                      className="bg-transparent  button-focus mr-2 button-bg"
+                      onClick={pauseSound2}
+                    >
+                      <FontAwesomeIcon
+                        style={{ fontSize: 15 }}
+                        icon={faPause}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="bg-transparent  button-focus mr-2 button-bg"
+                      onClick={playSound2}
+                    >
+                      <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                    </button>
+                  )}
+                </Card.Body>
+              </Card>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowPlay(false);
+                }}
+              >
+                Close
+              </Button>
+            </Modal.Footer>
+          </div>
+        </Modal>
+      );
+    };
+
+    const ModalView = ({ item }) => {
+      console.log(
+        "____________________________________________________________________",
+        item
+      );
+
+      const [client, setClient] = useState(item.client_name);
+      const [contact, setContact] = useState(item.contact);
+      const [budget, setBudget] = useState(item.budget);
+
+      const [country, setCountry] = useState(item.country_city);
+      // const [status, setStatus] = useState("New");
+
+      const [emailError, setEmailError] = useState(false);
+
+      const [email, setEmail] = useState(item.email);
+
+      return (
+        <Modal
+          show={showView}
+          onHide={() => {
+            setShowView(false);
+          }}
+        >
+          <Modal.Header
+            closeButton
+            // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          >
+            <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
+          </Modal.Header>
+          <div>
+            <Modal.Body>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Col>
+                  <div className="pb-3">
+                    <h6>Client</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100 "
+                      placeholder="Enter  Name"
+                      type="text"
+                      value={client}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Contact</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100 "
+                      placeholder="Enter Contact"
+                      type="tel"
+                      minLength="11"
+                      maxLength="11"
+                      value={contact}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Email</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      error={emailError ? true : false}
+                      className="form-control input-width w-100"
+                      placeholder="Enter email"
+                      type="email"
+                      value={email}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Country_City</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      value={country}
+                    />
+                  </div>
+                </Col>
+                <Col className="ml-3">
+                  <div className="pb-3">
+                    <h6>Project</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      defaultValue={item.project.name}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6 style={{ marginTop: 7 }}>Interest</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      defaultValue={item.inventory.inventory_name}
+                    />
+                  </div>
+
                   <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
                       required="true"
+                      disableUnderline
+                      readOnly
                       className="form-control input-width w-100"
                       placeholder="Enter Budget"
                       type="text"
                       value={budget}
-                      onChange={(e) => {
-                        setBudget(e.target.value);
-                      }}
                     />
                   </div>
 
                   <div className="pb-3">
                     <h6>Source</h6>
-                    <Select
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
                       defaultValue={item.source}
-                      // value={selectedSource}
-                      onChange={(e) => {
-                        setSelectedSource(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      {allSource.length > 0
-                        ? allSource.map((src) => (
-                            <MenuItem key={src} value={src}>
-                              {src}
-                            </MenuItem>
-                          ))
-                        : null}
-                    </Select>
+                    />
                   </div>
                 </Col>
               </div>
             </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowEdit(false);
-                }}
-              >
-                Close
-              </Button>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                type="submit"
-                value="Submit"
-              >
-                Submit
-              </Button>
-            </Modal.Footer>
           </div>
-        </form>
-      </Modal>
-    );
-  };
-  const ModalDelete = ({ item }) => {
-    const DeleteRecordFromData = (item) => {
-      console.log("item is ", item);
-
-      let { id } = item;
-      console.log("ID is ", id);
-
-      let arr = data;
-
-      arr = arr.filter((user) => user.id != id.toString());
-
-      console.log("arr length ", arr.length, arr, selectedID);
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      setData(arr);
-    };
-    return (
-      <Modal
-        show={showDelete}
-        onHide={() => {
-          setShowDelete(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
-        </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
-          <Modal.Body>Do you really want to delete this Record!</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setShowDelete(false);
-              }}
-            >
-              Close
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                DeleteRecordFromData(item);
-                setShowDelete(false);
-              }}
-            >
-              Delete
-            </Button>
-          </Modal.Footer>
-        </div>
-      </Modal>
-    );
-  };
-  const ModalAddInterset = ({ item }) => {
-    const [interest, setInterest] = useState("");
-
-    let user = {
-      id: data.length + 1,
-      name: interest,
+        </Modal>
+      );
     };
 
-    const addData = async (event) => {
-      event.preventDefault();
-      let postData = {
-        name: interest,
+    const ModalDelete = ({ item }) => {
+      const DeleteRecordFromData = (item) => {
+        // console.log("item is ", item);
+        // let { id } = item;
+        // console.log("ID is ", id);
+        // let arr = data;
+        // arr = arr.filter((user) => user.id != id.toString());
+        // console.log("arr length ", arr.length, arr, selectedID);
+        // setSelectedID((state) => {
+        //   if (state == arr.length) return state - 1;
+        //   return state;
+        // });
+        // setData(arr);
       };
-      let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
-      console.log(res);
-      let arr = data;
-
-      setData([user].concat(arr));
-      setAddInterest(false);
-    };
-
-    return (
-      <Modal
-        show={addInterest}
-        onHide={() => {
-          setAddInterest(false);
-        }}
-      >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
-          <Modal.Title style={{ color: "#818181" }}>Add Category</Modal.Title>
-        </Modal.Header>
-        <form
-          onSubmit={(e) => {
-            // SendRecordToServer(e);
+      return (
+        <Modal
+          show={showDelete}
+          onHide={() => {
+            setShowDelete(false);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
-            <Modal.Body>
-              <div className="pb-3">
-                <h6>Interest</h6>
-                <input
-                  className="form-control  w-100 "
-                  placeholder="Enter Interest"
-                  type="text"
-                  minLength="3"
-                  maxLength="30"
-                  value={interest}
-                  onChange={(e) => {
-                    setInterest(e.target.value);
-                  }}
-                />
-              </div>
-            </Modal.Body>
+          <Modal.Header
+            closeButton
+            className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+          >
+            <Modal.Title style={{ color: "#818181" }}>
+              Delete Record
+            </Modal.Title>
+          </Modal.Header>
+          <div className="col-lg-12 shadow p-3  bg-white rounded ">
+            <Modal.Body>Do you really want to delete this Record!</Modal.Body>
             <Modal.Footer>
               <Button
-                style={{ backgroundColor: "#2258BF" }}
+                variant="secondary"
                 onClick={() => {
-                  setAddInterest(false);
+                  setShowDelete(false);
                 }}
               >
                 Close
               </Button>
               <Button
-                style={{ backgroundColor: "#2258BF" }}
-                type="submit"
-                value="Submit"
-                onClick={addData}
+                variant="primary"
+                onClick={() => {
+                  DeleteRecordFromData(item);
+                  setShowDelete(false);
+                }}
               >
-                Add
+                Delete
               </Button>
             </Modal.Footer>
           </div>
-        </form>
-      </Modal>
-    );
-  };
-  const LeadTable = ({ item, index }) => {
+        </Modal>
+      );
+    };
+
     let country_city = "country/city";
     console.log("index is -----------", index);
 
@@ -1357,11 +1297,19 @@ export default function LeadsAdmin() {
               Delete Record
             </ReactTooltip>
           </div>
+          {allLeads.length > 0 && selectedID !== null ? (
+            <>
+              <ModalPlay item={allLeads[selectedID]} />
+              <ModalDelete item={allLeads[selectedID]} />
+              <ModalView item={allLeads[selectedID]} />
+              <ModalEdit item={allLeads[selectedID]} />
+            </>
+          ) : null}
         </td>
       </tr>
     );
   };
-
+  console.log("i am parent ______________________");
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
@@ -1402,29 +1350,19 @@ export default function LeadsAdmin() {
                 <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
               </button>
             </Link>
-            <ReactTooltip id="adTip" place="top" effect="solid">
-              Add new Interest
-            </ReactTooltip>
           </div>
-          <div className=" float-right pl-2">
-            <button
-              data-tip
-              data-for="AddTip"
-              type="button"
-              className="btn btn-primary"
-              style={{
-                backgroundColor: "#2258BF",
-              }}
-              onClick={() => {
-                setShowAdd(true);
-              }}
-            >
-              <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
-            </button>
-            <ReactTooltip id="AddTip" place="top" effect="solid">
-              Add new Lead
-            </ReactTooltip>
-          </div>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              setShowAdd(true);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
+          </button>{" "}
         </Row>
         <div className="table-responsive">
           <table className="table table-hover">
@@ -1551,15 +1489,6 @@ export default function LeadsAdmin() {
                     return <TableEmployee item={item} index={index} />;
                   })} */}
             </tbody>
-            {allLeads.length > 0 ? (
-              <>
-                <ModalPlay item={allLeads[selectedID]} />
-                <ModalDelete item={allLeads[selectedID]} />
-                <ModalView item={allLeads[selectedID]} />
-                <ModalEdit item={allLeads[selectedID]} />
-                <ModalAddInterset />
-              </>
-            ) : null}
           </table>
         </div>
         <ModalAdd />

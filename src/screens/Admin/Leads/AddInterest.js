@@ -15,43 +15,60 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
+
+import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+    "& .MuiCircularProgress-colorPrimary": {
+      color: "#fff",
+    },
+  },
+}));
 export default function AddInterest() {
+  const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
 
-  const [data, setData] = useState(AddCategory);
+  const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [value, setValue] = useState();
   const handleFetchData = async () => {
-    let res = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
-    console.log(res);
+    setIsLoading(true);
+    let res = await GET(ApiUrls.GET_ALL_INTEREST);
+    console.log("Res___________________________", res);
     if (res.success != false) {
-      setData(res.data.ProjectCategory);
+      setData(res.data.Interest);
     }
+    setIsLoading(false);
   };
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   handleFetchData();
+  // }, []);
+  useEffect(() => {
     handleFetchData();
-  }, []);
+  }, [refresh]);
 
   const ModalAdd = ({ item }) => {
     const [interest, SetInterest] = useState("");
 
-    let user = {
-      id: data.length + 1,
-      name: interest,
-    };
-
     const addData = async (event) => {
       event.preventDefault();
       let postData = {
-        name: interest,
+        interest: interest,
       };
-      let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
-      console.log(res);
-      let arr = data;
+      console.log("post data_______________________________", postData);
+      let res = await POST(ApiUrls.ADD_INTEREST, postData);
+      console.log("add Intrest Res_________________________", res);
+      setRefresh(!refresh);
+      // let arr = data;
 
-      setData([user].concat(arr));
+      // setData([user].concat(arr));
       setShowAdd(false);
     };
     // };
@@ -115,25 +132,9 @@ export default function AddInterest() {
     );
   };
   const ModalEdit = ({ item }) => {
+    // console.log("_________________________Item ", item);
     const [interest, SetInterest] = useState(item.name);
 
-    const SendRecordToServer = (event) => {
-      event.preventDefault();
-
-      console.log("SendRecordToServer", event);
-      // add validations
-      // push
-
-      let user = {
-        id: "1",
-        name: interest,
-      };
-
-      //   let arr = data;
-      //   arr.push(user);
-      //   setData(arr);
-      //   setShowAdd(false);
-    };
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
@@ -147,14 +148,16 @@ export default function AddInterest() {
       };
       let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
       console.log(res);
-      console.log(user, item);
-      let arr = data.map((val) => {
-        if (val.id == user.id) val = user;
-        return val;
-      });
+      setRefresh(!refresh);
+
+      // console.log(user, item);
+      // let arr = data.map((val) => {
+      //   if (val.id == user.id) val = user;
+      //   return val;
+      // });
 
       // arr.push(user);
-      setData(arr);
+      // setData(arr);
       setShowEdit(false);
     };
 
@@ -165,10 +168,7 @@ export default function AddInterest() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Edit Interest</Modal.Title>
         </Modal.Header>
         <form
@@ -176,7 +176,7 @@ export default function AddInterest() {
             EditRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div>
             <Modal.Body>
               {/*             
             <h6>ID</h6>
@@ -226,20 +226,22 @@ export default function AddInterest() {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
       console.log(res, "deleted");
-      if (res.success != false) {
-        // setData(res.data.ProjectCategory);
-      }
-      console.log("item is ", item);
-      let { id } = item;
-      console.log("ID is ", id);
-      let arr = data;
-      arr = arr.filter((user) => user.id != id.toString());
-      console.log("arr length ", arr.length, arr, selectedID);
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      setData(arr);
+      setRefresh(!refresh);
+
+      // if (res.success != false) {
+      //   // setData(res.data.ProjectCategory);
+      // }
+      // console.log("item is ", item);
+      // let { id } = item;
+      // console.log("ID is ", id);
+      // let arr = data;
+      // arr = arr.filter((user) => user.id != id.toString());
+      // console.log("arr length ", arr.length, arr, selectedID);
+      // setSelectedID((state) => {
+      //   if (state == arr.length) return state - 1;
+      //   return state;
+      // });
+      // setData(arr);
     };
     return (
       <Modal
@@ -248,13 +250,10 @@ export default function AddInterest() {
           setShowDelete(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div>
           <Modal.Body>Do you really want to delete this Interest</Modal.Body>
           <Modal.Footer>
             <Button
@@ -280,10 +279,11 @@ export default function AddInterest() {
     );
   };
   const Table = ({ item, index }) => {
+    // console.log("Table Row_____________________", item);
     return (
       <tr>
         <td>{index + 1}</td>
-        <td>{item.name}</td>
+        <td>{item.interest}</td>
         <td>
           <div
             className="d-flex d-inline "
@@ -337,6 +337,13 @@ export default function AddInterest() {
       //   marginTop: "10px",
       // }}
     >
+      {isLoading ? (
+        <>
+          <Backdrop className={classes.backdrop} open={true}>
+            <CircularProgress disableShrink />
+          </Backdrop>
+        </>
+      ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 ml-4">
           <h3 style={{ color: "#818181" }}>Interest </h3>
@@ -391,7 +398,7 @@ export default function AddInterest() {
                   // <Skeleton variant="rect" width={"100%"} height={"100%"} />
                 }
                 {data
-                  .filter((item) => item.is_deleted == 0)
+                  // .filter((item) => item.is_deleted == 0)
                   .map((item, index) => {
                     return <Table item={item} index={index} />;
                   })}
