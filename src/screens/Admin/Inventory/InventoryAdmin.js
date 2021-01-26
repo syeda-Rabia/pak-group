@@ -57,27 +57,20 @@ export default function InventoryAdmin(props) {
   const getALlInv = async () => {
     if (props.listData !== undefined) {
       let project_id = props.listData.item.id;
-      console.log(props.listData, "FHdkasjhfkjaksfkjsdahfkjhsdkjfhkj");
       let resp = await GET(
         ApiUrls.GET_SINGLE_PROECT_INVENTORIES + "/" + project_id
       );
 
       if (resp.data != null) {
-        console.log("----------------data -------------");
-        console.log(JSON.stringify(resp.data));
         setAllInventories(resp.data.inventories);
-
-        console.log("----------------data -------------");
       }
     }
     setIsLoading(false);
   };
 
   // let listData = [];
-  console.log("coming Props are ------------ ", JSON.stringify(props));
-
   const ModalEdit = ({ item }) => {
-    // console.log(item, "check");
+    //  ;
     const [serialno, setSerialNo] = useState(item.serial_no);
 
     const [inventory_name, setInventoryName] = useState(item.inventory_name);
@@ -90,7 +83,6 @@ export default function InventoryAdmin(props) {
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log("SendRecordToServer", event);
       // add validations
       // push
 
@@ -110,7 +102,6 @@ export default function InventoryAdmin(props) {
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
       // add validations
       // push
 
@@ -123,8 +114,6 @@ export default function InventoryAdmin(props) {
         property_status: status,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_INVENTORIES, inventory);
-      console.log(res, "some thing");
-      console.log(inventory, item);
       let arr = allInventories.map((val) => {
         if (val.id == inventory.id) val = inventory;
         return val;
@@ -243,15 +232,14 @@ export default function InventoryAdmin(props) {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.GET_DELETED_INVENTORIES + item.id);
-      console.log(res, "deleted");
       setRefresh(!refresh);
 
-      // console.log("item is ", item);
+      //  ;
       // let { id } = item;
-      // console.log("ID is ", id);
+      //  ;
       // let arr = allInventories;
       // arr = arr.filter((user) => user.id != id.toString());
-      // console.log("arr length ", arr.length, arr, selectedID);
+      //  ;
       // setSelectedID((state) => {
       //   if (state == arr.length) return state - 1;
       //   return state;

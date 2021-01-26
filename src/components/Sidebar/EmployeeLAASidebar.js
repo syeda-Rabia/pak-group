@@ -19,7 +19,7 @@ export default function LAASidebar() {
   const [toggle, setToggle] = React.useState(false);
   const displayList = () => {
     setToggle(!toggle);
-    console.log("toggle", toggle);
+    // ;
   };
 
   const List = (props) => {

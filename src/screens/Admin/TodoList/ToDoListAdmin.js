@@ -35,18 +35,16 @@ export default function ToDoListAdmin() {
   const currentData = data.slice(istIndex, lastIndex);
   var today = new Date();
 
-  // console.log('Page Size:', pageSize);
-  // console.log('Total Count: ', totalCount);
+  //  ;
+  //  ;
   const handleShow = (pageCount) => {
     setPageCount(pageCount);
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // console.log('page', page);
+    //  ;
   };
-  const handleDateTime = (value) => {
-    console.log(value);
-  };
+  const handleDateTime = (value) => {};
   const ModalPlay = ({ item }) => {
     const [playAudio, setPlayAudio] = useState(false);
     const [playAudio2, setPlayAudio2] = useState(false);
@@ -168,7 +166,7 @@ export default function ToDoListAdmin() {
   };
 
   const TableRow = ({ index, item }) => {
-    // console.log('item', item);
+    //  ;
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>

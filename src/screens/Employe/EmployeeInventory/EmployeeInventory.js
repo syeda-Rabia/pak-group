@@ -42,7 +42,6 @@ function EmployeeInventory(props) {
     let res = await GET(
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
     );
-    console.log(res);
     if (res.success != false) {
       setData(res.data.inventories);
     }
@@ -177,7 +176,6 @@ function EmployeeInventory(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state is --------------", state);
   return {
     userInfo: state.auth.user_info,
   };

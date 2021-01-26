@@ -78,7 +78,7 @@ export default function LeadsAdmin() {
   }, [refresh]);
 
   const getAllLeadsData = async () => {
-    // console.log("get all lead call ");
+    //  ;
 
     let resp = await GET(ApiUrls.GET_ALL_LEADS);
 
@@ -88,8 +88,8 @@ export default function LeadsAdmin() {
     }
     setIsLoading(false);
 
-    // console.log("***********************");
-    // console.log(JSON.stringify(resp.data.leads));
+    //  ;
+    //  ;
   };
 
   const ModalAdd = ({ item }) => {
@@ -118,36 +118,15 @@ export default function LeadsAdmin() {
     const [interest, setInterest] = useState([]);
 
     const [emailError, setEmailError] = useState(false);
-    const [time, setTime] = useState(timee);
 
-    // {
-    //   id: 4,
-    //   project_id: 1,
-    //   inventory_name: "resen all",
-    //   block_name: "V",
-    //   inventory_category: "Rent",
-    //   property_status: "Open",
-    //   is_deleted: 0,
-    //   created_at: null,
-    //   updated_at: "2021-01-09T08:31:48.000000Z",
-    // },
-    // {
-    //   id: 1,
-    //   project_id: 1,
-    //   inventory_name: "house",
-    //   block_name: "V",
-    //   inventory_category: "Rent",
-    //   property_status: "Open",
-    //   is_deleted: 0,
-    //   created_at: null,
-    //   updated_at: "2021-01-09T08:31:48.000000Z",
-    // },
     const [allocate_to, setAllocate] = useState("Rabia");
     const [email, setEmail] = useState("");
     const [task, setTask] = useState("Sale");
     const [deadline, setDeadline] = useState("");
     const [source, setSource] = useState("newspaper");
     const [innerLoading, setInnerLoading] = useState(false);
+    const [time, setTime] = useState(new Date());
+
     const formatDate = (date) => {
       var d = new Date(date),
         month = "" + (d.getMonth() + 1),
@@ -162,14 +141,12 @@ export default function LeadsAdmin() {
 
     var today = new Date();
     var datee = formatDate(today);
-
     var timee =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     const HandleTimeValue = (value) => {
       const str = value.toString();
       var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
-      console.log(res);
       setTime(res);
     };
     useEffect(() => {
@@ -182,21 +159,12 @@ export default function LeadsAdmin() {
     }, [project]);
 
     const getProjectDetails = async () => {
-      console.log("getProjectDetails is call ----- ");
-
       let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
-
-      console.log("response in Leads ------", JSON.stringify(resp));
 
       if (resp.data != null) {
         setAllProjects(resp.data.projects.data);
       }
       setInnerLoading(false);
-
-      // console.log(
-      //   "response in Leads ------",
-      //   JSON.stringify(resp.data.users.data)
-      // );
     };
 
     const getInventroyDataAgaintsProject = async (id) => {
@@ -206,7 +174,6 @@ export default function LeadsAdmin() {
         let { inventories } = resp.data;
         setInterest(inventories);
       }
-      console.log("inventory -----------------", JSON.stringify(resp));
     };
 
     const SendRecordToServer = async (event) => {
@@ -226,36 +193,13 @@ export default function LeadsAdmin() {
         country_city: country,
       };
 
-      console.log("sending data is ---------------- ", formData);
-
       let resp = await POST(ApiUrls.CREATE_LEAD, formData);
+      console.trace(resp);
 
       setRefresh(!refresh);
-      console.log("Receving data after submission-----------------");
-      console.log(JSON.stringify(resp.data));
+      //  ;
+      //  ;
 
-      // let user = {
-      //   id: "1",
-      //   Name: client,
-      //   Contact: contact,
-      //   Project: project,
-      //   Budget: budget,
-      //   Country: country,
-      //   Interest: inventory,
-      //   Email: email,
-      //   Task: task,
-      //   Toc: "----",
-      //   Status: "----",
-      //   Allocate: "----",
-      //   Deadline: "----",
-      // };
-      // console.log("sending user is -----> ", user);
-
-      // // await
-
-      // let arr = data;
-      // arr.push(user);
-      // setData(arr);
       setShowAdd(false);
     };
 
@@ -359,24 +303,12 @@ export default function LeadsAdmin() {
                     <KeyboardTimePickerExample
                       value={time}
                       showTime={HandleTimeValue}
-                      onChange={(e) => {
-                        setTime(e.target.value);
-                      }}
+                      // onChange={(e) => {
+                      //   setTime(formatDate(e.target.value));
+                      //    ;
+                      // }}
                     />
                   </div>
-                  {/* <div className="pb-3">
-                  <h6>Budget</h6>
-                  <Input
-                    required="true"
-                    className="form-control input-width w-100"
-                    placeholder="Enter Budget"
-                    type="text"
-                    value={budget}
-                    onChange={(e) => {
-                      setBudget(e.target.value);
-                    }}
-                  />
-                </div> */}
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
@@ -424,21 +356,6 @@ export default function LeadsAdmin() {
                     </Select>
                   </div>
 
-                  {/* <div className="pb-3">
-                  <h6>Task</h6>
-                  <Select
-                    value={task}
-                    onChange={(e) => {
-                      setTask(e.target.value);
-                    }}
-                    className="form-control form-control-sm w-100"
-                  >
-                    <MenuItem value={"Sale"}>Sale</MenuItem>
-                    <MenuItem value={"rent"}>Rent</MenuItem>
-                    <MenuItem value={"other"}>other</MenuItem>
-                  </Select>
-                </div> */}
-
                   <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
@@ -470,16 +387,6 @@ export default function LeadsAdmin() {
                           ))
                         : null}
                     </Select>
-                  </div>
-                  <div className="mt-1">
-                    <h6>Deadline</h6>
-                    <KeyboardDatePickerExample
-                      value={time}
-                      showDate={HandleTimeValue}
-                      onChange={(e) => {
-                        setTime(e.target.value);
-                      }}
-                    />
                   </div>
                 </Col>
               </div>
@@ -520,6 +427,7 @@ export default function LeadsAdmin() {
         item
       );
 
+      const [time, setTime] = useState(new Date());
       const [allProjects, setAllProjects] = useState([]);
       const [project, setProject] = useState(item.project.id);
       const [inventory, setInventory] = useState();
@@ -551,6 +459,12 @@ export default function LeadsAdmin() {
       const [source, setSource] = useState("newspaper");
       const [innerLoading, setInnerLoading] = useState(false);
 
+      const HandleTimeValue = (value) => {
+        const str = value.toString();
+        var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
+
+        setTime(res);
+      };
       useEffect(() => {
         setInnerLoading(true);
         getProjectDetails();
@@ -561,11 +475,9 @@ export default function LeadsAdmin() {
       }, [project]);
 
       const getProjectDetails = async () => {
-        console.log("getProjectDetails is call ----- ");
-
         let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
-        // console.log("response in Leads ------", JSON.stringify(resp));
+        //  ;
 
         if (resp.data != null) {
           setAllProjects(resp.data.projects.data);
@@ -585,7 +497,7 @@ export default function LeadsAdmin() {
           let { inventories } = resp.data;
           setInterest(inventories);
         }
-        // console.log("inventory -----------------", JSON.stringify(resp));
+        //  ;
       };
 
       const SendRecordToServer = async (event) => {
@@ -603,14 +515,12 @@ export default function LeadsAdmin() {
           project_id: project,
           budget: budget,
           country_city: country,
+          time_to_call: time,
         };
-
-        console.log("sending data is ---------------- ", formData);
 
         let resp = await POST(ApiUrls.EDIT_LEAD, formData);
 
         setRefresh(!refresh);
-        console.log("Receving data after submission-----------------");
         console.trace(JSON.stringify(resp.data));
 
         setShowEdit(false);
@@ -712,6 +622,17 @@ export default function LeadsAdmin() {
                         onChange={(e) => {
                           setCountry(e.target.value);
                         }}
+                      />
+                    </div>
+                    <div className="pb-3">
+                      <h6>Time of Call</h6>
+                      <KeyboardTimePickerExample
+                        value={time}
+                        showTime={HandleTimeValue}
+                        // onChange={(e) => {
+                        //   setTime(formatDate(e.target.value));
+                        //    ;
+                        // }}
                       />
                     </div>
 
@@ -866,7 +787,10 @@ export default function LeadsAdmin() {
 
       const playSound = () => {
         audioTune.play();
+        audioTune2.pause();
+
         setPlayAudio(true);
+        setPlayAudio2(false);
       };
 
       const pauseSound = () => {
@@ -880,7 +804,10 @@ export default function LeadsAdmin() {
 
       const playSound2 = () => {
         audioTune2.play();
+        audioTune.pause();
+
         setPlayAudio2(true);
+        setPlayAudio(false);
       };
 
       const pauseSound2 = () => {
@@ -1073,6 +1000,18 @@ export default function LeadsAdmin() {
                       value={country}
                     />
                   </div>
+                  <div className="pb-3">
+                    <h6>Time of call</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      value={item.time_to_call}
+                    />
+                  </div>
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
@@ -1125,6 +1064,18 @@ export default function LeadsAdmin() {
                       defaultValue={item.source}
                     />
                   </div>
+                  <div className="pb-3">
+                    <h6>Status</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      defaultValue={item.status}
+                    />
+                  </div>
                 </Col>
               </div>
             </Modal.Body>
@@ -1135,12 +1086,12 @@ export default function LeadsAdmin() {
 
     const ModalDelete = ({ item }) => {
       const DeleteRecordFromData = (item) => {
-        // console.log("item is ", item);
+        //  ;
         // let { id } = item;
-        // console.log("ID is ", id);
+        //  ;
         // let arr = data;
         // arr = arr.filter((user) => user.id != id.toString());
-        // console.log("arr length ", arr.length, arr, selectedID);
+        //  ;
         // setSelectedID((state) => {
         //   if (state == arr.length) return state - 1;
         //   return state;
@@ -1189,8 +1140,6 @@ export default function LeadsAdmin() {
     };
 
     let country_city = "country/city";
-    console.log("index is -----------", index);
-
     return (
       <tr>
         <td>{index + 1}</td>
@@ -1309,7 +1258,6 @@ export default function LeadsAdmin() {
       </tr>
     );
   };
-  console.log("i am parent ______________________");
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">

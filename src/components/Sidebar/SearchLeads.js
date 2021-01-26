@@ -87,7 +87,7 @@ export default function SearchLeads(props) {
       <Button
         id="searchLeads"
         style={{ textAlign: props.alignText, paddingLeft: props.leftPadding }}
-        onClick={() => console.log("button press search leads")}
+        // onClick={() =>  }
       >
         {props.name} <ExpandMoreIcon />
       </Button>

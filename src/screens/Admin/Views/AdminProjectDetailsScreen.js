@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import InventorySidebar from "../../../components/Sidebar/InventorySidebar";
 import InventoryAdmin from "../Inventory/InventoryAdmin";
 export default function AdminProjectDetailsScreen(props) {
-  console.log("props coming =-------------------- ", props.location.query);
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>

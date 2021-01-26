@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { Form, Button, Col, Container, Row, Overlay } from "react-bootstrap";
-import Tooltip from "@material-ui/core/Tooltip";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -11,6 +10,7 @@ import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 
 import {
+  Tooltip,
   IconButton,
   Select,
   MenuItem,
@@ -40,19 +40,19 @@ export default function AddInventory() {
 
   const [showProgress, setShowProgress] = React.useState(false);
 
-  // console.log("i am parent ");
+  //  ;
   useEffect(() => {
     getAllProjectCategories();
   }, []);
 
   const getAllProjectCategories = async () => {
-    console.log("gett all cate-----------");
+    // ;
     let resp = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
 
     if (resp.data != null) {
       setAllProjectCategories(resp.data.ProjectCategory);
     }
-    console.log(JSON.stringify(resp.data.ProjectCategory));
+    // ;
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -69,14 +69,14 @@ export default function AddInventory() {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log("Submit");
+    // ;
   };
   const handleClose = () => {
     setShowAlert(false);
     setRedirectPage(true);
   };
 
-  // console.log(projectDetails);
+  //  ;
   const Inventory = () => {
     const [name, setName] = React.useState(nameParent);
     const [units, setUnits] = React.useState(unitsParent);
@@ -142,9 +142,9 @@ export default function AddInventory() {
                   <Form.Control
                     value={name}
                     onChange={(e) => {
-                      // console.log(name);
+                      //  ;
                       setName(e.target.value);
-                      console.log(name);
+                      // ;
                     }}
                     required={true}
                     className="w-100"
@@ -164,10 +164,10 @@ export default function AddInventory() {
                       if (categoryError) {
                         setCategoryError(false);
                       }
-                      console.log(
-                        "select category ID is -----",
-                        e.target.value
-                      );
+                      // console.log(
+                      //   "select category ID is -----",
+                      //   e.target.value
+                      // );
                       setCategory(e.target.value);
                     }}
                     className="form-control form-control-sm w-100"
@@ -224,7 +224,7 @@ export default function AddInventory() {
                         );
                         // At this point, "promiseA" is already settled.
                         promiseA.then(() => {
-                          console.log("inside promise");
+                          // ;
                           handleForm();
                         });
                       }
@@ -242,6 +242,7 @@ export default function AddInventory() {
   };
   const InventoryDetails = () => {
     const [InventoryData, setInventoryData] = React.useState(dummy);
+    const history = useHistory();
 
     const viewData = (data, id, index) => {
       let key = Object.keys(data)[0];
@@ -251,7 +252,7 @@ export default function AddInventory() {
         const objectChange = temp[index];
         objectChange[key] = data[key];
         temp[index] = { ...objectChange };
-        console.log(state);
+        // ;
         return temp;
       });
     };
@@ -265,12 +266,12 @@ export default function AddInventory() {
       var postData = projectDetails;
       postData.inventory = InventoryData;
 
-      // console.log(projectDetails, "STATE UPDATE");
-      // console.log(postData, "POST DATA");
-      // console.log("LEVEL", InventoryData);
+      //  ;
+      //  ;
+      //  ;
 
-      // console.log("------------------------------");
-      // console.log(JSON.stringify(projectDetails));
+      //  ;
+      //  ;
 
       let inventoriesArray = [];
 
@@ -292,41 +293,17 @@ export default function AddInventory() {
         category_id: projectDetails.category,
         inventories: inventoriesArray,
       };
-      console.log("form to submit on server is --------------");
-      console.log(JSON.stringify(formData));
-      console.log("-------------------------------------------------");
+      // ;
+      // ;
+      // ;
       let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
-      console.log("responce____________________", resp);
+      // ;
+      if (resp.error === false) {
+        history.push("/admin/inventory");
+      }
 
       setShowProgress(false);
-
-      // await fetch("https://webhook.site/ed44da3f-bdcd-4b1a-9122-a85ebebaf9d1", {
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(projectDetails),
-      // })
-      //   .then((response) => {
-      //     console.log("response", response);
-      //     console.log("response Data", response.data);
-
-      //     if (response.status === 200) {
-      //       // alert("skjdhfkjd");
-      //       setTimeout(() => {
-      //         setShowAlert(true);
-      //       }, 2000);
-      //     }
-      //   })
-
-      //   .catch((error) => {
-      //     console.error(error);
-      //   });
-      // setShowProgress(false);
     };
-
-    const history = useHistory();
 
     React.useEffect(() => {
       if (InventoryData.length === 0) setForm((state) => !state);
@@ -483,7 +460,7 @@ export default function AddInventory() {
                       <Tooltip title="Delete" placement="right" arrow>
                         <RemoveOutlinedIcon
                           onClick={() => {
-                            console.log("clicked");
+                            // ;
                             const tempData = InventoryData.filter(
                               (del) => del.id !== item.id
                             );

@@ -38,7 +38,7 @@ const HeaderNavBar = (props) => {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
-  console.log(props);
+  // ;
   return (
     <Container
       fluid

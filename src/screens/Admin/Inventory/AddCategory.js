@@ -27,13 +27,13 @@ export default function AddCategories() {
   const [value, setValue] = useState();
   const handleFetchData = async () => {
     let res = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
-    console.log(res);
+    // ;
     if (res.success != false) {
       setData(res.data.ProjectCategory);
     }
   };
   React.useEffect(() => {
-    // console.log(data, "KYA MASIBAT HAI");
+    //  ;
     handleFetchData();
   }, []);
 
@@ -80,10 +80,10 @@ export default function AddCategories() {
     //      })
     //        .then((response) => response.json())
     //        .then((json) => {
-    //          console.log("response from server  -------- ,", json);
+    //           ;
     //          if (json.success != false) {
     //            setShowAlert(true);
-    //            console.log("DATA SET SUCCESSFULLY");
+    //             ;
 
     //            setUserRecord((state) => [formData].concat(state));
     //          }
@@ -92,7 +92,7 @@ export default function AddCategories() {
     //          }
     //        });
     //    } catch (e) {
-    //      console.log(e);
+    //       ;
     //    }
 
     //    setIsLoading(false);
@@ -102,7 +102,7 @@ export default function AddCategories() {
         name: category,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
-      console.log(res);
+      // ;
       let arr = data;
 
       setData([user].concat(arr));
@@ -174,7 +174,7 @@ export default function AddCategories() {
     const SendRecordToServer = (event) => {
       event.preventDefault();
 
-      console.log("SendRecordToServer", event);
+      // ;
       // add validations
       // push
 
@@ -191,7 +191,7 @@ export default function AddCategories() {
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
+      // ;
       // add validations
       // push
 
@@ -200,8 +200,8 @@ export default function AddCategories() {
         name: category,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
-      console.log(res);
-      console.log(user, item);
+      // ;
+      // ;
       let arr = data.map((val) => {
         if (val.id == user.id) val = user;
         return val;
@@ -279,16 +279,16 @@ export default function AddCategories() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
-      console.log(res, "deleted");
+      // ;
       if (res.success != false) {
         // setData(res.data.ProjectCategory);
       }
-      console.log("item is ", item);
+      // ;
       let { id } = item;
-      console.log("ID is ", id);
+      // ;
       let arr = data;
       arr = arr.filter((user) => user.id != id.toString());
-      console.log("arr length ", arr.length, arr, selectedID);
+      // ;
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;

@@ -41,7 +41,6 @@ export default function AddInterest() {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("Res___________________________", res);
     if (res.success != false) {
       setData(res.data.Interest);
     }
@@ -62,9 +61,7 @@ export default function AddInterest() {
       let postData = {
         interest: interest,
       };
-      console.log("post data_______________________________", postData);
       let res = await POST(ApiUrls.ADD_INTEREST, postData);
-      console.log("add Intrest Res_________________________", res);
       setRefresh(!refresh);
       // let arr = data;
 
@@ -132,13 +129,12 @@ export default function AddInterest() {
     );
   };
   const ModalEdit = ({ item }) => {
-    // console.log("_________________________Item ", item);
+    //  ;
     const [interest, SetInterest] = useState(item.name);
 
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
-      console.log("EditRecordToServer", event);
       // add validations
       // push
 
@@ -147,10 +143,9 @@ export default function AddInterest() {
         name: interest,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
-      console.log(res);
       setRefresh(!refresh);
 
-      // console.log(user, item);
+      //  ;
       // let arr = data.map((val) => {
       //   if (val.id == user.id) val = user;
       //   return val;
@@ -225,18 +220,17 @@ export default function AddInterest() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
-      console.log(res, "deleted");
       setRefresh(!refresh);
 
       // if (res.success != false) {
       //   // setData(res.data.ProjectCategory);
       // }
-      // console.log("item is ", item);
+      //  ;
       // let { id } = item;
-      // console.log("ID is ", id);
+      //  ;
       // let arr = data;
       // arr = arr.filter((user) => user.id != id.toString());
-      // console.log("arr length ", arr.length, arr, selectedID);
+      //  ;
       // setSelectedID((state) => {
       //   if (state == arr.length) return state - 1;
       //   return state;
@@ -279,7 +273,7 @@ export default function AddInterest() {
     );
   };
   const Table = ({ item, index }) => {
-    // console.log("Table Row_____________________", item);
+    //  ;
     return (
       <tr>
         <td>{index + 1}</td>

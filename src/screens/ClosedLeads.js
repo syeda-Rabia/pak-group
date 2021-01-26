@@ -1,11 +1,27 @@
 import React from "react";
 import "./ClosedLeads.css";
 import { Container, Row, Col } from "react-bootstrap";
+import { IconButton, Tooltip } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { useHistory } from "react-router-dom";
 
 export default function ClosedLeads() {
+  const history = useHistory();
+
   return (
-    <Container fluid className="Laa">
-      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+    <Container fluid>
+      <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 d-flex">
+        <IconButton
+          onClick={() => {
+            history.push("/");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <h3 style={{ color: "#818181" }}>Closed Leads </h3>
       </div>
       <Container

@@ -5,9 +5,9 @@ import "./Pagination.scss";
 
 const Pagination = (props) => {
   const { itemsCount, pageSize, onPageChange, currentPage } = props;
-  // console.log("Current ", currentPage);
-  // console.log("itemsCount ", itemsCount);
-  // console.log("pageSize ", pageSize);
+  // // ;
+  // // ;
+  // // ;
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);

@@ -97,17 +97,14 @@ export default class ExcelPage extends Component {
     if (!isExcel) {
       errorMessage = "You can only upload Excel file!";
     }
-    console.log("file", file[0].type);
     const isLt2M = file[0].size / 1024 / 1024 < 2;
     if (!isLt2M) {
       errorMessage = "File must be smaller than 2MB!";
     }
-    console.log("errorMessage", errorMessage);
     return errorMessage;
   }
 
   fileHandler = (fileList) => {
-    console.log("fileList", fileList);
     let fileObj = fileList;
     if (!fileObj) {
       this.setState({
@@ -115,7 +112,6 @@ export default class ExcelPage extends Component {
       });
       return false;
     }
-    console.log("fileObj.type:", fileObj.type);
     if (
       !(
         fileObj.type === "application/vnd.ms-excel" ||
@@ -131,7 +127,6 @@ export default class ExcelPage extends Component {
     //just pass the fileObj as parameter
     ExcelRenderer(fileObj, (err, resp) => {
       if (err) {
-        console.log(err);
       } else {
         let newRows = [];
         resp.rows.slice(1).map((row, index) => {
@@ -167,7 +162,6 @@ export default class ExcelPage extends Component {
   };
 
   handleSubmit = async () => {
-    console.log("submitting: ", this.state.rows);
     //submit to API
     //if successful, banigate and clear the data
     //this.setState({ rows: [] })

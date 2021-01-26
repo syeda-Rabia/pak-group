@@ -7,23 +7,23 @@ const initialState = {
 };
 
 const storeDataOnLocalStorage = async (user_info, token, logged) => {
-  console.log(
-    "------------------storeDataOnLocalStorage is call ----------------"
-  );
+  // console.log(
+  //   "------------------storeDataOnLocalStorage is call ----------------"
+  // );
 
   try {
     localStorage.setItem("user_info", JSON.stringify(user_info));
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("logged", JSON.stringify(logged));
   } catch (error) {
-    console.log(error);
+    //  ;
   }
 };
 
 const getDataFromLocalStorage = async () => {
-  console.log(
-    "------------------getDataFromLocalStorage is call ----------------"
-  );
+  // console.log(
+  //   "------------------getDataFromLocalStorage is call ----------------"
+  // );
   try {
     let res1 = localStorage.getItem("user_info");
     let res2 = localStorage.getItem("token");
@@ -47,7 +47,7 @@ const getDataFromLocalStorage = async () => {
       initialState.logged = false;
     }
   } catch (error) {
-    console.log(error);
+    //  ;
   }
 };
 
@@ -61,7 +61,7 @@ const logout = async () => {
     localStorage.setItem("token", null);
     localStorage.setItem("logged", null);
   } catch (error) {
-    console.log(error);
+    // ;
   }
 };
 

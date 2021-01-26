@@ -54,7 +54,7 @@ export default function RecordTable() {
   };
   const handleFetchEmployeesLeads = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
-    console.log(res, "EMPLOYEE LEADS");
+    // ;
     if (res.success !== false) {
       setData(res.data.leads);
     }
@@ -65,7 +65,7 @@ export default function RecordTable() {
   }, [filterData]);
   const handleFetchRequest = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log(res, "GET ALL EMPLOYES");
+    // ;
     if (res.success != false) {
       setEmployees(res.data.users);
       setFilterData(res.data.users[0].id);
@@ -75,19 +75,18 @@ export default function RecordTable() {
     handleFetchRequest();
   }, []);
 
-  // console.log('Page Size:', pageSize);
-  // console.log('Total Count: ', totalCount);
+  //  ;
+  //  ;
   const handleShow = (pageCount) => {
     if (pageCount === 0) setPageCount(1);
     else setPageCount(pageCount);
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // console.log('page', page);
+    //  ;
   };
 
   const TableRow = ({ index, item }) => {
-    console.log("item--------", item);
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -159,7 +158,7 @@ export default function RecordTable() {
       </tr>
     );
   };
-  // console.log(filterData);
+  //  ;
   return (
     <>
       <div className="shadow p-3 mb-3 bg-white rounded mt-4 ">
@@ -172,7 +171,7 @@ export default function RecordTable() {
             setIsLoading(true);
 
             setFilterData(e.target.value);
-            // console.log(e.target.value, e.target.name);
+            //  ;
           }}
         >
           {employees.map((item) => {
@@ -248,7 +247,7 @@ export default function RecordTable() {
 
                 <tbody>
                   {/* {currentData.map((item, index) => {
-                    // console.log(item.Clients, filterData);
+                    //  ;
                     if (filterData.value == "All")
                       return <TableRow index={index} item={item} />;
                     else if (item.Clients == filterData.value)

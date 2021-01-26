@@ -108,19 +108,19 @@ export default function AddEmployee() {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("use efect is run");
+    // ;
     GetUserRecordFromServer();
   }, [refresh]);
 
   const GetUserRecordFromServer = async () => {
-    console.log("GetUserRecordFromServer is run");
+    // ;
 
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_USER);
 
-    // console.log("res --------------------------------------------------------");
-    // console.log(JSON.stringify(resp));
+    //  ;
+    //  ;
     if (resp.data != null) {
       setUserRecord(resp.data.users.data);
       setPageSize(resp.data.users.per_page);
@@ -148,7 +148,7 @@ export default function AddEmployee() {
     //         setPageSize(result.data.users.per_page);
     //         setTotalRecord(result.data.users.total);
     //         setCurrentPage(result.data.users.current_page);
-    //         console.log("------------------------", result.data);
+    //          ;
     //       } else {
     //         console.log(
     //           "server throw error ---------> ",
@@ -159,7 +159,7 @@ export default function AddEmployee() {
     //     (error) => {
     //       setIsLoaded(true);
     //       setError(error);
-    //       console.log(error);
+    //        ;
     //     }
     //   );
   };
@@ -231,7 +231,7 @@ export default function AddEmployee() {
   // };
 
   const ModalEdit = ({ item }) => {
-    console.log("_____________ itmeee", item);
+    // ;
     const [f_name, setF_name] = useState(item.first_name);
     const [l_name, setL_name] = useState(item.last_name);
     const [email, setEmail] = useState(item.email);
@@ -255,23 +255,23 @@ export default function AddEmployee() {
         user_type: user_type == "Admin" ? "Admin" : "Employee",
       };
       let resp = await POST(ApiUrls.EDIT_USER, formData);
-      console.log("responce____________", resp);
+      // ;
       try {
         if (resp.error == false) {
           setMessage(resp.success);
           setShowAlert(true);
 
-          console.log("DATA SET SUCCESSFULLY");
+          // ;
 
           setUserRecord((state) => [formData].concat(state));
         } else {
-          console.log("-------------------------------", resp);
+          // ;
           setErrorAlert(true);
         }
         setShowEdit(false);
         setRefresh(!refresh);
       } catch {
-        console.log("Message Not Set Successfully");
+        // ;
       }
 
       setIsLoading(false);
@@ -416,14 +416,14 @@ export default function AddEmployee() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let resp = await GET(ApiUrls.DELETE_USER + item.id);
-      console.log("delete responce __________________", resp);
+      // ;
       try {
         if (resp.error === false) {
           setShowAlert(true);
           setMessage(resp.success);
         }
       } catch {
-        console.log("Message not set successfully");
+        // ;
       }
       setRefresh(!refresh);
     };
@@ -466,26 +466,26 @@ export default function AddEmployee() {
     const SendRecordToServer = async (event) => {
       event.preventDefault();
       // setIsLoading(true);
-      console.log(
-        ApiUrls.BLOCK_USER,
-        item.id,
-        "/",
-        isBlocked,
-        "________________"
-      );
+      // console.log(
+      //   ApiUrls.BLOCK_USER,
+      //   item.id,
+      //   "/",
+      //   isBlocked,
+      //   "________________"
+      // );
       let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
-      console.log("responce block ____________", resp);
+      // ;
       if (resp.error == false) {
         setMessage("User Blocked Successfully");
         setShowAlert(true);
-        console.log("DATA SET SUCCESSFULLY");
+        // ;
       } else {
         setMessage(resp.error);
         setErrorAlert(true);
       }
       //   setUserRecord((state) => [formData].concat(state));
       // } else {
-      //   console.log("-------------------------------", resp);
+      //    ;
       //   setErrorAlert(true);
       // }
 
@@ -556,11 +556,11 @@ export default function AddEmployee() {
       let resp = await POST(ApiUrls.CREATE_USER, formData);
       if (resp.error == false) {
         setShowAlert(true);
-        console.log("DATA SET SUCCESSFULLY");
+        // ;
 
         setUserRecord((state) => [formData].concat(state));
       } else {
-        console.log("-------------------------------", resp);
+        // ;
         setErrorAlert(true);
       }
 

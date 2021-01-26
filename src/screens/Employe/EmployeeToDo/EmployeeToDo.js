@@ -20,14 +20,14 @@ export default function LeadsAllocatonAndAddition() {
   const currentData = data.slice(istIndex, lastIndex);
   const [value, setValue] = React.useState("");
 
-  // console.log('Page Size:', pageSize);
-  // console.log('Total Count: ', totalCount);
+  //  ;
+  //  ;
   const handleShow = (pageCount) => {
     setPageCount(pageCount);
   };
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // console.log('page', page);
+    //  ;
   };
   const ActionButton = () => {
     return (
@@ -187,7 +187,7 @@ export default function LeadsAllocatonAndAddition() {
     );
   };
   const TableRow = ({ index, item }) => {
-    // console.log('item', item);
+    //  ;
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -223,59 +223,6 @@ export default function LeadsAllocatonAndAddition() {
         <td>comments</td>
         <td>
           <ActionButton />
-        </td>
-        <td>
-          <DropdownButton
-            id="CTA-button"
-            variant="info"
-            title="CTA"
-            onSelect={(e) => {
-              setValue(e);
-
-              console.log(e);
-            }}
-          >
-            <Dropdown.Item
-              as="button"
-              eventKey="instruct"
-              style={{ color: "black", outline: "none" }}
-            >
-              Instruct
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              eventKey="call-Explanation"
-              style={{ color: "black", outline: "none" }}
-            >
-              Call Explanation
-            </Dropdown.Item>
-
-            <DropdownButton
-              id="shiftAndWarnButton"
-              title="Shift and Warn"
-              drop="left"
-            >
-              <Dropdown.Item
-                as="button"
-                eventKey="instruct"
-                style={{ color: "black", outline: "none" }}
-              >
-                Atif
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                style={{ color: "black", outline: "none" }}
-              >
-                Rabia
-              </Dropdown.Item>
-              <Dropdown.Item
-                as="button"
-                style={{ color: "black", outline: "none" }}
-              >
-                Qasim
-              </Dropdown.Item>
-            </DropdownButton>
-          </DropdownButton>
         </td>
       </tr>
     );
@@ -368,11 +315,6 @@ export default function LeadsAllocatonAndAddition() {
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Actions
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        What_To_Do
                       </span>
                     </th>
                   </tr>

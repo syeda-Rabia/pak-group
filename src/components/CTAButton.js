@@ -109,14 +109,12 @@ export default function CTAButton() {
 
     setLoading(true);
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log(res, "GET ALL EMPLOYES");
+    // ;
     try {
       if (res.success !== false) {
         setEmployees(res.data.users);
       }
-    } catch {
-      console.log("user Fetch Error");
-    }
+    } catch {}
 
     setLoading(false);
   };
@@ -125,9 +123,7 @@ export default function CTAButton() {
     const handleChange = (value) => {
       setMessage(value);
     };
-    const handleDateTime = (value) => {
-      console.log(value);
-    };
+    const handleDateTime = (value) => {};
     // if (options.title === optionsArray[0].title)
     //
     if (value === "instruct") {
@@ -272,7 +268,7 @@ export default function CTAButton() {
       return null;
     }
   };
-  // console.log("e--------------------", employees);
+  //  ;
   return (
     <>
       <DropdownButton
@@ -283,7 +279,7 @@ export default function CTAButton() {
         // style={{ backgroundColor: "red" }}
         title="CTA"
         onSelect={(e) => {
-          console.log(e);
+          // ;
           setValue(e);
           setShowModalCTA(true);
         }}

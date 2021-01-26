@@ -1,38 +1,27 @@
 import React, { useEffect, useState } from "react";
-import ReactDom from "react-dom";
 import "./SignIn.css";
-import Header_login from "../../../components/SignIn/SignInHeader";
 import Footer from "../../../components/SignIn/SignInFooter";
 import pakGroup from "./../../../assests/pakGroup.jpg";
 import pkgrp from "./../../../assests/pakGroup-logo.png";
-import logo from "./../../../assests/Ellipse 2 (1).svg";
-import img from "./../../../assests/fb-2.svg";
-import img2 from "./../../../assests/tiwtr-2.svg";
-import img3 from "./../../../assests/tum-2.svg";
-import img4 from "./../../../assests/g-2.svg";
+
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { POST } from "../../../utils/Functions";
 import { connect } from "react-redux";
 import { setUser } from "../../../modules/Auth/actions";
 import { VisibilityOff, AccountCircle, Visibility } from "@material-ui/icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { validateEmail, validateLength } from "../../../utils/Validation";
 import {
-  FormControl,
-  TextField,
   InputAdornment,
   IconButton,
-  Input,
   makeStyles,
-  FormHelperText,
   Slide,
   Snackbar,
   Backdrop,
   CircularProgress,
   ClickAwayListener,
+  OutlinedInput,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { set } from "lodash";
@@ -54,6 +43,10 @@ const SignIn = (props) => {
         color: "#fff",
       },
     },
+    input: {
+      borderRadius: "30px",
+      width: "100%",
+    },
   }));
 
   const classes = useStyles();
@@ -73,8 +66,6 @@ const SignIn = (props) => {
     event.preventDefault();
     setIsLoading(true);
 
-    console.log("SignInFun is call ------");
-
     let url = "login";
     let formData = {
       email: email,
@@ -87,24 +78,17 @@ const SignIn = (props) => {
       let { user, Access_token } = resp.data;
       props.OnLoginSuccess(user, Access_token);
     } else {
-      console.log("resp is sigin in file ----", JSON.stringify(resp));
-
       try {
         if (resp.error.hasOwnProperty("email")) {
-          console.log("-----------------------", resp.error.email[0]);
           setErrorResponce(resp.error.email[0]);
         } else if (resp.error.hasOwnProperty("password")) {
-          console.log("-----------------------", resp.error.password[0]);
-
           setErrorResponce(resp.error.password[0]);
         } else {
           setErrorResponce(resp.error);
         }
         setShowAlert(true);
         setIsLoading(false);
-      } catch {
-        console.log("error");
-      }
+      } catch {}
     }
 
     // lodimg false
@@ -192,19 +176,8 @@ const SignIn = (props) => {
                     marginTop: "50px",
                   }}
                 >
-                  {/* <input
-                    className="form-control input1"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                    placeholder="Username or Email "
-                  /> */}
-                  {/* Material UI */}
                   <ClickAwayListener onClickAway={handleClickAway}>
-                    <div
+                    {/* <div
                       className="form-control input1"
                       id={
                         emailError
@@ -213,30 +186,35 @@ const SignIn = (props) => {
                           ? "noError"
                           : null
                       }
-                    >
-                      <Input
-                        disableUnderline={true}
-                        fullWidth={true}
-                        placeholder="Enter Email"
-                        type="email"
-                        value={email}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <div className="emailIcon">
-                              <AccountCircle />
-                            </div>
-                          </InputAdornment>
+                    > */}
+                    <OutlinedInput
+                      className={classes.input}
+                      // disableUnderline={true}
+                      // fullWidth={true}
+                      placeholder="Enter Email"
+                      type="email"
+                      value={email}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            disableRipple
+                            disableFocusRipple
+                            style={{ outline: "none" }}
+                          >
+                            <AccountCircle />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      onChange={(e) => {
+                        if (validateEmail(e.target.value)) {
+                          setEmailError(false);
+                        } else {
+                          setEmailError(true);
                         }
-                        onChange={(e) => {
-                          if (validateEmail(e.target.value)) {
-                            setEmailError(false);
-                          } else {
-                            setEmailError(true);
-                          }
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </div>
+                        setEmail(e.target.value);
+                      }}
+                    />
+                    {/* </div> */}
                   </ClickAwayListener>
                 </div>
                 <div
@@ -247,53 +225,36 @@ const SignIn = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <input
-                    className="form-control input1"
-                    type="password"
-                    name="psw"
-                    placeholder="Password"
+                  <OutlinedInput
+                    // disableUnderline={true}
+                    // fullWidth={true}
+                    className={classes.input}
+                    placeholder="Enter Password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => {
+                      if (validateLength(e.target.value, 8)) {
+                        setPasswordError(false);
+                      } else {
+                        setPasswordError(true);
+                      }
                       setPassword(e.target.value);
                     }}
-                  /> */}
-                  <div
-                    className="form-control input1"
-                    // id={passwordError ? "error" : null}
-                  >
-                    <Input
-                      id="standard-adornment-password"
-                      disableUnderline={true}
-                      fullWidth={true}
-                      placeholder="Enter Password"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => {
-                        if (validateLength(e.target.value, 8)) {
-                          setPasswordError(false);
-                        } else {
-                          setPasswordError(true);
-                        }
-                        setPassword(e.target.value);
-                      }}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            style={{ outline: "none" }}
-                            onClick={handleClickShowPassword}
-                          >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                    {/* {passwordError ? (
-                      <FormHelperText id="component-error-text">
-                        <span className="mb-5">Min Length 8 Characters</span>
-                      </FormHelperText>
-                    ) : null} */}
-                  </div>
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          style={{ outline: "none" }}
+                          onClick={handleClickShowPassword}
+                        >
+                          {showPassword ? (
+                            <VisibilityIcon />
+                          ) : (
+                            <VisibilityOffIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
                 </div>
                 <div
                   className="flx"
@@ -385,7 +346,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("state is --------------", JSON.stringify(state));
+  //  ;
 };
 
 // export default Login;

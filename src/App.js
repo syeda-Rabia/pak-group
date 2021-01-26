@@ -33,8 +33,8 @@ function App() {
   const usePageViews = () => {
     React.useEffect(() => {
       setCondition(location.pathname);
-      console.log("pageview", location.pathname);
-      console.log("Condition", condition);
+      // ;
+      // ;
     }, [location]);
   };
   const [userType, setUSerType] = React.useState("admin");

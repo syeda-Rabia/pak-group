@@ -52,15 +52,11 @@ export default function LeadsAllocatonAndAddition() {
     { label: "Rabia", value: "Rabia" },
     { label: "Qasim", value: "Qasim" },
   ]);
-  const handleSelectDate = (value) => {
-    console.log(value);
-  };
+  const handleSelectDate = (value) => {};
   const HandleName = (id) => {
     if (!select.includes(id)) setSelect((state) => [...state, id]);
     else setSelect((state) => state.filter((item) => item != id));
   };
-
-  console.log(Employees, "hashmi");
 
   const formatDate = (date) => {
     var d = new Date(date),
@@ -107,7 +103,6 @@ export default function LeadsAllocatonAndAddition() {
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
 
     if (resp.data != null) {
-      console.log("unallocated leads is ---------");
       // console.trace(JSON.stringify(resp));
       setAllLeadsToAllocate(resp.data.leads);
     }
@@ -118,8 +113,6 @@ export default function LeadsAllocatonAndAddition() {
     let resp = await GET(ApiUrls.GET_ALL_EMPLOYEES);
 
     if (resp.data != null) {
-      console.log("All EMployeess are ---------");
-      console.log(JSON.stringify(resp.data));
       setEmployeesToAllocateLeads(resp.data.users);
     }
   };
@@ -144,7 +137,7 @@ export default function LeadsAllocatonAndAddition() {
       //   formData = { ...objectChange };
       //   return temp;
       // });
-      // console.log("statee-----------", newformData);
+      //  ;
 
       let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
         time_to_call: time,
@@ -161,15 +154,12 @@ export default function LeadsAllocatonAndAddition() {
       if (resp.error.hasOwnProperty("allocated_to")) {
         setErrorAlert(true);
       }
-      console.log("Receving data after submission-----------------");
-      console.log(JSON.stringify(resp.data));
     };
 
     const HandleTimeValue = (value) => {
       const str = value.toString();
       var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
-      console.log(res);
       setTime(res);
     };
 
@@ -178,7 +168,6 @@ export default function LeadsAllocatonAndAddition() {
 
       // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
       setDate(formatDate(value));
-      console.log(formatDate(value));
     };
     return (
       <tr>
@@ -187,7 +176,6 @@ export default function LeadsAllocatonAndAddition() {
             type="checkBox"
             checked={select.includes(index)}
             onChange={(e) => {
-              console.log("sana imtesal");
               HandleName(index);
             }}
           />
@@ -223,7 +211,6 @@ export default function LeadsAllocatonAndAddition() {
             className="form-control form-control-sm w-100"
             value={selectedEmployee}
             onChange={(e) => {
-              console.log("select employee ID is -----", e.target.value);
               setSelectedEmployee(e.target.value);
             }}
           >
@@ -280,13 +267,13 @@ export default function LeadsAllocatonAndAddition() {
     //    inventory_ids: select,
     //    user_ids: viewable.map((item) => item.value),
     //  };
-    //  console.log(postData);
+    //   ;
     //  let res = await POST(
     //    ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
     //    postData
     //  );
     //  setRefresh(!refresh);
-    //  console.log(res);
+    //   ;
     setSelect([]);
     setViewable([]);
     //  let arr = data;
@@ -354,7 +341,7 @@ export default function LeadsAllocatonAndAddition() {
                 className="form-control form-control-sm w-100"
                 value={selectedEmployee}
                 onChange={(e) => {
-                  console.log("select employee ID is -----", e.target.value);
+                   ;
                   setSelectedEmployee(e.target.value);
                 }}
               >

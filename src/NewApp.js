@@ -38,9 +38,9 @@ import EmployeeRequestTable from "./components/EmployeeRequestTable";
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
   const [TOKEN, setTOKEN] = useState(token);
-  console.log("user app --------", props.user);
+  // ;
   const AdminRoute = () => {
-    console.log("Admin Route is call");
+    // ;
     return (
       <React.Fragment>
         <Route path="/admin/add-project">
@@ -172,11 +172,11 @@ const mapDispatchToProps = (dispatch) => {};
 
 const mapStateToProps = (state) => {
   // let userType = state.auth.user_info.user_type;
-  // console.log("user type is 1---> ", typeof userType);
+  //  ;
 
   // userType = parseInt(state.auth.user_info.user_type);
 
-  // console.log("user type is 2---> ", typeof userType);
+  //  ;
   return {
     user: state.auth,
   };

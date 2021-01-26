@@ -74,8 +74,6 @@ export default function ProjectList() {
         name: ProjectName,
       };
       let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
-      console.log(res, "response");
-      console.log(projects, item);
       // if (res.success != false) {
       //   let arr = allProjects.map((val) => {
       //     if (val.id == projects.id) val = projects;
@@ -157,14 +155,9 @@ export default function ProjectList() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.DELETE_PROJECT + item.id);
-      console.log(res, "deleted");
-
-      console.log("item is ", item);
       let { id } = item;
-      console.log("ID is ", id);
       let arr = allProjects;
       arr = arr.filter((user, index) => user.id != id.toString());
-      console.log("arr length ", arr.length, arr, selectedID);
       setSelectedID((state) => {
         if (state == arr.length) return state - 1;
         return state;

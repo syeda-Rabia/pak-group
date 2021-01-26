@@ -38,22 +38,19 @@ export default function ViewableTo() {
     if (!select.includes(id)) setSelect((state) => [...state, id]);
     else setSelect((state) => state.filter((item) => item != id));
   };
-  // console.log(select);
-  console.log(viewable, "qasim");
-  // console.log(name);
+  //  ;
+  //  ;
   const handleInventoryData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
-    console.log(res, "ali");
     if (res.success != false) {
-      // console.log('get all inde')
+      //
       setData(res.data.projects);
     }
     setIsLoading(false);
   };
   const handleEmployeeName = async () => {
     let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
-    console.log(res, "hashmi");
     if (res.success != false) {
       // setViewable(res.data.users.data);
       let arr = [];
@@ -63,8 +60,6 @@ export default function ViewableTo() {
       setEmployees(arr);
     }
   };
-  console.log(Employees, "hashmi");
-
   React.useEffect(() => {
     handleInventoryData();
     handleEmployeeName();
@@ -79,7 +74,6 @@ export default function ViewableTo() {
       return { label: item.user.first_name };
     });
     let viewableData = select.includes(ids) == true ? viewable : [];
-    console.log([...viewableInventoriesArray, ...viewable]);
     return (
       <tr>
         <td>
@@ -87,7 +81,6 @@ export default function ViewableTo() {
             type="checkBox"
             checked={select.includes(ids)}
             onChange={(e) => {
-              console.log("sana");
               HandleName(ids);
             }}
           />
@@ -136,13 +129,11 @@ export default function ViewableTo() {
       inventory_ids: select,
       user_ids: viewable.map((item) => item.value),
     };
-    console.log(postData);
     let res = await POST(
       ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
       postData
     );
     setRefresh(!refresh);
-    console.log(res);
     setSelect([]);
     setViewable([]);
     let arr = data;
@@ -174,7 +165,6 @@ export default function ViewableTo() {
                     options={Employees}
                     isMulti
                     onChange={(opt) => {
-                      console.log(opt, "imtesal");
                       if (opt != null) setViewable(opt);
                       else setViewable([]);
                     }}

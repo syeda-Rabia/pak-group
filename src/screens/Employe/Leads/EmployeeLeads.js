@@ -15,7 +15,6 @@ function EmployeeLeads(props) {
   const [data, setData] = React.useState([]);
   const handleFetchData = async () => {
     let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
-    console.log(res);
     if (res.success != false) {
       setData(res.data.leads);
     }
@@ -54,7 +53,7 @@ function EmployeeLeads(props) {
         let AmOrPm = hours >= 12 ? "pm" : "am";
         hours = hours % 12 || 12;
         return hours + ":" + min + " " + AmOrPm;
-        // console.log("ressssssssssss", hours, ":", AmOrPm);
+        //  ;
       }
     };
     return (
@@ -101,7 +100,7 @@ function EmployeeLeads(props) {
             disableUnderline
             className="form-control form-control-sm w-100"
             // onChange={(e) => {
-            //   console.log("select employee ID is -----", e.target.value);
+            //    ;
             //   (e.target.value);
             // }}
           >
@@ -225,7 +224,6 @@ function EmployeeLeads(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state is --------------", state);
   return {
     userInfo: state.auth.user_info,
   };
