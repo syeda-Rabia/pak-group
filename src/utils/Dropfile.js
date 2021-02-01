@@ -53,6 +53,7 @@ export default function Dropfile(props) {
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop,
     accept: ".xls  , .xlsx",
+    maxFiles: 1,
   });
 
   const acceptedFileItems = acceptedFiles.map((file) => (

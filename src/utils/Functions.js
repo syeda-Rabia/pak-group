@@ -23,7 +23,7 @@ const GetRecordFromServer = async (url) => {
 };
 
 export const POST = async (url, formData) => {
-  let token = JSON.parse(localStorage.getItem("token"));
+  // let token = JSON.parse(localStorage.getItem("token"));
 
   //  ;
   // console.log(
@@ -59,7 +59,7 @@ export const POST = async (url, formData) => {
 };
 
 export const GET = async (url) => {
-  let token = JSON.parse(localStorage.getItem("token"));
+  // let token = JSON.parse(localStorage.getItem("token"));
   //  ;
 
   //  ;
@@ -92,6 +92,35 @@ export const GET = async (url) => {
   }
 };
 
+export const getDays = (startDate, day) => {
+  let days = ["S", "M", "T", "W", "T", "F", "S"];
+  const interval = 1000 * 60 * 60 * 24;
+  // console.log(
+  //   new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0).getDate()
+  // );
+
+  return Array.from({ length: day }, (v, i) => {
+    let getDate = new Date(startDate.valueOf() + interval * i);
+    return {
+      day: days[getDate.getDay()],
+      date: getDate.getDate(),
+      month: getDate.getMonth() + 1,
+      year: getDate.getFullYear(),
+    };
+  });
+};
+
+export const formatDate = (date) => {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+};
 // export default {
 //   POST,
 //   GET,

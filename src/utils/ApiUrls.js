@@ -2,7 +2,7 @@
 
 const ApiUrls = {
   // AUTHENTICATION
-  LOGIN: "admin/login",
+  LOGIN: "/login",
   LOGOUT: "",
 
   // USERS
@@ -42,9 +42,11 @@ const ApiUrls = {
   // LEADS
   CREATE_LEAD: "admin/lead/add",
   EDIT_LEAD: "admin/lead/edit",
-  DELETE_LEAD: "",
+  CALL_TO_ACTION: "admin/lead/cta",
+  DELETE_LEAD: "admin/lead/delete/",
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",
+  EMPLOYEE_ACTION: "employee/lead/edit",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
@@ -55,9 +57,12 @@ const ApiUrls = {
 
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",
-  EDIT_INTEREST: "",
-  DELETE_INTEREST: "",
+  EDIT_INTEREST: "admin/interest/edit",
+  DELETE_INTEREST: "admin/interest/delete/",
   ADD_INTEREST: "admin/interest/add",
+
+  // Recording Employee
+  ADD_RECORDING: "employee/recording/add",
 };
 
 export default ApiUrls;

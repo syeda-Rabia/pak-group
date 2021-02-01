@@ -25,6 +25,8 @@ import {
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { set } from "lodash";
+import { Link } from "react-router-dom";
+import FormDialog from "../../ForgetPassword/ForgetPassword";
 
 const SignIn = (props) => {
   const [email, setEmail] = useState("");
@@ -35,6 +37,7 @@ const SignIn = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [errorResponce, setErrorResponce] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -156,7 +159,7 @@ const SignIn = (props) => {
         </div>
 
         <div className="col-lg-5 col-md-6">
-          <div className="login-form">
+          <div className="login-form ">
             <form
               onSubmit={(e) => {
                 SignInFun(e);
@@ -166,7 +169,7 @@ const SignIn = (props) => {
                 <h2 style={{ color: "#2258BF" }}>Sign In</h2>
                 <h6 style={{ textAlign: "center" }}>
                   Sign in using your email address{" "}
-                </h6>{" "}
+                </h6>
                 <div
                   className="form-group"
                   style={{
@@ -176,8 +179,8 @@ const SignIn = (props) => {
                     marginTop: "50px",
                   }}
                 >
-                  <ClickAwayListener onClickAway={handleClickAway}>
-                    {/* <div
+                  {/* <ClickAwayListener onClickAway={handleClickAway}> */}
+                  {/* <div
                       className="form-control input1"
                       id={
                         emailError
@@ -187,35 +190,35 @@ const SignIn = (props) => {
                           : null
                       }
                     > */}
-                    <OutlinedInput
-                      className={classes.input}
-                      // disableUnderline={true}
-                      // fullWidth={true}
-                      placeholder="Enter Email"
-                      type="email"
-                      value={email}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            disableRipple
-                            disableFocusRipple
-                            style={{ outline: "none" }}
-                          >
-                            <AccountCircle />
-                          </IconButton>
-                        </InputAdornment>
+                  <OutlinedInput
+                    className={classes.input}
+                    // disableUnderline={true}
+                    // fullWidth={true}
+                    placeholder="Enter Email"
+                    type="email"
+                    value={email}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          disableRipple
+                          disableFocusRipple
+                          style={{ outline: "none" }}
+                        >
+                          <AccountCircle />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    onChange={(e) => {
+                      if (validateEmail(e.target.value)) {
+                        setEmailError(false);
+                      } else {
+                        setEmailError(true);
                       }
-                      onChange={(e) => {
-                        if (validateEmail(e.target.value)) {
-                          setEmailError(false);
-                        } else {
-                          setEmailError(true);
-                        }
-                        setEmail(e.target.value);
-                      }}
-                    />
-                    {/* </div> */}
-                  </ClickAwayListener>
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  {/* </div> */}
+                  {/* </ClickAwayListener> */}
                 </div>
                 <div
                   className="form-group"
@@ -310,7 +313,16 @@ const SignIn = (props) => {
                     //   alignSelf: "flex-end",
                     // }}
                     >
-                      <a href="#"> Forgot password?</a>
+                      <FormDialog
+                        show={forgetPassword}
+                        close={setForgetPassword}
+                      />
+                      <a
+                        style={{ color: "blue" }}
+                        onClick={() => setForgetPassword(true)}
+                      >
+                        Forgot password?
+                      </a>
                     </p>
                   </div>
                 </div>

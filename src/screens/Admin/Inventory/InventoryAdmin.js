@@ -41,6 +41,7 @@ export default function InventoryAdmin(props) {
   const [allInventories, setAllInventories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [gobackState, setGobackState] = useState(false);
 
   const classes = useStyles();
   const history = useHistory();
@@ -63,6 +64,8 @@ export default function InventoryAdmin(props) {
 
       if (resp.data != null) {
         setAllInventories(resp.data.inventories);
+      } else {
+        setGobackState(true);
       }
     }
     setIsLoading(false);
@@ -419,7 +422,7 @@ export default function InventoryAdmin(props) {
                     ))
                   ) : (
                     <Snackbar
-                      open={true}
+                      open={gobackState}
                       // autoHideDuration={2000}
                       // onClose={handleClose}
                       anchorOrigin={{ vertical: "buttom", horizontal: "left" }}

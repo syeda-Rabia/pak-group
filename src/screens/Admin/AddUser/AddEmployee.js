@@ -463,24 +463,19 @@ export default function AddEmployee() {
     );
   };
   const ModalBan = ({ item }) => {
+    console.log(item);
+
     const SendRecordToServer = async (event) => {
       event.preventDefault();
-      // setIsLoading(true);
-      // console.log(
-      //   ApiUrls.BLOCK_USER,
-      //   item.id,
-      //   "/",
-      //   isBlocked,
-      //   "________________"
-      // );
+
       let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
+      console.log(resp);
       // ;
       if (resp.error == false) {
         setMessage("User Blocked Successfully");
         setShowAlert(true);
-        // ;
       } else {
-        setMessage(resp.error);
+        setMessage("you does not have the authority to block an admin");
         setErrorAlert(true);
       }
       //   setUserRecord((state) => [formData].concat(state));
@@ -779,7 +774,7 @@ export default function AddEmployee() {
 
             <Tooltip
               placement="top-start"
-              title={item.is_blocked === "0" ? "Block User" : "UnbLock User"}
+              title={item.is_blocked === 0 ? "Block User" : "UnbLock User"}
             >
               <button
                 data-tip
@@ -787,7 +782,7 @@ export default function AddEmployee() {
                 type="button "
                 className="bg-transparent  button-focus mr-2 button-bg "
                 onClick={() => {
-                  if (item.is_blocked === "0") {
+                  if (item.is_blocked == "0") {
                     setIsBlocked(1);
                   } else {
                     setIsBlocked(0);
@@ -799,13 +794,10 @@ export default function AddEmployee() {
                 <FontAwesomeIcon
                   style={{ fontSize: 15 }}
                   icon={faBan}
-                  color={item.is_blocked === "1" ? "red" : null}
+                  color={item.is_blocked == "1" ? "red" : null}
                 />
               </button>
             </Tooltip>
-            {/* <ReactTooltip id="BlockTip" place="top" effect="solid">
-              {item.is_blocked == "1" ? "UnBlock User" : "Block User"}
-            </ReactTooltip> */}
           </div>
         </td>
       </tr>

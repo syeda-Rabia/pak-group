@@ -7,14 +7,22 @@ export default function EmployeeLeadsScreen() {
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
+          <Col
+            id="sidebar-component"
+            className="shadow"
+            lg={2}
+            md={0}
+            sm={0}
+            xs={0}
+            style={{ backgroundColor: "white" }}
+          >
             <LeadsSidebar />
           </Col>
           <Col
             lg={10}
-            md={10}
-            sm={7}
-            xs={7}
+            md={12}
+            sm={12}
+            xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
             <EmployeeLeads />

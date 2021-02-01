@@ -34,6 +34,7 @@ import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
 import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
+import Test from "./screens/Test";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
@@ -115,6 +116,9 @@ const NewApp = (props) => {
           <br />
           {/* <ProjectList /> */}
           <ExcelPage />
+        </Route>
+        <Route path="/test">
+          <Test />
         </Route>
       </React.Fragment>
     );

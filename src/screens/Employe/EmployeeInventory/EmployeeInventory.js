@@ -42,6 +42,7 @@ function EmployeeInventory(props) {
     let res = await GET(
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
     );
+    console.log(res);
     if (res.success != false) {
       setData(res.data.inventories);
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
@@ -7,6 +7,11 @@ import Popover from "@material-ui/core/Popover";
 import { Col, Form, Row } from "react-bootstrap";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Container } from "@material-ui/core";
+
+import { GET, POST, getDays } from "../../utils/Functions";
+import ApiUrls from "../../utils/ApiUrls";
+import _ from "lodash";
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -18,13 +23,41 @@ const useStyles = makeStyles({
 
 export default function FormPopover(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [allProjects, setAllProjects] = useState([]);
+  const [employees, setEmployees] = React.useState([]);
+  const [days, setDays] = useState({
+    day: new Date().getDate(),
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear(),
+  });
+  useEffect(() => {
+    getProjectDetails();
+    getEmployeeDetails();
+  }, []);
+  const getProjectDetails = async () => {
+    let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+
+    if (resp.data != null) {
+      setAllProjects(resp.data.projects.data);
+    }
+  };
+  const getEmployeeDetails = async () => {
+    let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
+    console.log(res);
+    // ;
+    try {
+      if (res.success !== false) {
+        setEmployees(res.data.users.data);
+      }
+    } catch {}
+  };
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,7 +69,7 @@ export default function FormPopover(props) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+  // console.log(getDays(new Date(), 31));
   return (
     <>
       <Button
@@ -73,12 +106,18 @@ export default function FormPopover(props) {
                     <b>Project</b>
                   </Form.Label>
                   <Form.Control
+                    style={{ overflowY: "scroll" }}
                     controlId="projectName"
                     as="select"
                     defaultValue="Project Name"
                   >
-                    <option>Project 1</option>
-                    <option>Project 2</option>
+                    {allProjects.length > 0
+                      ? allProjects.map((pro) => (
+                          <option key={pro.id} value={pro.id}>
+                            {pro.name}
+                          </option>
+                        ))
+                      : null}
                   </Form.Control>
                   <Form.Label>
                     <b>Date wise</b>
@@ -88,8 +127,15 @@ export default function FormPopover(props) {
                     as="select"
                     defaultValue="Date Wise"
                   >
-                    <option>Date 1</option>
-                    <option>Date 2</option>
+                    {/* {date.map((d) => (
+                      <option>{d}</option>
+                    ))} */}
+                    {Array.from(
+                      { length: new Date(days.year, days.month, 0).getDate() },
+                      (v, i) => {
+                        return <option>{i + 1}</option>;
+                      }
+                    )}
                   </Form.Control>
                   <Form.Label>
                     <b>Year Wise</b>
@@ -99,8 +145,8 @@ export default function FormPopover(props) {
                     as="select"
                     defaultValue="Year Wise"
                   >
-                    <option>Year wise 1</option>
-                    <option>Year Wise 2</option>
+                    <option>2021</option>
+                    <option>2022</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -109,13 +155,14 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
-                  <Form.Control
-                    controlId="Sale Person"
-                    as="select"
-                    defaultValue="Sale Person"
-                  >
-                    <option>Person 1</option>
-                    <option>Person 2</option>
+                  <Form.Control controlId="Sale Person" as="select">
+                    {employees.length > 0
+                      ? employees.map((e) => (
+                          <option key={e.id} value={e.id}>
+                            {e.first_name + " " + e.last_name}
+                          </option>
+                        ))
+                      : null}
                   </Form.Control>
                   <Form.Label>
                     <b>Month Wise</b>
@@ -124,9 +171,15 @@ export default function FormPopover(props) {
                     controlId="month"
                     as="select"
                     defaultValue="Month Wise"
+                    onChange={(val) => {
+                      setDays((state) => {
+                        return { ...state, month: val.target.value };
+                      });
+                    }}
                   >
-                    <option>Month 1</option>
-                    <option>Month 2</option>
+                    {Array.from({ length: 12 }, (v, i) => {
+                      return <option>{i + 1}</option>;
+                    })}
                   </Form.Control>
                 </Form.Group>
               </Col>

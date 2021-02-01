@@ -11,7 +11,7 @@ export default function AdminLAAScreen() {
           <Col
             id="sidebar-component"
             lg={2}
-            md={2}
+            md={0}
             sm={0}
             xs={0}
             style={{ backgroundColor: "white" }}
@@ -21,7 +21,7 @@ export default function AdminLAAScreen() {
           </Col>
           <Col
             lg={10}
-            md={10}
+            md={12}
             sm={12}
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}

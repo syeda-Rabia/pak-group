@@ -55,6 +55,7 @@ export default function RecordTable() {
   const handleFetchEmployeesLeads = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     // ;
+    console.log(res);
     if (res.success !== false) {
       setData(res.data.leads);
     }
@@ -65,10 +66,11 @@ export default function RecordTable() {
   }, [filterData]);
   const handleFetchRequest = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    // ;
+    console.log(res);
+
     if (res.success != false) {
-      setEmployees(res.data.users);
-      setFilterData(res.data.users[0].id);
+      setEmployees(res.data.users.data);
+      setFilterData(res.data.users.data[0].id);
     }
   };
   React.useEffect(() => {
@@ -94,6 +96,7 @@ export default function RecordTable() {
           {index + 1}
         </td>
         <td>{item.client_name}</td>
+
         <td>{item.contact}</td>
         <td>
           {/* <select key={item.id} className="form-control form-control-sm w-100">
@@ -169,7 +172,7 @@ export default function RecordTable() {
           value={filterData}
           onChange={(e) => {
             setIsLoading(true);
-
+            console.log(e.target.value);
             setFilterData(e.target.value);
             //  ;
           }}

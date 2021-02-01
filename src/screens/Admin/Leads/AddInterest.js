@@ -17,6 +17,9 @@ import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
 
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
+import PreLoading from "../../../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -37,7 +40,10 @@ export default function AddInterest() {
 
   const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
-  const [value, setValue] = useState();
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
@@ -130,7 +136,7 @@ export default function AddInterest() {
   };
   const ModalEdit = ({ item }) => {
     //  ;
-    const [interest, SetInterest] = useState(item.name);
+    const [interest, SetInterest] = useState(item.interest);
 
     const EditRecordToServer = async (event) => {
       event.preventDefault();
@@ -140,9 +146,17 @@ export default function AddInterest() {
 
       let user = {
         id: item.id,
-        name: interest,
+        interest: interest,
       };
-      let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
+      let res = await POST(ApiUrls.EDIT_INTEREST, user);
+      if (res.error === false) {
+        setMessage("Interest Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Interest Not Edited");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
       setRefresh(!refresh);
 
       //  ;
@@ -219,7 +233,16 @@ export default function AddInterest() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
+      // console.log(item);
+      let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
+      if (res.error === false) {
+        setMessage("Interest Deleted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Interest Not Deleted");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
       setRefresh(!refresh);
 
       // if (res.success != false) {
@@ -321,23 +344,19 @@ export default function AddInterest() {
     );
   };
   return (
-    <Container
-      fluid
-      className="Laa"
-      // style={{
-      //   margin: "auto",
-      //   width: "100%",
-      //   padding: "10px",
-      //   marginTop: "10px",
-      // }}
-    >
-      {isLoading ? (
-        <>
-          <Backdrop className={classes.backdrop} open={true}>
-            <CircularProgress disableShrink />
-          </Backdrop>
-        </>
-      ) : null}
+    <Container fluid className="Laa">
+      <PreLoading startLoading={isLoading} />
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
       <Row>
         <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 ml-4">
           <h3 style={{ color: "#818181" }}>Interest </h3>

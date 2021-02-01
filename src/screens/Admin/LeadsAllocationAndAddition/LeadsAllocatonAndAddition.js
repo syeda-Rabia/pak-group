@@ -13,7 +13,7 @@ import {
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
 
-import { GET, POST } from "../../../utils/Functions";
+import { GET, POST, formatDate } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import {
   Backdrop,
@@ -26,55 +26,44 @@ import {
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { Label } from "@material-ui/icons";
+import PreLoading from "../../../components/PreLoading";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 export default function LeadsAllocatonAndAddition() {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
+  var today = new Date();
+  var datee = formatDate(today);
+  var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
+  const [date, setDate] = useState(today);
 
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
 
-  const [showAdd, setShowAdd] = useState(false);
-  const [showBan, setShowBan] = useState(false);
-  const [value, setValue] = useState();
-  const [viewable, setViewable] = React.useState([]);
-
-  const [data, setData] = useState(ModalData);
-  const [selectedID, setSelectedID] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [select, setSelect] = React.useState([]);
-  const [Employees, setEmployees] = React.useState([
-    { label: "Sana", value: "Sana" },
-    { label: "Atif", value: "Atif" },
-    { label: "Ali", value: "Ali" },
-    { label: "Imtesal", value: "Imtesal" },
-    { label: "Rabia", value: "Rabia" },
-    { label: "Qasim", value: "Qasim" },
-  ]);
-  const handleSelectDate = (value) => {};
+  const [task, setTask] = useState("");
   const HandleName = (id) => {
     if (!select.includes(id)) setSelect((state) => [...state, id]);
     else setSelect((state) => state.filter((item) => item != id));
   };
 
-  const formatDate = (date) => {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
+  const [viewable, setViewable] = React.useState([]);
 
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
+  const [isLoading, setIsLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-    return [year, month, day].join("-");
+  const handleDateValue = (value) => {
+    setDate(formatDate(value));
+    console.log(formatDate(value));
   };
 
-  var today = new Date();
-  var datee = formatDate(today);
-
-  var timee =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  // var timee =
+  //   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
   const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -86,8 +75,8 @@ export default function LeadsAllocatonAndAddition() {
     },
   }));
   const handleClose = () => {
-    setShowAlert(false);
-    setErrorAlert(false);
+    setShowSuccessAlert(false);
+    setShowErrorAlert(false);
   };
 
   const classes = useStyles();
@@ -95,12 +84,13 @@ export default function LeadsAllocatonAndAddition() {
   useEffect(() => {
     getAllLeads();
     getAllEmployees();
-  }, []);
+  }, [refresh]);
 
   const getAllLeads = async () => {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
+    console.log(resp);
 
     if (resp.data != null) {
       // console.trace(JSON.stringify(resp));
@@ -120,6 +110,7 @@ export default function LeadsAllocatonAndAddition() {
   const LeadsAllocationAndAdditionTable = ({ item, index, leads }) => {
     const [time, setTime] = useState(timee);
     const [date, setDate] = useState(datee);
+
     const [selectedEmployee, setSelectedEmployee] = useState();
 
     const handlePostUpdate = async () => {
@@ -138,6 +129,13 @@ export default function LeadsAllocatonAndAddition() {
       //   return temp;
       // });
       //  ;
+      console.log({
+        time_to_call: time,
+        dead_line: date,
+        allocated_to: selectedEmployee,
+        lead_id: item.id,
+        task: item.project.category.name,
+      });
 
       let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
         time_to_call: time,
@@ -146,13 +144,17 @@ export default function LeadsAllocatonAndAddition() {
         lead_id: item.id,
         task: item.project.category.name,
       });
+      console.log(resp);
+      setRefresh(!refresh);
       setIsLoading(false);
 
       if (resp.error === false) {
-        setShowAlert(true);
+        setMessage("LEAD UPDATED SUCCESSFULLY.");
+        setShowSuccessAlert(true);
       }
       if (resp.error.hasOwnProperty("allocated_to")) {
-        setErrorAlert(true);
+        setMessage("LEAD NOT UPDATED. Allocated To FIELD IS REQUIRED");
+        setShowErrorAlert(true);
       }
     };
 
@@ -174,9 +176,10 @@ export default function LeadsAllocatonAndAddition() {
         <td>
           <input
             type="checkBox"
-            checked={select.includes(index)}
+            checked={select.includes(item.id)}
             onChange={(e) => {
-              HandleName(index);
+              setTask(item.project.category.name);
+              HandleName(item.id);
             }}
           />
         </td>
@@ -274,7 +277,7 @@ export default function LeadsAllocatonAndAddition() {
     //  );
     //  setRefresh(!refresh);
     //   ;
-    setSelect([]);
+    // setSelect([]);
     setViewable([]);
     //  let arr = data;
   };
@@ -292,159 +295,73 @@ export default function LeadsAllocatonAndAddition() {
           </div>
         </Col>
       </Row>
-      {isLoading == true ? (
-        <>
-          <Backdrop className={classes.backdrop} open={true}>
-            <CircularProgress disableShrink />
-          </Backdrop>
-        </>
-      ) : null}
-      {showAlert == true ? (
-        <Slide in={showAlert} direction="up">
-          <Snackbar
-            open={showAlert}
-            autoHideDuration={2000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "top", horizontal: "left" }}
-          >
-            <Alert variant="filled" severity="success">
-              <AlertTitle>Success</AlertTitle>
-              <span className="mr-5" style={{ textAlign: "center" }}>
-                Lead Updated Sucessfully
-              </span>
-            </Alert>
-          </Snackbar>
-        </Slide>
-      ) : null}
-      {errorAlert == true ? (
-        <Slide in={errorAlert} direction="up">
-          <Snackbar
-            open={errorAlert}
-            autoHideDuration={2000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: "top", horizontal: "left" }}
-          >
-            <Alert variant="filled" severity="error">
-              <AlertTitle>Error</AlertTitle>
-              <span className="mr-5" style={{ textAlign: "center" }}>
-                The allocated to field is required.
-              </span>
-            </Alert>
-          </Snackbar>
-        </Slide>
-      ) : null}
+      <PreLoading startLoading={isLoading} />
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+
       {select.length > 0 ? (
         <>
           <Row className="shadow py-2  bg-white rounded mb-2 ">
-            <div className="col-lg-7">
-              {/* <select
-                className="form-control form-control-sm w-100"
-                value={selectedEmployee}
-                onChange={(e) => {
-                   ;
-                  setSelectedEmployee(e.target.value);
-                }}
-              >
-                <option value="grapefruit">Grapefruit</option>
-                <option value="lime">Lime</option>
-                <option selected value="coconut">
-                  Coconut
-                </option>
-                <option value="mango">Mango</option>
+            {/* <div className="col-lg-7"> */}
+            <Col lg={6}>
+              <div className="">
+                <h6>Select Employee</h6>
+              </div>
+              <div>
+                <Select
+                  disableUnderline
+                  className="form-control form-control-sm w-100"
+                  value={selectedEmployee}
+                  onChange={(e) => {
+                    console.log("select employee ID is -----", e.target.value);
+                    setSelectedEmployee(e.target.value);
+                  }}
+                >
+                  {employeesToAllocateLeads.length > 0
+                    ? employeesToAllocateLeads.map((emp) => (
+                        <MenuItem key={emp.id} value={emp.id}>
+                          {emp.first_name} {emp.last_name}
+                        </MenuItem>
+                      ))
+                    : null}
+                </Select>
+              </div>
+            </Col>
+            {/* </div> */}
 
-                {employeesToAllocateLeads.length > 0
-                  ? employeesToAllocateLeads.map((emp) => (
-                      
-                      <option key={emp.id} value={emp.id}>
-                        {emp.first_name} {emp.last_name}
-                      </option>
-                    ))
-                  : null}
-              </select> */}
-              <Row>
-                <div className="col-lg-3 p-2 ml-3">
-                  <span>Select Employee</span>
-                </div>
-                <div className="col-lg-7">
-                  <Select
-                    disableUnderline
-                    className="form-control form-control-sm w-100"
-                    value={selectedEmployee}
-                    onChange={(e) => {
-                      console.log(
-                        "select employee ID is -----",
-                        e.target.value
-                      );
-                      setSelectedEmployee(e.target.value);
-                    }}
-                  >
-                    {employeesToAllocateLeads.length > 0
-                      ? employeesToAllocateLeads.map((emp) => (
-                          <MenuItem key={emp.id} value={emp.id}>
-                            {emp.first_name} {emp.last_name}
-                          </MenuItem>
-                        ))
-                      : null}
-                  </Select>
-                </div>
-              </Row>
-            </div>
-
-            <Row className="ml-3">
-              <div className="col-lg-4 p-2  ">
-                <span>Select_Deadline</span>
+            <Col lg={6}>
+              <div className="">
+                <h6>Select_Deadline</h6>
               </div>
 
-              <div
-                className="col-lg-6"
-                style={{
-                  // border: " 1px solid #B3B3B3",
-                  borderRadius: "4px",
-                }}
-              >
+              <div>
                 <KeyboardDatePickerExample
                   value={today}
-                  showDate={handleSelectDate}
+                  showDate={handleDateValue}
                 />
+                <div className="float-right">
+                  <button
+                    className=" btn btn-primary "
+                    type="submit"
+                    style={{ backgroundColor: "#2258BF" }}
+                    // disabled={!select.every((v) => v === true)}
+
+                    onClick={SelectData}
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
-
-              <div className="col-lg-2">
-                <button
-                  className=" btn btn-primary "
-                  type="submit"
-                  style={{ backgroundColor: "#2258BF" }}
-                  // disabled={!select.every((v) => v === true)}
-
-                  onClick={SelectData}
-                >
-                  save
-                </button>
-              </div>
-            </Row>
-            {/* <div
-              className="col-lg-3 ml-4 w-100"
-              style={{
-                border: " 1px solid #B3B3B3",
-                borderRadius: "4px",
-              }}
-            >
-              <KeyboardDatePickerExample
-                value={today}
-                showDate={handleSelectDate}
-              />
-            </div>
-            <div>
-              <button
-                className="col-lg-12 btn btn-primary ml-3"
-                type="submit"
-                style={{ backgroundColor: "#2258BF" }}
-                // disabled={!select.every((v) => v === true)}
-
-                onClick={SelectData}
-              >
-                save
-              </button>
-            </div> */}
+            </Col>
           </Row>
         </>
       ) : null}
@@ -551,7 +468,6 @@ export default function LeadsAllocatonAndAddition() {
                   return <TableEmployee item={item} index={index} />;
                 })} */}
               </tbody>
-              {data.length > 0 ? <></> : null}
             </table>
           </div>
         </div>

@@ -40,16 +40,21 @@ const HeaderNavBar = (props) => {
 
   // ;
   return (
-    <Container
-      fluid
-      style={{ backgroundColor: "#2258bf" }}
-      xl={12}
-      lg={12}
-      sm={12}
-      xs={12}
-      className=" mx-0 px-0"
+    <
+      // fluid
+      // // style={{ backgroundColor: "#2258bf" }}
+      // xl={12}
+      // lg={12}
+      // sm={12}
+      // xs={12}
+      // className=" mx-0 px-0 h-100"
     >
-      <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">
+      <Navbar
+        sticky="top"
+        collapseOnSelect
+        expand="lg"
+        className="color-nav h-100 w-100"
+      >
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -217,7 +222,7 @@ const HeaderNavBar = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </>
   );
 };
 

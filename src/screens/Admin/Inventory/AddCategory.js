@@ -7,105 +7,73 @@ import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { AddCategory } from "./../../../assests/constants/addcategory";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
-import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
+import PreLoading from "../../../components/PreLoading";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 export default function AddCategories() {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
 
-  const [data, setData] = useState(AddCategory);
+  const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
-  const [value, setValue] = useState();
+  const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
   const handleFetchData = async () => {
+    setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
     // ;
+    console.log(res);
     if (res.success != false) {
       setData(res.data.ProjectCategory);
     }
+    setIsLoading(false);
   };
   React.useEffect(() => {
     //  ;
     handleFetchData();
-  }, []);
+  }, [refresh]);
 
   const ModalAdd = ({ item }) => {
     const [category, setCategory] = useState("");
-
-    // const SendRecordToServer = async (event) => {
-    //   event.preventDefault();
-    //   setIsLoading(true);
 
     let user = {
       id: data.length + 1,
       name: category,
     };
-    //    const formData = {
-    //      first_name: f_name,
-    //      last_name: l_name,
-    //      email: email,
-    //      gender: gender,
-    //      phone: phone_no,
-    //      password: password,
-    //      user_type: user_type,
-    //    };
 
-    //    try {
-    //      let resp = await fetch(server_url + "admin/employee/add", {
-    //        method: "post",
-    //        // mode: "no-cors",
-    //        crossDomain: true,
-    //        headers: {
-    //          Accept: "application/json",
-    //          "Content-Type": "application/json",
-    //          Authorization: `Bearer ${token}`,
-    //        },
-    //        body: JSON.stringify({
-    //          first_name: f_name,
-    //          last_name: l_name,
-    //          email: email,
-    //          gender: gender == "male" ? "Male" : "Female",
-    //          phone: phone_no,
-    //          password: password,
-    //          user_type: user_type == "Admin" ? "Admin" : "Employee",
-    //        }),
-    //      })
-    //        .then((response) => response.json())
-    //        .then((json) => {
-    //           ;
-    //          if (json.success != false) {
-    //            setShowAlert(true);
-    //             ;
-
-    //            setUserRecord((state) => [formData].concat(state));
-    //          }
-    //          if (json.success == false) {
-    //            setErrorAlert(true);
-    //          }
-    //        });
-    //    } catch (e) {
-    //       ;
-    //    }
-
-    //    setIsLoading(false);
     const addData = async (event) => {
       event.preventDefault();
+      setIsLoading(true);
+
       let postData = {
         name: category,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
+      if (res.error === false) {
+        setMessage("Category Added Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
+
+      setRefresh(!refresh);
+      setIsLoading(false);
       // ;
       let arr = data;
 
-      setData([user].concat(arr));
+      // setData([user].concat(arr));
       setShowAdd(false);
     };
     // };
@@ -117,10 +85,7 @@ export default function AddCategories() {
           setShowAdd(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Add Category</Modal.Title>
         </Modal.Header>
         <form
@@ -128,7 +93,7 @@ export default function AddCategories() {
             // SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
+          <div>
             <Modal.Body>
               <div className="pb-3">
                 <h6>Category Name</h6>
@@ -171,44 +136,33 @@ export default function AddCategories() {
   const ModalEdit = ({ item }) => {
     const [category, setCategory] = useState(item.name);
 
-    const SendRecordToServer = (event) => {
-      event.preventDefault();
-
-      // ;
-      // add validations
-      // push
-
-      let user = {
-        id: "1",
-        name: category,
-      };
-
-      //   let arr = data;
-      //   arr.push(user);
-      //   setData(arr);
-      //   setShowAdd(false);
-    };
     const EditRecordToServer = async (event) => {
       event.preventDefault();
-
-      // ;
-      // add validations
-      // push
+      setIsLoading(true);
 
       let user = {
         id: item.id,
         name: category,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_CATEGORIES, user);
+      if (res.error === false) {
+        setMessage("Category Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
+      setRefresh(!refresh);
+      setIsLoading(false);
       // ;
       // ;
-      let arr = data.map((val) => {
-        if (val.id == user.id) val = user;
-        return val;
-      });
+      // let arr = data.map((val) => {
+      //   if (val.id == user.id) val = user;
+      //   return val;
+      // });
 
-      // arr.push(user);
-      setData(arr);
+      // // arr.push(user);
+      // setData(arr);
       setShowEdit(false);
     };
 
@@ -219,10 +173,7 @@ export default function AddCategories() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Edit Category</Modal.Title>
         </Modal.Header>
         <form
@@ -230,7 +181,7 @@ export default function AddCategories() {
             EditRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div>
             <Modal.Body>
               {/*             
             <h6>ID</h6>
@@ -278,22 +229,34 @@ export default function AddCategories() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
+      setIsLoading(true);
+
       let res = await GET(ApiUrls.GET_DELETED_PROJECT_CATEGORIES + item.id);
-      // ;
-      if (res.success != false) {
-        // setData(res.data.ProjectCategory);
+      if (res.error === false) {
+        setMessage("Category Deleted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
       }
-      // ;
-      let { id } = item;
-      // ;
-      let arr = data;
-      arr = arr.filter((user) => user.id != id.toString());
-      // ;
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      setData(arr);
+      setRefresh(!refresh);
+      setIsLoading(false);
+
+      // // ;
+      // if (res.success != false) {
+      //   // setData(res.data.ProjectCategory);
+      // }
+      // // ;
+      // let { id } = item;
+      // // ;
+      // let arr = data;
+      // arr = arr.filter((user) => user.id != id.toString());
+      // // ;
+      // setSelectedID((state) => {
+      //   if (state == arr.length) return state - 1;
+      //   return state;
+      // });
+      // setData(arr);
     };
     return (
       <Modal
@@ -302,13 +265,10 @@ export default function AddCategories() {
           setShowDelete(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div>
           <Modal.Body>Do you really want to delete this Record!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -383,7 +343,6 @@ export default function AddCategories() {
   return (
     <Container
       fluid
-      className="Laa"
       style={{
         margin: "auto",
         width: "100%",
@@ -391,6 +350,19 @@ export default function AddCategories() {
         marginTop: "10px",
       }}
     >
+      <PreLoading startLoading={isLoading} />
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Categories</h3>
@@ -455,11 +427,17 @@ export default function AddCategories() {
                       //     null
                       // <Skeleton variant="rect" width={"100%"} height={"100%"} />
                     }
-                    {data
-                      .filter((item) => item.is_deleted == 0)
+                    {data.map((item, index) => {
+                      return <Table item={item} index={index} />;
+                    })}
+                    {/* {data
+                      .filter(
+                        (item) =>
+                          item.is_deleted == 0 || item.is_deleted == null
+                      )
                       .map((item, index) => {
                         return <Table item={item} index={index} />;
-                      })}
+                      })} */}
                   </tbody>
                   {data.length > 0 ? (
                     <>

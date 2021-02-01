@@ -24,17 +24,18 @@ export function KeyboardTimePickerExample(props) {
     </MuiPickersUtilsProvider>
   );
 }
-export function KeyboardDatePickerExample(props) {
-  const [selectedDate, handleDateChange] = useState(props.value);
-
+export function KeyboardDatePickerExample({ value, showDate }) {
+  const [selectedDate, handleDateChange] = useState(value);
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
+        // variant="inline"
+        // inputVariant=""
         placeholder="10/10/2018"
         value={selectedDate}
         onChange={(date) => {
           handleDateChange(date);
-          if (props !== null) props.showDate(date);
+          showDate(date);
         }}
         format="yyyy/MM/dd"
       />
