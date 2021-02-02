@@ -463,7 +463,7 @@ export default function AddEmployee() {
     );
   };
   const ModalBan = ({ item }) => {
-    console.log(item);
+    // console.log(item);
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
@@ -501,7 +501,11 @@ export default function AddEmployee() {
           <Modal.Title style={{ color: "#818181" }}>Block User</Modal.Title>
         </Modal.Header>
         <div>
-          <Modal.Body>Do you really want to Block this Employee!</Modal.Body>
+          <Modal.Body>
+            Do you really want to
+            <em>{item.is_blocked == 1 ? " UNBLOCK " : " BLOCK "}</em>
+            this Employee!
+          </Modal.Body>
           <Modal.Footer>
             <Button
               style={{ backgroundColor: "#2258BF" }}
@@ -553,7 +557,7 @@ export default function AddEmployee() {
         setShowAlert(true);
         // ;
 
-        setUserRecord((state) => [formData].concat(state));
+        // setUserRecord((state) => [formData].concat(state));
       } else {
         // ;
         setErrorAlert(true);
@@ -573,10 +577,7 @@ export default function AddEmployee() {
           setShowAdd(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Add Employee</Modal.Title>
         </Modal.Header>
         <form
@@ -584,7 +585,7 @@ export default function AddEmployee() {
             SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
+          <div>
             <Modal.Body>
               <div className="pb-3">
                 <h6>First Name</h6>
@@ -692,6 +693,9 @@ export default function AddEmployee() {
                     setPassword(e.target.value);
                   }}
                 />
+                <small class="form-text text-muted">
+                  Your password must be 8 characters long
+                </small>
               </div>
             </Modal.Body>
             <Modal.Footer>

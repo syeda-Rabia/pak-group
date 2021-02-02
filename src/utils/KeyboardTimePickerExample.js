@@ -29,8 +29,7 @@ export function KeyboardDatePickerExample({ value, showDate }) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        // variant="inline"
-        // inputVariant=""
+        // inputVariant="outlined"
         placeholder="10/10/2018"
         value={selectedDate}
         onChange={(date) => {
