@@ -40,7 +40,7 @@ export default function LeadsAllocatonAndAddition() {
   var today = new Date();
   var datee = formatDate(today);
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState(formatDate(today));
 
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
@@ -130,7 +130,7 @@ export default function LeadsAllocatonAndAddition() {
       // });
       //  ;
       console.log({
-        time_to_call: time,
+        // time_to_call: time,
         dead_line: date,
         allocated_to: selectedEmployee,
         lead_id: item.id,
@@ -138,7 +138,7 @@ export default function LeadsAllocatonAndAddition() {
       });
 
       let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
-        time_to_call: time,
+        // time_to_call: time,
         dead_line: date,
         allocated_to: selectedEmployee,
         lead_id: item.id,
@@ -189,9 +189,9 @@ export default function LeadsAllocatonAndAddition() {
 
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
-        <td>
+        {/* <td>
           <KeyboardTimePickerExample value={today} showTime={HandleTimeValue} />
-        </td>
+        </td> */}
 
         <td>{item.source}</td>
         <td>{item.country_city}</td>
@@ -264,13 +264,26 @@ export default function LeadsAllocatonAndAddition() {
       </tr>
     );
   };
-  const SelectData = async (event) => {
-    //  event.preventDefault();
-    //  let postData = {
-    //    inventory_ids: select,
-    //    user_ids: viewable.map((item) => item.value),
-    //  };
-    //   ;
+  const MultiLeadAssign = async (event) => {
+    event.preventDefault();
+    let postData = {
+      lead_id: select,
+      allocated_to: selectedEmployee,
+      dead_line: date,
+      task: task,
+    };
+    await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
+      method: "post",
+      mode: "no-cors",
+      crossDomain: true,
+      headers: {
+        // "Content-Disposition": "attachment; filename=report.xlsx",
+        // Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    });
+
     //  let res = await POST(
     //    ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
     //    postData
@@ -310,59 +323,68 @@ export default function LeadsAllocatonAndAddition() {
 
       {select.length > 0 ? (
         <>
-          <Row className="shadow py-2  bg-white rounded mb-2 ">
-            {/* <div className="col-lg-7"> */}
-            <Col lg={6}>
-              <div className="">
-                <h6>Select Employee</h6>
-              </div>
-              <div>
-                <Select
-                  disableUnderline
-                  className="form-control form-control-sm w-100"
-                  value={selectedEmployee}
-                  onChange={(e) => {
-                    console.log("select employee ID is -----", e.target.value);
-                    setSelectedEmployee(e.target.value);
-                  }}
-                >
-                  {employeesToAllocateLeads.length > 0
-                    ? employeesToAllocateLeads.map((emp) => (
-                        <MenuItem key={emp.id} value={emp.id}>
-                          {emp.first_name} {emp.last_name}
-                        </MenuItem>
-                      ))
-                    : null}
-                </Select>
-              </div>
-            </Col>
-            {/* </div> */}
+          <form onSubmit={MultiLeadAssign}>
+            <Row className="shadow py-2  bg-white rounded mb-2 ">
+              {/* <div className="col-lg-7"> */}
 
-            <Col lg={6}>
-              <div className="">
-                <h6>Select_Deadline</h6>
-              </div>
+              <Col lg={6}>
+                <div class="form-group">
+                  <label for="selectEmployee">Select Employee</label>
 
-              <div>
-                <KeyboardDatePickerExample
-                  value={today}
-                  showDate={handleDateValue}
-                />
-                <div className="float-right">
-                  <button
-                    className=" btn btn-primary "
-                    type="submit"
-                    style={{ backgroundColor: "#2258BF" }}
-                    // disabled={!select.every((v) => v === true)}
-
-                    onClick={SelectData}
+                  <Select
+                    id="selectEmployee"
+                    disableUnderline
+                    className="form-control form-control-sm w-100"
+                    value={selectedEmployee}
+                    onChange={(e) => {
+                      console.log(
+                        "select employee ID is -----",
+                        e.target.value
+                      );
+                      setSelectedEmployee(e.target.value);
+                    }}
                   >
-                    Save
-                  </button>
+                    {employeesToAllocateLeads.length > 0
+                      ? employeesToAllocateLeads.map((emp) => (
+                          <MenuItem key={emp.id} value={emp.id}>
+                            {emp.first_name} {emp.last_name}
+                          </MenuItem>
+                        ))
+                      : null}
+                  </Select>
                 </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+              {/* </div> */}
+
+              <Col lg={6}>
+                <div className="">
+                  <label>Select_Deadline</label>
+                </div>
+
+                <div className="row">
+                  <div className="w-50 px-2 mx-2">
+                    <KeyboardDatePickerExample
+                      value={today}
+                      showDate={handleDateValue}
+                    />
+                  </div>
+
+                  <div className="ml-3">
+                    <button
+                      className="btn btn-primary "
+                      type="submit"
+                      style={{ backgroundColor: "#2258BF" }}
+                      // disabled={!select.every((v) => v === true)}
+
+                      // onClick={SelectData}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </form>
         </>
       ) : null}
       <Row>
@@ -401,11 +423,11 @@ export default function LeadsAllocatonAndAddition() {
                       Budget
                     </span>
                   </th>
-                  <th scope="col">
+                  {/* <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       TOC
                     </span>
-                  </th>
+                  </th> */}
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       Source
