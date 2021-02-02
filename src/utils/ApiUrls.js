@@ -26,6 +26,7 @@ const ApiUrls = {
   CREATE_PROJECT: "admin/project/add",
   EDIT_PROJECT: "admin/project/edit",
   DELETE_PROJECT: "admin/project/delete/",
+  INVENTORY_REQUEST:"admin/inventoryRequest/all",
 
   GET_ALL_PROJECTS: "admin/project/all",
   GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
@@ -63,6 +64,9 @@ const ApiUrls = {
 
   // Recording Employee
   ADD_RECORDING: "employee/recording/add",
+
+  // Employee inventory request
+  EMPLOYEE_INVENTORY_REQUEST:"employee/inventory/request"
 };
 
 export default ApiUrls;

@@ -14,7 +14,7 @@ import {
   TextField,
   OutlinedInput,
 } from "@material-ui/core";
-import { GET } from "./../../../utils/Functions";
+import { GET,POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 function EmployeeInventory(props) {
   const useStyles = makeStyles((theme) => ({
@@ -41,6 +41,7 @@ function EmployeeInventory(props) {
     setIsLoading(true);
     let res = await GET(
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
+  
     );
     console.log(res);
     if (res.success != false) {
@@ -51,6 +52,73 @@ function EmployeeInventory(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
+  const ModalRequest = ({ item }) => {
+    const [message, setMessage] = React.useState("");
+
+    const addData = async (event) => {
+      event.preventDefault();
+      let postData = {
+        message: message,
+      };
+      let res = await POST(ApiUrls.EMPLOYEE_INVENTORY_REQUEST, postData);
+      // setRefresh(!refresh);
+      // let arr = data;
+
+      // setData([user].concat(arr));
+      setOpenRequest(false);
+    };
+    // };
+
+    return (
+      <Modal
+      show={openRequest}
+      onHide={() => {
+        setOpenRequest(false);
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title style={{ color: "#818181" }}>
+          Request Inventory
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form>
+          <TextField
+            variant="outlined"
+            autoFocus
+            margin="dense"
+            multiline
+            required
+            fullWidth
+            label="Request Inventroy"
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          // style={{ backgroundColor: "#2258BF" }}
+          onClick={() => {
+            setOpenRequest(false);
+          }}
+        >
+          Close
+        </Button>
+        <Button
+          type="submit"
+          // style={{ backgroundColor: "#2258BF" }}
+          onClick={addData}
+        >
+          Send
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  
+    );
+        }
   const Table = ({ item, index }) => {
     return (
       <tr>
@@ -120,61 +188,15 @@ function EmployeeInventory(props) {
                   ))}
                 </tbody>
               </table>
+              <ModalRequest/>
             </div>
           </Col>
         </Row>
       </div>
-      <Modal
-        show={openRequest}
-        onHide={() => {
-          setOpenRequest(false);
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title style={{ color: "#818181" }}>
-            Request Inventory
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <TextField
-              variant="outlined"
-              autoFocus
-              margin="dense"
-              multiline
-              required
-              fullWidth
-              label="Request Inventroy"
-              // value={message}
-              // onChange={(e) => {
-              //   handleChange(e.target.value);
-              // }}
-            />
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            // style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setOpenRequest(false);
-            }}
-          >
-            Close
-          </Button>
-          <Button
-            type="submit"
-            // style={{ backgroundColor: "#2258BF" }}
-            onClick={() => {
-              setOpenRequest(false);
-            }}
-          >
-            Send
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+      
+     </Container>
   );
-}
+                  }
 
 const mapStateToProps = (state) => {
   return {
@@ -182,5 +204,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-// export default Login;
+// // export default Login;
 export default connect(mapStateToProps)(EmployeeInventory);
+

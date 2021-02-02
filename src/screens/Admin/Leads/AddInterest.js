@@ -68,6 +68,7 @@ export default function AddInterest() {
         interest: interest,
       };
       let res = await POST(ApiUrls.ADD_INTEREST, postData);
+      console.log("post request",res);
       setRefresh(!refresh);
       // let arr = data;
 
