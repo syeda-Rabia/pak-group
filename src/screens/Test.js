@@ -16,7 +16,7 @@ const Sidebar = Keyframes.Spring({
   peek: [
     { x: 0, from: { x: -100 }, delay: 500 },
     { x: -100, delay: 800 },
-  ],
+  ], 
   // single items,
   open: { delay: 0, x: 0 },
   // or async functions with side-effects
