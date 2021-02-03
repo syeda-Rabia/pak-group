@@ -136,7 +136,7 @@ export default function AddCategories() {
   const ModalEdit = ({ item }) => {
     const [category, setCategory] = useState(item.name);
 
-    const EditRecordToServer = async (event) => {
+    const EditRecordToServer = async (event) => { 
       event.preventDefault();
       setIsLoading(true);
 

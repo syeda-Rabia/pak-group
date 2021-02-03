@@ -295,6 +295,25 @@ export default function LeadsAllocatonAndAddition() {
     //  let arr = data;
   };
   // console.trace("------------------", AllleadsToAllocate);
+  const SelectData = async (event) => {
+    event.preventDefault();
+    let postData = {
+      lead_id: select,
+      allocated_to: selectedEmployee,
+      task:task,
+      dead_line: date,
+    };
+  
+    let res = await POST(
+      ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION,
+      postData
+    );
+    console.log("accepted",res)
+    setRefresh(!refresh);
+    setSelect([]);
+    setViewable([]);
+    // let arr = data;
+  };
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
@@ -364,7 +383,7 @@ export default function LeadsAllocatonAndAddition() {
                 <div className="row">
                   <div className="w-50 px-2 mx-2">
                     <KeyboardDatePickerExample
-                      value={today}
+                      value={date}
                       showDate={handleDateValue}
                     />
                   </div>
@@ -376,7 +395,7 @@ export default function LeadsAllocatonAndAddition() {
                       style={{ backgroundColor: "#2258BF" }}
                       // disabled={!select.every((v) => v === true)}
 
-                      // onClick={SelectData}
+                      onClick={SelectData}
                     >
                       Save
                     </button>

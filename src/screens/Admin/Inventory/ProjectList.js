@@ -82,7 +82,8 @@ export default function ProjectList() {
 
       //   // arr.push(projects);
       //   setData(arr);
-      //   setAllProjects(arr);
+        // setAllProjects(arr);
+      
       setShowEdit(false);
     };
 

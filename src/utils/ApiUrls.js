@@ -53,6 +53,7 @@ const ApiUrls = {
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
   ASSIGN_LEAD_TO_USER: "leadAllocation/assign",
   UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
+  POST_ADD_MULTIPLE_LEAD_ALLOCATION:"admin/leadAllocation/leads",
 
   //   DASHBOARD
 
@@ -66,7 +67,10 @@ const ApiUrls = {
   ADD_RECORDING: "employee/recording/add",
 
   // Employee inventory request
-  EMPLOYEE_INVENTORY_REQUEST:"employee/inventory/request"
+  EMPLOYEE_INVENTORY_REQUEST:"employee/inventory/request",
+// employee action on lead
+POST_EMPLOYEE_ACTION_ON_LEAD:"employee/empAction/add",
+
 };
 
 export default ApiUrls;
