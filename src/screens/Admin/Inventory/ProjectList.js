@@ -30,7 +30,7 @@ export default function ProjectList() {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
-
+  const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState(ProjectListData);
   const [selectedID, setSelectedID] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +49,7 @@ export default function ProjectList() {
   useEffect(() => {
     setIsLoading(true);
     getAllProjects();
-  }, []);
+  }, [refresh]);
 
   const getAllProjects = async () => {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
@@ -74,16 +74,21 @@ export default function ProjectList() {
         name: ProjectName,
       };
       let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
-      // if (res.success != false) {
-      //   let arr = allProjects.map((val) => {
-      //     if (val.id == projects.id) val = projects;
-      //     return val;
-      //   });
+      if (res.success != false) {
+        setRefresh(!refresh);
 
-      //   // arr.push(projects);
-      //   setData(arr);
-        // setAllProjects(arr);
+      }
+  
+        // let arr = allProjects.map((val) => {
+        //   if (val.id == projects.id) val = projects;
+        //   return val;
+        // }
       
+
+        // // arr.push(projects);
+        // setData(arr);
+        // setAllProjects(arr);
+        console.log("edit",res)
       setShowEdit(false);
     };
 

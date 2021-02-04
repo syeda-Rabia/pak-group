@@ -1177,6 +1177,25 @@ export default function LeadsAdmin() {
         <td>{item.Email}</td>
         <td>{item.Task}</td>
         <td>{item.Deadline}</td> */}
+        <td> 
+        <Link to={{ pathname: "/admin/emp-action", query: { item } }}
+        >
+            <button
+              data-tip
+              data-for="view emp"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              // onClick={() => {
+              //   // setShowView(true);
+              //   // setSelectedID(index);
+              // }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
+            </button>
+            </Link>
+            <ReactTooltip id="view emp" place="top" effect="solid">
+              View Employee Action
+            </ReactTooltip></td>
 
         <td>
           <button
@@ -1425,6 +1444,11 @@ export default function LeadsAdmin() {
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
                     Deadline
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Show_Employee_action
                   </span>
                 </th>
 

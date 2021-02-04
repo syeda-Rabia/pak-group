@@ -110,7 +110,7 @@ export const getDays = (startDate, day) => {
   });
 };
 
-export const formatDate = (date) => {
+export const formatDate = (date,indicator) => {
   var d = new Date(date),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
@@ -119,7 +119,7 @@ export const formatDate = (date) => {
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
 
-  return [year, month, day].join("-");
+  return [year, month, day].join(indicator);
 };
 // export default {
 //   POST,
