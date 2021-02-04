@@ -32,13 +32,13 @@ import ExcelPage from "./utils/ExcelPage";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
-import { token } from "../src/utils/Config";
+// import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
 import Test from "./screens/Test";
 
 const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
-  const [TOKEN, setTOKEN] = useState(token);
+  const [TOKEN, setTOKEN] = useState(props.user.token);
   // ;
   const AdminRoute = () => {
     // ;
@@ -181,6 +181,9 @@ const mapStateToProps = (state) => {
   // userType = parseInt(state.auth.user_info.user_type);
 
   //  ;
+
+  // console.log("auths is --------", state.auth);
+
   return {
     user: state.auth,
   };
