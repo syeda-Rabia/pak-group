@@ -1,4 +1,4 @@
-import { server_url, token } from "./Config";
+import { server_url } from "./Config";
 
 const GetRecordFromServer = async (url) => {
   fetch(server_url + url, {
@@ -23,7 +23,7 @@ const GetRecordFromServer = async (url) => {
 };
 
 export const POST = async (url, formData) => {
-  // let token = JSON.parse(localStorage.getItem("token"));
+  let token = JSON.parse(localStorage.getItem("token"));
 
   //  ;
   // console.log(
@@ -59,12 +59,7 @@ export const POST = async (url, formData) => {
 };
 
 export const GET = async (url) => {
-  // let token = JSON.parse(localStorage.getItem("token"));
-  //  ;
-
-  //  ;
-
-  //  ;
+  let token = JSON.parse(localStorage.getItem("token"));
 
   try {
     return fetch(server_url + url, {

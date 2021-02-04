@@ -28,7 +28,7 @@ import {
 } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { token } from "../../../utils/Config";
+// import { token } from "../../../utils/Config";
 import { useDropzone, Dropzone } from "react-dropzone";
 import PreLoading from "../../../components/PreLoading";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
@@ -41,7 +41,7 @@ const Table = ({
   setRefresh,
   refresh,
   setPostData,
-  userInfo
+  userInfo,
 }) => {
   const [recordingFile, setRecordingFile] = React.useState(null);
   const [action, setAction] = React.useState("follow up");
@@ -112,29 +112,26 @@ const Table = ({
   ]);
   // console.log(open, whatNext, index);
   const handlePostData = (whatNext) => {
-    let postDataArray=[];
-    open.map((item,index)=>{
-        if(item.open==true){
-          // console.log("main is checked",index)
-          postDataArray.push(item.name.toUpperCase());
-        item.sub.map((sub,idx)=>{
-            if(sub.set==true){
-              // console.log("Sub is checked",idx)
+    let postDataArray = [];
+    open.map((item, index) => {
+      if (item.open == true) {
+        // console.log("main is checked",index)
+        postDataArray.push(item.name.toUpperCase());
+        item.sub.map((sub, idx) => {
+          if (sub.set == true) {
+            // console.log("Sub is checked",idx)
             postDataArray.push(sub.name.toUpperCase());
-            }
-          })
-        }
-      })
-    postDataArray.push(whatNext.toUpperCase())
-    console.log("PostData is :",postDataArray);
-    setPostData({dataID:item,postData:postDataArray});
-    
-  
-    if(whatNext=='Request to Close')
-    setValue('Request')
-    else
-      setValue('Meeting')
-      setShowModalAction(true);
+          }
+        });
+      }
+    });
+    postDataArray.push(whatNext.toUpperCase());
+    console.log("PostData is :", postDataArray);
+    setPostData({ dataID: item, postData: postDataArray });
+
+    if (whatNext == "Request to Close") setValue("Request");
+    else setValue("Meeting");
+    setShowModalAction(true);
     setOpen([
       {
         name: "Call",
@@ -166,9 +163,9 @@ const Table = ({
         open: false,
         sub: [{ name: "WhatsApp Sent", set: false }],
       },
-    ])
+    ]);
 
-    setAnchorEl(null)
+    setAnchorEl(null);
   };
 
   const handleClick = (event) => {
@@ -265,7 +262,7 @@ const Table = ({
       headers: {
         // Accept: "application/json",
         "Content-Type": "	multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
       body: formData,
     })
@@ -416,8 +413,7 @@ const Table = ({
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Scheduled Meeting")
-                              
+                                handlePostData("Scheduled Meeting");
                               }}
                               // onClick={() => {
                               //   const SubMenu = { ...listItem  };
@@ -437,8 +433,7 @@ const Table = ({
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Call Back")
-
+                                handlePostData("Call Back");
                               }}
                             >
                               <ListItemText primary="Call Back" />
@@ -447,8 +442,7 @@ const Table = ({
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Comming with Token")
-
+                                handlePostData("Comming with Token");
                               }}
                             >
                               <ListItemText primary="Comming with Token" />
@@ -457,8 +451,7 @@ const Table = ({
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData('Request to Close')
-
+                                handlePostData("Request to Close");
                               }}
                             >
                               <ListItemText primary="Request to Close" />
@@ -529,11 +522,11 @@ const Table = ({
         </MenuItem> */}
         </Menu>
       </td>
-      <td scope="row">{index+1}</td>
+      <td scope="row">{index + 1}</td>
       <td>{item.client_name}</td>
       <td>{item.contact}</td>
       <td>{item.project.name}</td>
-      <td>{item.budget+" PKR"}</td>
+      <td>{item.budget + " PKR"}</td>
       {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
       <td>{item.time_to_call}</td>
       <td>{item.country_city}</td>
@@ -543,7 +536,9 @@ const Table = ({
 
       {/* <td>{item.inventory.inventory_name}</td> */}
       <td>{"---"}</td>
-      <td>{userInfo.first_name} {userInfo.last_name}</td>
+      <td>
+        {userInfo.first_name} {userInfo.last_name}
+      </td>
       <td>{item.email}</td>
       <td>{item.task}</td>
       <td>{item.dead_line}</td>
@@ -564,7 +559,7 @@ function EmployeeLeads(props, lead_id) {
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [postData, setPostData] = React.useState({});
-  console.log(postData,"YES",value)
+  console.log(postData, "YES", value);
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
@@ -624,7 +619,7 @@ function EmployeeLeads(props, lead_id) {
     handleFetchData();
   }, [refresh]);
 
-  const ModalAction = ({data}) => {
+  const ModalAction = ({ data }) => {
     const [message, setMessage] = React.useState("");
     const [time, setTime] = React.useState(timee);
     const [date, setDate] = React.useState(today);
@@ -633,23 +628,23 @@ function EmployeeLeads(props, lead_id) {
     const SendMeetingData = async (e) => {
       e.preventDefault();
       let formData;
-      if(value=="Meeting")
-       formData = {
-        lead_id:data.dataID.id,
-        action_type: data.postData[0],
-        select_option: data.postData[1],
-        what_next: data.postData[2],
-      date:date,
-      time:time,
-      };
-      else 
+      if (value == "Meeting")
         formData = {
-        lead_id:data.dataID.id,
-        action_type: data.postData[0],
-        select_option: data.postData[1],
-        what_next: data.postData[2],
-        comments:message
-      };
+          lead_id: data.dataID.id,
+          action_type: data.postData[0],
+          select_option: data.postData[1],
+          what_next: data.postData[2],
+          date: date,
+          time: time,
+        };
+      else
+        formData = {
+          lead_id: data.dataID.id,
+          action_type: data.postData[0],
+          select_option: data.postData[1],
+          what_next: data.postData[2],
+          comments: message,
+        };
       setShowModalAction(false);
       let resp = await POST(ApiUrls.POST_EMPLOYEE_ACTION_ON_LEAD, formData);
       if (resp.error === false) {
@@ -660,9 +655,9 @@ function EmployeeLeads(props, lead_id) {
         setShowErrorAlert(true);
       }
 
-      console.log(resp,formData);
+      console.log(resp, formData);
     };
-  
+
     const SendShitLeadToServer = async () => {
       let resp = await POST(ApiUrls.POST_EMPLOYEE_ACTION_ON_LEAD, {
         action_type: "shiftLead",
@@ -741,8 +736,7 @@ function EmployeeLeads(props, lead_id) {
                 // style={{ backgroundColor: "#2258BF" }}
                 onClick={(e) => {
                   SendMeetingData(e);
-                setShowModalAction(false);
-
+                  setShowModalAction(false);
                 }}
               >
                 Send
@@ -978,7 +972,7 @@ function EmployeeLeads(props, lead_id) {
                 ))}
               </tbody>
             </table>
-            <ModalAction data={postData}/>
+            <ModalAction data={postData} />
           </div>
         </div>
       </Row>
