@@ -2,14 +2,14 @@
 
 const ApiUrls = {
   // AUTHENTICATION
-  LOGIN: "admin/login",
+  LOGIN: "/login",
   LOGOUT: "",
 
   // USERS
   CREATE_USER: "admin/employee/add",
-  EDIT_USER: "",
-  DELETE_USER: "",
-  BLOCK_USER: "",
+  EDIT_USER: "admin/employee/edit",
+  DELETE_USER: "admin/employee/delete/",
+  BLOCK_USER: "admin/employee/blocked/  ",
   GET_ALL_USER: "admin/employee/all",
   GET_ALL_DASHBOARD_USER: "admin/dashboard/employee/all",
   GET_ALL_DASHBOARD_USER_LEADS: "admin/dashboard/allocatedLeads/",
@@ -26,6 +26,7 @@ const ApiUrls = {
   CREATE_PROJECT: "admin/project/add",
   EDIT_PROJECT: "admin/project/edit",
   DELETE_PROJECT: "admin/project/delete/",
+  INVENTORY_REQUEST: "admin/inventoryRequest/all",
 
   GET_ALL_PROJECTS: "admin/project/all",
   GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
@@ -42,16 +43,33 @@ const ApiUrls = {
   // LEADS
   CREATE_LEAD: "admin/lead/add",
   EDIT_LEAD: "admin/lead/edit",
-  DELETE_LEAD: "",
+  CALL_TO_ACTION: "admin/lead/cta",
+  DELETE_LEAD: "admin/lead/delete/",
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",
+  EMPLOYEE_ACTION: "employee/lead/edit",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
   ASSIGN_LEAD_TO_USER: "leadAllocation/assign",
   UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
+  POST_ADD_MULTIPLE_LEAD_ALLOCATION: "admin/leadAllocation/leads",
 
   //   DASHBOARD
+
+  // Interest
+  GET_ALL_INTEREST: "admin/interest/all",
+  EDIT_INTEREST: "admin/interest/edit",
+  DELETE_INTEREST: "admin/interest/delete/",
+  ADD_INTEREST: "admin/interest/add",
+
+  // Recording Employee
+  ADD_RECORDING: "employee/recording/add",
+
+  // Employee inventory request
+  EMPLOYEE_INVENTORY_REQUEST: "employee/inventory/request",
+  // employee action on lead
+  POST_EMPLOYEE_ACTION_ON_LEAD: "employee/empAction/add",
 };
 
 export default ApiUrls;
