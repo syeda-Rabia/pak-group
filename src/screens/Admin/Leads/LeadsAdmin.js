@@ -43,6 +43,8 @@ import {
   Slide,
   Chip,
 } from "@material-ui/core";
+import FaceIcon from "@material-ui/icons/Face";
+
 import { validateEmail, validateMobile } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
@@ -71,15 +73,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "#90caf9 !important",
   },
-  root: {
-    width: "100%",
-    maxWidth: 360,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-  subNested: {
-    paddingLeft: theme.spacing(6),
+  chipLabelColor: {
+    color: "black",
   },
 }));
 
@@ -1230,6 +1225,7 @@ export default function LeadsAdmin() {
           {item.status != "" ? (
             <Chip
               classes={{
+                label: classes.chipLabelColor,
                 root:
                   item.status === "Overdue"
                     ? classes.chipOverdue
@@ -1251,9 +1247,16 @@ export default function LeadsAdmin() {
         </td>
 
         <td>
-          {item.allocation.length > 0
-            ? item.allocation[0].allocated_to.first_name
-            : "-------"}
+          {item.allocation.length > 0 ? (
+            <Chip
+              icon={<FaceIcon />}
+              variant="outlined"
+              label={item.allocation[0].allocated_to.first_name}
+              style={{ marginRight: "5px" }}
+            />
+          ) : (
+            "-------"
+          )}
         </td>
         <td>{item.task}</td>
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
