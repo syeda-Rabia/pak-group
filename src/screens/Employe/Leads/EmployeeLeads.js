@@ -35,6 +35,37 @@ import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewS
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 
+const useStyles = makeStyles((theme) => ({
+  chipGracePeriod: {
+    color: "#fff",
+    backgroundColor: "red !important",
+  },
+  chipComplete: {
+    color: "#fff",
+    backgroundColor: "green !important",
+  },
+  chipFollowUp: {
+    color: "#fff",
+    backgroundColor: "yellow !important",
+  },
+  chipOverdue: {
+    color: "#fff",
+    backgroundColor: "orange !important",
+  },
+  chipLabelColor: {
+    color: "black",
+  },
+  root: {
+    width: "100%",
+    maxWidth: 360,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+  subNested: {
+    paddingLeft: theme.spacing(6),
+  },
+}));
 const Table = ({
   item,
   index,
@@ -50,39 +81,6 @@ const Table = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const [whatNext, setWhatNext] = React.useState(0);
 
-  const useStyles = makeStyles((theme) => ({
-    chipGracePeriod: {
-      color: "#fff",
-      backgroundColor: "red !important",
-    },
-    chipComplete: {
-      color: "#fff",
-      backgroundColor: "green !important",
-    },
-    chipFollowUp: {
-      color: "#fff",
-      backgroundColor: "yellow !important",
-    },
-    chipOverdue: {
-      color: "#fff",
-      backgroundColor: "orange !important",
-    },
-    chipAllocated: {
-      color: "#fff",
-      backgroundColor: "#90caf9 !important",
-    },
-    root: {
-      width: "100%",
-      maxWidth: 360,
-    },
-    chipLabelColor: { color: "black", backgroundColor: "#000" },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
-    subNested: {
-      paddingLeft: theme.spacing(6),
-    },
-  }));
   const classes = useStyles();
 
   const [open, setOpen] = React.useState([
@@ -277,6 +275,7 @@ const Table = ({
       <td>
         <Chip
           classes={{
+            label: classes.chipLabelColor,
             root:
               item.status === "Overdue"
                 ? classes.chipOverdue
@@ -289,7 +288,6 @@ const Table = ({
                 : item.status === "Allocated"
                 ? classes.chipAllocated
                 : null,
-            label: classes.chipLabelColor,
           }}
           label={item.status}
         />{" "}
@@ -481,35 +479,6 @@ function EmployeeLeads(props, lead_id) {
   today = yyyy + "-" + mm + "-" + dd;
 
   // const []
-
-  const useStyles = makeStyles((theme) => ({
-    chipGracePeriod: {
-      color: "#fff",
-      backgroundColor: "red !important",
-    },
-    chipComplete: {
-      color: "#fff",
-      backgroundColor: "green !important",
-    },
-    chipFollowUp: {
-      color: "#fff",
-      backgroundColor: "yellow !important",
-    },
-    chipOverdue: {
-      color: "#fff",
-      backgroundColor: "orange !important",
-    },
-    root: {
-      width: "100%",
-      maxWidth: 360,
-    },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
-    subNested: {
-      paddingLeft: theme.spacing(6),
-    },
-  }));
 
   // const handleMenuButtonClick = (event) => {};
 
