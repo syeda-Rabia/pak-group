@@ -83,19 +83,25 @@ export default function VerticalLinearStepper(props) {
   const [data, setData] = React.useState([]);
 const [isLoading, setIsLoading] = React.useState(false);
 console.log(props)
-const handleFetchData = async () => {
+const leadID=props.location.query;
+React.useEffect(() => {
   setIsLoading(true);
-  if (props.leads !== undefined) {
-    let lead_id = props.leads.item.id;
+  if (leadID.item.id != undefined) handleFetchData();
+}, []);
+
+// React.useEffect(() => {
+//   handleFetchData();
+// }, []);
+const handleFetchData = async () => {
+
  
   let res = await GET(
-    ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + lead_id
+    ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id
   );
-  console.log("--",res);
+  console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
   if (res.success != false) {
     // setData(res.data.EmpAction);
   }
-}
   setData( [
             {
                 "id": 3,
@@ -202,9 +208,9 @@ const handleFetchData = async () => {
         ])
   setIsLoading(false);
 };
-React.useEffect(() => {
-  handleFetchData();
-}, []);
+// React.useEffect(() => {
+//   handleFetchData();
+// }, []);
 function getStepContent(step) {
   switch (step) {
     case 0:

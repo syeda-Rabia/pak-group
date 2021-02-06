@@ -65,7 +65,7 @@ export default function InventoryAdmin(props) {
       if (resp.data != null) {
         setAllInventories(resp.data.inventories);
       } else {
-        setGobackState(true);
+        setGobackState(true); 
       }
     }
     setIsLoading(false);

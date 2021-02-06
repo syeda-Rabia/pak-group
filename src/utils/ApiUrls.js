@@ -48,7 +48,7 @@ const ApiUrls = {
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",
   EMPLOYEE_ACTION: "employee/lead/edit",
-  GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead/",
+  GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",

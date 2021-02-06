@@ -83,6 +83,7 @@ export default function LeadsAdmin() {
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
+    console.log("-----",res)
     if (res.success != false) {
       setInterestList(res.data.Interest);
     }

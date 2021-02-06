@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import LeadsAdmin from "../Leads/LeadsAdmin";
 import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
-export default function AdminLeadsScreen() {
+export default function AdminLeadsScreen(props) {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
@@ -25,7 +25,7 @@ export default function AdminLeadsScreen() {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAdmin />
+            <LeadsAdmin listData={props.location.query} />
           </Col>
         </Row>
       </Container>

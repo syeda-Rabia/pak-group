@@ -249,7 +249,7 @@ export default function AddEmployee() {
         first_name: f_name,
         last_name: l_name,
         email: email,
-        gender: gender == "male" ? "Male" : "Female",
+        gender: gender == "Male" ? "Male" : "Female",
         phone: phone_no,
         password: password,
         user_type: user_type == "Admin" ? "Admin" : "Employee",
