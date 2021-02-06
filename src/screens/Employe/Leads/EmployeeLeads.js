@@ -67,10 +67,15 @@ const Table = ({
       color: "#fff",
       backgroundColor: "orange !important",
     },
+    chipAllocated: {
+      color: "#fff",
+      backgroundColor: "#90caf9 !important",
+    },
     root: {
       width: "100%",
       maxWidth: 360,
     },
+    chipLabelColor: { color: "black", backgroundColor: "#000" },
     nested: {
       paddingLeft: theme.spacing(4),
     },
@@ -268,8 +273,26 @@ const Table = ({
       {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
       <td>{item.time_to_call}</td>
       <td>{item.country_city}</td>
+
       <td>
-        <Chip label={item.status} />
+        <Chip
+          classes={{
+            root:
+              item.status === "Overdue"
+                ? classes.chipOverdue
+                : item.status === "Grace Period"
+                ? classes.chipGracePeriod
+                : item.status === "Complete"
+                ? classes.chipComplete
+                : item.status === "Follow up"
+                ? classes.chipFollowUp
+                : item.status === "Allocated"
+                ? classes.chipAllocated
+                : null,
+            label: classes.chipLabelColor,
+          }}
+          label={item.status}
+        />{" "}
       </td>
 
       {/* <td>{item.inventory.inventory_name}</td> */}
@@ -546,8 +569,8 @@ function EmployeeLeads(props, lead_id) {
       setMessage(value);
     };
     const handleDateValue = (value) => {
-      setDate(formatDate(value,'-'));
-      console.log(formatDate(value,'-'));
+      setDate(formatDate(value, "-"));
+      console.log(formatDate(value, "-"));
     };
     const handleTimeValue = (value) => {
       const timeStr = value.toString();
@@ -687,6 +710,8 @@ function EmployeeLeads(props, lead_id) {
           </div>
         </Col>
       </Row>
+      <PreLoading startLoading={isLoading} />
+
       <SuccessNotification
         showSuccess={showSuccessAlert}
         message={alertmessage}
