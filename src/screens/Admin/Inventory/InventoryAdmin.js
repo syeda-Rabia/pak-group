@@ -45,7 +45,7 @@ export default function InventoryAdmin(props) {
   const [gobackState, setGobackState] = useState(false);
 
   const classes = useStyles();
-  const history = useHistory();
+  const history = useHistory(); 
 
   useEffect(() => {
     setIsLoading(true);

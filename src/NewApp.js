@@ -29,6 +29,7 @@ import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
 import ExcelPage from "./utils/ExcelPage";
+import EmployeeAction from "./screens/Admin/Leads/EmployeeAction";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
@@ -72,7 +73,15 @@ const NewApp = (props) => {
           <HeaderNavBar />
           <AddInterest />
         </Route>
-
+        <Route path="/admin/emp-action"  
+        render={(props) => (
+            <>
+              <HeaderNavBar />
+              <EmployeeAction {...props} />
+            </>
+          )}>
+        
+        </Route>
         <Route path="/admin/inventory">
           <HeaderNavBar />
           <AdminProjectListScreen />
@@ -87,10 +96,20 @@ const NewApp = (props) => {
           <HeaderNavBar />
           <AdminLAAScreen />
         </Route>
-        <Route path="/admin/leads">
+        <Route
+          exact
+          path="/admin/leads"
+          render={(props) => (
+            <>
+              <HeaderNavBar />
+              <AdminLeadsScreen {...props} />
+            </>
+          )}
+        />
+        {/* <Route path="/admin/leads">
           <HeaderNavBar />
           <AdminLeadsScreen />
-        </Route>
+        </Route> */}
         <Route path="/admin/todolist">
           <HeaderNavBar />
           <AdminTodoListScreen />

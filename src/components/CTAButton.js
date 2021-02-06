@@ -226,8 +226,8 @@ export default function CTAButton({ empId, lead_id }) {
       setMessage(value);
     };
     const handleDateValue = (value) => {
-      setDate(formatDate(value));
-      console.log(formatDate(value));
+      setDate(formatDate(value,'-'));
+      console.log(formatDate(value,'-'));
     };
     const handleTimeValue = (value) => {
       const timeStr = value.toString();

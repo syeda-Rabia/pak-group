@@ -26,7 +26,7 @@ const ApiUrls = {
   CREATE_PROJECT: "admin/project/add",
   EDIT_PROJECT: "admin/project/edit",
   DELETE_PROJECT: "admin/project/delete/",
-  INVENTORY_REQUEST:"admin/inventoryRequest/all",
+  INVENTORY_REQUEST: "admin/inventoryRequest/all",
 
   GET_ALL_PROJECTS: "admin/project/all",
   GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
@@ -48,12 +48,13 @@ const ApiUrls = {
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",
   EMPLOYEE_ACTION: "employee/lead/edit",
+  GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead/",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
   ASSIGN_LEAD_TO_USER: "leadAllocation/assign",
   UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
-  POST_ADD_MULTIPLE_LEAD_ALLOCATION:"admin/leadAllocation/leads",
+  POST_ADD_MULTIPLE_LEAD_ALLOCATION: "admin/leadAllocation/leads",
 
   //   DASHBOARD
 
@@ -67,10 +68,9 @@ const ApiUrls = {
   ADD_RECORDING: "employee/recording/add",
 
   // Employee inventory request
-  EMPLOYEE_INVENTORY_REQUEST:"employee/inventory/request",
-// employee action on lead
-POST_EMPLOYEE_ACTION_ON_LEAD:"employee/empAction/add",
-
+  EMPLOYEE_INVENTORY_REQUEST: "employee/inventory/request",
+  // employee action on lead
+  POST_EMPLOYEE_ACTION_ON_LEAD: "employee/empAction/add",
 };
 
 export default ApiUrls;
