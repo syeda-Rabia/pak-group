@@ -89,7 +89,7 @@ export default function RecordTable() {
   };
 
   const TableRow = ({ index, item }) => {
-    console.log(item);
+    // console.log(item);
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -106,15 +106,15 @@ export default function RecordTable() {
 
         <td>{item.status}</td>
 
-        <td>{/* {item.inventory.serial_no} */}</td>
-
-        <td>{/* {item.inventory.inventory_name} */}</td>
+        {/* <td>{item.inventory.serial_no}</td> */}
+        <td>--------------</td>
+        {/* <td>{item.inventory.inventory_name}</td> */}
         <td>{item.email}</td>
         <td>{item.project.category.name}</td>
         <td>{item.dead_line}</td>
 
         <td>
-          <CTAButton />
+          <CTAButton lead_id={item.id} />
         </td>
       </tr>
     );
@@ -181,9 +181,9 @@ export default function RecordTable() {
                     <th scope="col">
                       <span id="sp">Status</span>
                     </th>
-                    <th scope="col">
+                    {/* <th scope="col">
                       <span id="sp">Serial_No</span>
-                    </th>
+                    </th> */}
                     <th scope="col">
                       <span id="sp">Interest</span>
                     </th>

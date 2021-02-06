@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "orange !important",
   },
+  chipAllocated: {
+    color: "#fff",
+    backgroundColor: "#90caf9 !important",
+  },
   chipLabelColor: {
     color: "black",
   },

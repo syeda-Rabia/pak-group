@@ -60,7 +60,7 @@ export const POST = async (url, formData) => {
 
 export const GET = async (url) => {
   let token = JSON.parse(localStorage.getItem("token"));
-console.log("-----",token);
+  // console.log("-----",token);
   try {
     return fetch(server_url + url, {
       method: "get",
@@ -105,7 +105,7 @@ export const getDays = (startDate, day) => {
   });
 };
 
-export const formatDate = (date,indicator) => {
+export const formatDate = (date, indicator) => {
   var d = new Date(date),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),

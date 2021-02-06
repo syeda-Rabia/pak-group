@@ -176,6 +176,7 @@ export default function CTAButton({ empId, lead_id }) {
       setShowModalCTA(false);
 
       let resp = await POST(ApiUrls.CALL_TO_ACTION, formData);
+      console.log(resp);
       if (resp.error === false) {
         setAlertMessage("Instruction Send Successfully");
         setShowSuccessAlert(true);
@@ -226,8 +227,8 @@ export default function CTAButton({ empId, lead_id }) {
       setMessage(value);
     };
     const handleDateValue = (value) => {
-      setDate(formatDate(value,'-'));
-      console.log(formatDate(value,'-'));
+      setDate(formatDate(value, "-"));
+      console.log(formatDate(value, "-"));
     };
     const handleTimeValue = (value) => {
       const timeStr = value.toString();
