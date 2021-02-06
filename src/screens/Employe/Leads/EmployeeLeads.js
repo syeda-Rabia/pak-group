@@ -90,31 +90,31 @@ const Table = ({
       name: "Call",
       open: false,
       sub: [
-        { name: "Call Recieved", set: false },
-        { name: "Call Declined", set: false },
-        { name: "Asked To send WhatsApp", set: false },
-        { name: "Asked To Send SMS", set: false },
-        { name: "Meeting Scheduled", set: false },
+        { name: "CALL RECIVED", set: false },
+        { name: "CALL DECLINED", set: false },
+        { name: "ASKED TO SEND WHATSAPP", set: false },
+        { name: "ASKED TO SEND SMS", set: false },
+        { name: "MEETING SCHEDULED", set: false },
       ],
     },
     {
       name: "SMS",
       open: false,
-      sub: [{ name: "SMS Sent", set: false }],
+      sub: [{ name: "SMS SENT", set: false }],
     },
     {
       name: "Visit",
       open: false,
       sub: [
-        { name: "Visit Successfully", set: false },
-        { name: "Visit Postponed", set: false },
-        { name: "Visit Canceled", set: false },
+        { name: "VISIT SUCCESFULL", set: false },
+        { name: "VISIT POSTPONED", set: false },
+        { name: "VISIT CANCELED", set: false },
       ],
     },
     {
       name: "WhatsApp",
       open: false,
-      sub: [{ name: "WhatsApp Sent", set: false }],
+      sub: [{ name: "WHATSAPP SENT", set: false }],
     },
   ]);
   // console.log(open, whatNext, index);
@@ -136,7 +136,7 @@ const Table = ({
     console.log("PostData is :", postDataArray);
     setPostData({ dataID: item, postData: postDataArray });
 
-    if (whatNext == "Request to Close") setValue("Request");
+    if (whatNext == "REQUEST TO CLOSE") setValue("Request");
     else setValue("Meeting");
     setShowModalAction(true);
     setOpen([
@@ -144,31 +144,31 @@ const Table = ({
         name: "Call",
         open: false,
         sub: [
-          { name: "Call Recived", set: false },
-          { name: "Call Declined", set: false },
-          { name: "Asked To send WhatsApp", set: false },
-          { name: "Asked To Send SMS", set: false },
-          { name: "Meeting Scheduled", set: false },
+          { name: "CALL RECIVED", set: false },
+          { name: "CALL DECLINED", set: false },
+          { name: "ASKED TO SEND WHATSAPP", set: false },
+          { name: "ASKED TO SEND SMS", set: false },
+          { name: "MEETING SCHEDULED", set: false },
         ],
       },
       {
         name: "SMS",
         open: false,
-        sub: [{ name: "SMS Sent", set: false }],
+        sub: [{ name: "SMS SENT", set: false }],
       },
       {
         name: "Visit",
         open: false,
         sub: [
-          { name: "Visit Successfully", set: false },
-          { name: "Visit Postponed", set: false },
-          { name: "Visit Canceled", set: false },
+          { name: "VISIT SUCCESFULL", set: false },
+          { name: "VISIT POSTPONED", set: false },
+          { name: "VISIT CANCELED", set: false },
         ],
       },
       {
         name: "WhatsApp",
         open: false,
-        sub: [{ name: "WhatsApp Sent", set: false }],
+        sub: [{ name: "WHATSAPP SENT", set: false }],
       },
     ]);
 
@@ -407,37 +407,37 @@ const Table = ({
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Scheduled Meeting");
+                                handlePostData("SCHEDULE MEETING");
                               }}
                             >
-                              <ListItemText primary="Scheduled Meeting" />
+                              <ListItemText primary="SCHEDULE MEETING" />
                             </ListItem>
                             <ListItem
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Call Back");
+                                handlePostData("CALL BACK");
                               }}
                             >
-                              <ListItemText primary="Call Back" />
+                              <ListItemText primary="CALL BACK" />
                             </ListItem>
                             <ListItem
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Comming with Token");
+                                handlePostData("COMING WITH TOKEN");
                               }}
                             >
-                              <ListItemText primary="Comming with Token" />
+                              <ListItemText primary="COMING WITH TOKEN" />
                             </ListItem>
                             <ListItem
                               className={classes.subNested}
                               button
                               onClick={() => {
-                                handlePostData("Request to Close");
+                                handlePostData("REQUEST TO CLOSE");
                               }}
                             >
-                              <ListItemText primary="Request to Close" />
+                              <ListItemText primary="REQUEST TO CLOSE" />
                             </ListItem>
                           </List>
                         </Collapse>

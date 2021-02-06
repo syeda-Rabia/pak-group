@@ -98,114 +98,12 @@ const handleFetchData = async () => {
   let res = await GET(
     ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id
   );
-  console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
+  // console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
+  console.log("--",JSON.stringify(res));
   if (res.success != false) {
-    // setData(res.data.EmpAction);
+    setData(res.data.EmpAction);
   }
-  setData( [
-            {
-                "id": 3,
-                "lead_id": 3,
-                "action_type": "VISIT",
-                "select_option": "WHATSAPP SENT",
-                "what_next": "REQUEST TO CLOSE",
-                "date": null,
-                "time": null,
-                "comments": "comments AFTER SELECT WHATSAPP SENT",
-                "created_by": 4,
-                "is_deleted": 0,
-                "created_at": "2021-02-02T13:22:37.000000Z",
-                "updated_at": "2021-02-02T13:22:37.000000Z",
-                "users": {
-                    "id": 4,
-                    "first_name": "4 imtesal",
-                    "last_name": "shafique",
-                    "phone": "2357654365",
-                    "email": "emp2@gmail.com",
-                    "gender": "Female",
-                    "user_type": 2,
-                    "email_verified_at": null,
-                    "is_blocked": 0,
-                    "is_deleted": 0,
-                    "blocked_by": null,
-                    "created_at": "2021-01-08T07:27:36.000000Z",
-                    "updated_at": "2021-01-28T07:11:49.000000Z"
-                },
-                "lead": {
-                    "id": 3,
-                    "action": null,
-                    "client_name": "3 Lead Client",
-                    "contact": "0323456789",
-                    "email": "voromiv@mailinator.com",
-                    "project_id": 1,
-                    "created_by": 7,
-                    "inventory_id": 4,
-                    "budget": "1000000",
-                    "source": "TV",
-                    "country_city": "Laborum",
-                    "task": null,
-                    "time_to_call": null,
-                    "dead_line": null,
-                    "status": "Allocated",
-                    "is_allocated": 1,
-                    "is_deleted": 0,
-                    "created_at": "2021-01-06T12:51:50.000000Z",
-                    "updated_at": "2021-02-01T09:40:14.000000Z",
-                    "interest_id": null
-                }
-            },
-            {
-                "id": 2,
-                "lead_id": 3,
-                "action_type": "CODING",
-                "select_option": "WHATSAPP SENT",
-                "what_next": "REQUEST TO CLOSE",
-              "date": "2010-01-03",
-                "time": "04:30:29",
-                "comments":null,
-                "created_by": 4,
-                "is_deleted": 0,
-                "created_at": "2021-02-02T13:22:37.000000Z",
-                "updated_at": "2021-02-02T13:22:37.000000Z",
-                "users": {
-                    "id": 4,
-                    "first_name": "4 imtesal",
-                    "last_name": "shafique",
-                    "phone": "2357654365",
-                    "email": "emp2@gmail.com",
-                    "gender": "Female",
-                    "user_type": 2,
-                    "email_verified_at": null,
-                    "is_blocked": 0,
-                    "is_deleted": 0,
-                    "blocked_by": null,
-                    "created_at": "2021-01-08T07:27:36.000000Z",
-                    "updated_at": "2021-01-28T07:11:49.000000Z"
-                },
-                "lead": {
-                    "id": 3,
-                    "action": null,
-                    "client_name": "3 Lead Client",
-                    "contact": "0323456789",
-                    "email": "voromiv@mailinator.com",
-                    "project_id": 1,
-                    "created_by": 7,
-                    "inventory_id": 4,
-                    "budget": "1000000",
-                    "source": "TV",
-                    "country_city": "Laborum",
-                    "task": null,
-                    "time_to_call": null,
-                    "dead_line": null,
-                    "status": "Allocated",
-                    "is_allocated": 1,
-                    "is_deleted": 0,
-                    "created_at": "2021-01-06T12:51:50.000000Z",
-                    "updated_at": "2021-02-01T09:40:14.000000Z",
-                    "interest_id": null
-                }
-            }
-        ])
+ 
   setIsLoading(false);
 };
 // React.useEffect(() => {
@@ -235,16 +133,16 @@ function getStepContent(step) {
     <div className={classes.root}>
       {
         data.map((val)=>{
-          return (<>
+          return (<div style={{marginBottom:"40px",}}>
           
           {label.map((item, index) => {
             return <StepperUI label={item} content={getStepContent(index)} data={val} length={label.length} index={index} />;
             
           })}
-          </>)
+          </div>)
         })
       }
-   
+      {/* <div style={{ height:'5px',width:'100%',backgroundColor:'grey'}}/> */}
     </div>
   );
 }
