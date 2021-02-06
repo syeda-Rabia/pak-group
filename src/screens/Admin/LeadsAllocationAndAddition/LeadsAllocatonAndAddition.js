@@ -1,11 +1,9 @@
-// import React from 'react';
 import "./LeadsAllocatonAndAddition.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
-// import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
@@ -16,13 +14,11 @@ import {
 import { GET, POST, formatDate } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import {
-  Backdrop,
   makeStyles,
-  CircularProgress,
   MenuItem,
   Snackbar,
-  Slide,
   Select,
+  Chip,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { Label } from "@material-ui/icons";
@@ -66,12 +62,28 @@ export default function LeadsAllocatonAndAddition() {
   //   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
   const useStyles = makeStyles((theme) => ({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
+    chipGracePeriod: {
       color: "#fff",
-      "& .MuiCircularProgress-colorPrimary": {
-        color: "#fff",
-      },
+      backgroundColor: "red !important",
+    },
+    chipComplete: {
+      color: "#fff",
+      backgroundColor: "green !important",
+    },
+    chipFollowUp: {
+      color: "#fff",
+      backgroundColor: "yellow !important",
+    },
+    chipOverdue: {
+      color: "#fff",
+      backgroundColor: "orange !important",
+    },
+    chipAllocated: {
+      color: "#fff",
+      backgroundColor: "#90caf9 !important",
+    },
+    chipLabelColor: {
+      color: "black",
     },
   }));
   const handleClose = () => {
@@ -196,7 +208,29 @@ export default function LeadsAllocatonAndAddition() {
         <td>{item.source}</td>
         <td>{item.country_city}</td>
         <td>
-          {item.status != "" ? item.status : "------"}
+          {item.status != "" ? (
+            <Chip
+              classes={{
+                label: classes.chipLabelColor,
+                root:
+                  item.status === "Overdue"
+                    ? classes.chipOverdue
+                    : item.status === "Grace Period"
+                    ? classes.chipGracePeriod
+                    : item.status === "Complete"
+                    ? classes.chipComplete
+                    : item.status === "Follow up"
+                    ? classes.chipFollowUp
+                    : item.status === "Allocated"
+                    ? classes.chipAllocated
+                    : null,
+              }}
+              label={item.status}
+            />
+          ) : (
+            "-------"
+          )}
+          {/* {item.status != "" ? item.status : "------"} */}
           {/* <select className="form-control form-control-sm w-100">
             <option value={"sold"}>Sold</option>
             <option value={"open"}>Open</option>
