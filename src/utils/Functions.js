@@ -60,7 +60,7 @@ export const POST = async (url, formData) => {
 
 export const GET = async (url) => {
   let token = JSON.parse(localStorage.getItem("token"));
-
+console.log("-----",token);
   try {
     return fetch(server_url + url, {
       method: "get",
