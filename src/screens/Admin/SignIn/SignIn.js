@@ -76,6 +76,7 @@ const SignIn = (props) => {
     };
 
     let resp = await POST(url, formData);
+    console.log(resp);
 
     if (resp.data != null) {
       let { user, Access_token } = resp.data;

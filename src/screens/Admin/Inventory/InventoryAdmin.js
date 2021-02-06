@@ -18,6 +18,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Alert } from "@material-ui/lab";
+import PreLoading from "../../../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -61,11 +62,13 @@ export default function InventoryAdmin(props) {
       let resp = await GET(
         ApiUrls.GET_SINGLE_PROECT_INVENTORIES + "/" + project_id
       );
-
+      console.log(resp, "project");
       if (resp.data != null) {
         setAllInventories(resp.data.inventories);
-      } else {
-        setGobackState(true);
+
+        if (resp.data.inventories.length == 0) {
+          setGobackState(true);
+        }
       }
     }
     setIsLoading(false);
@@ -234,20 +237,11 @@ export default function InventoryAdmin(props) {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      let res = await GET(ApiUrls.GET_DELETED_INVENTORIES + item.id);
-      setRefresh(!refresh);
+      setIsLoading(true);
 
-      //  ;
-      // let { id } = item;
-      //  ;
-      // let arr = allInventories;
-      // arr = arr.filter((user) => user.id != id.toString());
-      //  ;
-      // setSelectedID((state) => {
-      //   if (state == arr.length) return state - 1;
-      //   return state;
-      // });
-      // setData(arr);
+      let res = await GET(ApiUrls.GET_DELETED_INVENTORIES + item.id);
+      setIsLoading(false);
+      setRefresh(!refresh);
     };
     return (
       <Modal
@@ -256,13 +250,10 @@ export default function InventoryAdmin(props) {
           setShowDelete(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
         </Modal.Header>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div>
           <Modal.Body>Do you really want to delete this Record!</Modal.Body>
           <Modal.Footer>
             <Button
@@ -357,13 +348,8 @@ export default function InventoryAdmin(props) {
           </div>
         </Row>
 
-        {isLoading == true ? (
-          <>
-            <Backdrop className={classes.backdrop} open={true}>
-              <CircularProgress disableShrink />
-            </Backdrop>
-          </>
-        ) : null}
+        <PreLoading startLoading={isLoading} />
+
         <Row>
           <div className="col-lg-12 shadow p-3  bg-white rounded ">
             <div className="table-responsive">

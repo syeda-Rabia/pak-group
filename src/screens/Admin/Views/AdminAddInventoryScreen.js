@@ -5,7 +5,7 @@ import AddInventory from "../Inventory/AddInventory";
 export default function AdminAddInventoryScreen() {
   return (
     <React.Fragment>
-      <Container fluid style={{ height: "100vh" }}>
+      <Container fluid>
         <Row>
           <Col
             id="sidebar-component"

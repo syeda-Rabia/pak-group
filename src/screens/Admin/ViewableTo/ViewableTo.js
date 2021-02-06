@@ -8,6 +8,9 @@ import ApiUrls from "./../../../utils/ApiUrls";
 import { Chip, Box } from "@material-ui/core";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
+import PreLoading from "../../../components/PreLoading";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
@@ -16,14 +19,10 @@ export default function ViewableTo() {
   const [name, setName] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const useStyles = makeStyles((theme) => ({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-  }));
 
-  const classes = useStyles();
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   let i = 0;
   const [Employees, setEmployees] = React.useState([
@@ -133,6 +132,14 @@ export default function ViewableTo() {
       ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
       postData
     );
+    if (res.error === false) {
+      setMessage("Record Submitted Successfully");
+      setShowSuccessAlert(true);
+    } else {
+      setMessage("Operation Failed");
+      setShowErrorAlert(true);
+    }
+
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
@@ -144,13 +151,18 @@ export default function ViewableTo() {
         <h3 style={{ color: "#818181" }}>ViewAble To </h3>
       </div>
 
-      {isLoading === true ? (
-        <>
-          <Backdrop className={classes.backdrop} open={true}>
-            <CircularProgress disableShrink />
-          </Backdrop>
-        </>
-      ) : null}
+      <PreLoading startLoading={isLoading} />
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
       <div className="Laa shadow p-3 mb-3 bg-white rounded mt-2">
         <Row>
           <Col

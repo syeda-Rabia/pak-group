@@ -25,6 +25,7 @@ import {
 } from "@material-ui/core";
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
+import PreLoading from "../../../components/PreLoading";
 
 export default function AddInventory() {
   const [allProjectCategories, setAllProjectCategories] = React.useState([]);
@@ -54,18 +55,6 @@ export default function AddInventory() {
     }
     // ;
   };
-
-  const useStyles = makeStyles((theme) => ({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-      width: "100%",
-    },
-    progress: {
-      width: "100%",
-    },
-  }));
-  const classes = useStyles();
 
   const submit = (e) => {
     e.preventDefault();
@@ -120,9 +109,8 @@ export default function AddInventory() {
 
     return (
       <React.Fragment>
-        <Backdrop className={classes.backdrop} open={showProgressInside}>
-          <CircularProgress disableShrink />
-        </Backdrop>
+        <PreLoading startLoading={showProgressInside} />
+
         <Container fluid>
           <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
             <Col lg={10} sm={10} xs={10} xl={11}>
@@ -312,9 +300,7 @@ export default function AddInventory() {
       <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
         {/* <LinearProgress /> */}
         {showProgress == true ? (
-          <Backdrop className={classes.backdrop} open={showProgress}>
-            <CircularProgress disableShrink />
-          </Backdrop>
+          <PreLoading startLoading={showProgress} />
         ) : null}
 
         {showAlert == true ? (

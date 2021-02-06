@@ -300,15 +300,12 @@ export default function LeadsAllocatonAndAddition() {
     let postData = {
       lead_id: select,
       allocated_to: selectedEmployee,
-      task:task,
+      task: task,
       dead_line: date,
     };
-  
-    let res = await POST(
-      ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION,
-      postData
-    );
-    console.log("accepted",res)
+
+    let res = await POST(ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION, postData);
+    console.log("accepted", res);
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
@@ -409,7 +406,7 @@ export default function LeadsAllocatonAndAddition() {
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <div className="table-responsive">
-            <table className="table table-hover">
+            <table className="table table-hover" style={{ minHeight: "200px" }}>
               <thead>
                 <tr>
                   <th scope="col">
@@ -496,15 +493,26 @@ export default function LeadsAllocatonAndAddition() {
                 </tr>
               </thead>
               <tbody>
-                {AllleadsToAllocate.length > 0
-                  ? AllleadsToAllocate.map((lead, index) => (
-                      <LeadsAllocationAndAdditionTable
-                        item={lead}
-                        index={index}
-                        leads={employeesToAllocateLeads}
-                      />
-                    ))
-                  : null}
+                {AllleadsToAllocate.length > 0 ? (
+                  AllleadsToAllocate.map((lead, index) => (
+                    <LeadsAllocationAndAdditionTable
+                      item={lead}
+                      index={index}
+                      leads={employeesToAllocateLeads}
+                    />
+                  ))
+                ) : (
+                  <Snackbar
+                    open={true}
+                    autoHideDuration={6000}
+                    // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  >
+                    <Alert variant="filled" severity="info">
+                      No Lead to Show
+                    </Alert>
+                  </Snackbar>
+                )}
                 {/* {data.map((item, index) => {
                   return <TableEmployee item={item} index={index} />;
                 })} */}

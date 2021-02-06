@@ -5,7 +5,7 @@ import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
 export default function EmployeeLeadsScreen() {
   return (
     <React.Fragment>
-      <Container fluid style={{ height: "100vh" }}>
+      <Container fluid>
         <Row>
           <Col
             id="sidebar-component"

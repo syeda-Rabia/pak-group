@@ -5,7 +5,7 @@ export default function InventorySidebar() {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "86vh",
         // border: '2px solid blue',
       }}
     >

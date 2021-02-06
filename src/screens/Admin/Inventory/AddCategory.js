@@ -60,6 +60,7 @@ export default function AddCategories() {
         name: category,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
+      console.log("res category", res);
       if (res.error === false) {
         setMessage("Category Added Successfully");
         setShowSuccessAlert(true);
@@ -136,7 +137,7 @@ export default function AddCategories() {
   const ModalEdit = ({ item }) => {
     const [category, setCategory] = useState(item.name);
 
-    const EditRecordToServer = async (event) => { 
+    const EditRecordToServer = async (event) => {
       event.preventDefault();
       setIsLoading(true);
 

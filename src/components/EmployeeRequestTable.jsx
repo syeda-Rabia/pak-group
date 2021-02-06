@@ -39,10 +39,8 @@ function EmployeeInventory() {
   const [openRequest, setOpenRequest] = React.useState(false);
   const handleFetchData = async () => {
     setIsLoading(true);
-    let res = await GET(
-      ApiUrls.INVENTORY_REQUEST+"/"
-    );
-    console.log("--------------------------------",res);
+    let res = await GET(ApiUrls.INVENTORY_REQUEST + "/");
+    console.log("--------------------------------", res);
     if (res.success != false) {
       setData(res.data.requests);
     }
@@ -58,7 +56,7 @@ function EmployeeInventory() {
         <td>{item.user_name}</td>
         {/* <td>{item.last_name}</td> */}
         {/* <td>{item.block_name}</td> */}
-        <td>{item.message}</td>
+        <td style={{ textAlign: "justify" }}>{item.message}</td>
         {/* <td>{item.property_status}</td> */}
         {/* <td>{item.block_name}</td> */}
       </tr>
@@ -83,7 +81,6 @@ function EmployeeInventory() {
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-           
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
@@ -103,7 +100,7 @@ function EmployeeInventory() {
                     <th scope="col" style={{ color: "#818181" }}>
                       Message
                     </th>
-                   
+
                     {/* <th scope="col" style={{ color: "#818181" }}>
                       Viewable To
                     </th> */}
@@ -172,7 +169,7 @@ function EmployeeInventory() {
 }
 
 const mapStateToProps = (state) => {
-  return {  
+  return {
     userInfo: state.auth.user_info,
   };
 };
