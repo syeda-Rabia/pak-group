@@ -71,15 +71,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "#90caf9 !important",
   },
-  root: {
-    width: "100%",
-    maxWidth: 360,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-  subNested: {
-    paddingLeft: theme.spacing(6),
+  chipLabelColor: {
+    color: "black",
   },
 }));
 
@@ -1230,6 +1223,7 @@ export default function LeadsAdmin() {
           {item.status != "" ? (
             <Chip
               classes={{
+                label: classes.chipLabelColor,
                 root:
                   item.status === "Overdue"
                     ? classes.chipOverdue
