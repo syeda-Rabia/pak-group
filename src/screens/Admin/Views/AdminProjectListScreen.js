@@ -5,7 +5,7 @@ import ProjectList from "../Inventory/ProjectList";
 export default function AdminProjectListScreen() {
   return (
     <React.Fragment>
-      <Container fluid style={{ height: "100vh" }}>
+      <Container fluid>
         <Row>
           <Col
             id="sidebar-component"

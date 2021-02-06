@@ -5,7 +5,7 @@ import InventoryAdmin from "../Inventory/InventoryAdmin";
 export default function AdminProjectDetailsScreen(props) {
   return (
     <React.Fragment>
-      <Container fluid style={{ height: "100vh" }}>
+      <Container fluid>
         <Row>
           <Col lg={2} md={2} sm={5} xs={5} style={{ backgroundColor: "white" }}>
             <InventorySidebar />

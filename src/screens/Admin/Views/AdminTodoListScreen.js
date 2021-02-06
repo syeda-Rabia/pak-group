@@ -10,7 +10,6 @@ export default function AdminTodoListScreen() {
         <Row>
           <Col
             id="sidebar-component"
-            className="shadow"
             lg={2}
             md={0}
             sm={0}

@@ -76,19 +76,17 @@ export default function ProjectList() {
       let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
       if (res.success != false) {
         setRefresh(!refresh);
-
       }
-  
-        // let arr = allProjects.map((val) => {
-        //   if (val.id == projects.id) val = projects;
-        //   return val;
-        // }
-      
 
-        // // arr.push(projects);
-        // setData(arr);
-        // setAllProjects(arr);
-        console.log("edit",res)
+      // let arr = allProjects.map((val) => {
+      //   if (val.id == projects.id) val = projects;
+      //   return val;
+      // }
+
+      // // arr.push(projects);
+      // setData(arr);
+      // setAllProjects(arr);
+      console.log("edit", res);
       setShowEdit(false);
     };
 
@@ -99,10 +97,7 @@ export default function ProjectList() {
           setShowEdit(false);
         }}
       >
-        <Modal.Header
-          closeButton
-          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-        >
+        <Modal.Header closeButton>
           <Modal.Title style={{ color: "#818181" }}>
             Edit Project Name
           </Modal.Title>
@@ -112,7 +107,7 @@ export default function ProjectList() {
             EditRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow  bg-white rounded ">
+          <div>
             <Modal.Body>
               {/*             
             <h6>ID</h6>
@@ -150,7 +145,7 @@ export default function ProjectList() {
                   EditRecordToServer(e);
                 }}
               >
-                Edit
+                Save
               </Button>
             </Modal.Footer>
           </div>
@@ -161,15 +156,9 @@ export default function ProjectList() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.DELETE_PROJECT + item.id);
-      let { id } = item;
-      let arr = allProjects;
-      arr = arr.filter((user, index) => user.id != id.toString());
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      // setData(arr);
-      setAllProjects(arr);
+      if (res.error === false) {
+        setRefresh(!refresh);
+      }
     };
     return (
       <Modal
@@ -279,7 +268,7 @@ export default function ProjectList() {
 
   return (
     <Container fluid className="Laa">
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+      <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h2
             style={{
@@ -304,7 +293,7 @@ export default function ProjectList() {
         </>
       ) : null}
       <Row>
-        <div className="col-lg-12 shadow p-3  bg-white rounded mt-4">
+        <div className="col-lg-12 shadow p-3  bg-white rounded mt-3">
           <Link to="/admin/add-project">
             <button
               type="button"

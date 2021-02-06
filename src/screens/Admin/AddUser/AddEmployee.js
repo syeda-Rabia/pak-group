@@ -31,9 +31,12 @@ import {
   Snackbar,
   Input,
   Tooltip,
+  IconButton,
+  InputAdornment,
 } from "@material-ui/core";
 import Pagination from "../../../components/Pagination/Pagination";
-
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import axios from "axios";
 
 export default function AddEmployee() {
@@ -416,15 +419,15 @@ export default function AddEmployee() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let resp = await GET(ApiUrls.DELETE_USER + item.id);
-      // ;
-      try {
-        if (resp.error === false) {
-          setShowAlert(true);
-          setMessage(resp.success);
-        }
-      } catch {
-        // ;
+
+      if (resp.error === false) {
+        setShowAlert(true);
+        setMessage(resp.success);
+      } else {
+        setErrorAlert(true);
+        setMessage(resp.error);
       }
+
       setRefresh(!refresh);
     };
     return (
@@ -539,31 +542,33 @@ export default function AddEmployee() {
     const [password, setPassword] = useState("");
     const [phone_no, setPhone_no] = useState("");
     const [emailError, setEmailError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => {
+      setShowPassword(!showPassword);
+    };
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
-      setIsLoading(true);
       let formData = {
         first_name: f_name,
         last_name: l_name,
         email: email,
-        gender: gender == "male" ? "Male" : "Female",
+        gender: gender,
         phone: phone_no,
         password: password,
-        user_type: user_type == "Admin" ? "Admin" : "Employee",
+        user_type: user_type,
       };
+      console.log(formData);
       let resp = await POST(ApiUrls.CREATE_USER, formData);
       if (resp.error == false) {
+        setMessage("User Created Successfully.");
         setShowAlert(true);
-        // ;
-
-        // setUserRecord((state) => [formData].concat(state));
       } else {
         // ;
         setErrorAlert(true);
       }
 
-      setIsLoading(false);
       setTimeout(() => {
         setRefresh(!refresh);
       }, 1000);
@@ -687,8 +692,22 @@ export default function AddEmployee() {
                   className="form-control  w-100 "
                   placeholder="Enter password"
                   required="true"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        style={{ outline: "none" }}
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -778,7 +797,7 @@ export default function AddEmployee() {
 
             <Tooltip
               placement="top-start"
-              title={item.is_blocked === 0 ? "Block User" : "UnbLock User"}
+              title={item.is_blocked == 0 ? "Block User" : "UnbLock User"}
             >
               <button
                 data-tip
@@ -810,7 +829,6 @@ export default function AddEmployee() {
   return (
     <Container
       fluid
-      className="Laa"
       style={{
         margin: "auto",
         width: "100%",
@@ -882,7 +900,7 @@ export default function AddEmployee() {
             setShowAdd(true);
           }}
         >
-          <FontAwesomeIcon icon={faPlusSquare} /> Create Employee
+          <FontAwesomeIcon icon={faPlusSquare} /> Create User
         </button>
         <ReactTooltip id="AddTip" place="top" effect="solid">
           Add new user

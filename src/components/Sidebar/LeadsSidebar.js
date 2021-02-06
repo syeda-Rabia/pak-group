@@ -8,8 +8,7 @@ export default function LeadsSidebar() {
     <Container
       fluid
       style={{
-        height: "100vh",
-        width: "100%",
+        height: "86vh",
       }}
     >
       <FormPopover name="Search Leads" />

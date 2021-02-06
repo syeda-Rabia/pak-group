@@ -42,7 +42,7 @@ const EmployeHeader = (props) => {
 
   return (
     <React.Fragment>
-      <Navbar collapseOnSelect expand="lg" className="color-nav">
+      <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
           <Link to="/">
             <img

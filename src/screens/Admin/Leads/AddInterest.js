@@ -47,6 +47,7 @@ export default function AddInterest() {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
+    console.log("ress0", res);
     if (res.success != false) {
       setData(res.data.Interest);
     }
@@ -68,11 +69,9 @@ export default function AddInterest() {
         interest: interest,
       };
       let res = await POST(ApiUrls.ADD_INTEREST, postData);
-      console.log("post request",res);
+      console.log("post request", res);
       setRefresh(!refresh);
-      // let arr = data;
 
-      // setData([user].concat(arr));
       setShowAdd(false);
     };
     // };
@@ -160,14 +159,6 @@ export default function AddInterest() {
       console.log(res);
       setRefresh(!refresh);
 
-      //  ;
-      // let arr = data.map((val) => {
-      //   if (val.id == user.id) val = user;
-      //   return val;
-      // });
-
-      // arr.push(user);
-      // setData(arr);
       setShowEdit(false);
     };
 
@@ -234,32 +225,20 @@ export default function AddInterest() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      // console.log(item);
       let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
+      setShowDelete(false);
+
       if (res.error === false) {
         setMessage("Interest Deleted Successfully");
         setShowSuccessAlert(true);
+        // setRefresh(!refresh);
+        setSelectedID(0);
       } else {
         setMessage("Interest Not Deleted");
         setShowErrorAlert(true);
       }
       console.log(res);
       setRefresh(!refresh);
-
-      // if (res.success != false) {
-      //   // setData(res.data.ProjectCategory);
-      // }
-      //  ;
-      // let { id } = item;
-      //  ;
-      // let arr = data;
-      // arr = arr.filter((user) => user.id != id.toString());
-      //  ;
-      // setSelectedID((state) => {
-      //   if (state == arr.length) return state - 1;
-      //   return state;
-      // });
-      // setData(arr);
     };
     return (
       <Modal
@@ -286,7 +265,6 @@ export default function AddInterest() {
               variant="primary"
               onClick={() => {
                 DeleteRecordFromData(item);
-                setShowDelete(false);
               }}
             >
               Delete

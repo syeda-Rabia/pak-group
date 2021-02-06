@@ -6,7 +6,7 @@ import LeadsAllocatonAndAddition from "../LeadsAllocationAndAddition/LeadsAlloca
 export default function AdminLAAScreen() {
   return (
     <React.Fragment>
-      <Container fluid style={{ height: "100vh" }}>
+      <Container fluid>
         <Row>
           <Col
             id="sidebar-component"

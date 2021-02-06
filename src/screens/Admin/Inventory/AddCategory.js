@@ -60,7 +60,7 @@ export default function AddCategories() {
         name: category,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
-      console.log(res);
+      console.log("res category", res);
       if (res.error === false) {
         setMessage("Category Added Successfully");
         setShowSuccessAlert(true);

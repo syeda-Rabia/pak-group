@@ -89,6 +89,7 @@ export default function RecordTable() {
   };
 
   const TableRow = ({ index, item }) => {
+    console.log(item);
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -98,70 +99,27 @@ export default function RecordTable() {
         <td>{item.client_name}</td>
 
         <td>{item.contact}</td>
-        <td>
-          {/* <select key={item.id} className="form-control form-control-sm w-100">
-            {item.Project.map((project) => (
-              <option>{project}</option>
-            ))}
-          </select> */}
-          {item.project.name}
-        </td>
+        <td>{item.project.name}</td>
         <td>{item.budget}</td>
         <td>{item.time_to_call}</td>
         <td>{item.country_city}</td>
 
-        <td>
-          {/* <select key={item.id} className="form-control form-control-sm w-100">
-            {item.Status.map((status) => {
-              return <option>{status}</option>;
-            })}
-          </select> */}
-          {item.status}
-        </td>
+        <td>{item.status}</td>
 
-        <td>
-          {/* <select key={item.id} className="form-control form-control-sm w-100">
-            {item.Interest.map((interest) => {
-              return <option>{interest}</option>;
-            })}
-          </select> */}
-          {item.inventory.serial_no}
-        </td>
+        <td>{/* {item.inventory.serial_no} */}</td>
 
-        <td>
-          {/* <select key={item.id} className="form-control form-control-sm w-100">
-            {item.Interest.map((interest) => {
-              return <option>{interest}</option>;
-            })}
-          </select> */}
-          {item.inventory.inventory_name}
-        </td>
-        <td>
-          {item.email}
-
-          {/* <input
-            key={item.id}
-            placeholder={item.email}
-            className="form-control w-100"
-          /> */}
-        </td>
-        <td>
-          {/* <select key={item.id} className="form-control form-control-sm w-100">
-            {item.Task.map((task) => {
-              return <option>{task}</option>;
-            })}
-          </select> */}
-          {item.project.category.name}
-        </td>
+        <td>{/* {item.inventory.inventory_name} */}</td>
+        <td>{item.email}</td>
+        <td>{item.project.category.name}</td>
         <td>{item.dead_line}</td>
-        {/* <td>Rabia</td> */}
+
         <td>
           <CTAButton />
         </td>
       </tr>
     );
   };
-  //  ;
+
   return (
     <>
       <div className="shadow p-3 mb-3 bg-white rounded mt-4 ">
@@ -174,7 +132,6 @@ export default function RecordTable() {
             setIsLoading(true);
             console.log(e.target.value);
             setFilterData(e.target.value);
-            //  ;
           }}
         >
           {employees.map((item) => {

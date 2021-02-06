@@ -32,6 +32,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import { useDropzone, Dropzone } from "react-dropzone";
 import PreLoading from "../../../components/PreLoading";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 const Table = ({
   item,
@@ -137,7 +139,7 @@ const Table = ({
         name: "Call",
         open: false,
         sub: [
-          { name: "Call Recieved", set: false },
+          { name: "Call Recived", set: false },
           { name: "Call Declined", set: false },
           { name: "Asked To send WhatsApp", set: false },
           { name: "Asked To Send SMS", set: false },
@@ -172,38 +174,6 @@ const Table = ({
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    // setOpen([
-    //   {
-    //     name: "Call",
-    //     open: false,
-    //     sub: [
-    //       { name: "Call Recieved", set: false },
-    //       { name: "Call Declined", set: false },
-    //       { name: "Asked To send WhatsApp", set: false },
-    //       { name: "Asked To Send SMS", set: false },
-    //       { name: "Meeting Scheduled", set: false },
-    //     ],
-    //   },
-    //   {
-    //     name: "SMS",
-    //     open: false,
-    //     sub: [{ name: "SMS Sent", set: false }],
-    //   },
-    //   {
-    //     name: "Visit",
-    //     open: false,
-    //     sub: [
-    //       { name: "Visit Successfully", set: false },
-    //       { name: "Visit Postponed", set: false },
-    //       { name: "Visit Canceled", set: false },
-    //     ],
-    //   },
-    //   {
-    //     name: "WhatsApp",
-    //     open: false,
-    //     sub: [{ name: "WhatsApp Sent", set: false }],
-    //   },
-    // ]);
     setAnchorEl(null);
   };
   const onDrop = useCallback((acceptedFiles) => {
@@ -290,13 +260,49 @@ const Table = ({
   };
   return (
     <tr>
+      <td scope="row">{index + 1}</td>
+      <td>{item.client_name}</td>
+      <td>{item.contact}</td>
+      <td>{item.project.name}</td>
+      <td>{item.budget + " PKR"}</td>
+      {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
+      <td>{item.time_to_call}</td>
+      <td>{item.country_city}</td>
+      <td>
+        <Chip label={item.status} />
+      </td>
+
+      {/* <td>{item.inventory.inventory_name}</td> */}
+      <td>{"---"}</td>
+      <td>
+        {userInfo.first_name} {userInfo.last_name}
+      </td>
+      <td>{item.email}</td>
+      <td>{item.task}</td>
+      <td>{item.dead_line}</td>
+      {/* <td>{"---"}</td> */}
+      <td>
+        <div
+          style={{ outline: "none", height: "2rem" }}
+          className="d-flex"
+          {...getRootProps()}
+        >
+          <button className="float-right rounded">Choose File</button>
+          <p className="pl-1">
+            {acceptedFiles.map((file) => {
+              return file.path;
+            })}
+          </p>
+          <input {...getInputProps()} />
+        </div>
+      </td>
       <td>
         <Button
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={handleClick}
         >
-          Open Menu
+          Actions
         </Button>
         <Menu
           // className={classes.root}
@@ -312,38 +318,6 @@ const Table = ({
               <MenuItem
                 data-my-value={item.name}
                 onClick={async (e) => {
-                  // setOpen([
-                  //   {
-                  //     name: "Call",
-                  //     open: false,
-                  //     sub: [
-                  //       { name: "Call Recieved", set: false },
-                  //       { name: "Call Declined", set: false },
-                  //       { name: "Asked To send WhatsApp", set: false },
-                  //       { name: "Asked To Send SMS", set: false },
-                  //       { name: "Meeting Scheduled", set: false },
-                  //     ],
-                  //   },
-                  //   {
-                  //     name: "SMS",
-                  //     open: false,
-                  //     sub: [{ name: "SMS Sent", set: false }],
-                  //   },
-                  //   {
-                  //     name: "Visit",
-                  //     open: false,
-                  //     sub: [
-                  //       { name: "Visit Successfully", set: false },
-                  //       { name: "Visit Postponed", set: false },
-                  //       { name: "Visit Canceled", set: false },
-                  //     ],
-                  //   },
-                  //   {
-                  //     name: "WhatsApp",
-                  //     open: false,
-                  //     sub: [{ name: "WhatsApp Sent", set: false }],
-                  //   },
-                  // ]);
                   const setopenDropdown = { ...item };
                   console.log(item, "item");
                   setopenDropdown.open = !setopenDropdown.open;
@@ -360,9 +334,6 @@ const Table = ({
                       return subItems;
                     });
                   });
-                  // const { myValue } = e.currentTarget.dataset;
-                  // console.log(myValue); // --> 123
-                  // handleMenuButtonClick();
                 }}
               >
                 {item.name}
@@ -415,17 +386,6 @@ const Table = ({
                               onClick={() => {
                                 handlePostData("Scheduled Meeting");
                               }}
-                              // onClick={() => {
-                              //   const SubMenu = { ...listItem  };
-                              //   SubMenu.set = false;
-                              //   setOpen((state) => {
-                              //     let arr = [...state];
-                              //     arr[index].sub[id] = SubMenu;
-                              //     console.trace(arr);
-
-                              //     return arr;
-                              //   });
-                              // }}
                             >
                               <ListItemText primary="Scheduled Meeting" />
                             </ListItem>
@@ -463,86 +423,10 @@ const Table = ({
                   ))}
                 </List>
               </Collapse>
-
-              {/* <Collapse in={open} timeout="auto" unmountOnExit>
-            <WhatsNext />
-          </Collapse> */}
             </>
           ))}
-
-          {/* <MenuItem
-          data-my-value={"call"}
-          onClick={(e) => {
-            const { myValue } = e.currentTarget.dataset;
-            console.log(myValue); // --> 123
-            handleMenuButtonClick();
-          }}
-        >
-          Call
-          <div
-            style={{ justifyContent: "flex-end" }}
-            className="d-flex w-100 "
-          >
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </div>
-          <Collapse in={open.name} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary={} />
-              </ListItem>
-            </List>
-          </Collapse>
-          {/* <Collapse in={open} timeout="auto" unmountOnExit>
-            <WhatsNext />
-          </Collapse> */}
-          {/* </MenuItem> */}
-
-          {/* <MenuItem
-          data-my-value={"sms"}
-          onClick={(e) => {
-            const { myValue } = e.currentTarget.dataset;
-            console.log(myValue); // --> 123
-            handleMenuButtonClick();
-          }}
-        >
-          SMS
-          <div
-            style={{ justifyContent: "flex-end" }}
-            className="d-flex w-100 "
-          >
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </div>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Send SMS" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </MenuItem> */}
         </Menu>
       </td>
-      <td scope="row">{index + 1}</td>
-      <td>{item.client_name}</td>
-      <td>{item.contact}</td>
-      <td>{item.project.name}</td>
-      <td>{item.budget + " PKR"}</td>
-      {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
-      <td>{item.time_to_call}</td>
-      <td>{item.country_city}</td>
-      <td>
-        <Chip label={item.status} />
-      </td>
-
-      {/* <td>{item.inventory.inventory_name}</td> */}
-      <td>{"---"}</td>
-      <td>
-        {userInfo.first_name} {userInfo.last_name}
-      </td>
-      <td>{item.email}</td>
-      <td>{item.task}</td>
-      <td>{item.dead_line}</td>
-      <td>{"---"}</td>
       <td>
         <Button>Update</Button>
       </td>
@@ -609,7 +493,7 @@ function EmployeeLeads(props, lead_id) {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
-    console.log(res);
+    console.log("_________________", res);
     if (res.success != false) {
       setData(res.data.leads);
     }
@@ -648,31 +532,14 @@ function EmployeeLeads(props, lead_id) {
       setShowModalAction(false);
       let resp = await POST(ApiUrls.POST_EMPLOYEE_ACTION_ON_LEAD, formData);
       if (resp.error === false) {
-        setAlertMessage("Instruction Send Successfully");
+        setAlertMessage("Send Successfully");
         setShowSuccessAlert(true);
       } else {
-        setAlertMessage("Instruction Not Send!");
+        setAlertMessage("Not Send!");
         setShowErrorAlert(true);
       }
 
       console.log(resp, formData);
-    };
-
-    const SendShitLeadToServer = async () => {
-      let resp = await POST(ApiUrls.POST_EMPLOYEE_ACTION_ON_LEAD, {
-        action_type: "shiftLead",
-        lead_id: lead_id,
-        // prev_lead_holder_emp: empId,
-        // new_lead_holder_emp: selectedEmployee.new_lead_holder_emp,
-      });
-      if (resp.error === false) {
-        setAlertMessage("Shift and Warn Successfully");
-        setShowSuccessAlert(true);
-      } else {
-        setAlertMessage("Shift and Warn  Failed");
-        setShowErrorAlert(true);
-      }
-      console.log(resp);
     };
 
     const handleChange = (value) => {
@@ -799,51 +666,7 @@ function EmployeeLeads(props, lead_id) {
           </Modal.Footer>
         </Modal>
       );
-    }
-
-    // if (options.title === optionsArray[2].title)
-    // else if (value === "shift-and-Warn") {
-    //   return (
-    //     <Modal
-    //       show={showModalAction}
-    //       onHide={() => {
-    //         setShowModalAction(false);
-    //       }}
-    //     >
-    //       <Modal.Header closeButton>
-    //         <Modal.Title>Shift and Warn</Modal.Title>
-    //       </Modal.Header>
-    //       <Modal.Body>
-    //         <form onSubmit={SendShitLeadToServer}>
-    //           <p>
-    //             Do you really want to shift this lead to
-    //             <b> {selectedEmployee.name}</b>.
-    //           </p>
-    //         </form>
-    //       </Modal.Body>
-    //       <Modal.Footer>
-    //         <Button
-    //           // style={{ backgroundColor: "#2258BF" }}
-    //           onClick={() => {
-    //             setShowModalAction(false);
-    //           }}
-    //         >
-    //           Close
-    //         </Button>
-    //         <Button
-    //           // style={{ backgroundColor: "#2258BF" }}
-    //           onClick={(e) => {
-    //             SendShitLeadToServer(e);
-    //             setShowModalAction(false);
-    //           }}
-    //         >
-    //           Send
-    //         </Button>
-    //       </Modal.Footer>
-    //     </Modal>
-    //   );
-    // }
-    else {
+    } else {
       return null;
     }
   };
@@ -864,17 +687,27 @@ function EmployeeLeads(props, lead_id) {
           </div>
         </Col>
       </Row>
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={alertmessage}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={alertmessage}
+        closeError={setShowErrorAlert}
+      />
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
           <div className="table-responsive">
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">
+                  {/* <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Action
                     </span>
-                  </th>
+                  </th> */}
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       ID

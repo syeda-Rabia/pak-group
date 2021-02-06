@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./EmployeeInventory.css";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -14,8 +14,9 @@ import {
   TextField,
   OutlinedInput,
 } from "@material-ui/core";
-import { GET,POST } from "./../../../utils/Functions";
+import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
+import SuccessNotification from "../../../components/SuccessNotification";
 function EmployeeInventory(props) {
   const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -37,11 +38,13 @@ function EmployeeInventory(props) {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [openRequest, setOpenRequest] = React.useState(false);
+  const [resMessage, setResMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
-  
     );
     console.log(res);
     if (res.success != false) {
@@ -61,6 +64,11 @@ function EmployeeInventory(props) {
         message: message,
       };
       let res = await POST(ApiUrls.EMPLOYEE_INVENTORY_REQUEST, postData);
+      console.log("res request,", res);
+      if (res.error === false) {
+        setResMessage("Request Send to Admin");
+        setShowSuccessAlert(true);
+      }
       // setRefresh(!refresh);
       // let arr = data;
 
@@ -71,54 +79,53 @@ function EmployeeInventory(props) {
 
     return (
       <Modal
-      show={openRequest}
-      onHide={() => {
-        setOpenRequest(false);
-      }}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title style={{ color: "#818181" }}>
-          Request Inventory
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <form>
-          <TextField
-            variant="outlined"
-            autoFocus
-            margin="dense"
-            multiline
-            required
-            fullWidth
-            label="Request Inventroy"
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
+        show={openRequest}
+        onHide={() => {
+          setOpenRequest(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>
+            Request Inventory
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <TextField
+              variant="outlined"
+              autoFocus
+              margin="dense"
+              multiline
+              required
+              fullWidth
+              label="Request Inventroy"
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={() => {
+              setOpenRequest(false);
             }}
-          />
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          // style={{ backgroundColor: "#2258BF" }}
-          onClick={() => {
-            setOpenRequest(false);
-          }}
-        >
-          Close
-        </Button>
-        <Button
-          type="submit"
-          // style={{ backgroundColor: "#2258BF" }}
-          onClick={addData}
-        >
-          Send
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  
+          >
+            Close
+          </Button>
+          <Button
+            type="submit"
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={addData}
+          >
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
-        }
+  };
   const Table = ({ item, index }) => {
     return (
       <tr>
@@ -141,6 +148,12 @@ function EmployeeInventory(props) {
           </Backdrop>
         </>
       ) : null}
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={resMessage}
+        closeSuccess={setShowSuccessAlert}
+      />
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
       </div>
@@ -188,15 +201,14 @@ function EmployeeInventory(props) {
                   ))}
                 </tbody>
               </table>
-              <ModalRequest/>
+              <ModalRequest />
             </div>
           </Col>
         </Row>
       </div>
-      
-     </Container>
+    </Container>
   );
-                  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -206,4 +218,3 @@ const mapStateToProps = (state) => {
 
 // // export default Login;
 export default connect(mapStateToProps)(EmployeeInventory);
-

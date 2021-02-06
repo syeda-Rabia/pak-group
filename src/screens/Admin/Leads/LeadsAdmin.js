@@ -39,12 +39,16 @@ import {
   Select,
   MenuItem,
   TextField,
+  Snackbar,
+  Slide,
 } from "@material-ui/core";
-import { validateEmail } from "../../../utils/Validation";
+import { validateEmail, validateMobile } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
+import { Alert } from "@material-ui/lab";
+import PreLoading from "../../../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -269,7 +273,8 @@ export default function LeadsAdmin() {
                       maxLength="11"
                       value={contact}
                       onChange={(e) => {
-                        setContact(e.target.value);
+                        if (e.target.value.match(/(^[0-9]*$)/g))
+                          setContact(e.target.value);
                       }}
                     />
                   </div>
@@ -285,9 +290,12 @@ export default function LeadsAdmin() {
                       onChange={(e) => {
                         if (validateEmail(e.target.value)) {
                           // DO Somtin
+                          // console.log("a");
                           setEmailError(false);
                         } else {
                           // do some
+                          // console.log("b");
+
                           setEmailError(true);
                         }
                         setEmail(e.target.value);
@@ -309,14 +317,16 @@ export default function LeadsAdmin() {
                   </div>
                   <div className="pb-3">
                     <h6>Time of Call</h6>
-                    <KeyboardTimePickerExample
-                      value={today}
-                      showTime={HandleTimeValue}
-                      // onChange={(e) => {
-                      //   setTime(formatDate(e.target.value));
-                      //    ;
-                      // }}
-                    />
+                    <div className="form-control">
+                      <KeyboardTimePickerExample
+                        value={today}
+                        showTime={HandleTimeValue}
+                        // onChange={(e) => {
+                        //   setTime(formatDate(e.target.value));
+                        //    ;
+                        // }}
+                      />
+                    </div>
                   </div>
                 </Col>
                 <Col className="ml-3">
@@ -1014,6 +1024,21 @@ export default function LeadsAdmin() {
                       value={item.time_to_call}
                     />
                   </div>
+                  <div className="pb-3">
+                    <h6>Allocated to</h6>
+                    <Input
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      placeholder="Enter Country"
+                      type="text"
+                      value={
+                        item.allocation.length > 0
+                          ? item.allocation[0].allocated_to.first_name
+                          : "-------"
+                      }
+                    />
+                  </div>
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-2">
@@ -1068,6 +1093,19 @@ export default function LeadsAdmin() {
                       placeholder="Enter Country"
                       type="text"
                       defaultValue={item.source}
+                    />
+                  </div>
+                  <div className="pb-3">
+                    <h6>Deadline</h6>
+                    <Input
+                      required="true"
+                      disableUnderline
+                      readOnly
+                      className="form-control input-width w-100"
+                      type="text"
+                      defaultValue={
+                        item.dead_line != null ? item.dead_line : "-------"
+                      }
                     />
                   </div>
                   <div className="">
@@ -1199,21 +1237,27 @@ export default function LeadsAdmin() {
             </ReactTooltip></td>
 
         <td>
-          <button
-            data-tip
-            data-for="play"
-            type="button"
-            className="bg-transparent  button-focus mr-2"
-            onClick={() => {
-              setShowPlay(true);
-              setSelectedID(index);
-            }}
-          >
-            <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-          </button>
-          <ReactTooltip id="play" place="top" effect="solid">
-            play
-          </ReactTooltip>
+          {item.recordings.length > 0 ? (
+            <>
+              <button
+                data-tip
+                data-for="play"
+                type="button"
+                className="bg-transparent  button-focus mr-2"
+                onClick={() => {
+                  setShowPlay(true);
+                  setSelectedID(index);
+                }}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+              </button>
+              <ReactTooltip id="play" place="top" effect="solid">
+                play
+              </ReactTooltip>
+            </>
+          ) : (
+            "-----"
+          )}
         </td>
 
         <td>
@@ -1304,13 +1348,8 @@ export default function LeadsAdmin() {
           </div>
         </Col>
       </Row>
-      {isLoading == true ? (
-        <>
-          <Backdrop className={classes.backdrop} open={true}>
-            <CircularProgress disableShrink />
-          </Backdrop>
-        </>
-      ) : null}
+
+      <PreLoading startLoading={isLoading} />
 
       <SuccessNotification
         showSuccess={showSuccessAlert}
@@ -1355,7 +1394,7 @@ export default function LeadsAdmin() {
           </button>{" "}
         </Row>
         <div className="table-responsive">
-          <table className="table table-hover">
+          <table className="table table-hover" style={{ minHeight: "200px" }}>
             <thead>
               <tr>
                 <th scope="col">
@@ -1473,11 +1512,22 @@ export default function LeadsAdmin() {
               </tr>
             </thead>
             <tbody>
-              {allLeads.length > 0
-                ? allLeads.map((lead, index) => (
-                    <LeadTable item={lead} index={index} />
-                  ))
-                : null}
+              {allLeads.length > 0 ? (
+                allLeads.map((lead, index) => (
+                  <LeadTable item={lead} index={index} />
+                ))
+              ) : (
+                <Snackbar
+                  open={true}
+                  autoHideDuration={6000}
+                  // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                >
+                  <Alert variant="filled" severity="info">
+                    No Lead to Show
+                  </Alert>
+                </Snackbar>
+              )}
 
               {/* <h1>Other Leads</h1>
                   {data.map((item, index) => {
