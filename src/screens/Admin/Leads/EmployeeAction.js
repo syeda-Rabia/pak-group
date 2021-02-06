@@ -35,6 +35,7 @@ function getSteps() {
 
 
 function StepperUI({ label, content,length,index, data }) {
+ 
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -48,11 +49,16 @@ function StepperUI({ label, content,length,index, data }) {
           return <div>
              <Typography>Date {data.date}</Typography>
              <Typography>Time {data.time}</Typography>
+             <div style={{marginTop:"20px",border:"2px solid gray"}}></div>
           </div>
         }
         else{
-          return data.comments;
+          return <div>
+          {data.comments}
+          <div style={{marginTop:"20px",border:"2px solid gray"}}></div>
+          </div>
         }
+        
        
     }
   }
@@ -99,10 +105,11 @@ const handleFetchData = async () => {
     ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id
   );
   // console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
-  console.log("--",JSON.stringify(res));
+  // console.log("--",JSON.stringify(res));
   if (res.success != false) {
     setData(res.data.EmpAction);
   }
+ 
  
   setIsLoading(false);
 };
@@ -133,7 +140,7 @@ function getStepContent(step) {
     <div className={classes.root}>
       {
         data.map((val)=>{
-          return (<div style={{marginBottom:"40px",}}>
+          return (<div style={{marginBottom:"40px",backgroundColor:"gray"}}>
           
           {label.map((item, index) => {
             return <StepperUI label={item} content={getStepContent(index)} data={val} length={label.length} index={index} />;
