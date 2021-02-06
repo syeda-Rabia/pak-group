@@ -38,9 +38,9 @@ export default function LeadsAllocatonAndAddition() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
   var today = new Date();
-  var datee = formatDate(today,'-');
+  var datee = formatDate(today, "-");
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-  const [date, setDate] = useState(formatDate(today,'-'));
+  const [date, setDate] = useState(formatDate(today, "-"));
 
   const [AllleadsToAllocate, setAllLeadsToAllocate] = useState([]);
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
@@ -58,8 +58,8 @@ export default function LeadsAllocatonAndAddition() {
   const [refresh, setRefresh] = useState(false);
 
   const handleDateValue = (value) => {
-    setDate(formatDate(value,'-'));
-    console.log(formatDate(value,'-'));
+    setDate(formatDate(value, "-"));
+    console.log(formatDate(value, "-"));
   };
 
   // var timee =
@@ -129,7 +129,7 @@ export default function LeadsAllocatonAndAddition() {
       //   return temp;
       // });
       //  ;
-      console.log({
+      console.log("-----------", {
         // time_to_call: time,
         dead_line: date,
         allocated_to: selectedEmployee,
@@ -152,10 +152,10 @@ export default function LeadsAllocatonAndAddition() {
         setMessage("LEAD UPDATED SUCCESSFULLY.");
         setShowSuccessAlert(true);
       }
-      if (resp.error.hasOwnProperty("allocated_to")) {
-        setMessage("LEAD NOT UPDATED. Allocated To FIELD IS REQUIRED");
-        setShowErrorAlert(true);
-      }
+      // if (resp.error.hasOwnProperty("allocated_to")) {
+      //   setMessage("LEAD NOT UPDATED. Allocated To FIELD IS REQUIRED");
+      //   setShowErrorAlert(true);
+      // }
     };
 
     const HandleTimeValue = (value) => {
@@ -169,7 +169,7 @@ export default function LeadsAllocatonAndAddition() {
       const str = value.toString();
 
       // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
-      setDate(formatDate(value,'-'));
+      setDate(formatDate(value, "-"));
     };
     return (
       <tr>
@@ -303,6 +303,7 @@ export default function LeadsAllocatonAndAddition() {
       task: task,
       dead_line: date,
     };
+    console.log(postData);
 
     let res = await POST(ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION, postData);
     console.log("accepted", res);

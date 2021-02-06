@@ -41,6 +41,7 @@ import {
   TextField,
   Snackbar,
   Slide,
+  Chip,
 } from "@material-ui/core";
 import { validateEmail, validateMobile } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
@@ -50,12 +51,35 @@ import ErrorNotification from "../../../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
+  chipGracePeriod: {
     color: "#fff",
-    "& .MuiCircularProgress-colorPrimary": {
-      color: "#fff",
-    },
+    backgroundColor: "red !important",
+  },
+  chipComplete: {
+    color: "#fff",
+    backgroundColor: "green !important",
+  },
+  chipFollowUp: {
+    color: "#fff",
+    backgroundColor: "yellow !important",
+  },
+  chipOverdue: {
+    color: "#fff",
+    backgroundColor: "orange !important",
+  },
+  chipAllocated: {
+    color: "#fff",
+    backgroundColor: "#90caf9 !important",
+  },
+  root: {
+    width: "100%",
+    maxWidth: 360,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+  subNested: {
+    paddingLeft: theme.spacing(6),
   },
 }));
 
@@ -87,7 +111,7 @@ export default function LeadsAdmin() {
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("-----",res)
+    console.log("-----", res);
     if (res.success != false) {
       setInterestList(res.data.Interest);
     }
@@ -1202,7 +1226,29 @@ export default function LeadsAdmin() {
         </td>
         <td>{item.source}</td>
 
-        <td>{item.status != "" ? item.status : "-------"}</td>
+        <td>
+          {item.status != "" ? (
+            <Chip
+              classes={{
+                root:
+                  item.status === "Overdue"
+                    ? classes.chipOverdue
+                    : item.status === "Grace Period"
+                    ? classes.chipGracePeriod
+                    : item.status === "Complete"
+                    ? classes.chipComplete
+                    : item.status === "Follow up"
+                    ? classes.chipFollowUp
+                    : item.status === "Allocated"
+                    ? classes.chipAllocated
+                    : null,
+              }}
+              label={item.status}
+            />
+          ) : (
+            "-------"
+          )}
+        </td>
 
         <td>
           {item.allocation.length > 0
@@ -1216,12 +1262,11 @@ export default function LeadsAdmin() {
         <td>{item.Email}</td>
         <td>{item.Task}</td>
         <td>{item.Deadline}</td> */}
-        <td> 
-        <Link to={{ pathname: "/admin/emp-action", query: { item } }}
-        >
+        <td>
+          <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
             <button
               data-tip
-              data-for="view emp"
+              data-for="view action"
               type="button"
               className="bg-transparent  button-focus mr-2"
               // onClick={() => {
@@ -1231,10 +1276,11 @@ export default function LeadsAdmin() {
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-            </Link>
-            <ReactTooltip id="view emp" place="top" effect="solid">
-              View Employee Action
-            </ReactTooltip></td>
+          </Link>
+          <ReactTooltip id="view action" place="top" effect="solid">
+            View Employee Action
+          </ReactTooltip>
+        </td>
 
         <td>
           {item.recordings.length > 0 ? (
