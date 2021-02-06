@@ -84,17 +84,18 @@ export default function VerticalLinearStepper(props) {
 const [isLoading, setIsLoading] = React.useState(false);
 console.log(props)
 const handleFetchData = async () => {
-  // setIsLoading(true);
-  // if (props.leads !== undefined) {
-  //   let lead_id = props.leads.item.id;
+  setIsLoading(true);
+  if (props.leads !== undefined) {
+    let lead_id = props.leads.item.id;
  
-  // let res = await GET(
-  //   ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + lead_id
-  // );
-  // console.log("--",res);
-  // if (res.success != false) {
-  //   // setData(res.data.EmpAction);
-  // }
+  let res = await GET(
+    ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + lead_id
+  );
+  console.log("--",res);
+  if (res.success != false) {
+    // setData(res.data.EmpAction);
+  }
+}
   setData( [
             {
                 "id": 3,

@@ -73,9 +73,14 @@ const NewApp = (props) => {
           <HeaderNavBar />
           <AddInterest />
         </Route>
-        <Route path="/admin/emp-action">
-          <HeaderNavBar />
-          <EmployeeAction />
+        <Route path="/admin/emp-action"  
+        render={(props) => (
+            <>
+              <HeaderNavBar />
+              <EmployeeAction {...props} />
+            </>
+          )}>
+        
         </Route>
         <Route path="/admin/inventory">
           <HeaderNavBar />
