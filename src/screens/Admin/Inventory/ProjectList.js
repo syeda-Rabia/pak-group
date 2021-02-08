@@ -27,6 +27,7 @@ export default function ProjectList() {
   const [allProjects, setAllProjects] = useState([]);
 
   const [showView, setShowView] = useState(false);
+  const [showUnit, setShowUnit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
@@ -153,6 +154,101 @@ export default function ProjectList() {
       </Modal>
     );
   };
+  const ModalAddUnit = ({ item }) => {
+    const [addUnit, setAddUnit] = useState(item.unit);
+
+    const EditRecordToServer = async (event) => {
+      event.preventDefault();
+
+      // add validations
+      // push
+
+      // let projects = {
+      //   id: item.id,
+      //   name: ProjectName,
+      // };
+      // let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
+      // if (res.success != false) {
+      //   setRefresh(!refresh);
+      // }
+
+      // let arr = allProjects.map((val) => {
+      //   if (val.id == projects.id) val = projects;
+      //   return val;
+      // }
+
+      // // arr.push(projects);
+      // setData(arr);
+      // setAllProjects(arr);
+      // console.log("edit", res);
+      setShowUnit(false);
+    };
+
+    return (
+      <Modal
+        show={showUnit}
+        onHide={() => {
+          setShowUnit(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>
+            Add Units
+          </Modal.Title>
+        </Modal.Header>
+        <form
+          onSubmit={(e) => {
+            EditRecordToServer(e);
+          }}
+        >
+          <div>
+            <Modal.Body>
+              {/*             
+            <h6>ID</h6>
+            <input className="form-control w-100"    placeholder="Enter id" /> */}
+              <form>
+                <div className="pb-3">
+                  <h6>Add Units</h6>
+                  <input
+                    className="form-control w-100 "
+                    placeholder="Enter number of units"
+                    type="number"
+                    value={addUnit}
+                    onChange={(e) => {
+                      setAddUnit(e.target.value);
+                    }}
+                  />
+                </div>
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowUnit(false);
+                }}
+              >
+                Close
+              </Button>
+              <Link to={{ pathname: "/admin/newinventory", query: { item:item,units:addUnit } }}>
+              <Button
+                type="submit"
+                value="Submit"
+                style={{ backgroundColor: "#2258BF" }}
+                // onClick={(e) => {
+                //   setShowUnit(false);
+                //   EditRecordToServer(e);
+                // }}
+              >
+                Save
+              </Button>
+              </Link>
+            </Modal.Footer>
+          </div>
+        </form>
+      </Modal>
+    );
+  };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.DELETE_PROJECT + item.id);
@@ -204,6 +300,25 @@ export default function ProjectList() {
         <td>{item.category.name}</td>
         <td>{item.unit}</td>
         {/* <td>{item.Units}</td> */}
+        <td>
+        <button
+              data-tip
+              data-for="new"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                setShowUnit(true);
+                setSelectedID(index);
+              }}
+            >
+              
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlusSquare} />
+              
+            </button>
+            <ReactTooltip id="new" place="top" effect="solid">
+            add more units
+            </ReactTooltip>
+        </td>
 
         <td>
           <div
@@ -322,6 +437,9 @@ export default function ProjectList() {
                   <th scope="col" style={{ color: "#818181" }}>
                     Units
                   </th>
+                  <th scope="col" style={{ color: "#818181" }}>
+                    Add_More_Units
+                  </th>
 
                   <th scope="col" style={{ color: "#818181" }}>
                     Actions
@@ -341,7 +459,7 @@ export default function ProjectList() {
               {allProjects.length > 0 ? (
                 <>
                   <ModalDelete item={allProjects[selectedID]} />
-
+<ModalAddUnit item={allProjects[selectedID]} />
                   <ModalEdit item={allProjects[selectedID]} />
                 </>
               ) : null}

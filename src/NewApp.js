@@ -20,16 +20,19 @@ import AdminLAAScreen from "./screens/Admin/Views/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/Admin/Views/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
 import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
+import AdminAddNewInventoryScreen from "./screens/Admin/Views/AdminAddNewInventoryScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 import EmployeeDashboardScreen from "./screens/Employe/Views/EmployeeDashboardScreen";
 import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
 import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
+import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
 import ExcelPage from "./utils/ExcelPage";
 import EmployeeAction from "./screens/Admin/Leads/EmployeeAction";
+import AddNewInventory from "./screens/Admin/Inventory/AddNewInventory";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
@@ -48,6 +51,16 @@ const NewApp = (props) => {
         <Route path="/admin/add-project">
           <HeaderNavBar />
           <AdminAddInventoryScreen />
+        </Route>
+        <Route path="/admin/newinventory" 
+          render={(props) => (
+            <>
+              <HeaderNavBar />
+            
+              <AddNewInventory {...props} />
+            </>
+          )}>
+       
         </Route>
         <Route path="/admin/employee-request">
           <HeaderNavBar />
@@ -82,10 +95,20 @@ const NewApp = (props) => {
           )}>
         
         </Route>
-        <Route path="/admin/inventory">
+        <Route
+          exact
+          path="/admin/inventory"
+          render={(props) => (
+            <>
+              <HeaderNavBar />
+               <AdminProjectListScreen {...props}/>
+            </>
+          )}
+        />
+        {/* <Route path="/admin/inventory">
           <HeaderNavBar />
           <AdminProjectListScreen />
-        </Route>
+        </Route> */}
         {/* <Route path="/admin/dashboard"> */}
 
         <Route path="/" exact>

@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Container } from "react-bootstrap";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -10,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import LeadsAdmin from "../../Admin/Leads/LeadsAdmin";
+import nodata from "./../../../assests/nodata.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +51,21 @@ function StepperUI({ label, content,length,index, data }) {
           return <div>
              <Typography>Date {data.date}</Typography>
              <Typography>Time {data.time}</Typography>
-             <div style={{marginTop:"20px",border:"2px solid gray"}}></div>
+             {/* <div style={{width:"100%",display:"flex",alignItems:"center",marginTop:"20px",justifyContent:"center",backgroundColor:"green",height}}> */}
+
+             <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
+               <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {data.created_at}</p>
+             </div>
+            
+             {/* </div> */}
           </div>
         }
         else{
           return <div>
           {data.comments}
-          <div style={{marginTop:"20px",border:"2px solid gray"}}></div>
+          <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
+               <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {data.created_at}</p>
+             </div>
           </div>
         }
         
@@ -63,7 +73,9 @@ function StepperUI({ label, content,length,index, data }) {
     }
   }
   return (
+
     <>
+    
     <Stepper style={{padding:0}} activeStep={index} orientation="vertical">
       {
         Array.from({length:length},(v,i)=>{
@@ -98,6 +110,7 @@ React.useEffect(() => {
 // React.useEffect(() => {
 //   handleFetchData();
 // }, []);
+
 const handleFetchData = async () => {
 
  
@@ -133,11 +146,39 @@ function getStepContent(step) {
       return "Unknown step";
   }
 }
+
   const classes = useStyles();
+  
+  
   const label = ["Action Type", "Select Option", "What Next", "Action"];
- 
+  console.log("empty",data);
+  
+  if(data.length==0)
+  { console.log("empty");
+  
+   return <div>
+       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
+        <h3 style={{ color: "#818181" }}>Employee Action </h3>
+      </div>
+     <div style={{ display: "block",
+   marginLeft: "auto",
+   marginRight: "auto",
+   marginTop:"10%",
+   marginBottom:"auto",
+   width:"50%"}}> 
+   <img style={{ width:"70%",height: "300px" }} src={nodata} /></div>
+     </div>
+  }
+  else
   return (
+    <Container fluid>
+
     <div className={classes.root}>
+     
+       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
+        <h3 style={{ color: "#818181" }}>Employee Action </h3>
+        {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
+      </div>
       {
         data.map((val)=>{
           return (<div style={{marginBottom:"40px",backgroundColor:"gray"}}>
@@ -151,5 +192,6 @@ function getStepContent(step) {
       }
       {/* <div style={{ height:'5px',width:'100%',backgroundColor:'grey'}}/> */}
     </div>
+    </Container>
   );
 }
