@@ -48,7 +48,33 @@ console.log("props",props);
     if(query.units !=undefined)
     setUnitsParent(query.units)
     setAllProjectCategories(query.item.category.name)
+    setCategoryParent(query.item.category.name)
     setNameParent(query.item.name)
+    let arr = [];
+
+    for (let i = 0; i < query.units; i++) {
+        arr.push({
+          id: i + 1,
+          serial_no: "",
+          name: "",
+          block_name: "",
+
+          // category: category === "Both" ? "" : category,
+          category: query.item.category.name,
+
+          status: "",
+        });
+      }
+      setDummy(arr); //[]
+      setProjectDetails({
+        name: query.item.name,
+        category: query.item.category.name,
+        units: query.units,
+        status: "open",
+        inventory: [],
+      });
+      setForm(false);
+
   }, []);
 
   const getAllProjectCategories = async () => {
@@ -341,7 +367,7 @@ console.log("props",props);
         />
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
-        <IconButton
+        {/* <IconButton
           onClick={() => setForm((state) => !state)}
           aria-label="delete"
           color="primary"
@@ -349,7 +375,7 @@ console.log("props",props);
           <Tooltip title="Go Back" placement="right" arrow>
             <ArrowBackIcon />
           </Tooltip>
-        </IconButton>
+        </IconButton> */}
         <Container>
           <Form>
             {InventoryData.map((item, index) => {
