@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import EmployeeLeads from "../Leads/EmployeeLeads";
 import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
-export default function EmployeeLeadsScreen() {
+export default function EmployeeLeadsScreen(props) {
   return (
     <React.Fragment>
       <Container fluid>
@@ -25,7 +25,7 @@ export default function EmployeeLeadsScreen() {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <EmployeeLeads />
+            <EmployeeLeads listData={props.location.query}/>
           </Col>
         </Row>
       </Container>

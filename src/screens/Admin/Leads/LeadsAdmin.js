@@ -127,7 +127,10 @@ export default function LeadsAdmin() {
     //  ;
     //  ;
   };
-
+  const currencyFormat=(num)=> {
+    return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')+'PKR'
+ }
+//  console.log(currencyFormat(2665));
   const ModalAdd = ({}) => {
     const [allProjects, setAllProjects] = useState([]);
     const [project, setProject] = useState();
@@ -1201,6 +1204,7 @@ export default function LeadsAdmin() {
     // console.log(item);
     let country_city = "country/city";
     return (
+     
       <tr>
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
@@ -1269,7 +1273,7 @@ export default function LeadsAdmin() {
           <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
             <button
               data-tip
-              data-for="view action"
+              data-for="action"
               type="button"
               className="bg-transparent  button-focus mr-2"
               // onClick={() => {
@@ -1280,7 +1284,7 @@ export default function LeadsAdmin() {
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
           </Link>
-          <ReactTooltip id="view action" place="top" effect="solid">
+          <ReactTooltip id="action" place="top" effect="solid">
             View Employee Action
           </ReactTooltip>
         </td>

@@ -27,6 +27,7 @@ import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
 import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
+import AdminAction from "./screens/Employe/Leads/AdminAction";
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
@@ -175,10 +176,20 @@ const NewApp = (props) => {
           <EmployeHeader />
           <EmployeeDashboardScreen />
         </Route>
-        <Route path="/employee/leads">
+        {/* <Route path="/employee/leads">
           <EmployeHeader />
           <EmployeeLeadsScreen />
-        </Route>
+        </Route> */}
+        <Route
+          exact
+          path="/employee/leads"
+          render={(props) => (
+            <>
+              <EmployeHeader />
+          <EmployeeLeadsScreen {...props} />
+            </>
+          )}
+        />
         <Route path="/employee/inventory">
           <EmployeHeader />
           <EmployeeInventory />
@@ -190,6 +201,15 @@ const NewApp = (props) => {
         <Route path="/employee/todolist">
           <EmployeHeader />
           <EmployeeToDo />
+        </Route>
+        <Route path="/employee/admin-action"  
+        render={(props) => (
+            <>
+              <EmployeHeader />
+              <AdminAction {...props} />
+            </>
+          )}>
+        
         </Route>
       </React.Fragment>
     );

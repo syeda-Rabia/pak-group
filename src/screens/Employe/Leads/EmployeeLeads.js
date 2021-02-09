@@ -10,8 +10,9 @@ import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-
+import ReactTooltip from "react-tooltip";
 import { GET, POST, formatDate } from "./../../../utils/Functions";
+import { Link, Route } from "react-router-dom";
 import ApiUrls from "./../../../utils/ApiUrls";
 import {
   Box,
@@ -26,6 +27,7 @@ import {
   ListItemText,
   ListItem,
 } from "@material-ui/core";
+import {faEye} from "@fortawesome/free-solid-svg-icons";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 // import { token } from "../../../utils/Config";
@@ -267,6 +269,7 @@ const Table = ({
   };
   return (
     <tr>
+      
       <td scope="row">{index + 1}</td>
       <td>{item.client_name}</td>
       <td>{item.contact}</td>
@@ -305,6 +308,27 @@ const Table = ({
       <td>{item.email}</td>
       <td>{item.task}</td>
       <td>{item.dead_line}</td>
+      <td>
+          {/* <Link to= > */}
+          {/*  {{ pathname: "/employee/admin-action", query: { item } }} */}
+         
+            <button
+              data-tip
+              data-for="actionAdmin"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              // onClick={() => {
+              //   // setShowView(true);
+              //   // setSelectedID(index);
+              // }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
+            </button>
+          {/* </Link> */}
+          <ReactTooltip id="actionAdmin" place="top" effect="solid">
+            View Admin Action
+          </ReactTooltip>
+        </td>
       {/* <td>{"---"}</td> */}
       <td>
         <div
@@ -701,11 +725,7 @@ function EmployeeLeads(props, lead_id) {
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
-                  {/* <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Action
-                    </span>
-                  </th> */}
+                  
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       ID
@@ -769,6 +789,11 @@ function EmployeeLeads(props, lead_id) {
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Deadline
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Admin_Action
                     </span>
                   </th>
                   <th scope="col">

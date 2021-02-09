@@ -344,8 +344,11 @@ export default function AddEmployee() {
                     className="form-control w-100 "
                     placeholder="Enter Phone"
                     type="tel"
+                    minLength="11"
+                    maxLength="11"
                     value={phone_no}
                     onChange={(e) => {
+                      if (e.target.value.match(/(^[0-9]*$)/g))
                       setPhone_no(e.target.value);
                     }}
                   />
@@ -649,6 +652,19 @@ export default function AddEmployee() {
               <div className="pb-3">
                 <h6>Phone</h6>
                 <Input
+                      required="true"
+                      className="form-control input-width w-100 "
+                      placeholder="Enter Phone"
+                      type="tel"
+                      minLength="11"
+                      maxLength="11"
+                      value={phone_no}
+                      onChange={(e) => {
+                        if (e.target.value.match(/(^[0-9]*$)/g))
+                        setPhone_no(e.target.value);
+                      }}
+                    />
+                {/* <Input
                   className="form-control  w-100"
                   placeholder="Enter Phone"
                   required="true"
@@ -657,7 +673,7 @@ export default function AddEmployee() {
                   onChange={(e) => {
                     setPhone_no(e.target.value);
                   }}
-                />
+                /> */}
               </div>
 
               <div className="pb-3">

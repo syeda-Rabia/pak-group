@@ -44,12 +44,14 @@ console.log("props",props);
   //  ;
   const query=props.location.query;
   useEffect(() => {
+    console.log("query-------------",query)
     // getAllProjectCategories();
     if(query.units !=undefined)
     setUnitsParent(query.units)
     setAllProjectCategories(query.item.category.name)
     setCategoryParent(query.item.category.name)
     setNameParent(query.item.name)
+
     let arr = [];
 
     for (let i = 0; i < query.units; i++) {
@@ -310,7 +312,8 @@ console.log("props",props);
         }
       }
       let formData = {
-        name: projectDetails.name,
+        project_id:query.item.id,
+        // name: projectDetails.name,
         unit: projectDetails.units,
         category_id: projectDetails.category,
         inventories: inventoriesArray,
@@ -318,8 +321,9 @@ console.log("props",props);
       // ;
       // ;
       // ;
-      let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
+      let resp = await POST(ApiUrls.POST_CREATE_EXISTING_PROJECT_INVENTORIES, formData);
       // ;
+      console.log("response",resp);
       if (resp.error === false) {
         history.push("/admin/inventory");
       }

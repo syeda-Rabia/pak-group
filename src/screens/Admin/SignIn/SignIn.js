@@ -31,6 +31,7 @@ import FormDialog from "../../ForgetPassword/ForgetPassword";
 const SignIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [is_blocked, setIsBlocked] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(null);
@@ -87,6 +88,9 @@ const SignIn = (props) => {
           setErrorResponce(resp.error.email[0]);
         } else if (resp.error.hasOwnProperty("password")) {
           setErrorResponce(resp.error.password[0]);
+        }
+        else if (resp.error.hasOwnProperty("is_blocked")) {
+          setErrorResponce(resp.error.is_blocked[0]);
         } else {
           setErrorResponce(resp.error);
         }
