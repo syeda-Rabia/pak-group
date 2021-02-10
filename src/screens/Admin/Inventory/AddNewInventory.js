@@ -308,6 +308,7 @@ console.log("props",props);
             // inventory_category: projectDetails.inventory[index].category,
             property_status: projectDetails.inventory[index].status,
           };
+         
           inventoriesArray.push(obj);
         }
       }
@@ -326,7 +327,7 @@ console.log("props",props);
       console.log("response",resp);
       if (resp.error === false) {
         history.push("/admin/inventory");
-      }
+      } 
 
       setShowProgress(false);
     };

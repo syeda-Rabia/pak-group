@@ -81,7 +81,9 @@ export default function Dropfile(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(selectedFile),
+      
     })
+    
       .then((res) => {
         // return res;
       })
@@ -89,6 +91,7 @@ export default function Dropfile(props) {
         console.error(error);
         // return error;
       });
+      console.log("string",JSON.stringify(selectedFile));
   };
 
   return (

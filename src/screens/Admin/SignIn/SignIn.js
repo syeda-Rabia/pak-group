@@ -89,14 +89,25 @@ const SignIn = (props) => {
         } else if (resp.error.hasOwnProperty("password")) {
           setErrorResponce(resp.error.password[0]);
         }
-        else if (resp.error.hasOwnProperty("is_blocked")) {
-          setErrorResponce(resp.error.is_blocked[0]);
-        } else {
+        else  if (resp.error.hasOwnProperty("message")) {
+          console.log("message");
+          setErrorResponce(resp.error.message[0]);
+          setShowAlert(true);
+          setIsLoading(false);
+        }
+         else {
           setErrorResponce(resp.error);
         }
         setShowAlert(true);
         setIsLoading(false);
-      } catch {}
+      } catch { 
+      //   if (resp.error.hasOwnProperty("message")) {
+      //   console.log("message");
+      //   setErrorResponce(resp.error.message[0]);
+      //   setShowAlert(true);
+      //   setIsLoading(false);
+      // }
+    }
     }
 
     // lodimg false

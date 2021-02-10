@@ -72,6 +72,8 @@ const ApiUrls = {
   EMPLOYEE_INVENTORY_REQUEST: "employee/inventory/request",
   // employee action on lead
   POST_EMPLOYEE_ACTION_ON_LEAD: "employee/empAction/add",
+  // admin action on lead
+  GET_ADMIN_ACTION_ON_LEAD:"employee/adminAction/lead",
 };
 
 export default ApiUrls;

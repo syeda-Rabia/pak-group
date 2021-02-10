@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Action Type", "Select Option", "What Next", "Action"];
+  return ["Action Type", "Action"];
 }
 
 
@@ -42,12 +42,12 @@ function StepperUI({ label, content,length,index, data }) {
     switch (step) {
       case 0:
         return data.action_type;
-      case 1:
-        return data.select_option;
-      case 2:
-        return data.what_next;
+      // case 1:
+      //   return data.select_option;
+      // case 2:
+      //   return data.what_next;
       default:
-        if(data.comments==null ||data.comments=="" ){
+        if(data.instruct_text==null ||data.instruct_text=="" ){
           return <div>
              <Typography>Date {data.date}</Typography>
              <Typography>Time {data.time}</Typography>
@@ -62,7 +62,7 @@ function StepperUI({ label, content,length,index, data }) {
         }
         else{
           return <div>
-          {data.comments}
+          {data.instruct_text}
           <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
                <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {data.created_at}</p>
              </div>
@@ -115,12 +115,12 @@ const handleFetchData = async () => {
 
  
   let res = await GET(
-    // ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id //this line
+    ApiUrls.GET_ADMIN_ACTION_ON_LEAD + "/" + leadID.item.id //this line
   );
   // console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
-  // console.log("--",JSON.stringify(res));
+  console.log("--",JSON.stringify(res));
   if (res.success != false) {
-    // setData(res.data.EmpAction);
+    setData(res.data.adminAction);
   }
  
  
@@ -150,7 +150,7 @@ function getStepContent(step) {
   const classes = useStyles();
   
   
-  const label = ["Action Type", "Select Option", "What Next", "Action"];
+  const label = ["Action Type", "Action"];
   console.log("empty",data);
   
   if(data.length==0)
@@ -158,7 +158,7 @@ function getStepContent(step) {
   
    return <div>
        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
-        <h3 style={{ color: "#818181" }}>Employee Action </h3>
+        <h3 style={{ color: "#818181" }}>Admin Action on This Lead</h3>
       </div>
      <div style={{ display: "block",
    marginLeft: "auto",

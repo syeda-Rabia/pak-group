@@ -229,6 +229,9 @@ export default function LeadsAdmin() {
         setMessage("Lead Not Submitted. Interest field is Required.");
         setShowErrorAlert(true);
       }
+      setMessage("Lead added Successfully");
+      setShowSuccessAlert(true);
+      
       console.trace(resp);
 
       setRefresh(!refresh);

@@ -240,9 +240,13 @@ export default function AddEmployee() {
     const [email, setEmail] = useState(item.email);
     const [gender, setGender] = useState(item.gender);
     const [password, setPassword] = useState("");
-
+    const [showPassword, setShowPassword] = useState(false);
     const [user_type, setUser_type] = useState(item.user_type);
     const [phone_no, setPhone_no] = useState(item.phone);
+    const handleClickShowPassword = () => {
+      setShowPassword(!showPassword);
+    };
+
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
@@ -380,17 +384,35 @@ export default function AddEmployee() {
                   </select>
                 </div>
                 <div className="pb-3">
-                  <h6>Initial Password</h6>
-                  <input
-                    className="form-control w-100 "
-                    placeholder="Enter password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                </div>
+                <h6>Initial Password</h6>
+                <Input
+                  className="form-control  w-100 "
+                  placeholder="Enter password"
+                  required="true"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        style={{ outline: "none" }}
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                <small class="form-text text-muted">
+                  Your password must be 8 characters long
+                </small>
+              </div>
               </form>
             </Modal.Body>
             <Modal.Footer>

@@ -8,7 +8,7 @@ import {
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faUpload,faEye } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
 import { GET, POST, formatDate } from "./../../../utils/Functions";
@@ -27,7 +27,7 @@ import {
   ListItemText,
   ListItem,
 } from "@material-ui/core";
-import {faEye} from "@fortawesome/free-solid-svg-icons";
+// import {faEye} from "@fortawesome/free-solid-svg-icons";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 // import { token } from "../../../utils/Config";
@@ -309,9 +309,9 @@ const Table = ({
       <td>{item.task}</td>
       <td>{item.dead_line}</td>
       <td>
-          {/* <Link to= > */}
-          {/*  {{ pathname: "/employee/admin-action", query: { item } }} */}
-         
+          <Link to= 
+           {{ pathname: "/employee/admin-action", query: { item } }}
+         >
             <button
               data-tip
               data-for="actionAdmin"
@@ -324,7 +324,7 @@ const Table = ({
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-          {/* </Link> */}
+          </Link>
           <ReactTooltip id="actionAdmin" place="top" effect="solid">
             View Admin Action
           </ReactTooltip>
@@ -514,6 +514,7 @@ function EmployeeLeads(props, lead_id) {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
     console.log("_________________", res);
+    
     if (res.success != false) {
       setData(res.data.leads);
     }

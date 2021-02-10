@@ -213,9 +213,18 @@ export default function ProjectList() {
                     className="form-control w-100 "
                     placeholder="Enter number of units"
                     type="number"
+                    min="1"
+                    max="250"
                     value={addUnit}
                     onChange={(e) => {
-                      setAddUnit(e.target.value);
+                      if (e.target.value > 250) {
+                        alert("You can add max 250 properties at one time");
+                      } else {
+                        setAddUnit(e.target.value);
+                      
+                      }
+                    
+                     
                     }}
                   />
                 </div>
@@ -235,12 +244,13 @@ export default function ProjectList() {
                 type="submit"
                 value="Submit"
                 style={{ backgroundColor: "#2258BF" }}
+                
                 // onClick={(e) => {
                 //   setShowUnit(false);
                 //   EditRecordToServer(e);
                 // }}
               >
-                Save
+                Add
               </Button>
               </Link>
             </Modal.Footer>
