@@ -214,7 +214,7 @@ export default function CTAButton({ empId, lead_id }) {
         new_lead_holder_emp: selectedEmployee.new_lead_holder_emp,
       });
       if (resp.error === false) {
-        setAlertMessage("Shift and Warn Successfully");
+        setAlertMessage("Lead shifted Successfully");
         setShowSuccessAlert(true);
       } else {
         setAlertMessage("Shift and Warn  Failed");

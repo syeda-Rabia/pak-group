@@ -11,9 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload,faEye } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
-import { GET, POST, formatDate } from "./../../../utils/Functions";
+import { GET, POST, formatDate,POSTFile } from "./../../../utils/Functions";
 import { Link, Route } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 import ApiUrls from "./../../../utils/ApiUrls";
+import { server_url } from "./../../../utils/Config";
+
 import {
   Box,
   TextField,
@@ -24,6 +27,7 @@ import {
   Menu,
   Collapse,
   List,
+  Snackbar,
   ListItemText,
   ListItem,
 } from "@material-ui/core";
@@ -188,7 +192,7 @@ const Table = ({
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       setRecordingFile(file);
-      console.log(file);
+      console.log('selected File is -------,',file);
     });
   }, []);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
@@ -210,49 +214,46 @@ const Table = ({
   // };
 
   const SendFileToServer = async () => {
-    const formData = new FormData();
 
-    let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
-      id: item.id,
-      action: action,
-    });
-    console.log(actionresp);
-    if (actionresp.error === false) {
-      alert("lead updated successfully");
-      // setShowAlert(true);
-    }
-    if (actionresp.error.hasOwnProperty("allocated_to")) {
-      alert("Action Field is required");
+    // let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
+    //   id: item.id,
+    //   action: action,
+    // });
+    // console.log(actionresp);
+    // if (actionresp.error === false) {
+    //   alert("lead updated successfully");
+    //   // setShowAlert(true);
+    // }
+    // if (actionresp.error.hasOwnProperty("allocated_to")) {
+    //   alert("Action Field is required");
 
-      // setErrorAlert(true);
-    }
+    //   // setErrorAlert(true);
+    // }
     setRefresh(!refresh);
 
-    formData.append("lead_id", item.id);
-    formData.append("recording_file", recordingFile);
+    
+      let formData={
+        lead_id:item.id,
+        recording_file: recordingFile
+      };
+// let formData = new FormData();
+//     formData.append("lead_id", item.id);
+    // formData.append("recording_file", recordingFile);
+    console.log('form data is recordingFile ------------>',recordingFile);
+    console.log('form data - recordingFile ------------>',formData.recording_file);
+
+    let resp = await POST(ApiUrls.ADD_RECORDING, formData);             
+    console.log("---------recording--------------",resp);
+    console.log(resp);
     // for (var value of formData.values()) {
-    //   console.log(value);
+    //   console.log(value,"FormDATA");
     // }
     // await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
-    await fetch("http://192.168.100.191:8000/api/employee/recording/add", {
-      method: "post",
-      mode: "no-cors",
-      crossDomain: true,
-      headers: {
-        // Accept: "application/json",
-        "Content-Type": "	multipart/form-data",
-        // Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
+      // let token = JSON.parse(localStorage.getItem("token"));
+    //   let resp=await POSTFile(ApiUrls.ADD_RECORDING, formData);
+     
+    // console.log("---------recording--------------",resp,formData);
 
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
   const formatTime = () => {
     if (item.time_to_call !== null) {
@@ -332,7 +333,7 @@ const Table = ({
       {/* <td>{"---"}</td> */}
       <td>
         <div
-          style={{ outline: "none", height: "2rem" }}
+          style={{ outline: "none", height: "2rem",backgroundColor:'red'}}
           className="d-flex"
           {...getRootProps()}
         >
@@ -477,7 +478,9 @@ const Table = ({
         </Menu>
       </td>
       <td>
-        <Button>Update</Button>
+        <Button  onClick={() => {
+              SendFileToServer();
+            }}>Update</Button>
       </td>
     </tr>
   );
@@ -492,7 +495,7 @@ function EmployeeLeads(props, lead_id) {
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [postData, setPostData] = React.useState({});
-  console.log(postData, "YES", value);
+  // console.log(postData, "YES", value);
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
@@ -815,7 +818,8 @@ function EmployeeLeads(props, lead_id) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+              {data.length > 0 ? (
+                data.map((item, index) => (
                   <Table
                     item={item.lead}
                     index={index}
@@ -826,7 +830,20 @@ function EmployeeLeads(props, lead_id) {
                     setPostData={setPostData}
                     userInfo={props.userInfo}
                   />
-                ))}
+                ))) : (
+                  <Snackbar
+                    open={true}
+                    autoHideDuration={6000}
+                    // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  >
+                    <Alert variant="filled" severity="info">
+                      No Lead to Show
+                    </Alert>
+                  </Snackbar>
+                )}
+  
+              
               </tbody>
             </table>
             <ModalAction data={postData} />

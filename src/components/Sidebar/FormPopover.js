@@ -181,6 +181,14 @@ export default function FormPopover(props) {
                       return <option>{i + 1}</option>;
                     })}
                   </Form.Control>
+                  <Form.Control
+                  style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
+                    controlId="year"
+                    as="button"
+                    defaultValue=""
+                  >
+                    Search
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>

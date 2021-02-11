@@ -89,7 +89,7 @@ export default function RecordTable() {
   };
 
   const TableRow = ({ index, item }) => {
-    // console.log(item);
+    console.log(item,"rabia");
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -114,7 +114,8 @@ export default function RecordTable() {
         <td>{item.dead_line}</td>
 
         <td>
-          <CTAButton lead_id={item.id} />
+          <CTAButton lead_id={item.id} 
+           empId={item.id}/>
         </td>
       </tr>
     );

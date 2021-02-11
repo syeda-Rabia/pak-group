@@ -24,24 +24,40 @@ const GetRecordFromServer = async (url) => {
 
 export const POST = async (url, formData) => {
   let token = JSON.parse(localStorage.getItem("token"));
+      // body: JSON.stringify(formData),
 
   //  ;
-  // console.log(
-  //   "form data to submit ----------,      ",
-  //   JSON.stringify(formData)
-  // );
+
+
+  const data = new FormData();
+
+  data.append("lead_id",formData.lead_id);
+  data.append("recording_file",formData.recording_file);
+
+  // console.log("form data to submit ----------,",JSON.stringify(data));
+  // console.log( "form data to submit ----------,",formData.lead_id);
+  // console.log("form data to submit ----------,",formData.recording_file);\
+
+
+  for (var value of data) {
+      console.log("FormDATA --------------------- .", value);
+    }
+
+        
 
   try {
-    return fetch(server_url + url, {
+    return fetch('https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc', {
       method: "post",
       // mode: "no-cors",
-      crossDomain: true,
+      // crossDomain: true,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        
+        "Content-Type": "multipart/form-data",
+
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(formData),
+      body: data,
+
     })
       .then((response) => response.json())
       .then((res) => {
@@ -56,6 +72,50 @@ export const POST = async (url, formData) => {
     //  ;
     return e;
   }
+};
+
+export const POSTFile = async (url, formData) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+
+  //  ;
+  console.log(
+    "form data to submit ----------,      ",
+    JSON.stringify(formData)
+  );
+
+  try {
+    return  fetch('https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc', {
+    method: "post",
+    // mode: "no-cors",
+    crossDomain: true,
+    // headers: {
+    //   Accept: "application/json",
+    //   "Content-Type": "multipart/form-data",
+    //   Authorization: `Bearer ${token}`,
+    // },
+     headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json , multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    body: (formData),
+  })
+    .then((response) =>{
+      console.log(response.json(),"Res")
+      return response.json()
+    })
+    .then((res) => {
+      console.log(res,"HAHAHAHHA");
+      return res;
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  } catch (e) {
+    //  ;
+    console.log("error in catch",e)
+    return e;
+  };
 };
 
 export const GET = async (url) => {
