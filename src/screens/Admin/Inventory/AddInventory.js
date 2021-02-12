@@ -287,7 +287,7 @@ export default function AddInventory() {
       let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
       // ;
       if (resp.error === false) {
-        history.push("/admin/inventory");
+        history.push("/admin/inventory");                 
       }
 
       setShowProgress(false);

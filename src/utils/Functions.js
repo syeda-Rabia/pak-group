@@ -22,42 +22,77 @@ const GetRecordFromServer = async (url) => {
     );
 };
 
+// export const POST = async (url, formData) => {
+//   let token = JSON.parse(localStorage.getItem("token"));
+//       // body: JSON.stringify(formData),
+
+//   //  ;
+
+
+//   const data = new FormData();
+
+//   data.append("lead_id",formData.lead_id);
+//   data.append("recording_file",formData.recording_file);
+
+//   // console.log("form data to submit ----------,",JSON.stringify(data));
+//   // console.log( "form data to submit ----------,",formData.lead_id);
+//   // console.log("form data to submit ----------,",formData.recording_file);\
+
+
+//   for (var value of data) {
+//       console.log("FormDATA --------------------- .", value);
+//     }
+
+        
+
+//   try {
+//     return fetch('https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc', {
+//       method: "post",
+//       // mode: "no-cors",
+//       // crossDomain: true,
+//       headers: {
+        
+//         "Content-Type": "multipart/form-data",
+
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: data,
+
+//     })
+//       .then((response) => response.json())
+//       .then((res) => {
+//         //  ;
+//         return res;
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//         return error;
+//       });
+//   } catch (e) {
+//     //  ;
+//     return e;
+//   }
+// };
 export const POST = async (url, formData) => {
   let token = JSON.parse(localStorage.getItem("token"));
-      // body: JSON.stringify(formData),
 
   //  ;
-
-
-  const data = new FormData();
-
-  data.append("lead_id",formData.lead_id);
-  data.append("recording_file",formData.recording_file);
-
-  // console.log("form data to submit ----------,",JSON.stringify(data));
-  // console.log( "form data to submit ----------,",formData.lead_id);
-  // console.log("form data to submit ----------,",formData.recording_file);\
-
-
-  for (var value of data) {
-      console.log("FormDATA --------------------- .", value);
-    }
-
-        
+  // console.log(
+  //   "form data to submit ----------,      ",
+  //   JSON.stringify(formData)
+  // );
 
   try {
-    return fetch('https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc', {
+    return fetch(server_url + url, {
       method: "post",
       // mode: "no-cors",
-      // crossDomain: true,
+      crossDomain: true,
       headers: {
-        
-        "Content-Type": "multipart/form-data",
-
+        Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: data,
-
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((res) => {
@@ -73,7 +108,6 @@ export const POST = async (url, formData) => {
     return e;
   }
 };
-
 export const POSTFile = async (url, formData) => {
   let token = JSON.parse(localStorage.getItem("token"));
 

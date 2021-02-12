@@ -359,7 +359,7 @@ const SignIn = (props) => {
             </form>
           </div>
         </div>
-      </div>
+      </div> 
       <div>
         <Footer />
       </div>

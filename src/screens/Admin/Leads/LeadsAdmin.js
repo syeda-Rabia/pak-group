@@ -815,7 +815,7 @@ export default function LeadsAdmin() {
     };
 
     const ModalPlay = ({ item }) => {
-      const [playAudio, setPlayAudio] = useState(false);
+      const [playAudio, setPlayAudio] = useState(item.recordings);
       const [playAudio2, setPlayAudio2] = useState(false);
 
       useEffect(() => {
@@ -872,7 +872,7 @@ export default function LeadsAdmin() {
                 style={{ width: "80%", height: "40px", marginLeft: "35px" }}
               >
                 <Card.Body>
-                  <span className="spn1">01/12/2020</span>
+                  <span className="spn1">2011/10/09</span>
                   <span className="spn2">Recording 1</span>
                   {playAudio ? (
                     <button

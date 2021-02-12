@@ -6,7 +6,8 @@ import Dialog from "@material-ui/core/Dialog";
 import { Box, Button, Paper } from "@material-ui/core";
 import * as XLSX from "xlsx";
 import { Container } from "react-bootstrap";
-
+import ApiUrls from "./../utils/ApiUrls";
+import { GET, POST, formatDate,POSTFile } from "./../utils/Functions";
 export default function Dropfile(props) {
   const [toggle, setToggle] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState([]);
@@ -65,33 +66,40 @@ export default function Dropfile(props) {
 
   const SendFileToServer = async () => {
     const formData = new FormData();
-    // formData.append("file", {
+    // formData.append("file", { 
     //   name: "record.aac",
     //   type: "audio/aac",
     //   // uri: `file://${audioPath}`,
     // });
     formData.append("file", selectedFile);
-    await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
-      method: "post",
-      mode: "no-cors",
-      crossDomain: true,
-      headers: {
-        // "Content-Disposition": "attachment; filename=report.xlsx",
-        // Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(selectedFile),
+    //webhook
+    // await fetch("https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc", {
+    //   method: "post",
+    //   mode: "no-cors",
+    //   crossDomain: true,
+    //   headers: {
+    //     // "Content-Disposition": "attachment; filename=report.xlsx",
+    //     // Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(selectedFile),
       
-    })
-    
-      .then((res) => {
-        // return res;
-      })
-      .catch((error) => {
-        console.error(error);
-        // return error;
-      });
-      console.log("string",JSON.stringify(selectedFile));
+    // })
+  
+    //   .then((res) => {
+    //     // return res;
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     // return error;
+    //   });
+    //   console.log("string",JSON.stringify(selectedFile));
+        //webhook end
+
+
+        let resp = await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET, formData);             
+        console.log("---------recording--------------",resp);
+        console.log(resp);
   };
 
   return (

@@ -215,20 +215,20 @@ const Table = ({
 
   const SendFileToServer = async () => {
 
-    // let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
-    //   id: item.id,
-    //   action: action,
-    // });
-    // console.log(actionresp);
-    // if (actionresp.error === false) {
-    //   alert("lead updated successfully");
-    //   // setShowAlert(true);
-    // }
-    // if (actionresp.error.hasOwnProperty("allocated_to")) {
-    //   alert("Action Field is required");
+    let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
+      id: item.id,
+      action: action,
+    });
+    console.log(actionresp);
+    if (actionresp.error === false) {
+      alert("lead updated successfully");
+      // setShowAlert(true);
+    }
+    if (actionresp.error.hasOwnProperty("allocated_to")) {
+      alert("Action Field is required");
 
-    //   // setErrorAlert(true);
-    // }
+      // setErrorAlert(true);
+    }
     setRefresh(!refresh);
 
     

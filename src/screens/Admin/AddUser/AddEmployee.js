@@ -239,7 +239,7 @@ export default function AddEmployee() {
     const [l_name, setL_name] = useState(item.last_name);
     const [email, setEmail] = useState(item.email);
     const [gender, setGender] = useState(item.gender);
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState(item.password);
     const [showPassword, setShowPassword] = useState(false);
     const [user_type, setUser_type] = useState(item.user_type);
     const [phone_no, setPhone_no] = useState(item.phone);
@@ -258,11 +258,12 @@ export default function AddEmployee() {
         email: email,
         gender: gender == "Male" ? "Male" : "Female",
         phone: phone_no,
-        password: password,
+        // password: password,
         user_type: user_type == "Admin" ? "Admin" : "Employee",
       };
       let resp = await POST(ApiUrls.EDIT_USER, formData);
       // ;
+      console.log("edit-----------",resp);
       try {
         if (resp.error == false) {
           setMessage(resp.success);
