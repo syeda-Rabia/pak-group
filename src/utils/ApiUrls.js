@@ -51,7 +51,7 @@ const ApiUrls = {
   EMPLOYEE_ACTION: "employee/lead/edit",
   GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
   //excel sheet read api
-  POST_ADD_LEAD_USING_EXCEL_SHEET:"/admin/lead/addLeads",
+  POST_ADD_LEAD_USING_EXCEL_SHEET:"admin/lead/addLeads",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",

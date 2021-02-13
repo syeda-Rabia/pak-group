@@ -71,35 +71,51 @@ export default function Dropfile(props) {
     //   type: "audio/aac",
     //   // uri: `file://${audioPath}`,
     // });
-    formData.append("file", selectedFile);
-    //webhook
-    // await fetch("https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc", {
-    //   method: "post",
-    //   mode: "no-cors",
-    //   crossDomain: true,
-    //   headers: {
-    //     // "Content-Disposition": "attachment; filename=report.xlsx",
-    //     // Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(selectedFile),
-      
+    // formData.append("file", selectedFile);
+    let data={
+      data:selectedFile
+    }
+    console.log(selectedFile)
+    // selectedFile.map((item,index)=>{
+    //   formData.append(`data[${index}][interest_name]`,item.interest_name)
+    //   formData.append(`data[${index}][project_name]`,item.project_name)
+    //   formData.append(`data[${index}][client_name]`,item.client_name)
+    //   formData.append(`data[${index}][contact]`,item.contact)
+    //   formData.append(`data[${index}][country_city]`,item.country_city)
+    //   formData.append(`data[${index}][time_to_call]`,item.time_to_call)
+    //   formData.append(`data[${index}][budget]`,item.budget)
     // })
+    //webhook
+    await fetch("https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc",
+  // let resp=await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET,
+     {
+      method: "post",
+      mode: "no-cors",
+      crossDomain: true,
+      headers: {
+        // "Content-Disposition": "attachment; filename=report.xlsx",
+        // Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      
+    })
   
-    //   .then((res) => {
-    //     // return res;
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     // return error;
-    //   });
-    //   console.log("string",JSON.stringify(selectedFile));
-        //webhook end
+      .then((res) => {
+        // return res;
+      })
+      .catch((error) => {
+        console.error(error);
+        // return error;
+      });
+      console.log("string",JSON.stringify(selectedFile));
+        //webhook end-
 
 
-        let resp = await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET, formData);             
-        console.log("---------recording--------------",resp);
-        console.log(resp);
+        let response = await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET, data);             
+        console.log("---------recording--------------",response);
+        // // console.log(resp);
+        setSelectedFile([])
   };
 
   return (

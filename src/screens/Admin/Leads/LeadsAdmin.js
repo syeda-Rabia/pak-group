@@ -12,6 +12,7 @@ import {
   faPlay,
   faPause,
   faStop,
+  faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 
 import sample from "./../../../assests/sample.mp3";
@@ -92,6 +93,7 @@ export default function LeadsAdmin() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   var today = new Date();
+  const [recordings, setRecordings] = useState([]);
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
@@ -127,10 +129,10 @@ export default function LeadsAdmin() {
     //  ;
     //  ;
   };
-  const currencyFormat=(num)=> {
-    return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')+'PKR'
- }
-//  console.log(currencyFormat(2665));
+  const currencyFormat = (num) => {
+    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "PKR";
+  };
+  //  console.log(currencyFormat(2665));
   const ModalAdd = ({}) => {
     const [allProjects, setAllProjects] = useState([]);
     const [project, setProject] = useState();
@@ -231,7 +233,7 @@ export default function LeadsAdmin() {
       }
       setMessage("Lead added Successfully");
       setShowSuccessAlert(true);
-      
+
       console.trace(resp);
 
       setRefresh(!refresh);
@@ -813,44 +815,107 @@ export default function LeadsAdmin() {
         </Modal>
       );
     };
-
-    const ModalPlay = ({ item }) => {
-      const [playAudio, setPlayAudio] = useState(item.recordings);
-      const [playAudio2, setPlayAudio2] = useState(false);
-
+    const HandleAudioModule = ({
+      recording,
+      setActiveAudio,
+      activeAudio,
+      index,
+    }) => {
+      const [audioTune,setAudioTune]=useState(new Audio(recording));
+      // const [playAudio,setPlayAudio]=useState(false)
       useEffect(() => {
+        //  setAudioTune( new Audio(recording));
         audioTune.load();
       }, []);
 
       const playSound = () => {
         audioTune.play();
-        audioTune2.pause();
+        // setPlayAudio(true)
+        setActiveAudio({ index: index, playState: true });
 
-        setPlayAudio(true);
-        setPlayAudio2(false);
+        // audioTune2.pause();
+
+        // setPlayAudio2(false);
       };
 
       const pauseSound = () => {
         audioTune.pause();
-        setPlayAudio(false);
+        // setPlayAudio(false)
+        setActiveAudio({ index: index, playState: false });
       };
-
-      useEffect(() => {
-        audioTune2.load();
-      }, []);
-
-      const playSound2 = () => {
-        audioTune2.play();
-        audioTune.pause();
-
-        setPlayAudio2(true);
-        setPlayAudio(false);
+      const isActive = () => {
+        if (activeAudio.index == index) return activeAudio.playState;
+        else return false;
       };
+      return (
+        <Card
+          className="shadow  bg-white rounded "
+          style={{ width: "80%", height: "40px", marginLeft: "35px" }}
+        >
+          <Card.Body>
+            <span className="spn1">2011/10/09</span>
+            <span className="spn2">Recording 1</span>
+            {isActive() ? (
+              <button
+                type="button"
+                className="bg-transparent  button-focus mr-2 button-bg"
+                onClick={pauseSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="bg-transparent  button-focus mr-2 button-bg"
+                onClick={playSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+              </button>
+            )}
+          </Card.Body>
+        </Card>
+      );
+    };
+   
+    const ModalPlay = ({ item }) => {
+      const [activeAudio, setActiveAudio] = useState({
+        index: 0,
+        playState: false,
+      });
+  
+      // useEffect(() => {
+      //   audioTune.load();
+      // }, []);
 
-      const pauseSound2 = () => {
-        audioTune2.pause();
-        setPlayAudio2(false);
-      };
+      // const playSound = () => {
+      //   audioTune.play();
+      //   audioTune2.pause();
+
+      //   setPlayAudio(true);
+      //   setPlayAudio2(false);
+      // };
+
+      // const pauseSound = () => {
+      //   audioTune.pause();
+      //   setPlayAudio(false);
+      // };
+
+      // useEffect(() => {
+      //   audioTune2.load();
+      // }, []);
+
+      // const playSound2 = () => {
+      //   audioTune2.play();
+      //   audioTune.pause();
+
+      //   setPlayAudio2(true);
+      //   setPlayAudio(false);
+      // };
+
+      // const pauseSound2 = () => {
+      //   audioTune2.pause();
+      //   setPlayAudio2(false);
+      // };
 
       return (
         <Modal
@@ -867,36 +932,18 @@ export default function LeadsAdmin() {
           </Modal.Header>
           <div className="col-lg-12 shadow p-3  bg-white rounded ">
             <Modal.Body>
-              <Card
-                className="shadow  bg-white rounded "
-                style={{ width: "80%", height: "40px", marginLeft: "35px" }}
-              >
-                <Card.Body>
-                  <span className="spn1">2011/10/09</span>
-                  <span className="spn2">Recording 1</span>
-                  {playAudio ? (
-                    <button
-                      type="button"
-                      className="bg-transparent  button-focus mr-2 button-bg"
-                      onClick={pauseSound}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: 15 }}
-                        icon={faPause}
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="bg-transparent  button-focus mr-2 button-bg"
-                      onClick={playSound}
-                    >
-                      <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                    </button>
-                  )}
-                </Card.Body>
-              </Card>
-              <Card
+              {recordings.map((recording, index) => {
+                // const audioTune = new Audio(recording);
+                return (
+                  <HandleAudioModule
+                    recording={recording}
+                    activeAudio={activeAudio}
+                    index={index}
+                    setActiveAudio={setActiveAudio}
+                  />
+                );
+              })}
+              {/* <Card
                 className="shadow  bg-white rounded "
                 style={{
                   width: "80%",
@@ -930,6 +977,7 @@ export default function LeadsAdmin() {
                   )}
                 </Card.Body>
               </Card>
+          */}
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -1207,7 +1255,6 @@ export default function LeadsAdmin() {
     // console.log(item);
     let country_city = "country/city";
     return (
-     
       <tr>
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
@@ -1301,6 +1348,8 @@ export default function LeadsAdmin() {
                 type="button"
                 className="bg-transparent  button-focus mr-2"
                 onClick={() => {
+                  // let arr=[sample,sample,sample];
+                  // setRecordings([sample,sample,sample].map((recording)=>new Audio(recording)))
                   setShowPlay(true);
                   setSelectedID(index);
                 }}
