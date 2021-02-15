@@ -1,8 +1,10 @@
 import { store } from "../../src/modules/Store";
 // export const token = store.getState().auth.token;
-// export const server_url = "http://192.168.100.191:8000/api/";
-export const server_url = "https://ova.technovier.com/api/";
-
+let baseeURL = "http://192.168.100.191:8000";
+export const server_url = baseeURL+"/api/";
+// export const server_url = "https://ova.technovier.com/api/";
+// export const server_url = "https://technovier.com/crm/api/";
+export const publicURL=baseeURL+"/images/";
 // export const server_url = "https://pak-group.herokuapp.com/";
 // export const server_url = "http://192.168.0.105:8000/api/";
 // // Admin TOken

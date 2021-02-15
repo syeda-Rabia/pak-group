@@ -66,7 +66,23 @@ export default function FormPopover(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const SendFileToServer = async (event) => {
 
+     let formData={
+      //   client_name:employee.id,
+      // project_id:pr.id,
+      // year:days.year,
+      // month:days.month,
+      // day:days.day,
+      };
+
+ 
+
+    let resp = await POST(ApiUrls.POST_FILTER_DATA, formData);             
+    console.log("---------response--------------",resp);
+    console.log(resp);
+  
+  };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   // console.log(getDays(new Date(), 31));
@@ -186,7 +202,10 @@ export default function FormPopover(props) {
                     controlId="year"
                     as="button"
                     defaultValue=""
-                  >
+                    onClick={() => {
+                      SendFileToServer();
+                    }}
+                  > 
                     Search
                   </Form.Control>
                 </Form.Group>

@@ -50,8 +50,11 @@ const ApiUrls = {
   GET_USER_LEADS: "employee/lead/all/",
   EMPLOYEE_ACTION: "employee/lead/edit",
   GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
+  GET_ALL_CLOSED_LEADS:"admin/lead/close",
   //excel sheet read api
   POST_ADD_LEAD_USING_EXCEL_SHEET:"admin/lead/addLeads",
+// filter 
+POST_FILTER_DATA:"admin/lead/getleads",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",

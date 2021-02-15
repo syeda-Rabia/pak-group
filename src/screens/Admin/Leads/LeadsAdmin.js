@@ -29,7 +29,7 @@ import {
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
 import { Divider } from "antd";
-
+import { publicURL } from "./../../../utils/Config";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import {
@@ -48,6 +48,8 @@ import FaceIcon from "@material-ui/icons/Face";
 
 import { validateEmail, validateMobile } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
+import ReactTicker from "../../../components/Ticker/ReactTicker";
+import Ticker from "react-ticker";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
@@ -821,8 +823,10 @@ export default function LeadsAdmin() {
       activeAudio,
       index,
     }) => {
-      const [audioTune,setAudioTune]=useState(new Audio(recording));
+      // console.log(recording,"Recording Audio")
+      const [audioTune, setAudioTune] = useState(new Audio(recording));
       // const [playAudio,setPlayAudio]=useState(false)
+      if (index != activeAudio.index) audioTune.pause();
       useEffect(() => {
         //  setAudioTune( new Audio(recording));
         audioTune.load();
@@ -853,69 +857,63 @@ export default function LeadsAdmin() {
           style={{ width: "80%", height: "40px", marginLeft: "35px" }}
         >
           <Card.Body>
-            <span className="spn1">2011/10/09</span>
-            <span className="spn2">Recording 1</span>
-            {isActive() ? (
-              <button
-                type="button"
-                className="bg-transparent  button-focus mr-2 button-bg"
-                onClick={pauseSound}
-              >
-                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="bg-transparent  button-focus mr-2 button-bg"
-                onClick={playSound}
-              >
-                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-              </button>
-            )}
+            {/* <Ticker>
+        {({ index }) => (
+            <>
+                 <span className="spn1">2011/10/09</span>
+                 <span className="spn2">Recording {index}
+            </>
+        )}
+    </Ticker> */}
+            <div style={{display:'flex',flexDirection:'row'}}>
+              <p class="marquee">
+                  <span style={{display:'flex',flexDirection:'row',width:'100%'}}> <span><b>Created Date :</b> {item.recordings[0].created_at}</span> <span   style={{marginLeft:'50px'}}><b>File Name: </b>{item.recordings[0].recording_file}</span> </span>
+                 
+                {/* <span className="spn1">
+                  2011/10/09 {item.recordings[0].recording_file} {"       "}  2011/10/09 {item.recordings[0].recording_file}
+                </span> */}
+                {/* <span className="spn1">
+                  2011/10/09 {item.recordings[0].recording_file}
+                </span> */}
+              </p>
+
+              {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+
+              {/* <span className="spn1">2011/10/09</span> */}
+              {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}
+              {/* <span className="spn2">Recording {index} */}
+              {/* <ReactTicker
+            index={item.recordings[0].recording_file}
+            /> */}
+              {/* </span> */}
+              {isActive() ? (
+                <button
+                  type="button"
+                  className="bg-transparent  button-focus mr-2 button-bg"
+                  onClick={pauseSound}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="bg-transparent  button-focus mr-2 button-bg"
+                  onClick={playSound}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                </button>
+              )}
+            </div>
           </Card.Body>
         </Card>
       );
     };
-   
+
     const ModalPlay = ({ item }) => {
       const [activeAudio, setActiveAudio] = useState({
         index: 0,
         playState: false,
       });
-  
-      // useEffect(() => {
-      //   audioTune.load();
-      // }, []);
-
-      // const playSound = () => {
-      //   audioTune.play();
-      //   audioTune2.pause();
-
-      //   setPlayAudio(true);
-      //   setPlayAudio2(false);
-      // };
-
-      // const pauseSound = () => {
-      //   audioTune.pause();
-      //   setPlayAudio(false);
-      // };
-
-      // useEffect(() => {
-      //   audioTune2.load();
-      // }, []);
-
-      // const playSound2 = () => {
-      //   audioTune2.play();
-      //   audioTune.pause();
-
-      //   setPlayAudio2(true);
-      //   setPlayAudio(false);
-      // };
-
-      // const pauseSound2 = () => {
-      //   audioTune2.pause();
-      //   setPlayAudio2(false);
-      // };
 
       return (
         <Modal
@@ -934,9 +932,10 @@ export default function LeadsAdmin() {
             <Modal.Body>
               {recordings.map((recording, index) => {
                 // const audioTune = new Audio(recording);
+
                 return (
                   <HandleAudioModule
-                    recording={recording}
+                    recording={publicURL + recording.recording_file}
                     activeAudio={activeAudio}
                     index={index}
                     setActiveAudio={setActiveAudio}
@@ -1348,8 +1347,9 @@ export default function LeadsAdmin() {
                 type="button"
                 className="bg-transparent  button-focus mr-2"
                 onClick={() => {
+                  // isLoading(true);
                   // let arr=[sample,sample,sample];
-                  // setRecordings([sample,sample,sample].map((recording)=>new Audio(recording)))
+                  setRecordings(item.recordings);
                   setShowPlay(true);
                   setSelectedID(index);
                 }}

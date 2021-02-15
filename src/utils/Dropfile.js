@@ -113,7 +113,7 @@ export default function Dropfile(props) {
 
 
         let response = await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET, data);             
-        console.log("---------recording--------------",response);
+        console.log("---------excel sheet--------------",response);
         // // console.log(resp);
         setSelectedFile([])
   };
