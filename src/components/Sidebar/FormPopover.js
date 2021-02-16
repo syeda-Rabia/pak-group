@@ -6,7 +6,7 @@ import Popover from "@material-ui/core/Popover";
 
 import { Col, Form, Row } from "react-bootstrap";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Container } from "@material-ui/core";
+import {  Select,Container } from "@material-ui/core";
 
 import { GET, POST, getDays } from "../../utils/Functions";
 import ApiUrls from "../../utils/ApiUrls";
@@ -25,6 +25,9 @@ export default function FormPopover(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [employees, setEmployees] = React.useState([]);
+  const [client, setClient]=React.useState([]);
+  const [project, setProject] = useState();
+  const [refresh, setRefresh] = useState(false);
   const [days, setDays] = useState({
     day: new Date().getDate(),
     month: new Date().getMonth() + 1,
@@ -66,14 +69,14 @@ export default function FormPopover(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const SendFileToServer = async (event) => {
+  const SendFileToServer = async () => {
 
      let formData={
-      //   client_name:employee.id,
-      // project_id:pr.id,
-      // year:days.year,
-      // month:days.month,
-      // day:days.day,
+        client_name:client,
+      project_id:project,
+      year:days.year,
+      month:days.month,
+      day:days.day,
       };
 
  
@@ -81,6 +84,7 @@ export default function FormPopover(props) {
     let resp = await POST(ApiUrls.POST_FILTER_DATA, formData);             
     console.log("---------response--------------",resp);
     console.log(resp);
+    // setRefresh(!refresh);
   
   };
   const open = Boolean(anchorEl);
@@ -122,11 +126,21 @@ export default function FormPopover(props) {
                     <b>Project</b>
                   </Form.Label>
                   <Form.Control
+          
                     style={{ overflowY: "scroll" }}
                     controlId="projectName"
                     as="select"
-                    defaultValue="Project Name"
-                  >
+                    defaultValue="project name"
+                    value={project}
+                    onChange={(e) => {
+                      console.log(
+                        "select project ID is -----",
+                        e.target.value
+                      );
+                      setProject(e.target.value);
+                    }}
+                    >
+                <option>{null}</option>
                     {allProjects.length > 0
                       ? allProjects.map((pro) => (
                           <option key={pro.id} value={pro.id}>
@@ -134,6 +148,7 @@ export default function FormPopover(props) {
                           </option>
                         ))
                       : null}
+                      
                   </Form.Control>
                   <Form.Label>
                     <b>Date wise</b>
@@ -143,6 +158,7 @@ export default function FormPopover(props) {
                     as="select"
                     defaultValue="Date Wise"
                   >
+                     <option>{null}</option>
                     {/* {date.map((d) => (
                       <option>{d}</option>
                     ))} */}
@@ -160,7 +176,9 @@ export default function FormPopover(props) {
                     controlId="year"
                     as="select"
                     defaultValue="Year Wise"
+                    
                   >
+                     <option>{null}</option>
                     <option>2021</option>
                     <option>2022</option>
                   </Form.Control>
@@ -171,10 +189,21 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
-                  <Form.Control controlId="Sale Person" as="select">
+                  <Form.Control controlId="Sale Person" as="select"
+                   value={client}
+                   onChange={(e) => {
+                     console.log(
+                       "select client ID is -----",
+                       e.target.value
+                     );
+                     setClient(e.target.value);
+                   }}
+                  >
+                     <option>{null}</option>
                     {employees.length > 0
                       ? employees.map((e) => (
                           <option key={e.id} value={e.id}>
+                            {/* {e.first_name} */}
                             {e.first_name + " " + e.last_name}
                           </option>
                         ))
@@ -188,11 +217,16 @@ export default function FormPopover(props) {
                     as="select"
                     defaultValue="Month Wise"
                     onChange={(val) => {
+                      console.log(
+                        "select days ID is -----",
+                        val.target.value
+                      );
                       setDays((state) => {
                         return { ...state, month: val.target.value };
                       });
                     }}
                   >
+                     <option>{null}</option>
                     {Array.from({ length: 12 }, (v, i) => {
                       return <option>{i + 1}</option>;
                     })}

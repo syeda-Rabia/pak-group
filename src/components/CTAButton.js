@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Checkbox from "@material-ui/core/Checkbox";
 import "./CTAButton.css";
 import {
   Col,
@@ -163,6 +164,8 @@ export default function CTAButton({ empId, lead_id }) {
     const [message, setMessage] = useState("");
     const [time, setTime] = useState(timee);
     const [date, setDate] = useState(today);
+    const [checked, setChecked] = React.useState({ index: 0, state: true });
+    
     let timeVal = new Date();
 
     const SendInstructToServer = async (e) => {
@@ -222,7 +225,7 @@ export default function CTAButton({ empId, lead_id }) {
       }
       console.log("-------resp----",resp);
     };
-
+    const showText = ["Show current Employee previous actions", "Don't show current Employee previous actions"];
     const handleChange = (value) => {
       setMessage(value);
     };
@@ -235,6 +238,9 @@ export default function CTAButton({ empId, lead_id }) {
       var time = timeStr.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
       setTime(time);
       console.log(time);
+    };
+    const handleChecked = (event, id) => {
+      setChecked({ index: id, state: event.target.checked });
     };
     // if (options.title === optionsArray[0].title)
     //
@@ -362,6 +368,21 @@ export default function CTAButton({ empId, lead_id }) {
                 Do you really want to shift this lead to
                 <b> {selectedEmployee.name}</b>.
               </p>
+              {showText.map((item, index) => {
+        return (
+          <div key={index}>
+            <Checkbox
+              checked={checked.index === index ? checked.state : false}
+              color="primary"
+              onChange={(e) => {
+                handleChecked(e, index);
+              }}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+            {item}
+          </div>
+        );
+      })}
             </form>
           </Modal.Body>
           <Modal.Footer>

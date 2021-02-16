@@ -94,6 +94,11 @@ export default function LeadsAdmin() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [selectedID, setSelectedID] = useState(null);
+  const [showView, setShowView] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [setPlay, setShowPlay] = useState(false);
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
 
@@ -461,568 +466,143 @@ export default function LeadsAdmin() {
       </Modal>
     );
   };
+  const ModalEdit = ({ item }) => {
+    // console.log(
+    //   "____________________________________________________________________",
+    //   item
+    // );
 
-  const LeadTable = ({ item, index }) => {
-    const [showEdit, setShowEdit] = useState(false);
-    const [selectedID, setSelectedID] = useState(null);
-    const [showView, setShowView] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
-    const [setPlay, setShowPlay] = useState(false);
+    const [time, setTime] = useState(timee);
+    const [allProjects, setAllProjects] = useState([]);
+    const [project, setProject] = useState(item.project.id);
+    const [interestID, setInterestID] = useState();
+    const [allSource, setAllSource] = useState([
+      "Newspaper",
+      "Digital Marketing",
+      "Other",
+      "TV",
+      "Personal Personal",
+      "SMS",
+      "Outdoor",
+    ]);
 
-    const ModalEdit = ({ item }) => {
+    const [selectedSource, setSelectedSource] = useState(item.source);
+
+    const [client, setClient] = useState(item.client_name);
+    const [contact, setContact] = useState(item.contact);
+    const [budget, setBudget] = useState(item.budget);
+
+    const [country, setCountry] = useState(item.country_city);
+    // const [status, setStatus] = useState("New");
+    const [interest, setInterest] = useState([]);
+
+    const [emailError, setEmailError] = useState(false);
+
+    const [email, setEmail] = useState(item.email);
+    const [task, setTask] = useState("Sale");
+    const [deadline, setDeadline] = useState("");
+    const [source, setSource] = useState("newspaper");
+    const [innerLoading, setInnerLoading] = useState(false);
+
+    const HandleTimeValue = (value) => {
+      const str = value.toString();
+      var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
+
+      setTime(res);
+    };
+    useEffect(() => {
+      setInnerLoading(true);
+      getProjectDetails();
+    }, []);
+
+    useEffect(() => {
+      getInventroyDataAgaintsProject(project);
+    }, [project]);
+
+    const getProjectDetails = async () => {
+      let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+
+      if (resp.data != null) {
+        setAllProjects(resp.data.projects.data);
+      }
+      setInnerLoading(false);
+
       // console.log(
-      //   "____________________________________________________________________",
-      //   item
+      //   "response in Leads ------",
+      //   JSON.stringify(resp.data.users.data)
       // );
-
-      const [time, setTime] = useState(timee);
-      const [allProjects, setAllProjects] = useState([]);
-      const [project, setProject] = useState(item.project.id);
-      const [interestID, setInterestID] = useState();
-      const [allSource, setAllSource] = useState([
-        "Newspaper",
-        "Digital Marketing",
-        "Other",
-        "TV",
-        "Personal Personal",
-        "SMS",
-        "Outdoor",
-      ]);
-
-      const [selectedSource, setSelectedSource] = useState(item.source);
-
-      const [client, setClient] = useState(item.client_name);
-      const [contact, setContact] = useState(item.contact);
-      const [budget, setBudget] = useState(item.budget);
-
-      const [country, setCountry] = useState(item.country_city);
-      // const [status, setStatus] = useState("New");
-      const [interest, setInterest] = useState([]);
-
-      const [emailError, setEmailError] = useState(false);
-
-      const [email, setEmail] = useState(item.email);
-      const [task, setTask] = useState("Sale");
-      const [deadline, setDeadline] = useState("");
-      const [source, setSource] = useState("newspaper");
-      const [innerLoading, setInnerLoading] = useState(false);
-
-      const HandleTimeValue = (value) => {
-        const str = value.toString();
-        var res = str.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-
-        setTime(res);
-      };
-      useEffect(() => {
-        setInnerLoading(true);
-        getProjectDetails();
-      }, []);
-
-      useEffect(() => {
-        getInventroyDataAgaintsProject(project);
-      }, [project]);
-
-      const getProjectDetails = async () => {
-        let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
-
-        if (resp.data != null) {
-          setAllProjects(resp.data.projects.data);
-        }
-        setInnerLoading(false);
-
-        // console.log(
-        //   "response in Leads ------",
-        //   JSON.stringify(resp.data.users.data)
-        // );
-      };
-
-      const getInventroyDataAgaintsProject = async (id) => {
-        let resp = await GET("admin/inventory/all/" + id);
-
-        if (resp.data != null) {
-          let { inventories } = resp.data;
-          setInterest(inventories);
-        }
-        //  ;
-      };
-
-      const SendRecordToServer = async (event) => {
-        event.preventDefault();
-
-        // send data to server
-        let formData = {
-          id: item.id,
-          client_name: client,
-          contact: contact,
-          source: selectedSource,
-          phone: contact,
-          email: email,
-          interest_id: interestID,
-          project_id: project,
-          budget: budget,
-          country_city: country,
-          time_to_call: time,
-        };
-
-        let resp = await POST(ApiUrls.EDIT_LEAD, formData);
-        console.log(resp);
-
-        if (resp.error === false) {
-          setMessage("Lead Edited Successfully");
-          setShowSuccessAlert(true);
-        } else {
-          setMessage("Lead Not Edited");
-          setShowErrorAlert(true);
-        }
-
-        setRefresh(!refresh);
-
-        setShowEdit(false);
-      };
-
-      return (
-        <Modal
-          show={showEdit}
-          onHide={() => {
-            setShowEdit(false);
-          }}
-        >
-          {innerLoading == true ? (
-            <>
-              <Backdrop className={classes.backdrop} open={true}>
-                <CircularProgress disableShrink />
-              </Backdrop>
-            </>
-          ) : null}
-
-          <Modal.Header
-            closeButton
-            // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-          >
-            <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
-          </Modal.Header>
-          <form
-            onSubmit={(e) => {
-              SendRecordToServer(e);
-            }}
-          >
-            <div>
-              <Modal.Body>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Col>
-                    <div className="pb-3">
-                      <h6>Client</h6>
-                      <Input
-                        required="true"
-                        className="form-control input-width w-100 "
-                        placeholder="Enter  Name"
-                        type="text"
-                        value={client}
-                        onChange={(e) => {
-                          setClient(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Contact</h6>
-                      <Input
-                        required="true"
-                        className="form-control input-width w-100 "
-                        placeholder="Enter Contact"
-                        type="tel"
-                        minLength="11"
-                        maxLength="11"
-                        value={contact}
-                        onChange={(e) => {
-                          setContact(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Email</h6>
-                      <Input
-                        required="true"
-                        error={emailError ? true : false}
-                        className="form-control input-width w-100"
-                        placeholder="Enter email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => {
-                          if (validateEmail(e.target.value)) {
-                            // DO Somtin
-                            setEmailError(false);
-                          } else {
-                            // do some
-                            setEmailError(true);
-                          }
-                          setEmail(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Country_City</h6>
-                      <Input
-                        required="true"
-                        className="form-control input-width w-100"
-                        placeholder="Enter Country"
-                        type="text"
-                        value={country}
-                        onChange={(e) => {
-                          setCountry(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="pb-3">
-                      <h6>Time of Call</h6>
-                      <KeyboardTimePickerExample
-                        value={today}
-                        showTime={HandleTimeValue}
-                        // onChange={(e) => {
-                        //   setTime(formatDate(e.target.value));
-                        //    ;
-                        // }}
-                      />
-                    </div>
-                  </Col>
-                  <Col className="ml-3">
-                    <div className="pb-3">
-                      <h6>Project</h6>
-                      {/* <TextField defaultValue={item.project.name} /> */}
-                      <Select
-                        className="form-control form-control-sm w-100"
-                        defaultValue={item.project.id}
-                        onChange={(e) => {
-                          console.log(
-                            "select project ID is -----",
-                            e.target.value
-                          );
-                          setProject(e.target.value);
-                        }}
-                      >
-                        {allProjects.length > 0
-                          ? allProjects.map((pro) => (
-                              <MenuItem key={pro.id} value={pro.id}>
-                                {pro.name}
-                              </MenuItem>
-                            ))
-                          : null}
-                      </Select>
-                    </div>
-                    <div className="pb-3">
-                      <h6 style={{ marginTop: 7 }}>Interest</h6>
-
-                      <Select
-                        className="form-control form-control-sm w-100"
-                        defaultValue={
-                          item.interest !== null ? item.interest.id : null
-                        }
-                        onChange={(e) => {
-                          console.log(
-                            "selected Inventriry is ---- ",
-                            e.target.value
-                          );
-                          setInterestID(e.target.value);
-                        }}
-                      >
-                        {interestList.length > 0 ? (
-                          interestList.map((int, index) => (
-                            <MenuItem key={int.id} value={int.id}>
-                              {int.interest}
-                            </MenuItem>
-                          ))
-                        ) : (
-                          <MenuItem value="">
-                            <em>No Inventory Against this Project.</em>
-                          </MenuItem>
-                        )}
-                      </Select>
-                    </div>
-
-                    {/* <div className="pb-3">
-                    <h6>Task</h6>
-                    <Select
-                      value={task}
-                      onChange={(e) => {
-                        setTask(e.target.value);
-                      }}
-                      className="form-control form-control-sm w-100"
-                    >
-                      <MenuItem value={"Sale"}>Sale</MenuItem>
-                      <MenuItem value={"rent"}>Rent</MenuItem>
-                      <MenuItem value={"other"}>other</MenuItem>
-                    </Select>
-                  </div> */}
-
-                    <div className="pb-3">
-                      <h6>Budget</h6>
-                      <Input
-                        required="true"
-                        className="form-control input-width w-100"
-                        placeholder="Enter Budget"
-                        type="text"
-                        value={budget}
-                        onChange={(e) => {
-                          setBudget(e.target.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="pb-3">
-                      <h6>Source</h6>
-                      <Select
-                        defaultValue={item.source}
-                        // value={selectedSource}
-                        onChange={(e) => {
-                          setSelectedSource(e.target.value);
-                        }}
-                        className="form-control form-control-sm w-100"
-                      >
-                        {allSource.length > 0
-                          ? allSource.map((src) => (
-                              <MenuItem key={src} value={src}>
-                                {src}
-                              </MenuItem>
-                            ))
-                          : null}
-                      </Select>
-                    </div>
-                  </Col>
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  style={{ backgroundColor: "#2258BF" }}
-                  onClick={() => {
-                    setShowEdit(false);
-                  }}
-                >
-                  Close
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#2258BF" }}
-                  type="submit"
-                  value="Submit"
-                >
-                  Submit
-                </Button>
-              </Modal.Footer>
-            </div>
-          </form>
-        </Modal>
-      );
-    };
-    const HandleAudioModule = ({
-      recording,
-      setActiveAudio,
-      activeAudio,
-      index,
-    }) => {
-      // console.log(recording,"Recording Audio")
-      const [audioTune, setAudioTune] = useState(new Audio(recording));
-      // const [playAudio,setPlayAudio]=useState(false)
-      if (index != activeAudio.index) audioTune.pause();
-      useEffect(() => {
-        //  setAudioTune( new Audio(recording));
-        audioTune.load();
-      }, []);
-
-      const playSound = () => {
-        audioTune.play();
-        // setPlayAudio(true)
-        setActiveAudio({ index: index, playState: true });
-
-        // audioTune2.pause();
-
-        // setPlayAudio2(false);
-      };
-
-      const pauseSound = () => {
-        audioTune.pause();
-        // setPlayAudio(false)
-        setActiveAudio({ index: index, playState: false });
-      };
-      const isActive = () => {
-        if (activeAudio.index == index) return activeAudio.playState;
-        else return false;
-      };
-      return (
-        <Card
-          className="shadow  bg-white rounded "
-          style={{ width: "80%", height: "40px", marginLeft: "35px" }}
-        >
-          <Card.Body>
-            {/* <Ticker>
-        {({ index }) => (
-            <>
-                 <span className="spn1">2011/10/09</span>
-                 <span className="spn2">Recording {index}
-            </>
-        )}
-    </Ticker> */}
-            <div style={{display:'flex',flexDirection:'row'}}>
-              <p class="marquee">
-                  <span style={{display:'flex',flexDirection:'row',width:'100%'}}> <span><b>Created Date :</b> {item.recordings[0].created_at}</span> <span   style={{marginLeft:'50px'}}><b>File Name: </b>{item.recordings[0].recording_file}</span> </span>
-                 
-                {/* <span className="spn1">
-                  2011/10/09 {item.recordings[0].recording_file} {"       "}  2011/10/09 {item.recordings[0].recording_file}
-                </span> */}
-                {/* <span className="spn1">
-                  2011/10/09 {item.recordings[0].recording_file}
-                </span> */}
-              </p>
-
-              {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
-
-              {/* <span className="spn1">2011/10/09</span> */}
-              {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}
-              {/* <span className="spn2">Recording {index} */}
-              {/* <ReactTicker
-            index={item.recordings[0].recording_file}
-            /> */}
-              {/* </span> */}
-              {isActive() ? (
-                <button
-                  type="button"
-                  className="bg-transparent  button-focus mr-2 button-bg"
-                  onClick={pauseSound}
-                >
-                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="bg-transparent  button-focus mr-2 button-bg"
-                  onClick={playSound}
-                >
-                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                </button>
-              )}
-            </div>
-          </Card.Body>
-        </Card>
-      );
     };
 
-    const ModalPlay = ({ item }) => {
-      const [activeAudio, setActiveAudio] = useState({
-        index: 0,
-        playState: false,
-      });
+    const getInventroyDataAgaintsProject = async (id) => {
+      let resp = await GET("admin/inventory/all/" + id);
 
-      return (
-        <Modal
-          show={setPlay}
-          onHide={() => {
-            setShowPlay(false);
-          }}
-        >
-          <Modal.Header
-            closeButton
-            className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-          >
-            <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
-          </Modal.Header>
-          <div className="col-lg-12 shadow p-3  bg-white rounded ">
-            <Modal.Body>
-              {recordings.map((recording, index) => {
-                // const audioTune = new Audio(recording);
-
-                return (
-                  <HandleAudioModule
-                    recording={publicURL + recording.recording_file}
-                    activeAudio={activeAudio}
-                    index={index}
-                    setActiveAudio={setActiveAudio}
-                  />
-                );
-              })}
-              {/* <Card
-                className="shadow  bg-white rounded "
-                style={{
-                  width: "80%",
-                  height: "40px",
-                  marginTop: "20px",
-                  marginLeft: "35px",
-                }}
-              >
-                <Card.Body>
-                  <span className="spn1">31/12/2020</span>
-                  <span className="spn2">Recording 2</span>
-                  {playAudio2 ? (
-                    <button
-                      type="button"
-                      className="bg-transparent  button-focus mr-2 button-bg"
-                      onClick={pauseSound2}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: 15 }}
-                        icon={faPause}
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="bg-transparent  button-focus mr-2 button-bg"
-                      onClick={playSound2}
-                    >
-                      <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                    </button>
-                  )}
-                </Card.Body>
-              </Card>
-          */}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                onClick={() => {
-                  setShowPlay(false);
-                }}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </div>
-        </Modal>
-      );
+      if (resp.data != null) {
+        let { inventories } = resp.data;
+        setInterest(inventories);
+      }
+      //  ;
     };
 
-    const ModalView = ({ item }) => {
-      // console.log(
-      //   "____________________________________________________________________",
-      //   item
-      // );
+    const SendRecordToServer = async (event) => {
+      event.preventDefault();
 
-      const [client, setClient] = useState(item.client_name);
-      const [contact, setContact] = useState(item.contact);
-      const [budget, setBudget] = useState(item.budget);
+      // send data to server
+      let formData = {
+        id: item.id,
+        client_name: client,
+        contact: contact,
+        source: selectedSource,
+        phone: contact,
+        email: email,
+        interest_id: interestID,
+        project_id: project,
+        budget: budget,
+        country_city: country,
+        time_to_call: time,
+      };
 
-      const [country, setCountry] = useState(item.country_city);
-      // const [status, setStatus] = useState("New");
+      let resp = await POST(ApiUrls.EDIT_LEAD, formData);
+      console.log(resp);
 
-      const [emailError, setEmailError] = useState(false);
+      if (resp.error === false) {
+        setMessage("Lead Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Lead Not Edited");
+        setShowErrorAlert(true);
+      }
 
-      const [email, setEmail] = useState(item.email);
+      setRefresh(!refresh);
 
-      return (
-        <Modal
-          show={showView}
-          onHide={() => {
-            setShowView(false);
+      setShowEdit(false);
+    };
+
+    return (
+      <Modal
+        show={showEdit}
+        onHide={() => {
+          setShowEdit(false);
+        }}
+      >
+        {innerLoading == true ? (
+          <>
+            <Backdrop className={classes.backdrop} open={true}>
+              <CircularProgress disableShrink />
+            </Backdrop>
+          </>
+        ) : null}
+
+        <Modal.Header
+          closeButton
+          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>Edit Lead</Modal.Title>
+        </Modal.Header>
+        <form
+          onSubmit={(e) => {
+            SendRecordToServer(e);
           }}
         >
-          <Modal.Header
-            closeButton
-            // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
-          >
-            <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
-          </Modal.Header>
           <div>
             <Modal.Body>
               <div
@@ -1037,220 +617,655 @@ export default function LeadsAdmin() {
                     <h6>Client</h6>
                     <Input
                       required="true"
-                      disableUnderline
-                      readOnly
                       className="form-control input-width w-100 "
                       placeholder="Enter  Name"
                       type="text"
                       value={client}
+                      onChange={(e) => {
+                        setClient(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="pb-3">
                     <h6>Contact</h6>
                     <Input
                       required="true"
-                      disableUnderline
-                      readOnly
                       className="form-control input-width w-100 "
                       placeholder="Enter Contact"
                       type="tel"
                       minLength="11"
                       maxLength="11"
                       value={contact}
+                      onChange={(e) => {
+                        setContact(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="pb-3">
                     <h6>Email</h6>
                     <Input
                       required="true"
-                      disableUnderline
-                      readOnly
                       error={emailError ? true : false}
                       className="form-control input-width w-100"
                       placeholder="Enter email"
                       type="email"
                       value={email}
+                      onChange={(e) => {
+                        if (validateEmail(e.target.value)) {
+                          // DO Somtin
+                          setEmailError(false);
+                        } else {
+                          // do some
+                          setEmailError(true);
+                        }
+                        setEmail(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="pb-3">
                     <h6>Country_City</h6>
                     <Input
                       required="true"
-                      disableUnderline
-                      readOnly
                       className="form-control input-width w-100"
                       placeholder="Enter Country"
                       type="text"
                       value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Time of call</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
-                      value={item.time_to_call}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Allocated to</h6>
-                    <Input
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
-                      value={
-                        item.allocation.length > 0
-                          ? item.allocation[0].allocated_to.first_name
-                          : "-------"
-                      }
+                    <h6>Time of Call</h6>
+                    <KeyboardTimePickerExample
+                      value={today}
+                      showTime={HandleTimeValue}
+                      // onChange={(e) => {
+                      //   setTime(formatDate(e.target.value));
+                      //    ;
+                      // }}
                     />
                   </div>
                 </Col>
                 <Col className="ml-3">
-                  <div className="pb-2">
+                  <div className="pb-3">
                     <h6>Project</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
-                      defaultValue={item.project.name}
-                    />
+                    {/* <TextField defaultValue={item.project.name} /> */}
+                    <Select
+                      className="form-control form-control-sm w-100"
+                      defaultValue={item.project.id}
+                      onChange={(e) => {
+                        console.log(
+                          "select project ID is -----",
+                          e.target.value
+                        );
+                        setProject(e.target.value);
+                      }}
+                    >
+                      {allProjects.length > 0
+                        ? allProjects.map((pro) => (
+                            <MenuItem key={pro.id} value={pro.id}>
+                              {pro.name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
                   </div>
                   <div className="pb-3">
                     <h6 style={{ marginTop: 7 }}>Interest</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      // placeholder=""
-                      type="text"
+
+                    <Select
+                      className="form-control form-control-sm w-100"
                       defaultValue={
-                        item.interest !== null
-                          ? item.interest.interest
-                          : "NO INTEREST"
+                        item.interest !== null ? item.interest.id : null
                       }
-                    />
+                      onChange={(e) => {
+                        console.log(
+                          "selected Inventriry is ---- ",
+                          e.target.value
+                        );
+                        setInterestID(e.target.value);
+                      }}
+                    >
+                      {interestList.length > 0 ? (
+                        interestList.map((int, index) => (
+                          <MenuItem key={int.id} value={int.id}>
+                            {int.interest}
+                          </MenuItem>
+                        ))
+                      ) : (
+                        <MenuItem value="">
+                          <em>No Inventory Against this Project.</em>
+                        </MenuItem>
+                      )}
+                    </Select>
                   </div>
+
+                  {/* <div className="pb-3">
+                  <h6>Task</h6>
+                  <Select
+                    value={task}
+                    onChange={(e) => {
+                      setTask(e.target.value);
+                    }}
+                    className="form-control form-control-sm w-100"
+                  >
+                    <MenuItem value={"Sale"}>Sale</MenuItem>
+                    <MenuItem value={"rent"}>Rent</MenuItem>
+                    <MenuItem value={"other"}>other</MenuItem>
+                  </Select>
+                </div> */}
 
                   <div className="pb-3">
                     <h6>Budget</h6>
                     <Input
                       required="true"
-                      disableUnderline
-                      readOnly
                       className="form-control input-width w-100"
                       placeholder="Enter Budget"
                       type="text"
                       value={budget}
+                      onChange={(e) => {
+                        setBudget(e.target.value);
+                      }}
                     />
                   </div>
 
                   <div className="pb-3">
                     <h6>Source</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
+                    <Select
                       defaultValue={item.source}
-                    />
-                  </div>
-                  <div className="pb-3">
-                    <h6>Deadline</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      type="text"
-                      defaultValue={
-                        item.dead_line != null ? item.dead_line : "-------"
-                      }
-                    />
-                  </div>
-                  <div className="">
-                    <h6>Status</h6>
-                    <Input
-                      required="true"
-                      disableUnderline
-                      readOnly
-                      className="form-control input-width w-100"
-                      placeholder="Enter Country"
-                      type="text"
-                      defaultValue={item.status}
-                    />
+                      // value={selectedSource}
+                      onChange={(e) => {
+                        setSelectedSource(e.target.value);
+                      }}
+                      className="form-control form-control-sm w-100"
+                    >
+                      {allSource.length > 0
+                        ? allSource.map((src) => (
+                            <MenuItem key={src} value={src}>
+                              {src}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
                   </div>
                 </Col>
               </div>
             </Modal.Body>
-          </div>
-        </Modal>
-      );
-    };
-
-    const ModalDelete = ({ item }) => {
-      console.log(item);
-      const DeleteRecordFromData = async () => {
-        let res = await GET(ApiUrls.DELETE_LEAD + item.id);
-        if (res.error === false) {
-          setMessage("Lead Deleted Successfully");
-          setShowSuccessAlert(true);
-        } else {
-          setMessage("Lead Not Deleted");
-          setShowErrorAlert(true);
-        }
-        console.log(res);
-        setRefresh(!refresh);
-      };
-      return (
-        <Modal
-          show={showDelete}
-          onHide={() => {
-            setShowDelete(false);
-          }}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title style={{ color: "#818181" }}>
-              Delete Record
-            </Modal.Title>
-          </Modal.Header>
-          <div>
-            <Modal.Body>Do you really want to delete this Record!</Modal.Body>
             <Modal.Footer>
               <Button
-                variant="secondary"
+                style={{ backgroundColor: "#2258BF" }}
                 onClick={() => {
-                  setShowDelete(false);
+                  setShowEdit(false);
                 }}
               >
                 Close
               </Button>
               <Button
-                variant="primary"
-                onClick={() => {
-                  DeleteRecordFromData();
-                  setShowDelete(false);
-                }}
+                style={{ backgroundColor: "#2258BF" }}
+                type="submit"
+                value="Submit"
               >
-                Delete
+                Submit
               </Button>
             </Modal.Footer>
           </div>
-        </Modal>
-      );
+        </form>
+      </Modal>
+    );
+  };
+  console.log(recordings,"Recording")
+  const HandleAudioModule = ({
+    recording,
+    setActiveAudio,
+    activeAudio,
+    index,
+    item,
+  }) => {
+    // console.log(recording,"Recording Audio")
+    const [audioTune, setAudioTune] = useState((recording));
+    // const [playAudio,setPlayAudio]=useState(false)
+    if (index != activeAudio.index) audioTune.pause();
+    useEffect(() => {
+      //  setAudioTune( new Audio(recording));
+      audioTune.load();
+    }, []);
+   
+    const playSound = () => {
+      audioTune.play();
+      // setPlayAudio(true)
+      setActiveAudio({ index: index, playState: true });
+
+      // audioTune2.pause();
+
+      // setPlayAudio2(false);
     };
+
+    const pauseSound = () => {
+      audioTune.pause();
+      // setPlayAudio(false)
+      setActiveAudio({ index: index, playState: false });
+    };
+    const isActive = () => {
+      if (activeAudio.index == index) return activeAudio.playState;
+      else return false;
+    };
+    return (
+      <Card
+        className="shadow  bg-white rounded "
+        style={{ width: "80%", height: "40px", marginLeft: "35px" }}
+      >
+        <Card.Body>
+          {/* <Ticker>
+      {({ index }) => (
+          <>
+               <span className="spn1">2011/10/09</span>
+               <span className="spn2">Recording {index}
+          </>
+      )}
+  </Ticker> */}
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <p class="marquee">
+              <span
+                style={{ display: "flex", flexDirection: "row", width: "100%" }}
+              >
+                {" "}
+                <span>
+                  <b>Created Date :</b> {item.created_at}
+                </span>{" "}
+                <span style={{ marginLeft: "50px" }}>
+                  <b>File Name: </b>
+                  {item.recording_file}
+                </span>{" "}
+              </span>
+
+              {/* <span className="spn1">
+                2011/10/09 {item.recordings[0].recording_file} {"       "}  2011/10/09 {item.recordings[0].recording_file}
+              </span> */}
+              {/* <span className="spn1">
+                2011/10/09 {item.recordings[0].recording_file}
+              </span> */}
+            </p>
+
+            {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+
+            {/* <span className="spn1">2011/10/09</span> */}
+            {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}
+            {/* <span className="spn2">Recording {index} */}
+            {/* <ReactTicker
+          index={item.recordings[0].recording_file}
+          /> */}
+            {/* </span> */}
+            {isActive() ? (
+              <button
+                type="button"
+                className="bg-transparent  button-focus mr-2 button-bg"
+                onClick={pauseSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="bg-transparent  button-focus mr-2 button-bg"
+                onClick={playSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+              </button>
+            )}
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  };
+  useEffect(()=>{
+    setRecordings(state=>state.map((item)=>{
+        item.audio.pause();
+      return item;
+    }))
+  },[setPlay])
+  const ModalPlay = ({ item }) => {
+    const [activeAudio, setActiveAudio] = useState({
+      index: 0,
+      playState: false,
+    });
+
+    return (
+      <Modal
+        show={setPlay}
+        onHide={() => {
+          setShowPlay(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>Recordings</Modal.Title>
+        </Modal.Header>
+        <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <Modal.Body>
+            {recordings.map((recording, index) => {
+              // const audioTune = new Audio(recording);
+
+              return (
+                <HandleAudioModule
+                  recording={recording.audio}
+                  activeAudio={activeAudio}
+                  index={index}
+                  setActiveAudio={setActiveAudio}
+                  item={recording.item}
+                />
+              );
+            })}
+            {/* <Card
+              className="shadow  bg-white rounded "
+              style={{
+                width: "80%",
+                height: "40px",
+                marginTop: "20px",
+                marginLeft: "35px",
+              }}
+            >
+              <Card.Body>
+                <span className="spn1">31/12/2020</span>
+                <span className="spn2">Recording 2</span>
+                {playAudio2 ? (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={pauseSound2}
+                  >
+                    <FontAwesomeIcon
+                      style={{ fontSize: 15 }}
+                      icon={faPause}
+                    />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-transparent  button-focus mr-2 button-bg"
+                    onClick={playSound2}
+                  >
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                  </button>
+                )}
+              </Card.Body>
+            </Card>
+        */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowPlay(false);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
+    );
+  };
+
+  const ModalView = ({ item }) => {
+    // console.log(
+    //   "____________________________________________________________________",
+    //   item
+    // );
+
+    const [client, setClient] = useState(item.client_name);
+    const [contact, setContact] = useState(item.contact);
+    const [budget, setBudget] = useState(item.budget);
+
+    const [country, setCountry] = useState(item.country_city);
+    // const [status, setStatus] = useState("New");
+
+    const [emailError, setEmailError] = useState(false);
+
+    const [email, setEmail] = useState(item.email);
+
+    return (
+      <Modal
+        show={showView}
+        onHide={() => {
+          setShowView(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          // className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>Lead Record</Modal.Title>
+        </Modal.Header>
+        <div>
+          <Modal.Body>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <Col>
+                <div className="pb-3">
+                  <h6>Client</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100 "
+                    placeholder="Enter  Name"
+                    type="text"
+                    value={client}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Contact</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100 "
+                    placeholder="Enter Contact"
+                    type="tel"
+                    minLength="11"
+                    maxLength="11"
+                    value={contact}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Email</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    error={emailError ? true : false}
+                    className="form-control input-width w-100"
+                    placeholder="Enter email"
+                    type="email"
+                    value={email}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Country_City</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    value={country}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Time of call</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    value={item.time_to_call}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Allocated to</h6>
+                  <Input
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    value={
+                      item.allocation.length > 0
+                        ? item.allocation[0].allocated_to.first_name
+                        : "-------"
+                    }
+                  />
+                </div>
+              </Col>
+              <Col className="ml-3">
+                <div className="pb-2">
+                  <h6>Project</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.project.name}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6 style={{ marginTop: 7 }}>Interest</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    // placeholder=""
+                    type="text"
+                    defaultValue={
+                      item.interest !== null
+                        ? item.interest.interest
+                        : "NO INTEREST"
+                    }
+                  />
+                </div>
+
+                <div className="pb-3">
+                  <h6>Budget</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Budget"
+                    type="text"
+                    value={budget}
+                  />
+                </div>
+
+                <div className="pb-3">
+                  <h6>Source</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.source}
+                  />
+                </div>
+                <div className="pb-3">
+                  <h6>Deadline</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    type="text"
+                    defaultValue={
+                      item.dead_line != null ? item.dead_line : "-------"
+                    }
+                  />
+                </div>
+                <div className="">
+                  <h6>Status</h6>
+                  <Input
+                    required="true"
+                    disableUnderline
+                    readOnly
+                    className="form-control input-width w-100"
+                    placeholder="Enter Country"
+                    type="text"
+                    defaultValue={item.status}
+                  />
+                </div>
+              </Col>
+            </div>
+          </Modal.Body>
+        </div>
+      </Modal>
+    );
+  };
+
+  const ModalDelete = ({ item }) => {
+    console.log(item);
+    const DeleteRecordFromData = async () => {
+      let res = await GET(ApiUrls.DELETE_LEAD + item.id);
+      if (res.error === false) {
+        setMessage("Lead Deleted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Lead Not Deleted");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
+      setRefresh(!refresh);
+    };
+    return (
+      <Modal
+        show={showDelete}
+        onHide={() => {
+          setShowDelete(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>Delete Record</Modal.Title>
+        </Modal.Header>
+        <div>
+          <Modal.Body>Do you really want to delete this Record!</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setShowDelete(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                DeleteRecordFromData();
+                setShowDelete(false);
+              }}
+            >
+              Delete
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
+    );
+  };
+  const LeadTable = ({ item, index }) => {
     // console.log(item);
     let country_city = "country/city";
     return (
@@ -1349,7 +1364,7 @@ export default function LeadsAdmin() {
                 onClick={() => {
                   // isLoading(true);
                   // let arr=[sample,sample,sample];
-                  setRecordings(item.recordings);
+                  setRecordings(item.recordings.map((item)=>{return {audio:(new Audio(publicURL + item.recording_file)),item:item}}));
                   setShowPlay(true);
                   setSelectedID(index);
                 }}
@@ -1426,14 +1441,6 @@ export default function LeadsAdmin() {
               Delete Record
             </ReactTooltip>
           </div>
-          {allLeads.length > 0 && selectedID !== null ? (
-            <>
-              <ModalPlay item={allLeads[selectedID]} />
-              <ModalDelete item={allLeads[selectedID]} />
-              <ModalView item={allLeads[selectedID]} />
-              <ModalEdit item={allLeads[selectedID]} />
-            </>
-          ) : null}
         </td>
       </tr>
     );
@@ -1641,6 +1648,14 @@ export default function LeadsAdmin() {
             </tbody>
           </table>
         </div>
+        {allLeads.length > 0 && selectedID !== null ? (
+          <>
+            <ModalPlay item={allLeads[selectedID]} />
+            <ModalDelete item={allLeads[selectedID]} />
+            <ModalView item={allLeads[selectedID]} />
+            <ModalEdit item={allLeads[selectedID]} />
+          </>
+        ) : null}
         <ModalAdd />
       </Row>
     </Container>
