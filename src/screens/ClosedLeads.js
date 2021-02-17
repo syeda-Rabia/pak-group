@@ -14,7 +14,12 @@ import {
   faStop,
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {useHistory } from "react-router-dom";
 import sample from "./../assests/sample.mp3";
 import sample2 from "./../assests/sample2.mp3";
 import { Modal } from "react-bootstrap";
@@ -98,7 +103,7 @@ export default function LeadsAdmin() {
   const [recordings, setRecordings] = useState([]);
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-
+  const history = useHistory();
   const classes = useStyles();
 
   useEffect(() => {
@@ -524,6 +529,17 @@ export default function LeadsAdmin() {
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+      <IconButton
+          onClick={() => {
+            history.push("/");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>
             Closed Leads

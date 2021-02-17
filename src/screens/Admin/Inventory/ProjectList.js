@@ -438,11 +438,11 @@ export default function ProjectList() {
                     ID
                   </th>
                   <th scope="col" style={{ color: "#818181" }}>
-                    Project Name
+                    Project_Name
                   </th>
 
                   <th scope="col" style={{ color: "#818181" }}>
-                    Project Category
+                    Project_Category
                   </th>
                   <th scope="col" style={{ color: "#818181" }}>
                     Units

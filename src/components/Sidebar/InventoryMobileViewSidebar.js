@@ -73,6 +73,9 @@ export default function InventoryMobileViewSidebar() {
             <Link to="/admin/viewable" className="add-project">
               Viewable
             </Link>
+            <Link to="/admin/employee-request" className="add-project">
+        Employee Requests
+      </Link>
           </SwipeableDrawer>
         </React.Fragment>
       ))}

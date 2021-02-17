@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
@@ -15,7 +15,11 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
-
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import {  useHistory, Redirect, Route } from "react-router-dom";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
@@ -59,7 +63,7 @@ export default function AddInterest() {
   useEffect(() => {
     handleFetchData();
   }, [refresh]);
-
+  const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [interest, SetInterest] = useState("");
 
@@ -336,13 +340,26 @@ export default function AddInterest() {
         message={message}
         closeError={setShowErrorAlert}
       />
-      <Row>
-        <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4 ml-4">
-          <h3 style={{ color: "#818181" }}>Interest </h3>
-        </div>
-      </Row>
-      <Row>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ml-4">
+      
+        <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+        <IconButton
+          onClick={() => {
+            history.push("/admin/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
+        <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>Interest</h3>
+        </Col>
+        </Row>
+     
+      
+        <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
           <button
             data-tip
             data-for="AddTip"
@@ -404,7 +421,7 @@ export default function AddInterest() {
             </table>
             <ModalAdd />
           </div>
-        </div>
+        
       </Row>
     </Container>
   );

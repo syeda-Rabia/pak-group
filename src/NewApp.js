@@ -70,7 +70,7 @@ const NewApp = (props) => {
 
         <Route
           exact
-          path="/admin/projects/"
+          path="/admin/projects"
           render={(props) => (
             <>
               <HeaderNavBar />

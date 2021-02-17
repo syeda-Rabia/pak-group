@@ -333,11 +333,11 @@ const Table = ({
       {/* <td>{"---"}</td> */}
       <td>
         <div
-          style={{ outline: "none", height: "2rem",backgroundColor:'red'}}
+          style={{ outline: "none", height: ""}}
           className="d-flex"
           {...getRootProps()}
         >
-          <button className="float-right rounded">Choose File</button>
+          <button className="bg-transparent  button-focus mr-2"><FontAwesomeIcon style={{ fontSize: 15 }} icon={faUpload} />Upload_file</button>
           <p className="pl-1">
             {acceptedFiles.map((file) => {
               return file.path;

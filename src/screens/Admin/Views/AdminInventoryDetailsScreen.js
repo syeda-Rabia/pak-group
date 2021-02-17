@@ -2,11 +2,12 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import InventorySidebar from "../../../components/Sidebar/InventorySidebar";
 import InventoryAdmin from "../Inventory/InventoryAdmin";
+import "./AdminDashboardScreen.css";
 export default function AdminProjectDetailsScreen(props) {
   return (
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
-      <Row>
+        <Row>
         <Col
             id="sidebar-component"
             lg={2}

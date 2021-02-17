@@ -1494,7 +1494,7 @@ export default function LeadsAdmin() {
           </div>
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary leadbtn" 
             onClick={() => {
               setShowAdd(true);
             }}

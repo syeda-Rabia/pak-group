@@ -5,6 +5,12 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { DeleteOutlineIcon } from "@material-ui/icons/DeleteOutline";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import {useHistory } from "react-router-dom";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
@@ -43,7 +49,7 @@ export default function AddCategories() {
     //  ;
     handleFetchData();
   }, [refresh]);
-
+  const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [category, setCategory] = useState("");
 
@@ -365,11 +371,33 @@ export default function AddCategories() {
       />
 
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Categories</h3>
+      <Col lg={10} sm={10} xs={10} xl={11}>
+      <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
+       
+          <h2
+            style={{
+              color: "#818181",
+              textAlign: "left",
+            }}
+          >
+            Categories
+          </h2>
         </Col>
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
+            {/* <h3 style={{ color: "#818181" }}>
+              Inventory Details 
+            </h3> */}
+            <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right mt-4">
             <InventoryMobileViewSidebar />
           </div>
         </Col>

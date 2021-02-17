@@ -372,15 +372,17 @@ console.log("props",props);
         />
 
         {/* <Button onClick={() => setForm((state) => !state)}>Go Back</Button> */}
-        {/* <IconButton
-          onClick={() => setForm((state) => !state)}
+        <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
           aria-label="delete"
           color="primary"
         >
           <Tooltip title="Go Back" placement="right" arrow>
             <ArrowBackIcon />
           </Tooltip>
-        </IconButton> */}
+        </IconButton>
         <Container>
           <Form>
             {InventoryData.map((item, index) => {

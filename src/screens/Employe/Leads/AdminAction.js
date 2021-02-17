@@ -11,7 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import EmployeeLeads from "../../Employe/Leads/EmployeeLeads";
-import nodata from "./../../../assests/nodata.png";
+// import nodata from "./../../../assests/nodata.png";
+import nodata from "./../../../assests/preview.gif";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

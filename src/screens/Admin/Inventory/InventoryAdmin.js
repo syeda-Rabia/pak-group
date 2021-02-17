@@ -12,6 +12,8 @@ import {
   Snackbar,
   Button as MaterialButton,
 } from "@material-ui/core";
+
+import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -340,18 +342,33 @@ export default function InventoryAdmin(props) {
   } else {
     return (
       <Container fluid className="Laa">
-        <Row>
-          <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
-            <h3 style={{ color: "#818181" }}>
-              Inventory Details <sub>(Admin)</sub>
-            </h3>
+       
+          <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
+          <Col lg={10} sm={10} xs={10} xl={11}>
+          <h2
+            style={{
+              color: "#818181",
+              textAlign: "left",
+            }}
+          >
+            Inventory Details
+          </h2>
+        </Col>
+            {/* <h3 style={{ color: "#818181" }}>
+              Inventory Details 
+            </h3> */}
+            <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <InventoryMobileViewSidebar />
           </div>
-        </Row>
+        </Col>
+          </Row>
+      
 
         <PreLoading startLoading={isLoading} />
 
         <Row>
-          <div className="col-lg-12 shadow p-3  bg-white rounded ">
+          <div className="col-lg-12 shadow p-3  bg-white rounded mt-3 ">
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>

@@ -12,6 +12,13 @@ import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import LeadsAdmin from "../../Admin/Leads/LeadsAdmin";
 import nodata from "./../../../assests/nodata.png";
+import {Row, Col} from "react-bootstrap";
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,7 +117,7 @@ React.useEffect(() => {
 // React.useEffect(() => {
 //   handleFetchData();
 // }, []);
-
+const history = useHistory();
 const handleFetchData = async () => {
 
  
@@ -157,9 +164,20 @@ function getStepContent(step) {
   { console.log("empty");
   
    return <div>
-       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
+       <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
+       <IconButton
+          onClick={() => {
+            history.push("/admin/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <h3 style={{ color: "#818181" }}>Employee Action </h3>
-      </div>
+      </Row>
      <div style={{ display: "block",
    marginLeft: "auto",
    marginRight: "auto",
@@ -175,10 +193,10 @@ function getStepContent(step) {
 
     <div className={classes.root}>
      
-       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
+       <Row className=" shadow p-3 mb-3 bg-white rounded ml-2">
         <h3 style={{ color: "#818181" }}>Employee Action </h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
-      </div>
+      </Row>
       {
         data.map((val)=>{
           return (<div style={{marginBottom:"40px",backgroundColor:"gray"}}>
