@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 });
 
 export default function FormPopover(props) {
+  console.log(props)
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [employees, setEmployees] = React.useState([]);
@@ -37,6 +38,7 @@ export default function FormPopover(props) {
     getProjectDetails();
     getEmployeeDetails();
   }, []);
+ 
   const getProjectDetails = async () => {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
@@ -50,7 +52,7 @@ export default function FormPopover(props) {
     // ;
     try {
       if (res.success !== false) {
-        setEmployees(res.data.users.data);
+        setEmployees(res.data.users.data); 
       }
     } catch {}
   };
@@ -61,7 +63,10 @@ export default function FormPopover(props) {
     right: false,
   });
   const [anchorEl, setAnchorEl] = useState(null);
-
+  useEffect(() => {
+    if(anchorEl==null && props.update!= undefined)
+      props.update("",false)
+  }, [anchorEl]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -69,8 +74,8 @@ export default function FormPopover(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const SendFileToServer = async () => {
-
+  const SendRecordToServer = async (event) => {
+    event.preventDefault();
      let formData={
         client_name:client,
       project_id:project,
@@ -79,11 +84,13 @@ export default function FormPopover(props) {
       day:days.day,
       };
 
- 
-
-    let resp = await POST(ApiUrls.POST_FILTER_DATA, formData);             
-    console.log("---------response--------------",resp);
-    console.log(resp);
+      let url=ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+     if(props.update!= undefined)
+      props.update(url,true)
+    // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);             
+    // console.log("---------filter response--------------",resp);
+    // console.log(resp);
+    // if(resp.success!=false)
     // setRefresh(!refresh);
   
   };
@@ -203,8 +210,8 @@ export default function FormPopover(props) {
                     {employees.length > 0
                       ? employees.map((e) => (
                           <option key={e.id} value={e.id}>
-                            {/* {e.first_name} */}
-                            {e.first_name + " " + e.last_name}
+                            {e.first_name}
+                            {/* {e.first_name + " " + e.last_name} */}
                           </option>
                         ))
                       : null}
@@ -236,8 +243,9 @@ export default function FormPopover(props) {
                     controlId="year"
                     as="button"
                     defaultValue=""
-                    onClick={() => {
-                      SendFileToServer();
+                    onClick={(e) => {
+                      SendRecordToServer(e);
+                     
                     }}
                   > 
                     Search

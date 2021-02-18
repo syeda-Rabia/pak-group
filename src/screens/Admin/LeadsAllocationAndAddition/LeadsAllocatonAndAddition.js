@@ -26,7 +26,7 @@ import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 
-export default function LeadsAllocatonAndAddition() {
+export default function LeadsAllocatonAndAddition(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -107,6 +107,19 @@ export default function LeadsAllocatonAndAddition() {
     if (resp.data != null) {
       // console.trace(JSON.stringify(resp));
       setAllLeadsToAllocate(resp.data.leads);
+    }
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    if (props.searchData.search == true) setFilterdata();
+  }, [props.searchData.search]);
+
+  const setFilterdata = async () => {
+    setIsLoading(true);
+    let res = await GET(props.searchData.url);
+    console.log("-----", res);
+    if (res.success != false) {
+      setAllLeadsToAllocate(res.data.leads);
     }
     setIsLoading(false);
   };
@@ -383,7 +396,7 @@ export default function LeadsAllocatonAndAddition() {
                   <label for="selectEmployee">Select Employee</label>
 
                   <Select
-                    id="selectEmployee" 
+                    id="selectEmployee"
                     disableUnderline
                     className="form-control form-control-sm w-100"
                     value={selectedEmployee}

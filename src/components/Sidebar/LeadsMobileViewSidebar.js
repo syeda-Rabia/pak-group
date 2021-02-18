@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LeadsMobileViewSidebar() {
+export default function LeadsMobileViewSidebar(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -64,7 +64,7 @@ export default function LeadsMobileViewSidebar() {
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >
-            <LeadsSidebar />
+            <LeadsSidebar update={props.update}/>
           </SwipeableDrawer>
         </React.Fragment>
       ))}

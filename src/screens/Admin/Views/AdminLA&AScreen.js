@@ -3,7 +3,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 import LAASidebar from "../../../components/Sidebar/LAASidebar";
 import LeadsAllocatonAndAddition from "../LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
-export default function AdminLAAScreen() {
+export default function AdminLAAScreen(props) {
+  const [search, setSearch] = React.useState(false);
+  const [url, setUrl] = React.useState(false);
+
+ const handleSearch = (url,search) => {
+  setUrl(url);
+  setSearch(search);
+  console.log("url and search", url,search);
+  };
   return (
     <React.Fragment>
       <Container fluid>
@@ -16,7 +24,7 @@ export default function AdminLAAScreen() {
             xs={0}
             style={{ backgroundColor: "white" }}
           >
-            <LAASidebar />
+            <LAASidebar update={handleSearch}/>
             {/* <InventoryMobileViewSidebar /> */}
           </Col>
           <Col
@@ -26,7 +34,7 @@ export default function AdminLAAScreen() {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAllocatonAndAddition />
+            <LeadsAllocatonAndAddition searchData={{url:url,search:search}}  update={handleSearch}/>
           </Col>
         </Row>
       </Container>

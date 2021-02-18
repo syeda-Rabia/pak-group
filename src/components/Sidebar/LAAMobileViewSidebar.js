@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -64,7 +64,7 @@ export default function TemporaryDrawer() {
             onOpen={toggleDrawer(anchor, true)}
           >
             {/* <LAASidebar /> */}
-            <FormPopover name="Search Leads" />
+            <FormPopover name="Search Leads" update={props.update} />
             <ul className="list-group">
               <li id="list-item" className="list-group-item">
                 Add News Leads

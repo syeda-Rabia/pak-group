@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LeadsAdmin() {
+export default function LeadsAdmin(props) {
   const [allLeads, setAllLeads] = useState([]);
 
   const [showAdd, setShowAdd] = useState(false);
@@ -105,12 +105,19 @@ export default function LeadsAdmin() {
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
   const classes = useStyles();
-
+  console.log("props",props);
   useEffect(() => {
     // setIsLoading(true);
     getAllLeadsData();
     FetchInterestData();
   }, [refresh]);
+
+
+
+  useEffect(() => {
+  
+  if(props.searchData.search==true) setFilterdata()
+  }, [props.searchData.search]);
 
   const FetchInterestData = async () => {
     setIsLoading(true);
@@ -136,6 +143,18 @@ export default function LeadsAdmin() {
     //  ;
     //  ;
   };
+const setFilterdata = async () => {
+ 
+
+  setIsLoading(true);
+  let res = await GET(props.searchData.url);
+  console.log("-----", res);
+  if (res.success != false) {
+    setAllLeads(res.data.leads);
+  }
+  setIsLoading(false);
+};
+
   const currencyFormat = (num) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "PKR";
   };
@@ -1456,7 +1475,7 @@ export default function LeadsAdmin() {
 
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
-            <LeadsMobileViewSidebar />
+            <LeadsMobileViewSidebar  update={props.update} />
           </div>
         </Col>
       </Row>

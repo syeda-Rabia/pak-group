@@ -3,6 +3,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import LeadsAdmin from "../Leads/LeadsAdmin";
 import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
 export default function AdminLeadsScreen(props) {
+  const [search, setSearch] = React.useState(false);
+  const [url, setUrl] = React.useState(false);
+
+ const handleSearch = (url,search) => {
+  setUrl(url);
+  setSearch(search);
+  console.log("url and search", url,search);
+  };
   return (
     <React.Fragment>
       <Container fluid>
@@ -16,7 +24,7 @@ export default function AdminLeadsScreen(props) {
             xs={0}
             style={{ backgroundColor: "white" }}
           >
-            <LeadsSidebar />
+            <LeadsSidebar update={handleSearch}/>
           </Col>
           <Col
             lg={10}
@@ -25,7 +33,7 @@ export default function AdminLeadsScreen(props) {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAdmin listData={props.location.query} />
+            <LeadsAdmin listData={props.location.query}  searchData={{url:url,search:search}}  update={handleSearch}/>
           </Col>
         </Row>
       </Container>
