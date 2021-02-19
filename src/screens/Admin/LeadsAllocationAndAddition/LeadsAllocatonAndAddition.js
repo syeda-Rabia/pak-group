@@ -29,6 +29,8 @@ import ErrorNotification from "../../../components/ErrorNotification";
 export default function LeadsAllocatonAndAddition(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
+  const [alertmessage, setAlertMessage] = React.useState("");
+
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -357,6 +359,13 @@ export default function LeadsAllocatonAndAddition(props) {
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
+    if (res.error === false) {
+      setAlertMessage("Lead allocated successfully");
+      setShowSuccessAlert(true);
+    } else {
+      setAlertMessage("Lead not shifted");
+      setShowErrorAlert(true);
+    }
     // let arr = data;
   };
   return (

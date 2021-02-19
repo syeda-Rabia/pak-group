@@ -48,7 +48,9 @@ import {
   Snackbar,
   Slide,
   Chip,
+  Button as MaterialButton,
 } from "@material-ui/core";
+
 import FaceIcon from "@material-ui/icons/Face";
 
 import { validateEmail, validateMobile } from "../utils/Validation";
@@ -99,6 +101,8 @@ export default function LeadsAdmin() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [gobackState, setGobackState] = useState(false);
+
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
 
@@ -130,7 +134,9 @@ export default function LeadsAdmin() {
     if (resp.data != null) {
       setAllLeads(resp.data.leads);
     }
-
+    if (resp.data.leads.length == 0) {
+      setGobackState(true);
+    }
     setIsLoading(false);
 
     //  ;
@@ -438,7 +444,7 @@ export default function LeadsAdmin() {
               </ReactTooltip>
             </>
           ) : (
-            "-----"
+            ""
           )}
           </div>
 
@@ -569,7 +575,7 @@ export default function LeadsAdmin() {
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         
         <div className="table-responsive">
-          <table className="table table-hover" style={{ minHeight: "200px" }}>
+          <table className="table table-hover" >
             <thead>
               <tr>
                 <th scope="col">
@@ -691,15 +697,24 @@ export default function LeadsAdmin() {
                 allLeads.map((lead, index) => (
                   <LeadTable item={lead} index={index} />
                 ))
-              ) : (
+              ) : ( 
                 <Snackbar
-                  open={true}
+                  open={gobackState}
                   autoHideDuration={6000}
                   // anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  anchorOrigin={{ vertical: "center", horizontal: "center" }}
                 >
-                  <Alert variant="filled" severity="info">
+                  <Alert variant="filled" severity="error">
                     No Lead to Show
+                    <MaterialButton
+                          variant="text"
+                          onClick={() => {
+                            history.push("/admin/leads");
+                          }}
+                          classes={{ label: classes.myButton }}
+                        >
+                          Click to GO Back
+                        </MaterialButton>
                   </Alert>
                 </Snackbar>
               )}

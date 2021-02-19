@@ -1496,7 +1496,7 @@ const setFilterdata = async () => {
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         <Row className=" pl-2 md-5">
           <div className=" pl-2 ">
-            <Dropfile />
+            <Dropfile/>
           </div>
           <div>
             <Link to="/admin/add-interest">

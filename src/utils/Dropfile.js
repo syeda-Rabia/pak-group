@@ -8,9 +8,14 @@ import * as XLSX from "xlsx";
 import { Container } from "react-bootstrap";
 import ApiUrls from "./../utils/ApiUrls";
 import { GET, POST, formatDate,POSTFile } from "./../utils/Functions";
+import SuccessNotification from "../components/SuccessNotification";
+import ErrorNotification from "../components/ErrorNotification";
 export default function Dropfile(props) {
   const [toggle, setToggle] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState([]);
+  const [alertmessage, setAlertMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
+  const [showErrorAlert, setShowErrorAlert] = React.useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -64,7 +69,8 @@ export default function Dropfile(props) {
     </li>
   ));
 
-  const SendFileToServer = async () => {
+  const SendFileToServer = async (event) => {
+    event.preventDefault();
     const formData = new FormData();
     // formData.append("file", { 
     //   name: "record.aac",
@@ -116,10 +122,28 @@ export default function Dropfile(props) {
         console.log("---------excel sheet--------------",response);
         // // console.log(resp);
         setSelectedFile([])
+        if (response.error === false) {
+          setAlertMessage("file submitted Successfully");
+          setShowSuccessAlert(true);
+        } else {
+          setAlertMessage("file not submitted");
+          setShowErrorAlert(true);
+        }
+  
   };
 
   return (
     <>
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={alertmessage}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={alertmessage}
+        closeError={setShowErrorAlert}
+      />
       <button
         className="btn btn-primary "
         style={{ backgroundColor: "#2258BF" }}
