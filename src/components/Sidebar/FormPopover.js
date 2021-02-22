@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {  Select,Container } from "@material-ui/core";
 
 import { GET, POST, getDays } from "../../utils/Functions";
+import DatePick from "../../utils/YearPicker";
 import ApiUrls from "../../utils/ApiUrls";
 import _ from "lodash";
 
@@ -164,6 +165,15 @@ export default function FormPopover(props) {
                     controlId="date"
                     as="select"
                     defaultValue="Date Wise"
+                    onChange={(val) => {
+                      console.log(
+                        "select days ID is -----",
+                        val.target.value
+                      );
+                      setDays((state) => {
+                        return { ...state, day: val.target.value };
+                      });
+                    }}
                   >
                      <option>{null}</option>
                     {/* {date.map((d) => (
@@ -183,14 +193,17 @@ export default function FormPopover(props) {
                     controlId="year"
                     as="select"
                     defaultValue="Year Wise"
+                   
                     
                   >
+                    {/* <DatePick/> */}
                      <option>{null}</option>
                     <option>2021</option>
                     <option>2022</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
+              {/* <DatePick/> */}
               <Col>
                 <Form.Group>
                   <Form.Label>

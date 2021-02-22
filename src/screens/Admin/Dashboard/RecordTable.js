@@ -55,9 +55,10 @@ export default function RecordTable() {
   const handleFetchEmployeesLeads = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     // ;
-    console.log(res);
+    console.log(res,"LET's See what you got");
     if (res.success !== false) {
-      setData(res.data.leads);
+
+      setData(res.data.leads.filter((item)=>item!=null));
     }
     setIsLoading(false);
   };
@@ -214,7 +215,7 @@ export default function RecordTable() {
                     else if (item.Clients == filterData.value)
                       return <TableRow index={index} item={item} />;
                   })} */}
-                  {data.map((item, index) => {
+                  {data.filter((item)=>item.lead!=null).map((item, index) => {
                     return <TableRow index={index} item={item.lead} />;
                   })}
                 </tbody>

@@ -1,6 +1,6 @@
 import { store } from "../../src/modules/Store";
 // export const token = store.getState().auth.token;
-// let baseeURL = "http://192.168.100.191:8000";
+// let baseeURL = "https://ova.technovier.com/api/";
 let baseeURL = "http://192.168.10.52:8000";
 
 

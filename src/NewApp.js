@@ -27,6 +27,7 @@ import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
 import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
+import AdminPolicies from "./screens/Admin/Policies/AdminPolicies";
 import AdminAction from "./screens/Employe/Leads/AdminAction";
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
@@ -154,7 +155,7 @@ const NewApp = (props) => {
         </Route>
         <Route path="/admin/policies">
           <HeaderNavBar />
-          <EmployeePolicies />
+          <AdminPolicies />
         </Route>
         <Route exact path="/admin/viewable">
           <HeaderNavBar />

@@ -148,10 +148,16 @@ const setFilterdata = async () => {
 
   setIsLoading(true);
   let res = await GET(props.searchData.url);
-  console.log("-----", res);
-  if (res.success != false) {
+  console.log("response ---------------", res);
+  if (res.error === false) {
     setAllLeads(res.data.leads);
+    setMessage("Lead find Successfully");
+    setShowSuccessAlert(true);
+  } else {
+    setMessage("Lead Not found");
+    setShowErrorAlert(true);
   }
+
   setIsLoading(false);
 };
 
