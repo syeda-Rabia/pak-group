@@ -8,6 +8,15 @@ import { Col, Form, Row } from "react-bootstrap";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {  Select,Container } from "@material-ui/core";
 
+
+import {
+  KeyboardDatePickerExample,
+  KeyboardTimePickerExample,
+  YearPicker,
+  MonthPicker,
+} from "../../utils/KeyboardTimePickerExample";
+
+
 import { GET, POST, getDays } from "../../utils/Functions";
 import DatePick from "../../utils/YearPicker";
 import ApiUrls from "../../utils/ApiUrls";
@@ -35,6 +44,8 @@ export default function FormPopover(props) {
     month: new Date().getMonth() + 1,
     year: new Date().getFullYear(),
   });
+  // const [month, setMonth] = useState();
+  const [year, setYear] = useState();
   useEffect(() => {
     getProjectDetails();
     getEmployeeDetails();
@@ -86,6 +97,7 @@ export default function FormPopover(props) {
       };
 
       let url=ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+      console.log("------------",url)
      if(props.update!= undefined)
       props.update(url,true)
     // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);             
@@ -151,7 +163,7 @@ export default function FormPopover(props) {
                 <option>{null}</option>
                     {allProjects.length > 0
                       ? allProjects.map((pro) => (
-                          <option key={pro.id} value={pro.id}>
+                          <option style={{color:"#2258BF"}}  key={pro.id} value={pro.id}>
                             {pro.name}
                           </option>
                         ))
@@ -161,7 +173,9 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Date wise</b>
                   </Form.Label>
+                  
                   <Form.Control
+                  
                     controlId="date"
                     as="select"
                     defaultValue="Date Wise"
@@ -182,25 +196,28 @@ export default function FormPopover(props) {
                     {Array.from(
                       { length: new Date(days.year, days.month, 0).getDate() },
                       (v, i) => {
-                        return <option>{i + 1}</option>;
+                        return <option style={{color:"#2258BF"}}>{i + 1}</option>;
                       }
                     )}
                   </Form.Control>
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <Form.Control
+                  <div class="form-control"><YearPicker setDays={setDays}/></div>
+                  
+                  
+                  {/* <Form.Control
                     controlId="year"
                     as="select"
                     defaultValue="Year Wise"
                    
                     
                   >
-                    {/* <DatePick/> */}
+                   
                      <option>{null}</option>
                     <option>2021</option>
                     <option>2022</option>
-                  </Form.Control>
+                  </Form.Control> */}
                 </Form.Group>
               </Col>
               {/* <DatePick/> */}
@@ -222,7 +239,7 @@ export default function FormPopover(props) {
                      <option>{null}</option>
                     {employees.length > 0
                       ? employees.map((e) => (
-                          <option key={e.id} value={e.id}>
+                          <option style={{color:"#2258BF"}} key={e.id} value={e.id}>
                             {e.first_name}
                             {/* {e.first_name + " " + e.last_name} */}
                           </option>
@@ -232,7 +249,14 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Month Wise</b>
                   </Form.Label>
-                  <Form.Control
+                  <div className="form-control" >
+                  <DatePick  
+                   controlId="month"
+                   setDays={setDays}
+                />
+                  </div>
+                 
+                  {/* <Form.Control
                     controlId="month"
                     as="select"
                     defaultValue="Month Wise"
@@ -248,9 +272,9 @@ export default function FormPopover(props) {
                   >
                      <option>{null}</option>
                     {Array.from({ length: 12 }, (v, i) => {
-                      return <option>{i + 1}</option>;
+                      return <option style={{color:"#2258BF"}}>{i + 1}</option>;
                     })}
-                  </Form.Control>
+                  </Form.Control> */}
                   <Form.Control
                   style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
                     controlId="year"

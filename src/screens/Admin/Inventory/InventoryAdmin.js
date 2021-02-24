@@ -21,6 +21,12 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+// import {useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -33,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
+// const history = useHistory();
 export default function InventoryAdmin(props) {
   const [data, setData] = useState(ProjectListData);
   const [showDelete, setShowDelete] = useState(false);
@@ -344,7 +351,19 @@ export default function InventoryAdmin(props) {
       <Container fluid className="Laa">
        
           <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
+          <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
           <Col lg={10} sm={10} xs={10} xl={11}>
+          
           <h2
             style={{
               color: "#818181",

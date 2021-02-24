@@ -194,6 +194,17 @@ function getStepContent(step) {
     <div className={classes.root}>
      
        <Row className=" shadow p-3 mb-3 bg-white rounded ml-2">
+       <IconButton
+          onClick={() => {
+            history.push("/admin/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <h3 style={{ color: "#818181" }}>Employee Action </h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
       </Row>

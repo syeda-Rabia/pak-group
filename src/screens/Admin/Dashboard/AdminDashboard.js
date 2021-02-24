@@ -25,13 +25,13 @@ function AdminDashboard() {
       </Container>
       {/* 2nd Row */}
       <Container fluid>
-        <Row className="mb-2 mt-2">
+        <Row className="mb-2 mt-2 ">
           <Col
             xl={6}
-            lg={6}
+            lg={5}
             sm={12}
             xs={12}
-            className="mt-2 pt-3"
+            className="mt-2 pt-3 "
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
@@ -77,9 +77,10 @@ function AdminDashboard() {
             lg={5}
             sm={12}
             xs={12}
-            className="mt-2 pt-3"
+            className="mt-2 pt-3 "
             style={{ backgroundColor: "white", borderRadius: "10px" }}
           >
+
             <h6 style={{ color: "#818181" }}>Pending Tasks Weekly (2020)</h6>
             <QuarterlyLead_chart />
           </Col>
@@ -163,10 +164,10 @@ function AdminDashboard() {
         <Row className="mb-2 mt-2">
           <Col
             xl={6}
-            lg={6}
+            lg={5}
             sm={12}
             xs={12}
-            className="mt-2 pt-3"
+            className="mt-2 pt-3 "
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
@@ -208,7 +209,7 @@ function AdminDashboard() {
         <Row>
           <Col
             xl={4}
-            lg={4}
+            lg={12}
             sm={12}
             xs={12}
             style={{
@@ -225,7 +226,7 @@ function AdminDashboard() {
           </Col>
           <Col
             xl={7}
-            lg={7}
+            lg={12}
             sm={12}
             xs={12}
             style={{
