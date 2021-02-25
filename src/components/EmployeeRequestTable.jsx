@@ -6,6 +6,8 @@ import {
   Backdrop,
   CircularProgress,
   makeStyles,
+  Tooltip,
+  IconButton,
   Dialog,
   DialogTitle,
   Input,
@@ -16,6 +18,8 @@ import {
 } from "@material-ui/core";
 import { GET } from "../utils/Functions";
 import ApiUrls from "../utils/ApiUrls";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {useHistory } from "react-router-dom";
 function EmployeeInventory() {
   const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -37,6 +41,8 @@ function EmployeeInventory() {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [openRequest, setOpenRequest] = React.useState(false);
+  const history = useHistory();
+
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.INVENTORY_REQUEST + "/");
@@ -71,8 +77,25 @@ function EmployeeInventory() {
           </Backdrop>
         </>
       ) : null}
+     
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
+      <Row>
+      <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
+        
+<Col lg={10} sm={10} xs={10} xl={11}>
         <h3 style={{ color: "#818181" }}>Inventory Request</h3>
+</Col>
+        </Row>
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Row>

@@ -26,7 +26,8 @@ import {
 import { Link, useHistory, Redirect, Route } from "react-router-dom";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 import PreLoading from "../../../components/PreLoading";
-
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 export default function AddInventory() {
   const [allProjectCategories, setAllProjectCategories] = React.useState([]);
 
@@ -38,8 +39,11 @@ export default function AddInventory() {
   const [categoryParent, setCategoryParent] = React.useState(null);
   const [showAlert, setShowAlert] = React.useState(false);
   const [redirectPage, setRedirectPage] = React.useState(false);
-
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
+  const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [showProgress, setShowProgress] = React.useState(false);
+  const history = useHistory();
 
   //  ;
   useEffect(() => {
@@ -113,15 +117,36 @@ export default function AddInventory() {
 
         <Container fluid>
           <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+          <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
             <Col lg={10} sm={10} xs={10} xl={11}>
               <h3 style={{ color: "#818181" }}>Add Project</h3>
             </Col>
             <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-              <div className="float-right ">
+              {/* <div className="float-right ">
                 <InventoryMobileViewSidebar />
-              </div>
+              </div> */}
             </Col>
           </Row>
+          <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
           <Row>
             <div className="col-lg-12 shadow p-3  bg-white rounded ">
               <Form onSubmit={submit}>
@@ -287,9 +312,14 @@ export default function AddInventory() {
       let resp = await POST(ApiUrls.CREATE_PROJECT, formData);
       // ;
       if (resp.error === false) {
-        history.push("/admin/inventory");                 
+        setMessage("Project created Successfully");
+        setShowSuccessAlert(true);
+        // history.push("/admin/inventory");                 
+      }else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
       }
-
+      history.push("/admin/inventory");    
       setShowProgress(false);
     };
 

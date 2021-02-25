@@ -74,6 +74,13 @@ export default function AddInterest() {
       };
       let res = await POST(ApiUrls.ADD_INTEREST, postData);
       console.log("post request", res);
+      if (res.error === false) {
+        setMessage("Interest Added Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
       setRefresh(!refresh);
 
       setShowAdd(false);
@@ -104,7 +111,7 @@ export default function AddInterest() {
                 <h6>Interest</h6>
                 <input
                   className="form-control  w-100 "
-                  placeholder="Enter Category"
+                  placeholder="Enter Interest"
                   type="text"
                   minLength="3"
                   maxLength="30"
@@ -377,7 +384,16 @@ export default function AddInterest() {
           <ReactTooltip id="AddTip" place="top" effect="solid">
             Add new interest
           </ReactTooltip>
-
+          <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>

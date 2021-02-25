@@ -6,12 +6,14 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import { Chip, Box } from "@material-ui/core";
-import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
+import { makeStyles, Backdrop, CircularProgress,Tooltip,
+  IconButton,  } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
-
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {useHistory } from "react-router-dom";
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
@@ -23,7 +25,7 @@ export default function ViewableTo() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-
+  const history = useHistory();
   let i = 0;
   const [Employees, setEmployees] = React.useState([
     { label: "Sana", value: "Sana" },
@@ -148,7 +150,21 @@ export default function ViewableTo() {
   return (
     <Container fluid>
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-4">
+        <Row>
+
+      <IconButton
+          onClick={() => {
+            history.push("/admin/inventory");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <h3 style={{ color: "#818181" }}>ViewAble To </h3>
+        </Row>
       </div>
 
       <PreLoading startLoading={isLoading} />

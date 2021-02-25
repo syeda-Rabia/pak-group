@@ -22,6 +22,8 @@ import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 export default function ProjectList() {
   const [allProjects, setAllProjects] = useState([]);
@@ -35,6 +37,11 @@ export default function ProjectList() {
   const [data, setData] = useState(ProjectListData);
   const [selectedID, setSelectedID] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -75,9 +82,16 @@ export default function ProjectList() {
         name: ProjectName,
       };
       let res = await POST(ApiUrls.EDIT_PROJECT, projects); // Api to be implemented
-      if (res.success != false) {
-        setRefresh(!refresh);
+      if (res.error === false) {
+        setMessage("Project name edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
       }
+      
+        setRefresh(!refresh);
+     
 
       // let arr = allProjects.map((val) => {
       //   if (val.id == projects.id) val = projects;
@@ -263,8 +277,15 @@ export default function ProjectList() {
     const DeleteRecordFromData = async (item) => {
       let res = await GET(ApiUrls.DELETE_PROJECT + item.id);
       if (res.error === false) {
-        setRefresh(!refresh);
+        setMessage("Project Deleted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
       }
+     
+        setRefresh(!refresh);
+      
     };
     return (
       <Modal
@@ -430,6 +451,17 @@ export default function ProjectList() {
               <FontAwesomeIcon icon={faPlusSquare} /> Add Project
             </button>
           </Link>
+          <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+
           <div className="table-responsive">
             <table className="table table-hover">
               <thead>
@@ -469,7 +501,7 @@ export default function ProjectList() {
               {allProjects.length > 0 ? (
                 <>
                   <ModalDelete item={allProjects[selectedID]} />
-<ModalAddUnit item={allProjects[selectedID]} />
+                  <ModalAddUnit item={allProjects[selectedID]} />
                   <ModalEdit item={allProjects[selectedID]} />
                 </>
               ) : null}

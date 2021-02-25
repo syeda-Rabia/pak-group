@@ -21,6 +21,8 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 import {
   Tooltip,
   IconButton,
@@ -52,7 +54,9 @@ export default function InventoryAdmin(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [gobackState, setGobackState] = useState(false);
-
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const classes = useStyles();
   const history = useHistory(); 
 
@@ -129,11 +133,19 @@ export default function InventoryAdmin(props) {
         property_status: status,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_INVENTORIES, inventory);
+      console.log("---------------",res)
+      if (res.error === false) {
+        setMessage("inventory updated Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
       let arr = allInventories.map((val) => {
         if (val.id == inventory.id) val = inventory;
         return val;
       });
-
+      
       // arr.push(inventory);
       setAllInventories(arr);
       setShowEdit(false);
@@ -249,6 +261,13 @@ export default function InventoryAdmin(props) {
       setIsLoading(true);
 
       let res = await GET(ApiUrls.GET_DELETED_INVENTORIES + item.id);
+      if (res.error === false) {
+        setMessage("Inventory Deleted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
       setIsLoading(false);
       setRefresh(!refresh);
     };
@@ -377,12 +396,22 @@ export default function InventoryAdmin(props) {
               Inventory Details 
             </h3> */}
             <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
+          {/* <div className="float-right ">
             <InventoryMobileViewSidebar />
-          </div>
+          </div> */}
         </Col>
           </Row>
-      
+          <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+
 
         <PreLoading startLoading={isLoading} />
 

@@ -182,13 +182,13 @@ export default function LeadsAllocatonAndAddition(props) {
       setIsLoading(false);
 
       if (resp.error === false) {
-        setMessage("LEAD UPDATED SUCCESSFULLY.");
+        setMessage("LEAD Allocated SUCCESSFULLY");
         setShowSuccessAlert(true);
       }
-      // if (resp.error.hasOwnProperty("allocated_to")) {
-      //   setMessage("LEAD NOT UPDATED. Allocated To FIELD IS REQUIRED");
-      //   setShowErrorAlert(true);
-      // }
+      else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
     };
 
     const HandleTimeValue = (value) => {

@@ -111,9 +111,6 @@ export default function LeadsAdmin(props) {
     getAllLeadsData();
     FetchInterestData();
   }, [refresh]);
-
-
-
   useEffect(() => {
   
   if(props.searchData.search==true) setFilterdata()
@@ -1295,8 +1292,8 @@ const setFilterdata = async () => {
     let country_city = "country/city";
     return (
       <tr>
-        <td>{index + 1}</td>
-        <td>{item.client_name}</td>
+        <td id="sn" >{index + 1}</td>
+        <td >{item.client_name}</td>
         <td>{item.contact}</td>
         <td>{item.email}</td>
 
@@ -1360,22 +1357,23 @@ const setFilterdata = async () => {
         <td>{item.Deadline}</td> */}
         <td>
           <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
-            <button
+          <button
               data-tip
-              data-for="action"
-              type="button"
+              data-for="abc"
+              type="button "
               className="bg-transparent  button-focus mr-2"
               // onClick={() => {
-              //   // setShowView(true);
-              //   // setSelectedID(index);
+              //   setShowEdit(true);
+              //   setSelectedID(index);
               // }}
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-          </Link>
-          <ReactTooltip id="action" place="top" effect="solid">
-            View Employee Action
-          </ReactTooltip>
+            </Link>
+            <ReactTooltip id="abc" place="top" effect="float">
+              View Employee Action
+            </ReactTooltip>
+            
         </td>
 
         <td>
@@ -1454,7 +1452,7 @@ const setFilterdata = async () => {
               data-tip
               data-for="DeleteTip"
               type="button"
-              className="bg-transparent  button-focus ml-2"
+              className="bg-transparent  button-focus mr-2"
               onClick={() => {
                 setShowDelete(true);
                 setSelectedID(index);
@@ -1502,7 +1500,8 @@ const setFilterdata = async () => {
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         <Row className=" pl-2 md-5">
           <div className=" pl-2 ">
-            <Dropfile/>
+           
+            <Dropfile setRefresh={setRefresh}/>
           </div>
           <div>
             <Link to="/admin/add-interest">
@@ -1535,7 +1534,7 @@ const setFilterdata = async () => {
             <thead>
               <tr>
                 <th scope="col">
-                  <span id="sn" style={{ color: "#818181" }}>
+                  <span id="sn" style={{ color: "#818181"}}>
                     ID
                   </span>
                 </th>

@@ -16,7 +16,7 @@ export default function Dropfile(props) {
   const [alertmessage, setAlertMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
-
+  const [isLoading, setIsLoading] = React.useState(true);
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -106,7 +106,7 @@ export default function Dropfile(props) {
       body: JSON.stringify(data),
       
     })
-  
+   
       .then((res) => {
         // return res;
       })
@@ -116,7 +116,7 @@ export default function Dropfile(props) {
       });
       console.log("string",JSON.stringify(selectedFile));
         //webhook end-
-
+        // setIsLoading(true);
 
         let response = await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET, data);             
         console.log("---------excel sheet--------------",response);
@@ -125,11 +125,12 @@ export default function Dropfile(props) {
         if (response.error === false) {
           setAlertMessage("file submitted Successfully");
           setShowSuccessAlert(true);
+          props.setRefresh(state=>!state);
         } else {
-          setAlertMessage("file not submitted");
+          setAlertMessage("File not submitted");
           setShowErrorAlert(true);
         }
-  
+        // setIsLoading(false);
   };
 
   return (

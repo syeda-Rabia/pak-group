@@ -5,7 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
  function DatePick({setDays}) {
   const [startDate, setStartDate] = useState(new Date());
   const months=['JAN','FEB','MAR','APR',"MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-  return <DatePicker  
+  return <DatePicker  className="zIndex-5 border border-none "
+  style={{border:"1px solid white"}}
+  
   value={startDate}
   selected={startDate}
   onChange={(date) => {
@@ -20,6 +22,19 @@ import "react-datepicker/dist/react-datepicker.css";
   }}
   
   dateFormat="MM"
+  popperClassName="some-custom-class"
+  popperPlacement="left"
+  popperModifiers={{
+    offset: {
+      enabled: true,
+      offset: "5px, 10px"
+    },
+    preventOverflow: {
+      enabled: true,
+      escapeWithReference: false,
+      boundariesElement: "viewport"
+    }
+  }}
   showMonthYearPicker
 />;
 }
