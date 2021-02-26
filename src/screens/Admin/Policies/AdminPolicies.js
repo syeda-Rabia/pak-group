@@ -11,6 +11,7 @@ import { AddCategory } from "./../../../assests/constants/addcategory";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
+// import { dummyData } from "../../../assests/constants/todoList";
 import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
@@ -44,21 +45,21 @@ export default function AddPolicies() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showView, setShowView]= useState(false);
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(AddCategory);
+  // const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const handleFetchData = async () => {
-    setIsLoading(true);
-    let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("ress0", res);
-    if (res.success != false) {
-      setData(res.data.Interest);
-    }
-    setIsLoading(false);
+    // setIsLoading(true);
+    // let res = await GET(ApiUrls.GET_ALL_INTEREST);
+    // console.log("ress0", res);
+    // if (res.success != false) {
+    //   setData(res.data.Interest);
+    // }
+    // setIsLoading(false);
   };
   // React.useEffect(() => {
   //   handleFetchData();
@@ -68,21 +69,38 @@ export default function AddPolicies() {
   }, [refresh]);
   const history = useHistory();
   const ModalAdd = ({ item }) => {
-    const [interest, SetInterest] = useState("");
+    // const [interest, SetInterest] = useState("");
+    const [title, SetTitle]=useState("");
+    const [description, SetDescription]=useState("");
 
     const addData = async (event) => {
       event.preventDefault();
       let postData = {
-        interest: interest,
+        id: "1",
+        Title: title,
+        Description: description, 
+      
       };
-      let res = await POST(ApiUrls.ADD_INTEREST, postData);
-      console.log("post request", res);
-      setRefresh(!refresh);
 
+      let arr = data;
+      arr.push(postData);
+      setData(arr);
       setShowAdd(false);
     };
-    // };
 
+      //api
+      //*--------------------------------------
+      // let postData = {
+      //   interest: interest,
+      // };
+      // let res = await POST(ApiUrls.ADD_INTEREST, postData);
+      // console.log("post request", res);
+      // setRefresh(!refresh);
+
+      // setShowAdd(false);
+    // };
+    // };
+//*-------------------------------------------------------
     return (
       <Modal
         show={showAdd}
@@ -111,15 +129,22 @@ export default function AddPolicies() {
                   type="text"
                   minLength="3"
                   maxLength="30"
-                  value={interest}
+                  value={title}
                   onChange={(e) => {
-                    SetInterest(e.target.value);
+                    SetTitle(e.target.value);
                   }}
                 />
               </div>
               <div>
               <h6>Policy Description</h6>
-              <CKEditor data="<p>Add description of policies</p>" />
+              <CKEditor data={description} 
+               onChange={(e) => {
+                 console.log(e.target)
+                 SetDescription(e.editor.getData());
+                // SetDescription(e.target.value);
+              }}
+            
+              />
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -147,27 +172,28 @@ export default function AddPolicies() {
   };
   const ModalEdit = ({ item }) => {
     //  ;
-    const [interest, SetInterest] = useState(item.interest);
-
+    // const [interest, SetInterest] = useState(item.interest);
+    const [title, SetTitle]=useState(item.Title);
+    const [description, SetDescription]=useState(item.Description);
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
       // add validations
       // push
 
-      let user = {
-        id: item.id,
-        interest: interest,
-      };
-      let res = await POST(ApiUrls.EDIT_INTEREST, user);
-      if (res.error === false) {
-        setMessage("Interest Edited Successfully");
-        setShowSuccessAlert(true);
-      } else {
-        setMessage("Interest Not Edited");
-        setShowErrorAlert(true);
-      }
-      console.log(res);
+      // let user = {
+      //   id: item.id,
+      //   interest: interest,
+      // };
+      // let res = await POST(ApiUrls.EDIT_INTEREST, user);
+      // if (res.error === false) {
+      //   setMessage("Interest Edited Successfully");
+      //   setShowSuccessAlert(true);
+      // } else {
+      //   setMessage("Interest Not Edited");
+      //   setShowErrorAlert(true);
+      // }
+      // console.log(res);
       setRefresh(!refresh);
 
       setShowEdit(false);
@@ -200,15 +226,21 @@ export default function AddPolicies() {
                     className="form-control w-100 "
                     placeholder="Enter interest"
                     type="text"
-                    value={interest}
+                    value={title}
                     onChange={(e) => {
-                      SetInterest(e.target.value);
+                      SetTitle(e.target.value);
                     }}
                   />
                 </div>
                 <div>
                     <h6>policy Description</h6>
-                    <CKEditor data="<p>Add description of policies</p>" />
+                    <CKEditor data={description}
+                    
+                     onChange={(e) => {
+                       console.log(e.editor.getData())
+                      SetDescription(e.editor.getData());
+                    }}
+                     />
                 </div>
               </form>
             </Modal.Body>
@@ -228,6 +260,12 @@ export default function AddPolicies() {
                 onClick={(e) => {
                   setShowEdit(false);
                   EditRecordToServer(e);
+                  setData(state=>state.map((val)=>{
+                    if(val.id==item.id){
+                      val.Description=description;
+                    }
+                    return val
+                  }))
                 }}
               >
                 Edit
@@ -260,14 +298,19 @@ export default function AddPolicies() {
               <div style={{ alignContent: "center" }}>
                 <div className="pb-3">
                   <h6>Policy Title </h6>
-                  <input className="form-control  w-100" value={item.interest} />
+                  <input className="form-control  w-100" value={item.Title} />
                 </div>
-                <div className="pb-3">
-                  <h6>Policy Description</h6>
-                  <TextArea
+                <h6>Policy Description</h6>
+                <div className="pb-3 border border-black" style={{backgroundColor:"#F2F4F5"}}>
+                 
+                  <div  className="p-3" dangerouslySetInnerHTML={{__html: item.Description}} />
+                  {/* <TextArea
+                  dangerouslySetInnerHTML={{__html:item.Description}}
                     className="form-control w-100 "
-                    value={item.Interest}
-                  />
+                    // value={item.Description}
+                  /> */}
+                  {/* <CKEditor data={item.Description} 
+               /> */}
                 </div>
                 
               </div>
@@ -291,20 +334,36 @@ export default function AddPolicies() {
  
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
-      setShowDelete(false);
+      console.log("item is ", item);
 
-      if (res.error === false) {
-        setMessage("Interest Deleted Successfully");
-        setShowSuccessAlert(true);
-        // setRefresh(!refresh);
-        setSelectedID(0);
-      } else {
-        setMessage("Interest Not Deleted");
-        setShowErrorAlert(true);
-      }
-      console.log(res);
-      setRefresh(!refresh);
+      let { id } = item;
+      console.log("ID is ", id);
+
+      let arr = data;
+
+      arr = arr.filter((user) => user.id != id.toString());
+
+      console.log("arr length ", arr.length, arr, selectedID);
+      setSelectedID((state) => {
+        if (state == arr.length) return state - 1;
+        return state;
+      });
+      setData(arr);
+      setShowDelete(false);
+      // let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
+      // setShowDelete(false);
+
+      // if (res.error === false) {
+      //   setMessage("Interest Deleted Successfully");
+      //   setShowSuccessAlert(true);
+      //   // setRefresh(!refresh);
+      //   setSelectedID(0);
+      // } else {
+      //   setMessage("Interest Not Deleted");
+      //   setShowErrorAlert(true);
+      // }
+      // console.log(res);
+      // setRefresh(!refresh);
     };
     return (
       <Modal
@@ -344,8 +403,9 @@ export default function AddPolicies() {
     //  ;
     return (
       <tr>
-        <td>{index + 1}</td>
-        <td>{item.interest}</td>
+        
+        <td key={item.id}>{item.id}</td>
+        <td key={item.id}>{item.Title}</td>
         <td>
           <div
             className="d-flex d-inline "
@@ -472,22 +532,15 @@ export default function AddPolicies() {
                 </tr>
               </thead>
               <tbody>
-                {
-                  // userRecord != ""
-                  //   ? userRecord.map((user, index) => (
-                  //       <>
-                  //         <Table item={user} index={index} />
-                  //       </>
-                  //     ))
-                  //   : // <h1>No Data</h1>
-                  //     null
-                  // <Skeleton variant="rect" width={"100%"} height={"100%"} />
-                }
-                {data
-                  // .filter((item) => item.is_deleted == 0)
+                
+                {/* {data
+                 
                   .map((item, index) => {
                     return <Table item={item} index={index} />;
-                  })}
+                  })} */}
+                  {data.map((item, index) => {
+                  return <Table index={index} item={item} />;
+                })}
               </tbody>
               {data.length > 0 ? (
                 <>

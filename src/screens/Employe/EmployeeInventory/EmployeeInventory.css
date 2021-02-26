@@ -20,3 +20,7 @@ select.form-control.form-control-sm {
 .table thead tr th {
   border-top: none;
 }
+#spn {
+  margin-left: 70px;
+  margin-right: 70px;
+}

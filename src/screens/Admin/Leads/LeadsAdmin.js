@@ -1295,8 +1295,8 @@ const setFilterdata = async () => {
         <td id="sn" >{index + 1}</td>
         <td >{item.client_name}</td>
         <td>{item.contact}</td>
-        <td>{item.email}</td>
-
+        
+        <td>{item.email != null ? item.email : "-------"}</td>
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
 

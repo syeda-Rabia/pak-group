@@ -38,6 +38,7 @@ import AddNewInventory from "./screens/Admin/Inventory/AddNewInventory";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
+import EmployeeInventoryDetails from "./screens/Employe/EmployeeInventory/EmployeeInventoryDetails";
 // import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
 import Test from "./screens/Test";
@@ -187,9 +188,19 @@ const NewApp = (props) => {
           <EmployeHeader />
           <EmployeeDashboardScreen />
         </Route>
-        {/* <Route path="/employee/leads">
+        <Route
+          exact
+          path="/employee/inventory-details"
+          render={(props) => (
+            <>
+              <EmployeHeader />
+          <EmployeeInventoryDetails {...props} />
+            </>
+          )}
+        />
+        {/* <Route path="/employee/inventory-details">
           <EmployeHeader />
-          <EmployeeLeadsScreen />
+          <EmployeeInventoryDetails/>
         </Route> */}
         <Route
           exact
@@ -201,10 +212,20 @@ const NewApp = (props) => {
             </>
           )}
         />
-        <Route path="/employee/inventory">
+        <Route
+          exact
+          path="/employee/inventory"
+          render={(props) => (
+            <>
+              <EmployeHeader />
+          <EmployeeInventory {...props} />
+            </>
+          )}
+        />
+        {/* <Route path="/employee/inventory">
           <EmployeHeader />
           <EmployeeInventory />
-        </Route>
+        </Route> */}
         <Route path="/employee/policies">
           <EmployeHeader />
           <EmployeePolicies />

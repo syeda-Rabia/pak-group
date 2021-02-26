@@ -61,6 +61,7 @@ export default function ProjectList() {
 
   const getAllProjects = async () => {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+  console.log("response------------------------------",resp);
 
     if (resp.data != null) {
       setAllProjects(resp.data.projects.data);

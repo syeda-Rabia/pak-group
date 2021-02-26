@@ -104,7 +104,7 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
-    console.log(resp);
+    console.log("response----------------",resp);
 
     if (resp.data != null) {
       // console.trace(JSON.stringify(resp));

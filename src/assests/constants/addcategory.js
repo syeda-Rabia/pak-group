@@ -1,18 +1,22 @@
 export const AddCategory = [
   {
-    Id: "1",
-    Category: "rent",
+    id: "1",
+    Title: "Policy 1",
+    Description:"description 1",
   },
   {
-    Id: "2",
-    Category: "sale",
+    id: "2",
+    Title: "Policy 2",
+    Description:"description 2",
   },
   {
-    Id: "3",
-    Category: "rent",
+    id: "3",
+    Title: "Policy 3",
+    Description:"description 3",
   },
   {
-    Id: "4",
-    Category: "sale",
+    id: "4",
+    Title: "Policy 4",
+    Description:"description 4",
   },
 ];

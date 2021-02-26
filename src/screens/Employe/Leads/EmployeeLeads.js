@@ -302,7 +302,7 @@ const Table = ({
       </td>
 
       {/* <td>{item.inventory.inventory_name}</td> */}
-      <td>{"---"}</td>
+      <td>{item.interest}</td>
       <td>
         {userInfo.first_name} {userInfo.last_name}
       </td>
@@ -516,7 +516,7 @@ function EmployeeLeads(props, lead_id) {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
-    console.log("_________________", res);
+    console.log("-------------------------------", res);
     
     if (res.success != false) {
       setData(res.data.leads);
