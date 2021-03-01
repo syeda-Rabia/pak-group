@@ -134,7 +134,7 @@ export default function LeadsAdmin(props) {
     if (resp.data != null) {
       setAllLeads(resp.data.leads);
     }
-
+console.log("**********************************leads-----------------------------",resp)
     setIsLoading(false);
 
     //  ;

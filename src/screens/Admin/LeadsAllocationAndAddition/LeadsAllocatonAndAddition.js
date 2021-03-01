@@ -104,7 +104,7 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
-    console.log("response----------------",resp);
+    console.log("response--------allocation--------",resp);
 
     if (resp.data != null) {
       // console.trace(JSON.stringify(resp));
@@ -258,12 +258,16 @@ export default function LeadsAllocatonAndAddition(props) {
             <option value={"onhold"}>On Hold</option>
           </select> */}
         </td>
-        <td>
+        {/* <td>
           {item.returned_allocations.length > 0
             ? item.returned_allocations[0].returned_from.first_name
             : "------"}
+        </td> */}
+ <td>
+          {item.previous_emp.length > 0
+            ? item.previous_emp[0].returned?.first_name
+            : "------"}
         </td>
-
         <td>
           <Select
             className="form-control form-control-sm w-100"
@@ -302,7 +306,7 @@ export default function LeadsAllocatonAndAddition(props) {
         <td>
           <KeyboardDatePickerExample value={today} showDate={handleDateValue} />
         </td>
-        <td>{"------"}</td>
+        <td>{item.interest.interest}</td>
         <td>
           {" "}
           <button
@@ -524,7 +528,7 @@ export default function LeadsAllocatonAndAddition(props) {
                   </th>
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
-                      Interest
+                    Returned_From
                     </span>
                   </th>
                   <th scope="col">
@@ -545,7 +549,8 @@ export default function LeadsAllocatonAndAddition(props) {
                   </th>
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
-                      Returned_From
+                    Interest
+                      
                     </span>
                   </th>
                   <th scope="col">

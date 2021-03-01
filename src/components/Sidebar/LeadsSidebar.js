@@ -13,7 +13,7 @@ export default function LeadsSidebar(props) {
       }}
     >
       <FormPopover name="Search Leads" update={props.update} />
-      <FormPopover name="Search Visit" update={props.update}/>
+      {/* <FormPopover name="Search Visit" update={props.update}/> */}
       {/* <SearchLeads name="Search Leads" />
       <SearchLeads name="Search Visit" /> */}
     </Container>

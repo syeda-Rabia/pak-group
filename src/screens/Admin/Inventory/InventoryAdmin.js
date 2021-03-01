@@ -212,6 +212,22 @@ export default function InventoryAdmin(props) {
                     }}
                   />
                 </div>
+                {/* <div className="pb-3">
+                  <h6>Category</h6>
+                  <select
+                    className="form-control w-100 "
+                    placeholder="Enter category"
+                    type="text"
+                    value={inventory_category}
+                    onChange={(e) => {
+                      setInventoryCategory(e.target.value);
+                    }}
+                    className="form-control form-control-sm w-100"
+                  >
+                    <option value={"Open"}>Sale</option>
+                    <option value={"Sold"}>Rent</option>
+                  </select>
+                </div> */}
                 <div className="pb-3">
                   <h6>Status</h6>
                   <select

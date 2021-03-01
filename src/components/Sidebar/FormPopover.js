@@ -18,7 +18,7 @@ import {
 
 
 import { GET, POST, getDays } from "../../utils/Functions";
-import DatePick from "../../utils/YearPicker";
+import DatePick,{ YearPicking} from "../../utils/YearPicker";
 import ApiUrls from "../../utils/ApiUrls";
 import _ from "lodash";
 
@@ -37,12 +37,17 @@ export default function FormPopover(props) {
   const [allProjects, setAllProjects] = useState([]);
   const [employees, setEmployees] = React.useState([]);
   const [client, setClient]=React.useState([]);
-  const [project, setProject] = useState();
+  const [project, setProject] = useState("");
   const [refresh, setRefresh] = useState(false);
+  // const [days, setDays] = useState({
+  //   day: new Date().getDate(),
+  //   month: new Date().getMonth() + 1,
+  //   year: new Date().getFullYear(),
+  // });
   const [days, setDays] = useState({
-    day: new Date().getDate(),
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
+    day: "",
+    month: "",
+    year: "",
   });
   // const [month, setMonth] = useState();
   const [year, setYear] = useState();
@@ -203,7 +208,11 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <div class="form-control"><YearPicker setDays={setDays}/></div>
+                  <div class="form-control">
+                    {/* <YearPicker setDays={setDays}/> */}
+                    <YearPicking controlId="year"
+                   setDays={setDays}/>
+                    </div>
                   
                   
                   {/* <Form.Control

@@ -45,12 +45,11 @@ export function KeyboardDatePickerExample({ value, showDate }) {
 }
 export function YearPicker({setDays}) {
   const [selectedDate, handleDateChange] = useState(new Date());
-console.log(selectedDate.toString().split(" "),"LET SEE");
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
         views={["year"]}
-        
+        defaultValue={""}
         value={selectedDate}
         onChange={(val)=>{
           handleDateChange(val);

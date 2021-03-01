@@ -302,11 +302,11 @@ const Table = ({
       </td>
 
       {/* <td>{item.inventory.inventory_name}</td> */}
-      <td>{item.interest}</td>
+      <td>{item.interest.interest}</td>
       <td>
         {userInfo.first_name} {userInfo.last_name}
       </td>
-      <td>{item.email}</td>
+      <td>{item.email != null ? item.email : "-------"}</td>
       <td>{item.task}</td>
       <td>{item.dead_line}</td>
       <td>

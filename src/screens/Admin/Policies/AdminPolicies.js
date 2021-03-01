@@ -45,7 +45,7 @@ export default function AddPolicies() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showView, setShowView]= useState(false);
-  const [data, setData] = useState(AddCategory);
+  const [data, setData] = useState([]);
   // const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
@@ -53,13 +53,13 @@ export default function AddPolicies() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const handleFetchData = async () => {
-    // setIsLoading(true);
-    // let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    // console.log("ress0", res);
-    // if (res.success != false) {
-    //   setData(res.data.Interest);
-    // }
-    // setIsLoading(false);
+    setIsLoading(true);
+    let res = await GET(ApiUrls.GET_POLICY_LIST);
+    console.log("ress0", res);
+    if (res.success != false) {
+      setData(res.data.policies);
+    }
+    setIsLoading(false);
   };
   // React.useEffect(() => {
   //   handleFetchData();
@@ -75,31 +75,39 @@ export default function AddPolicies() {
 
     const addData = async (event) => {
       event.preventDefault();
-      let postData = {
-        id: "1",
-        Title: title,
-        Description: description, 
+    //   let postData = {
+    //     id: "1",
+    //     title: title,
+    //     body: description, 
       
-      };
+    //   };
 
-      let arr = data;
-      arr.push(postData);
-      setData(arr);
-      setShowAdd(false);
-    };
+    //   let arr = data;
+    //   arr.push(postData);
+    //   setData(arr);
+    //   setShowAdd(false);
+    // };
 
       //api
       //*--------------------------------------
-      // let postData = {
-      //   interest: interest,
-      // };
-      // let res = await POST(ApiUrls.ADD_INTEREST, postData);
-      // console.log("post request", res);
-      // setRefresh(!refresh);
+      let postData = {
+        title: title,
+        body: description, 
+      };
+      let res = await POST(ApiUrls.ADD_POLICY_DETAILS, postData);
+      console.log("post request", res);
+      if (res.error === false) {
+        setMessage("Policy Added Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Policy Not Added");
+        setShowErrorAlert(true);
+      }
+      setRefresh(!refresh);
 
-      // setShowAdd(false);
-    // };
-    // };
+      setShowAdd(false);
+    };
+   
 //*-------------------------------------------------------
     return (
       <Modal
@@ -173,27 +181,28 @@ export default function AddPolicies() {
   const ModalEdit = ({ item }) => {
     //  ;
     // const [interest, SetInterest] = useState(item.interest);
-    const [title, SetTitle]=useState(item.Title);
-    const [description, SetDescription]=useState(item.Description);
+    const [title, SetTitle]=useState(item.title);
+    const [description, SetDescription]=useState(item.body);
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
       // add validations
       // push
 
-      // let user = {
-      //   id: item.id,
-      //   interest: interest,
-      // };
-      // let res = await POST(ApiUrls.EDIT_INTEREST, user);
-      // if (res.error === false) {
-      //   setMessage("Interest Edited Successfully");
-      //   setShowSuccessAlert(true);
-      // } else {
-      //   setMessage("Interest Not Edited");
-      //   setShowErrorAlert(true);
-      // }
-      // console.log(res);
+      let policy = {
+       id:item.id,
+        title:title,
+        body: description,
+      };
+      let res = await POST(ApiUrls.EDIT_POLICY_DETAILS, policy);
+      if (res.error === false) {
+        setMessage("Policy Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Policy Not Edited");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
       setRefresh(!refresh);
 
       setShowEdit(false);
@@ -298,12 +307,12 @@ export default function AddPolicies() {
               <div style={{ alignContent: "center" }}>
                 <div className="pb-3">
                   <h6>Policy Title </h6>
-                  <input className="form-control  w-100" value={item.Title} />
+                  <input className="form-control  w-100" value={item.title} />
                 </div>
                 <h6>Policy Description</h6>
                 <div className="pb-3 border border-black" style={{backgroundColor:"#F2F4F5"}}>
                  
-                  <div  className="p-3" dangerouslySetInnerHTML={{__html: item.Description}} />
+                  <div  className="p-3" dangerouslySetInnerHTML={{__html: item.body}} />
                   {/* <TextArea
                   dangerouslySetInnerHTML={{__html:item.Description}}
                     className="form-control w-100 "
@@ -334,36 +343,21 @@ export default function AddPolicies() {
  
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      console.log("item is ", item);
-
-      let { id } = item;
-      console.log("ID is ", id);
-
-      let arr = data;
-
-      arr = arr.filter((user) => user.id != id.toString());
-
-      console.log("arr length ", arr.length, arr, selectedID);
-      setSelectedID((state) => {
-        if (state == arr.length) return state - 1;
-        return state;
-      });
-      setData(arr);
+     
+      let res = await GET(ApiUrls.DELETE_POLICY_DETAILS + item.id);
       setShowDelete(false);
-      // let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
-      // setShowDelete(false);
 
-      // if (res.error === false) {
-      //   setMessage("Interest Deleted Successfully");
-      //   setShowSuccessAlert(true);
-      //   // setRefresh(!refresh);
-      //   setSelectedID(0);
-      // } else {
-      //   setMessage("Interest Not Deleted");
-      //   setShowErrorAlert(true);
-      // }
-      // console.log(res);
-      // setRefresh(!refresh);
+      if (res.error === false) {
+        setMessage("Policy Deleted Successfully");
+        setShowSuccessAlert(true);
+        // setRefresh(!refresh);
+        setSelectedID(0);
+      } else {
+        setMessage("Policy Not Deleted");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
+      setRefresh(!refresh);
     };
     return (
       <Modal
@@ -404,8 +398,8 @@ export default function AddPolicies() {
     return (
       <tr>
         
-        <td key={item.id}>{item.id}</td>
-        <td key={item.id}>{item.Title}</td>
+        <td >{index+1}</td>
+        <td >{item.title}</td>
         <td>
           <div
             className="d-flex d-inline "

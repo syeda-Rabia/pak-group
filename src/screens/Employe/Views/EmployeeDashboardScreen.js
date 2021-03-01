@@ -8,7 +8,7 @@ export default function EmployeeDashboardScreen() {
     <React.Fragment>
       <Container fluid style={{ height: "100vh" }}>
         <Row>
-          <Col
+          {/* <Col
             id="sidebar-component"
             className="shadow"
             lg={2}
@@ -18,10 +18,10 @@ export default function EmployeeDashboardScreen() {
             style={{ backgroundColor: "white" }}
           >
             {/* <EmployeeLAASidebar /> */}
-            <LAASidebar />
-          </Col>
+            {/* <LAASidebar />
+          </Col> */} 
           <Col
-            lg={10}
+            lg={12}
             md={12}
             sm={12}
             xs={12}

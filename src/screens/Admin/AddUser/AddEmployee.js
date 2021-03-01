@@ -121,7 +121,7 @@ export default function AddEmployee() {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_USER);
-
+console.log(resp,"+++++++++++++++++++++");
     //  ;
     //  ;
     if (resp.data != null) {
@@ -258,7 +258,7 @@ export default function AddEmployee() {
         email: email,
         gender: gender == "Male" ? "Male" : "Female",
         phone: phone_no,
-        // password: password,
+        password: password,
         user_type: user_type == "Admin" ? "Admin" : "Employee",
       };
       let resp = await POST(ApiUrls.EDIT_USER, formData);

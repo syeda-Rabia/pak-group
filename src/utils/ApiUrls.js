@@ -61,6 +61,11 @@ GET_FILTER_DATA:"admin/lead/getleads",
   ASSIGN_LEAD_TO_USER: "leadAllocation/assign",
   UPDATE_LEAD_TO_USER: "admin/leadAllocation/assign",
   POST_ADD_MULTIPLE_LEAD_ALLOCATION: "admin/leadAllocation/leads",
+  //policy
+  GET_POLICY_LIST: "admin/policy/list",
+  EDIT_POLICY_DETAILS:"admin/policy/edit/",
+  DELETE_POLICY_DETAILS:"admin/policy/delete/",
+  ADD_POLICY_DETAILS:"admin/policy/add",
 
   //   DASHBOARD
 

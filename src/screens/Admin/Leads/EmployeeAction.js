@@ -162,10 +162,12 @@ function getStepContent(step) {
   
   if(data.length==0)
   { console.log("empty");
-  
+  console.log(history, "----------------------------")
    return <div>
        <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
+         
        <IconButton
+     
           onClick={() => {
             history.push("/admin/leads");
           }}
@@ -176,6 +178,7 @@ function getStepContent(step) {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
+        
         <h3 style={{ color: "#818181" }}>Employee Action </h3>
       </Row>
      <div style={{ display: "block",
@@ -183,8 +186,10 @@ function getStepContent(step) {
    marginRight: "auto",
    marginTop:"10%",
    marginBottom:"auto",
-   width:"50%"}}> 
-   <img style={{ width:"70%",height: "300px" }} src={nodata} /></div>
+   width:"50%",
+   alignItems:"center",
+   justifyContent:"center",}}> 
+   <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
      </div>
   }
   else
