@@ -55,6 +55,7 @@ const ApiUrls = {
   POST_ADD_LEAD_USING_EXCEL_SHEET:"admin/lead/addLeads",
 // filter 
 GET_FILTER_DATA:"admin/lead/getleads",
+GET_LEAD_ALLOCATION_FILTER_DATA:"admin/leadAllocation/filterLeads",
 
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
@@ -66,6 +67,7 @@ GET_FILTER_DATA:"admin/lead/getleads",
   EDIT_POLICY_DETAILS:"admin/policy/edit/",
   DELETE_POLICY_DETAILS:"admin/policy/delete/",
   ADD_POLICY_DETAILS:"admin/policy/add",
+  GET_EMPLOYEE_POLICY_LIST:"employee/policy/list",
 
   //   DASHBOARD
 

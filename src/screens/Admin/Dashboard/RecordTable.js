@@ -349,7 +349,7 @@ export default function RecordTable() {
 
     const [country, setCountry] = useState(item.lead.country_city);
     // const [status, setStatus] = useState("New");
-    const [interest, setInterest] = useState([]);
+    const [interest, setInterest] = useState(item.lead.interest.interset);
 
     const [emailError, setEmailError] = useState(false);
 
@@ -815,7 +815,7 @@ export default function RecordTable() {
                     type="text"
                     defaultValue={
                       item.lead.interest !== null
-                        ? item.lead.interest
+                        ? item.lead.interest.interest
                         : "NO INTEREST"
                     }
                   />

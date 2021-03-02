@@ -240,7 +240,7 @@ export default function FormPopover(props) {
               {/* <DatePick/> */}
               <Col>
                 <Form.Group>
-                  <Form.Label>
+                  {/* <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
                   <Form.Control controlId="Sale Person" as="select"
@@ -254,15 +254,16 @@ export default function FormPopover(props) {
                    }}
                   >
                      <option>{null}</option>
-                    {employees.length > 0
-                      ? employees.map((e) => (
-                          <option style={{color:"#2258BF"}} key={e.id} value={e.id}>
-                            {e.first_name}
-                            {/* {e.first_name + " " + e.last_name} */}
-                          </option>
-                        ))
+                    // {employees.length > 0
+                    //   ? employees.map((e) => (
+                    //       <option style={{color:"#2258BF"}} key={e.id} value={e.id}>
+                    //         {e.first_name}
+                    //         {/* {e.first_name + " " + e.last_name} */}
+                    {/* //       </option> */}
+                        {/* ))
                       : null}
-                  </Form.Control>
+                  </Form.Control> */} 
+                  
                   <Form.Label>
                     <b>Month Wise</b>
                   </Form.Label>

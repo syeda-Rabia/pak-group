@@ -1610,7 +1610,7 @@ const setFilterdata = async () => {
                     {" "}
                     Allocated_To
                   </span>
-                </th>
+                </th> 
 
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>

@@ -118,7 +118,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
   const setFilterdata = async () => {
     setIsLoading(true);
-    let res = await GET(props.searchData.url);
+    let res = await GET(props.searchData.url1);
     console.log("-----", res);
     if (res.error === false) {
       setAllLeadsToAllocate(res.data.leads);

@@ -26,6 +26,8 @@ import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
 import CKEditor from 'ckeditor4-react';
+// import { CKEditor } from '@ckeditor/ckeditor5-react';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import TextArea from "antd/lib/input/TextArea";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -145,7 +147,9 @@ export default function AddPolicies() {
               </div>
               <div>
               <h6>Policy Description</h6>
-              <CKEditor data={description} 
+              <CKEditor 
+              // editor={ ClassicEditor }
+              data={description} 
                onChange={(e) => {
                  console.log(e.target)
                  SetDescription(e.editor.getData());
