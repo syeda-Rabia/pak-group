@@ -112,7 +112,7 @@ export default function FormPopover(props) {
     }
       console.log("------------",url)
       if(props.update!= undefined)
-      props.update(url,true)
+      props.update(url,true);
     // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);             
     // console.log("---------filter response--------------",resp);
     // console.log(resp);
@@ -159,7 +159,7 @@ export default function FormPopover(props) {
                     <b>Project</b>
                   </Form.Label>
                   <Form.Control
-          
+          className="w-100"
                     style={{ overflowY: "scroll" }}
                     controlId="projectName"
                     as="select"
@@ -188,7 +188,7 @@ export default function FormPopover(props) {
                   </Form.Label>
                   
                   <Form.Control
-                  
+                  className="w-100"
                     controlId="date"
                     as="select"
                     defaultValue="Date Wise"
@@ -216,7 +216,7 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <div class="form-control">
+                  <div class="form-control w-100">
                     {/* <YearPicker setDays={setDays}/> */}
                     <YearPicking controlId="year"
                    setDays={setDays}/>
@@ -243,7 +243,7 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
-                  <Form.Control controlId="Sale Person" as="select"
+                  <Form.Control className="w-100" controlId="Sale Person" as="select"
                    value={client}
                    onChange={(e) => {
                      console.log(
@@ -266,7 +266,7 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Month Wise</b>
                   </Form.Label>
-                  <div className="form-control" >
+                  <div className="form-control w-100" >
                   <DatePick  
                    controlId="month"
                    setDays={setDays}
@@ -293,6 +293,7 @@ export default function FormPopover(props) {
                     })}
                   </Form.Control> */}
                   <Form.Control
+                  className="w-100"
                   style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
                     controlId="year"
                     as="button"

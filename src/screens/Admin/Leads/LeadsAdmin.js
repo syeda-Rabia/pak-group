@@ -11,7 +11,8 @@ import {
   faPlusSquare,
   faPlay,
   faPause,
-  faStop,
+  faCross,
+  faRedo,
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -99,6 +100,7 @@ export default function LeadsAdmin(props) {
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
+  const [showReset, setshowReset] = useState(false);
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
 
@@ -113,7 +115,8 @@ export default function LeadsAdmin(props) {
   }, [refresh]);
   useEffect(() => {
   
-  if(props.searchData.search==true) setFilterdata()
+  if(props.searchData.search==true) {setFilterdata();}
+  // else setshowReset(false)
   }, [props.searchData.search]);
 
   const FetchInterestData = async () => {
@@ -128,7 +131,7 @@ export default function LeadsAdmin(props) {
 
   const getAllLeadsData = async () => {
     //  ;
-
+    setIsLoading(true);
     let resp = await GET(ApiUrls.GET_ALL_LEADS);
 
     if (resp.data != null) {
@@ -142,7 +145,7 @@ console.log("**********************************leads----------------------------
   };
 const setFilterdata = async () => {
  
-
+  setshowReset(true);
   setIsLoading(true);
   let res = await GET(props.searchData.url);
   console.log("response ---------------", res);
@@ -151,8 +154,10 @@ const setFilterdata = async () => {
     setMessage("Lead find Successfully");
     setShowSuccessAlert(true);
   } else {
+
     setMessage("Lead Not found");
     setShowErrorAlert(true);
+    setshowReset(false);
   }
 
   setIsLoading(false);
@@ -741,6 +746,7 @@ const setFilterdata = async () => {
                       defaultValue={
                         item.interest !== null ? item.interest.id : null
                       }
+                   
                       onChange={(e) => {
                         console.log(
                           "selected Inventriry is ---- ",
@@ -1475,8 +1481,22 @@ const setFilterdata = async () => {
           <h3 style={{ color: "#818181" }}>
             Leads<sub>(Admin)</sub>
           </h3>
-        </Col>
 
+        </Col>  
+        {/* {setReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn" 
+            onClick={() => {
+              getAllLeadsData();
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+        ):null} */}
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
             <LeadsMobileViewSidebar  update={props.update} />
@@ -1497,7 +1517,7 @@ const setFilterdata = async () => {
         closeError={setShowErrorAlert}
       />
 
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4">
         <Row className=" pl-2 md-5">
           <div className=" pl-2 ">
            
@@ -1527,7 +1547,26 @@ const setFilterdata = async () => {
             }}
           >
             <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
-          </button>{" "}
+          </button>
+          {showReset==true?(
+
+          
+          <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              getAllLeadsData();
+             
+              setshowReset(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+          ):null}
         </Row>
         <div className="table-responsive">
           <table className="table table-hover" style={{ minHeight: "200px" }}>

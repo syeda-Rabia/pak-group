@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -11,10 +11,15 @@ import Typography from "@material-ui/core/Typography";
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import EmployeeLeads from "../../Employe/Leads/EmployeeLeads";
-// import nodata from "./../../../assests/nodata.png";
-import nodata from "./../../../assests/preview.gif";
-
-
+import nodata from "./../../../assests/nodata.png";
+// import nodata from "./../../../assests/preview.gif";
+import {
+  Tooltip,
+  IconButton,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {useHistory } from "react-router-dom";
+// const history = useHistory();
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -99,6 +104,7 @@ function StepperUI({ label, content,length,index, data }) {
     </>
   );
 }
+
 export default function VerticalLinearStepper(props) {
   const [data, setData] = React.useState([]);
 const [isLoading, setIsLoading] = React.useState(false);
@@ -112,7 +118,7 @@ React.useEffect(() => {
 // React.useEffect(() => {
 //   handleFetchData();
 // }, []);
-
+const history = useHistory();
 const handleFetchData = async () => {
 
  
@@ -159,16 +165,27 @@ function getStepContent(step) {
   { console.log("empty");
   
    return <div>
-       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
-        <h3 style={{ color: "#818181" }}>Admin Action on This Lead</h3>
-      </div>
+       <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
+       <IconButton
+          onClick={() => {
+            history.push("/employee/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
+        <h3 style={{ color: "#818181" }}>Admin Action</h3>
+      </Row>
      <div style={{ display: "block",
    marginLeft: "auto",
    marginRight: "auto",
    marginTop:"10%",
    marginBottom:"auto",
    width:"50%"}}> 
-   <img style={{ width:"70%",height: "300px" }} src={nodata} /></div>
+   <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
      </div>
   }
   else
@@ -177,10 +194,21 @@ function getStepContent(step) {
 
     <div className={classes.root}>
      
-       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
+       <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
+       <IconButton
+          onClick={() => {
+            history.push("/employee/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
         <h3 style={{ color: "#818181" }}>Admin Action </h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
-      </div>
+      </Row>
       {
         data.map((val)=>{
           return (<div style={{marginBottom:"40px",backgroundColor:"gray"}}>

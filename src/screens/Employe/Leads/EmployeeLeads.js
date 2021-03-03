@@ -18,6 +18,8 @@ import ApiUrls from "./../../../utils/ApiUrls";
 import { server_url } from "./../../../utils/Config";
 import { publicURL } from "./../../../utils/Config";
 
+
+
 import {
   Box,
   TextField,
@@ -86,6 +88,7 @@ function EmployeeLeads(props, lead_id) {
   const [value, setValue] = React.useState("");
   const [showModalAction, setShowModalAction] = React.useState(true);
   const [alertmessage, setAlertMessage] = React.useState("");
+  const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [postData, setPostData] = React.useState({});
@@ -630,9 +633,12 @@ function EmployeeLeads(props, lead_id) {
         action: action,
       });
       console.log(actionresp);
-      if (actionresp.error === false) {
-        alert("lead updated successfully");
-        // setShowAlert(true);
+      if (actionresp.error === false)  {
+        setMessage("Lead updated Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
       }
       if (actionresp.error.hasOwnProperty("allocated_to")) {
         alert("Action Field is required");
@@ -652,7 +658,14 @@ function EmployeeLeads(props, lead_id) {
       console.log('form data is recordingFile ------------>',recordingFile);
       console.log('form data - recordingFile ------------>',formData.recording_file);
   
-      let resp = await POST(ApiUrls.ADD_RECORDING, formData);             
+      let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+      if (resp.error === false) {
+        setMessage("Recording submitted Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
       console.log("---------recording--------------",resp);
       console.log(resp);
       // for (var value of formData.values()) {

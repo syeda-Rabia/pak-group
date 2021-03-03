@@ -5,6 +5,12 @@ import React, { useEffect, useState } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+ 
+  faRedo,
+  
+} from "@fortawesome/free-solid-svg-icons";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
   KeyboardDatePickerExample,
@@ -35,6 +41,7 @@ export default function LeadsAllocatonAndAddition(props) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
+  const [showReset, setshowReset] = useState(false);
   var today = new Date();
   var datee = formatDate(today, "-");
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -99,7 +106,7 @@ export default function LeadsAllocatonAndAddition(props) {
     getAllLeads();
     getAllEmployees();
   }, [refresh]);
-
+  console.log(props.searchData,"LET SEE")
   const getAllLeads = async () => {
     setIsLoading(true);
 
@@ -113,12 +120,14 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(false);
   };
   useEffect(() => {
-    if (props.searchData.search == true) setFilterdata();
+    if (props.searchData.search == true) {setFilterdata();}
   }, [props.searchData.search]);
 
   const setFilterdata = async () => {
-    setIsLoading(true);
-    let res = await GET(props.searchData.url1);
+    setshowReset(true);
+    setIsLoading(true); 
+    console.log("HELLO FRANDS");
+    let res = await GET(props.searchData.url);
     console.log("-----", res);
     if (res.error === false) {
       setAllLeadsToAllocate(res.data.leads);
@@ -127,6 +136,7 @@ export default function LeadsAllocatonAndAddition(props) {
     } else {
       setMessage("Lead Not found");
       setShowErrorAlert(true);
+      setshowReset(false);
     }
    
     setIsLoading(false);
@@ -263,11 +273,12 @@ export default function LeadsAllocatonAndAddition(props) {
             ? item.returned_allocations[0].returned_from.first_name
             : "------"}
         </td> */}
- <td>
-          {item.previous_emp.length > 0
+ {/* <td>
+          {item?.previous_emp.length > 0
             ? item.previous_emp[0].returned?.first_name
             : "------"}
-        </td>
+        </td> */}
+        <td>{"------"}</td>
         <td>
           <Select
             className="form-control form-control-sm w-100"
@@ -387,7 +398,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
-            <SwipeableTemporaryDrawer />
+            <SwipeableTemporaryDrawer update={props.update}/>
           </div>
         </Col>
       </Row>
@@ -472,6 +483,22 @@ export default function LeadsAllocatonAndAddition(props) {
       ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              getAllLeads();
+              setshowReset(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
           <div className="table-responsive">
             <table className="table table-hover" style={{ minHeight: "200px" }}>
               <thead>

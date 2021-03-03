@@ -159,7 +159,7 @@ export default function FormPopover(props) {
                     <b>Project</b>
                   </Form.Label>
                   <Form.Control
-          
+          className="w-100"
                     style={{ overflowY: "scroll" }}
                     controlId="projectName"
                     as="select"
@@ -188,7 +188,7 @@ export default function FormPopover(props) {
                   </Form.Label>
                   
                   <Form.Control
-                  
+                  className="w-100"
                     controlId="date"
                     as="select"
                     defaultValue="Date Wise"
@@ -216,7 +216,7 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <div class="form-control">
+                  <div class="form-control w-100">
                     {/* <YearPicker setDays={setDays}/> */}
                     <YearPicking controlId="year"
                    setDays={setDays}/>
@@ -267,7 +267,7 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Month Wise</b>
                   </Form.Label>
-                  <div className="form-control" >
+                  <div className="form-control w-100" >
                   <DatePick  
                    controlId="month"
                    setDays={setDays}
@@ -294,6 +294,7 @@ export default function FormPopover(props) {
                     })}
                   </Form.Control> */}
                   <Form.Control
+                  className="w-100"
                   style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
                     controlId="year"
                     as="button"

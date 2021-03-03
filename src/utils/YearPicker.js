@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
  function DatePick({setDays}) {
   const [startDate, setStartDate] = useState("");
   const months=['JAN','FEB','MAR','APR',"MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-  return <DatePicker  className="zIndex-5 border border-none "
+  return <DatePicker  className="border-0"
   style={{border:"1px solid white"}}
   
   value={startDate}
@@ -74,7 +74,7 @@ export function YearPicking({setDays}) {
 // />;
 const [startDate, setStartDate] = useState("");
 return (
-  <DatePicker className="zIndex-5 border border-none "
+  <DatePicker className="border-0"
   style={{border:"1px solid white"}}
     selected={startDate}
     value={startDate}
