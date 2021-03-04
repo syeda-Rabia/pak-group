@@ -1,7 +1,7 @@
 import "./../Leads/LeadsAdmin.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt,faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faEye } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -16,18 +16,16 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
-import {  useHistory, Redirect, Route } from "react-router-dom";
+import { Tooltip, IconButton } from "@material-ui/core";
+import { useHistory, Redirect, Route } from "react-router-dom";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
-import CKEditor from 'ckeditor4-react';
-// import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import TextEditor from "../../../components/editor/TextEditor";
+
+
 import TextArea from "antd/lib/input/TextArea";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -46,7 +44,7 @@ export default function AddPolicies() {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
-  const [showView, setShowView]= useState(false);
+  const [showView, setShowView] = useState(false);
   const [data, setData] = useState([]);
   // const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
@@ -72,29 +70,29 @@ export default function AddPolicies() {
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     // const [interest, SetInterest] = useState("");
-    const [title, SetTitle]=useState("");
-    const [description, SetDescription]=useState("");
+    const [title, SetTitle] = useState("");
+    const [description, SetDescription] = useState("");
 
     const addData = async (event) => {
       event.preventDefault();
-    //   let postData = {
-    //     id: "1",
-    //     title: title,
-    //     body: description, 
-      
-    //   };
+      //   let postData = {
+      //     id: "1",
+      //     title: title,
+      //     body: description,
 
-    //   let arr = data;
-    //   arr.push(postData);
-    //   setData(arr);
-    //   setShowAdd(false);
-    // };
+      //   };
+
+      //   let arr = data;
+      //   arr.push(postData);
+      //   setData(arr);
+      //   setShowAdd(false);
+      // };
 
       //api
       //*--------------------------------------
       let postData = {
         title: title,
-        body: description, 
+        body: description,
       };
       let res = await POST(ApiUrls.ADD_POLICY_DETAILS, postData);
       console.log("post request", res);
@@ -109,8 +107,8 @@ export default function AddPolicies() {
 
       setShowAdd(false);
     };
-   
-//*-------------------------------------------------------
+
+    //*-------------------------------------------------------
     return (
       <Modal
         show={showAdd}
@@ -146,17 +144,9 @@ export default function AddPolicies() {
                 />
               </div>
               <div>
-              <h6>Policy Description</h6>
-              <CKEditor 
-              // editor={ ClassicEditor }
-              data={description} 
-               onChange={(e) => {
-                 console.log(e.target)
-                 SetDescription(e.editor.getData());
-                // SetDescription(e.target.value);
-              }}
-            
-              />
+                <h6>Policy Description</h6>
+             
+                <TextEditor SetDescription={SetDescription} />
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -185,8 +175,8 @@ export default function AddPolicies() {
   const ModalEdit = ({ item }) => {
     //  ;
     // const [interest, SetInterest] = useState(item.interest);
-    const [title, SetTitle]=useState(item.title);
-    const [description, SetDescription]=useState(item.body);
+    const [title, SetTitle] = useState(item.title);
+    const [description, SetDescription] = useState(item.body);
     const EditRecordToServer = async (event) => {
       event.preventDefault();
 
@@ -194,8 +184,8 @@ export default function AddPolicies() {
       // push
 
       let policy = {
-       id:item.id,
-        title:title,
+        id: item.id,
+        title: title,
         body: description,
       };
       let res = await POST(ApiUrls.EDIT_POLICY_DETAILS, policy);
@@ -246,14 +236,17 @@ export default function AddPolicies() {
                   />
                 </div>
                 <div>
-                    <h6>policy Description</h6>
-                    <CKEditor data={description}
-                    
-                     onChange={(e) => {
-                       console.log(e.editor.getData())
+                  <h6>policy Description</h6>
+                  {/* <CKEditor
+                    data={description}
+                    onChange={(e) => {
+                      console.log(e.editor.getData());
                       SetDescription(e.editor.getData());
                     }}
-                     />
+                  /> */}
+                   <TextEditor 
+                   value={description}
+                   SetDescription={SetDescription} />
                 </div>
               </form>
             </Modal.Body>
@@ -273,12 +266,14 @@ export default function AddPolicies() {
                 onClick={(e) => {
                   setShowEdit(false);
                   EditRecordToServer(e);
-                  setData(state=>state.map((val)=>{
-                    if(val.id==item.id){
-                      val.Description=description;
-                    }
-                    return val
-                  }))
+                  setData((state) =>
+                    state.map((val) => {
+                      if (val.id == item.id) {
+                        val.Description = description;
+                      }
+                      return val;
+                    })
+                  );
                 }}
               >
                 Edit
@@ -301,9 +296,7 @@ export default function AddPolicies() {
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
-          <Modal.Title style={{ color: "#818181" }}>
-            View policy
-          </Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>View policy</Modal.Title>
         </Modal.Header>
         <div className="col-lg-12 shadow   bg-white rounded ">
           <form>
@@ -314,9 +307,14 @@ export default function AddPolicies() {
                   <input className="form-control  w-100" value={item.title} />
                 </div>
                 <h6>Policy Description</h6>
-                <div className="pb-3 border border-black" style={{backgroundColor:"#F2F4F5"}}>
-                 
-                  <div  className="p-3" dangerouslySetInnerHTML={{__html: item.body}} />
+                <div
+                  className="pb-3 border border-black"
+                  // style={{ backgroundColor: "#F2F4F5" }}
+                >
+                  <div
+                    className="p-3"
+                    dangerouslySetInnerHTML={{ __html: item.body }}
+                  />
                   {/* <TextArea
                   dangerouslySetInnerHTML={{__html:item.Description}}
                     className="form-control w-100 "
@@ -325,7 +323,6 @@ export default function AddPolicies() {
                   {/* <CKEditor data={item.Description} 
                /> */}
                 </div>
-                
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -344,10 +341,8 @@ export default function AddPolicies() {
     );
   };
 
- 
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-     
       let res = await GET(ApiUrls.DELETE_POLICY_DETAILS + item.id);
       setShowDelete(false);
 
@@ -401,9 +396,8 @@ export default function AddPolicies() {
     //  ;
     return (
       <tr>
-        
-        <td >{index+1}</td>
-        <td >{item.title}</td>
+        <td>{index + 1}</td>
+        <td>{item.title}</td>
         <td>
           <div
             className="d-flex d-inline "
@@ -411,7 +405,7 @@ export default function AddPolicies() {
               justifyContent: "center",
             }}
           >
-                <button
+            <button
               data-tip
               data-for="ViewTip"
               type="button"
@@ -422,7 +416,7 @@ export default function AddPolicies() {
               }}
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
-            </button> 
+            </button>
             <ReactTooltip id="ViewTip" place="top" effect="solid">
               View Details
             </ReactTooltip>
@@ -475,8 +469,8 @@ export default function AddPolicies() {
         message={message}
         closeError={setShowErrorAlert}
       />
-      
-        <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
         {/* <IconButton
           onClick={() => {
             history.push("/admin/leads");
@@ -491,66 +485,64 @@ export default function AddPolicies() {
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Policies</h3>
         </Col>
-        </Row>
-     
-      
-        <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
-          <button
-            data-tip
-            data-for="AddTip"
-            type="button"
-            className="btn btn-primary "
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-            onClick={() => {
-              setShowAdd(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlusSquare} />Add Policies
-          </button>
-          <ReactTooltip id="AddTip" place="top" effect="solid">
-            Add new interest
-          </ReactTooltip>
+      </Row>
 
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    ID
-                  </th>
+      <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
+        <button
+          data-tip
+          data-for="AddTip"
+          type="button"
+          className="btn btn-primary "
+          style={{
+            backgroundColor: "#2258BF",
+          }}
+          onClick={() => {
+            setShowAdd(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} />
+          Add Policies
+        </button>
+        <ReactTooltip id="AddTip" place="top" effect="solid">
+          Add new interest
+        </ReactTooltip>
 
-                  <th scope="col" style={{ color: "#818181" }}>
-                Title
-                  </th>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                {/* {data
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col" style={{ color: "#818181" }}>
+                  ID
+                </th>
+
+                <th scope="col" style={{ color: "#818181" }}>
+                  Title
+                </th>
+                <th scope="col" style={{ color: "#818181" }}>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {data
                  
                   .map((item, index) => {
                     return <Table item={item} index={index} />;
                   })} */}
-                  {data.map((item, index) => {
-                  return <Table index={index} item={item} />;
-                })}
-              </tbody>
-              {data.length > 0 ? (
-                <>
-                  <ModalDelete item={data[selectedID]} />
-                  <ModalEdit item={data[selectedID]} />
-                  <ModalView  item={data[selectedID]} />
-                </>
-              ) : null}
-            </table>
-            <ModalAdd />
-          </div>
-        
+              {data.map((item, index) => {
+                return <Table index={index} item={item} />;
+              })}
+            </tbody>
+            {data.length > 0 ? (
+              <>
+                <ModalDelete item={data[selectedID]} />
+                <ModalEdit item={data[selectedID]} />
+                <ModalView item={data[selectedID]} />
+              </>
+            ) : null}
+          </table>
+          <ModalAdd />
+        </div>
       </Row>
     </Container>
   );

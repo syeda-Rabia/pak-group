@@ -23,7 +23,7 @@ import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
-
+import TextEditor from "../../../components/editor/TextEditor";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -89,7 +89,7 @@ export default function AddPolicies() {
                   <input className="form-control  w-100" value={item.title} />
                 </div>
                 <h6>Policy Description</h6>
-                <div className="pb-3 border border-black" style={{backgroundColor:"#F2F4F5"}}>
+                <div className="pb-3 border border-black" >
                  
                   <div  className="p-3" dangerouslySetInnerHTML={{__html: item.body}} />
                   {/* <TextArea

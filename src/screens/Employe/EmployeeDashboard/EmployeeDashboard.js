@@ -27,7 +27,7 @@ class EmployeeDashboard extends Component {
           <Row className="mb-2 mt-2">
             <Col
               xl={6}
-              lg={6}
+              lg={5}
               sm={12}
               xs={12}
               className="mt-2 pt-3"
@@ -162,7 +162,7 @@ class EmployeeDashboard extends Component {
           <Row className="mb-2 mt-2">
             <Col
               xl={6}
-              lg={6}
+              lg={5}
               sm={12}
               xs={12}
               className="mt-2 pt-3"

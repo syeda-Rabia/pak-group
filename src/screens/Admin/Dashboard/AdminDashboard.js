@@ -12,7 +12,7 @@ function AdminDashboard() {
     <Container fluid>
       {/* Ist Row */}
       <Container fluid>
-        <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Row className="shadow mb-3 bg-white rounded mt-4 ">
           <Col lg={10} sm={10} xs={10} xl={11}>
             <h4 style={{ color: "#818181" }}>Admin Dashboard</h4>
           </Col>

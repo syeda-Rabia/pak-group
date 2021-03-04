@@ -378,7 +378,7 @@ const setFilterdata = async () => {
                   </div>
                   <div className="pb-3">
                     <h6>Time of Call</h6>
-                    <div className="form-control">
+                    <div className="form-control w-100">
                       <KeyboardTimePickerExample
                         value={today}
                         showTime={HandleTimeValue}
