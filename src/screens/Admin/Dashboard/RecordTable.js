@@ -117,7 +117,21 @@ export default function RecordTable() {
   React.useEffect(() => {
     handleFetchRequest();
   }, []);
+  useEffect(() => {
+    // setIsLoading(true);
+    // getAllLeadsData();
+    FetchInterestData();
+  }, [refresh]);
 
+  const FetchInterestData = async () => {
+    setIsLoading(true);
+    let res = await GET(ApiUrls.GET_ALL_INTEREST);
+    console.log("-----", res);
+    if (res.success != false) {
+      setInterestList(res.data.Interest);
+    }
+    setIsLoading(false);
+  };
   //  ;
   //  ;
   const handleShow = (pageCount) => {
@@ -403,7 +417,7 @@ export default function RecordTable() {
 
       // send data to server
       let formData = {
-        id: item.id,
+        id: item.lead.id,
         client_name: client,
         contact: contact,
         source: selectedSource,
@@ -417,7 +431,7 @@ export default function RecordTable() {
       };
 
       let resp = await POST(ApiUrls.EDIT_LEAD, formData);
-      console.log(resp,"response--------------------------------------");
+      console.log(resp,"response--------------------------------------",formData,);
 
       if (resp.error === false) {
         setMessage("Lead Edited Successfully");
@@ -893,7 +907,7 @@ export default function RecordTable() {
   const ModalDelete = ({ item }) => {
     console.log(item);
     const DeleteRecordFromData = async () => {
-      let res = await GET(ApiUrls.DELETE_LEAD + item.id);
+      let res = await GET(ApiUrls.DELETE_LEAD + item.lead.id);
       console.log("error response",res);
       if (res.error === false) {
         setMessage("Lead Deleted Successfully");
@@ -902,7 +916,7 @@ export default function RecordTable() {
         setMessage("Lead Not Deleted");
         setShowErrorAlert(true);
       }
-      console.log(res);
+     
       setRefresh(!refresh);
     };
     return (

@@ -113,11 +113,20 @@ const NewApp = (props) => {
           <AdminProjectListScreen />
         </Route> */}
         {/* <Route path="/admin/dashboard"> */}
-
-        <Route path="/" exact>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <>
+              <HeaderNavBar />
+               <AdminDashboardScreen {...props}/>
+            </>
+          )}
+        />
+        {/* <Route path="/" exact>
           <HeaderNavBar />
           <AdminDashboardScreen />
-        </Route>
+        </Route> */}
         <Route
           exact
           path="/admin/leadsallocation"

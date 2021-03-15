@@ -77,6 +77,27 @@ select.form-control.form-control-sm {
 
 /* border-top: none; */
 /* } */
+.floatingbtn{
+  position: fixed;
+  bottom: 85px;
+  right: 30px;
+}
+@media only screen and (max-width: 600px) {
+  
+  .floatingbtn{
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+  }
+}
+@media only screen and (max-width: 375px) {
+ 
+  .floatingbtn{
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+  }
+}
 #sn {
   margin-left: 50px;
   margin-right: 50px;

@@ -1,7 +1,7 @@
 import "./LeadsAllocatonAndAddition.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
@@ -11,6 +11,8 @@ import {
   faRedo,
   
 } from "@fortawesome/free-solid-svg-icons";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import {
   KeyboardDatePickerExample,
@@ -25,13 +27,14 @@ import {
   Snackbar,
   Select,
   Chip,
+  Fab,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 import { Label } from "@material-ui/icons";
 import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
-
+import Pagination from "../../../components/Pagination/Pagination";
 export default function LeadsAllocatonAndAddition(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
@@ -52,6 +55,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
   const [select, setSelect] = React.useState([]);
   const [task, setTask] = useState("");
+  const ref = useRef(null);
   const HandleName = (id) => {
     if (!select.includes(id)) setSelect((state) => [...state, id]);
     else setSelect((state) => state.filter((item) => item != id));
@@ -66,7 +70,33 @@ export default function LeadsAllocatonAndAddition(props) {
     setDate(formatDate(value, "-"));
     console.log(formatDate(value, "-"));
   };
+  //pagination 
+  const [pageSize, setPageSize] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(null);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [totalRecord, setTotalRecord] = React.useState(null);
 
+  const lastIndex = currentPage * pageSize;
+  const istIndex = lastIndex - pageSize;
+
+  const handlePageChange = async (page) => {
+    /*
+     Api Call
+     
+     */
+    setIsLoading(true);
+    let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page);
+
+    if (resp.data != null) {
+      setCurrentPage(resp.data.leads.current_page);
+      setAllLeadsToAllocate(resp.data.leads.data);
+    }
+    setIsLoading(false);
+  };
+
+  const handleShow = (pageCount) => {
+    setPageCount(pageCount);
+  };
   // var timee =
   //   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
@@ -97,7 +127,7 @@ export default function LeadsAllocatonAndAddition(props) {
   }));
   const handleClose = () => {
     setShowSuccessAlert(false);
-    setShowErrorAlert(false);
+    setShowErrorAlert(false); 
   };
 
   const classes = useStyles();
@@ -114,15 +144,24 @@ export default function LeadsAllocatonAndAddition(props) {
     console.log("response--------allocation--------",resp);
 
     if (resp.data != null) {
-      // console.trace(JSON.stringify(resp));
-      setAllLeadsToAllocate(resp.data.leads);
+      console.trace("lead allocation",resp);
+      setAllLeadsToAllocate(resp.data.leads.data);
+      
+      setPageSize(resp.data.leads.per_page);
+      setTotalRecord(resp.data.leads.total);
+      setCurrentPage(resp.data.leads.current_page);
     }
     setIsLoading(false);
   };
+
   useEffect(() => {
     if (props.searchData.search == true) {setFilterdata();}
   }, [props.searchData.search]);
-
+  
+  
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
   const setFilterdata = async () => {
     setshowReset(true);
     setIsLoading(true); 
@@ -483,6 +522,27 @@ export default function LeadsAllocatonAndAddition(props) {
       ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between"}}>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(-50)}
+              color="primary"
+              aria-label="left"
+              style={{inlineSize:"34px",blockSize:"26px"}}
+            >
+              <ChevronLeftIcon />
+            </Fab>
+            <Fab
+              className={classes.fab}
+              
+              onClick={() => scroll(50)}
+              color="primary"
+              aria-label="right"
+              style={{inlineSize:"34px",blockSize:"26px"}}
+            >
+              <ChevronRightIcon />
+            </Fab>
+          </div>
         {showReset==true?(
         <button
             type="button"
@@ -499,7 +559,8 @@ export default function LeadsAllocatonAndAddition(props) {
             <FontAwesomeIcon icon={faRedo} /> reverse filter
           </button>
            ):null} 
-          <div className="table-responsive">
+            
+          <div className="table-responsive"  ref={ref}>
             <table className="table table-hover" style={{ minHeight: "200px" }}>
               <thead>
                 <tr>
@@ -615,6 +676,15 @@ export default function LeadsAllocatonAndAddition(props) {
             </table>
           </div>
         </div>
+        <Col>
+          <Pagination
+            itemsCount={totalRecord}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            show={handleShow}
+          />
+        </Col>
       </Row>
     </Container>
   );

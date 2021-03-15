@@ -41,7 +41,8 @@ function getSteps() {
   return ["Action Type", "Select Option", "What Next", "Action"];
 }
 
-
+console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
+  let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
 
 function StepperUI({ label, content,length,index, data }) {
  
@@ -109,6 +110,9 @@ export default function VerticalLinearStepper(props) {
 const [isLoading, setIsLoading] = React.useState(false);
 console.log(props)
 const leadID=props.location.query;
+
+console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
+  let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
 React.useEffect(() => {
   setIsLoading(true);
   if (leadID.item.id != undefined) handleFetchData();
@@ -169,7 +173,13 @@ function getStepContent(step) {
        <IconButton
      
           onClick={() => {
-            history.push("/admin/leads");
+            if(endpoint=="leads"){
+              history.push("/admin/leads");
+             }
+             if(endpoint==""){
+              history.push("/");
+             }
+            
           }}
           aria-label="delete"
           color="primary"

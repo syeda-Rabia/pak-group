@@ -11,15 +11,15 @@ import {
   faPlusSquare,
   faPlay,
   faPause,
-  faCross,
-  faRedo,
+  faStop,
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
-
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import sample from "./../../../assests/sample.mp3";
 import sample2 from "./../../../assests/sample2.mp3";
 import { Modal } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { LeadsData } from "./../../../assests/constants/Leadsadmindata";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -44,6 +44,7 @@ import {
   Snackbar,
   Slide,
   Chip,
+  Fab,
 } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 
@@ -56,6 +57,8 @@ import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
+import Pagination from "../../../components/Pagination/Pagination";
+
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
@@ -80,6 +83,10 @@ const useStyles = makeStyles((theme) => ({
   chipLabelColor: {
     color: "black",
   },
+  fab: {
+    backgroundColor: "rgb(34, 88, 191)",
+    marginRight: "15px",
+  },
 }));
 
 export default function LeadsAdmin(props) {
@@ -87,8 +94,8 @@ export default function LeadsAdmin(props) {
 
   const [showAdd, setShowAdd] = useState(false);
 
-  const audioTune = new Audio(sample);
-  const audioTune2 = new Audio(sample2);
+  // const audioTune = new Audio(sample);
+  // const audioTune2 = new Audio(sample2);
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [interestList, setInterestList] = useState([]);
@@ -100,23 +107,55 @@ export default function LeadsAdmin(props) {
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
-  const [showReset, setshowReset] = useState(false);
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
+  const ref = useRef(null);
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
   const classes = useStyles();
-  console.log("props",props);
+
+  /*  Pagination data  */
+
+  const [pageSize, setPageSize] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(null);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [totalRecord, setTotalRecord] = React.useState(null);
+
+  const lastIndex = currentPage * pageSize;
+  const istIndex = lastIndex - pageSize;
+
+  // const [page, setPage] = React.useState(2);
+  const handlePageChange = async (page) => {
+    /*
+     Api Call
+     
+     */
+    setIsLoading(true);
+    let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION + page);
+
+    if (resp.data != null) {
+      setCurrentPage(resp.data.leads.current_page);
+      setAllLeads(resp.data.leads.data);
+    }
+    setIsLoading(false);
+  };
+
+  const handleShow = (pageCount) => {
+    setPageCount(pageCount);
+  };
+
+  /*  Pagination data  */
+
+  console.log("props", props);
   useEffect(() => {
     // setIsLoading(true);
     getAllLeadsData();
     FetchInterestData();
   }, [refresh]);
+
   useEffect(() => {
-  
-  if(props.searchData.search==true) {setFilterdata();}
-  // else setshowReset(false)
+    if (props.searchData.search == true) setFilterdata();
   }, [props.searchData.search]);
 
   const FetchInterestData = async () => {
@@ -131,37 +170,34 @@ export default function LeadsAdmin(props) {
 
   const getAllLeadsData = async () => {
     //  ;
-    setIsLoading(true);
-    let resp = await GET(ApiUrls.GET_ALL_LEADS);
+
+    let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION);
 
     if (resp.data != null) {
-      setAllLeads(resp.data.leads);
+      setAllLeads(resp.data.leads.data);
+
+      setPageSize(resp.data.leads.per_page);
+      setTotalRecord(resp.data.leads.total);
+      setCurrentPage(resp.data.leads.current_page);
     }
-console.log("**********************************leads-----------------------------",resp)
+    console.log("leads", resp.data.leads);
     setIsLoading(false);
 
     //  ;
     //  ;
   };
-const setFilterdata = async () => {
- 
-  setshowReset(true);
-  setIsLoading(true);
-  let res = await GET(props.searchData.url);
-  console.log("response ---------------", res);
-  if (res.error === false) {
-    setAllLeads(res.data.leads);
-    setMessage("Lead find Successfully");
-    setShowSuccessAlert(true);
-  } else {
-
-    setMessage("Lead Not found");
-    setShowErrorAlert(true);
-    setshowReset(false);
-  }
-
-  setIsLoading(false);
-};
+  const setFilterdata = async () => {
+    setIsLoading(true);
+    let res = await GET(props.searchData.url);
+    console.log("-----", res);
+    if (res.success != false) {
+      setAllLeads(res.data.leads);
+    }
+    setIsLoading(false);
+  };
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
 
   const currencyFormat = (num) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "PKR";
@@ -378,7 +414,7 @@ const setFilterdata = async () => {
                   </div>
                   <div className="pb-3">
                     <h6>Time of Call</h6>
-                    <div className="form-control w-100">
+                    <div className="form-control">
                       <KeyboardTimePickerExample
                         value={today}
                         showTime={HandleTimeValue}
@@ -746,7 +782,6 @@ const setFilterdata = async () => {
                       defaultValue={
                         item.interest !== null ? item.interest.id : null
                       }
-                   
                       onChange={(e) => {
                         console.log(
                           "selected Inventriry is ---- ",
@@ -842,7 +877,7 @@ const setFilterdata = async () => {
       </Modal>
     );
   };
-  console.log(recordings,"Recording")
+  console.log(recordings, "Recording");
   const HandleAudioModule = ({
     recording,
     setActiveAudio,
@@ -851,14 +886,14 @@ const setFilterdata = async () => {
     item,
   }) => {
     // console.log(recording,"Recording Audio")
-    const [audioTune, setAudioTune] = useState((recording));
+    const [audioTune, setAudioTune] = useState(recording);
     // const [playAudio,setPlayAudio]=useState(false)
     if (index != activeAudio.index) audioTune.pause();
     useEffect(() => {
       //  setAudioTune( new Audio(recording));
       audioTune.load();
     }, []);
-   
+
     const playSound = () => {
       audioTune.play();
       // setPlayAudio(true)
@@ -946,12 +981,14 @@ const setFilterdata = async () => {
       </Card>
     );
   };
-  useEffect(()=>{
-    setRecordings(state=>state.map((item)=>{
+  useEffect(() => {
+    setRecordings((state) =>
+      state.map((item) => {
         item.audio.pause();
-      return item;
-    }))
-  },[setPlay])
+        return item;
+      })
+    );
+  }, [setPlay]);
   const ModalPlay = ({ item }) => {
     const [activeAudio, setActiveAudio] = useState({
       index: 0,
@@ -1245,7 +1282,7 @@ const setFilterdata = async () => {
   };
 
   const ModalDelete = ({ item }) => {
-    console.log(item);
+    // console.log(item);
     const DeleteRecordFromData = async () => {
       let res = await GET(ApiUrls.DELETE_LEAD + item.id);
       if (res.error === false) {
@@ -1298,11 +1335,11 @@ const setFilterdata = async () => {
     let country_city = "country/city";
     return (
       <tr>
-        <td id="sn" >{index + 1}</td>
-        <td >{item.client_name}</td>
+        <td>{index + 1}</td>
+        <td>{item.client_name}</td>
         <td>{item.contact}</td>
-        
-        <td>{item.email != null ? item.email : "-------"}</td>
+        <td>{item.email}</td>
+
         <td>{item.project.name}</td>
         <td>{item.budget}</td>
 
@@ -1363,23 +1400,22 @@ const setFilterdata = async () => {
         <td>{item.Deadline}</td> */}
         <td>
           <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
-          <button
+            <button
               data-tip
-              data-for="abc"
-              type="button "
+              data-for="action"
+              type="button"
               className="bg-transparent  button-focus mr-2"
               // onClick={() => {
-              //   setShowEdit(true);
-              //   setSelectedID(index);
+              //   // setShowView(true);
+              //   // setSelectedID(index);
               // }}
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-            </Link>
-            <ReactTooltip id="abc" place="top" effect="float">
-              View Employee Action
-            </ReactTooltip>
-            
+          </Link>
+          <ReactTooltip id="action" place="top" effect="solid">
+            View Employee Action
+          </ReactTooltip>
         </td>
 
         <td>
@@ -1393,7 +1429,14 @@ const setFilterdata = async () => {
                 onClick={() => {
                   // isLoading(true);
                   // let arr=[sample,sample,sample];
-                  setRecordings(item.recordings.map((item)=>{return {audio:(new Audio(publicURL + item.recording_file)),item:item}}));
+                  setRecordings(
+                    item.recordings.map((item) => {
+                      return {
+                        audio: new Audio(publicURL + item.recording_file),
+                        item: item,
+                      };
+                    })
+                  );
                   setShowPlay(true);
                   setSelectedID(index);
                 }}
@@ -1458,7 +1501,7 @@ const setFilterdata = async () => {
               data-tip
               data-for="DeleteTip"
               type="button"
-              className="bg-transparent  button-focus mr-2"
+              className="bg-transparent  button-focus ml-2"
               onClick={() => {
                 setShowDelete(true);
                 setSelectedID(index);
@@ -1481,25 +1524,11 @@ const setFilterdata = async () => {
           <h3 style={{ color: "#818181" }}>
             Leads<sub>(Admin)</sub>
           </h3>
+        </Col>
 
-        </Col>  
-        {/* {setReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn" 
-            onClick={() => {
-              getAllLeadsData();
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-        ):null} */}
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
-            <LeadsMobileViewSidebar  update={props.update} />
+            <LeadsMobileViewSidebar update={props.update} />
           </div>
         </Col>
       </Row>
@@ -1517,63 +1546,66 @@ const setFilterdata = async () => {
         closeError={setShowErrorAlert}
       />
 
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4">
-        <Row className=" pl-2 md-5">
-          <div className=" pl-2 ">
-           
-            <Dropfile setRefresh={setRefresh}/>
-          </div>
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+        <Row className=" pl-2  w-100 d-flex justify-content-between align-items-center">
           <div>
-            <Link to="/admin/add-interest">
+            <div className="ml-2">
+              <Dropfile className="ml-2"/>
+
+              <Link to="/admin/add-interest">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{
+                    backgroundColor: "#2258BF",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
+                </button>
+              </Link>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary leadbtn"
+                onClick={() => {
+                  setShowAdd(true);
+                }}
                 style={{
                   backgroundColor: "#2258BF",
                 }}
               >
-                <FontAwesomeIcon icon={faPlusSquare} /> Add Interest
+                <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
               </button>
-            </Link>
+            </div>
           </div>
-          <button
-            type="button"
-            className="btn btn-primary leadbtn" 
-            onClick={() => {
-              setShowAdd(true);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
-          </button>
-          {showReset==true?(
 
-          
-          <button
-            type="button"
-            className="btn btn-primary leadbtn ml-2" 
-            onClick={() => {
-             
-              getAllLeadsData();
-             
-              setshowReset(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-          ):null}
+          <div className="float-right floatingbtn" style={{}}>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(-50)}
+              color="primary"
+              aria-label="left"
+              style={{inlineSize:"34px",blockSize:"26px"}}
+            >
+              <ChevronLeftIcon />
+            </Fab>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(50)}
+              color="primary"
+              aria-label="right"
+              style={{inlineSize:"34px",blockSize:"26px"}}
+            >
+              <ChevronRightIcon />
+            </Fab>
+          </div>
         </Row>
-        <div className="table-responsive">
+
+        <div className="table-responsive" ref={ref}>
           <table className="table table-hover" style={{ minHeight: "200px" }}>
             <thead>
               <tr>
                 <th scope="col">
-                  <span id="sn" style={{ color: "#818181"}}>
+                  <span id="sn" style={{ color: "#818181" }}>
                     ID
                   </span>
                 </th>
@@ -1649,7 +1681,7 @@ const setFilterdata = async () => {
                     {" "}
                     Allocated_To
                   </span>
-                </th> 
+                </th>
 
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
@@ -1720,6 +1752,20 @@ const setFilterdata = async () => {
           </>
         ) : null}
         <ModalAdd />
+        <Col>
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+        </Col>
+        <Col>
+          <Pagination
+            itemsCount={totalRecord}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            show={handleShow}
+          />
+        </Col>
       </Row>
     </Container>
   );
