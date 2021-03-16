@@ -70,6 +70,7 @@ export default function RecordTable() {
   const currentData = data.slice(istIndex, lastIndex);
   const [recordings, setRecordings] = useState([]);
   const [value, setValue] = useState("");
+  const [goback, setGoBack] = React.useState("dashboard"); 
   var today = new Date();
   const [open, setOpen] = React.useState(false);
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -119,7 +120,7 @@ export default function RecordTable() {
   }, []);
   useEffect(() => {
     // setIsLoading(true);
-    // getAllLeadsData();
+    handleFetchEmployeesLeads();
     FetchInterestData();
   }, [refresh]);
 
@@ -440,7 +441,13 @@ export default function RecordTable() {
         setMessage("Lead Not Edited");
         setShowErrorAlert(true);
       }
-
+      // let arr = data.map((val) => {
+      //   if (val.id ==formData.id) val = formData;
+      //   return val;
+      // });
+      
+      // arr.push(inventory);
+    // setData(arr);
       setRefresh(!refresh);
 
       setShowEdit(false);
@@ -907,6 +914,7 @@ export default function RecordTable() {
   const ModalDelete = ({ item }) => {
     console.log(item);
     const DeleteRecordFromData = async () => {
+      // setIsLoading(true);
       let res = await GET(ApiUrls.DELETE_LEAD + item.lead.id);
       console.log("error response",res);
       if (res.error === false) {
@@ -916,7 +924,7 @@ export default function RecordTable() {
         setMessage("Lead Not Deleted");
         setShowErrorAlert(true);
       }
-     
+      setIsLoading(false);
       setRefresh(!refresh);
     };
     return (
@@ -1016,7 +1024,7 @@ export default function RecordTable() {
         <td>{item.project.category.name}</td>
         <td>{item.dead_line}</td>
         <td>
-          <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
+          <Link to={{ pathname: "/admin/emp-action", query: { item }, goback:{goback} }}>
             <button
               data-tip
               data-for="act"
@@ -1063,7 +1071,7 @@ export default function RecordTable() {
 
         <td>
           <CTAButton lead_id={item.id} 
-           empId={item.id}/>
+          empId={item.allocated_to}/>
         </td>
         <td>
           <div className="d-flex d-inline">

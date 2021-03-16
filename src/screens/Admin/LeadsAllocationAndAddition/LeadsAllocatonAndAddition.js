@@ -522,27 +522,35 @@ export default function LeadsAllocatonAndAddition(props) {
       ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between"}}>
+        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+          <div style={{paddingRight:10}}>
             <Fab
               className={classes.fab}
               onClick={() => scroll(-50)}
               color="primary"
               aria-label="left"
-              style={{inlineSize:"34px",blockSize:"26px"}}
+              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
             >
-              <ChevronLeftIcon />
+              <ChevronLeftIcon style={{}}/>
             </Fab>
-            <Fab
+
+          </div>
+          <div style={{paddingRight:10}}>
+          <Fab
               className={classes.fab}
               
               onClick={() => scroll(50)}
               color="primary"
               aria-label="right"
-              style={{inlineSize:"34px",blockSize:"26px"}}
+              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
             >
               <ChevronRightIcon />
             </Fab>
+
           </div>
+          
+          </div>
+          
         {showReset==true?(
         <button
             type="button"

@@ -285,7 +285,7 @@ export default function InventoryAdmin(props) {
         setShowErrorAlert(true);
       }
       setIsLoading(false);
-      setRefresh(!refresh);
+      setRefresh(!refresh); 
     };
     return (
       <Modal

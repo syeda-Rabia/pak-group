@@ -58,7 +58,8 @@ import ErrorNotification from "../../../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
 import Pagination from "../../../components/Pagination/Pagination";
-
+import 'react-phone-number-input/style.css';
+// import PhoneInput from 'react-phone-number-input';
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
@@ -107,6 +108,7 @@ export default function LeadsAdmin(props) {
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
+  const [goback, setGoBack] = React.useState("leads");
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
   const ref = useRef(null);
@@ -361,6 +363,12 @@ export default function LeadsAdmin(props) {
                   </div>
                   <div className="pb-3">
                     <h6>Contact</h6>
+                    {/* <PhoneInput
+                    color="#2258bf"
+                    defaultCountry="Pakistan"
+      placeholder="Enter phone number"
+      value={contact}
+      onChange={setContact}/> */}
                     <Input
                       required="true"
                       className="form-control input-width w-100 "
@@ -414,7 +422,7 @@ export default function LeadsAdmin(props) {
                   </div>
                   <div className="pb-3">
                     <h6>Time of Call</h6>
-                    <div className="form-control">
+                    <div className="form-control w-100">
                       <KeyboardTimePickerExample
                         value={today}
                         showTime={HandleTimeValue}
@@ -1399,7 +1407,7 @@ export default function LeadsAdmin(props) {
         <td>{item.Task}</td>
         <td>{item.Deadline}</td> */}
         <td>
-          <Link to={{ pathname: "/admin/emp-action", query: { item } }}>
+          <Link to={{ pathname: "/admin/emp-action", query: { item}, goback:{goback}}}>
             <button
               data-tip
               data-for="action"
@@ -1580,7 +1588,7 @@ export default function LeadsAdmin(props) {
 
           <div className="float-right floatingbtn" style={{}}>
             <Fab
-              className={classes.fab}
+              className={classes.fab} 
               onClick={() => scroll(-50)}
               color="primary"
               aria-label="left"
@@ -1590,7 +1598,9 @@ export default function LeadsAdmin(props) {
             </Fab>
             <Fab
               className={classes.fab}
+             
               onClick={() => scroll(50)}
+              
               color="primary"
               aria-label="right"
               style={{inlineSize:"34px",blockSize:"26px"}}
@@ -1601,7 +1611,7 @@ export default function LeadsAdmin(props) {
         </Row>
 
         <div className="table-responsive" ref={ref}>
-          <table className="table table-hover" style={{ minHeight: "200px" }}>
+          <table className="table table-hover" style={{ minHeight: "200px"}}>
             <thead>
               <tr>
                 <th scope="col">

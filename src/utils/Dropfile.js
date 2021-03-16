@@ -44,6 +44,11 @@ export default function Dropfile(props) {
           const obj = new Object();
           if (item.length > 0) {
             data[0].map((val, index) => {
+              if(val=="contact")
+              {
+                
+                console.log(item[index])
+              }
               obj[val] = item[index];
             });
           }

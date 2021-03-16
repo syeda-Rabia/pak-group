@@ -5,6 +5,7 @@ import LeadsSidebar from "../../../components/Sidebar/LeadsSidebar";
 export default function AdminLeadsScreen(props) {
   const [search, setSearch] = React.useState(false);
   const [url, setUrl] = React.useState(false);
+  const [goback, setGoBack] = React.useState("leads");
 
  const handleSearch = (url,search) => {
   setUrl(url);
@@ -33,7 +34,7 @@ export default function AdminLeadsScreen(props) {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <LeadsAdmin listData={props.location.query}  searchData={{url:url,search:search}}  update={handleSearch}/>
+            <LeadsAdmin listData={props.location.query} goback={{goback:goback}}  searchData={{url:url,search:search}}  update={handleSearch}/>
           </Col>
         </Row>
       </Container>

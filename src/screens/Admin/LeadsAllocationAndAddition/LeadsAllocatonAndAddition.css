@@ -82,6 +82,7 @@ select.form-control.form-control-sm {
   bottom: 85px;
   right: 30px;
 }
+
 @media only screen and (max-width: 600px) {
   
   .floatingbtn{

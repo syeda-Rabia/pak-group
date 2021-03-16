@@ -108,9 +108,11 @@ function StepperUI({ label, content,length,index, data }) {
 export default function VerticalLinearStepper(props) {
   const [data, setData] = React.useState([]);
 const [isLoading, setIsLoading] = React.useState(false);
-console.log(props)
-const leadID=props.location.query;
 
+const leadID=props.location.query;
+const back=props.location.goback;
+
+console.log("--------------------------",props,"back",back,"-------------------------")
 console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
   let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
 React.useEffect(() => {
@@ -173,12 +175,12 @@ function getStepContent(step) {
        <IconButton
      
           onClick={() => {
-            if(endpoint=="leads"){
+            if(back.goback=="leads"){
               history.push("/admin/leads");
-             }
-             if(endpoint==""){
+            }
+            if(back.goback=="dashboard"){
               history.push("/");
-             }
+            }
             
           }}
           aria-label="delete"
