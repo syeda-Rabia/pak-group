@@ -11,10 +11,11 @@ export const validateEmail = (value) => {
   return false;
 };
 
+
 export const validateMobile = (value) => {
   // var phoneRex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/im;
   var phoneRex = /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/;
-  //
+  //030123
   if (phoneRex.test(value)) {
     return true;
   }

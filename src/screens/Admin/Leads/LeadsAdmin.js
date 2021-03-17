@@ -12,6 +12,7 @@ import {
   faPlay,
   faPause,
   faStop,
+  faRedo,
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -109,10 +110,15 @@ export default function LeadsAdmin(props) {
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
   const [goback, setGoBack] = React.useState("leads");
+  const [select, setSelect] = React.useState([]);
+  const [showReset, setshowReset] = useState(false);
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
   const ref = useRef(null);
-
+  const HandleName = (id) => {
+    if (!select.includes(id)) setSelect((state) => [...state, id]);
+    else setSelect((state) => state.filter((item) => item != id));
+  };
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
   const classes = useStyles();
@@ -189,6 +195,7 @@ export default function LeadsAdmin(props) {
     //  ;
   };
   const setFilterdata = async () => {
+    setshowReset(true);
     setIsLoading(true);
     let res = await GET(props.searchData.url);
     console.log("-----", res);
@@ -1338,11 +1345,44 @@ export default function LeadsAdmin(props) {
       </Modal>
     );
   };
+  const SelectData = async (event) => {
+    event.preventDefault();
+    let postData = {
+      lead_id: select, 
+    };
+    console.log("-------",postData,"---------")
+    let res = await GET(
+      // ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
+      // postData
+    );
+    // if (res.error === false) {
+    //   setMessage("Record Submitted Successfully");
+    //   setShowSuccessAlert(true);
+    // } else {
+    //   setMessage("Operation Failed");
+    //   setShowErrorAlert(true);
+    // }
+
+    setRefresh(!refresh);
+    setSelect([]);
+    
+    // let arr = data;
+  };
   const LeadTable = ({ item, index }) => {
     // console.log(item);
     let country_city = "country/city";
     return (
       <tr>
+         <td>
+          <input
+            type="checkBox"
+            checked={select.includes(item.id)}
+            onChange={(e) => {
+              // setTask(item.project.category.name);
+              HandleName(item.id);
+            }}
+          />
+        </td>
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
@@ -1558,7 +1598,7 @@ export default function LeadsAdmin(props) {
         <Row className=" pl-2  w-100 d-flex justify-content-between align-items-center">
           <div>
             <div className="ml-2">
-              <Dropfile className="ml-2"/>
+              <Dropfile setRefresh={setRefresh} className="ml-2"/>
 
               <Link to="/admin/add-interest">
                 <button
@@ -1583,8 +1623,50 @@ export default function LeadsAdmin(props) {
               >
                 <FontAwesomeIcon icon={faPlusSquare} /> Add Lead
               </button>
-            </div>
-          </div>
+              {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              getAllLeadsData();
+              setshowReset(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
+              </div>
+              </div>
+             
+              <div>
+
+         {select.length > 0 ? (
+            <>
+                    <button
+                    data-tip
+                    data-for="Deletelead"
+                   
+                      className=" float-right btn btn-primary leadbtn"
+                      type="submit"
+                      style={{ backgroundColor: "#2258BF" }}
+                      // disabled={!select.every((v) => v === true)}
+
+                      onClick={SelectData}
+                    >
+                     <FontAwesomeIcon icon={faTrash} /> Delete 
+                    </button>
+                   <ReactTooltip id="Deletelead" place="top" effect="solid">
+                   Delete selected leads
+                 </ReactTooltip>
+                 </>
+                  ) : null}
+                     
+              </div>
+            
 
           <div className="float-right floatingbtn" style={{}}>
             <Fab
@@ -1614,6 +1696,11 @@ export default function LeadsAdmin(props) {
           <table className="table table-hover" style={{ minHeight: "200px"}}>
             <thead>
               <tr>
+              <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Select
+                  </span>
+                </th>
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
                     ID

@@ -10,6 +10,7 @@ import ApiUrls from "./../utils/ApiUrls";
 import { GET, POST, formatDate,POSTFile } from "./../utils/Functions";
 import SuccessNotification from "../components/SuccessNotification";
 import ErrorNotification from "../components/ErrorNotification";
+import { validateEmail, validateMobile } from "./../utils/Validation";
 export default function Dropfile(props) {
   const [toggle, setToggle] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState([]);
@@ -17,6 +18,8 @@ export default function Dropfile(props) {
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isError, setIsError] = React.useState(true);
+
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -46,7 +49,19 @@ export default function Dropfile(props) {
             data[0].map((val, index) => {
               if(val=="contact")
               {
-                
+                if (validateMobile(item[index])) {
+                  // DO Somtin
+                  // console.log("a");
+                  setShowErrorAlert(false);
+                  setIsError(false);
+                } else {
+                  // do some
+                  // console.log("b");
+                  setAlertMessage("check phone number format");
+                  setShowErrorAlert(true);
+                  setIsError(true);
+                  setToggle(false);
+                }
                 console.log(item[index])
               }
               obj[val] = item[index];
@@ -228,6 +243,7 @@ export default function Dropfile(props) {
       <ul>{fileRejectionItems}</ul> */}
             </Box>
             <Button
+            disabled={isError}
               onClick={(e) => {
                 SendFileToServer(e);
                 setToggle(false);
