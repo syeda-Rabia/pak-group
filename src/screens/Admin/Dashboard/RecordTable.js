@@ -962,7 +962,7 @@ export default function RecordTable() {
       </Modal>
     );
   };
-  const TableRow = ({ index, item }) => {
+  const TableRow = ({ index, item, allocated }) => {
     console.log(item,"rabia");
     const records = paginate(data, currentPage, pageSize);
     return (
@@ -1071,7 +1071,7 @@ export default function RecordTable() {
 
         <td>
           <CTAButton lead_id={item.id} 
-          empId={item.allocated_to}/>
+          empId={allocated.id}/>
         </td>
         <td>
           <div className="d-flex d-inline">
@@ -1245,7 +1245,7 @@ export default function RecordTable() {
                       return <TableRow index={index} item={item} />;
                   })} */}
                   {data.filter((item)=>item.lead!=null).map((item, index) => {
-                    return <TableRow index={index} item={item.lead} />;
+                    return <TableRow index={index} item={item.lead} allocated={item.allocated_to} />;
                   })}
                 </tbody>
               </table>

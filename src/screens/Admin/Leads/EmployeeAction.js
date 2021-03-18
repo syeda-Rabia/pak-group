@@ -110,7 +110,7 @@ export default function VerticalLinearStepper(props) {
 const [isLoading, setIsLoading] = React.useState(false);
 
 const leadID=props.location.query;
-const back=props.location.goback;
+const back=props.location.goback; 
 
 console.log("--------------------------",props,"back",back,"-------------------------")
 console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")

@@ -1299,7 +1299,8 @@ export default function LeadsAdmin(props) {
   const ModalDelete = ({ item }) => {
     // console.log(item);
     const DeleteRecordFromData = async () => {
-      let res = await GET(ApiUrls.DELETE_LEAD + item.id);
+      let res = await GET(ApiUrls.DELETE_LEAD+"?leadArray[0]=" + item.id);
+      console.log("*************************",res);
       if (res.error === false) {
         setMessage("Lead Deleted Successfully");
         setShowSuccessAlert(true);
@@ -1307,7 +1308,7 @@ export default function LeadsAdmin(props) {
         setMessage("Lead Not Deleted");
         setShowErrorAlert(true);
       }
-      console.log(res);
+      console.log("-----------------",res);
       setRefresh(!refresh);
     };
     return (
@@ -1348,20 +1349,22 @@ export default function LeadsAdmin(props) {
   const SelectData = async (event) => {
     event.preventDefault();
     let postData = {
-      lead_id: select, 
+      leadArray: select, 
     };
-    console.log("-------",postData,"---------")
-    let res = await GET(
-      // ApiUrls.POST_ALL_SELECTED_EMPLOYEES_AND_INVENTORY,
+    // let apendURL=select.map((item,id)=>`leadArray[${id}]=${item}`)
+    let res = await POST(
+      ApiUrls.DELETE_LEAD,postData
       // postData
-    );
-    // if (res.error === false) {
-    //   setMessage("Record Submitted Successfully");
-    //   setShowSuccessAlert(true);
-    // } else {
-    //   setMessage("Operation Failed");
-    //   setShowErrorAlert(true);
-    // }
+      );
+      console.log("----------------",res);
+      // console.log("-------",postData,"---------", ApiUrls.DELETE_LEAD+`?${apendURL.join("&")}`,",,,,,,,,,,,,,,,,",res)
+    if (res.error === false) {
+      setMessage("Record Submitted Successfully");
+      setShowSuccessAlert(true);
+    } else {
+      setMessage("Operation Failed");
+      setShowErrorAlert(true);
+    }
 
     setRefresh(!refresh);
     setSelect([]);
@@ -1467,7 +1470,7 @@ export default function LeadsAdmin(props) {
         </td>
 
         <td>
-          {item.recordings.length > 0 ? (
+          {item.recordings?.length > 0 ? (
             <>
               <button
                 data-tip

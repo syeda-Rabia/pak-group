@@ -78,7 +78,7 @@ const HeaderNavBar = (props) => {
             >
               <Nav.Item>Dashboard</Nav.Item>
             </Link>
-            <Link
+            {/* <Link
               id="R-navlink"
               to={{
                 pathname: "/admin/todolist",
@@ -86,7 +86,7 @@ const HeaderNavBar = (props) => {
               }}
             >
               <Nav.Item>To Do</Nav.Item>
-            </Link>
+            </Link> */}
             <Link
               id="R-navlink"
               to={{

@@ -110,6 +110,8 @@ export default function VerticalLinearStepper(props) {
 const [isLoading, setIsLoading] = React.useState(false);
 console.log(props)
 const leadID=props.location.query;
+const back=props.location.goback; 
+console.log("------------",back)
 React.useEffect(() => {
   setIsLoading(true);
   if (leadID.item.id != undefined) handleFetchData();
@@ -168,7 +170,13 @@ function getStepContent(step) {
        <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
        <IconButton
           onClick={() => {
-            history.push("/employee/leads");
+            if(back.goback=="leads"){
+              history.push("/employee/leads");
+            }
+            if(back.goback=="todo"){
+              history.push("/employee/todolist");
+            }
+            
           }}
           aria-label="delete"
           color="primary"
@@ -197,7 +205,12 @@ function getStepContent(step) {
        <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
        <IconButton
           onClick={() => {
-            history.push("/employee/leads");
+            if(back.goback=="leads"){
+              history.push("/employee/leads");
+            }
+            if(back.goback=="todo"){
+              history.push("/employee/todolist");
+            }
           }}
           aria-label="delete"
           color="primary"

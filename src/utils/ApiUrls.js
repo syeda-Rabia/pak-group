@@ -45,7 +45,7 @@ const ApiUrls = {
   CREATE_LEAD: "admin/lead/add",
   EDIT_LEAD: "admin/lead/edit",
   CALL_TO_ACTION: "admin/lead/cta",
-  DELETE_LEAD: "admin/lead/delete/",
+  DELETE_LEAD: "admin/lead/delete", 
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all/",
   EMPLOYEE_ACTION: "employee/lead/edit",
@@ -57,7 +57,8 @@ const ApiUrls = {
 // filter 
 GET_FILTER_DATA:"admin/lead/getleads",
 GET_LEAD_ALLOCATION_FILTER_DATA:"admin/leadAllocation/filterLeads",
-
+GET_EMPLOYE_PROJECT:"employee/inventory/projects/",
+GET_EMPLOYEE_LEAD_FILTER_DATA:"employee/lead/filter",
   // LEAD ALLOCATION
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS: "admin/leadAllocation/all",
   GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION: "admin/leadAllocation/all?page=",

@@ -59,7 +59,8 @@ export default function FormPopover(props) {
   }, []);
  
   const getProjectDetails = async () => {
-    let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+    let resp = await GET(ApiUrls.GET_EMPLOYE_PROJECT
+      );
 
     if (resp.data != null) {
       setAllProjects(resp.data.projects.data);
@@ -104,11 +105,11 @@ export default function FormPopover(props) {
       };
       let url="";
       if(endpoint=="leads"){
-       url=ApiUrls.GET_FILTER_DATA+`?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+       url=ApiUrls.GET_EMPLOYEE_LEAD_FILTER_DATA+`?project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
       }
       
-      if(endpoint=="leadsallocation"){
-     url=ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA+`?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+      if(endpoint=="todolist"){
+     url=ApiUrls.GET_EMPLOYEE_LEAD_FILTER_DATA+`?project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
     }
       console.log("------------",url)
       if(props.update!= undefined)
@@ -174,7 +175,7 @@ export default function FormPopover(props) {
                     }}
                     >
                 <option>{null}</option>
-                    {allProjects.length > 0
+                    {allProjects?.length > 0
                       ? allProjects.map((pro) => (
                           <option style={{color:"#2258BF"}}  key={pro.id} value={pro.id}>
                             {pro.name}

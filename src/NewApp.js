@@ -25,6 +25,7 @@ import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
 import EmployeeDashboardScreen from "./screens/Employe/Views/EmployeeDashboardScreen";
 import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
 import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
+import EmployeeToDoScreen from "./screens/Employe/Views/EmployeeToDoScreen";
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import AdminPolicies from "./screens/Admin/Policies/AdminPolicies";
@@ -155,10 +156,10 @@ const NewApp = (props) => {
           <HeaderNavBar />
           <AdminLeadsScreen />
         </Route> */}
-        <Route path="/admin/todolist">
+        {/* <Route path="/admin/todolist">
           <HeaderNavBar />
           <AdminTodoListScreen />
-        </Route>
+        </Route> */}
         <Route path="/admin/user">
           <HeaderNavBar />
           <AddEmployee />
@@ -217,7 +218,7 @@ const NewApp = (props) => {
           render={(props) => (
             <>
               <EmployeHeader />
-          <EmployeeLeadsScreen {...props} />
+              <EmployeeLeadsScreen {...props} />
             </>
           )}
         />
@@ -241,7 +242,9 @@ const NewApp = (props) => {
         </Route>
         <Route path="/employee/todolist">
           <EmployeHeader />
-          <EmployeeToDo />
+          {/* <EmployeeLeadsScreen {...props} /> */}
+          <EmployeeToDoScreen {...props}/>
+         
         </Route>
         <Route path="/employee/admin-action"  
         render={(props) => (

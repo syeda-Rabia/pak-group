@@ -1,4 +1,4 @@
-import React, { useCallback ,useState,useEffect} from "react";
+import React, { useCallback ,useState,useEffect,useRef } from "react";
 import "./EmployeeLeads.css";
 import { Container, Row, Col, Button, Modal,Card } from "react-bootstrap";
 import {
@@ -18,7 +18,8 @@ import ApiUrls from "./../../../utils/ApiUrls";
 import { server_url } from "./../../../utils/Config";
 import { publicURL } from "./../../../utils/Config";
 
-
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 import {
   Box,
@@ -33,6 +34,7 @@ import {
   Snackbar,
   ListItemText,
   ListItem,
+  Fab,
 } from "@material-ui/core";
 // import {faEye} from "@fortawesome/free-solid-svg-icons";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -89,12 +91,15 @@ function EmployeeLeads(props, lead_id) {
   const [showModalAction, setShowModalAction] = React.useState(true);
   const [alertmessage, setAlertMessage] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [goback, setGoBack] = React.useState("leads");
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [postData, setPostData] = React.useState({});
   const [recordings, setRecordings] = React.useState([]);
   const [setPlay, setShowPlay] = React.useState(false);
   const [selectedID, setSelectedID] = React.useState(null);
+  const [showReset, setshowReset] = useState(false);
+  const ref = useRef(null);
   // console.log(postData, "YES", value);
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -108,7 +113,7 @@ function EmployeeLeads(props, lead_id) {
 
   // today = mm + "-" + dd + "-" + yyyy;
   today = yyyy + "-" + mm + "-" + dd;
-
+  const classes = useStyles();
   // const []
 
   // const handleMenuButtonClick = (event) => {};
@@ -127,6 +132,34 @@ function EmployeeLeads(props, lead_id) {
     handleFetchData();
   }, [refresh]);
 
+  useEffect(() => {
+    if (props.searchData.search == true) setFilterdata();
+  }, [props.searchData.search]);
+
+
+  const setFilterdata = async () => {
+    setshowReset(true);
+    setIsLoading(true); 
+    
+    let res = await GET(props.searchData.url);
+    console.log("-----", res);
+    if (res.error === false) {
+      setData(res.data.leads);
+      setMessage("Lead find Successfully");
+      setShowSuccessAlert(true);
+    } else {
+      setMessage("Lead Not found");
+      setShowErrorAlert(true);
+      setshowReset(false);
+    }
+   
+    setIsLoading(false);
+  };
+
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
   const ModalAction = ({ data }) => {
     const [message, setMessage] = React.useState("");
     const [time, setTime] = React.useState(timee);
@@ -539,62 +572,62 @@ function EmployeeLeads(props, lead_id) {
       },
     ]);
     // console.log(open, whatNext, index);
-    const handlePostData = (whatNext) => {
-      let postDataArray = [];
-      open.map((item, index) => {
-        if (item.open == true) {
-          // console.log("main is checked",index)
-          postDataArray.push(item.name.toUpperCase());
-          item.sub.map((sub, idx) => {
-            if (sub.set == true) {
-              // console.log("Sub is checked",idx)
-              postDataArray.push(sub.name.toUpperCase());
-            }
-          });
-        }
-      });
-      postDataArray.push(whatNext.toUpperCase());
-      console.log("PostData is :", postDataArray);
-      setPostData({ dataID: item, postData: postDataArray });
+    // const handlePostData = (whatNext) => {
+    //   let postDataArray = [];
+    //   open.map((item, index) => {
+    //     if (item.open == true) {
+    //       // console.log("main is checked",index)
+    //       postDataArray.push(item.name.toUpperCase());
+    //       item.sub.map((sub, idx) => {
+    //         if (sub.set == true) {
+    //           // console.log("Sub is checked",idx)
+    //           postDataArray.push(sub.name.toUpperCase());
+    //         }
+    //       });
+    //     }
+    //   });
+    //   postDataArray.push(whatNext.toUpperCase());
+    //   console.log("PostData is :", postDataArray);
+    //   setPostData({ dataID: item, postData: postDataArray });
   
-      if (whatNext == "REQUEST TO CLOSE") setValue("Request");
-      else setValue("Meeting");
-      setShowModalAction(true);
-      setOpen([
-        {
-          name: "Call",
-          open: false,
-          sub: [
-            { name: "CALL RECIVED", set: false },
-            { name: "CALL DECLINED", set: false },
-            { name: "ASKED TO SEND WHATSAPP", set: false },
-            { name: "ASKED TO SEND SMS", set: false },
-            { name: "MEETING SCHEDULED", set: false },
-          ],
-        },
-        {
-          name: "SMS",
-          open: false,
-          sub: [{ name: "SMS SENT", set: false }],
-        },
-        {
-          name: "Visit",
-          open: false,
-          sub: [
-            { name: "VISIT SUCCESFULL", set: false },
-            { name: "VISIT POSTPONED", set: false },
-            { name: "VISIT CANCELED", set: false },
-          ],
-        },
-        {
-          name: "WhatsApp",
-          open: false,
-          sub: [{ name: "WHATSAPP SENT", set: false }],
-        },
-      ]);
+    //   if (whatNext == "REQUEST TO CLOSE") setValue("Request");
+    //   else setValue("Meeting");
+    //   setShowModalAction(true);
+    //   setOpen([
+    //     {
+    //       name: "Call",
+    //       open: false,
+    //       sub: [
+    //         { name: "CALL RECIVED", set: false },
+    //         { name: "CALL DECLINED", set: false },
+    //         { name: "ASKED TO SEND WHATSAPP", set: false },
+    //         { name: "ASKED TO SEND SMS", set: false },
+    //         { name: "MEETING SCHEDULED", set: false },
+    //       ],
+    //     },
+    //     {
+    //       name: "SMS",
+    //       open: false,
+    //       sub: [{ name: "SMS SENT", set: false }],
+    //     },
+    //     {
+    //       name: "Visit",
+    //       open: false,
+    //       sub: [
+    //         { name: "VISIT SUCCESFULL", set: false },
+    //         { name: "VISIT POSTPONED", set: false },
+    //         { name: "VISIT CANCELED", set: false },
+    //       ],
+    //     },
+    //     {
+    //       name: "WhatsApp",
+    //       open: false,
+    //       sub: [{ name: "WHATSAPP SENT", set: false }],
+    //     },
+    //   ]);
   
-      setAnchorEl(null);
-    };
+    //   setAnchorEl(null);
+    // };
   
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -626,58 +659,58 @@ function EmployeeLeads(props, lead_id) {
     //   console.log(resp);
     // };
   
-    const SendFileToServer = async () => {
+  //   const SendFileToServer = async () => {
   
-      let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
-        id: item.id,
-        action: action,
-      });
-      console.log(actionresp);
-      if (actionresp.error === false)  {
-        setMessage("Lead updated Successfully");
-        setShowSuccessAlert(true);
-      } else {
-        setMessage("Operation Failed");
-        setShowErrorAlert(true);
-      }
-      if (actionresp.error.hasOwnProperty("allocated_to")) {
-        alert("Action Field is required");
+  //     let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
+  //       id: item.id,
+  //       action: action,
+  //     });
+  //     console.log(actionresp);
+  //     if (actionresp.error === false)  {
+  //       setMessage("Lead updated Successfully");
+  //       setShowSuccessAlert(true);
+  //     } else {
+  //       setMessage("Operation Failed");
+  //       setShowErrorAlert(true);
+  //     }
+  //     if (actionresp.error.hasOwnProperty("allocated_to")) {
+  //       alert("Action Field is required");
   
-        // setErrorAlert(true);
-      }
-      setRefresh(!refresh);
+  //       // setErrorAlert(true);
+  //     }
+  //     setRefresh(!refresh);
   
       
-        let formData={
-          lead_id:item.id,
-          recording_file: recordingFile
-        };
-  // let formData = new FormData();
-  //     formData.append("lead_id", item.id);
-      // formData.append("recording_file", recordingFile);
-      console.log('form data is recordingFile ------------>',recordingFile);
-      console.log('form data - recordingFile ------------>',formData.recording_file);
+  //       let formData={
+  //         lead_id:item.id,
+  //         recording_file: recordingFile
+  //       };
+  // // let formData = new FormData();
+  // //     formData.append("lead_id", item.id);
+  //     // formData.append("recording_file", recordingFile);
+  //     console.log('form data is recordingFile ------------>',recordingFile);
+  //     console.log('form data - recordingFile ------------>',formData.recording_file);
   
-      let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
-      if (resp.error === false) {
-        setMessage("Recording submitted Successfully");
-        setShowSuccessAlert(true);
-      } else {
-        setMessage("Operation Failed");
-        setShowErrorAlert(true);
-      }
-      console.log("---------recording--------------",resp);
-      console.log(resp);
-      // for (var value of formData.values()) {
-      //   console.log(value,"FormDATA");
-      // }
-      // await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
-        // let token = JSON.parse(localStorage.getItem("token"));
-      //   let resp=await POSTFile(ApiUrls.ADD_RECORDING, formData);
+  //     let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+  //     if (resp.error === false) {
+  //       setMessage("Recording submitted Successfully");
+  //       setShowSuccessAlert(true);
+  //     } else {
+  //       setMessage("Operation Failed");
+  //       setShowErrorAlert(true);
+  //     }
+  //     console.log("---------recording--------------",resp);
+  //     console.log(resp);
+  //     // for (var value of formData.values()) {
+  //     //   console.log(value,"FormDATA");
+  //     // }
+  //     // await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
+  //       // let token = JSON.parse(localStorage.getItem("token"));
+  //     //   let resp=await POSTFile(ApiUrls.ADD_RECORDING, formData);
        
-      // console.log("---------recording--------------",resp,formData);
+  //     // console.log("---------recording--------------",resp,formData);
   
-    };
+  //   };
     const formatTime = () => {
       if (item.time_to_call !== null) {
         let str = item.time_to_call;
@@ -726,15 +759,13 @@ function EmployeeLeads(props, lead_id) {
   
         {/* <td>{item.inventory.inventory_name}</td> */}
         <td>{item.interest.interest}</td>
-        <td>
-          {userInfo.first_name} {userInfo.last_name}
-        </td>
+       
         <td>{item.email != null ? item.email : "-------"}</td>
         <td>{item.task}</td>
         <td>{item.dead_line}</td>
         <td>
             <Link to= 
-             {{ pathname: "/employee/admin-action", query: { item } }}
+             {{ pathname: "/employee/admin-action", query: { item },goback:{goback} }}
            >
               <button
                 data-tip
@@ -754,7 +785,7 @@ function EmployeeLeads(props, lead_id) {
             </ReactTooltip>
           </td>
         {/* <td>{"---"}</td> */}
-        <td>
+        {/* <td>
           <div
             style={{ outline: "none", height: ""}}
             className="d-flex"
@@ -768,7 +799,7 @@ function EmployeeLeads(props, lead_id) {
             </p>
             <input {...getInputProps()} />
           </div>
-        </td>
+        </td> */}
         <td>
             {item.recordings.length > 0 ? (
               <>
@@ -795,142 +826,11 @@ function EmployeeLeads(props, lead_id) {
               "-----"
             )}
           </td>
-        <td>
-          <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            Actions
-          </Button>
-          <Menu
-            // className={classes.root}
-            id="simple-menu"
-            getContentAnchorEl={null}
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {open.map((item, index) => (
-              <>
-                <MenuItem
-                  data-my-value={item.name}
-                  onClick={async (e) => {
-                    const setopenDropdown = { ...item };
-                    console.log(item, "item");
-                    setopenDropdown.open = !setopenDropdown.open;
-                    // setopenDropdown.open = !setopenDropdown.open;
-                    setOpen((state) => {
-                      let arr = [...state];
-                      arr[index] = setopenDropdown;
-                      return arr.map((subItems, i) => {
-                        if (index == i) {
-                          return setopenDropdown;
-                        } else {
-                          subItems.open = false;
-                        }
-                        return subItems;
-                      });
-                    });
-                  }}
-                >
-                  {item.name}
-                  <div
-                    style={{ justifyContent: "flex-end" }}
-                    className="d-flex w-100 "
-                  >
-                    {item.open ? <ExpandLess /> : <ExpandMore />}
-                  </div>
-                </MenuItem>
-  
-                <Collapse in={item.open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {item.sub.map((listItem, id) => (
-                      <>
-                        <ListItem
-                          button
-                          onClick={() => {
-                            const SubMenu = { ...listItem };
-                            SubMenu.set = !SubMenu.set;
-                            setOpen((state) => {
-                              let arr = [...state];
-                              // arr[index].sub[id] = SubMenu;
-                              let dummy = arr[index].sub.map((subItems, i) => {
-                                if (id == i) {
-                                  return SubMenu;
-                                } else {
-                                  subItems.set = false;
-                                }
-                                return subItems;
-                              });
-                              console.log(dummy, "DUMMY");
-                              arr[index].sub = dummy;
-                              return arr;
-                            });
-                          }}
-                          className={classes.nested}
-                        >
-                          <ListItemText primary={listItem.name} />
-                          <Collapse
-                            in={item.sub[id].set}
-                            // in={item.sub.some((item) => item.set === true)}
-                            timeout="auto"
-                            unmountOnExit
-                          >
-                            <List component="div" disablePadding>
-                              <ListItem
-                                className={classes.subNested}
-                                button
-                                onClick={() => {
-                                  handlePostData("SCHEDULE MEETING");
-                                }}
-                              >
-                                <ListItemText primary="SCHEDULE MEETING" />
-                              </ListItem>
-                              <ListItem
-                                className={classes.subNested}
-                                button
-                                onClick={() => {
-                                  handlePostData("CALL BACK");
-                                }}
-                              >
-                                <ListItemText primary="CALL BACK" />
-                              </ListItem>
-                              <ListItem
-                                className={classes.subNested}
-                                button
-                                onClick={() => {
-                                  handlePostData("COMING WITH TOKEN");
-                                }}
-                              >
-                                <ListItemText primary="COMING WITH TOKEN" />
-                              </ListItem>
-                              <ListItem
-                                className={classes.subNested}
-                                button
-                                onClick={() => {
-                                  handlePostData("REQUEST TO CLOSE");
-                                }}
-                              >
-                                <ListItemText primary="REQUEST TO CLOSE" />
-                              </ListItem>
-                            </List>
-                          </Collapse>
-                        </ListItem>
-                      </>
-                    ))}
-                  </List>
-                </Collapse>
-              </>
-            ))}
-          </Menu>
-        </td>
-        <td>
+      {/* <td>
           <Button  onClick={() => {
                 SendFileToServer();
               }}>Update</Button>
-        </td>
+        </td> */}
       </tr>
     );
   };
@@ -940,7 +840,8 @@ function EmployeeLeads(props, lead_id) {
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>
-            Leads<sub>(Employee)</sub>
+            Employee Leads 
+            
           </h3>
         </Col>
 
@@ -963,8 +864,38 @@ function EmployeeLeads(props, lead_id) {
         closeError={setShowErrorAlert}
       />
       <Row>
+     
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
-          <div className="table-responsive">
+        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+          <div style={{paddingRight:10}}>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(-50)}
+              color="primary"
+              aria-label="left"
+              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+            >
+              <ChevronLeftIcon style={{}}/>
+            </Fab>
+
+          </div>
+          <div style={{paddingRight:10}}>
+          <Fab
+              className={classes.fab}
+              
+              onClick={() => scroll(50)}
+              color="primary"
+              aria-label="right"
+              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+            >
+              <ChevronRightIcon />
+            </Fab>
+
+          </div>
+          
+          </div>
+          
+          <div className="table-responsive" ref={ref}>
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
@@ -1014,11 +945,11 @@ function EmployeeLeads(props, lead_id) {
                       Interest
                     </span>
                   </th>
-                  <th scope="col">
+                  {/* <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Allocate_To
                     </span>
-                  </th>
+                  </th> */}
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Email
@@ -1039,26 +970,22 @@ function EmployeeLeads(props, lead_id) {
                       Admin_Action
                     </span>
                   </th>
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Add_Recording
-                    </span>
-                  </th>
+                 
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Recordings
                     </span>
                   </th>
-                  <th scope="col">
+                  {/* <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Action
                     </span>
-                  </th>
-                  <th scope="col">
+                  </th> */}
+                  {/* <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Update
                     </span>
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
