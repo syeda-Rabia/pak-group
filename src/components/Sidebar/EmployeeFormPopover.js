@@ -55,27 +55,28 @@ export default function FormPopover(props) {
   const [year, setYear] = useState();
   useEffect(() => {
     getProjectDetails();
-    getEmployeeDetails();
+    // getEmployeeDetails();
   }, []);
  
   const getProjectDetails = async () => {
     let resp = await GET(ApiUrls.GET_EMPLOYE_PROJECT
       );
 
+console.log("8888888888888888",resp);
     if (resp.data != null) {
-      setAllProjects(resp.data.projects.data);
+      setAllProjects(resp.data.projects);
     }
   };
-  const getEmployeeDetails = async () => {
-    let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log(res);
-    // ;
-    try {
-      if (res.success !== false) {
-        setEmployees(res.data.users.data); 
-      }
-    } catch {}
-  };
+  // const getEmployeeDetails = async () => {
+  //   let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
+  //   console.log(res);
+  //   // ;
+  //   try {
+  //     if (res.success !== false) {
+  //       setEmployees(res.data.users.data); 
+  //     }
+  //   } catch {}
+  // };
   const [state, setState] = useState({
     top: false,
     left: false,

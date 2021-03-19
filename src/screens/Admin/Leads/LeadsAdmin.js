@@ -1299,7 +1299,7 @@ export default function LeadsAdmin(props) {
   const ModalDelete = ({ item }) => {
     // console.log(item);
     const DeleteRecordFromData = async () => {
-      let res = await GET(ApiUrls.DELETE_LEAD+"?leadArray[0]=" + item.id);
+      let res = await POST(ApiUrls.DELETE_LEAD+"?leadArray[0]=" + item.id);
       console.log("*************************",res);
       if (res.error === false) {
         setMessage("Lead Deleted Successfully");

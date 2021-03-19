@@ -8,7 +8,7 @@ import {
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload,faEye ,faPlay ,faPause} from "@fortawesome/free-solid-svg-icons";
+import { faUpload,faEye ,faPlay ,faPause,faRedo} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
 import { GET, POST, formatDate,POSTFile } from "./../../../utils/Functions";
@@ -120,7 +120,7 @@ function EmployeeLeads(props, lead_id) {
 
   const handleFetchData = async () => {
     setIsLoading(true);
-    let res = await GET(ApiUrls.GET_USER_LEADS + props.userInfo.id);
+    let res = await GET(ApiUrls.GET_USER_LEADS );
     console.log("-------------------------------", res);
     
     if (res.success != false) {
@@ -997,7 +997,24 @@ function EmployeeLeads(props, lead_id) {
       <Row>
      
         <div className="col-lg-12 shadow p-3  bg-white rounded ">
+        {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              handleFetchData();
+              setshowReset(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
         <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+       
           <div style={{paddingRight:10}}>
             <Fab
               className={classes.fab}
@@ -1127,7 +1144,7 @@ function EmployeeLeads(props, lead_id) {
               {data.length > 0 ? (
                 data.map((item, index) => (
                   <Table
-                    item={item.lead}
+                    item={item[0].lead}
                     index={index}
                     setShowModalAction={setShowModalAction}
                     setValue={setValue}

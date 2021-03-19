@@ -46,6 +46,7 @@ export default function CTAButton({ empId, lead_id }) {
   const [alertmessage, setAlertMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [show, setShow] = useState(false);
 
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -164,7 +165,7 @@ export default function CTAButton({ empId, lead_id }) {
     const [message, setMessage] = useState("");
     const [time, setTime] = useState(timee);
     const [date, setDate] = useState(today);
-    const [checked, setChecked] = React.useState({ index: 0, state: true });
+    const [checked, setChecked] = React.useState({ index: 0});
     
     let timeVal = new Date();
 
@@ -214,6 +215,7 @@ export default function CTAButton({ empId, lead_id }) {
         action_type: "shiftLead",
         lead_id: lead_id,
         prev_lead_holder_emp: empId,
+        isView:checked.index==0?true:false,
         new_lead_holder_emp: selectedEmployee.new_lead_holder_emp,
       });
       if (resp.error === false) {
@@ -240,7 +242,7 @@ export default function CTAButton({ empId, lead_id }) {
       console.log(time);
     };
     const handleChecked = (event, id) => {
-      setChecked({ index: id, state: event.target.checked });
+      setChecked({ index: id});
     };
     // if (options.title === optionsArray[0].title)
     //
@@ -372,7 +374,7 @@ export default function CTAButton({ empId, lead_id }) {
         return (
           <div key={index}>
             <Checkbox
-              checked={checked.index === index ? checked.state : false}
+              checked={checked.index === index}
               color="primary"
               onChange={(e) => {
                 handleChecked(e, index);
