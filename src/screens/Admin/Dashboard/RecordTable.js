@@ -1,6 +1,6 @@
 import "./RecordTable.css";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 // import React, { useState } from "react";
 import Pagination from "../../../components/Pagination/Pagination";
 import { paginate } from "../../../utils/paginate";
@@ -8,6 +8,8 @@ import { GET,POST} from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import { Link, Route } from "react-router-dom";
 import CTAButton from "../../../components/CTAButton";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import {
   Paper,
   makeStyles,
@@ -18,6 +20,7 @@ import {
   MenuItem,
   Skeleton,
   Chip,
+  Fab,
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,12 +32,15 @@ import {
   faPause,
   faStop,
   faLessThanEqual,
+ 
 } from "@fortawesome/free-solid-svg-icons";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
   
 } from "../../../utils/KeyboardTimePickerExample";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ReactTooltip from "react-tooltip";
 import FaceIcon from "@material-ui/icons/Face";
 import { publicURL } from "./../../../utils/Config";
@@ -71,6 +77,7 @@ export default function RecordTable() {
   const [recordings, setRecordings] = useState([]);
   const [value, setValue] = useState("");
   const [goback, setGoBack] = React.useState("dashboard"); 
+  const ref = useRef(null);
   var today = new Date();
   const [open, setOpen] = React.useState(false);
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -123,7 +130,9 @@ export default function RecordTable() {
     handleFetchEmployeesLeads();
     FetchInterestData();
   }, [refresh]);
-
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
@@ -1164,7 +1173,38 @@ export default function RecordTable() {
             lg="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            <div className="table-responsive">
+             
+       
+            <div className="table-responsive" ref={ref}>
+                <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+       
+       <div style={{paddingRight:10}}>
+         <Fab
+           className={classes.fab}
+           onClick={() => scroll(-50)}
+           color="primary"
+           aria-label="left"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronLeftIcon style={{}}/>
+         </Fab>
+
+       </div>
+       <div style={{paddingRight:10}}>
+       <Fab
+           className={classes.fab}
+           
+           onClick={() => scroll(50)}
+           color="primary"
+           aria-label="right"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronRightIcon />
+         </Fab>
+
+       </div>
+       
+       </div>
               <table
                 className="table table-hover"
                 style={{

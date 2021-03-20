@@ -91,14 +91,15 @@ function EmployeeLeads(props, lead_id) {
   const [showModalAction, setShowModalAction] = React.useState(true);
   const [alertmessage, setAlertMessage] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
-  const [showErrorAlert, setShowErrorAlert] = React.useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = React.useState("");
+  const [showErrorAlert, setShowErrorAlert] = React.useState("");
   const [postData, setPostData] = React.useState({});
   const [recordings, setRecordings] = React.useState([]);
   const [setPlay, setShowPlay] = React.useState(false);
   const [selectedID, setSelectedID] = React.useState(null);
   const [goback, setGoBack] = React.useState("todo");
   const [showReset, setshowReset] = useState(false);
+  const [errorResponce, setErrorResponce] = useState("");
   const ref = useRef(null);
   // console.log(postData, "YES", value);
   var today = new Date();
@@ -186,11 +187,14 @@ function EmployeeLeads(props, lead_id) {
         };
       setShowModalAction(false);
       let resp = await POST(ApiUrls.POST_EMPLOYEE_ACTION_ON_LEAD, formData);
+      console.log("------respose-------",resp);
       if (resp.error === false) {
         setAlertMessage("Send Successfully");
         setShowSuccessAlert(true);
-      } else {
-        setAlertMessage("Not Send!");
+      } else if(resp.hasOwnProperty("error"))
+      {
+        // setErrorResponce(resp.error);
+        setAlertMessage(resp.error);
         setShowErrorAlert(true);
       }
 
@@ -667,8 +671,10 @@ function EmployeeLeads(props, lead_id) {
       if (actionresp.error === false)  {
         setMessage("Lead updated Successfully");
         setShowSuccessAlert(true);
-      } else {
-        setMessage("Operation Failed");
+      } else if(actionresp.hasOwnProperty("error"))
+      {
+        // setErrorResponce(resp.error);
+        setAlertMessage(actionresp.error);
         setShowErrorAlert(true);
       }
       if (actionresp.error.hasOwnProperty("allocated_to")) {

@@ -92,8 +92,8 @@ function EmployeeLeads(props, lead_id) {
   const [alertmessage, setAlertMessage] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [goback, setGoBack] = React.useState("leads");
-  const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
-  const [showErrorAlert, setShowErrorAlert] = React.useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = React.useState("");
+  const [showErrorAlert, setShowErrorAlert] = React.useState("");
   const [postData, setPostData] = React.useState({});
   const [recordings, setRecordings] = React.useState([]);
   const [setPlay, setShowPlay] = React.useState(false);
