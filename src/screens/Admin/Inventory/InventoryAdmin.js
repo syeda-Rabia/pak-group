@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import "./InventoryAdmin.css";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { ProjectListData } from "./../../../assests/constants/ProjectListDemoData";
@@ -10,6 +10,7 @@ import {
   Backdrop,
   CircularProgress,
   Snackbar,
+  Fab,
   Button as MaterialButton,
 } from "@material-ui/core";
 
@@ -23,6 +24,11 @@ import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
+
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import {
   Tooltip,
   IconButton,
@@ -86,7 +92,11 @@ export default function InventoryAdmin(props) {
     }
     setIsLoading(false);
   };
+  const ref = useRef(null);
 
+  const scroll = (scrollOffset) => {
+      ref.current.scrollLeft += scrollOffset;
+    };
   // let listData = [];
   const ModalEdit = ({ item }) => {
     //  ;
@@ -433,7 +443,38 @@ export default function InventoryAdmin(props) {
 
         <Row>
           <div className="col-lg-12 shadow p-3  bg-white rounded mt-3 ">
-            <div className="table-responsive">
+          <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+       
+       <div style={{paddingRight:10}}>
+         <Fab
+           className={classes.fab}
+           onClick={() => scroll(-50)}
+           color="primary"
+           aria-label="left"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronLeftIcon style={{}}/>
+         </Fab>
+
+       </div>
+       <div style={{paddingRight:10}}>
+       <Fab
+           className={classes.fab}
+           
+           onClick={() => scroll(50)}
+           color="primary"
+           aria-label="right"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronRightIcon />
+         </Fab>
+
+       </div>
+       
+       </div>
+       
+            <div className="table-responsive" ref={ref}>
+              
               <table className="table table-hover">
                 <thead>
                   <tr>

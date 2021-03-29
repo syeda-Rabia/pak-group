@@ -29,7 +29,7 @@ export default function LAASidebar(props) {
         {/* <SearchLeads name="Search Leads" alignText="left" leftPadding="22px" /> */}
         <FormPopover name="Search Leads" alignText="left" leftPadding="22px" update={props.update}/>
         <ul className="list-group">
-          <li id="list-item" className="list-group-item">
+          {/* <li id="list-item" className="list-group-item">
             <Link
               className="navLink"
               id="list-item"
@@ -50,7 +50,7 @@ export default function LAASidebar(props) {
             >
               To Do List
             </Link>
-          </li>
+          </li> */}
           <li id="list-item" className="list-group-item">
             <Link
               className="navLink"

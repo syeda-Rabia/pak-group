@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./ViewableTo.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Select from "react-select";
@@ -7,13 +7,17 @@ import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import { Chip, Box } from "@material-ui/core";
 import { makeStyles, Backdrop, CircularProgress,Tooltip,
-  IconButton,  } from "@material-ui/core";
+  IconButton, Fab } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {useHistory } from "react-router-dom";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 export default function ViewableTo() {
   const [select, setSelect] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
@@ -25,6 +29,18 @@ export default function ViewableTo() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+      "& .MuiCircularProgress-colorPrimary": {
+        color: "#fff",
+      },
+    },
+    myButton: {
+      color: "#fff",
+    },
+  }));
   const history = useHistory();
   let i = 0;
   const [Employees, setEmployees] = React.useState([
@@ -50,6 +66,11 @@ export default function ViewableTo() {
     }
     setIsLoading(false);
   };
+  const ref = useRef(null);
+  const classes = useStyles();
+const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  }; 
   const handleEmployeeName = async () => {
     let res = await GET(ApiUrls.GET_ALL_EMPLOYEES);
     if (res.success != false) {
@@ -219,8 +240,36 @@ export default function ViewableTo() {
                 ) : null}
               </div>
             </Row>
+            <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+       
+       <div style={{paddingRight:10}}>
+         <Fab
+           className={classes.fab}
+           onClick={() => scroll(-50)}
+           color="primary"
+           aria-label="left"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronLeftIcon style={{}}/>
+         </Fab>
 
-            <div className="table-responsive">
+       </div>
+       <div style={{paddingRight:10}}>
+       <Fab
+           className={classes.fab}
+           
+           onClick={() => scroll(50)}
+           color="primary"
+           aria-label="right"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronRightIcon />
+         </Fab>
+
+       </div>
+       
+       </div>
+            <div className="table-responsive" ref={ref}>
               <table className="table table-hover " style={{}}>
                 <thead>
                   <tr>

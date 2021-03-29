@@ -12,14 +12,15 @@ import SuccessNotification from "../components/SuccessNotification";
 import ErrorNotification from "../components/ErrorNotification";
 import { validateEmail, validateMobile } from "./../utils/Validation";
 export default function Dropfile(props) {
+
+  const [isError, setIsError] = React.useState(true);
+
   const [toggle, setToggle] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState([]);
   const [alertmessage, setAlertMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isError, setIsError] = React.useState(true);
-
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -46,6 +47,8 @@ export default function Dropfile(props) {
         let mappingData = data.slice(1, data.length).map((item) => {
           const obj = new Object();
           if (item.length > 0) {
+
+            
             data[0].map((val, index) => {
               if(val=="contact")
               {
@@ -112,28 +115,28 @@ export default function Dropfile(props) {
     //   formData.append(`data[${index}][budget]`,item.budget)
     // })
     //webhook
-    await fetch("https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc",
-  // let resp=await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET,
-     {
-      method: "post",
-      mode: "no-cors",
-      crossDomain: true,
-      headers: {
-        // "Content-Disposition": "attachment; filename=report.xlsx",
-        // Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+  //   await fetch("https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc",
+  // // let resp=await POST(ApiUrls. POST_ADD_LEAD_USING_EXCEL_SHEET,
+  //    {
+  //     method: "post",
+  //     mode: "no-cors",
+  //     crossDomain: true,
+  //     headers: {
+  //       // "Content-Disposition": "attachment; filename=report.xlsx",
+  //       // Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
       
-    })
+  //   })
    
-      .then((res) => {
-        // return res;
-      })
-      .catch((error) => {
-        console.error(error);
-        // return error;
-      });
+  //     .then((res) => {
+  //       // return res;
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       // return error;
+  //     });
       console.log("string",JSON.stringify(selectedFile));
         //webhook end-
         // setIsLoading(true);
@@ -214,18 +217,15 @@ export default function Dropfile(props) {
               name="file"
               onChange={(e) => {
                 ReadFile(e);
-
                 // setSelectedFile(e.target.files[0]);
                 // SendFileToServer(e);
                 //  ;
               }}
             />
-
             {/* <input
               onChange={(e) => {
                 // setSelectedFile(ReadFile(e));
                 ReadFile(e);
-
                 //  ;
               }}
               className="w-100"
@@ -243,7 +243,7 @@ export default function Dropfile(props) {
       <ul>{fileRejectionItems}</ul> */}
             </Box>
             <Button
-            disabled={isError}
+            // disabled={isError}
               onClick={(e) => {
                 SendFileToServer(e);
                 setToggle(false);

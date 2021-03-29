@@ -500,7 +500,7 @@ export default function AddPolicies() {
             setShowAdd(true);
           }}
         >
-          <FontAwesomeIcon icon={faPlusSquare} />
+          <FontAwesomeIcon icon={faPlusSquare} />{" "}
           Add Policies
         </button>
         <ReactTooltip id="AddTip" place="top" effect="solid">

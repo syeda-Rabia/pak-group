@@ -172,11 +172,25 @@ export default function LeadsAllocatonAndAddition(props) {
       setAllLeadsToAllocate(res.data.leads);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
-    } else {
-      setMessage("Lead Not found");
+    } else if(res.error.hasOwnProperty("month"))
+    {
+      console.log("res.error.hasOwnProperty(month)");
+      // setErrorResponce(resp.error);
+      setMessage(res.error.month[0]);
+      setShowErrorAlert(true);
+      setshowReset(false);
+    
+    }
+    else if(res.hasOwnProperty("error")){
+      setMessage(res.error);
       setShowErrorAlert(true);
       setshowReset(false);
     }
+    // {
+    //   setMessage("Lead Not found");
+    //   setShowErrorAlert(true);
+    //   setshowReset(false);
+    // }
    
     setIsLoading(false);
   };
@@ -226,7 +240,7 @@ export default function LeadsAllocatonAndAddition(props) {
         lead_id: item.id,
         task: item.project.category.name,
       });
-      console.log(resp);
+      console.log("error message",resp);
       setRefresh(!refresh);
       setIsLoading(false);
 
@@ -238,6 +252,7 @@ export default function LeadsAllocatonAndAddition(props) {
         setMessage("Operation Failed");
         setShowErrorAlert(true);
       }
+      console.log("error message", resp);
     };
 
     const HandleTimeValue = (value) => {

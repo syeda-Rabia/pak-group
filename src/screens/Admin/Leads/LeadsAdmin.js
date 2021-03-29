@@ -104,6 +104,7 @@ export default function LeadsAdmin(props) {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [alertmessage, setAlertMessage] = React.useState("");
   const [showEdit, setShowEdit] = useState(false);
   const [selectedID, setSelectedID] = useState(null);
   const [showView, setShowView] = useState(false);
@@ -188,7 +189,7 @@ export default function LeadsAdmin(props) {
       setTotalRecord(resp.data.leads.total);
       setCurrentPage(resp.data.leads.current_page);
     }
-    console.log("leads", resp.data.leads);
+    console.log("leads", resp?.data?.leads);
     setIsLoading(false);
 
     //  ;
@@ -201,6 +202,21 @@ export default function LeadsAdmin(props) {
     console.log("-----", res);
     if (res.success != false) {
       setAllLeads(res.data.leads);
+      setMessage("Lead find Successfully");
+      setShowSuccessAlert(true);
+    } else if(res.error.hasOwnProperty("month"))
+    {
+      console.log("res.error.hasOwnProperty(month)");
+      // setErrorResponce(resp.error);
+      setMessage(res.error.month[0]);
+      setShowErrorAlert(true);
+      setshowReset(false);
+    
+    }
+    else if(res.hasOwnProperty("error")){
+      setMessage(res.error);
+      setShowErrorAlert(true);
+      setshowReset(false);
     }
     setIsLoading(false);
   };
@@ -296,7 +312,7 @@ export default function LeadsAdmin(props) {
         contact: contact,
         source: selectedSource,
         time_to_call: time,
-        phone: contact,
+        // phone: contact,
         email: email,
         // inventory_id: inventory,
         interest_id: interestID,
@@ -306,7 +322,8 @@ export default function LeadsAdmin(props) {
       };
       console.log(formData);
       let resp = await POST(ApiUrls.CREATE_LEAD, formData);
-      if (resp.error.hasOwnProperty("interest_id")) {
+      console.log("console----",resp);
+      if (resp.error.hasOwnProperty("interest_id")) { 
         setMessage("Lead Not Submitted. Interest field is Required.");
         setShowErrorAlert(true);
       }
@@ -1674,7 +1691,7 @@ export default function LeadsAdmin(props) {
           <div className="float-right floatingbtn" style={{}}>
             <Fab
               className={classes.fab} 
-              onClick={() => scroll(-50)}
+              onClick={() => scroll(-80)}
               color="primary"
               aria-label="left"
               style={{inlineSize:"34px",blockSize:"26px"}}
@@ -1684,7 +1701,7 @@ export default function LeadsAdmin(props) {
             <Fab
               className={classes.fab}
              
-              onClick={() => scroll(50)}
+              onClick={() => scroll(80)}
               
               color="primary"
               aria-label="right"

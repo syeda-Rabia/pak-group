@@ -38,6 +38,7 @@ import Pagination from "../../../components/Pagination/Pagination";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import axios from "axios";
+import { isArray } from "lodash";
 
 export default function AddEmployee() {
   const [userRecord, setUserRecord] = useState("");
@@ -81,6 +82,7 @@ export default function AddEmployee() {
       setCurrentPage(resp.data.users.current_page);
       setUserRecord(resp.data.users.data);
     }
+    console.log("users",resp);
     setIsLoading(false);
   };
 
@@ -241,12 +243,12 @@ console.log(resp,"+++++++++++++++++++++");
     const [gender, setGender] = useState(item.gender);
     const [password, setPassword] = useState(item.password);
     const [showPassword, setShowPassword] = useState(false);
-    const [user_type, setUser_type] = useState(item.user_type);
+    const [user_type, setUser_type] = useState(item.user_type == 1 ? "Admin" : "Employee");
     const [phone_no, setPhone_no] = useState(item.phone);
     const handleClickShowPassword = () => {
       setShowPassword(!showPassword);
     };
-
+    let errorAttr=["first_name","last_name","password","email","phone"];
 
     const SendRecordToServer = async (event) => {
       event.preventDefault();
@@ -263,7 +265,7 @@ console.log(resp,"+++++++++++++++++++++");
       };
       let resp = await POST(ApiUrls.EDIT_USER, formData);
       // ;
-      console.log("edit-----------",resp);
+      console.log("edit-----------",resp,formData);
       try {
         if (resp.error == false) {
           setMessage(resp.success);
@@ -274,6 +276,12 @@ console.log(resp,"+++++++++++++++++++++");
           setUserRecord((state) => [formData].concat(state));
         } else {
           // ;
+          let msg=[];
+          errorAttr.map((err)=>{
+            if(resp.error.hasOwnProperty(err))
+              msg.push(resp.error[err].join(" "))
+          })
+          setMessage(msg)
           setErrorAlert(true);
         }
         setShowEdit(false);
@@ -306,7 +314,7 @@ console.log(resp,"+++++++++++++++++++++");
             <h6>ID</h6>
             <input className="form-control w-100"    placeholder="Enter Id" /> */}
               <form>
-                <div className="pb-3">
+                <div className="b-3">
                   <h6>First Name</h6>
                   <input
                     className="form-control w-100 "
@@ -374,14 +382,15 @@ console.log(resp,"+++++++++++++++++++++");
                 <div className="pb-3">
                   <h6>Type</h6>
                   <select
-                    value={user_type === 2 ? "Admin" : "Employee"}
+                    value={user_type}
                     onChange={(e) => {
                       setUser_type(e.target.value);
+                      console.log("user type",user_type);
                     }}
                     className="form-control form-control-sm w-100"
                   >
                     <option value={"Admin"}>Admin</option>
-                    <option value={"Employee"}>Employee</option>
+                    <option value={"Employee"}>Employee</option> 
                   </select>
                 </div>
                 <div className="pb-3">
@@ -913,11 +922,27 @@ console.log(resp,"+++++++++++++++++++++");
           >
             <Alert variant="filled" severity="error">
               <AlertTitle>Error</AlertTitle>
+              <div style={{display:'flex',flexDirection:'column'}}>
+
+              {
+                isArray(message)?
+                  message.map((msg)=>{
+                  return(
+                    <span className="mr-5" style={{ textAlign: "center" }}>
+                    {msg === null || msg === undefined
+                      ? "Record not Submitted"
+                      : msg}
+                  </span>
+                  )})
+                
+                :
               <span className="mr-5" style={{ textAlign: "center" }}>
                 {message === null || message === undefined
                   ? "Record not Submitted"
                   : message}
               </span>
+              }
+              </div>
             </Alert>
           </Snackbar>
         </Slide>

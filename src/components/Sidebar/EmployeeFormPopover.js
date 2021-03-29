@@ -303,6 +303,7 @@ console.log("8888888888888888",resp);
                     defaultValue=""
                     onClick={(e) => {
                       SendRecordToServer(e);
+                      handleClose();
                      
                     }}
                   > 

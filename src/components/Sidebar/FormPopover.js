@@ -300,6 +300,7 @@ export default function FormPopover(props) {
                     defaultValue=""
                     onClick={(e) => {
                       SendRecordToServer(e);
+                      handleClose();
                      
                     }}
                   > 

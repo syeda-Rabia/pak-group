@@ -17,13 +17,14 @@ import {
 import {
   Tooltip,
   IconButton,
+  Fab,
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {useHistory } from "react-router-dom";
 import sample from "./../assests/sample.mp3";
 import sample2 from "./../assests/sample2.mp3";
 import { Modal } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { LeadsData } from "./../assests/constants/Leadsadmindata";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -61,6 +62,13 @@ import LeadsMobileViewSidebar from "../components/Sidebar/LeadsMobileViewSidebar
 import SuccessNotification from "../components/SuccessNotification";
 import ErrorNotification from "../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
+
+
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+
 import PreLoading from "../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
@@ -147,7 +155,11 @@ export default function LeadsAdmin() {
   };
   //  console.log(currencyFormat(2665));
  
+  const ref = useRef(null);
 
+  const scroll = (scrollOffset) => {
+      ref.current.scrollLeft += scrollOffset;
+    };
   const LeadTable = ({ item, index }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [selectedID, setSelectedID] = useState(null);
@@ -573,8 +585,37 @@ export default function LeadsAdmin() {
       />
 
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        
-        <div className="table-responsive">
+      <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+       
+       <div style={{paddingRight:10}}>
+         <Fab
+           className={classes.fab}
+           onClick={() => scroll(-50)}
+           color="primary"
+           aria-label="left"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronLeftIcon style={{}}/>
+         </Fab>
+
+       </div>
+       <div style={{paddingRight:10}}>
+       <Fab
+           className={classes.fab}
+           
+           onClick={() => scroll(50)}
+           color="primary"
+           aria-label="right"
+           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
+         >
+           <ChevronRightIcon />
+         </Fab>
+
+       </div>
+       
+       </div>
+       
+        <div className="table-responsive" ref={ref}>
           <table className="table table-hover" >
             <thead>
               <tr>

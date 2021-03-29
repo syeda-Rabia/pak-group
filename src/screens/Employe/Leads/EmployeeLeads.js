@@ -147,8 +147,17 @@ function EmployeeLeads(props, lead_id) {
       setData(response.data.leads);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
-    } else {
-      setMessage("Lead Not found");
+    } else if(response.error.hasOwnProperty("month"))
+    {
+      console.log("res.error.hasOwnProperty(month)");
+      // setErrorResponce(resp.error);
+      setMessage(response.error.month[0]);
+      setShowErrorAlert(true);
+      setshowReset(false);
+    
+    }
+    else if(response.hasOwnProperty("error")){
+      setMessage(response.error);
       setShowErrorAlert(true);
       setshowReset(false);
     }
