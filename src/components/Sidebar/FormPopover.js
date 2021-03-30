@@ -52,6 +52,7 @@ export default function FormPopover(props) {
     year: "",
   });
   // const [month, setMonth] = useState();
+  console.log(days,employees,project)
   const [year, setYear] = useState();
   useEffect(() => {
     getProjectDetails();
@@ -92,6 +93,13 @@ export default function FormPopover(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setDays({
+      day: "",
+      month: "",
+      year: "",
+    })
+    setProject("");
+    setEmployees("");
   };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
@@ -271,6 +279,16 @@ export default function FormPopover(props) {
                    controlId="month"
                    setDays={setDays}
                 />
+                {
+                  days.day!= "" && days.month == ""? (
+                    <small
+                      class="form-text  text-red"
+                      style={{ color: "red" }}
+                    >
+                      *This field is required
+                    </small>
+                  ):null
+                }
                   </div>
                  
                   {/* <Form.Control

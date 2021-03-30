@@ -373,7 +373,7 @@ export default function LeadsAdmin(props) {
               >
                 <Col>
                   <div className="pb-3">
-                    <h6>Client</h6>
+                    <h6>Client<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Input
                       required="true"
                       className="form-control input-width w-100 "
@@ -386,7 +386,7 @@ export default function LeadsAdmin(props) {
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Contact</h6>
+                    <h6>Contact<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     {/* <PhoneInput
                     color="#2258bf"
                     defaultCountry="Pakistan"
@@ -396,19 +396,20 @@ export default function LeadsAdmin(props) {
                     <Input
                       required="true"
                       className="form-control input-width w-100 "
-                      placeholder="Enter Contact"
+                      placeholder="03xxxxxxxxx"
                       type="tel"
                       minLength="11"
                       maxLength="11"
                       value={contact}
                       onChange={(e) => {
-                        if (e.target.value.match(/(^[0-9]*$)/g))
+                        // if (e.target.value.match(/(^[0-9]*$)/g))
+                        if(e.target.value.length<13)  
                           setContact(e.target.value);
                       }}
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Email</h6>
+                    <h6>Email<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Input
                       required="true"
                       error={emailError ? true : false}
@@ -432,11 +433,11 @@ export default function LeadsAdmin(props) {
                     />
                   </div>
                   <div className="pb-3">
-                    <h6>Country_City</h6>
+                    <h6>Country/City<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Input
                       required="true"
                       className="form-control input-width w-100"
-                      placeholder="Enter Country"
+                      placeholder="Enter Country/City"
                       type="text"
                       value={country}
                       onChange={(e) => {
@@ -460,7 +461,7 @@ export default function LeadsAdmin(props) {
                 </Col>
                 <Col className="ml-3">
                   <div className="pb-3">
-                    <h6>Project</h6>
+                    <h6>Project<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Select
                       className="form-control form-control-sm w-100"
                       value={project}
@@ -482,7 +483,7 @@ export default function LeadsAdmin(props) {
                     </Select>
                   </div>
                   <div className="pb-3">
-                    <h6 style={{ marginTop: 7 }}>Interest</h6>
+                    <h6 style={{ marginTop: 7 }}>Interest<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Select
                       className="form-control form-control-sm w-100"
                       // value={interest}
@@ -505,7 +506,7 @@ export default function LeadsAdmin(props) {
                   </div>
 
                   <div className="pb-3">
-                    <h6>Budget</h6>
+                    <h6>Budget<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Input
                       required="true"
                       className="form-control input-width w-100"
@@ -513,6 +514,7 @@ export default function LeadsAdmin(props) {
                       type="text"
                       value={budget}
                       onChange={(e) => {
+                        if(e.target.value.length<20)  
                         setBudget(e.target.value);
                       }}
                     />
@@ -1460,6 +1462,8 @@ export default function LeadsAdmin(props) {
           )}
         </td>
         <td>{item.task}</td>
+        <td>{item.created_at}</td>
+
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 
         {/* <td>{item.Allocate}</td>
@@ -1691,7 +1695,7 @@ export default function LeadsAdmin(props) {
           <div className="float-right floatingbtn" style={{}}>
             <Fab
               className={classes.fab} 
-              onClick={() => scroll(-80)}
+              onClick={() => scroll(-50)}
               color="primary"
               aria-label="left"
               style={{inlineSize:"34px",blockSize:"26px"}}
@@ -1701,7 +1705,7 @@ export default function LeadsAdmin(props) {
             <Fab
               className={classes.fab}
              
-              onClick={() => scroll(80)}
+              onClick={() => scroll(50)}
               
               color="primary"
               aria-label="right"
@@ -1807,6 +1811,11 @@ export default function LeadsAdmin(props) {
                 </th>
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
+                    Created_at
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
                     Deadline
                   </span>
                 </th>
@@ -1840,18 +1849,20 @@ export default function LeadsAdmin(props) {
                 allLeads.map((lead, index) => (
                   <LeadTable item={lead} index={index} />
                 ))
-              ) : (
-                <Snackbar
-                  open={true}
-                  autoHideDuration={6000}
-                  // anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                >
-                  <Alert variant="filled" severity="info">
-                    No Lead to Show
-                  </Alert>
-                </Snackbar>
-              )}
+              ) : null
+              // (
+              //   <Snackbar
+              //     open={true}
+              //     autoHideDuration={6000}
+              //     // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+              //     anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              //   >
+              //     <Alert variant="filled" severity="info">
+              //       No Lead to Show
+              //     </Alert>
+              //   </Snackbar>
+              // )
+              }
 
               {/* <h1>Other Leads</h1>
                   {data.map((item, index) => {

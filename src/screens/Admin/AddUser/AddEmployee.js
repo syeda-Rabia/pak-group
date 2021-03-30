@@ -628,7 +628,7 @@ console.log(resp,"+++++++++++++++++++++");
           <div>
             <Modal.Body>
               <div className="pb-3">
-                <h6>First Name</h6>
+                <h6>First Name<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <Input
                   className="form-control  w-100 "
                   placeholder="Enter First Name"
@@ -643,7 +643,7 @@ console.log(resp,"+++++++++++++++++++++");
                 />
               </div>
               <div className="pb-3">
-                <h6>Last Name</h6>
+                <h6>Last Name<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <Input
                   className="form-control  w-100 "
                   placeholder="Enter Last Name"
@@ -658,7 +658,7 @@ console.log(resp,"+++++++++++++++++++++");
                 />
               </div>
               <div className="pb-3">
-                <h6>Email</h6>
+                <h6>Email<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <Input
                   className="form-control  w-100"
                   // {true ?  error :null}
@@ -682,7 +682,7 @@ console.log(resp,"+++++++++++++++++++++");
               </div>
 
               <div className="pb-3">
-                <h6>Phone</h6>
+                <h6>Phone<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <Input
                       required="true"
                       className="form-control input-width w-100 "
@@ -722,7 +722,7 @@ console.log(resp,"+++++++++++++++++++++");
                 </select>
               </div>
               <div className="pb-3">
-                <h6>Type</h6>
+                <h6>Type<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <select
                   value={user_type}
                   onChange={(e) => {
@@ -735,7 +735,7 @@ console.log(resp,"+++++++++++++++++++++");
                 </select>
               </div>
               <div className="pb-3">
-                <h6>Initial Password</h6>
+                <h6>Initial Password<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                 <Input
                   className="form-control  w-100 "
                   placeholder="Enter password"

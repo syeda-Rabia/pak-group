@@ -94,6 +94,13 @@ console.log("8888888888888888",resp);
 
   const handleClose = () => {
     setAnchorEl(null);
+    setDays({
+      day: "",
+      month: "",
+      year: "",
+    })
+    setProject("");
+  
   };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
@@ -274,6 +281,16 @@ console.log("8888888888888888",resp);
                    controlId="month"
                    setDays={setDays}
                 />
+                 {
+                  days.day!= "" && days.month == ""? (
+                    <small
+                      class="form-text  text-red"
+                      style={{ color: "red" }}
+                    >
+                      *This field is required
+                    </small>
+                  ):null
+                }
                   </div>
                  
                   {/* <Form.Control

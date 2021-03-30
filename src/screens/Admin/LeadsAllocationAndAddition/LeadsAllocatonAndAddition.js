@@ -368,6 +368,7 @@ export default function LeadsAllocatonAndAddition(props) {
             <option value={"other"}>Other</option>
           </select> */}
         </td>
+        <td>{item.created_at}</td>
         <td>
           <KeyboardDatePickerExample value={today} showDate={handleDateValue} />
         </td>
@@ -651,6 +652,11 @@ export default function LeadsAllocatonAndAddition(props) {
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       Task
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="sn" style={{ color: "#818181" }}>
+                      Created_at
                     </span>
                   </th>
                   <th scope="col">

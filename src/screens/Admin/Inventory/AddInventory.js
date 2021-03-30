@@ -314,12 +314,23 @@ export default function AddInventory() {
       if (resp.error === false) {
         setMessage("Project created Successfully");
         setShowSuccessAlert(true);
-        // history.push("/admin/inventory");                 
-      }else {
-        setMessage("Operation Failed");
+        history.push("/admin/inventory");                 
+      }else if(resp.error.hasOwnProperty("name"))
+      {
+        console.log("res.error.hasOwnProperty(month)");
+        // setErrorResponce(resp.error);
+        setMessage(resp.error.name[0]);
         setShowErrorAlert(true);
+        
+      
       }
-      history.push("/admin/inventory");    
+      // {
+      //   setMessage("Operation Failed");
+      //   setShowErrorAlert(true);
+      //   // history.push("/admin/inventory");   
+      // }
+      console.log("project message",resp );
+      history.push("/admin/inventory");   
       setShowProgress(false);
     };
 

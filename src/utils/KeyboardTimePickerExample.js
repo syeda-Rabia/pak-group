@@ -34,6 +34,7 @@ export function KeyboardDatePickerExample({ value, showDate }) {
         // inputVariant="outlined"
         placeholder="10/10/2018"
         value={selectedDate}
+        minDate={new Date()}
         onChange={(date) => {
           handleDateChange(date);
           showDate(date);

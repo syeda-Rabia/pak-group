@@ -1,10 +1,10 @@
 import { store } from "../../src/modules/Store";
 // export const token = store.getState().auth.token;
-// let baseeURL = "https://ova.technovier.com";
+let baseeURL = "https://ova.technovier.com";
 // let baseeURL = "http://192.168.10.52:8000"; //technovier3
 // let baseeURL = "http://192.168.100.191:8000"; //technovier2
 // let baseeURL = "http://192.168.100.65:8000"; //imtesal
-let baseeURL = "http://192.168.10.2:8000"; //amir
+// let baseeURL = "http://192.168.10.16:8000"; //amir
 
 export const server_url = baseeURL+"/api/";
 // export const server_url = "https://ova.technovier.com/api/";

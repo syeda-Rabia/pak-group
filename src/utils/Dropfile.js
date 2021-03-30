@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import { faFileExcel ,faUpload } from "@fortawesome/free-solid-svg-icons";
 import React, { useCallback } from "react";
 import { useDropzone, Dropzone } from "react-dropzone";
 import Dialog from "@material-ui/core/Dialog";
@@ -197,13 +197,22 @@ export default function Dropfile(props) {
               />
               <p>Drag 'n' drop some files here, or click to select files</p>
             </div> */}
-            <div className="dropzone  p-5 mx-auto" {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
+            <div  className="  p-5 mx-auto">
+<h3 style={{ color: "#818181" }}>Excel File</h3>
+             <p>Drag 'n' drop some files here, or click to select files</p>
               <em>(Only *.xls and *.xlsx Files will be accepted)</em>
             </div>
+            <div className="dropzone  p-2 mx-auto" {...getRootProps()}>
+           
+              <input {...getInputProps()} />
+              
+              <div className="" style={{ fontSize: 20 ,color:"white",backgroundColor: "#2258BF",borderRadius:"5px"}}>
+
+              <FontAwesomeIcon style={{ fontSize: 20 ,paddingLeft:"5px",color:"white"}} icon={faUpload} /><span  style={{ fontSize: 20 ,paddingLeft:"10px",paddingRight:"10px" ,color:"white",fontWeight:"bold"}}>Browse File</span>
+              </div>
+            </div>
             <br />
-            <Container>
+            <Container className="pl-5">
               <h6>Accepted files</h6>
               <ul>{acceptedFileItems}</ul>
             </Container>
@@ -231,7 +240,7 @@ export default function Dropfile(props) {
               className="w-100"
               {...getInputProps()}
             /> */}
-            {/* <p>Drag drop files here , or click to select files</p>
+            {/* </>Drag drop files here , or click to select files</p>
             <em>(Only *.xls and *.xlsx Files will be accepted)</em>
           </div> */}{" "}
             {/* */}
@@ -242,7 +251,9 @@ export default function Dropfile(props) {
               {/* <h4>Rejected files</h4>
       <ul>{fileRejectionItems}</ul> */}
             </Box>
-            <Button
+            <Button 
+            className="btn btn-primary"
+            style={{ backgroundColor: "#2258BF" ,color:"white", display:"flex", alignItems:"center", justifyContent:"center"}}
             // disabled={isError}
               onClick={(e) => {
                 SendFileToServer(e);
