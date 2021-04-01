@@ -53,9 +53,13 @@ const NewApp = (props) => {
     // ;
     return (
       <React.Fragment>
-        <Route path="/admin/add-project">
+        <Route path="/admin/add-project"
+        render={(props) => (
+            <>
           <HeaderNavBar />
-          <AdminAddInventoryScreen />
+          <AdminAddInventoryScreen {...props}/>
+          </>
+          )}>
         </Route>
         <Route path="/admin/newinventory" 
           render={(props) => (

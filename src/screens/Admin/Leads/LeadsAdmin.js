@@ -24,6 +24,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { LeadsData } from "./../../../assests/constants/Leadsadmindata";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import {useHistory } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import axios from "axios";
 import {
@@ -46,9 +47,11 @@ import {
   Slide,
   Chip,
   Fab,
+  Tooltip,
+  IconButton,
 } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
-
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { validateEmail, validateMobile } from "../../../utils/Validation";
 import CTAButton from "../../../components/CTAButton";
 import ReactTicker from "../../../components/Ticker/ReactTicker";
@@ -59,6 +62,7 @@ import ErrorNotification from "../../../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
 import PreLoading from "../../../components/PreLoading";
 import Pagination from "../../../components/Pagination/Pagination";
+import nodata from "./../../../assests/nodata.png";
 import 'react-phone-number-input/style.css';
 // import PhoneInput from 'react-phone-number-input';
 const useStyles = makeStyles((theme) => ({
@@ -113,6 +117,9 @@ export default function LeadsAdmin(props) {
   const [goback, setGoBack] = React.useState("leads");
   const [select, setSelect] = React.useState([]);
   const [showReset, setshowReset] = useState(false);
+  const [IsFilter, setIsFilter] = useState(false);
+  const [IsEmpty, setIsEmpty] = useState(false);
+const history = useHistory();
   var today = new Date();
   const [recordings, setRecordings] = useState([]);
   const ref = useRef(null);
@@ -133,7 +140,7 @@ export default function LeadsAdmin(props) {
 
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
-
+  
   // const [page, setPage] = React.useState(2);
   const handlePageChange = async (page) => {
     /*
@@ -204,19 +211,22 @@ export default function LeadsAdmin(props) {
       setAllLeads(res.data.leads);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
+      setIsFilter(true);
+      setIsEmpty(false);
     } else if(res.error.hasOwnProperty("month"))
     {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res.error.month[0]);
       setShowErrorAlert(true);
-      setshowReset(false);
-    
+      setshowReset(true);
+    setIsEmpty(true);
     }
     else if(res.hasOwnProperty("error")){
-      setMessage(res.error);
-      setShowErrorAlert(true);
-      setshowReset(false);
+      // setMessage(res.error);
+      // setShowErrorAlert(true);
+      setshowReset(true);
+      setIsEmpty(true);
     }
     setIsLoading(false);
   };
@@ -1393,6 +1403,7 @@ export default function LeadsAdmin(props) {
   const LeadTable = ({ item, index }) => {
     // console.log(item);
     let country_city = "country/city";
+    let created_date=item.created_at;
     return (
       <tr>
          <td>
@@ -1462,7 +1473,7 @@ export default function LeadsAdmin(props) {
           )}
         </td>
         <td>{item.task}</td>
-        <td>{item.created_at}</td>
+        <td>{created_date.toString().split("T")[0]}</td>
 
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 
@@ -1589,6 +1600,51 @@ export default function LeadsAdmin(props) {
       </tr>
     );
   };
+  if(IsEmpty==true){
+    return (<div>
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
+     
+      <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>
+            Leads<sub>(Admin)</sub>
+          </h3>
+        </Col>
+
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <LeadsMobileViewSidebar update={props.update} />
+          </div>
+        </Col>
+        {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              getAllLeadsData();
+              setshowReset(false);
+              setIsFilter(false);
+              setIsEmpty(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
+     </Row>
+    <div style={{ display: "block",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop:"10%",
+  marginBottom:"auto",
+  width:"50%"}}> 
+  <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
+    </div>
+  );
+  }
+  else
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
@@ -1603,6 +1659,7 @@ export default function LeadsAdmin(props) {
             <LeadsMobileViewSidebar update={props.update} />
           </div>
         </Col>
+        
       </Row>
 
       <PreLoading startLoading={isLoading} />
@@ -1655,6 +1712,7 @@ export default function LeadsAdmin(props) {
              
               getAllLeadsData();
               setshowReset(false);
+              setIsFilter(false);
             }}
             style={{
               backgroundColor: "#2258BF",
@@ -1797,10 +1855,10 @@ export default function LeadsAdmin(props) {
                         Interest
                       </span>
                     </th> */}
-                <th scope="col">
+                <th scope="col" class="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     {" "}
-                    Allocated_To
+                    Allocated To
                   </span>
                 </th>
 
@@ -1809,9 +1867,9 @@ export default function LeadsAdmin(props) {
                     Task
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" class="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    Created_at
+                    Created at
                   </span>
                 </th>
                 <th scope="col">
@@ -1819,9 +1877,9 @@ export default function LeadsAdmin(props) {
                     Deadline
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" class="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    Show_Employee_action
+                    Show Employee action
                   </span>
                 </th>
 
@@ -1831,9 +1889,9 @@ export default function LeadsAdmin(props) {
                   </span>
                 </th>
 
-                <th scope="col">
+                <th scope="col" class="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    Call_To_Action
+                    Call To Action
                   </span>
                 </th>
 
@@ -1886,13 +1944,19 @@ export default function LeadsAdmin(props) {
           </p>
         </Col>
         <Col>
-          <Pagination
-            itemsCount={totalRecord}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            show={handleShow}
-          />
+       
+{IsFilter==false?(
+ <Pagination
+ itemsCount={totalRecord}
+ pageSize={pageSize}
+ currentPage={currentPage}
+ onPageChange={handlePageChange}
+ show={handleShow}
+/>
+):null}
+         
+       
+       
         </Col>
       </Row>
     </Container>

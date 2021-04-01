@@ -59,7 +59,7 @@ function EmployeeInventory() {
     return (
       <tr>
         <td scope="row">{item.id}</td>
-        <td>{item.user_name}</td>
+        <td>{item.user.first_name +" "+item.user.last_name}</td>
         {/* <td>{item.last_name}</td> */}
         {/* <td>{item.block_name}</td> */}
         <td style={{ textAlign: "justify" }}>{item.message}</td>

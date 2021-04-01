@@ -28,7 +28,7 @@ import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMob
 import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
-export default function AddInventory() {
+export default function AddInventory(props) {
   const [allProjectCategories, setAllProjectCategories] = React.useState([]);
 
   const [form, setForm] = React.useState(true); //
@@ -43,8 +43,11 @@ export default function AddInventory() {
   const [showSuccessAlert, setShowSuccessAlert] = React.useState(false);
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
   const [showProgress, setShowProgress] = React.useState(false);
+   const [ProjectErr, setProjectErr] = React.useState(false);
   const history = useHistory();
-
+console.log("props project name", props);
+const project=props.listData.ProjectName;
+console.log("project name", project);
   //  ;
   useEffect(() => {
     getAllProjectCategories();
@@ -156,6 +159,8 @@ export default function AddInventory() {
                     value={name}
                     onChange={(e) => {
                       //  ;
+                      if(project.some((pro)=>pro.name==e.target.value))
+                      setProjectErr(true);
                       setName(e.target.value);
                       // ;
                     }}
@@ -164,7 +169,16 @@ export default function AddInventory() {
                     type="text"
                   />
                 </Form.Group>
+                    {
+                       project.some((pro)=>pro.name==name)? <small
+                       class="form-text  text-red"
+                       style={{ color: "red" }}
+                      
+                     >
+                       This project name is already taken
 
+                     </small>:null
+                    }
                 <Form.Group controlId="projectCategory">
                   <Form.Label>Project Category</Form.Label>
 
@@ -195,9 +209,9 @@ export default function AddInventory() {
                   </Select>
 
                   {categoryError ? (
-                    <p style={{ color: "red" }}>
+                    <small style={{ color: "red" }}>
                       Please Enter Project Category.
-                    </p>
+                    </small>
                   ) : null}
                 </Form.Group>
 
@@ -229,7 +243,11 @@ export default function AddInventory() {
                     onClick={() => {
                       if (category === null) {
                         setCategoryError(true);
-                      } else {
+                      }
+                      // else if (ProjectErr === true) {
+                      //   // setProjectErr(true);
+                      // } 
+                      else {
                         const promiseA = new Promise(
                           (resolutionFunc, rejectionFunc) => {
                             resolutionFunc(() => setShowProgressInside(true));

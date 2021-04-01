@@ -268,6 +268,8 @@ export default function LeadsAllocatonAndAddition(props) {
       // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
       setDate(formatDate(value, "-"));
     };
+    let created_date=item.created_at;
+    let splitDate=created_date.toString().split("T").reverse()[1];
     return (
       <tr>
         <td>
@@ -368,7 +370,7 @@ export default function LeadsAllocatonAndAddition(props) {
             <option value={"other"}>Other</option>
           </select> */}
         </td>
-        <td>{item.created_at}</td>
+        <td>{splitDate}</td>
         <td>
           <KeyboardDatePickerExample value={today} showDate={handleDateValue} />
         </td>
@@ -638,15 +640,15 @@ export default function LeadsAllocatonAndAddition(props) {
                       Status
                     </span>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-nowrap">
                     <span id="sn" style={{ color: "#818181" }}>
-                    Returned_From
+                    Returned From
                     </span>
                   </th>
                   <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       {" "}
-                      Allocate/Re_Allocate
+                      Allocate/Re-Allocate
                     </span>
                   </th>
                   <th scope="col">
@@ -654,9 +656,9 @@ export default function LeadsAllocatonAndAddition(props) {
                       Task
                     </span>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-nowrap"> 
                     <span id="sn" style={{ color: "#818181" }}>
-                      Created_at
+                      Created at
                     </span>
                   </th>
                   <th scope="col">
@@ -670,9 +672,9 @@ export default function LeadsAllocatonAndAddition(props) {
                       
                     </span>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-nowrap">
                     <span id="sn" style={{ color: "#818181" }}>
-                      Update_Record
+                      Update Record
                     </span>
                   </th>
                 </tr>

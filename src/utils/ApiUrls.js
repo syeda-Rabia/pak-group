@@ -48,6 +48,7 @@ const ApiUrls = {
   DELETE_LEAD: "admin/lead/delete", 
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all",
+  GET_USER_LEADS_PAGINATION:"employee/lead/all?page=",
   EMPLOYEE_ACTION: "employee/lead/edit",
   GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
   GET_ALL_CLOSED_LEADS:"admin/lead/close",

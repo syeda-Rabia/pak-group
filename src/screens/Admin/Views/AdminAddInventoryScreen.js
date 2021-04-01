@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import InventorySidebar from "../../../components/Sidebar/InventorySidebar";
 import AddInventory from "../Inventory/AddInventory";
-export default function AdminAddInventoryScreen() {
+export default function AdminAddInventoryScreen(props) {
   return (
     <React.Fragment>
       <Container fluid>
@@ -24,7 +24,7 @@ export default function AdminAddInventoryScreen() {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <AddInventory />
+            <AddInventory  listData={props.location.query}/>
           </Col>
         </Row>
       </Container>

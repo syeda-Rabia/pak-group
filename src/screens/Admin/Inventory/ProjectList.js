@@ -40,6 +40,8 @@ export default function ProjectList() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [ProjectName, setProjectsName] = useState([]);
+
 
 
   const useStyles = makeStyles((theme) => ({
@@ -65,6 +67,7 @@ export default function ProjectList() {
 
     if (resp.data != null) {
       setAllProjects(resp.data.projects.data);
+      setProjectsName(resp.data.projects.data);
     }
     setIsLoading(false);
   };
@@ -325,6 +328,8 @@ export default function ProjectList() {
   };
 
   const TableEmployee = ({ item, index }) => {
+    let ProjectName=item.name;
+
     return (
       <tr>
         <td>{index + 1}</td>
@@ -441,7 +446,8 @@ export default function ProjectList() {
       ) : null}
       <Row>
         <div className="col-lg-12 shadow p-3  bg-white rounded mt-3">
-          <Link to="/admin/add-project">
+        <Link to={{ pathname: "/admin/add-project", query: { ProjectName } }}>
+          {/* <Link to="/admin/add-project"> */}
             <button
               type="button"
               className="btn btn-primary my-4"
@@ -470,18 +476,18 @@ export default function ProjectList() {
                   <th scope="col" style={{ color: "#818181" }}>
                     ID
                   </th>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Project_Name
+                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    Project Name
                   </th>
 
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Project_Category
+                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    Project Category
                   </th>
                   <th scope="col" style={{ color: "#818181" }}>
                     Units
                   </th>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Add_More_Units
+                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    Add More Units
                   </th>
 
                   <th scope="col" style={{ color: "#818181" }}>

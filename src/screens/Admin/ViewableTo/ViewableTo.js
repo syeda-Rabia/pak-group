@@ -278,9 +278,9 @@ const scroll = (scrollOffset) => {
                         Select
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Serial_No
+                        Serial No
                       </span>
                     </th>
                     <th scope="col">
@@ -288,24 +288,24 @@ const scroll = (scrollOffset) => {
                         Project
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Project_Category
+                        Project Category
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Inventory_Name
+                        Inventory Name
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Block_Name
+                        Block Name
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        Inventory_Category
+                        Inventory Category
                       </span>
                     </th>
                     <th scope="col">
@@ -313,9 +313,9 @@ const scroll = (scrollOffset) => {
                         Status
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
-                        ViewAble_To
+                        ViewAble To
                       </span>
                     </th>
                   </tr>

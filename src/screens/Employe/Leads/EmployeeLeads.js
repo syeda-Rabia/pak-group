@@ -42,6 +42,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 // import { token } from "../../../utils/Config";
 import { useDropzone, Dropzone } from "react-dropzone";
 import PreLoading from "../../../components/PreLoading";
+import Pagination from "../../../components/Pagination/Pagination";
 import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
@@ -117,14 +118,49 @@ function EmployeeLeads(props, lead_id) {
   // const []
 
   // const handleMenuButtonClick = (event) => {};
+  
+ /*  Pagination data  */
+
+ const [pageSize, setPageSize] = React.useState(0);
+ const [currentPage, setCurrentPage] = React.useState(null);
+ const [pageCount, setPageCount] = React.useState(0);
+ const [totalRecord, setTotalRecord] = React.useState(null);
+
+ const lastIndex = currentPage * pageSize;
+ const istIndex = lastIndex - pageSize;
+ 
+ // const [page, setPage] = React.useState(2);
+ const handlePageChange = async (page) => {
+   /*
+    Api Call
+    
+    */
+   setIsLoading(true);
+   let resp = await GET(ApiUrls. GET_USER_LEADS_PAGINATION + page);
+
+   if (resp.data != null) {
+     setCurrentPage(resp.data.leads.current_page);
+     setData(resp.data.leads.data);
+   }
+   setIsLoading(false);
+ };
+
+ const handleShow = (pageCount) => {
+   setPageCount(pageCount);
+ };
+
+ /*  Pagination data  */
 
   const handleFetchData = async () => {
     setIsLoading(true);
-    let res = await GET(ApiUrls.GET_USER_LEADS );
+    let res = await GET(ApiUrls.GET_USER_LEADS_PAGINATION );
     console.log("-------------------------------", res);
     
     if (res.success != false) {
-      setData(res.data.leads);
+      setData(res.data.leads.data);
+      setPageSize(res.data.leads.per_page);
+      setTotalRecord(res.data.leads.total);
+      setCurrentPage(res.data.leads.current_page);
     }
     setIsLoading(false);
   };
@@ -733,6 +769,7 @@ function EmployeeLeads(props, lead_id) {
         //  ;
       }
     };
+    let created_date=item.created_at;
     return (
       <tr>
         
@@ -771,6 +808,7 @@ function EmployeeLeads(props, lead_id) {
        
         <td>{item.email != null ? item.email : "-------"}</td>
         <td>{item.task}</td>
+        <td>{created_date.toString().split("T")[0]}</td>
         <td>{item.dead_line}</td>
         <td>
             <Link to= 
@@ -985,14 +1023,19 @@ function EmployeeLeads(props, lead_id) {
                       Task
                     </span>
                   </th>
+                  <th scope="col" class="text-nowrap">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Created at
+                    </span>
+                  </th>
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Deadline
                     </span>
                   </th>
-                  <th scope="col">
+                  <th scope="col" class="text-nowrap">
                     <span id="st" style={{ color: "#818181" }}>
-                      Admin_Action
+                      Admin Action
                     </span>
                   </th>
                  
@@ -1017,7 +1060,8 @@ function EmployeeLeads(props, lead_id) {
               {data.length > 0 ? (
                 data.map((item, index) => (
                   <Table
-                    item={item[0].lead}
+                    item={item.lead}
+                    // item={lead}
                     index={index}
                     setShowModalAction={setShowModalAction}
                     setValue={setValue}
@@ -1051,6 +1095,13 @@ function EmployeeLeads(props, lead_id) {
             <ModalAction data={postData} />
           </div>
         </div>
+        <Pagination
+ itemsCount={totalRecord}
+ pageSize={pageSize}
+ currentPage={currentPage}
+ onPageChange={handlePageChange}
+ show={handleShow}
+/>
       </Row>
     </Container>
   );

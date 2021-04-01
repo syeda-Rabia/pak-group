@@ -1216,7 +1216,7 @@ export default function RecordTable() {
               >
                 <thead>
                   <tr>
-                    <th scope="col">
+                    <th scope="col" >
                       <span id="sp" style={{ color: "#818181" }}>ID</span>
                     </th>
                     <th scope="col">
@@ -1237,8 +1237,8 @@ export default function RecordTable() {
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Interest</span>
                     </th>
-                    <th scope="col">
-                      <span id="sp" style={{ color: "#818181" }}>Time_to_Call</span>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sp" style={{ color: "#818181" }}>Time to Call</span>
                     </th>
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Country/City</span>
@@ -1260,15 +1260,15 @@ export default function RecordTable() {
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Deadline</span>
                     </th>
-                    <th scope="col">
-                      <span id="sp" style={{ color: "#818181" }}> Show_Employee_action</span>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sp" style={{ color: "#818181" }}> Show Employee action</span>
                     </th>
                      <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Recordings</span>
                     </th>
                    
-                    <th scope="col">
-                      <span id="sp" style={{ color: "#818181" }}>Call_To_Action</span>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sp" style={{ color: "#818181" }}>Call To Action</span>
                     </th>
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Action</span>
