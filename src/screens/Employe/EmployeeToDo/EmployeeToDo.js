@@ -41,12 +41,15 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 // import { token } from "../../../utils/Config";
 import { useDropzone, Dropzone } from "react-dropzone";
+import nodata from "./../../../assests/nodata.png";
 import PreLoading from "../../../components/PreLoading";
+
 import Pagination from "../../../components/Pagination/Pagination";
-import LeadsMobileViewSidebar from "../../../components/Sidebar/LeadsMobileViewSidebar";
+import EmployeeMobileViewSidebar from "../../../components/Sidebar/EmployeeMobileViewSidebar";
+
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
-
+import ActionButton from "./../../../components/ActionButton";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
@@ -101,6 +104,10 @@ function EmployeeLeads(props, lead_id) {
   const [goback, setGoBack] = React.useState("todo");
   const [showReset, setshowReset] = useState(false);
   const [errorResponce, setErrorResponce] = useState("");
+
+  const [IsFilter, setIsFilter] = useState(false);
+  const [IsEmpty, setIsEmpty] = useState(false);
+
   const ref = useRef(null);
   // console.log(postData, "YES", value);
   var today = new Date();
@@ -182,19 +189,25 @@ function EmployeeLeads(props, lead_id) {
       setData(res.data.leads);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
+      setIsFilter(true);
+      setIsEmpty(false);
     } else if(res.error.hasOwnProperty("month"))
     {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res.error.month[0]);
       setShowErrorAlert(true);
-      setshowReset(false);
+      // setshowReset(false);
+      setshowReset(true);
+    setIsEmpty(true);
     
     }
     else if(res.hasOwnProperty("error")){
-      setMessage(res.error);
-      setShowErrorAlert(true);
-      setshowReset(false);
+      // setMessage(res.error);
+      // setShowErrorAlert(true);
+      // setshowReset(false);
+      setshowReset(true);
+    setIsEmpty(true);
     }
    
     setIsLoading(false);
@@ -882,6 +895,8 @@ function EmployeeLeads(props, lead_id) {
               "-----"
             )}
           </td>
+        <td><ActionButton style={{backgroundColor:"blue",color:"white"}}/></td>
+
         <td>
           <Button
             aria-controls="simple-menu"
@@ -1023,6 +1038,51 @@ function EmployeeLeads(props, lead_id) {
       </tr>
     );
   };
+  if(IsEmpty==true){
+    return (<div>
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
+
+      <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>
+          To Do List
+          </h3>
+        </Col>
+
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+          <EmployeeMobileViewSidebar />
+          </div>
+        </Col>
+        {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+
+              handleFetchData();
+              setshowReset(false);
+              setIsFilter(false);
+              setIsEmpty(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
+     </Row>
+    <div style={{ display: "block",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop:"10%",
+  marginBottom:"auto",
+  width:"50%"}}> 
+  <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
+    </div>
+  );
+  }
+  else
   return (
     <Container fluid className="Laa">
       {/* <PreLoading startLoading={isLoading} /> */}
@@ -1036,7 +1096,7 @@ function EmployeeLeads(props, lead_id) {
 
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
           <div className="float-right ">
-            <LeadsMobileViewSidebar />
+            <EmployeeMobileViewSidebar />
           </div>
         </Col>
       </Row>
@@ -1063,6 +1123,7 @@ function EmployeeLeads(props, lead_id) {
              
               handleFetchData();
               setshowReset(false);
+              setIsFilter(false);
             }}
             style={{
               backgroundColor: "#2258BF",
@@ -1191,6 +1252,11 @@ function EmployeeLeads(props, lead_id) {
                       Recordings
                     </span>
                   </th>
+                  <th scope="col" class="text-nowrap">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Test Action
+                    </span>
+                  </th>
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Action
@@ -1201,6 +1267,7 @@ function EmployeeLeads(props, lead_id) {
                       Update
                     </span>
                   </th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -1241,7 +1308,7 @@ function EmployeeLeads(props, lead_id) {
             <ModalAction data={postData} />
           </div>
         </div>
-
+        {IsFilter==false?(
         <Pagination
  itemsCount={totalRecord}
  pageSize={pageSize}
@@ -1249,7 +1316,7 @@ function EmployeeLeads(props, lead_id) {
  onPageChange={handlePageChange}
  show={handleShow}
 />
-
+        ):null}
       </Row>
     </Container>
   );

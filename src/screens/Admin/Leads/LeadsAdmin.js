@@ -13,7 +13,7 @@ import {
   faPause,
   faStop,
   faRedo,
-  faLessThanEqual,
+ faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -114,6 +114,9 @@ export default function LeadsAdmin(props) {
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
+  const [showBan, setShowBan] = useState(false);
+
+
   const [goback, setGoBack] = React.useState("leads");
   const [select, setSelect] = React.useState([]);
   const [showReset, setshowReset] = useState(false);
@@ -921,6 +924,74 @@ const history = useHistory();
       </Modal>
     );
   };
+  const ModalBan = ({ item }) => {
+    // console.log(item);
+
+    const SendRecordToServer = async (event) => {
+      // event.preventDefault();
+
+      // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
+      // console.log(resp);
+      // // ;
+      // if (resp.error == false) {
+      //   setMessage("User Blocked Successfully");
+      //   setShowAlert(true);
+      // } else {
+      //   setMessage("you does not have the authority to block an admin");
+      //   setErrorAlert(true);
+      // }
+      // //   setUserRecord((state) => [formData].concat(state));
+      // // } else {
+      // //    ;
+      // //   setErrorAlert(true);
+      // // }
+
+      // // setIsLoading(false);
+      // setTimeout(() => {
+      //   setRefresh(!refresh);
+      // }, 1000);
+      // setShowBan(false);
+    };
+    return (
+      <Modal
+        show={showBan}
+        onHide={() => {
+          setShowBan(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>Close Lead</Modal.Title>
+        </Modal.Header>
+        <div>
+          <Modal.Body>
+            Do you really want to {" "}
+            {/* <em>{item.is_blocked == 1 ? " Open " : " Close "}</em> */}
+            Close
+            this Lead!
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowBan(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={(e) => {
+                SendRecordToServer(e);
+                setShowBan(false);
+              }}
+            >
+              Done
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
+    );
+  };
   console.log(recordings, "Recording");
   const HandleAudioModule = ({
     recording,
@@ -1595,6 +1666,21 @@ const history = useHistory();
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
             </ReactTooltip>
+            <button
+              data-tip
+              data-for="close"
+              type="button"
+              className="bg-transparent  button-focus ml-2"
+              onClick={() => {
+                setShowBan(true);
+                setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTimesCircle} />
+            </button>
+            <ReactTooltip id="close" place="top" effect="solid">
+              Close Lead
+            </ReactTooltip>
           </div>
         </td>
       </tr>
@@ -1935,6 +2021,7 @@ const history = useHistory();
             <ModalDelete item={allLeads[selectedID]} />
             <ModalView item={allLeads[selectedID]} />
             <ModalEdit item={allLeads[selectedID]} />
+            <ModalBan item={allLeads[selectedID]} />
           </>
         ) : null}
         <ModalAdd />

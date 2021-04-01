@@ -35,6 +35,7 @@ import PreLoading from "../../../components/PreLoading";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import Pagination from "../../../components/Pagination/Pagination";
+import nodata from "./../../../assests/nodata.png";
 export default function LeadsAllocatonAndAddition(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
@@ -65,6 +66,10 @@ export default function LeadsAllocatonAndAddition(props) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+
+
+  const [IsFilter, setIsFilter] = useState(false);
+  const [IsEmpty, setIsEmpty] = useState(false);
 
   const handleDateValue = (value) => {
     setDate(formatDate(value, "-"));
@@ -167,24 +172,30 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(true); 
     
     let res = await GET(props.searchData.url);
-    console.log("-----", res);
+    console.log("--------------", res);
     if (res.error === false) {
       setAllLeadsToAllocate(res.data.leads);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
+      setIsFilter(true);
+      setIsEmpty(false);
     } else if(res.error.hasOwnProperty("month"))
     {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res.error.month[0]);
       setShowErrorAlert(true);
-      setshowReset(false);
+      // setshowReset(false);
+      setshowReset(true);
+    setIsEmpty(true);
     
     }
     else if(res.hasOwnProperty("error")){
-      setMessage(res.error);
-      setShowErrorAlert(true);
-      setshowReset(false);
+      // setMessage(res.error);
+      // setShowErrorAlert(true);
+      // setshowReset(false);
+      setshowReset(true);
+    setIsEmpty(true);
     }
     // {
     //   setMessage("Lead Not found");
@@ -446,6 +457,52 @@ export default function LeadsAllocatonAndAddition(props) {
     }
     // let arr = data;
   };
+
+  if(IsEmpty==true){
+    return (<div>
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
+
+      <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>
+          Leads Allocation and Addition
+          </h3>
+        </Col>
+
+        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+          <div className="float-right ">
+            <SwipeableTemporaryDrawer update={props.update} />
+          </div>
+        </Col>
+        {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+
+              getAllLeads();
+              setshowReset(false);
+              setIsFilter(false);
+              setIsEmpty(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null} 
+     </Row>
+    <div style={{ display: "block",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop:"10%",
+  marginBottom:"auto",
+  width:"50%"}}> 
+  <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
+    </div>
+  );
+  }
+  else
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
@@ -576,6 +633,7 @@ export default function LeadsAllocatonAndAddition(props) {
             onClick={() => {
              
               getAllLeads();
+              setIsFilter(false);
               setshowReset(false);
             }}
             style={{
@@ -708,6 +766,7 @@ export default function LeadsAllocatonAndAddition(props) {
           </div>
         </div>
         <Col>
+        {IsFilter==false?(
           <Pagination
             itemsCount={totalRecord}
             pageSize={pageSize}
@@ -715,6 +774,7 @@ export default function LeadsAllocatonAndAddition(props) {
             onPageChange={handlePageChange}
             show={handleShow}
           />
+        ):null} 
         </Col>
       </Row>
     </Container>

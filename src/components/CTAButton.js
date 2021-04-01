@@ -29,7 +29,6 @@ import {
   Input,
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-
 import { GET, POST, formatDate } from "./../utils/Functions";
 import ApiUrls from "./../utils/ApiUrls";
 import SuccessNotification from "./SuccessNotification";

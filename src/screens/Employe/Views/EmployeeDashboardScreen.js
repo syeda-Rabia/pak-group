@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import EmployeeLAASidebar from "../../../components/Sidebar/EmployeeLAASidebar";
+// import EmployeeLAASidebar from "../../../components/Sidebar/EmployeeLAASidebar";
 import LAASidebar from "../../../components/Sidebar/LAASidebar";
 import EmployeeDashboard from "../EmployeeDashboard/EmployeeDashboard";
 export default function EmployeeDashboardScreen() {

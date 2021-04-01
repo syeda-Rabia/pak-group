@@ -22,7 +22,7 @@ import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
-
+import ActionButton from "./../../../components/ActionButton";
 import TextEditor from "../../../components/editor/TextEditor";
 
 
@@ -452,6 +452,7 @@ export default function AddPolicies() {
             </ReactTooltip>
           </div>
         </td>
+       
       </tr>
     );
   };
