@@ -439,13 +439,14 @@ function EmployeeLeads(props, lead_id) {
                 style={{ display: "flex", flexDirection: "row", width: "100%" }}
               >
                 {" "}
-                <span>
-                  <b>Created Date :</b> {item.created_at}
-                </span>{" "}
-                <span style={{ marginLeft: "50px" }}>
+                <span >
                   <b>File Name: </b>
                   {item.recording_file}
                 </span>{" "}
+                <span style={{ marginLeft: "50px" }}>
+                  <b>Created Date :</b> {item.created_at.toString().split("T")[0]}
+                </span>{" "}
+               
               </span>
   
               {/* <span className="spn1">

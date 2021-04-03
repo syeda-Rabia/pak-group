@@ -272,7 +272,13 @@ export default function LeadsAdmin() {
     </Ticker> */}
             <div style={{display:'flex',flexDirection:'row'}}>
               <p class="marquee">
-                  <span style={{display:'flex',flexDirection:'row',width:'100%'}}> <span><b>Created Date :</b> {item.recordings[0].created_at}</span> <span   style={{marginLeft:'50px'}}><b>File Name: </b>{item.recordings[0].recording_file}</span> </span>
+                  <span style={{display:'flex',flexDirection:'row',width:'100%'}}> <span >
+                  <b>File Name: </b>
+                  {item.recording_file}
+                </span>{" "}
+                <span style={{ marginLeft: "50px" }}>
+                  <b>Created Date :</b> {item.created_at.toString().split("T")[0]}
+                </span>{" "} </span>
                  
                 {/* <span className="spn1">
                   2011/10/09 {item.recordings[0].recording_file} {"       "}  2011/10/09 {item.recordings[0].recording_file}

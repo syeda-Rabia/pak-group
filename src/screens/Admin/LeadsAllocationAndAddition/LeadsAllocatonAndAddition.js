@@ -1,16 +1,13 @@
 import "./LeadsAllocatonAndAddition.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button,Modal } from "react-bootstrap";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ModalData } from "./../../../assests/constants/LAAadmin";
 import "react-phone-number-input/style.css";
 import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
- 
-  faRedo,
-  
-} from "@fortawesome/free-solid-svg-icons";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
@@ -46,6 +43,8 @@ export default function LeadsAllocatonAndAddition(props) {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
   const [showReset, setshowReset] = useState(false);
+  const [showModalCTA, setShowModalCTA] = React.useState(false);
+
   var today = new Date();
   var datee = formatDate(today, "-");
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -55,6 +54,7 @@ export default function LeadsAllocatonAndAddition(props) {
   const [employeesToAllocateLeads, setEmployeesToAllocateLeads] = useState([]);
 
   const [select, setSelect] = React.useState([]);
+  const [currentStatus, setCurrentStatus] = React.useState("");
   const [task, setTask] = useState("");
   const ref = useRef(null);
   const HandleName = (id) => {
@@ -67,7 +67,6 @@ export default function LeadsAllocatonAndAddition(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
-
   const [IsFilter, setIsFilter] = useState(false);
   const [IsEmpty, setIsEmpty] = useState(false);
 
@@ -75,7 +74,7 @@ export default function LeadsAllocatonAndAddition(props) {
     setDate(formatDate(value, "-"));
     console.log(formatDate(value, "-"));
   };
-  //pagination 
+  //pagination
   const [pageSize, setPageSize] = React.useState(0);
   const [currentPage, setCurrentPage] = React.useState(null);
   const [pageCount, setPageCount] = React.useState(0);
@@ -90,7 +89,9 @@ export default function LeadsAllocatonAndAddition(props) {
      
      */
     setIsLoading(true);
-    let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page);
+    let resp = await GET(
+      ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page
+    );
 
     if (resp.data != null) {
       setCurrentPage(resp.data.leads.current_page);
@@ -101,6 +102,98 @@ export default function LeadsAllocatonAndAddition(props) {
 
   const handleShow = (pageCount) => {
     setPageCount(pageCount);
+  };
+  React.useEffect(() => {
+    if (AllleadsToAllocate.length > 0 && select.length > 0) {
+      console.log(
+        AllleadsToAllocate.filter((leads) =>
+        select.includes(leads.id)
+      )
+      )
+      let status = AllleadsToAllocate.filter((leads) =>
+        select.includes(leads.id)
+      )[0].status;
+      console.log(status);
+      setCurrentStatus(status);
+    } else setCurrentStatus("");
+  }, [select]);
+
+  const ModalCTA = () => {
+   
+    const [message, setMessage] = useState("");
+    const [time, setTime] = useState(timee);
+    const [date, setDate] = useState(today);
+    const [checked, setChecked] = React.useState({ index: 0 });
+
+   
+  
+    const showText = [
+      "Show current Employee previous actions",
+      "Don't show current Employee previous actions",
+    ];
+  
+   
+   
+    const handleChecked = (event, id) => {
+      setChecked({ index: id });
+    };
+    // if (options.title === optionsArray[0].title)
+    //
+    return (
+      <Modal
+        show={showModalCTA}
+        onHide={() => {
+          setShowModalCTA(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Shift and Warn</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form >
+            <p>
+              Do you really want to shift this lead to
+              <b> {selectedEmployee.name}</b>.
+            </p>
+            {showText.map((item, index) => {
+              return (
+                <div key={index}>
+                  <Checkbox
+                    checked={checked.index === index}
+                    color="primary"
+                    onChange={(e) => {
+                      handleChecked(e, index);
+                    }}
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                  />
+                  {item}
+                </div>
+              );
+            })}
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={() => {
+              setShowModalCTA(false);
+            }}
+          >
+            Close
+          </Button>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={(e) => {
+              // SendShitLeadToServer(e);
+              SelectData(e,checked.index)
+              setShowModalCTA(false);
+            }}
+          >
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
   };
   // var timee =
   //   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -132,7 +225,7 @@ export default function LeadsAllocatonAndAddition(props) {
   }));
   const handleClose = () => {
     setShowSuccessAlert(false);
-    setShowErrorAlert(false); 
+    setShowErrorAlert(false);
   };
 
   const classes = useStyles();
@@ -141,17 +234,17 @@ export default function LeadsAllocatonAndAddition(props) {
     getAllLeads();
     getAllEmployees();
   }, [refresh]);
-  console.log(props.searchData,"LET SEE")
+  console.log(props.searchData, "LET SEE");
   const getAllLeads = async () => {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
-    console.log("response--------allocation--------",resp);
+    console.log("response--------allocation--------", resp);
 
     if (resp.data != null) {
-      console.trace("lead allocation",resp);
+      console.trace("lead allocation", resp);
       setAllLeadsToAllocate(resp.data.leads.data);
-      
+
       setPageSize(resp.data.leads.per_page);
       setTotalRecord(resp.data.leads.total);
       setCurrentPage(resp.data.leads.current_page);
@@ -160,17 +253,18 @@ export default function LeadsAllocatonAndAddition(props) {
   };
 
   useEffect(() => {
-    if (props.searchData.search == true) {setFilterdata();}
+    if (props.searchData.search == true) {
+      setFilterdata();
+    }
   }, [props.searchData.search]);
-  
-  
+
   const scroll = (scrollOffset) => {
     ref.current.scrollLeft += scrollOffset;
   };
   const setFilterdata = async () => {
     setshowReset(true);
-    setIsLoading(true); 
-    
+    setIsLoading(true);
+
     let res = await GET(props.searchData.url);
     console.log("--------------", res);
     if (res.error === false) {
@@ -179,30 +273,27 @@ export default function LeadsAllocatonAndAddition(props) {
       setShowSuccessAlert(true);
       setIsFilter(true);
       setIsEmpty(false);
-    } else if(res.error.hasOwnProperty("month"))
-    {
+    } else if (res.error.hasOwnProperty("month")) {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res.error.month[0]);
       setShowErrorAlert(true);
       // setshowReset(false);
       setshowReset(true);
-    setIsEmpty(true);
-    
-    }
-    else if(res.hasOwnProperty("error")){
+      setIsEmpty(true);
+    } else if (res.hasOwnProperty("error")) {
       // setMessage(res.error);
       // setShowErrorAlert(true);
       // setshowReset(false);
       setshowReset(true);
-    setIsEmpty(true);
+      setIsEmpty(true);
     }
     // {
     //   setMessage("Lead Not found");
     //   setShowErrorAlert(true);
     //   setshowReset(false);
     // }
-   
+
     setIsLoading(false);
   };
 
@@ -251,15 +342,14 @@ export default function LeadsAllocatonAndAddition(props) {
         lead_id: item.id,
         task: item.project.category.name,
       });
-      console.log("error message",resp);
+      console.log("error message", resp);
       setRefresh(!refresh);
       setIsLoading(false);
 
       if (resp.error === false) {
         setMessage("LEAD Allocated SUCCESSFULLY");
         setShowSuccessAlert(true);
-      }
-      else {
+      } else {
         setMessage("Operation Failed");
         setShowErrorAlert(true);
       }
@@ -279,13 +369,20 @@ export default function LeadsAllocatonAndAddition(props) {
       // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
       setDate(formatDate(value, "-"));
     };
-    let created_date=item.created_at;
-    let splitDate=created_date.toString().split("T").reverse()[1];
+    let created_date = item.created_at;
+    let splitDate = created_date.toString().split("T").reverse()[1];
     return (
       <tr>
         <td>
           <input
             type="checkBox"
+            disabled={
+              currentStatus != ""
+                ? currentStatus == item.status
+                  ? false
+                  : true
+                : false
+            }
             checked={select.includes(item.id)}
             onChange={(e) => {
               setTask(item.project.category.name);
@@ -340,7 +437,7 @@ export default function LeadsAllocatonAndAddition(props) {
             ? item.returned_allocations[0].returned_from.first_name
             : "------"}
         </td> */}
- {/* <td>
+        {/* <td>
           {item?.previous_emp.length > 0
             ? item.previous_emp[0].returned?.first_name
             : "------"}
@@ -433,13 +530,14 @@ export default function LeadsAllocatonAndAddition(props) {
     //  let arr = data;
   };
   // console.trace("------------------", AllleadsToAllocate);
-  const SelectData = async (event) => {
+  const SelectData = async (event,view=0) => {
     event.preventDefault();
     let postData = {
       lead_id: select,
       allocated_to: selectedEmployee,
       task: task,
       dead_line: date,
+      isView:view
     };
     console.log(postData);
 
@@ -458,325 +556,344 @@ export default function LeadsAllocatonAndAddition(props) {
     // let arr = data;
   };
 
-  if(IsEmpty==true){
-    return (<div>
-      <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
+  if (IsEmpty == true) {
+    return (
+      <div>
+        <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
+          <Col lg={10} sm={10} xs={10} xl={11}>
+            <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
+          </Col>
 
-      <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>
-          Leads Allocation and Addition
-          </h3>
-        </Col>
+          <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+            <div className="float-right ">
+              <SwipeableTemporaryDrawer update={props.update} />
+            </div>
+          </Col>
+          {showReset == true ? (
+            <button
+              type="button"
+              className="btn btn-primary leadbtn ml-2"
+              onClick={() => {
+                getAllLeads();
+                setshowReset(false);
+                setIsFilter(false);
+                setIsEmpty(false);
+              }}
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+            >
+              <FontAwesomeIcon icon={faRedo} /> reverse filter
+            </button>
+          ) : null}
+        </Row>
+        <div
+          style={{
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "10%",
+            marginBottom: "auto",
+            width: "50%",
+          }}
+        >
+          <img style={{ width: "100%", height: "500px" }} src={nodata} />
+        </div>
+      </div>
+    );
+  } else
+    return (
+      <Container fluid>
+        <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
+          <Col lg={10} sm={10} xs={10} xl={11}>
+            <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
+          </Col>
 
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <SwipeableTemporaryDrawer update={props.update} />
-          </div>
-        </Col>
-        {showReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn ml-2" 
-            onClick={() => {
+          <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
+            <div className="float-right ">
+              <SwipeableTemporaryDrawer update={props.update} />
+            </div>
+          </Col>
+        </Row>
+        <PreLoading startLoading={isLoading} />
 
-              getAllLeads();
-              setshowReset(false);
-              setIsFilter(false);
-              setIsEmpty(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-           ):null} 
-     </Row>
-    <div style={{ display: "block",
-  marginLeft: "auto",
-  marginRight: "auto",
-  marginTop:"10%",
-  marginBottom:"auto",
-  width:"50%"}}> 
-  <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
-    </div>
-  );
-  }
-  else
-  return (
-    <Container fluid>
-      <Row className="shadow p-3 mb-2 bg-white rounded mt-4 ">
-        <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Leads Allocation and Addition</h3>
-        </Col>
+        <SuccessNotification
+          showSuccess={showSuccessAlert}
+          message={message}
+          closeSuccess={setShowSuccessAlert}
+        />
+        <ErrorNotification
+          showError={showErrorAlert}
+          message={message}
+          closeError={setShowErrorAlert}
+        />
 
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <SwipeableTemporaryDrawer update={props.update}/>
-          </div>
-        </Col>
-      </Row>
-      <PreLoading startLoading={isLoading} />
+        {select.length > 0 ? (
+          <>
+            <form onSubmit={MultiLeadAssign}>
+              <Row className="shadow py-2  bg-white rounded mb-2 ">
+                {/* <div className="col-lg-7"> */}
 
-      <SuccessNotification
-        showSuccess={showSuccessAlert}
-        message={message}
-        closeSuccess={setShowSuccessAlert}
-      />
-      <ErrorNotification
-        showError={showErrorAlert}
-        message={message}
-        closeError={setShowErrorAlert}
-      />
+                <Col lg={6}>
+                  <div class="form-group">
+                    <label for="selectEmployee">Select Employee</label>
 
-      {select.length > 0 ? (
-        <>
-          <form onSubmit={MultiLeadAssign}>
-            <Row className="shadow py-2  bg-white rounded mb-2 ">
-              {/* <div className="col-lg-7"> */}
-
-              <Col lg={6}>
-                <div class="form-group">
-                  <label for="selectEmployee">Select Employee</label>
-
-                  <Select
-                    id="selectEmployee"
-                    disableUnderline
-                    className="form-control form-control-sm w-100"
-                    value={selectedEmployee}
-                    onChange={(e) => {
-                      console.log(
-                        "select employee ID is -----",
-                        e.target.value
-                      );
-                      setSelectedEmployee(e.target.value);
-                    }}
-                  >
-                    {employeesToAllocateLeads.length > 0
-                      ? employeesToAllocateLeads.map((emp) => (
-                          <MenuItem key={emp.id} value={emp.id}>
-                            {emp.first_name} {emp.last_name}
-                          </MenuItem>
-                        ))
-                      : null}
-                  </Select>
-                </div>
-              </Col>
-              {/* </div> */}
-
-              <Col lg={6}>
-                <div className="">
-                  <label>Select_Deadline</label>
-                </div>
-
-                <div className="row">
-                  <div className="w-50 px-2 mx-2">
-                    <KeyboardDatePickerExample
-                      value={date}
-                      showDate={handleDateValue}
-                    />
-                  </div>
-
-                  <div className="ml-3">
-                    <button
-                      className="btn btn-primary "
-                      type="submit"
-                      style={{ backgroundColor: "#2258BF" }}
-                      // disabled={!select.every((v) => v === true)}
-
-                      onClick={SelectData}
+                    <Select
+                      id="selectEmployee"
+                      disableUnderline
+                      className="form-control form-control-sm w-100"
+                      value={selectedEmployee}
+                      onChange={(e) => {
+                        console.log(
+                          "select employee ID is -----",
+                          e.target.value
+                        );
+                        setSelectedEmployee(e.target.value);
+                      }}
                     >
-                      Save
-                    </button>
+                      {employeesToAllocateLeads.length > 0
+                        ? employeesToAllocateLeads.map((emp) => (
+                            <MenuItem key={emp.id} value={emp.id}>
+                              {emp.first_name} {emp.last_name}
+                            </MenuItem>
+                          ))
+                        : null}
+                    </Select>
                   </div>
-                </div>
-              </Col>
-            </Row>
-          </form>
-        </>
-      ) : null}
-      <Row>
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
-          <div style={{paddingRight:10}}>
-            <Fab
-              className={classes.fab}
-              onClick={() => scroll(-50)}
-              color="primary"
-              aria-label="left"
-              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-            >
-              <ChevronLeftIcon style={{}}/>
-            </Fab>
+                </Col>
+                {/* </div> */}
 
-          </div>
-          <div style={{paddingRight:10}}>
-          <Fab
-              className={classes.fab}
-              
-              onClick={() => scroll(50)}
-              color="primary"
-              aria-label="right"
-              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-            >
-              <ChevronRightIcon />
-            </Fab>
+                <Col lg={6}>
+                  <div className="">
+                    <label>Select_Deadline</label>
+                  </div>
 
-          </div>
-          
-          </div>
-          
-        {showReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn ml-2" 
-            onClick={() => {
-             
-              getAllLeads();
-              setIsFilter(false);
-              setshowReset(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-           ):null} 
-            
-          <div className="table-responsive"  ref={ref}>
-            <table className="table table-hover" style={{ minHeight: "200px" }}>
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Select
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      ID
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Clients
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Contacts
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Project
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Budget
-                    </span>
-                  </th>
-                  {/* <th scope="col">
+                  <div className="row">
+                    <div className="w-50 px-2 mx-2">
+                      <KeyboardDatePickerExample
+                        value={date}
+                        showDate={handleDateValue}
+                      />
+                    </div>
+
+                    <div className="ml-3">
+                      <button
+                        className="btn btn-primary "
+                        type="submit"
+                        style={{ backgroundColor: "#2258BF" }}
+                        // disabled={!select.every((v) => v === true)}
+
+                        onClick={(e)=>{
+                          if(currentStatus == "New")
+                          SelectData(e)
+                          else 
+                            setShowModalCTA(true);
+                        }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </form>
+          </>
+        ) : null}
+        <Row>
+          <div className="col-lg-12 shadow p-3  bg-white rounded ">
+            <div
+              className="float-right floatingbtn"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                zIndex: 100,
+              }}
+            >
+              <div style={{ paddingRight: 10 }}>
+                <Fab
+                  className={classes.fab}
+                  onClick={() => scroll(-50)}
+                  color="primary"
+                  aria-label="left"
+                  style={{
+                    inlineSize: "34px",
+                    blockSize: "26px",
+                    backgroundColor: "#2258bf",
+                  }}
+                >
+                  <ChevronLeftIcon style={{}} />
+                </Fab>
+              </div>
+              <div style={{ paddingRight: 10 }}>
+                <Fab
+                  className={classes.fab}
+                  onClick={() => scroll(50)}
+                  color="primary"
+                  aria-label="right"
+                  style={{
+                    inlineSize: "34px",
+                    blockSize: "26px",
+                    backgroundColor: "#2258bf",
+                  }}
+                >
+                  <ChevronRightIcon />
+                </Fab>
+              </div>
+            </div>
+
+            {showReset == true ? (
+              <button
+                type="button"
+                className="btn btn-primary leadbtn ml-2"
+                onClick={() => {
+                  getAllLeads();
+                  setIsFilter(false);
+                  setshowReset(false);
+                }}
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
+              >
+                <FontAwesomeIcon icon={faRedo} /> reverse filter
+              </button>
+            ) : null}
+
+            <div className="table-responsive" ref={ref}>
+              <table
+                className="table table-hover"
+                style={{ minHeight: "200px" }}
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Select
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        ID
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Clients
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Contacts
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Project
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Budget
+                      </span>
+                    </th>
+                    {/* <th scope="col">
                     <span id="sn" style={{ color: "#818181" }}>
                       TOC
                     </span>
                   </th> */}
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Source
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Country/City
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Status
-                    </span>
-                  </th>
-                  <th scope="col" class="text-nowrap">
-                    <span id="sn" style={{ color: "#818181" }}>
-                    Returned From
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      {" "}
-                      Allocate/Re-Allocate
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Task
-                    </span>
-                  </th>
-                  <th scope="col" class="text-nowrap"> 
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Created at
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Deadline
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="sn" style={{ color: "#818181" }}>
-                    Interest
-                      
-                    </span>
-                  </th>
-                  <th scope="col" class="text-nowrap">
-                    <span id="sn" style={{ color: "#818181" }}>
-                      Update Record
-                    </span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {AllleadsToAllocate.length > 0 ? (
-                  AllleadsToAllocate.map((lead, index) => (
-                    <LeadsAllocationAndAdditionTable
-                      item={lead}
-                      index={index}
-                      leads={employeesToAllocateLeads}
-                    />
-                  ))
-                ) : (
-                  <Snackbar
-                    open={true}
-                    autoHideDuration={6000}
-                    // anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  >
-                    <Alert variant="filled" severity="info">
-                      No Lead to Show
-                    </Alert>
-                  </Snackbar>
-                )}
-                {/* {data.map((item, index) => {
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Source
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Country/City
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Status
+                      </span>
+                    </th>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Returned From
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        {" "}
+                        Allocate/Re-Allocate
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Task
+                      </span>
+                    </th>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Created at
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Deadline
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Interest
+                      </span>
+                    </th>
+                    <th scope="col" class="text-nowrap">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Update Record
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {AllleadsToAllocate.length > 0 ? (
+                    AllleadsToAllocate.map((lead, index) => (
+                      <LeadsAllocationAndAdditionTable
+                        item={lead}
+                        index={index}
+                        leads={employeesToAllocateLeads}
+                      />
+                    ))
+                  ) : (
+                    <Snackbar
+                      open={true}
+                      autoHideDuration={6000}
+                      // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    >
+                      <Alert variant="filled" severity="info">
+                        No Lead to Show
+                      </Alert>
+                    </Snackbar>
+                  )}
+                  {/* {data.map((item, index) => {
                   return <TableEmployee item={item} index={index} />;
                 })} */}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <Col>
-        {IsFilter==false?(
-          <Pagination
-            itemsCount={totalRecord}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            show={handleShow}
-          />
-        ):null} 
-        </Col>
-      </Row>
-    </Container>
-  );
+          {showModalCTA ? <ModalCTA /> : null}
+          <Col>
+            {IsFilter == false ? (
+              <Pagination
+                itemsCount={totalRecord}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                show={handleShow}
+              />
+            ) : null}
+          </Col>
+        </Row>
+      </Container>
+    );
 }

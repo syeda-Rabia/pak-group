@@ -442,12 +442,12 @@ function EmployeeLeads(props, lead_id) {
                 style={{ display: "flex", flexDirection: "row", width: "100%" }}
               >
                 {" "}
-                <span>
-                  <b>Created Date :</b> {item.created_at}
-                </span>{" "}
-                <span style={{ marginLeft: "50px" }}>
+                <span >
                   <b>File Name: </b>
                   {item.recording_file}
+                </span>{" "}
+                <span style={{ marginLeft: "50px" }}>
+                  <b>Created Date :</b> {item.created_at.toString().split("T")[0]}
                 </span>{" "}
               </span>
   
@@ -753,7 +753,9 @@ function EmployeeLeads(props, lead_id) {
       console.log('form data is recordingFile ------------>',recordingFile);
       console.log('form data - recordingFile ------------>',formData.recording_file);
   
-      let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+      // let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+      let resp = await fetch("https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04", formData); 
+
       if (resp.hasOwnProperty("success")) {
         setAlertMessage(resp.success);
         // setMessage("Recording submitted Successfully");
@@ -895,7 +897,7 @@ function EmployeeLeads(props, lead_id) {
               "-----"
             )}
           </td>
-        <td><ActionButton style={{backgroundColor:"blue",color:"white"}}/></td>
+        {/* <td><ActionButton style={{backgroundColor:"blue",color:"white"}}/></td> */}
 
         <td>
           <Button
@@ -1252,11 +1254,11 @@ function EmployeeLeads(props, lead_id) {
                       Recordings
                     </span>
                   </th>
-                  <th scope="col" class="text-nowrap">
+                  {/* <th scope="col" class="text-nowrap">
                     <span id="st" style={{ color: "#818181" }}>
                       Test Action
                     </span>
-                  </th>
+                  </th> */}
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Action
