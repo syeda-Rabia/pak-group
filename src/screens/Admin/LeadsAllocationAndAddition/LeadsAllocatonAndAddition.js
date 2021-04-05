@@ -219,6 +219,10 @@ export default function LeadsAllocatonAndAddition(props) {
       color: "#fff",
       backgroundColor: "#90caf9 !important",
     },
+    chipLoss: {
+      color: "#fff",
+      backgroundColor: "#AC917A !important",
+    },
     chipLabelColor: {
       color: "black",
     },
@@ -418,6 +422,8 @@ export default function LeadsAllocatonAndAddition(props) {
                     ? classes.chipFollowUp
                     : item.status === "Allocated"
                     ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
                     : null,
               }}
               label={item.status}
@@ -820,7 +826,7 @@ export default function LeadsAllocatonAndAddition(props) {
                         Returned From
                       </span>
                     </th>
-                    <th scope="col">
+                    <th scope="col" class="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         {" "}
                         Allocate/Re-Allocate

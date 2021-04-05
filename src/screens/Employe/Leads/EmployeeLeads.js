@@ -69,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "#90caf9 !important",
   },
+  chipShifted: {
+    color: "#fff",
+    backgroundColor: "#CEAAC3 !important",
+  },
   chipLabelColor: {
     color: "black",
   },
@@ -809,7 +813,9 @@ function EmployeeLeads(props, lead_id) {
                   : item.status === "Follow up"
                   ? classes.chipFollowUp
                   : item.status === "Allocated"
-                  ? classes.chipAllocated
+                  ? classes.chipAllocated0
+                  : item.status === "Shifted"
+                  ? classes.chipShifted
                   : null,
             }}
             label={item.status}

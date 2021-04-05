@@ -53,6 +53,7 @@ const ApiUrls = {
   GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
   GET_ALL_CLOSED_LEADS:"admin/lead/close",
   GET_ALL_LEADS_PAGINATION: "admin/lead/all?page=",
+  POST_CLOSE_OR_WIN_LEAD:"admin/lead/closeLead",
   //excel sheet read api
   POST_ADD_LEAD_USING_EXCEL_SHEET:"admin/lead/addLeads",
 // filter 

@@ -1,4 +1,5 @@
 import React, { useCallback ,useState,useEffect,useRef } from "react";
+import axios from 'axios';
 import "./../Leads/EmployeeLeads.css";
 import { Container, Row, Col, Button, Modal,Card } from "react-bootstrap";
 import {
@@ -70,6 +71,10 @@ const useStyles = makeStyles((theme) => ({
   chipAllocated: {
     color: "#fff",
     backgroundColor: "#90caf9 !important",
+  },
+  chipShifted: {
+    color: "#fff",
+    backgroundColor: "#CEAAC3 !important",
   },
   chipLabelColor: {
     color: "black",
@@ -749,12 +754,12 @@ function EmployeeLeads(props, lead_id) {
         };
   // let formData = new FormData();
   //     formData.append("lead_id", item.id);
-      // formData.append("recording_file", recordingFile);
+  //     formData.append("recording_file", recordingFile,"lol");
       console.log('form data is recordingFile ------------>',recordingFile);
-      console.log('form data - recordingFile ------------>',formData.recording_file);
+      console.log('form data - recordingFile ------------>',formData.recording_file,"lol");
   
-      // let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
-      let resp = await fetch("https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04", formData); 
+      let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+      // let resp = await fetch("https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04",{method:"post"}, formData); 
 
       if (resp.hasOwnProperty("success")) {
         setAlertMessage(resp.success);
@@ -819,6 +824,8 @@ function EmployeeLeads(props, lead_id) {
                   ? classes.chipFollowUp
                   : item.status === "Allocated"
                   ? classes.chipAllocated
+                  : item.status === "Shifted"
+                  ? classes.chipShifted
                   : null,
             }}
             label={item.status}
@@ -1273,7 +1280,7 @@ function EmployeeLeads(props, lead_id) {
                 </tr>
               </thead>
               <tbody>
-              {data.length > 0 ? (
+              {data?.length > 0 ? (
                 data.map((item, index) => (
                   <Table
                     item={item.lead}

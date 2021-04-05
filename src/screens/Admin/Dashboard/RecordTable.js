@@ -90,6 +90,33 @@ export default function RecordTable() {
         color: "#fff",
       },
     },
+    chipGracePeriod: {
+      color: "#fff",
+      backgroundColor: "red !important",
+    },
+    chipComplete: {
+      color: "#fff",
+      backgroundColor: "green !important",
+    },
+    chipFollowUp: {
+      color: "#fff",
+      backgroundColor: "yellow !important",
+    },
+    chipOverdue: {
+      color: "#fff",
+      backgroundColor: "orange !important",
+    },
+    chipAllocated: {
+      color: "#fff",
+      backgroundColor: "#90caf9 !important",
+    },
+    chipLoss: {
+      color: "#fff",
+      backgroundColor: "#AC917A !important",
+    },
+    chipLabelColor: {
+      color: "black",
+    },
   }));
 
   const classes = useStyles();
@@ -1005,6 +1032,8 @@ export default function RecordTable() {
                     ? classes.chipFollowUp
                     : item.status === "Allocated"
                     ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
                     : null,
               }}
               label={item.status}

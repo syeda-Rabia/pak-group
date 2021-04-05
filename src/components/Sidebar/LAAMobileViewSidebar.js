@@ -66,20 +66,7 @@ export default function TemporaryDrawer(props) {
             {/* <LAASidebar /> */}
             <FormPopover name="Search Leads" update={props.update} />
             <ul className="list-group">
-              <li id="list-item" className="list-group-item">
-                Add News Leads
-              </li>
-              <li id="list-item" className="list-group-item">
-                <Link
-                  className="navLink"
-                  id="list-item"
-                  to={{
-                    pathname: "/admin/todolist",
-                  }}
-                >
-                  To Do List
-                </Link>
-              </li>
+              
               <li id="list-item" className="list-group-item">
                 <Link
                   className="navLink"

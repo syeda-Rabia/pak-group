@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Dropfile from "../../../utils/Dropfile";
 import { Link, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Checkbox from "@material-ui/core/Checkbox";
 import {
   faEye,
   faPencilAlt,
@@ -86,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "#90caf9 !important",
   },
+  chipLoss: {
+    color: "#fff",
+    backgroundColor: "#AC917A !important",
+  },
   chipLabelColor: {
     color: "black",
   },
@@ -115,7 +120,7 @@ export default function LeadsAdmin(props) {
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
   const [showBan, setShowBan] = useState(false);
-
+  const [checked, setChecked] = React.useState({ index: 0});
 
   const [goback, setGoBack] = React.useState("leads");
   const [select, setSelect] = React.useState([]);
@@ -477,6 +482,7 @@ const history = useHistory();
                     <h6>Project<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Select
                       className="form-control form-control-sm w-100"
+                      required="true"
                       value={project}
                       onChange={(e) => {
                         console.log(
@@ -499,6 +505,7 @@ const history = useHistory();
                     <h6 style={{ marginTop: 7 }}>Interest<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Select
                       className="form-control form-control-sm w-100"
+                      required="true"
                       // value={interest}
                       onChange={(e) => {
                         console.log(
@@ -536,6 +543,7 @@ const history = useHistory();
                   <div className="pb-3">
                     <h6>Source</h6>
                     <Select
+                     required="true"
                       value={selectedSource}
                       onChange={(e) => {
                         setSelectedSource(e.target.value);
@@ -924,12 +932,32 @@ const history = useHistory();
       </Modal>
     );
   };
-  const ModalBan = ({ item }) => {
+  const ModalClose = ({ item }) => {
     // console.log(item);
-
+    const [checked, setChecked] = React.useState({ index: 0});
+    const showText = ["Lead successfully Completed", "Lead Loss"];
+    const handleChecked = (event, id) => {
+      setChecked({ index: id});
+    };
     const SendRecordToServer = async (event) => {
       // event.preventDefault();
-
+      let resp = await POST(ApiUrls.POST_CLOSE_OR_WIN_LEAD, {
+      
+        lead_id: item.id,
+       
+        status:checked.index==0?"Complete":"Loss",
+      
+      });
+      if (resp.error === false) {
+        setAlertMessage("Lead closed Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setAlertMessage("Lead not closed");
+        setShowErrorAlert(true);
+      }
+      setIsLoading(false);
+      setRefresh(!refresh);
+      console.log("-------resp----",resp);
       // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
       // console.log(resp);
       // // ;
@@ -964,10 +992,23 @@ const history = useHistory();
         </Modal.Header>
         <div>
           <Modal.Body>
-            Do you really want to {" "}
-            {/* <em>{item.is_blocked == 1 ? " Open " : " Close "}</em> */}
-            Close
-            this Lead!
+            Do you really want to Close this Lead!
+            {showText.map((item, index) => {
+        return (
+          <div key={index}>
+            <Checkbox
+              checked={checked.index === index}
+              color="primary"
+              onChange={(e) => {
+                handleChecked(e, index);
+              }}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+            {item}
+          </div>
+        );
+      })}
+            
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -1523,6 +1564,8 @@ const history = useHistory();
                     ? classes.chipFollowUp
                     : item.status === "Allocated"
                     ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
                     : null,
               }}
               label={item.status}
@@ -2022,7 +2065,7 @@ const history = useHistory();
             <ModalDelete item={allLeads[selectedID]} />
             <ModalView item={allLeads[selectedID]} />
             <ModalEdit item={allLeads[selectedID]} />
-            <ModalBan item={allLeads[selectedID]} />
+            <ModalClose item={allLeads[selectedID]} />
           </>
         ) : null}
         <ModalAdd />
