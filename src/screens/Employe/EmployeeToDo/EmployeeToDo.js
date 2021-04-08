@@ -54,11 +54,11 @@ import ActionButton from "./../../../components/ActionButton";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
-    backgroundColor: "red !important",
+    backgroundColor: "#FF5555 !important",
   },
   chipComplete: {
     color: "#fff",
-    backgroundColor: "green !important",
+    backgroundColor: "#67B367 !important",
   },
   chipFollowUp: {
     color: "#fff",
@@ -75,6 +75,10 @@ const useStyles = makeStyles((theme) => ({
   chipShifted: {
     color: "#fff",
     backgroundColor: "#CEAAC3 !important",
+  },
+  chipLoss: {
+    color: "#fff",
+    backgroundColor: "#AC917A !important",
   },
   chipLabelColor: {
     color: "black",
@@ -167,7 +171,7 @@ function EmployeeLeads(props, lead_id) {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_USER_LEADS_PAGINATION );
-    console.log("-------------------------------", res);
+    console.log("RESPONSE FROM SERVER -------------------------------", res);
     
     if (res.success != false) {
       setData(res.data.leads.data);
@@ -595,6 +599,7 @@ function EmployeeLeads(props, lead_id) {
     refresh,
     setPostData,
     userInfo,
+    allocated,
   }) => {
     const [recordingFile, setRecordingFile] = React.useState(null);
     const [action, setAction] = React.useState("follow up");
@@ -704,6 +709,7 @@ function EmployeeLeads(props, lead_id) {
       acceptedFiles.forEach((file) => {
         setRecordingFile(file);
         console.log('selected File is -------,',file);
+        console.log("recording file is",recordingFile);
       });
     }, []);
     const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
@@ -745,34 +751,86 @@ function EmployeeLeads(props, lead_id) {
   
       //   // setErrorAlert(true);
       // }
-      setRefresh(!refresh);
-  
-      
-        let formData={
+      // setRefresh(!refresh);
+      let token = JSON.parse(localStorage.getItem("token"));
+      console.log('token ',JSON.stringify(token))
+        let formData1={
           lead_id:item.id,
-          recording_file: recordingFile
+          recording_file: recordingFile,
         };
-  // let formData = new FormData();
-  //     formData.append("lead_id", item.id);
-  //     formData.append("recording_file", recordingFile,"lol");
-      console.log('form data is recordingFile ------------>',recordingFile);
-      console.log('form data - recordingFile ------------>',formData.recording_file,"lol");
-  
-      let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
-      // let resp = await fetch("https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04",{method:"post"}, formData); 
+        // formData1 = JSON.stringify(formData1);
+        console.log('Recording File in Send File to Server Function is ----------------------------------',recordingFile);
+      let formData = new FormData();
+      formData.append("lead_id", item.id);
+      formData.append("recording_file", recordingFile);
+      console.log('form data JSON ------------>',JSON.stringify(formData));
+      // console.log('form data ITEM  ------------>',formData.item);
+      // console.log('form data in Recording File ------------>',formData.recordingFile);
+      // console.log('form data in Recording File ------------>',typeof recordingFile);
 
-      if (resp.hasOwnProperty("success")) {
-        setAlertMessage(resp.success);
-        // setMessage("Recording submitted Successfully");
-        setShowSuccessAlert(true);
-      } else if(resp.hasOwnProperty("error"))
-      {
-        // setErrorResponce(resp.error);
-        setAlertMessage(resp.error);
-        setShowErrorAlert(true);
-      }
-      console.log("---------recording--------------",resp);
-      console.log(resp);
+
+      // fetch('https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04', {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: JSON.stringify({
+      //     formData,
+      //   })
+      // });
+
+      // let resp = await POSTFile(formData); 
+      // "https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04"
+      // let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
+      let uri = 'https://ova.technovier.com/api/'+ApiUrls.ADD_RECORDING;
+      console.log('uri',uri );
+
+      let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;multipart/form-data;charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+        }
+      };
+
+      axios.post(uri,formData,
+       axiosConfig)
+      .then((res) => {
+        console.log("RESPONSE RECEIVED: ", res);
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      })
+
+      console.log('logginh afteer error');
+      
+     
+      // let resp =axios.post(uri, formData); 
+    //   const resp = await axios({
+    //     method: 'post',
+    //     url: uri,
+    //     formData: formData,
+    //     headers: {
+    //         'Content-Type': `multipart/form-data;`,
+    //     },
+    // });
+     
+      // if (resp.hasOwnProperty("success")) {
+      //   setAlertMessage(resp.success);
+      //   // setMessage("Recording submitted Successfully");
+      //   setShowSuccessAlert(true);
+      // } else if(resp.hasOwnProperty("error"))
+      // {
+      //   // setErrorResponce(resp.error);
+      //   setAlertMessage(resp.error);
+      //   setShowErrorAlert(true);
+      // }
+      // console.trace("---------recording--------------",resp);
+      // console.log('000000000000000000000000000    ----->>> ',resp);
+      setRefresh(!refresh);
+
       // for (var value of formData.values()) {
       //   console.log(value,"FormDATA");
       // }
@@ -797,6 +855,9 @@ function EmployeeLeads(props, lead_id) {
       }
     };
     let created_date=item.created_at;
+    let current=allocated.first_name;
+    let user=userInfo.first_name;
+   
     return (
       <tr>
         
@@ -805,37 +866,54 @@ function EmployeeLeads(props, lead_id) {
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
         <td>{item.budget + " PKR"}</td>
-        {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
-        <td>{item.time_to_call}</td>
+        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        {/* <td>{item.time_to_call}</td> */}
         <td>{item.country_city}</td>
   
         <td>
-          <Chip
-            classes={{
-              label: classes.chipLabelColor,
-              root:
-                item.status === "Overdue"
-                  ? classes.chipOverdue
-                  : item.status === "Grace Period"
-                  ? classes.chipGracePeriod
-                  : item.status === "Complete"
-                  ? classes.chipComplete
-                  : item.status === "Follow up"
-                  ? classes.chipFollowUp
-                  : item.status === "Allocated"
-                  ? classes.chipAllocated
-                  : item.status === "Shifted"
-                  ? classes.chipShifted
-                  : null,
-            }}
-            label={item.status}
-          />{" "}
+      {allocated.first_name!==userInfo.first_name?(
+         <Chip
+         classes={{
+           label: classes.chipLabelColor,
+           root:
+            
+          
+            classes.chipShifted
+               
+               
+         }}
+         label={"shifted"}
+       />
+      ): <Chip
+      classes={{
+        label: classes.chipLabelColor,
+        root:
+          item.status === "Overdue"
+            ? classes.chipOverdue
+            : item.status === "Grace Period"
+            ? classes.chipGracePeriod
+            : item.status === "Complete"
+            ? classes.chipComplete
+            : item.status === "Follow up"
+            ? classes.chipFollowUp
+            : item.status === "Allocated"
+            ? classes.chipAllocated
+            : item.status === "Shifted"
+            ? classes.chipShifted
+            : item.status === "Loss"
+            ? classes.chipLoss
+            : null,
+      }}
+      label={item.status}
+    />}
+         
         </td>
   
         {/* <td>{item.inventory.inventory_name}</td> */}
         <td>{item.interest.interest}</td>
         {/* <td>
-          {userInfo.first_name} {userInfo.last_name}
+          {allocated?.first_name} 
+           {userInfo.first_name} {userInfo.last_name} 
         </td> */}
         <td>{item.email != null ? item.email : "-------"}</td>
         <td>{item.task}</td>
@@ -863,8 +941,9 @@ function EmployeeLeads(props, lead_id) {
             </ReactTooltip>
           </td>
         {/* <td>{"---"}</td> */}
+       
         <td>
-          <div
+          {/* <div
             style={{ outline: "none", height: ""}}
             className="d-flex"
             {...getRootProps()}
@@ -876,7 +955,11 @@ function EmployeeLeads(props, lead_id) {
               })}
             </p>
             <input {...getInputProps()} />
-          </div>
+          </div> */}
+          <input style={{ }} type="file" accept="audio/*" onChange={(e)=>{
+            console.log('file choose successfully -------------------->',e.target.files[0]);
+            setRecordingFile(e.target.files[0]);
+          }} />
         </td>
         <td>
             {item.recordings.length > 0 ? (
@@ -907,6 +990,8 @@ function EmployeeLeads(props, lead_id) {
         {/* <td><ActionButton style={{backgroundColor:"blue",color:"white"}}/></td> */}
 
         <td>
+        {item.status!=="Loss"  && item.status!=="Complete" ? (
+              <>
           <Button
             aria-controls="simple-menu"
             aria-haspopup="true"
@@ -914,6 +999,8 @@ function EmployeeLeads(props, lead_id) {
           >
             Actions
           </Button>
+          </>
+          ):"----"}
           <Menu
             // className={classes.root}
             id="simple-menu"
@@ -1040,9 +1127,13 @@ function EmployeeLeads(props, lead_id) {
           </Menu>
         </td>
         <td>
+        {item.status!=="Loss"  && item.status!=="Complete"? (
+             <>
           <Button  onClick={() => {
                 SendFileToServer();
               }}>Update</Button>
+              </>
+        ):"----"}
         </td>
       </tr>
     );
@@ -1284,6 +1375,7 @@ function EmployeeLeads(props, lead_id) {
                 data.map((item, index) => (
                   <Table
                     item={item.lead}
+                    allocated={item.allocated_to}
                     index={index}
                     setShowModalAction={setShowModalAction}
                     setValue={setValue}
@@ -1316,7 +1408,13 @@ function EmployeeLeads(props, lead_id) {
         ) : null}
             <ModalAction data={postData} />
           </div>
-        </div>
+          </div>
+          <Col>
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+        </Col>
+        <Col >
         {IsFilter==false?(
         <Pagination
  itemsCount={totalRecord}
@@ -1326,6 +1424,10 @@ function EmployeeLeads(props, lead_id) {
  show={handleShow}
 />
         ):null}
+        </Col>
+        
+
+       
       </Row>
     </Container>
   );

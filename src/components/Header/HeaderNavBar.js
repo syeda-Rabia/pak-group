@@ -37,7 +37,7 @@ const HeaderNavBar = (props) => {
 
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-
+  // const User=props.user.user_info.first_name;
   // ;
   return (
     <
@@ -49,6 +49,7 @@ const HeaderNavBar = (props) => {
       // xs={12}
       // className=" mx-0 px-0 h-100"
     >
+   
       <Navbar
         sticky="top"
         collapseOnSelect
@@ -159,6 +160,7 @@ const HeaderNavBar = (props) => {
             </Link>
           </Nav>
         </Navbar.Collapse>
+        {/* <span id="profile" style={{color:"white"}}> {User}</span>  */}
         <Nav id="profile">
           {/* <Nav.Link
             href="#profile"

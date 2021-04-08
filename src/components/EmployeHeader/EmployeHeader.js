@@ -23,7 +23,8 @@ import { useHistory, Link } from "react-router-dom";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
-
+  // const User=props.user.user_info.first_name;
+// console.log("user-------------------",User);
   const useStyles = makeStyles((theme) => ({
     white: {
       color: "#818181",
@@ -107,7 +108,8 @@ const EmployeHeader = (props) => {
             <Link id="R-navlink">
               <Nav.Item>HR</Nav.Item>
             </Link>
-
+           
+            
             <Link
               id="mobileLogout"
               to={{
@@ -115,6 +117,7 @@ const EmployeHeader = (props) => {
                 state: { from: "employeeHeader" },
               }}
             >
+              
               <Nav.Item
                 onClick={() => {
                   setOpen(true);
@@ -126,6 +129,7 @@ const EmployeHeader = (props) => {
             </Link>
           </Nav>
         </Navbar.Collapse>
+       {/* <span id="profile" style={{color:"white"}}> {User}</span>  */}
         <Nav id="profile">
           <Link
             id="R-navlink"
@@ -139,14 +143,18 @@ const EmployeHeader = (props) => {
             }}
           >
             <Tooltip title="Logout" placement="left">
+           
               <Avatar className={classes.white}>
                 <IconButton className={classes.logout}>
+               
                   <ExitToAppIcon />
                 </IconButton>
               </Avatar>
+             
             </Tooltip>
           </Link>
         </Nav>
+       
       </Navbar>
 
       <Dialog

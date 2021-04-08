@@ -118,7 +118,7 @@ export const POSTFile = async (url, formData) => {
   );
 
   try {
-    return  fetch('https://webhook.site/28e57da0-e629-45a4-83bb-d4a90d8076fc', {
+    return  fetch('https://webhook.site/e5c1ac35-5004-468e-8cf1-609f30e73b04', {
     method: "post",
     // mode: "no-cors",
     crossDomain: true,
@@ -128,8 +128,7 @@ export const POSTFile = async (url, formData) => {
     //   Authorization: `Bearer ${token}`,
     // },
      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json , multipart/form-data",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     body: (formData),

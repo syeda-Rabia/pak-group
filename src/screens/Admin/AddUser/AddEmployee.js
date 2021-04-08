@@ -679,6 +679,14 @@ console.log(resp,"+++++++++++++++++++++");
                     setEmail(e.target.value);
                   }}
                 />
+                {emailError == true ? (
+                      <small
+                        class="form-text  text-red"
+                        style={{ color: "red" }}
+                      >
+                        *Email should contain "@" and  "." Like (.com or pk.co)
+                      </small>
+                    ) : null}
               </div>
 
               <div className="pb-3">
@@ -774,7 +782,7 @@ console.log(resp,"+++++++++++++++++++++");
               >
                 Close
               </Button>
-              <Button style={{ backgroundColor: "#2258BF" }} type="submit">
+              <Button style={{ backgroundColor: "#2258BF" }} type="submit" disabled={emailError}>
                 Submit
               </Button>
             </Modal.Footer>

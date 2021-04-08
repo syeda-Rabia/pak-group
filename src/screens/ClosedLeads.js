@@ -73,11 +73,11 @@ import PreLoading from "../components/PreLoading";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
-    backgroundColor: "red !important",
+    backgroundColor: "#FF5555 !important",
   },
   chipComplete: {
     color: "#fff",
-    backgroundColor: "green !important",
+    backgroundColor: "#67B367 !important",
   },
   chipFollowUp: {
     color: "#fff",
@@ -91,8 +91,16 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     backgroundColor: "#90caf9 !important",
   },
+  chipLoss: {
+    color: "#fff",
+    backgroundColor: "#AC917A !important",
+  },
   chipLabelColor: {
     color: "black",
+  },
+  fab: {
+    backgroundColor: "rgb(34, 88, 191)",
+    marginRight: "15px",
   },
 }));
 
@@ -394,10 +402,32 @@ export default function LeadsAdmin() {
         <td>{item.source}</td>
 
         <td>
-          {item.status != "" ? item.status:
+          {item.status != "" ? (
+            <Chip
+              classes={{
+                label: classes.chipLabelColor,
+                root:
+                  item.status === "Overdue"
+                    ? classes.chipOverdue
+                    : item.status === "Grace Period"
+                    ? classes.chipGracePeriod
+                    : item.status === "Complete"
+                    ? classes.chipComplete
+                    : item.status === "Follow up"
+                    ? classes.chipFollowUp
+                    : item.status === "Allocated"
+                    ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
+                    : null,
+              }}
+              label={item.status}
+            />
+          ) : (
             "-------"
-          }
+          )}
         </td>
+
 
         <td>
         {item.allocation.length > 0 ? (

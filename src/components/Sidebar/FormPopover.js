@@ -6,8 +6,7 @@ import Popover from "@material-ui/core/Popover";
 
 import { Col, Form, Row } from "react-bootstrap";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {  Select,Container } from "@material-ui/core";
-
+import { Select, Container } from "@material-ui/core";
 
 import {
   KeyboardDatePickerExample,
@@ -16,9 +15,8 @@ import {
   MonthPicker,
 } from "../../utils/KeyboardTimePickerExample";
 
-
 import { GET, POST, getDays } from "../../utils/Functions";
-import DatePick,{ YearPicking} from "../../utils/YearPicker";
+import DatePick, { YearPicking } from "../../utils/YearPicker";
 import ApiUrls from "../../utils/ApiUrls";
 import _ from "lodash";
 
@@ -32,14 +30,20 @@ const useStyles = makeStyles({
 });
 
 export default function FormPopover(props) {
-  console.log(props)
-  console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location+++++++++++++++++++++++++++")
-  let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
+  console.log(props);
+  console.log(
+    window.location.href.split("/")[window.location.href.split("/").length - 1],
+    "location+++++++++++++++++++++++++++"
+  );
+  let endpoint = window.location.href
+    .split("/")
+    [window.location.href.split("/").length - 1].toLocaleLowerCase();
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [employees, setEmployees] = React.useState([]);
-  const [client, setClient]=React.useState([]);
+  const [client, setClient] = React.useState([]);
   const [project, setProject] = useState("");
+  const [monthErr, setmonthErr] = useState(false);
   const [refresh, setRefresh] = useState(false);
   // const [days, setDays] = useState({
   //   day: new Date().getDate(),
@@ -52,13 +56,13 @@ export default function FormPopover(props) {
     year: "",
   });
   // const [month, setMonth] = useState();
-  console.log(days,employees,project)
+  console.log(days, employees, project);
   const [year, setYear] = useState();
   useEffect(() => {
     getProjectDetails();
     getEmployeeDetails();
   }, []);
- 
+
   const getProjectDetails = async () => {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
@@ -72,7 +76,7 @@ export default function FormPopover(props) {
     // ;
     try {
       if (res.success !== false) {
-        setEmployees(res.data.users.data); 
+        setEmployees(res.data.users.data);
       }
     } catch {}
   };
@@ -84,8 +88,7 @@ export default function FormPopover(props) {
   });
   const [anchorEl, setAnchorEl] = useState(null);
   useEffect(() => {
-    if(anchorEl==null && props.update!= undefined)
-      props.update("",false)
+    if (anchorEl == null && props.update != undefined) props.update("", false);
   }, [anchorEl]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -97,36 +100,38 @@ export default function FormPopover(props) {
       day: "",
       month: "",
       year: "",
-    })
+    });
     setProject("");
     setEmployees("");
   };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
-     let formData={
-        client_name:client,
-      project_id:project,
-      year:days.year,
-      month:days.month,
-      day:days.day,
-      };
-      let url="";
-      if(endpoint=="leads"){
-       url=ApiUrls.GET_FILTER_DATA+`?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
-      }
-      
-      if(endpoint=="leadsallocation"){
-     url=ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA+`?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+    let formData = {
+      client_name: client,
+      project_id: project,
+      year: days.year,
+      month: days.month,
+      day: days.day,
+    };
+    let url = "";
+    if (endpoint == "leads") {
+      url =
+        ApiUrls.GET_FILTER_DATA +
+        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
     }
-      console.log("------------",url)
-      if(props.update!= undefined)
-      props.update(url,true);
-    // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);             
+
+    if (endpoint == "leadsallocation") {
+      url =
+        ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA +
+        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+    }
+    console.log("------------", url);
+    if (props.update != undefined) props.update(url, true);
+    // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);
     // console.log("---------filter response--------------",resp);
     // console.log(resp);
     // if(resp.success!=false)
     // setRefresh(!refresh);
-  
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -167,57 +172,56 @@ export default function FormPopover(props) {
                     <b>Project</b>
                   </Form.Label>
                   <Form.Control
-          className="w-100"
+                    className="w-100"
                     style={{ overflowY: "scroll" }}
                     controlId="projectName"
                     as="select"
                     defaultValue="project name"
                     value={project}
                     onChange={(e) => {
-                      console.log(
-                        "select project ID is -----",
-                        e.target.value
-                      );
+                      console.log("select project ID is -----", e.target.value);
                       setProject(e.target.value);
                     }}
-                    >
-                <option>{null}</option>
+                  >
+                    <option>{null}</option>
                     {allProjects.length > 0
                       ? allProjects.map((pro) => (
-                          <option style={{color:"#2258BF"}}  key={pro.id} value={pro.id}>
+                          <option
+                            style={{ color: "#2258BF" }}
+                            key={pro.id}
+                            value={pro.id}
+                          >
                             {pro.name}
                           </option>
                         ))
                       : null}
-                      
                   </Form.Control>
                   <Form.Label>
                     <b>Date wise</b>
                   </Form.Label>
-                  
+
                   <Form.Control
-                  className="w-100"
+                    className="w-100"
                     controlId="date"
                     as="select"
                     defaultValue="Date Wise"
                     onChange={(val) => {
-                      console.log(
-                        "select days ID is -----",
-                        val.target.value
-                      );
+                      console.log("select days ID is -----", val.target.value);
                       setDays((state) => {
                         return { ...state, day: val.target.value };
                       });
                     }}
                   >
-                     <option>{null}</option>
+                    <option>{null}</option>
                     {/* {date.map((d) => (
                       <option>{d}</option>
                     ))} */}
                     {Array.from(
                       { length: new Date(days.year, days.month, 0).getDate() },
                       (v, i) => {
-                        return <option style={{color:"#2258BF"}}>{i + 1}</option>;
+                        return (
+                          <option style={{ color: "#2258BF" }}>{i + 1}</option>
+                        );
                       }
                     )}
                   </Form.Control>
@@ -226,11 +230,9 @@ export default function FormPopover(props) {
                   </Form.Label>
                   <div class="form-control w-100">
                     {/* <YearPicker setDays={setDays}/> */}
-                    <YearPicking controlId="year"
-                   setDays={setDays}/>
-                    </div>
-                  
-                  
+                    <YearPicking controlId="year" setDays={setDays} />
+                  </div>
+
                   {/* <Form.Control
                     controlId="year"
                     as="select"
@@ -251,20 +253,24 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
-                  <Form.Control className="w-100" controlId="Sale Person" as="select"
-                   value={client}
-                   onChange={(e) => {
-                     console.log(
-                       "select client ID is -----",
-                       e.target.value
-                     );
-                     setClient(e.target.value);
-                   }}
+                  <Form.Control
+                    className="w-100"
+                    controlId="Sale Person"
+                    as="select"
+                    value={client}
+                    onChange={(e) => {
+                      console.log("select client ID is -----", e.target.value);
+                      setClient(e.target.value);
+                    }}
                   >
-                     <option>{null}</option>
+                    <option>{null}</option>
                     {employees.length > 0
                       ? employees.map((e) => (
-                          <option style={{color:"#2258BF"}} key={e.id} value={e.id}>
+                          <option
+                            style={{ color: "#2258BF" }}
+                            key={e.id}
+                            value={e.id}
+                          >
                             {e.first_name}
                             {/* {e.first_name + " " + e.last_name} */}
                           </option>
@@ -274,23 +280,25 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Month Wise</b>
                   </Form.Label>
-                  <div className="form-control w-100" >
-                  <DatePick  
-                   controlId="month"
-                   setDays={setDays}
-                />
-                {
-                  days.day!= "" && days.month == ""? (
-                    <small
-                      class="form-text  text-red"
-                      style={{ color: "red" }}
-                    >
-                      *This field is required
-                    </small>
-                  ):null
-                }
+                  <div className="form-control w-100">
+                    <DatePick
+                      controlId="month"
+                      setDays={setDays}
+                      //  {...days.day!= "" && days.month === ""? (
+                      //    setmonthErr(true)
+                      //   ):setmonthErr(false)
+                      // }
+                    />
+                    {days.day != "" && days.month == "" ? (
+                      <small
+                        class="form-text  text-red"
+                        style={{ color: "red" }}
+                      >
+                        *This field is required
+                      </small>
+                    ) : null}
                   </div>
-                 
+
                   {/* <Form.Control
                     controlId="month"
                     as="select"
@@ -310,20 +318,43 @@ export default function FormPopover(props) {
                       return <option style={{color:"#2258BF"}}>{i + 1}</option>;
                     })}
                   </Form.Control> */}
-                  <Form.Control
-                  className="w-100"
-                  style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
-                    controlId="year"
-                    as="button"
-                    defaultValue=""
-                    onClick={(e) => {
-                      SendRecordToServer(e);
-                      handleClose();
-                     
-                    }}
-                  > 
-                    Search
-                  </Form.Control>
+
+                  {days.day != "" && days.month == "" ? (
+                    <Form.Control
+                      className="w-100"
+                      style={{
+                        marginTop: "32px",
+                        backgroundColor: "#2258BF",
+                        color: "white",
+                      }}
+                      disabled
+                      controlId="year"
+                      as="button"
+                      defaultValue=""
+                      
+                    >
+                      Search
+                    </Form.Control>
+                  ) : (
+                    <Form.Control
+                      className="w-100"
+                      style={{
+                        marginTop: "32px",
+                        backgroundColor: "#2258BF",
+                        color: "white",
+                      }}
+                      // disabled
+                      controlId="year"
+                      as="button"
+                      defaultValue=""
+                      onClick={(e) => {
+                        SendRecordToServer(e);
+                        handleClose();
+                      }}
+                    >
+                      Search
+                    </Form.Control>
+                  )}
                 </Form.Group>
               </Col>
             </Row>

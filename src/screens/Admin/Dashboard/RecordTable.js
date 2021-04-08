@@ -92,11 +92,11 @@ export default function RecordTable() {
     },
     chipGracePeriod: {
       color: "#fff",
-      backgroundColor: "red !important",
+      backgroundColor: "#FF5555 !important",
     },
     chipComplete: {
       color: "#fff",
-      backgroundColor: "green !important",
+      backgroundColor: "#67B367 !important",
     },
     chipFollowUp: {
       color: "#fff",
@@ -1109,7 +1109,8 @@ export default function RecordTable() {
 
         <td>
           <CTAButton lead_id={item.id} 
-          empId={allocated.id}/>
+          empId={allocated.id}
+          deadline={item.deadline}/>
         </td>
         <td>
           <div className="d-flex d-inline">

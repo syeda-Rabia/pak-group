@@ -34,7 +34,7 @@ import ApiUrls from "./../utils/ApiUrls";
 import SuccessNotification from "./SuccessNotification";
 import ErrorNotification from "./ErrorNotification";
 
-export default function CTAButton({ empId, lead_id }) {
+export default function CTAButton({ empId, lead_id, deadline }) {
   const [value, setValue] = useState("");
   const [showModalCTA, setShowModalCTA] = React.useState(false);
   const [employees, setEmployees] = React.useState([]);
@@ -46,7 +46,7 @@ export default function CTAButton({ empId, lead_id }) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [show, setShow] = useState(false);
-
+  const [refresh, setRefresh] = useState(false);
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
@@ -216,6 +216,7 @@ export default function CTAButton({ empId, lead_id }) {
         prev_lead_holder_emp: empId,
         isView:checked.index==0?true:false,
         new_lead_holder_emp: selectedEmployee.new_lead_holder_emp,
+        dead_line: date,
       });
       if (resp.error === false) {
         setAlertMessage("Lead shifted Successfully");
@@ -224,6 +225,7 @@ export default function CTAButton({ empId, lead_id }) {
         setAlertMessage("Shift and Warn  Failed");
         setShowErrorAlert(true);
       }
+      setRefresh(!refresh)
       console.log("-------resp----",resp);
     };
     const showText = ["Show current Employee previous actions", "Don't show current Employee previous actions"];
@@ -371,6 +373,7 @@ export default function CTAButton({ empId, lead_id }) {
               </p>
               {showText.map((item, index) => {
         return (
+          <>
           <div key={index}>
             <Checkbox
               checked={checked.index === index}
@@ -381,9 +384,24 @@ export default function CTAButton({ empId, lead_id }) {
               inputProps={{ "aria-label": "primary checkbox" }}
             />
             {item}
+            
           </div>
+
+        
+        
+        </>
         );
-      })}
+      },
+      
+      )}
+      <h6 className="ml-5 mt-3">select deadline</h6>
+      <div className="ml-5" style={{}}>
+
+     
+      <KeyboardDatePickerExample
+      value={deadline}
+      showDate={handleDateValue}/>
+       </div>
             </form>
           </Modal.Body>
           <Modal.Footer>

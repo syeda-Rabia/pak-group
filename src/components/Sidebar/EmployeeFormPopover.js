@@ -312,20 +312,42 @@ console.log("8888888888888888",resp);
                       return <option style={{color:"#2258BF"}}>{i + 1}</option>;
                     })}
                   </Form.Control> */}
-                  <Form.Control
-                  className="w-100"
-                  style={{marginTop:"32px",backgroundColor:"#2258BF",color:"white"}}
-                    controlId="year"
-                    as="button"
-                    defaultValue=""
-                    onClick={(e) => {
-                      SendRecordToServer(e);
-                      handleClose();
-                     
-                    }}
-                  > 
-                    Search
-                  </Form.Control>
+                   {days.day != "" && days.month == "" ? (
+                    <Form.Control
+                      className="w-100"
+                      style={{
+                        marginTop: "32px",
+                        backgroundColor: "#2258BF",
+                        color: "white",
+                      }}
+                      disabled
+                      controlId="year"
+                      as="button"
+                      defaultValue=""
+                      
+                    >
+                      Search
+                    </Form.Control>
+                  ) : (
+                    <Form.Control
+                      className="w-100"
+                      style={{
+                        marginTop: "32px",
+                        backgroundColor: "#2258BF",
+                        color: "white",
+                      }}
+                      // disabled
+                      controlId="year"
+                      as="button"
+                      defaultValue=""
+                      onClick={(e) => {
+                        SendRecordToServer(e);
+                        handleClose();
+                      }}
+                    >
+                      Search
+                    </Form.Control>
+                  )}
                 </Form.Group>
               </Col>
             </Row>

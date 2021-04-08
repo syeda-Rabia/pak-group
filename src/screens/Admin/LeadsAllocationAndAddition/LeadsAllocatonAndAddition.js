@@ -15,7 +15,7 @@ import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
 } from "../../../utils/KeyboardTimePickerExample";
-
+import FaceIcon from "@material-ui/icons/Face";
 import { GET, POST, formatDate } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
 import {
@@ -201,7 +201,7 @@ export default function LeadsAllocatonAndAddition(props) {
   const useStyles = makeStyles((theme) => ({
     chipGracePeriod: {
       color: "#fff",
-      backgroundColor: "red !important",
+      backgroundColor: "#FF5555 !important",
     },
     chipComplete: {
       color: "#fff",
@@ -315,7 +315,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
     const [selectedEmployee, setSelectedEmployee] = useState();
 
-    const handlePostUpdate = async () => {
+    const handlePostUpdate = async (event,view=0) => {
       setIsLoading(true);
 
       // setAllLeadsToAllocate((state) => {
@@ -337,6 +337,7 @@ export default function LeadsAllocatonAndAddition(props) {
         allocated_to: selectedEmployee,
         lead_id: item.id,
         task: item.project.category.name,
+        isView:true,
       });
 
       let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
@@ -345,6 +346,7 @@ export default function LeadsAllocatonAndAddition(props) {
         allocated_to: selectedEmployee,
         lead_id: item.id,
         task: item.project.category.name,
+        isView:true,
       });
       console.log("error message", resp);
       setRefresh(!refresh);
@@ -438,17 +440,24 @@ export default function LeadsAllocatonAndAddition(props) {
             <option value={"onhold"}>On Hold</option>
           </select> */}
         </td>
-        {/* <td>
-          {item.returned_allocations.length > 0
-            ? item.returned_allocations[0].returned_from.first_name
-            : "------"}
-        </td> */}
+        <td>
+          {/* {item?.previous_emp?.length > 0
+            ? 
+            <Chip
+              icon={<FaceIcon />}
+              variant="outlined"
+              label={item.previous_emp[0].returned.first_name}
+              style={{ marginRight: "5px" }}
+            />
+            // item.previous_emp[0].returned.first_name
+            : "------"} */}
+        </td>
         {/* <td>
           {item?.previous_emp.length > 0
             ? item.previous_emp[0].returned?.first_name
             : "------"}
         </td> */}
-        <td>{"------"}</td>
+        {/* <td>{"------"}</td> */}
         <td>
           <Select
             className="form-control form-control-sm w-100"
@@ -494,10 +503,12 @@ export default function LeadsAllocatonAndAddition(props) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => handlePostUpdate()}
             style={{
               backgroundColor: "#2258BF",
             }}
+            
+            onClick={(e) => handlePostUpdate(e)}
+            
           >
             Update
           </button>
@@ -888,6 +899,13 @@ export default function LeadsAllocatonAndAddition(props) {
             </div>
           </div>
           {showModalCTA ? <ModalCTA /> : null}
+          <Col>
+          {IsFilter == false ? (
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+          ):null}
+        </Col>
           <Col>
             {IsFilter == false ? (
               <Pagination

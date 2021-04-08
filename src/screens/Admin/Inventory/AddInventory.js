@@ -79,6 +79,8 @@ console.log("project name", project);
     const [category, setCategory] = React.useState(categoryParent);
     const [categoryError, setCategoryError] = React.useState(null);
     const [showProgressInside, setShowProgressInside] = React.useState(false);
+    const [projectError, setProjectError] = React.useState(false);
+
 
     const handleForm = async () => {
       setNameParent(name);
@@ -159,10 +161,15 @@ console.log("project name", project);
                     value={name}
                     onChange={(e) => {
                       //  ;
-                      if(project.some((pro)=>pro.name==e.target.value))
+                      if(project.some((pro)=>pro.name==e.target.value)){
                       setProjectErr(true);
                       setName(e.target.value);
                       // ;
+                    }
+                    else {
+                      setProjectErr(false);
+                      setName(e.target.value);
+                    }
                     }}
                     required={true}
                     className="w-100"
@@ -170,14 +177,16 @@ console.log("project name", project);
                   />
                 </Form.Group>
                     {
-                       project.some((pro)=>pro.name==name)? <small
+                       project.some((pro)=>pro.name==name)?(
+                       
+                        <small
                        class="form-text  text-red"
                        style={{ color: "red" }}
                       
                      >
                        This project name is already taken
 
-                     </small>:null
+                     </small>):null
                     }
                 <Form.Group controlId="projectCategory">
                   <Form.Label>Project Category</Form.Label>
@@ -238,6 +247,7 @@ console.log("project name", project);
                     className="w-100"
                     variant="primary"
                     type="submit"
+                    disabled={ProjectErr}
                     // disabled={category === null ? true : false}
                     // onClick={handleForm}
                     onClick={() => {
@@ -260,6 +270,7 @@ console.log("project name", project);
                         });
                       }
                     }}
+                    
                   >
                     Add Inventory
                   </Button>

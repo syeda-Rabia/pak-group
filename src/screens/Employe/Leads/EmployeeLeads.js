@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chipComplete: {
     color: "#fff",
-    backgroundColor: "green !important",
+    backgroundColor: "#67B367 !important",
   },
   chipFollowUp: {
     color: "#fff",
@@ -72,6 +72,10 @@ const useStyles = makeStyles((theme) => ({
   chipShifted: {
     color: "#fff",
     backgroundColor: "#CEAAC3 !important",
+  },
+  chipLoss: {
+    color: "#fff",
+    backgroundColor: "#AC917A !important",
   },
   chipLabelColor: {
     color: "black",
@@ -592,6 +596,7 @@ function EmployeeLeads(props, lead_id) {
     refresh,
     setPostData,
     userInfo,
+    allocated,
   }) => {
     const [recordingFile, setRecordingFile] = React.useState(null);
     const [action, setAction] = React.useState("follow up");
@@ -795,31 +800,47 @@ function EmployeeLeads(props, lead_id) {
         <td>{item.contact}</td>
         <td>{item.project.name}</td>
         <td>{item.budget + " PKR"}</td>
-        {/* <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td> */}
-        <td>{item.time_to_call}</td>
+        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        {/* <td>{item.time_to_call}</td> */}
         <td>{item.country_city}</td>
   
         <td>
-          <Chip
-            classes={{
-              label: classes.chipLabelColor,
-              root:
-                item.status === "Overdue"
-                  ? classes.chipOverdue
-                  : item.status === "Grace Period"
-                  ? classes.chipGracePeriod
-                  : item.status === "Complete"
-                  ? classes.chipComplete
-                  : item.status === "Follow up"
-                  ? classes.chipFollowUp
-                  : item.status === "Allocated"
-                  ? classes.chipAllocated0
-                  : item.status === "Shifted"
-                  ? classes.chipShifted
-                  : null,
-            }}
-            label={item.status}
-          />{" "}
+      {allocated.first_name!==userInfo.first_name?(
+         <Chip
+         classes={{
+           label: classes.chipLabelColor,
+           root:
+            
+          
+            classes.chipShifted
+               
+               
+         }}
+         label={"shifted"}
+       />
+      ): <Chip
+      classes={{
+        label: classes.chipLabelColor,
+        root:
+          item.status === "Overdue"
+            ? classes.chipOverdue
+            : item.status === "Grace Period"
+            ? classes.chipGracePeriod
+            : item.status === "Complete"
+            ? classes.chipComplete
+            : item.status === "Follow up"
+            ? classes.chipFollowUp
+            : item.status === "Allocated"
+            ? classes.chipAllocated
+            : item.status === "Shifted"
+            ? classes.chipShifted
+            : item.status === "Loss"
+            ? classes.chipLoss
+            : null,
+      }}
+      label={item.status}
+    />}
+         
         </td>
   
         {/* <td>{item.inventory.inventory_name}</td> */}
@@ -1127,6 +1148,7 @@ function EmployeeLeads(props, lead_id) {
                   <Table
                     item={item.lead}
                     // item={lead}
+                    allocated={item.allocated_to}
                     index={index}
                     setShowModalAction={setShowModalAction}
                     setValue={setValue}
@@ -1160,6 +1182,12 @@ function EmployeeLeads(props, lead_id) {
             <ModalAction data={postData} />
           </div>
         </div>
+        <Col>
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+        </Col>
+        <Col >
         {IsFilter==false?(
         <Pagination
  itemsCount={totalRecord}
@@ -1169,6 +1197,8 @@ function EmployeeLeads(props, lead_id) {
  show={handleShow}
 />
         ):null}
+        </Col>
+        
       </Row>
     </Container>
   );

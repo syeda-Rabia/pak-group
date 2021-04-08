@@ -69,11 +69,11 @@ import 'react-phone-number-input/style.css';
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
-    backgroundColor: "red !important",
+    backgroundColor: "#FF5555 !important",
   },
   chipComplete: {
     color: "#fff",
-    backgroundColor: "green !important",
+    backgroundColor: "#67B367 !important",
   },
   chipFollowUp: {
     color: "#fff",
@@ -445,11 +445,22 @@ const history = useHistory();
                           // console.log("b");
 
                           setEmailError(true);
+                         
                         }
+                        
                         setEmail(e.target.value);
                       }}
                     />
+                     {emailError == true ? (
+                      <small
+                        class="form-text  text-red"
+                        style={{ color: "red" }}
+                      >
+                        *Email should contain "@" and  "." Like (.com or pk.co)
+                      </small>
+                    ) : null}
                   </div>
+                 
                   <div className="pb-3">
                     <h6>Country/City<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Input
@@ -571,13 +582,17 @@ const history = useHistory();
               >
                 Close
               </Button>
-              <Button
-                style={{ backgroundColor: "#2258BF" }}
-                type="submit"
-                value="Submit"
-              >
-                Submit
-              </Button>
+              
+                 <Button
+                 style={{ backgroundColor: "#2258BF" }}
+                  disabled={emailError}
+                 type="submit"
+                 value="Submit"
+               >
+                 Submit
+               </Button>
+             
+              
             </Modal.Footer>
           </div>
         </form>
@@ -1598,6 +1613,7 @@ const history = useHistory();
         <td>{item.Deadline}</td> */}
         <td>
           <Link to={{ pathname: "/admin/emp-action", query: { item}, goback:{goback}}}>
+          <Tooltip placement="top-start" title="View Employee Action">
             <button
               data-tip
               data-for="action"
@@ -1610,15 +1626,17 @@ const history = useHistory();
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
+            </Tooltip>
           </Link>
-          <ReactTooltip id="action" place="top" effect="solid">
+          {/* <ReactTooltip id="action" place="top" effect="solid">
             View Employee Action
-          </ReactTooltip>
+          </ReactTooltip> */}
         </td>
 
         <td>
           {item.recordings?.length > 0 ? (
             <>
+             <Tooltip placement="top-start" title="play">
               <button
                 data-tip
                 data-for="play"
@@ -1641,9 +1659,10 @@ const history = useHistory();
               >
                 <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
               </button>
-              <ReactTooltip id="play" place="top" effect="solid">
+              </Tooltip>
+              {/* <ReactTooltip id="play" place="top" effect="solid">
                 play
-              </ReactTooltip>
+              </ReactTooltip> */}
             </>
           ) : (
             "-----"
@@ -1656,6 +1675,7 @@ const history = useHistory();
               // leadId={item.allocation[0].lead_id}
               empId={item.allocation[0].allocated_to.id}
               lead_id={item.id}
+              deadline={item.dead_line}
               // status={item.status}
             />
           ) : (
@@ -1665,6 +1685,7 @@ const history = useHistory();
 
         <td>
           <div className="d-flex d-inline">
+          <Tooltip placement="top-start" title=" View Details">
             <button
               data-tip
               data-for="delete"
@@ -1677,9 +1698,11 @@ const history = useHistory();
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-            <ReactTooltip id="delete" place="top" effect="solid">
+            </Tooltip>
+            {/* <ReactTooltip id="delete" place="top" effect="solid">
               View Details
-            </ReactTooltip>
+            </ReactTooltip> */}
+            <Tooltip placement="top-start" title="Edit Details">
             <button
               data-tip
               data-for="EditTip"
@@ -1692,9 +1715,11 @@ const history = useHistory();
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
             </button>
-            <ReactTooltip id="EditTip" place="top" effect="solid">
+            </Tooltip>
+            {/* <ReactTooltip id="EditTip" place="top" effect="solid">
               Edit Details
-            </ReactTooltip>
+            </ReactTooltip> */}
+             <Tooltip placement="top-start" title="Delete Record">
             <button
               data-tip
               data-for="DeleteTip"
@@ -1707,9 +1732,11 @@ const history = useHistory();
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
             </button>
-            <ReactTooltip id="DeleteTip" place="top" effect="solid">
+            </Tooltip>
+            {/* <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
-            </ReactTooltip>
+            </ReactTooltip> */}
+            <Tooltip placement="top-start" title="close lead">
             <button
               data-tip
               data-for="close"
@@ -1722,9 +1749,10 @@ const history = useHistory();
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTimesCircle} />
             </button>
-            <ReactTooltip id="close" place="top" effect="solid">
+            </Tooltip>
+            {/* <ReactTooltip id="close" place="top" effect="solid">
               Close Lead
-            </ReactTooltip>
+            </ReactTooltip> */}
           </div>
         </td>
       </tr>
