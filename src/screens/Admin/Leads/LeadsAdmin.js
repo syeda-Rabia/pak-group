@@ -121,6 +121,8 @@ export default function LeadsAdmin(props) {
   const [setPlay, setShowPlay] = useState(false);
   const [showBan, setShowBan] = useState(false);
   const [checked, setChecked] = React.useState({ index: 0});
+  const [showActive, setShowActive] = useState(false);
+  
 
   const [goback, setGoBack] = React.useState("leads");
   const [select, setSelect] = React.useState([]);
@@ -194,7 +196,7 @@ const history = useHistory();
 
   const getAllLeadsData = async () => {
     //  ;
-
+   
     let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION);
 
     if (resp.data != null) {
@@ -552,7 +554,7 @@ const history = useHistory();
                   </div>
 
                   <div className="pb-3">
-                    <h6>Source</h6>
+                    <h6>Source<sup style={{color:"red",fontSize:"14px"}}>*</sup></h6>
                     <Select
                      required="true"
                       value={selectedSource}
@@ -1516,7 +1518,7 @@ const history = useHistory();
       console.log("----------------",res);
       // console.log("-------",postData,"---------", ApiUrls.DELETE_LEAD+`?${apendURL.join("&")}`,",,,,,,,,,,,,,,,,",res)
     if (res.error === false) {
-      setMessage("Record Submitted Successfully");
+      setMessage("Leads Deleted Successfully");
       setShowSuccessAlert(true);
     } else {
       setMessage("Operation Failed");
@@ -1591,11 +1593,11 @@ const history = useHistory();
         </td>
 
         <td>
-          {item.allocation.length > 0 ? (
+          {item.allocation?.length > 0 ? (
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
-              label={item.allocation[0].allocated_to.first_name}
+              label={item.allocation[0]?.allocated_to?.first_name}
               style={{ marginRight: "5px" }}
             />
           ) : (
@@ -1782,6 +1784,7 @@ const history = useHistory();
               getAllLeadsData();
               setshowReset(false);
               setIsFilter(false);
+              setIsLoading(true);
               setIsEmpty(false);
             }}
             style={{
@@ -1837,12 +1840,14 @@ const history = useHistory();
         <Row className=" pl-2  w-100 d-flex justify-content-between align-items-center">
           <div>
             <div className="ml-2">
-              <Dropfile setRefresh={setRefresh} className="ml-2"/>
+              <Dropfile setRefresh={setRefresh} disabled={select.length > 0 }
+              className="ml-2"/>
 
               <Link to="/admin/add-interest">
                 <button
                   type="button"
                   className="btn btn-primary"
+                  disabled={select.length > 0 }
                   style={{
                     backgroundColor: "#2258BF",
                   }}
@@ -1853,6 +1858,7 @@ const history = useHistory();
               <button
                 type="button"
                 className="btn btn-primary leadbtn"
+                disabled={select.length > 0 }
                 onClick={() => {
                   setShowAdd(true);
                 }}
@@ -1886,6 +1892,7 @@ const history = useHistory();
 
          {select.length > 0 ? (
             <>
+            
                     <button
                     data-tip
                     data-for="Deletelead"
@@ -1899,6 +1906,7 @@ const history = useHistory();
                     >
                      <FontAwesomeIcon icon={faTrash} /> Delete 
                     </button>
+                   
                    <ReactTooltip id="Deletelead" place="top" effect="solid">
                    Delete selected leads
                  </ReactTooltip>

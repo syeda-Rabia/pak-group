@@ -105,7 +105,7 @@ export default function AddInterest() {
             // SendRecordToServer(e);
           }}
         >
-          <div className="col-lg-12 shadow bg-white rounded ">
+          <div className="col-lg-12 shadow bg-white rounded">
             <Modal.Body>
               <div className="pb-3">
                 <h6>Interest</h6>
@@ -113,8 +113,7 @@ export default function AddInterest() {
                   className="form-control  w-100 "
                   placeholder="Enter Interest"
                   type="text"
-                  minLength="3"
-                  maxLength="30"
+                 
                   value={interest}
                   onChange={(e) => {
                     SetInterest(e.target.value);

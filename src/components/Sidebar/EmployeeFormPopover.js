@@ -317,7 +317,7 @@ console.log("8888888888888888",resp);
                       className="w-100"
                       style={{
                         marginTop: "32px",
-                        backgroundColor: "#2258BF",
+                        backgroundColor: "#5E85D0",
                         color: "white",
                       }}
                       disabled

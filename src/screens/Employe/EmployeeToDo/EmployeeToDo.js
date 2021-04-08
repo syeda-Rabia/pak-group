@@ -799,12 +799,19 @@ function EmployeeLeads(props, lead_id) {
        axiosConfig)
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
+        //  setAlertMessage(res.success);
+        setMessage("Recording submitted Successfully");
+        setShowSuccessAlert(true);
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
+        
+        // setErrorResponce(resp.error);
+        setAlertMessage("Recording not submitted ");
+        setShowErrorAlert(true);
       })
-
-      console.log('logginh afteer error');
+      setRefresh(!refresh);
+      console.log('login after error');
       
      
       // let resp =axios.post(uri, formData); 
@@ -829,7 +836,7 @@ function EmployeeLeads(props, lead_id) {
       // }
       // console.trace("---------recording--------------",resp);
       // console.log('000000000000000000000000000    ----->>> ',resp);
-      setRefresh(!refresh);
+      // setRefresh(!refresh);
 
       // for (var value of formData.values()) {
       //   console.log(value,"FormDATA");
@@ -1161,6 +1168,7 @@ function EmployeeLeads(props, lead_id) {
 
               handleFetchData();
               setshowReset(false);
+              setIsLoading(true);
               setIsFilter(false);
               setIsEmpty(false);
             }}

@@ -171,6 +171,7 @@ export default function Dropfile(props) {
       <button
         className="btn btn-primary "
         style={{ backgroundColor: "#2258BF" }}
+        disabled={props.disabled}
         onClick={() => {
           setToggle(!toggle);
         }}

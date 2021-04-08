@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 });
 
 export default function FormPopover(props) {
-  console.log(props);
+  console.log(`-------------------------------------->`,props);
   console.log(
     window.location.href.split("/")[window.location.href.split("/").length - 1],
     "location+++++++++++++++++++++++++++"
@@ -72,7 +72,7 @@ export default function FormPopover(props) {
   };
   const getEmployeeDetails = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log(res);
+    console.log("employessss__________>",res);
     // ;
     try {
       if (res.success !== false) {
@@ -324,7 +324,7 @@ export default function FormPopover(props) {
                       className="w-100"
                       style={{
                         marginTop: "32px",
-                        backgroundColor: "#2258BF",
+                        backgroundColor: "#5E85D0",
                         color: "white",
                       }}
                       disabled
