@@ -116,14 +116,14 @@ export default function FormPopover(props) {
     let url = "";
     if (endpoint == "leads") {
       url =
-        ApiUrls.GET_FILTER_DATA +
-        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+        ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA +
+        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=All`;
     }
 
     if (endpoint == "leadsallocation") {
       url =
         ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA +
-        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`;
+        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=getNonAllocatedLeads`;
     }
     console.log("------------", url);
     if (props.update != undefined) props.update(url, true);

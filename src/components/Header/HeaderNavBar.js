@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderNavBar = (props) => {
   const history = useHistory();
-
+  const [selected, setSelected] = React.useState(1);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  // const User=props.user.user_info.first_name;
+  const User=props.user.user_info.first_name;
   // ;
   return (
     <
@@ -49,7 +49,6 @@ const HeaderNavBar = (props) => {
       // xs={12}
       // className=" mx-0 px-0 h-100"
     >
-   
       <Navbar
         sticky="top"
         collapseOnSelect
@@ -57,7 +56,12 @@ const HeaderNavBar = (props) => {
         className="color-nav h-100 w-100"
       >
         <Navbar.Brand>
-          <Link to="/">
+          <Link
+            onClick={() => {
+              setSelected(1);
+            }}
+            to="/"
+          >
             <img
               alt="PaK Group"
               src={logo}
@@ -71,70 +75,140 @@ const HeaderNavBar = (props) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Link
+              onClick={() => {
+                setSelected(1);
+              }}
               id="R-navlink"
               to={{
                 pathname: "/",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>Dashboard</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 1 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >
+                Dashboard
+              </Nav.Item>
             </Link>
             {/* <Link
+onClick={()=>{
+  setSelected(0)
+}}
+
               id="R-navlink"
               to={{
                 pathname: "/admin/todolist",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>To Do</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 1 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >To Do</Nav.Item>
             </Link> */}
             <Link
+              onClick={() => {
+                setSelected(2);
+              }}
               id="R-navlink"
               to={{
                 pathname: "/admin/leads",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>Leads</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 2 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Leads</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(3);
+              }}
               id="R-navlink"
               to={{
                 pathname: "/admin/leadsallocation",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>Allocation</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 3 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Allocation</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(4);
+              }}
+             
               id="R-navlink"
               to={{
                 pathname: "/admin/inventory",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>Inventory</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 4 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Inventory</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(5);
+              }}
               id="R-navlink"
               to={{
                 pathname: "/admin/user",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>User</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 5 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >User</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(6);
+              }}
               id="R-navlink"
               to={{
                 pathname: "/admin/policies",
                 state: { from: "AdminHeader" },
               }}
             >
-              <Nav.Item>Policies</Nav.Item>
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 6 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Policies</Nav.Item>
             </Link>
-            <Link id="R-navlink">
-              <Nav.Item>HR</Nav.Item>
+            <Link
+              // onClick={() => {
+              //   setSelected(7);
+              // }}
+              id="R-navlink"
+            >
+              <Nav.Item
+                // style={{
+                //   backgroundColor:
+                //     selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                // }}
+              >HR</Nav.Item>
             </Link>
 
             {/* <Nav.Item href="#Accounts">Accounts</Nav.Item>
@@ -143,6 +217,9 @@ const HeaderNavBar = (props) => {
               HR
             </Nav.Item> */}
             <Link
+              onClick={() => {
+                setSelected(8);
+              }}
               id="mobileLogout"
               to={{
                 pathname: "/",
@@ -150,6 +227,10 @@ const HeaderNavBar = (props) => {
               }}
             >
               <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 8 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
                 onClick={() => {
                   setOpen(true);
                   // props.LOGOUT();
@@ -160,7 +241,7 @@ const HeaderNavBar = (props) => {
             </Link>
           </Nav>
         </Navbar.Collapse>
-        {/* <span id="profile" style={{color:"white"}}> {User}</span>  */}
+        <span id="profile" style={{color:"white"}}> {User}</span> 
         <Nav id="profile">
           {/* <Nav.Link
             href="#profile"
@@ -178,6 +259,9 @@ const HeaderNavBar = (props) => {
             <span style={{ color: "black" }}>HR</span>
           </Nav.Link> */}
           <Link
+            // onClick={() => {
+            //   setSelected(0);
+            // }}
             id="R-navlink"
             onClick={() => {
               setOpen(true);

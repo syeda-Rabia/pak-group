@@ -23,7 +23,7 @@ import { useHistory, Link } from "react-router-dom";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
-  // const User=props.user.user_info.first_name;
+  const User=props.user.user_info.first_name;
 // console.log("user-------------------",User);
   const useStyles = makeStyles((theme) => ({
     white: {
@@ -129,7 +129,7 @@ const EmployeHeader = (props) => {
             </Link>
           </Nav>
         </Navbar.Collapse>
-       {/* <span id="profile" style={{color:"white"}}> {User}</span>  */}
+       <span id="profile" style={{color:"white"}}> {User}</span> 
         <Nav id="profile">
           <Link
             id="R-navlink"

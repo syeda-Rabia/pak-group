@@ -44,6 +44,7 @@ export default function LeadsAllocatonAndAddition(props) {
   const [selectedEmployee, setSelectedEmployee] = useState();
   const [showReset, setshowReset] = useState(false);
   const [showModalCTA, setShowModalCTA] = React.useState(false);
+  const [filterurl, setFilterUrl] = React.useState("");
 
   var today = new Date();
   var datee = formatDate(today, "-");
@@ -92,7 +93,7 @@ export default function LeadsAllocatonAndAddition(props) {
     let resp = await GET(
       ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page
     );
-
+    console.log("console log in  pagination-------------------------------------->",resp)
     if (resp.data != null) {
       setCurrentPage(resp.data.leads.current_page);
       setAllLeadsToAllocate(resp.data.leads.data);
@@ -103,6 +104,42 @@ export default function LeadsAllocatonAndAddition(props) {
   const handleShow = (pageCount) => {
     setPageCount(pageCount);
   };
+  //pagination end
+
+  //filter pagination
+
+  const [filterPageSize, setfilterPageSize] = React.useState(0);
+  const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+  const [filterpageCount, setFilterPageCount] = React.useState(0);
+  const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+
+  const filterlastIndex = filtercurrentPage * filterPageSize;
+  const filteristIndex = filterlastIndex - filterPageSize;
+  const handleFilterPageChange = async (page) => {
+    /*
+     Api Call
+     
+     */
+     console.log("console log in filter pagination-------------------------------------->")
+    setIsLoading(true);
+    console.log("console log-------------------------------------->",filterurl+"&& page="+page)
+    let res =await GET(filterurl+"&& page="+page);
+    console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
+    if (res.data != null) {
+      setFilterCurrentPage(res.data.leads.current_page);
+      setAllLeadsToAllocate(res.data.leads.data);
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+     
+    }
+    console.log("console log in filter pagination-------------------------------------->")
+    setIsLoading(false);
+  };
+
+  const handleFilterShow = (filterpageCount) => {
+    setFilterPageCount(filterpageCount);
+  };
+  //filter pagination end
   React.useEffect(() => {
     if (AllleadsToAllocate.length > 0 && select.length > 0) {
       console.log(
@@ -270,9 +307,13 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(true);
 
     let res = await GET(props.searchData.url);
-    console.log("--------------", res);
+    setFilterUrl(props.searchData.url);
+    console.log("-------filter -------",props.searchData.url);
     if (res.error === false) {
-      setAllLeadsToAllocate(res.data.leads);
+      setAllLeadsToAllocate(res.data.leads.data);
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+      setFilterCurrentPage(res.data.leads.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -915,7 +956,13 @@ export default function LeadsAllocatonAndAddition(props) {
                 onPageChange={handlePageChange}
                 show={handleShow}
               />
-            ) : null}
+            ) :<Pagination
+            itemsCount={filtertotalRecord}
+            pageSize={filterPageSize}
+            currentPage={filtercurrentPage}
+            onPageChange={handleFilterPageChange}
+            show={handleFilterShow}
+          />}
           </Col>
         </Row>
       </Container>
