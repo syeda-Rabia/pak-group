@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderNavBar = (props) => {
   const history = useHistory();
-  const [selected, setSelected] = React.useState(1);
+  const [selected, setSelected] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const User=props.user.user_info.first_name;

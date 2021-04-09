@@ -122,7 +122,7 @@ export default function LeadsAdmin(props) {
   const [showBan, setShowBan] = useState(false);
   const [checked, setChecked] = React.useState({ index: 0});
   const [showActive, setShowActive] = useState(false);
-  
+  const [filterurl, setFilterUrl] = React.useState("");
 
   const [goback, setGoBack] = React.useState("leads");
   const [select, setSelect] = React.useState([]);
@@ -173,6 +173,41 @@ const history = useHistory();
 
   /*  Pagination data  */
 
+
+  //filter pagination
+
+  const [filterPageSize, setfilterPageSize] = React.useState(0);
+  const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+  const [filterpageCount, setFilterPageCount] = React.useState(0);
+  const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+
+  const filterlastIndex = filtercurrentPage * filterPageSize;
+  const filteristIndex = filterlastIndex - filterPageSize;
+  const handleFilterPageChange = async (page) => {
+    /*
+     Api Call
+     
+     */
+     
+    setIsLoading(true);
+    console.log("console log-------------------------------------->",filterurl+"&& page="+page)
+    let res =await GET(filterurl+"&& page="+page);
+    console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
+    if (res.data != null) {
+      setFilterCurrentPage(res.data.leads.current_page);
+      setAllLeads(res.data.leads.data);
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+
+    }
+    console.log("console log in filter pagination-------------------------------------->")
+    setIsLoading(false);
+  };
+
+  const handleFilterShow = (filterpageCount) => {
+    setFilterPageCount(filterpageCount);
+  };
+  //filter pagination end
   console.log("props", props);
   useEffect(() => {
     // setIsLoading(true);
@@ -216,9 +251,14 @@ const history = useHistory();
     setshowReset(true);
     setIsLoading(true);
     let res = await GET(props.searchData.url);
+    setFilterUrl(props.searchData.url);
     console.log("-----", res);
     if (res.success != false) {
-      setAllLeads(res.data.leads);
+     
+      setAllLeads(res.data.leads.data);
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+      setFilterCurrentPage(res.data.leads.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -2106,9 +2146,10 @@ const history = useHistory();
         ) : null}
         <ModalAdd />
         <Col>
+        {IsFilter==false?(
           <p className="page-info">
             Showing {currentPage} from {pageCount}
-          </p>
+          </p>):null}
         </Col>
         <Col>
        
@@ -2120,7 +2161,13 @@ const history = useHistory();
  onPageChange={handlePageChange}
  show={handleShow}
 />
-):null}
+):<Pagination
+itemsCount={filtertotalRecord}
+pageSize={filterPageSize}
+currentPage={filtercurrentPage}
+onPageChange={handleFilterPageChange}
+show={handleFilterShow}
+/>}
          
        
        

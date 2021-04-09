@@ -41,6 +41,7 @@ export default function FormPopover(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [employees, setEmployees] = React.useState([]);
+  const [allEmployees, setAllEmployees] = React.useState([]);
   const [client, setClient] = React.useState([]);
   const [project, setProject] = useState("");
   const [monthErr, setmonthErr] = useState(false);
@@ -74,11 +75,11 @@ export default function FormPopover(props) {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
     console.log("employessss__________>",res);
     // ;
-    try {
-      if (res.success !== false) {
-        setEmployees(res.data.users.data);
+    
+      if (res.data != null) {
+        setAllEmployees(res.data.users.data);
       }
-    } catch {}
+   
   };
   const [state, setState] = useState({
     top: false,
@@ -107,7 +108,7 @@ export default function FormPopover(props) {
   const SendRecordToServer = async (event) => {
     event.preventDefault();
     let formData = {
-      client_name: client,
+      client_name: employees,
       project_id: project,
       year: days.year,
       month: days.month,
@@ -117,13 +118,13 @@ export default function FormPopover(props) {
     if (endpoint == "leads") {
       url =
         ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA +
-        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=All`;
+        `?emp_name=${employees}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=All`;
     }
 
     if (endpoint == "leadsallocation") {
       url =
         ApiUrls.GET_LEAD_ALLOCATION_FILTER_DATA +
-        `?emp_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=getNonAllocatedLeads`;
+        `?emp_name=${employees}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}&&filterType=getNonAllocatedLeads`;
     }
     console.log("------------", url);
     if (props.update != undefined) props.update(url, true);
@@ -257,15 +258,15 @@ export default function FormPopover(props) {
                     className="w-100"
                     controlId="Sale Person"
                     as="select"
-                    value={client}
+                    value={employees}
                     onChange={(e) => {
                       console.log("select client ID is -----", e.target.value);
-                      setClient(e.target.value);
+                      setEmployees(e.target.value);
                     }}
                   >
                     <option>{null}</option>
-                    {employees.length > 0
-                      ? employees.map((e) => (
+                    {allEmployees.length > 0
+                      ? allEmployees.map((e) => (
                           <option
                             style={{ color: "#2258BF" }}
                             key={e.id}

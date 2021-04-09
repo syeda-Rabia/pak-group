@@ -482,12 +482,13 @@ export default function LeadsAllocatonAndAddition(props) {
           </select> */}
         </td>
         <td>
-          {/* {item?.previous_emp?.length > 0
+        {item.allocated_to[0]?.returned?.first_name}
+          {/* {item?.allocated_to?.length > 0
             ? 
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
-              label={item.previous_emp[0].returned.first_name}
+              label={item.allocated_to[0].returned.first_name}
               style={{ marginRight: "5px" }}
             />
             // item.previous_emp[0].returned.first_name
