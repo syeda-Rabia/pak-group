@@ -1338,7 +1338,7 @@ export default function RecordTable() {
           </>
         ) : null}
         <Row>
-          <Col>
+          {/* <Col>
             <p className="page-info">
               Showing {currentPage} from {pageCount}
             </p>
@@ -1351,7 +1351,7 @@ export default function RecordTable() {
               onPageChange={handlePageChange}
               show={handleShow}
             />
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </>

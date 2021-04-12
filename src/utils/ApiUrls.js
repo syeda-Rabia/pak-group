@@ -30,6 +30,7 @@ const ApiUrls = {
   INVENTORY_REQUEST: "admin/inventoryRequest/all",
 
   GET_ALL_PROJECTS: "admin/project/all",
+  GET_ALL_PROJECTS_PAGINATION: "admin/project/all?page=",
   GET_SINGLE_PROECT_INVENTORIES: "admin/inventory/all",
   POST_All_EDITED_INVENTORIES: "admin/inventory/edit",
   GET_DELETED_INVENTORIES: "admin/inventory/delete/",

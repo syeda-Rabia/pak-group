@@ -2149,7 +2149,9 @@ const history = useHistory();
         {IsFilter==false?(
           <p className="page-info">
             Showing {currentPage} from {pageCount}
-          </p>):null}
+          </p>):<p className="page-info">
+         Showing {filtercurrentPage} from {filterpageCount}
+       </p>}
         </Col>
         <Col>
        

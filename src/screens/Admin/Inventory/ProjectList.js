@@ -20,6 +20,7 @@ import InventoryAdmin from "./InventoryAdmin";
 
 import { GET, POST } from "../../../utils/Functions";
 import ApiUrls from "../../../utils/ApiUrls";
+import Pagination from "../../../components/Pagination/Pagination";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import InventoryMobileViewSidebar from "../../../components/Sidebar/InventoryMobileViewSidebar";
 import SuccessNotification from "../../../components/SuccessNotification";
@@ -53,7 +54,37 @@ export default function ProjectList() {
       },
     },
   }));
+/*  Pagination data  */
 
+const [pageSize, setPageSize] = React.useState(0);
+const [currentPage, setCurrentPage] = React.useState(null);
+const [pageCount, setPageCount] = React.useState(0);
+const [totalRecord, setTotalRecord] = React.useState(null);
+
+const lastIndex = currentPage * pageSize;
+const istIndex = lastIndex - pageSize;
+
+// const [page, setPage] = React.useState(2);
+const handlePageChange = async (page) => {
+  /*
+   Api Call
+   
+   */
+  setIsLoading(true);
+  let resp = await GET(ApiUrls.GET_ALL_PROJECTS_PAGINATION + page);
+
+  if (resp.data != null) {
+    setCurrentPage(resp.data.projects.current_page);
+    setData(resp.data.projects.data);
+    setAllProjects(resp.data.projects.data);
+    setProjectsName(resp.data.projects.data);
+  }
+  setIsLoading(false);
+};
+
+const handleShow = (pageCount) => {
+  setPageCount(pageCount);
+};
   const classes = useStyles();
 
   useEffect(() => {
@@ -62,12 +93,15 @@ export default function ProjectList() {
   }, [refresh]);
 
   const getAllProjects = async () => {
-    let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
+    let resp = await GET(ApiUrls.GET_ALL_PROJECTS_PAGINATION);
   console.log("response------------------------------",resp);
 
     if (resp.data != null) {
       setAllProjects(resp.data.projects.data);
       setProjectsName(resp.data.projects.data);
+      setPageSize(resp.data.projects.per_page);
+      setTotalRecord(resp.data.projects.total);
+      setCurrentPage(resp.data.projects.current_page);
     }
     setIsLoading(false);
   };
@@ -515,6 +549,27 @@ export default function ProjectList() {
             </table>
           </div>
         </div>
+        <Col>
+        
+          <p className="page-info">
+            Showing {currentPage} from {pageCount}
+          </p>
+        </Col>
+        <Col>
+       
+
+ <Pagination
+ itemsCount={totalRecord}
+ pageSize={pageSize}
+ currentPage={currentPage}
+ onPageChange={handlePageChange}
+ show={handleShow}
+/>
+
+         
+       
+       
+        </Col>
       </Row>
     </Container>
   );

@@ -946,7 +946,9 @@ export default function LeadsAllocatonAndAddition(props) {
           <p className="page-info">
             Showing {currentPage} from {pageCount}
           </p>
-          ):null}
+          ):<p className="page-info">
+          Showing {filtercurrentPage} from {filterpageCount}
+        </p>}
         </Col>
           <Col>
             {IsFilter == false ? (

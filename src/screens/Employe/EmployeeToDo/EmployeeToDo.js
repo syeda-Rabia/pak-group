@@ -113,7 +113,7 @@ function EmployeeLeads(props, lead_id) {
   const [goback, setGoBack] = React.useState("todo");
   const [showReset, setshowReset] = useState(false);
   const [errorResponce, setErrorResponce] = useState("");
-
+  const [filterurl, setFilterUrl] = React.useState("");
   const [IsFilter, setIsFilter] = useState(false);
   const [IsEmpty, setIsEmpty] = useState(false);
 
@@ -166,7 +166,41 @@ function EmployeeLeads(props, lead_id) {
    setPageCount(pageCount);
  };
 
- /*  Pagination data  */
+ /*  Pagination data  end*/
+  //filter pagination
+
+  const [filterPageSize, setfilterPageSize] = React.useState(0);
+  const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+  const [filterpageCount, setFilterPageCount] = React.useState(0);
+  const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+ 
+  const filterlastIndex = filtercurrentPage * filterPageSize;
+  const filteristIndex = filterlastIndex - filterPageSize;
+  const handleFilterPageChange = async (page) => {
+    /*
+     Api Call
+     
+     */
+ 
+    setIsLoading(true);
+    
+    let res =await GET(filterurl+"&& page="+page);
+   
+    if (res.data != null) {
+      setFilterCurrentPage(res.data.leads.current_page);
+      setData(res.data.leads.data);
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+ 
+    }
+    console.log("console log in filter pagination-------------------------------------->")
+    setIsLoading(false);
+  };
+ 
+  const handleFilterShow = (filterpageCount) => {
+    setFilterPageCount(filterpageCount);
+  };
+  //filter pagination end
 
   const handleFetchData = async () => {
     setIsLoading(true);
@@ -193,9 +227,14 @@ function EmployeeLeads(props, lead_id) {
     setIsLoading(true); 
     
     let res = await GET(props.searchData.url);
+    setFilterUrl(props.searchData.url);
     console.log("-----", res);
     if (res.error === false) {
-      setData(res.data.leads);
+      setData(res.data.leads.data);
+
+      setfilterPageSize(res.data.leads.per_page);
+      setfilterTotalRecord(res.data.leads.total);
+      setFilterCurrentPage(res.data.leads.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -878,41 +917,30 @@ function EmployeeLeads(props, lead_id) {
         <td>{item.country_city}</td>
   
         <td>
-      {allocated.first_name!==userInfo.first_name?(
-         <Chip
-         classes={{
-           label: classes.chipLabelColor,
-           root:
-            
-          
-            classes.chipShifted
-               
-               
-         }}
-         label={"shifted"}
-       />
-      ): <Chip
-      classes={{
-        label: classes.chipLabelColor,
-        root:
-          item.status === "Overdue"
-            ? classes.chipOverdue
-            : item.status === "Grace Period"
-            ? classes.chipGracePeriod
-            : item.status === "Complete"
-            ? classes.chipComplete
-            : item.status === "Follow up"
-            ? classes.chipFollowUp
-            : item.status === "Allocated"
-            ? classes.chipAllocated
-            : item.status === "Shifted"
-            ? classes.chipShifted
-            : item.status === "Loss"
-            ? classes.chipLoss
-            : null,
-      }}
-      label={item.status}
-    />}
+        {item.status != "" ? (
+            <Chip
+              classes={{
+                label: classes.chipLabelColor,
+                root:
+                  item.status === "Overdue"
+                    ? classes.chipOverdue
+                    : item.status === "Grace Period"
+                    ? classes.chipGracePeriod
+                    : item.status === "Complete"
+                    ? classes.chipComplete
+                    : item.status === "Follow up"
+                    ? classes.chipFollowUp
+                    : item.status === "Allocated"
+                    ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
+                    : null,
+              }}
+              label={item.status}
+            />
+          ) : (
+            "-------"
+          )}
          
         </td>
   
@@ -1418,10 +1446,15 @@ function EmployeeLeads(props, lead_id) {
           </div>
           </div>
           <Col>
+          {IsFilter==false?(
           <p className="page-info">
             Showing {currentPage} from {pageCount}
           </p>
+         ):<p className="page-info">
+         Showing {filtercurrentPage} from {filterpageCount}
+       </p>}
         </Col>
+        
         <Col >
         {IsFilter==false?(
         <Pagination
@@ -1431,7 +1464,13 @@ function EmployeeLeads(props, lead_id) {
  onPageChange={handlePageChange}
  show={handleShow}
 />
-        ):null}
+        ):<Pagination
+        itemsCount={filtertotalRecord}
+        pageSize={filterPageSize}
+        currentPage={filtercurrentPage}
+        onPageChange={handleFilterPageChange}
+        show={handleFilterShow}
+        />}
         </Col>
         
 
