@@ -398,7 +398,7 @@ console.log(resp,"+++++++++++++++++++++");
                 <Input
                   className="form-control  w-100 "
                   placeholder="Enter password"
-                  required="true"
+                
                   type={showPassword ? "text" : "password"}
                   value={password}
                   endAdornment={

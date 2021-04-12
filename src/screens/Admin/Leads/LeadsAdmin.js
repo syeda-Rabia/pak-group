@@ -545,7 +545,7 @@ const history = useHistory();
                         setProject(e.target.value);
                       }}
                     >
-                      {allProjects.length > 0
+                      {allProjects?.length > 0
                         ? allProjects.map((pro) => (
                             <MenuItem key={pro.id} value={pro.id}>
                               {pro.name}
@@ -568,7 +568,7 @@ const history = useHistory();
                         setInterestID(e.target.value);
                       }}
                     >
-                      {interestList.length > 0
+                      {interestList?.length > 0
                         ? interestList.map((int, index) => (
                             <MenuItem key={int.id} value={int.id}>
                               {int.interest}
@@ -1712,7 +1712,7 @@ const history = useHistory();
         </td>
 
         <td>
-          {item.allocation.length > 0 ? (
+          {item.allocation?.length > 0 ? (
             <CTAButton
               // leadId={item.allocation[0].lead_id}
               empId={item.allocation[0].allocated_to.id}

@@ -109,6 +109,7 @@ function EmployeeLeads(props, lead_id) {
   const [setPlay, setShowPlay] = React.useState(false);
   const [selectedID, setSelectedID] = React.useState(null);
   const [showReset, setshowReset] = useState(false);
+  const [filterurl, setFilterUrl] = React.useState("");
 
   const [IsFilter, setIsFilter] = useState(false);
   const [IsEmpty, setIsEmpty] = useState(false);
@@ -162,7 +163,42 @@ function EmployeeLeads(props, lead_id) {
    setPageCount(pageCount);
  };
 
- /*  Pagination data  */
+ /*  Pagination data  end*/
+
+ //filter pagination
+
+ const [filterPageSize, setfilterPageSize] = React.useState(0);
+ const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+ const [filterpageCount, setFilterPageCount] = React.useState(0);
+ const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+
+ const filterlastIndex = filtercurrentPage * filterPageSize;
+ const filteristIndex = filterlastIndex - filterPageSize;
+ const handleFilterPageChange = async (page) => {
+   /*
+    Api Call
+    
+    */
+
+   setIsLoading(true);
+   console.log("console log-------------------------------------->",filterurl+"&& page="+page)
+   let res =await GET(filterurl+"&& page="+page);
+   console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
+   if (res.data != null) {
+     setFilterCurrentPage(res.data.leads.current_page);
+     setData(res.data.leads.data);
+     setfilterPageSize(res.data.leads.per_page);
+     setfilterTotalRecord(res.data.leads.total);
+
+   }
+   console.log("console log in filter pagination-------------------------------------->")
+   setIsLoading(false);
+ };
+
+ const handleFilterShow = (filterpageCount) => {
+   setFilterPageCount(filterpageCount);
+ };
+ //filter pagination end
 
   const handleFetchData = async () => {
     setIsLoading(true);
@@ -191,9 +227,14 @@ function EmployeeLeads(props, lead_id) {
     setIsLoading(true); 
     
     let response = await GET(props.searchData.url);
+    setFilterUrl(props.searchData.url);
     console.log("-----", response);
     if (response.error === false) {
-      setData(response.data.leads);
+      setData(response.data.leads.data);
+     
+      setfilterPageSize(response.data.leads.per_page);
+      setfilterTotalRecord(response.data.leads.total);
+      setFilterCurrentPage(response.data.leads.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -714,70 +755,7 @@ function EmployeeLeads(props, lead_id) {
   
       maxFiles: 1,
     });
-    // console.log(item);
-  
-    // const SendFileToServer = async () => {
-    //   const formData = new FormData();
-  
-    //   formData.append("lead_id", item.id);
-    //   formData.append("recording_file", recordingFile);
-    //   console.log(formData.values());
-    //   let resp = await POST(ApiUrls.ADD_RECORDING, formData);
-    //   console.log(resp);
-    // };
-  
-  //   const SendFileToServer = async () => {
-  
-  //     let actionresp = await POST(ApiUrls.EMPLOYEE_ACTION, {
-  //       id: item.id,
-  //       action: action,
-  //     });
-  //     console.log(actionresp);
-  //     if (actionresp.error === false)  {
-  //       setMessage("Lead updated Successfully");
-  //       setShowSuccessAlert(true);
-  //     } else {
-  //       setMessage("Operation Failed");
-  //       setShowErrorAlert(true);
-  //     }
-  //     if (actionresp.error.hasOwnProperty("allocated_to")) {
-  //       alert("Action Field is required");
-  
-  //       // setErrorAlert(true);
-  //     }
-  //     setRefresh(!refresh);
-  
-      
-  //       let formData={
-  //         lead_id:item.id,
-  //         recording_file: recordingFile
-  //       };
-  // // let formData = new FormData();
-  // //     formData.append("lead_id", item.id);
-  //     // formData.append("recording_file", recordingFile);
-  //     console.log('form data is recordingFile ------------>',recordingFile);
-  //     console.log('form data - recordingFile ------------>',formData.recording_file);
-  
-  //     let resp = await POST(ApiUrls.ADD_RECORDING, formData); 
-  //     if (resp.error === false) {
-  //       setMessage("Recording submitted Successfully");
-  //       setShowSuccessAlert(true);
-  //     } else {
-  //       setMessage("Operation Failed");
-  //       setShowErrorAlert(true);
-  //     }
-  //     console.log("---------recording--------------",resp);
-  //     console.log(resp);
-  //     // for (var value of formData.values()) {
-  //     //   console.log(value,"FormDATA");
-  //     // }
-  //     // await fetch("https://webhook.site/f5bf7dff-8327-4e9a-b953-d3aa51cb6b2f", {
-  //       // let token = JSON.parse(localStorage.getItem("token"));
-  //     //   let resp=await POSTFile(ApiUrls.ADD_RECORDING, formData);
-       
-  //     // console.log("---------recording--------------",resp,formData);
-  
-  //   };
+    
     const formatTime = () => {
       if (item.time_to_call !== null) {
         let str = item.time_to_call;
@@ -805,44 +783,31 @@ function EmployeeLeads(props, lead_id) {
         <td>{item.country_city}</td>
   
         <td>
-      {allocated.first_name!==userInfo.first_name?(
-         <Chip
-         classes={{
-           label: classes.chipLabelColor,
-           root:
-            
-          
-            classes.chipShifted
-               
-               
-         }}
-         label={"shifted"}
-       />
-      ): <Chip
-      classes={{
-        label: classes.chipLabelColor,
-        root:
-          item.status === "Overdue"
-            ? classes.chipOverdue
-            : item.status === "Grace Period"
-            ? classes.chipGracePeriod
-            : item.status === "Complete"
-            ? classes.chipComplete
-            : item.status === "Follow up"
-            ? classes.chipFollowUp
-            : item.status === "Allocated"
-            ? classes.chipAllocated
-            : item.status === "Shifted"
-            ? classes.chipShifted
-            : item.status === "Loss"
-            ? classes.chipLoss
-            : null,
-      }}
-      label={item.status}
-    />}
-         
+          {item.status != "" ? (
+            <Chip
+              classes={{
+                label: classes.chipLabelColor,
+                root:
+                  item.status === "Overdue"
+                    ? classes.chipOverdue
+                    : item.status === "Grace Period"
+                    ? classes.chipGracePeriod
+                    : item.status === "Complete"
+                    ? classes.chipComplete
+                    : item.status === "Follow up"
+                    ? classes.chipFollowUp
+                    : item.status === "Allocated"
+                    ? classes.chipAllocated
+                    : item.status === "Loss"
+                    ? classes.chipLoss
+                    : null,
+              }}
+              label={item.status}
+            />
+          ) : (
+            "-------"
+          )}
         </td>
-  
         {/* <td>{item.inventory.inventory_name}</td> */}
         <td>{item.interest.interest}</td>
        
@@ -1183,9 +1148,13 @@ function EmployeeLeads(props, lead_id) {
           </div>
         </div>
         <Col>
+        {IsFilter==false?(
           <p className="page-info">
             Showing {currentPage} from {pageCount}
           </p>
+         ):<p className="page-info">
+         Showing {filtercurrentPage} from {filterpageCount}
+       </p>}
         </Col>
         <Col >
         {IsFilter==false?(
@@ -1196,7 +1165,13 @@ function EmployeeLeads(props, lead_id) {
  onPageChange={handlePageChange}
  show={handleShow}
 />
-        ):null}
+        ):<Pagination
+        itemsCount={filtertotalRecord}
+        pageSize={filterPageSize}
+        currentPage={filtercurrentPage}
+        onPageChange={handleFilterPageChange}
+        show={handleFilterShow}
+        />}
         </Col>
         
       </Row>

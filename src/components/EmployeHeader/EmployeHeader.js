@@ -22,6 +22,8 @@ import { useHistory, Link } from "react-router-dom";
 
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(0);
+
   const history = useHistory();
   const User=props.user.user_info.first_name;
 // console.log("user-------------------",User);
@@ -45,7 +47,11 @@ const EmployeHeader = (props) => {
     <React.Fragment>
       <Navbar sticky="top" collapseOnSelect expand="lg" className="color-nav">
         <Navbar.Brand>
-          <Link to="/">
+          <Link
+          onClick={() => {
+            setSelected(1);
+          }}
+          to="/">
             <img
               alt=""
               src={logo}
@@ -60,57 +66,109 @@ const EmployeHeader = (props) => {
           <Nav className="mr-auto">
             <Link
               id="R-navlink"
+              onClick={() => {
+                setSelected(1);
+              }}
               to={{
                 pathname: "/",
                 state: { from: "employeeHeader" },
               }}
             >
-              <Nav.Item>Dashboard</Nav.Item>
+              <Nav.Item
+               style={{
+                backgroundColor:
+                  selected == 1 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              }}
+              >Dashboard</Nav.Item>
             </Link>
             <Link
               id="R-navlink"
+              onClick={() => {
+                setSelected(2);
+              }}
               to={{
                 pathname: "/employee/todolist",
                 state: { from: "employeeHeader" },
               }}
             >
-              <Nav.Item>To Do</Nav.Item>
+              <Nav.Item  style={{
+                  backgroundColor:
+                    selected == 2 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+                >To Do</Nav.Item>
             </Link>
             <Link
+             onClick={() => {
+              setSelected(3);
+            }}
               id="R-navlink"
               to={{
                 pathname: "/employee/leads",
                 state: { from: "employeeHeader" },
               }}
             >
-              <Nav.Item>Leads</Nav.Item>
+              <Nav.Item 
+               style={{
+                backgroundColor:
+                  selected == 3 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              }}
+              >Leads</Nav.Item>
             </Link>
 
             <Link
+             onClick={() => {
+              setSelected(4);
+            }}
               id="R-navlink"
               to={{
                 pathname: "/employee/inventory",
                 state: { from: "employeeHeader" },
               }}
             >
-              <Nav.Item>Inventory</Nav.Item>
+              <Nav.Item 
+               style={{
+                backgroundColor:
+                  selected == 4 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              }}
+              >Inventory</Nav.Item>
             </Link>
 
             <Link
+             onClick={() => {
+              setSelected(5);
+            }}
               id="R-navlink"
               to={{
                 pathname: "/employee/policies",
                 state: { from: "employeeHeader" },
               }}
             >
-              <Nav.Item>Policies</Nav.Item>
+              <Nav.Item 
+                style={{
+                  backgroundColor:
+                    selected == 5 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+               >Policies</Nav.Item>
             </Link>
-            <Link id="R-navlink">
-              <Nav.Item>HR</Nav.Item>
+            <Link 
+            //  onClick={() => {
+            //   setSelected(6);
+            // }}
+            id="R-navlink">
+              <Nav.Item 
+              //  style={{
+              //   backgroundColor:
+              //     selected == 5 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              // }}
+              
+              >HR</Nav.Item>
             </Link>
            
             
             <Link
+             onClick={() => {
+              setSelected(7);
+            }}
               id="mobileLogout"
               to={{
                 pathname: "/",
@@ -119,6 +177,10 @@ const EmployeHeader = (props) => {
             >
               
               <Nav.Item
+               style={{
+                backgroundColor:
+                  selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              }}
                 onClick={() => {
                   setOpen(true);
                   // props.LOGOUT();
