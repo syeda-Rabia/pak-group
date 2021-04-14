@@ -48,6 +48,7 @@ import EmployeeMobileViewSidebar from "../../../components/Sidebar/EmployeeMobil
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 
+
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
@@ -948,6 +949,7 @@ function EmployeeLeads(props, lead_id) {
           </div>
         </Col>
       </Row>
+      
       <PreLoading startLoading={isLoading} />
 
       <SuccessNotification

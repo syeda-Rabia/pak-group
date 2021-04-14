@@ -1,8 +1,9 @@
 import "./App.css";
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import HeaderNavBar from "./components/Header/HeaderNavBar";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row, Toast,Button } from "react-bootstrap";
+import { getToken, onMessageListener } from "./firebase";
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,6 +36,7 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
 import ExcelPage from "./utils/ExcelPage";
 import EmployeeAction from "./screens/Admin/Leads/EmployeeAction";
+import EmployeeNotificaton from "./screens/Employe/EmployeeNotifications/EmployeeNotifications"
 import AddNewInventory from "./screens/Admin/Inventory/AddNewInventory";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
@@ -48,32 +50,45 @@ const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
   const [TOKEN, setTOKEN] = useState(props.user.token);
   // ;
+  //firebase
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken(setTokenFound);
+
+  onMessageListener()
+    .then((payload) => {
+      setShow(true);
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+    })
+    .catch((err) => console.log("failed: ", err));
+  //firebase end
+
   const AdminRoute = () => {
-  
     // ;
     return (
       <React.Fragment>
-        <HeaderNavBar {...props}/>
-        <Route path="/admin/add-project"
-        render={(props) => (
-            <>
-        
-          <AdminAddInventoryScreen {...props}/>
-          </>
-          )}>
-        </Route>
-        <Route path="/admin/newinventory" 
+        <HeaderNavBar {...props} />
+        <Route
+          path="/admin/add-project"
           render={(props) => (
             <>
-             
-            
+              <AdminAddInventoryScreen {...props} />
+            </>
+          )}
+        ></Route>
+        <Route
+          path="/admin/newinventory"
+          render={(props) => (
+            <>
               <AddNewInventory {...props} />
             </>
-          )}>
-       
-        </Route>
+          )}
+        ></Route>
         <Route path="/admin/employee-request">
-         
           <EmployeeRequestTable />
         </Route>
 
@@ -82,36 +97,31 @@ const NewApp = (props) => {
           path="/admin/projects"
           render={(props) => (
             <>
-             
               <AdminProjectDetailsScreen {...props} />
             </>
           )}
         />
 
         <Route path="/admin/add-category">
-         
           <AdminCategoriesDetailScreen />
         </Route>
         <Route path="/admin/add-interest">
-         
           <AddInterest />
         </Route>
-        <Route path="/admin/emp-action"  
-        render={(props) => (
+        <Route
+          path="/admin/emp-action"
+          render={(props) => (
             <>
-             
               <EmployeeAction {...props} />
             </>
-          )}>
-        
-        </Route>
+          )}
+        ></Route>
         <Route
           exact
           path="/admin/inventory"
           render={(props) => (
             <>
-            
-               <AdminProjectListScreen {...props}/>
+              <AdminProjectListScreen {...props} />
             </>
           )}
         />
@@ -125,8 +135,7 @@ const NewApp = (props) => {
           path="/"
           render={(props) => (
             <>
-              
-               <AdminDashboardScreen {...props}/>
+              <AdminDashboardScreen {...props} />
             </>
           )}
         />
@@ -139,7 +148,6 @@ const NewApp = (props) => {
           path="/admin/leadsallocation"
           render={(props) => (
             <>
-             
               <AdminLAAScreen {...props} />
             </>
           )}
@@ -153,7 +161,6 @@ const NewApp = (props) => {
           path="/admin/leads"
           render={(props) => (
             <>
-             
               <AdminLeadsScreen {...props} />
             </>
           )}
@@ -167,23 +174,18 @@ const NewApp = (props) => {
           <AdminTodoListScreen />
         </Route> */}
         <Route path="/admin/user">
-         
           <AddEmployee />
         </Route>
         <Route path="/admin/policies">
-          
           <AdminPolicies />
         </Route>
         <Route exact path="/admin/viewable">
-         
           <ViewableTo />
         </Route>
         <Route exact path="/admin/closedleads">
-          
           <ClosedLeads />
         </Route>
         <Route path="/admin/upload-file">
-         
           <br />
           {/* <ProjectList /> */}
           <ExcelPage />
@@ -198,11 +200,10 @@ const NewApp = (props) => {
   const EmployeeRoute = () => {
     return (
       <React.Fragment>
-        <EmployeHeader {...props}/>
+        <EmployeHeader {...props} />
         <Route exact path="/">
           {/* <Route path="/employee/dashboard"> */}
 
-          
           <EmployeeDashboardScreen />
         </Route>
         <Route
@@ -210,7 +211,7 @@ const NewApp = (props) => {
           path="/employee/inventory-details"
           render={(props) => (
             <>
-          <EmployeeInventoryDetails {...props} />
+              <EmployeeInventoryDetails {...props} />
             </>
           )}
         />
@@ -232,7 +233,7 @@ const NewApp = (props) => {
           path="/employee/inventory"
           render={(props) => (
             <>
-          <EmployeeInventory {...props} />
+              <EmployeeInventory {...props} />
             </>
           )}
         />
@@ -245,37 +246,67 @@ const NewApp = (props) => {
         </Route>
         <Route path="/employee/todolist">
           {/* <EmployeeLeadsScreen {...props} /> */}
-          <EmployeeToDoScreen {...props}/>
-         
+          <EmployeeToDoScreen {...props} />
         </Route>
-        <Route path="/employee/admin-action"  
-        render={(props) => (
+        <Route
+          path="/employee/admin-action"
+          render={(props) => (
             <>
               <AdminAction {...props} />
             </>
-          )}>
-        
+          )}
+        ></Route>
+        <Route path="/employee/notifications">
+          <EmployeeNotificaton />
         </Route>
       </React.Fragment>
     );
   };
 
   return (
-    <Router>
-      <Switch>
-        {props.user.logged != false && props.user.token != null ? (
-          parseInt(props.user.user_info.user_type) === 1 ? (
-            <AdminRoute />
+    <>
+      {" "}
+      <Router>
+        <Switch>
+          {props.user.logged != false && props.user.token != null ? (
+            parseInt(props.user.user_info.user_type) === 1 ? (
+              <AdminRoute />
+            ) : (
+              <EmployeeRoute />
+            )
           ) : (
-            <EmployeeRoute />
-          )
-        ) : (
-          <Route exact path="/">
-            <SignIn setUser={setUserType} />
-          </Route>
-        )}
-      </Switch>
-    </Router>
+            <Route exact path="/">
+              <SignIn setUser={setUserType} />
+            </Route>
+          )}
+        </Switch>
+      </Router>
+
+      <Toast
+        onClose={() => setShow(false)}
+        // onClick={()=>}
+        show={show}
+        delay={8000}
+        type="info"
+        autohide
+        animation
+        style={{
+          position: "fixed",
+          top: 100,
+          right: 20,
+          minWidth: 300,
+        }}
+      >
+        <Toast.Header  style={{backgroundColor:"#2258bf",color:"white"}}>
+         
+          <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+          <strong className="mr-auto">{notification.title}</strong>
+          <small>just now</small>
+        </Toast.Header>
+        
+        <Toast.Body>{notification.body}</Toast.Body>
+      </Toast>
+    </>
   );
 };
 

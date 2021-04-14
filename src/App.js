@@ -1,34 +1,49 @@
-import "./App.css";
-import React from "react";
-import HeaderNavBar from "./components/Header/HeaderNavBar";
-import { Container, Row, Col } from "react-bootstrap";
-import LeadsAllocatonAndAddition from "./screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
-import AdminDashboard from "./screens/Admin/Dashboard/AdminDashboard";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { Col, Container, Row, Toast } from "react-bootstrap";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useLocation,
+
+  Route, Switch,
+
+
+  useLocation
 } from "react-router-dom";
-import SignIn from "./screens/Admin/SignIn/SignIn";
-import ClosedLeads from "./screens/ClosedLeads";
-import LeadsAdmin from "./screens/Admin/Leads/LeadsAdmin";
+import "./App.css";
+import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
+import HeaderNavBar from "./components/Header/HeaderNavBar";
+import InventorySidebar from "./components/Sidebar/InventorySidebar";
+import LeadsSidebar from "./components/Sidebar/LeadsSidebar";
+import { getToken, onMessageListener } from './firebase';
+import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
+import AdminDashboard from "./screens/Admin/Dashboard/AdminDashboard";
+import AddInventory from "./screens/Admin/Inventory/AddInventory";
 import InventoryAdmin from "./screens/Admin/Inventory/InventoryAdmin";
+import LeadsAdmin from "./screens/Admin/Leads/LeadsAdmin";
+import LeadsAllocatonAndAddition from "./screens/Admin/LeadsAllocationAndAddition/LeadsAllocatonAndAddition";
+import SignIn from "./screens/Admin/SignIn/SignIn";
 // import Demo from "./screens/Demo";
 import ToDoListAdmin from "./screens/Admin/TodoList/ToDoListAdmin";
-import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
-import AddEmployee from "./screens/Admin/AddUser/AddEmployee";
-import LeadsSidebar from "./components/Sidebar/LeadsSidebar";
-import LAASidebar from "./components/Sidebar/LAASidebar";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
-import InventorySidebar from "./components/Sidebar/InventorySidebar";
-import AddInventory from "./screens/Admin/Inventory/AddInventory";
+import ClosedLeads from "./screens/ClosedLeads";
 import { KeyboardDatePickerExample } from "./utils/KeyboardTimePickerExample";
 
 function App() {
   var location = useLocation();
   const [condition, setCondition] = React.useState("");
+
+
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken(setTokenFound);
+
+  onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+  }).catch(err => console.log('failed: ', err));
+
+
 
   const usePageViews = () => {
     React.useEffect(() => {
@@ -53,6 +68,7 @@ function App() {
   const AdminRoute = () => {
     return (
       <React.Fragment>
+        
         <HeaderNavBar />
         <Container fluid style={{ height: "100vh" }}>
           <Row>
@@ -171,6 +187,23 @@ function App() {
         </Route>
         {userType === "admin" ? <AdminRoute /> : <EmployeRoute />}
       </Switch>
+      <Toast onClose={() => setShow(false)} show={show} delay={8000} autohide animation style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          minWidth: 200
+        }}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">{notification.title}</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{notification.body}</Toast.Body>
+        </Toast>
     </Router>
   );
 }

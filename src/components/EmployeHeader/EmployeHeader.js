@@ -19,13 +19,33 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useHistory, Link } from "react-router-dom";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
 
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import NotificationList from "../notificatons/NotificationList";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
 
   const history = useHistory();
   const User=props.user.user_info.first_name;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openpopover = Boolean(anchorEl);
+  const id =  openpopover ? 'simple-popover' : undefined;
+
 // console.log("user-------------------",User);
   const useStyles = makeStyles((theme) => ({
     white: {
@@ -163,7 +183,18 @@ const EmployeHeader = (props) => {
               
               >HR</Nav.Item>
             </Link>
-           
+            <Link
+              id="mobileLogout"
+              to={{
+                pathname: "/",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item
+              onClick={handleClick}
+              >
+              NOTIFICATION</Nav.Item>
+            </Link>
             
             <Link
              onClick={() => {
@@ -192,6 +223,24 @@ const EmployeHeader = (props) => {
           </Nav>
         </Navbar.Collapse>
        <span id="profile" style={{color:"white"}}> {User}</span> 
+       <Nav id="profile">
+         
+          <Link
+            id="profile"
+            onClick={handleClick}
+          >
+            <Tooltip title="Notifications" placement="left">
+              {/* <Avatar className={classes.white}> */}
+                <IconButton className={classes.logout}>
+                <Badge variant="dot" color="error" style={{}}>
+                  <NotificationsIcon style={{color:"white"}}/>
+                  </Badge>
+                </IconButton>
+              {/* </Avatar> */}
+            </Tooltip>
+          </Link>
+        </Nav>
+        
         <Nav id="profile">
           <Link
             id="R-navlink"
@@ -218,7 +267,24 @@ const EmployeHeader = (props) => {
         </Nav>
        
       </Navbar>
-
+      <Popover
+        id={id}
+        open={openpopover}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography className={classes.typography}>
+          <NotificationList/>
+        </Typography>
+      </Popover>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

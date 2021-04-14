@@ -26,6 +26,15 @@ import {
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import SuccessNotification from "../../../components/SuccessNotification";
+
+//testing firebase
+import { getToken, onMessageListener } from '../../../firebase';
+import {Toast} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+//testing firebase end
+
+
 function EmployeeInventory(props) {
   const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -50,6 +59,21 @@ function EmployeeInventory(props) {
   const [resMessage, setResMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+   //firebase testing 
+   const [show, setShow] = useState(false);
+   const [notification, setNotification] = useState({title: 'request', body: 'inventory request'});
+   const [isTokenFound, setTokenFound] = useState(false);
+   getToken(setTokenFound);
+ 
+   onMessageListener().then(payload => {
+     setShow(true);
+     setNotification({title: payload.notification.title, body: payload.notification.body})
+     console.log(payload);
+   }).catch(err => console.log('failed: ', err));
+   //firebase testing
+
+
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(
@@ -64,6 +88,9 @@ function EmployeeInventory(props) {
   React.useEffect(() => {
     handleFetchData();
   }, []);
+
+
+ 
   const ModalRequest = ({ item }) => {
     const [message, setMessage] = React.useState("");
 
@@ -127,7 +154,11 @@ function EmployeeInventory(props) {
           <Button
             type="submit"
             // style={{ backgroundColor: "#2258BF" }}
-            onClick={addData}
+            onClick={(e) => {
+              addData(e)
+              setShow(true)}
+            }
+         
           >
             Send
           </Button>
@@ -188,6 +219,23 @@ function EmployeeInventory(props) {
       />
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
+        <Toast onClose={() => setShow(false)} show={show} delay={8000} autohide animation style={{
+          position: 'absolute',
+          top: 0,
+          right: 20,
+          minWidth: 200
+        }}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">{notification.title}</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{notification.body}</Toast.Body>
+        </Toast>
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Row>
@@ -199,7 +247,7 @@ function EmployeeInventory(props) {
             <Button onClick={() => setOpenRequest(true)}>
               Request Inventory
             </Button>
-
+ 
             <div className="table-responsive">
               <table className="table table-hover">
                 <thead>
