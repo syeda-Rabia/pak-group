@@ -213,7 +213,12 @@ function getStepContent(step) {
        <Row className=" shadow p-3 mb-3 bg-white rounded ml-2">
        <IconButton
           onClick={() => {
-            history.push("/admin/leads");
+            if(back.goback=="leads"){
+              history.push("/admin/leads");
+            }
+            if(back.goback=="dashboard"){
+              history.push("/");
+            }
           }}
           aria-label="delete"
           color="primary"

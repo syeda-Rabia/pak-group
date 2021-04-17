@@ -71,9 +71,12 @@ const SignIn = (props) => {
     setIsLoading(true);
 
     let url = "login";
+    let firebaseToken= await localStorage.getItem("firebaseToken");
     let formData = {
       email: email,
       password: password,
+      device_token:firebaseToken,
+
     };
 
     let resp = await POST(url, formData);

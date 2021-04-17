@@ -15,6 +15,7 @@ import {
   faStop,
   faRedo,
  faTimesCircle,
+ faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -1789,7 +1790,7 @@ const history = useHistory();
                 setSelectedID(index);
               }}
             >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTimesCircle} />
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faCheckDouble} />
             </button>
             </Tooltip>
             {/* <ReactTooltip id="close" place="top" effect="solid">
@@ -2142,7 +2143,7 @@ const history = useHistory();
             <ModalView item={allLeads[selectedID]} />
             <ModalEdit item={allLeads[selectedID]} />
             <ModalClose item={allLeads[selectedID]} />
-          </>
+          </> 
         ) : null}
         <ModalAdd />
         <Col>

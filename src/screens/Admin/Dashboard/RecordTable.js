@@ -10,6 +10,7 @@ import { Link, Route } from "react-router-dom";
 import CTAButton from "../../../components/CTAButton";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import Checkbox from "@material-ui/core/Checkbox";
 import {
   Paper,
   makeStyles,
@@ -32,7 +33,7 @@ import {
   faPause,
   faStop,
   faLessThanEqual,
- 
+  faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   KeyboardDatePickerExample,
@@ -71,6 +72,7 @@ export default function RecordTable() {
   const [showView, setShowView] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [setPlay, setShowPlay] = useState(false);
+  const [showBan, setShowBan] = useState(false);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
   const currentData = data.slice(istIndex, lastIndex);
@@ -372,6 +374,7 @@ export default function RecordTable() {
       </Modal>
     );
   };
+
   const ModalEdit = ({ item }) => {
     // console.log(
     //   "____________________________________________________________________",
@@ -946,7 +949,107 @@ export default function RecordTable() {
       </Modal>
     );
   };
+const ModalClose = ({ item }) => {
+    // console.log(item);
+    const [checked, setChecked] = React.useState({ index: 0});
+    const showText = ["Lead successfully Completed", "Lead Loss"];
+    const handleChecked = (event, id) => {
+      setChecked({ index: id});
+    };
+    const SendRecordToServer = async (event) => {
+      // event.preventDefault();
+      let resp = await POST(ApiUrls.POST_CLOSE_OR_WIN_LEAD, {
+      
+        lead_id: item.lead.id,
+       
+        status:checked.index==0?"Complete":"Loss",
+      
+      });
+      if (resp.error === false) {
+        setMessage("Lead closed Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Lead not closed");
+        setShowErrorAlert(true);
+      }
+      setIsLoading(false);
+      setRefresh(!refresh);
+      console.log("-------resp----",resp);
+      // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
+      // console.log(resp);
+      // // ;
+      // if (resp.error == false) {
+      //   setMessage("User Blocked Successfully");
+      //   setShowAlert(true);
+      // } else {
+      //   setMessage("you does not have the authority to block an admin");
+      //   setErrorAlert(true);
+      // }
+      // //   setUserRecord((state) => [formData].concat(state));
+      // // } else {
+      // //    ;
+      // //   setErrorAlert(true);
+      // // }
 
+      // // setIsLoading(false);
+      // setTimeout(() => {
+      //   setRefresh(!refresh);
+      // }, 1000);
+      // setShowBan(false);
+    };
+    return (
+      <Modal
+        show={showBan}
+        onHide={() => {
+          setShowBan(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "#818181" }}>Close Lead</Modal.Title>
+        </Modal.Header>
+        <div>
+          <Modal.Body>
+            Do you really want to Close this Lead!
+            {showText.map((item, index) => {
+        return (
+          <div key={index}>
+            <Checkbox
+              checked={checked.index === index}
+              color="primary"
+              onChange={(e) => {
+                handleChecked(e, index);
+              }}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+            {item}
+          </div>
+        );
+      })}
+            
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={() => {
+                setShowBan(false);
+              }}
+            >
+              Close
+            </Button>
+            <Button
+              style={{ backgroundColor: "#2258BF" }}
+              onClick={(e) => {
+                SendRecordToServer(e);
+                setShowBan(false);
+              }}
+            >
+              Done
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal>
+    );
+  };
   const ModalDelete = ({ item }) => {
     console.log(item);
     const DeleteRecordFromData = async () => {
@@ -1159,6 +1262,22 @@ export default function RecordTable() {
             <ReactTooltip id="DeleteTip" place="top" effect="solid">
               Delete Record
             </ReactTooltip>
+            <button
+              data-tip
+              data-for="close"
+              type="button"
+              className="bg-transparent  button-focus ml-2"
+              onClick={() => {
+                setShowBan(true);
+                setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faCheckDouble} />
+            </button>
+            
+             <ReactTooltip id="close" place="top" effect="solid">
+              Close Lead
+            </ReactTooltip> 
           </div>
         </td>
      
@@ -1335,6 +1454,7 @@ export default function RecordTable() {
             <ModalDelete item={data[selectedID]} />
             <ModalView item={data[selectedID]} />
             <ModalEdit item={data[selectedID]} />
+            <ModalClose item={data[selectedID]} />
           </>
         ) : null}
         <Row>

@@ -60,18 +60,7 @@ function EmployeeInventory(props) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-   //firebase testing 
-   const [show, setShow] = useState(false);
-   const [notification, setNotification] = useState({title: 'request', body: 'inventory request'});
-   const [isTokenFound, setTokenFound] = useState(false);
-   getToken(setTokenFound);
- 
-   onMessageListener().then(payload => {
-     setShow(true);
-     setNotification({title: payload.notification.title, body: payload.notification.body})
-     console.log(payload);
-   }).catch(err => console.log('failed: ', err));
-   //firebase testing
+  
 
 
   const handleFetchData = async () => {
@@ -156,7 +145,8 @@ function EmployeeInventory(props) {
             // style={{ backgroundColor: "#2258BF" }}
             onClick={(e) => {
               addData(e)
-              setShow(true)}
+              
+            }
             }
          
           >
@@ -219,23 +209,7 @@ function EmployeeInventory(props) {
       />
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
         <h3 style={{ color: "#818181" }}>Inventory (Employee)</h3>
-        <Toast onClose={() => setShow(false)} show={show} delay={8000} autohide animation style={{
-          position: 'absolute',
-          top: 0,
-          right: 20,
-          minWidth: 200
-        }}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded mr-2"
-              alt=""
-            />
-            <strong className="mr-auto">{notification.title}</strong>
-            <small>just now</small>
-          </Toast.Header>
-          <Toast.Body>{notification.body}</Toast.Body>
-        </Toast>
+        
       </div>
       <div className="col-lg-12 shadow p-3  bg-white rounded ">
         <Row>

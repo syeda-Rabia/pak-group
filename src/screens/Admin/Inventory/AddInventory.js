@@ -162,12 +162,12 @@ console.log("project name", project);
                     onChange={(e) => {
                       //  ;
                       if(project.some((pro)=>pro.name==e.target.value)){
-                      setProjectErr(true);
+                        setProjectError(true);
                       setName(e.target.value);
                       // ;
                     }
                     else {
-                      setProjectErr(false);
+                      setProjectError(false);
                       setName(e.target.value);
                     }
                     }}
@@ -247,7 +247,7 @@ console.log("project name", project);
                     className="w-100"
                     variant="primary"
                     type="submit"
-                    disabled={ProjectErr}
+                    disabled={projectError}
                     // disabled={category === null ? true : false}
                     // onClick={handleForm}
                     onClick={() => {

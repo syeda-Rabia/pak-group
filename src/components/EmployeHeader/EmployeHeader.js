@@ -25,6 +25,7 @@ import Badge from '@material-ui/core/Badge';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import NotificationList from "../notificatons/NotificationList";
+import AdminNotification from "../notificatons/AdminNotificationList";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
@@ -185,13 +186,19 @@ const EmployeHeader = (props) => {
             </Link>
             <Link
               id="mobileLogout"
+              onClick={() => {
+                setSelected(6);
+              }}
               to={{
-                pathname: "/",
-                state: { from: "AdminHeader" },
+                pathname: "/employee/notifications",
+                state: { from: "employeeHeader" },
               }}
             >
               <Nav.Item
-              onClick={handleClick}
+             style={{
+              backgroundColor:
+                selected == 6 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+            }}
               >
               NOTIFICATION</Nav.Item>
             </Link>
@@ -269,9 +276,14 @@ const EmployeHeader = (props) => {
       </Navbar>
       <Popover
         id={id}
+        style={{
+          // right:100,
+          overflow:"hidden"
+        }}
         open={openpopover}
         anchorEl={anchorEl}
         onClose={handleClose}
+        
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -283,6 +295,7 @@ const EmployeHeader = (props) => {
       >
         <Typography className={classes.typography}>
           <NotificationList/>
+          {/* <AdminNotification/> */}
         </Typography>
       </Popover>
       <Dialog

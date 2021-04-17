@@ -1,64 +1,49 @@
-import "./../../Admin/Leads/LeadsAdmin.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt,faEye } from "@fortawesome/free-solid-svg-icons";
-// import SwipeableTemporaryDrawer from "../../../components/Sidebar/EmployeeMobileviewSidebar";
-import { Modal } from "react-bootstrap";
+// import { makeStyles } from "@material-ui/core";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
 import React, { useEffect, useState } from "react";
-import { AddCategory } from "./../../../assests/constants/addcategory";
-import "react-phone-number-input/style.css";
-import ReactTooltip from "react-tooltip";
-import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
-// import { dummyData } from "../../../assests/constants/todoList";
-import { server_url, token } from "../../../utils/Config";
-import { GET, POST } from "./../../../utils/Functions";
-import ApiUrls from "./../../../utils/ApiUrls";
-import Pagination from "../../../components/Pagination/Pagination";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
-import {  useHistory, Redirect, Route } from "react-router-dom";
-import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
-import SuccessNotification from "../../../components/SuccessNotification";
-import ErrorNotification from "../../../components/ErrorNotification";
+import { Col, Container, Row } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import PreLoading from "../../../components/PreLoading";
-import TextEditor from "../../../components/editor/TextEditor";
-const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
-    "& .MuiCircularProgress-colorPrimary": {
-      color: "#fff",
+import ApiUrls from "./../../../utils/ApiUrls";
+import { GET } from "./../../../utils/Functions";
+import "./../../Admin/Leads/LeadsAdmin.css";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      // maxWidth: "36ch",
+      backgroundColor: theme.palette.background.paper,
     },
-  },
-}));
+    inline: {
+      display: "inline",
+    },
+  })
+);
 export default function EmployeeNotification() {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
  
-  const [showView, setShowView]= useState(false);
   const [data, setData] = useState([]);
-  // const [data, setData] = useState([]);
-  const [selectedID, setSelectedID] = useState(0);
-  const [message, setMessage] = React.useState("");
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
+ 
   const handleFetchData = async () => {
-    setIsLoading(true);
-    // let res = await GET(ApiUrls.GET_EMPLOYEE_POLICY_LIST);
-    // console.log("ress0", res);
-    // if (res.success != false) {
-    //   setData(res.data.policies);
-    // }
+    let res = await GET(ApiUrls.GET_EMPLOYEE_NOTIFICATIONS);
+   
+    if (res.success != false) {
+      setData(res.data.Notifications);
+    }
+    console.log("res__________________>for notification", res);
+
     setIsLoading(false);
   };
-  // React.useEffect(() => {
-  //   handleFetchData();
-  // }, []);
   useEffect(() => {
     handleFetchData();
   }, [refresh]);
@@ -66,117 +51,67 @@ export default function EmployeeNotification() {
 
   
   
-  const Table = ({ item, index }) => {
-    //  ;
+  const Notifications = ({ item, index }) => {
     return (
-      <tr>
-        
-        <td >{index+1}</td>
-        <td >{item.title}</td>
-        <td>
-          <div
-            className="d-flex d-inline "
-            style={{
-              justifyContent: "center",
-            }}
-          >
-                <button
-              data-tip
-              data-for="ViewTip"
-              type="button"
-              className="bg-transparent  button-focus mr-2"
-              onClick={() => {
-                // setShowView(true);
-                setSelectedID(index);
-              }}
-            >
-              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
-            </button> 
-            <ReactTooltip id="ViewTip" place="top" effect="solid">
-              View Details
-            </ReactTooltip>
-           
-           
-          </div>
-        </td>
-      </tr>
+      <ListItem alignItems="center">
+        <Link to={item.screen}>
+          {/* <ListItemAvatar>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </ListItemAvatar> */}
+          <ListItemText
+            primary={item.notification_type}
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                  color="textPrimary"
+                >
+                  {item.notification_body}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+        </Link>
+      <Divider variant="inset" component="li" />
+
+      </ListItem>
     );
   };
   return (
     <Container fluid className="Laa">
       <PreLoading startLoading={isLoading} />
 
-      <SuccessNotification
-        showSuccess={showSuccessAlert}
-        message={message}
-        closeSuccess={setShowSuccessAlert}
-      />
-      <ErrorNotification
-        showError={showErrorAlert}
-        message={message}
-        closeError={setShowErrorAlert}
-      />
-      
+     
         <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
-        {/* <IconButton
-          onClick={() => {
-            history.push("/admin/leads");
-          }}
-          aria-label="delete"
-          color="primary"
-        >
-          <Tooltip title="Go Back" placement="right" arrow>
-            <ArrowBackIcon />
-          </Tooltip>
-        </IconButton> */}
+       
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Notifications</h3>
         </Col>
 
       
-            {/* <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-              <div className="float-right drawer-div">
-                <SwipeableTemporaryDrawer />
-              </div>
-            </Col> */}
+           
         </Row>
      
-      
-        {/* <Row className=" shadow p-3  bg-white rounded ml-2 mr-1"> */}
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+      <Col lg={10} sm={10} xs={10} xl={11}>
+      <div style={{ right: "100px" }}>
+      <List className={classes.root}>
+        {data.length > 0
+          ? data.map((item, index) => (
+              <Notifications item={item} index={index} />
+            ))
+          : null}
+        
+      </List>
+     
+    </div>
+        </Col>
+        
+        </Row>
          
-          {/* <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    ID
-                  </th>
-
-                  <th scope="col" style={{ color: "#818181" }}>
-                Title
-                  </th>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                {/* {data
-                 
-                  .map((item, index) => {
-                    return <Table item={item} index={index} />;
-                  })} */}
-                  {/* {data.map((item, index) => {
-                  return <Table index={index} item={item} />;
-                })}
-              </tbody>
-              
-            </table>
-           
-          </div>
-         */} 
-      {/* </Row> */}
+         
     </Container>
   );
 }

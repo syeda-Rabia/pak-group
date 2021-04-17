@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import HeaderNavBar from "./components/Header/HeaderNavBar";
 import EmployeHeader from "./components/EmployeHeader/EmployeHeader";
-import { Col, Container, Row, Toast,Button } from "react-bootstrap";
+import { Col, Container, Row, Toast, Button } from "react-bootstrap";
 import { getToken, onMessageListener } from "./firebase";
 import {
   BrowserRouter as Router,
@@ -20,6 +20,7 @@ import AdminDashboardScreen from "./screens/Admin/Views/AdminDashboardScreen";
 import AdminLAAScreen from "./screens/Admin/Views/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/Admin/Views/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
+import AdminNotification from "./screens/Admin/AdminNotifications/AdminNotifications";
 import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
 import AdminAddNewInventoryScreen from "./screens/Admin/Views/AdminAddNewInventoryScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
@@ -36,7 +37,7 @@ import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
 import ExcelPage from "./utils/ExcelPage";
 import EmployeeAction from "./screens/Admin/Leads/EmployeeAction";
-import EmployeeNotificaton from "./screens/Employe/EmployeeNotifications/EmployeeNotifications"
+import EmployeeNotificaton from "./screens/Employe/EmployeeNotifications/EmployeeNotifications";
 import AddNewInventory from "./screens/Admin/Inventory/AddNewInventory";
 import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetailsScreen";
 import { connect } from "react-redux";
@@ -45,17 +46,55 @@ import EmployeeInventoryDetails from "./screens/Employe/EmployeeInventory/Employ
 // import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
 import Test from "./screens/Test";
+const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
+//  setTimeout(() => {
+//     setNotificationData((state) =>
+//     state.filter((notify, id) => obj.id != notify.id)
+//   )
+//   }, 10000);
+  return (
+    
+    <Toast
+      onClose={() =>
+        setNotificationData((state) =>
+            state.filter((notify, id) => obj.id != notify.id)
+          )
+      }
+     
+      show={true}
+      delay={5000}
+      type="info"
+      autohide
+      animation
+      style={{
+        position: "fixed",
+        top: 100 +index*100,
+        right: 20,
+        minWidth: 300,
+      }}
+    >
+      <Link exact={true} to={{ pathname:url}}>
 
-const NewApp = (props) => {
-  const [userType, setUserType] = React.useState("admin");
-  const [TOKEN, setTOKEN] = useState(props.user.token);
-  // ;
+      <Toast.Header style={{ backgroundColor: "#2258bf", color: "white" }}>
+        <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+        <strong className="mr-auto">{obj.title}</strong>
+        <small>just now</small>
+      </Toast.Header>
+      <Toast.Body>{obj.body}</Toast.Body>
+      </Link>
+    </Toast>
+  
+   );
+};
+const NotificationToast = ({url}) => {
   //firebase
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notificationData, setNotificationData] = useState([]);
+  const [notificationsArray, setNotificationsArray] = React.useState([]);
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
-
+console.log("get token ---------------------->",getToken)
   onMessageListener()
     .then((payload) => {
       setShow(true);
@@ -63,9 +102,71 @@ const NewApp = (props) => {
         title: payload.notification.title,
         body: payload.notification.body,
       });
+      setNotificationData((state) => [
+        {
+          title: payload.notification.title,
+          body: payload.notification.body,
+          id:state.length
+        },
+        ...state,
+      ]);
     })
     .catch((err) => console.log("failed: ", err));
+  console.log("notifications -------------->", notificationData);
   //firebase end
+//  setInterval(() => {
+//     setNotificationData((state) =>{
+//       let arr=[];
+//       if(state.length>0){
+
+//         arr =state.slice(0,state.length-2)
+//       }
+//       return arr;
+//     // state.filter((notify, id) => obj.id != notify.id)
+// }  )
+//   }, 10000);
+  return (
+    <>
+    <div className="d-flex " style={{flexDirection:'column'}}>
+
+      {notificationData.map((obj, index) => (
+        <ToastComponent {...{ index,obj,setNotificationData,url }} />
+        //   <Toast
+        //   onClose={() => setShow(false)}
+        //   // onClick={()=>}
+        //   show={show}
+        //   delay={8000}
+        //   type="info"
+        //   autohide
+        //   animation
+        //   style={{
+        //     position: "fixed",
+        //     top: 100,
+        //     right: 20,
+        //     minWidth: 300,
+        //   }}
+        // >
+
+        //      <Toast.Header  style={{backgroundColor:"#2258bf",color:"white"}}>
+
+        //      <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+        //      <strong className="mr-auto">{obj.title}</strong>
+        //      <small>just now</small>
+        //    </Toast.Header>
+
+        //    <Toast.Body>{obj.body}</Toast.Body>
+
+        // </Toast>
+      ))}
+    </div>
+    </>
+  );
+};
+
+const NewApp = (props) => {
+  const [userType, setUserType] = React.useState("admin");
+  const [TOKEN, setTOKEN] = useState(props.user.token);
+  // ;
 
   const AdminRoute = () => {
     // ;
@@ -190,9 +291,14 @@ const NewApp = (props) => {
           {/* <ProjectList /> */}
           <ExcelPage />
         </Route>
+        <Route exact path="/admin/notification">
+          <AdminNotification />
+        </Route>
         <Route path="/test">
           <Test />
         </Route>
+      <NotificationToast url="/admin/leads" />
+        
       </React.Fragment>
     );
   };
@@ -259,6 +365,9 @@ const NewApp = (props) => {
         <Route path="/employee/notifications">
           <EmployeeNotificaton />
         </Route>
+        <NotificationToast url="/employee/leads" />
+
+
       </React.Fragment>
     );
   };
@@ -281,31 +390,7 @@ const NewApp = (props) => {
           )}
         </Switch>
       </Router>
-
-      <Toast
-        onClose={() => setShow(false)}
-        // onClick={()=>}
-        show={show}
-        delay={8000}
-        type="info"
-        autohide
-        animation
-        style={{
-          position: "fixed",
-          top: 100,
-          right: 20,
-          minWidth: 300,
-        }}
-      >
-        <Toast.Header  style={{backgroundColor:"#2258bf",color:"white"}}>
-         
-          <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-          <strong className="mr-auto">{notification.title}</strong>
-          <small>just now</small>
-        </Toast.Header>
-        
-        <Toast.Body>{notification.body}</Toast.Body>
-      </Toast>
+      {/* <NotificationToast /> */}
     </>
   );
 };

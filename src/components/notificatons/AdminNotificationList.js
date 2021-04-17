@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) =>
       width: "500px",
       paddingRight:"100px",
       maxWidth: "36ch",
-      
       backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -38,7 +37,7 @@ export default function AlignItemsList() {
  
   const history = useHistory();
   const handleFetchData = async () => {
-    let res = await GET(ApiUrls.GET_EMPLOYEE_NOTIFICATIONS);
+    let res = await GET(ApiUrls.GET_ADMIN_NITIFICATIONS);
     
     if (res.success != false) {
       setData(res.data.Notifications);
@@ -77,14 +76,14 @@ export default function AlignItemsList() {
   return (
     <div style={{ right: "100px" }}>
       <List className={classes.root}>
-        {data.length > 0
+        {data?.length > 0
           ? data.slice(0,3).map((item, index) => (
               <Notifications item={item} index={index} />
             ))
           : null}
         <Divider variant="inset" component="li" />
       </List>
-      <Link to="/employee/notifications">See All Notifications</Link>
+      <Link to="/admin/notification">See All Notifications</Link>
     </div>
   );
 }

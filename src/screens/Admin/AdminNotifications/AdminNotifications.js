@@ -1,22 +1,23 @@
-import React from "react";
+// import { makeStyles } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { useHistory, Link } from "react-router-dom";
-import { GET, POST } from "../../utils/Functions";
-import ApiUrls from "../../utils/ApiUrls";
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import PreLoading from "../../../components/PreLoading";
+import ApiUrls from "./../../../utils/ApiUrls";
+import { GET } from "./../../../utils/Functions";
+import "./../../Admin/Leads/LeadsAdmin.css";
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      width: "500px",
-      paddingRight:"100px",
-      maxWidth: "36ch",
-      
+      width: "100%",
+      // maxWidth: "36ch",
       backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -24,22 +25,18 @@ const useStyles = makeStyles((theme) =>
     },
   })
 );
-
-export default function AlignItemsList() {
+export default function AdminNotification() {
   const classes = useStyles();
-  const [data, setData] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsLoading(true);
-    handleFetchData();
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
  
-  const history = useHistory();
+  const [data, setData] = useState([]);
+
+ 
   const handleFetchData = async () => {
-    let res = await GET(ApiUrls.GET_EMPLOYEE_NOTIFICATIONS);
-    
+    let res = await GET(ApiUrls.GET_ADMIN_NITIFICATIONS);
+   
     if (res.success != false) {
       setData(res.data.Notifications);
     }
@@ -47,6 +44,13 @@ export default function AlignItemsList() {
 
     setIsLoading(false);
   };
+  useEffect(() => {
+    handleFetchData();
+  }, [refresh]);
+  const history = useHistory();
+
+  
+  
   const Notifications = ({ item, index }) => {
     return (
       <ListItem alignItems="center">
@@ -70,21 +74,44 @@ export default function AlignItemsList() {
             }
           />
         </Link>
+      <Divider variant="inset" component="li" />
+
       </ListItem>
     );
   };
-
   return (
-    <div style={{ right: "100px" }}>
+    <Container fluid className="Laa">
+      <PreLoading startLoading={isLoading} />
+
+     
+        <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+       
+        <Col lg={10} sm={10} xs={10} xl={11}>
+          <h3 style={{ color: "#818181" }}>Notifications</h3>
+        </Col>
+
+      
+           
+        </Row>
+     
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+      <Col lg={10} sm={10} xs={10} xl={11}>
+      <div style={{ right: "100px" }}>
       <List className={classes.root}>
         {data.length > 0
-          ? data.slice(0,3).map((item, index) => (
+          ? data.map((item, index) => (
               <Notifications item={item} index={index} />
             ))
           : null}
-        <Divider variant="inset" component="li" />
+        
       </List>
-      <Link to="/employee/notifications">See All Notifications</Link>
+     
     </div>
+        </Col>
+        
+        </Row>
+         
+         
+    </Container>
   );
 }

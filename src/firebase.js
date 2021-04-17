@@ -3,12 +3,12 @@ import 'firebase/messaging';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDWA4Cv2Nv6ZaDRIPI_gVQZ6D6k-inhanI",
-    authDomain: "pak-group-4899b.firebaseapp.com",
-    projectId: "pak-group-4899b",
-    storageBucket: "pak-group-4899b.appspot.com",
-    messagingSenderId: "1077897997545",
-    appId: "1:1077897997545:web:289b61be4d8b1b41ce1478",
-    measurementId: "G-8XPECXNXB4"
+  authDomain: "pak-group-4899b.firebaseapp.com",
+  projectId: "pak-group-4899b",
+  storageBucket: "pak-group-4899b.appspot.com",
+  messagingSenderId: "1077897997545",
+  appId: "1:1077897997545:web:289b61be4d8b1b41ce1478",
+  measurementId: "G-8XPECXNXB4"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -19,6 +19,7 @@ export const getToken = (setTokenFound) => {
     if (currentToken) {
       console.log('current token for client: ', currentToken);
       setTokenFound(true);
+      localStorage.setItem("firebaseToken",currentToken);
       // Track the token -> client mapping, by sending to backend server
       // show on the UI that permission is secured
     } else {

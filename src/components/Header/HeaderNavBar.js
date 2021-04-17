@@ -6,7 +6,11 @@ import { Link, useHistory } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
-
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import NotificationList from "../notificatons/AdminNotificationList";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -39,6 +43,21 @@ const HeaderNavBar = (props) => {
   const classes = useStyles();
   const User=props.user.user_info.first_name;
   // ;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openpopover = Boolean(anchorEl);
+  const id =  openpopover ? 'simple-popover' : undefined;
+
   return (
     <
       // fluid
@@ -211,6 +230,25 @@ onClick={()=>{
               >HR</Nav.Item>
             </Link>
 
+            <Link
+              id="mobileLogout"
+              onClick={() => {
+                setSelected(7);
+              }}
+              to={{
+                pathname: "/admin/notification",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item
+              style={{
+                backgroundColor:
+                  selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+              }}
+              >
+              NOTIFICATION</Nav.Item>
+            </Link>
+
             {/* <Nav.Item href="#Accounts">Accounts</Nav.Item>
             <Nav.Item href="#Documentation">Documentation</Nav.Item> */}
             {/* <Nav.Item href="#Documentation" id="hr">
@@ -242,6 +280,23 @@ onClick={()=>{
           </Nav>
         </Navbar.Collapse>
         <span id="profile" style={{color:"white"}}> {User}</span> 
+        <Nav id="profile">
+
+          <Link
+            id="profile"
+            onClick={handleClick}
+          >
+            <Tooltip title="Notifications" placement="left">
+              {/* <Avatar className={classes.white}> */}
+                <IconButton className={classes.logout}>
+                <Badge variant="dot" color="error" style={{}}>
+                  <NotificationsIcon style={{color:"white"}}/>
+                  </Badge>
+                </IconButton>
+              {/* </Avatar> */}
+            </Tooltip>
+          </Link>
+        </Nav>
         <Nav id="profile">
           {/* <Nav.Link
             href="#profile"
@@ -278,6 +333,24 @@ onClick={()=>{
           </Link>
         </Nav>
       </Navbar>
+      <Popover
+      id={id}
+      open={openpopover}
+      anchorEl={anchorEl}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+    >
+      <Typography className={classes.typography}>
+        <NotificationList/>
+      </Typography>
+    </Popover>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

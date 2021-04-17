@@ -74,7 +74,9 @@ GET_EMPLOYEE_LEAD_FILTER_DATA:"employee/lead/filter",
   DELETE_POLICY_DETAILS:"admin/policy/delete/",
   ADD_POLICY_DETAILS:"admin/policy/add",
   GET_EMPLOYEE_POLICY_LIST:"employee/policy/list",
-
+//notifications 
+GET_EMPLOYEE_NOTIFICATIONS:"employee/notifications/all",
+GET_ADMIN_NITIFICATIONS:"admin/notifications/all",
   //   DASHBOARD
 
   // Interest
