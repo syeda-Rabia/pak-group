@@ -56,8 +56,8 @@ export default function AddPolicies() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_POLICY_LIST);
     console.log("ress0", res);
-    if (res.success != false) {
-      setData(res.data.policies);
+    if (res?.success != false) {
+      setData(res?.data?.policies);
     }
     setIsLoading(false);
   };
@@ -96,7 +96,7 @@ export default function AddPolicies() {
       };
       let res = await POST(ApiUrls.ADD_POLICY_DETAILS, postData);
       console.log("post request", res);
-      if (res.error === false) {
+      if (res?.error === false) {
         setMessage("Policy Added Successfully");
         setShowSuccessAlert(true);
       } else {
@@ -530,11 +530,11 @@ export default function AddPolicies() {
                   .map((item, index) => {
                     return <Table item={item} index={index} />;
                   })} */}
-              {data.map((item, index) => {
+              {data?.map((item, index) => {
                 return <Table index={index} item={item} />;
               })}
             </tbody>
-            {data.length > 0 ? (
+            {data?.length > 0 ? (
               <>
                 <ModalDelete item={data[selectedID]} />
                 <ModalEdit item={data[selectedID]} />

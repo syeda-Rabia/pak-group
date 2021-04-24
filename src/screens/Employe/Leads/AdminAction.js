@@ -109,12 +109,12 @@ export default function VerticalLinearStepper(props) {
   const [data, setData] = React.useState([]);
 const [isLoading, setIsLoading] = React.useState(false);
 console.log(props)
-const leadID=props.location.query;
-const back=props.location.goback; 
+const leadID=props?.location?.query;
+const back=props?.location?.goback; 
 console.log("------------",back)
 React.useEffect(() => {
   setIsLoading(true);
-  if (leadID.item.id != undefined) handleFetchData();
+  if (leadID?.item?.id != undefined) handleFetchData();
 }, []);
 
 // React.useEffect(() => {

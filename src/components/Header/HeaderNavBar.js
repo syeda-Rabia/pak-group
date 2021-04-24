@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
 import { Link, useHistory } from "react-router-dom";
-
+import { getToken, onMessageListener } from "../../firebase";
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -371,6 +371,7 @@ onClick={()=>{
           </Button>
           <Button
             onClick={() => {
+             
               setOpen(false);
               props.LOGOUT();
               history.push("/");

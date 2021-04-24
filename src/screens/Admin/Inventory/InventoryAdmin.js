@@ -76,16 +76,16 @@ export default function InventoryAdmin(props) {
   }, [refresh]);
 
   const getALlInv = async () => {
-    if (props.listData !== undefined) {
-      let project_id = props.listData.item.id;
+    if (props?.listData !== undefined) {
+      let project_id = props?.listData?.item?.id;
       let resp = await GET(
         ApiUrls.GET_SINGLE_PROECT_INVENTORIES + "/" + project_id
       );
       console.log(resp, "project");
       if (resp.data != null) {
-        setAllInventories(resp.data.inventories);
+        setAllInventories(resp?.data?.inventories);
 
-        if (resp.data.inventories.length == 0) {
+        if (resp?.data?.inventories?.length == 0) {
           setGobackState(true);
         }
       }
@@ -106,8 +106,8 @@ export default function InventoryAdmin(props) {
     const [inventory_category, setInventoryCategory] = useState(
       item.inventory_category
     );
-    const [block_name, setBlockName] = useState(item.block_name);
-    const [status, setStatus] = useState(item.property_status);
+    const [block_name, setBlockName] = useState(item?.block_name);
+    const [status, setStatus] = useState(item?.property_status);
 
     const SendRecordToServer = (event) => {
       event.preventDefault();
@@ -524,8 +524,8 @@ export default function InventoryAdmin(props) {
                 <tbody>
                   {/* {data[0].map((item, index) => { */}
 
-                  {allInventories.length > 0 ? (
-                    allInventories.map((item, index) => (
+                  {allInventories?.length > 0 ? (
+                    allInventories?.map((item, index) => (
                       <TableRow item={item} key={index} index={index} />
                     ))
                   ) : (
@@ -556,7 +556,7 @@ export default function InventoryAdmin(props) {
                   {/* })} */}
                 </tbody>
 
-                {allInventories.length > 0 ? (
+                {allInventories?.length > 0 ? (
                   <>
                     <ModalDelete item={allInventories[selectedID]} />
                     <ModalEdit item={allInventories[selectedID]} />

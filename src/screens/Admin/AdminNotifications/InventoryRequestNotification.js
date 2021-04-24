@@ -1,5 +1,5 @@
 import React from "react";
-import "../../src/screens/Employe/EmployeeInventory/EmployeeInventory.css";
+import "./../Inventory/InventoryAdmin.css";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
@@ -16,11 +16,11 @@ import {
   TextField,
   OutlinedInput,
 } from "@material-ui/core";
-import { GET } from "../utils/Functions";
-import ApiUrls from "../utils/ApiUrls";
+import { GET, POST } from "../../../utils/Functions";
+import ApiUrls from "../../../utils/ApiUrls";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {useHistory } from "react-router-dom";
-function EmployeeInventory() {
+function EmployeeInventory(props) {
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -42,30 +42,45 @@ function EmployeeInventory() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [openRequest, setOpenRequest] = React.useState(false);
   const history = useHistory();
-
+  const reqId=props?.location?.data?.data;
+  console.log("--------reqid",reqId)
   const handleFetchData = async () => {
     setIsLoading(true);
-    let res = await GET(ApiUrls.INVENTORY_REQUEST + "/");
+    let res = await GET(ApiUrls.GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION + "/"+reqId);
     console.log("--------------------------------", res);
     if (res?.success != false) {
-      setData(res?.data?.requests);
+      setData(res?.request);
     }
     setIsLoading(false);
   };
   React.useEffect(() => {
     handleFetchData();
-  }, []);
+  }, [reqId]);
   const Table = ({ item, index }) => {
+    const NotificationArray = [
+        { 
+            name: "Name",
+            att: item.user_name 
+        },
+        { 
+            name: "Message",
+            att: item.message
+        },
+    ];
     return (
-      <tr>
-        <td scope="row">{item.id}</td>
-        <td>{item.user.first_name +" "+item.user.last_name}</td>
-        {/* <td>{item.last_name}</td> */}
-        {/* <td>{item.block_name}</td> */}
-        <td style={{ textAlign: "justify" }}>{item.message}</td>
-        {/* <td>{item.property_status}</td> */}
-        {/* <td>{item.block_name}</td> */}
-      </tr>
+     
+           <>
+        {NotificationArray.map((item) => {
+          return (
+            <tr>
+              <td style={{ textAlign: "center" }}>{item.name}</td>
+              <td style={{ textAlign: "justify" }}>{item.att}</td>
+            </tr>
+          );
+        })}
+      </>
+       
+ 
     );
   };
   return (
@@ -80,20 +95,10 @@ function EmployeeInventory() {
      
       <div className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2">
       <Row>
-      <IconButton
-          onClick={() => {
-            history.push("/admin/inventory");
-          }}
-          aria-label="delete"
-          color="primary"
-        >
-          <Tooltip title="Go Back" placement="right" arrow>
-            <ArrowBackIcon />
-          </Tooltip>
-        </IconButton>
+      
         
 <Col lg={10} sm={10} xs={10} xl={11}>
-        <h3 style={{ color: "#818181" }}>Inventory Request</h3>
+        <h3 style={{ color: "#818181" }}>Inventory Notification </h3>
 </Col>
         </Row>
       </div>
@@ -104,13 +109,11 @@ function EmployeeInventory() {
             md="12"
             style={{ backgroundColor: "white", borderRadius: "5px" }}
           >
-            <div className="table-responsive">
+            <div className="table-responsive col-md-6 col-sm-12">
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{ color: "#818181" }}>
-                      ID
-                    </th>
+                   
                     <th scope="col" style={{ color: "#818181" }}>
                       Name
                     </th>
@@ -121,7 +124,7 @@ function EmployeeInventory() {
                       Type of Unit
                     </th> */}
                     <th scope="col" style={{ color: "#818181" }}>
-                      Message
+                      Values
                     </th>
 
                     {/* <th scope="col" style={{ color: "#818181" }}>
@@ -130,7 +133,7 @@ function EmployeeInventory() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.map((item, index) => (
+                  {data?.slice(0,1).map((item, index) => (
                     <Table item={item} index={index} />
                   ))}
                 </tbody>

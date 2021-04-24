@@ -155,7 +155,7 @@ function EmployeeLeads(props, lead_id) {
 
    if (resp.data != null) {
      setCurrentPage(resp.data.leads.current_page);
-     setData(resp.data.leads.data);
+     setData(resp?.data?.leads?.data);
    }
    setIsLoading(false);
  };
@@ -186,10 +186,10 @@ function EmployeeLeads(props, lead_id) {
    let res =await GET(filterurl+"&& page="+page);
    console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
    if (res.data != null) {
-     setFilterCurrentPage(res.data.leads.current_page);
-     setData(res.data.leads.data);
-     setfilterPageSize(res.data.leads.per_page);
-     setfilterTotalRecord(res.data.leads.total);
+     setFilterCurrentPage(res.data?.leads?.current_page);
+     setData(res.data?.leads?.data);
+     setfilterPageSize(res.data?.leads?.per_page);
+     setfilterTotalRecord(res.data?.leads?.total);
 
    }
    console.log("console log in filter pagination-------------------------------------->")
@@ -207,10 +207,10 @@ function EmployeeLeads(props, lead_id) {
     console.log("-------------------------------", res);
     
     if (res.success != false) {
-      setData(res.data.leads.data);
-      setPageSize(res.data.leads.per_page);
-      setTotalRecord(res.data.leads.total);
-      setCurrentPage(res.data.leads.current_page);
+      setData(res?.data?.leads?.data);
+      setPageSize(res.data?.leads?.per_page);
+      setTotalRecord(res.data?.leads?.total);
+      setCurrentPage(res.data?.leads?.current_page);
     }
     setIsLoading(false);
   };
@@ -231,20 +231,20 @@ function EmployeeLeads(props, lead_id) {
     setFilterUrl(props.searchData.url);
     console.log("-----", response);
     if (response.error === false) {
-      setData(response.data.leads.data);
+      setData(response.data?.leads?.data);
      
-      setfilterPageSize(response.data.leads.per_page);
-      setfilterTotalRecord(response.data.leads.total);
-      setFilterCurrentPage(response.data.leads.current_page);
+      setfilterPageSize(response.data?.leads?.per_page);
+      setfilterTotalRecord(response.data?.leads?.total);
+      setFilterCurrentPage(response.data?.leads?.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
       setIsEmpty(false);
-    } else if(response.error.hasOwnProperty("month"))
+    } else if(response?.error?.hasOwnProperty("month"))
     {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
-      setMessage(response.error.month[0]);
+      setMessage(response?.error?.month[0]);
       setShowErrorAlert(true);
       // setshowReset(false);
       setshowReset(true);
@@ -1110,7 +1110,7 @@ function EmployeeLeads(props, lead_id) {
                 </tr>
               </thead>
               <tbody>
-              {data.length > 0 ? (
+              {data?.length > 0 ? (
                 data.map((item, index) => (
                   <Table
                     item={item.lead}
@@ -1140,7 +1140,7 @@ function EmployeeLeads(props, lead_id) {
               
               </tbody>
             </table>
-            {data.length > 0 && selectedID !== null ? (
+            {data?.length > 0 && selectedID !== null ? (
           <>
             <ModalPlay item={data[selectedID]} />
             

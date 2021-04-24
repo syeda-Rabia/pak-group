@@ -94,9 +94,9 @@ export default function LeadsAllocatonAndAddition(props) {
       ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page
     );
     console.log("console log in  pagination-------------------------------------->",resp)
-    if (resp.data != null) {
-      setCurrentPage(resp.data.leads.current_page);
-      setAllLeadsToAllocate(resp.data.leads.data);
+    if (resp?.data != null) {
+      setCurrentPage(resp?.data?.leads?.current_page);
+      setAllLeadsToAllocate(resp?.data?.leads?.data);
     }
     setIsLoading(false);
   };
@@ -125,11 +125,11 @@ export default function LeadsAllocatonAndAddition(props) {
     console.log("console log-------------------------------------->",filterurl+"&& page="+page)
     let res =await GET(filterurl+"&& page="+page);
     console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
-    if (res.data != null) {
-      setFilterCurrentPage(res.data.leads.current_page);
-      setAllLeadsToAllocate(res.data.leads.data);
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
+    if (res?.data != null) {
+      setFilterCurrentPage(res?.data?.leads?.current_page);
+      setAllLeadsToAllocate(res?.data?.leads?.data);
+      setfilterPageSize(res?.data?.leads?.per_page);
+      setfilterTotalRecord(res?.data?.leads?.total);
      
     }
     console.log("console log in filter pagination-------------------------------------->")
@@ -141,10 +141,10 @@ export default function LeadsAllocatonAndAddition(props) {
   };
   //filter pagination end
   React.useEffect(() => {
-    if (AllleadsToAllocate.length > 0 && select.length > 0) {
+    if (AllleadsToAllocate?.length > 0 && select?.length > 0) {
       console.log(
-        AllleadsToAllocate.filter((leads) =>
-        select.includes(leads.id)
+        AllleadsToAllocate?.filter((leads) =>
+        select.includes(leads?.id)
       )
       )
       let status = AllleadsToAllocate.filter((leads) =>
@@ -282,19 +282,19 @@ export default function LeadsAllocatonAndAddition(props) {
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
     console.log("response--------allocation--------", resp);
 
-    if (resp.data != null) {
+    if (resp?.data != null) {
       console.trace("lead allocation", resp);
-      setAllLeadsToAllocate(resp.data.leads.data);
+      setAllLeadsToAllocate(resp?.data?.leads?.data);
 
-      setPageSize(resp.data.leads.per_page);
-      setTotalRecord(resp.data.leads.total);
-      setCurrentPage(resp.data.leads.current_page);
+      setPageSize(resp?.data?.leads?.per_page);
+      setTotalRecord(resp?.data?.leads?.total);
+      setCurrentPage(resp?.data?.leads?.current_page);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
-    if (props.searchData.search == true) {
+    if (props?.searchData?.search == true) {
       setFilterdata();
     }
   }, [props.searchData.search]);
@@ -307,26 +307,26 @@ export default function LeadsAllocatonAndAddition(props) {
     setIsLoading(true);
 
     let res = await GET(props.searchData.url);
-    setFilterUrl(props.searchData.url);
+    setFilterUrl(props?.searchData?.url);
     console.log("-------filter -------",props.searchData.url);
-    if (res.error === false) {
-      setAllLeadsToAllocate(res.data.leads.data);
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
-      setFilterCurrentPage(res.data.leads.current_page);
+    if (res?.error === false) {
+      setAllLeadsToAllocate(res?.data?.leads?.data);
+      setfilterPageSize(res?.data?.leads?.per_page);
+      setfilterTotalRecord(res?.data?.leads?.total);
+      setFilterCurrentPage(res?.data?.leads?.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
       setIsEmpty(false);
-    } else if (res.error.hasOwnProperty("month")) {
+    } else if (res?.error?.hasOwnProperty("month")) {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
-      setMessage(res.error.month[0]);
+      setMessage(res?.error?.month[0]);
       setShowErrorAlert(true);
       // setshowReset(false);
       setshowReset(true);
       setIsEmpty(true);
-    } else if (res.hasOwnProperty("error")) {
+    } else if (res?.hasOwnProperty("error")) {
       // setMessage(res.error);
       // setShowErrorAlert(true);
       // setshowReset(false);
@@ -345,8 +345,8 @@ export default function LeadsAllocatonAndAddition(props) {
   const getAllEmployees = async () => {
     let resp = await GET(ApiUrls.GET_ALL_EMPLOYEES);
 
-    if (resp.data != null) {
-      setEmployeesToAllocateLeads(resp.data.users);
+    if (resp?.data != null) {
+      setEmployeesToAllocateLeads(resp?.data?.users);
     }
   };
 

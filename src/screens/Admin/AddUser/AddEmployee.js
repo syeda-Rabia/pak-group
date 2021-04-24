@@ -78,9 +78,9 @@ export default function AddEmployee() {
     setIsLoading(true);
     let resp = await GET(ApiUrls.USER_DATA_PAGINATION + page);
 
-    if (resp.data != null) {
-      setCurrentPage(resp.data.users.current_page);
-      setUserRecord(resp.data.users.data);
+    if (resp?.data != null) {
+      setCurrentPage(resp?.data?.users?.current_page);
+      setUserRecord(resp?.data?.users?.data);
     }
     console.log("users",resp);
     setIsLoading(false);
@@ -127,10 +127,10 @@ console.log(resp,"+++++++++++++++++++++");
     //  ;
     //  ;
     if (resp.data != null) {
-      setUserRecord(resp.data.users.data);
-      setPageSize(resp.data.users.per_page);
-      setTotalRecord(resp.data.users.total);
-      setCurrentPage(resp.data.users.current_page);
+      setUserRecord(resp?.data?.users?.data);
+      setPageSize(resp?.data?.users?.per_page);
+      setTotalRecord(resp?.data?.users?.total);
+      setCurrentPage(resp?.data?.users?.current_page);
     }
 
     setIsLoading(false);
@@ -1016,7 +1016,7 @@ console.log(resp,"+++++++++++++++++++++");
                 <tbody>
                   {
                     userRecord != ""
-                      ? userRecord.map((user, index) => (
+                      ? userRecord?.map((user, index) => (
                           <>
                             <TableEmployee item={user} index={index} />
                           </>
@@ -1030,7 +1030,7 @@ console.log(resp,"+++++++++++++++++++++");
                     return <TableEmployee item={item} index={index} />;
                   })} */}
                 </tbody>
-                {userRecord.length > 0 ? (
+                {userRecord?.length > 0 ? (
                   <>
                     <ModalDelete item={userRecord[selectedID]} />
                     {/* <ModalView item={userRecord[selectedID]} /> */}

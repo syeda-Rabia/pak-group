@@ -14,17 +14,13 @@ import {
   faStop,
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  Tooltip,
-  IconButton,
-  Fab,
-} from "@material-ui/core";
+import { Tooltip, IconButton, Fab } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import sample from "./../assests/sample.mp3";
 import sample2 from "./../assests/sample2.mp3";
 import { Modal } from "react-bootstrap";
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { LeadsData } from "./../assests/constants/Leadsadmindata";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -62,7 +58,6 @@ import LeadsMobileViewSidebar from "../components/Sidebar/LeadsMobileViewSidebar
 import SuccessNotification from "../components/SuccessNotification";
 import ErrorNotification from "../components/ErrorNotification";
 import { Alert } from "@material-ui/lab";
-
 
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -136,8 +131,8 @@ export default function LeadsAdmin() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
     console.log("-----", res);
-    if (res.success != false) {
-      setInterestList(res.data.Interest);
+    if (res?.success != false) {
+      setInterestList(res?.data?.Interest);
     }
     setIsLoading(false);
   };
@@ -147,10 +142,10 @@ export default function LeadsAdmin() {
 
     let resp = await GET(ApiUrls.GET_ALL_CLOSED_LEADS);
 
-    if (resp.data != null) {
-      setAllLeads(resp.data.leads);
+    if (resp?.data != null) {
+      setAllLeads(resp?.data?.leads);
     }
-    if (resp.data.leads.length == 0) {
+    if (resp?.data?.leads?.length == 0) {
       setGobackState(true);
     }
     setIsLoading(false);
@@ -162,12 +157,12 @@ export default function LeadsAdmin() {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "PKR";
   };
   //  console.log(currencyFormat(2665));
- 
+
   const ref = useRef(null);
 
   const scroll = (scrollOffset) => {
-      ref.current.scrollLeft += scrollOffset;
-    };
+    ref.current.scrollLeft += scrollOffset;
+  };
   const LeadTable = ({ item, index }) => {
     const [showEdit, setShowEdit] = useState(false);
     const [selectedID, setSelectedID] = useState(null);
@@ -227,8 +222,6 @@ export default function LeadsAdmin() {
       useEffect(() => {
         // getInventroyDataAgaintsProject(project);
       }, [project]);
-
-    
     };
     const HandleAudioModule = ({
       recording,
@@ -278,16 +271,26 @@ export default function LeadsAdmin() {
             </>
         )}
     </Ticker> */}
-            <div style={{display:'flex',flexDirection:'row'}}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <p class="marquee">
-                  <span style={{display:'flex',flexDirection:'row',width:'100%'}}> <span >
-                  <b>File Name: </b>
-                  {item.recording_file}
-                </span>{" "}
-                <span style={{ marginLeft: "50px" }}>
-                  <b>Created Date :</b> {item.created_at.toString().split("T")[0]}
-                </span>{" "} </span>
-                 
+                <span
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                  }}
+                >
+                  {" "}
+                  <span>
+                    <b>File Name: </b>
+                    {item.recording_file}
+                  </span>{" "}
+                  <span style={{ marginLeft: "50px" }}>
+                    <b>Created Date :</b>{" "}
+                    {item.created_at.toString().split("T")[0]}
+                  </span>{" "}
+                </span>
+
                 {/* <span className="spn1">
                   2011/10/09 {item.recordings[0].recording_file} {"       "}  2011/10/09 {item.recordings[0].recording_file}
                 </span> */}
@@ -361,7 +364,6 @@ export default function LeadsAdmin() {
                   />
                 );
               })}
-         
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -384,7 +386,7 @@ export default function LeadsAdmin() {
         <td>{index + 1}</td>
         <td>{item.client_name}</td>
         <td>{item.contact}</td>
-        
+
         <td>{item.email != null ? item.email : "-------"}</td>
 
         <td>{item.project.name}</td>
@@ -428,9 +430,8 @@ export default function LeadsAdmin() {
           )}
         </td>
 
-
         <td>
-        {item.allocation.length > 0 ? (
+          {item.allocation.length > 0 ? (
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
@@ -469,34 +470,34 @@ export default function LeadsAdmin() {
         </td>
 
         <td>
-        <div className="d-flex d-inline">
-          {item.recordings.length > 0 ? (
-            <>
-              <button
-                data-tip
-                data-for="play"
-                type="button"
-                className="bg-transparent  button-focus 2"
-                onClick={() => {
-                  // isLoading(true);
-                  // let arr=[sample,sample,sample];
-                  setRecordings(item.recordings);
-                  setShowPlay(true);
-                  setSelectedID(index);
-                }}
-              >
-                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-              </button>
-              <ReactTooltip id="play" place="top" effect="solid">
-                play
-              </ReactTooltip>
-            </>
-          ) : (
-            ""
-          )}
+          <div className="d-flex d-inline">
+            {item.recordings.length > 0 ? (
+              <>
+                <button
+                  data-tip
+                  data-for="play"
+                  type="button"
+                  className="bg-transparent  button-focus 2"
+                  onClick={() => {
+                    // isLoading(true);
+                    // let arr=[sample,sample,sample];
+                    setRecordings(item.recordings);
+                    setShowPlay(true);
+                    setSelectedID(index);
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+                </button>
+                <ReactTooltip id="play" place="top" effect="solid">
+                  play
+                </ReactTooltip>
+              </>
+            ) : (
+              ""
+            )}
           </div>
 
-{allLeads.length > 0 && selectedID !== null ? (
+          {allLeads.length > 0 && selectedID !== null ? (
             <>
               <ModalPlay item={allLeads[selectedID]} />
               {/* <ModalDelete item={allLeads[selectedID]} />
@@ -583,7 +584,7 @@ export default function LeadsAdmin() {
   return (
     <Container fluid>
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-      <IconButton
+        <IconButton
           onClick={() => {
             history.push("/admin/leadsallocation");
           }}
@@ -595,9 +596,7 @@ export default function LeadsAdmin() {
           </Tooltip>
         </IconButton>
         <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>
-            Closed Leads
-          </h3>
+          <h3 style={{ color: "#818181" }}>Closed Leads</h3>
         </Col>
 
         <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
@@ -621,38 +620,48 @@ export default function LeadsAdmin() {
       />
 
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-      <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
-       
-       <div style={{paddingRight:10}}>
-         <Fab
-           className={classes.fab}
-           onClick={() => scroll(-50)}
-           color="primary"
-           aria-label="left"
-           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-         >
-           <ChevronLeftIcon style={{}}/>
-         </Fab>
+        <div
+          className="float-right floatingbtn"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            zIndex: 100,
+          }}
+        >
+          <div style={{ paddingRight: 10 }}>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(-50)}
+              color="primary"
+              aria-label="left"
+              style={{
+                inlineSize: "34px",
+                blockSize: "26px",
+                backgroundColor: "#2258bf",
+              }}
+            >
+              <ChevronLeftIcon style={{}} />
+            </Fab>
+          </div>
+          <div style={{ paddingRight: 10 }}>
+            <Fab
+              className={classes.fab}
+              onClick={() => scroll(50)}
+              color="primary"
+              aria-label="right"
+              style={{
+                inlineSize: "34px",
+                blockSize: "26px",
+                backgroundColor: "#2258bf",
+              }}
+            >
+              <ChevronRightIcon />
+            </Fab>
+          </div>
+        </div>
 
-       </div>
-       <div style={{paddingRight:10}}>
-       <Fab
-           className={classes.fab}
-           
-           onClick={() => scroll(50)}
-           color="primary"
-           aria-label="right"
-           style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-         >
-           <ChevronRightIcon />
-         </Fab>
-
-       </div>
-       
-       </div>
-       
         <div className="table-responsive" ref={ref}>
-          <table className="table table-hover" >
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col">
@@ -755,7 +764,7 @@ export default function LeadsAdmin() {
                     Recording
                   </span>
                 </th>
-{/* 
+                {/* 
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
                     Call_To_Action
@@ -770,11 +779,11 @@ export default function LeadsAdmin() {
               </tr>
             </thead>
             <tbody>
-              {allLeads.length > 0 ? (
-                allLeads.map((lead, index) => (
+              {allLeads?.length > 0 ? (
+                allLeads?.map((lead, index) => (
                   <LeadTable item={lead} index={index} />
                 ))
-              ) : ( 
+              ) : (
                 <Snackbar
                   open={gobackState}
                   autoHideDuration={6000}
@@ -784,14 +793,14 @@ export default function LeadsAdmin() {
                   <Alert variant="filled" severity="error">
                     No Lead to Show
                     <MaterialButton
-                          variant="text"
-                          onClick={() => {
-                            history.push("/admin/leads");
-                          }}
-                          classes={{ label: classes.myButton }}
-                        >
-                          Click to GO Back
-                        </MaterialButton>
+                      variant="text"
+                      onClick={() => {
+                        history.push("/admin/leads");
+                      }}
+                      classes={{ label: classes.myButton }}
+                    >
+                      Click to GO Back
+                    </MaterialButton>
                   </Alert>
                 </Snackbar>
               )}
@@ -803,7 +812,6 @@ export default function LeadsAdmin() {
             </tbody>
           </table>
         </div>
-        
       </Row>
     </Container>
   );

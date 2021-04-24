@@ -161,9 +161,9 @@ const history = useHistory();
     setIsLoading(true);
     let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION + page);
 
-    if (resp.data != null) {
-      setCurrentPage(resp.data.leads.current_page);
-      setAllLeads(resp.data.leads.data);
+    if (resp?.data != null) {
+      setCurrentPage(resp?.data?.leads?.current_page);
+      setAllLeads(resp?.data?.leads?.data);
     }
     setIsLoading(false);
   };
@@ -194,11 +194,11 @@ const history = useHistory();
     console.log("console log-------------------------------------->",filterurl+"&& page="+page)
     let res =await GET(filterurl+"&& page="+page);
     console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
-    if (res.data != null) {
-      setFilterCurrentPage(res.data.leads.current_page);
-      setAllLeads(res.data.leads.data);
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
+    if (res?.data != null) {
+      setFilterCurrentPage(res?.data?.leads?.current_page);
+      setAllLeads(res?.data?.leads?.data);
+      setfilterPageSize(res?.data?.leads?.per_page);
+      setfilterTotalRecord(res?.data?.leads?.total);
 
     }
     console.log("console log in filter pagination-------------------------------------->")
@@ -217,15 +217,15 @@ const history = useHistory();
   }, [refresh]);
 
   useEffect(() => {
-    if (props.searchData.search == true) setFilterdata();
+    if (props?.searchData?.search == true) setFilterdata();
   }, [props.searchData.search]);
 
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
     console.log("-----", res);
-    if (res.success != false) {
-      setInterestList(res.data.Interest);
+    if (res?.success != false) {
+      setInterestList(res?.data?.Interest);
     }
     setIsLoading(false);
   };
@@ -235,12 +235,12 @@ const history = useHistory();
    
     let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION);
 
-    if (resp.data != null) {
-      setAllLeads(resp.data.leads.data);
+    if (resp?.data != null) {
+      setAllLeads(resp?.data?.leads?.data);
 
-      setPageSize(resp.data.leads.per_page);
-      setTotalRecord(resp.data.leads.total);
-      setCurrentPage(resp.data.leads.current_page);
+      setPageSize(resp?.data?.leads?.per_page);
+      setTotalRecord(resp?.data?.leads?.total);
+      setCurrentPage(resp?.data?.leads?.current_page);
     }
     console.log("leads", resp?.data?.leads);
     setIsLoading(false);
@@ -251,15 +251,17 @@ const history = useHistory();
   const setFilterdata = async () => {
     setshowReset(true);
     setIsLoading(true);
+   
+    setRecordings([]);
     let res = await GET(props.searchData.url);
-    setFilterUrl(props.searchData.url);
+    setFilterUrl(props?.searchData?.url);
     console.log("-----", res);
-    if (res.success != false) {
+    if (res?.success != false) {
      
-      setAllLeads(res.data.leads.data);
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
-      setFilterCurrentPage(res.data.leads.current_page);
+      setAllLeads(res?.data?.leads?.data);
+      setfilterPageSize(res?.data?.leads?.per_page);
+      setfilterTotalRecord(res?.data?.leads?.total);
+      setFilterCurrentPage(res?.data?.leads?.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -350,7 +352,7 @@ const history = useHistory();
       let resp = await GET(ApiUrls.GET_ALL_PROJECTS);
 
       if (resp.data != null) {
-        setAllProjects(resp.data.projects.data);
+        setAllProjects(resp?.data?.projects?.data);
       }
       setInnerLoading(false);
     };
@@ -1401,7 +1403,7 @@ const history = useHistory();
                     placeholder="Enter Country"
                     type="text"
                     value={
-                      item.allocation.length > 0
+                      item?.allocation?.length > 0
                         ? item.allocation[0].allocated_to.first_name
                         : "-------"
                     }
@@ -1634,7 +1636,7 @@ const history = useHistory();
         </td>
 
         <td>
-          {item.allocation?.length > 0 ? (
+          {item?.allocation?.length > 0 ? (
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
@@ -1713,7 +1715,7 @@ const history = useHistory();
         </td>
 
         <td>
-          {item.allocation?.length > 0 ? (
+          {item?.allocation?.length > 0 ? (
             <CTAButton
               // leadId={item.allocation[0].lead_id}
               empId={item.allocation[0].allocated_to.id}
@@ -2110,8 +2112,8 @@ const history = useHistory();
               </tr>
             </thead>
             <tbody>
-              {allLeads.length > 0 ? (
-                allLeads.map((lead, index) => (
+              {allLeads?.length > 0 ? (
+                allLeads?.map((lead, index) => (
                   <LeadTable item={lead} index={index} />
                 ))
               ) : null
@@ -2136,7 +2138,7 @@ const history = useHistory();
             </tbody>
           </table>
         </div>
-        {allLeads.length > 0 && selectedID !== null ? (
+        {allLeads?.length > 0 && selectedID !== null ? (
           <>
             <ModalPlay item={allLeads[selectedID]} />
             <ModalDelete item={allLeads[selectedID]} />

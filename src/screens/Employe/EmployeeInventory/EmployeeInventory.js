@@ -69,8 +69,8 @@ function EmployeeInventory(props) {
       ApiUrls.GET_USER_VIEWABLE_INVENTORIES + props.userInfo.id
     );
     console.log("-----------------------------",res);
-    if (res.success != false) {
-      setData(res.data.inventories);
+    if (res?.success != false) {
+      setData(res?.data?.inventories);
     }
     setIsLoading(false);
   };
@@ -90,7 +90,7 @@ function EmployeeInventory(props) {
       };
       let res = await POST(ApiUrls.EMPLOYEE_INVENTORY_REQUEST, postData);
       console.log("res request,", res);
-      if (res.error === false) {
+      if (res?.error === false) {
         setResMessage("Request Send to Admin");
         setShowSuccessAlert(true);
       }
@@ -272,7 +272,7 @@ function EmployeeInventory(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
+                  {data?.map((item, index) => (
                     <Table item={item} index={index} />
                   ))}
                 </tbody>

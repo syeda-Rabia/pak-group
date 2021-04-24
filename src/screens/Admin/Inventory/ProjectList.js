@@ -73,11 +73,11 @@ const handlePageChange = async (page) => {
   setIsLoading(true);
   let resp = await GET(ApiUrls.GET_ALL_PROJECTS_PAGINATION + page);
 
-  if (resp.data != null) {
-    setCurrentPage(resp.data.projects.current_page);
-    setData(resp.data.projects.data);
-    setAllProjects(resp.data.projects.data);
-    setProjectsName(resp.data.projects.data);
+  if (resp?.data != null) {
+    setCurrentPage(resp?.data?.projects?.current_page);
+    setData(resp?.data?.projects?.data);
+    setAllProjects(resp?.data?.projects?.data);
+    setProjectsName(resp?.data?.projects?.data);
   }
   setIsLoading(false);
 };
@@ -97,11 +97,11 @@ const handleShow = (pageCount) => {
   console.log("response------------------------------",resp);
 
     if (resp.data != null) {
-      setAllProjects(resp.data.projects.data);
-      setProjectsName(resp.data.projects.data);
-      setPageSize(resp.data.projects.per_page);
-      setTotalRecord(resp.data.projects.total);
-      setCurrentPage(resp.data.projects.current_page);
+      setAllProjects(resp?.data?.projects?.data);
+      setProjectsName(resp?.data?.projects?.data);
+      setPageSize(resp?.data?.projects?.per_page);
+      setTotalRecord(resp?.data?.projects?.total);
+      setCurrentPage(resp?.data?.projects?.current_page);
     }
     setIsLoading(false);
   };
@@ -530,8 +530,8 @@ const handleShow = (pageCount) => {
                 </tr>
               </thead>
               <tbody>
-                {allProjects.length > 0
-                  ? allProjects.map((item, index) => (
+                {allProjects?.length > 0
+                  ? allProjects?.map((item, index) => (
                       <TableEmployee item={item} index={index} />
                     ))
                   : null}
@@ -539,7 +539,7 @@ const handleShow = (pageCount) => {
                   return <TableEmployee item={item} index={index} />;
                 })} */}
               </tbody>
-              {allProjects.length > 0 ? (
+              {allProjects?.length > 0 ? (
                 <>
                   <ModalDelete item={allProjects[selectedID]} />
                   <ModalAddUnit item={allProjects[selectedID]} />

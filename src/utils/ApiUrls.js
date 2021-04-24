@@ -76,7 +76,13 @@ GET_EMPLOYEE_LEAD_FILTER_DATA:"employee/lead/filter",
   GET_EMPLOYEE_POLICY_LIST:"employee/policy/list",
 //notifications 
 GET_EMPLOYEE_NOTIFICATIONS:"employee/notifications/all",
+GET_EMPLOYEE_NOTIFICATION_ON_LEAD:"employee/adminAction/showLead",
 GET_ADMIN_NITIFICATIONS:"admin/notifications/all",
+GET_ADMIN_NOTIFICATION_ON_LEAD:"admin/empAction/showLead",
+GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION:"admin/inventoryRequest/getRequest",
+GET_EMPLOYEE_NEW_INVENTORIES_NOTIFICATION:"employee/inventory/newInventories",
+GET_EMPLOYE_RECORDING_ON_LEAD:"admin/lead/showLead",
+
   //   DASHBOARD
 
   // Interest

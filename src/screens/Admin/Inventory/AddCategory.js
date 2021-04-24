@@ -40,8 +40,8 @@ export default function AddCategories() {
     let res = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
     // ;
     console.log(res);
-    if (res.success != false) {
-      setData(res.data.ProjectCategory);
+    if (res?.success != false) {
+      setData(res?.data?.ProjectCategory);
     }
     setIsLoading(false);
   };
@@ -54,7 +54,7 @@ export default function AddCategories() {
     const [category, setCategory] = useState("");
 
     let user = {
-      id: data.length + 1,
+      id: data?.length + 1,
       name: category,
     };
 
@@ -457,7 +457,7 @@ export default function AddCategories() {
                       //     null
                       // <Skeleton variant="rect" width={"100%"} height={"100%"} />
                     }
-                    {data.map((item, index) => {
+                    {data?.map((item, index) => {
                       return <Table item={item} index={index} />;
                     })}
                     {/* {data
@@ -469,7 +469,7 @@ export default function AddCategories() {
                         return <Table item={item} index={index} />;
                       })} */}
                   </tbody>
-                  {data.length > 0 ? (
+                  {data?.length > 0 ? (
                     <>
                       <ModalDelete item={data[selectedID]} />
                       <ModalEdit item={data[selectedID]} />

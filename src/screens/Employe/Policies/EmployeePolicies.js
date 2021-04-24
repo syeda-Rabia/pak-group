@@ -51,8 +51,8 @@ export default function AddPolicies() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_EMPLOYEE_POLICY_LIST);
     console.log("ress0", res);
-    if (res.success != false) {
-      setData(res.data.policies);
+    if (res?.success != false) {
+      setData(res?.data?.policies);
     }
     setIsLoading(false);
   };
@@ -215,11 +215,11 @@ export default function AddPolicies() {
                   .map((item, index) => {
                     return <Table item={item} index={index} />;
                   })} */}
-                  {data.map((item, index) => {
+                  {data?.map((item, index) => {
                   return <Table index={index} item={item} />;
                 })}
               </tbody>
-              {data.length > 0 ? (
+              {data?.length > 0 ? (
                 <>
                  
                   <ModalView  item={data[selectedID]} />

@@ -55,7 +55,7 @@ export default function RecordTable() {
   const [data, setData] = React.useState([]);
   const [employees, setEmployees] = React.useState([]);
 
-  const totalCount = data.length;
+  const totalCount = data?.length;
   const [pageSize, setPageSize] = React.useState(5);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(1);
@@ -75,7 +75,7 @@ export default function RecordTable() {
   const [showBan, setShowBan] = useState(false);
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
-  const currentData = data.slice(istIndex, lastIndex);
+  const currentData = data?.slice(istIndex, lastIndex);
   const [recordings, setRecordings] = useState([]);
   const [value, setValue] = useState("");
   const [goback, setGoBack] = React.useState("dashboard"); 
@@ -132,10 +132,10 @@ export default function RecordTable() {
   const handleFetchEmployeesLeads = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     // ;
-    if (res.success !== false) {
-      console.log(res.data.leads,"LET's See what you got",res.data.leads.filter((item)=>item.lead!=null));
+    if (res?.success !== false) {
+      console.log(res?.data?.leads,"LET's See what you got",res?.data?.leads?.filter((item)=>item?.lead!=null));
 
-      setData(res.data.leads.filter((item)=>item.lead!=null));
+      setData(res?.data?.leads?.filter((item)=>item.lead!=null));
     }
     setIsLoading(false);
   };
@@ -146,9 +146,9 @@ export default function RecordTable() {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
     console.log(res);
 
-    if (res.success != false) {
-      setEmployees(res.data.users.data);
-      setFilterData(res.data.users.data[0].id);
+    if (res?.success != false) {
+      setEmployees(res?.data?.users?.data);
+      setFilterData(res?.data?.users?.data[0].id);
     }
   };
   React.useEffect(() => {
@@ -166,8 +166,8 @@ export default function RecordTable() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
     console.log("-----", res);
-    if (res.success != false) {
-      setInterestList(res.data.Interest);
+    if (res?.success != false) {
+      setInterestList(res?.data?.Interest);
     }
     setIsLoading(false);
   };
@@ -1296,11 +1296,11 @@ const ModalClose = ({ item }) => {
           onChange={(e) => {
             setIsLoading(true);
             console.log(e.target.value);
-            setFilterData(e.target.value);
+            setFilterData(e?.target?.value);
           }}
         >
-          {employees.map((item) => {
-            return <option value={item.id}>{item.first_name}</option>;
+          {employees?.map((item) => {
+            return <option value={item?.id}>{item?.first_name}</option>;
           })}
         </select>
       </div>
@@ -1358,7 +1358,7 @@ const ModalClose = ({ item }) => {
                 className="table table-hover"
                 style={{
                   // minHeight: "320px",
-                  minHeight: data.length > 0 ? "220px" : "0px",
+                  minHeight: data?.length > 0 ? "220px" : "0px",
                   textAlign: "center",
                   width: "100%",
                 }}
@@ -1433,8 +1433,8 @@ const ModalClose = ({ item }) => {
                     else if (item.Clients == filterData.value)
                       return <TableRow index={index} item={item} />;
                   })} */}
-                  {data.filter((item)=>item.lead!=null).map((item, index) => {
-                    return <TableRow index={index} item={item.lead} allocated={item.allocated_to} />;
+                  {data?.filter((item)=>item?.lead!=null).map((item, index) => {
+                    return <TableRow index={index} item={item.lead} allocated={item?.allocated_to} />;
                   })}
                 </tbody>
               </table>
@@ -1448,7 +1448,7 @@ const ModalClose = ({ item }) => {
             </div>
           </Col>
         </Row>
-        {data.length > 0 && selectedID !== null ? (
+        {data?.length > 0 && selectedID !== null ? (
           <>
             <ModalPlay item={data[selectedID]} />
             <ModalDelete item={data[selectedID]} />

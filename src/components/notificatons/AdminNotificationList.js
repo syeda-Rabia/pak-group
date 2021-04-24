@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: "500px",
-      paddingRight:"100px",
+      paddingRight:"50px",
       maxWidth: "36ch",
       backgroundColor: theme.palette.background.paper,
     },
@@ -40,21 +40,22 @@ export default function AlignItemsList() {
     let res = await GET(ApiUrls.GET_ADMIN_NITIFICATIONS);
     
     if (res.success != false) {
-      setData(res.data.Notifications);
+      setData(res?.data?.Notifications);
     }
     console.log("res__________________>for notification", res);
 
     setIsLoading(false);
   };
   const Notifications = ({ item, index }) => {
+    let data=JSON.parse([item.notification_body]);
     return (
       <ListItem alignItems="center">
-        <Link to={item.screen}>
+        <Link to={{pathname:item.screen ,data:data}}>
           {/* <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </ListItemAvatar> */}
           <ListItemText
-            primary={item.notification_type}
+            primary={item?.notification_title}
             secondary={
               <React.Fragment>
                 <Typography
@@ -63,9 +64,12 @@ export default function AlignItemsList() {
                   className={classes.inline}
                   color="textPrimary"
                 >
-                  {item.notification_body}
+                  {data?.message}
                 </Typography>
+                
+                
               </React.Fragment>
+              
             }
           />
         </Link>
@@ -77,7 +81,7 @@ export default function AlignItemsList() {
     <div style={{ right: "100px" }}>
       <List className={classes.root}>
         {data?.length > 0
-          ? data.slice(0,3).map((item, index) => (
+          ? data?.slice(0,3).map((item, index) => (
               <Notifications item={item} index={index} />
             ))
           : null}

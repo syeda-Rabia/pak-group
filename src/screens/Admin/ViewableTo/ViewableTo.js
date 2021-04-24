@@ -60,9 +60,9 @@ export default function ViewableTo() {
   const handleInventoryData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_VIEWABLE_INVENTORIES);
-    if (res.success != false) {
+    if (res?.success != false) {
       //
-      setData(res.data.projects);
+      setData(res?.data?.projects);
     }
     setIsLoading(false);
   };
@@ -76,8 +76,8 @@ const scroll = (scrollOffset) => {
     if (res.success != false) {
       // setViewable(res.data.users.data);
       let arr = [];
-      res.data.users.map((item) => {
-        arr.push({ label: item.first_name, value: item.id });
+      res?.data?.users?.map((item) => {
+        arr.push({ label: item?.first_name, value: item.id });
       });
       setEmployees(arr);
     }
@@ -321,9 +321,9 @@ const scroll = (scrollOffset) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => {
-                    if (item.inventories != null)
-                      return item.inventories.map((inventories, id) => {
+                  {data?.map((item, index) => {
+                    if (item?.inventories != null)
+                      return item?.inventories?.map((inventories, id) => {
                         i++;
                         return (
                           <Table

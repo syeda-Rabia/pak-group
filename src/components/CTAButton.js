@@ -46,6 +46,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [show, setShow] = useState(false);
+  const [dateErr, setDateErr] = useState(false);
   const [refresh, setRefresh] = useState(false);
   var today = new Date();
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -67,8 +68,10 @@ export default function CTAButton({ empId, lead_id, deadline }) {
       },
     },
   }));
-  // console.log(status);
-
+  
+  // if(deadline<today){
+  //   setDateErr(true);
+  // }
   const classes = useStyles();
   const EmployeeList = () => {
     // console.log(selectedEmployee);
@@ -399,7 +402,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
 
      
       <KeyboardDatePickerExample
-      value={deadline}
+      value={today}
       showDate={handleDateValue}/>
        </div>
             </form>
@@ -414,6 +417,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
               Close
             </Button>
             <Button
+            disabled={dateErr}
               // style={{ backgroundColor: "#2258BF" }}
               onClick={(e) => {
                 SendShitLeadToServer(e);

@@ -37,8 +37,8 @@ export default function AdminNotification() {
   const handleFetchData = async () => {
     let res = await GET(ApiUrls.GET_ADMIN_NITIFICATIONS);
    
-    if (res.success != false) {
-      setData(res.data.Notifications);
+    if (res?.success != false) {
+      setData(res?.data?.Notifications);
     }
     console.log("res__________________>for notification", res);
 
@@ -52,14 +52,15 @@ export default function AdminNotification() {
   
   
   const Notifications = ({ item, index }) => {
+    let data=JSON.parse([item.notification_body]);
     return (
       <ListItem alignItems="center">
-        <Link to={item.screen}>
+        <Link to={{pathname:item.screen ,data:data}}>
           {/* <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </ListItemAvatar> */}
           <ListItemText
-            primary={item.notification_type}
+            primary={item?.notification_type}
             secondary={
               <React.Fragment>
                 <Typography
@@ -68,7 +69,7 @@ export default function AdminNotification() {
                   className={classes.inline}
                   color="textPrimary"
                 >
-                  {item.notification_body}
+                  {data?.message}
                 </Typography>
               </React.Fragment>
             }
@@ -98,8 +99,8 @@ export default function AdminNotification() {
       <Col lg={10} sm={10} xs={10} xl={11}>
       <div style={{ right: "100px" }}>
       <List className={classes.root}>
-        {data.length > 0
-          ? data.map((item, index) => (
+        {data?.length > 0
+          ? data?.map((item, index) => (
               <Notifications item={item} index={index} />
             ))
           : null}

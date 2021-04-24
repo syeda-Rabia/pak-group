@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Modal,Card } from "react-bootstrap";
 import {
   KeyboardTimePickerExample,
   KeyboardDatePickerExample,
-} from "../../../utils/KeyboardTimePickerExample";
+} from "./../../../utils/KeyboardTimePickerExample";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -155,9 +155,9 @@ function EmployeeLeads(props, lead_id) {
    setIsLoading(true);
    let resp = await GET(ApiUrls. GET_USER_LEADS_PAGINATION + page);
 
-   if (resp.data != null) {
-     setCurrentPage(resp.data.leads.current_page);
-     setData(resp.data.leads.data);
+   if (resp?.data != null) {
+     setCurrentPage(resp?.data?.leads?.current_page);
+     setData(resp?.data?.leads?.data);
    }
    setIsLoading(false);
  };
@@ -187,10 +187,10 @@ function EmployeeLeads(props, lead_id) {
     let res =await GET(filterurl+"&& page="+page);
    
     if (res.data != null) {
-      setFilterCurrentPage(res.data.leads.current_page);
-      setData(res.data.leads.data);
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
+      setFilterCurrentPage(res?.data?.leads?.current_page);
+      setData(res?.data?.leads?.data);
+      setfilterPageSize(res?.data?.leads?.per_page);
+      setfilterTotalRecord(res?.data?.leads?.total);
  
     }
     console.log("console log in filter pagination-------------------------------------->")
@@ -208,10 +208,10 @@ function EmployeeLeads(props, lead_id) {
     console.log("RESPONSE FROM SERVER -------------------------------", res);
     
     if (res.success != false) {
-      setData(res.data.leads.data);
-      setPageSize(res.data.leads.per_page);
-      setTotalRecord(res.data.leads.total);
-      setCurrentPage(res.data.leads.current_page);
+      setData(res.data?.leads?.data);
+      setPageSize(res.data?.leads?.per_page);
+      setTotalRecord(res.data?.leads?.total);
+      setCurrentPage(res.data?.leads?.current_page);
     }
     setIsLoading(false);
   };
@@ -230,27 +230,27 @@ function EmployeeLeads(props, lead_id) {
     setFilterUrl(props.searchData.url);
     console.log("-----", res);
     if (res.error === false) {
-      setData(res.data.leads.data);
+      setData(res.data?.leads?.data);
 
-      setfilterPageSize(res.data.leads.per_page);
-      setfilterTotalRecord(res.data.leads.total);
-      setFilterCurrentPage(res.data.leads.current_page);
+      setfilterPageSize(res.data?.leads?.per_page);
+      setfilterTotalRecord(res.data?.leads?.total);
+      setFilterCurrentPage(res.data?.leads?.current_page);
       setMessage("Lead find Successfully");
       setShowSuccessAlert(true);
       setIsFilter(true);
       setIsEmpty(false);
-    } else if(res.error.hasOwnProperty("month"))
+    } else if(res?.error?.hasOwnProperty("month"))
     {
       console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
-      setMessage(res.error.month[0]);
+      setMessage(res?.error?.month[0]);
       setShowErrorAlert(true);
       // setshowReset(false);
       setshowReset(true);
     setIsEmpty(true);
     
     }
-    else if(res.hasOwnProperty("error")){
+    else if(res?.hasOwnProperty("error")){
       // setMessage(res.error);
       // setShowErrorAlert(true);
       // setshowReset(false);
@@ -1436,7 +1436,7 @@ function EmployeeLeads(props, lead_id) {
               
               </tbody>
             </table>
-            {data.length > 0 && selectedID !== null ? (
+            {data?.length > 0 && selectedID !== null ? (
           <>
             <ModalPlay item={data[selectedID]} />
             

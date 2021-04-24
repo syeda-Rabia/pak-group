@@ -46,7 +46,7 @@ export default function AddInventory(props) {
    const [ProjectErr, setProjectErr] = React.useState(false);
   const history = useHistory();
 console.log("props project name", props);
-const project=props.listData.ProjectName;
+const project=props?.listData?.ProjectName;
 console.log("project name", project);
   //  ;
   useEffect(() => {
@@ -161,7 +161,7 @@ console.log("project name", project);
                     value={name}
                     onChange={(e) => {
                       //  ;
-                      if(project.some((pro)=>pro.name==e.target.value)){
+                      if(project?.some((pro)=>pro?.name==e.target.value)){
                         setProjectError(true);
                       setName(e.target.value);
                       // ;

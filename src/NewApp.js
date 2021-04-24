@@ -21,6 +21,11 @@ import AdminLAAScreen from "./screens/Admin/Views/AdminLA&AScreen";
 import AdminLeadsScreen from "./screens/Admin/Views/AdminLeadsScreen";
 import AdminTodoListScreen from "./screens/Admin/Views/AdminTodoListScreen";
 import AdminNotification from "./screens/Admin/AdminNotifications/AdminNotifications";
+import LeadNotification from "./screens/Admin/AdminNotifications/LeadsNotification";
+import Recordingnotification from "./screens/Admin/AdminNotifications/RecordingNotification";
+import InventoryRequestNotification from "./screens/Admin/AdminNotifications/InventoryRequestNotification";
+import EmployeeLeadNotification from "./screens/Employe/EmployeeNotifications/EmployeeLeadNotification";
+import InventoryNotification from "./screens/Employe/EmployeeNotifications/InventoryNotifications";
 import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
 import AdminAddNewInventoryScreen from "./screens/Admin/Views/AdminAddNewInventoryScreen";
 import ViewableTo from "./screens/Admin/ViewableTo/ViewableTo";
@@ -53,11 +58,15 @@ const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
 //   )
 //   }, 10000);
   return (
-    
+   
     <Toast
       onClose={() =>
         setNotificationData((state) =>
-            state.filter((notify, id) => obj.id != notify.id)
+            // state.filter((notify, id) => obj.id != notify.id)
+            { 
+              let s=JSON.parse(JSON.stringify(state));
+              return s.slice(0,state.length-2)            
+            }
           )
       }
      
@@ -73,7 +82,7 @@ const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
         minWidth: 300,
       }}
     >
-      <Link exact={true} to={{ pathname:url}}>
+      <Link exact={true} to={{ pathname:obj.screen , data:obj.data}}>
 
       <Toast.Header style={{ backgroundColor: "#2258bf", color: "white" }}>
         <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
@@ -86,6 +95,7 @@ const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
   
    );
 };
+// const data={gcm.notification.notification_body: "title 5: is Deleted", gcm.notification.notification_title: "Admin Delete: title 5."}
 const NotificationToast = ({url}) => {
   //firebase
   const [show, setShow] = useState(false);
@@ -94,19 +104,33 @@ const NotificationToast = ({url}) => {
   const [notificationsArray, setNotificationsArray] = React.useState([]);
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
-console.log("get token ---------------------->",getToken)
   onMessageListener()
     .then((payload) => {
+
+    
+      console.log("payload_____----------------------->",payload.data["gcm.notification.notification_body"]);
+      let receivedData=Object.entries(payload.data)
+      console.log(receivedData)
+      console.log("payload json parse_____----------------------->",JSON.parse(payload.data["gcm.notification.notification_body"]));
+      let keys=["gcm.notification.notification_body","gcm.notification.notification_title","gcm.notification.screen"];
+
+      let data=JSON.parse(payload.data["gcm.notification.notification_body"]);
+      // let action=JSON.parse(payload.empAction["gcm.notification.notification_body"]);
+
       setShow(true);
       setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
+        title: payload.data["gcm.notification.notification_title"],
+        body: data.message,
+        screen: payload.data["gcm.notification.screen"],
       });
       setNotificationData((state) => [
         {
-          title: payload.notification.title,
-          body: payload.notification.body,
-          id:state.length
+          title: payload.data["gcm.notification.notification_title"],
+          body:data.message,
+          screen: payload.data["gcm.notification.screen"],
+          id:state.length,
+          data:data,
+       
         },
         ...state,
       ]);
@@ -283,6 +307,36 @@ const NewApp = (props) => {
         <Route exact path="/admin/viewable">
           <ViewableTo />
         </Route>
+        <Route
+          exact
+          path="/admin/leads/notification"
+          render={(props) => (
+            <>
+              <LeadNotification {...props} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/Inventory/notification"
+          render={(props) => (
+            <>
+              <InventoryRequestNotification {...props} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/leads/recording"
+          render={(props) => (
+            <>
+              <Recordingnotification {...props} />
+            </>
+          )}
+        />
+        {/* <Route exact path="/admin/leads/notification">
+          <LeadNotification {props}/>
+        </Route> */}
         <Route exact path="/admin/closedleads">
           <ClosedLeads />
         </Route>
@@ -365,6 +419,28 @@ const NewApp = (props) => {
         <Route path="/employee/notifications">
           <EmployeeNotificaton />
         </Route>
+        <Route
+          exact
+          path="/employee/leads/notifications"
+          render={(props) => (
+            <>
+              <EmployeeLeadNotification {...props} />
+            </>
+          )}
+        />
+        {/* <Route path="/employee/leads/notifications">
+          <EmployeeLeadNotification />
+        </Route> */}
+        <Route
+          exact
+          path="/employee/inventory/notifications"
+          render={(props) => (
+            <>
+              <InventoryNotification {...props} />
+            </>
+          )}
+        />
+        
         <NotificationToast url="/employee/leads" />
 
 

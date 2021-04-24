@@ -52,8 +52,8 @@ export default function AddInterest() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
     console.log("ress0", res);
-    if (res.success != false) {
-      setData(res.data.Interest);
+    if (res?.success != false) {
+      setData(res?.data?.Interest);
     }
     setIsLoading(false);
   };
@@ -421,13 +421,11 @@ export default function AddInterest() {
                   //     null
                   // <Skeleton variant="rect" width={"100%"} height={"100%"} />
                 }
-                {data
-                  // .filter((item) => item.is_deleted == 0)
-                  .map((item, index) => {
+                {data?.map((item, index) => {
                     return <Table item={item} index={index} />;
                   })}
               </tbody>
-              {data.length > 0 ? (
+              {data?.length > 0 ? (
                 <>
                   <ModalDelete item={data[selectedID]} />
                   <ModalEdit item={data[selectedID]} />
