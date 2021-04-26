@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import LeadReport_chart from "../../../components/Charts/LeadReport_chart";
 import QuarterlyLead_chart from "../../../components/Charts/QuarterlyLead_chart";
+import PendingTaskForToday from "../../../components/Charts/PendingTaskForToday";
+import QuarterlyPerformanceChart from "../../../components/Charts/QuarterlyPerformanceChart";
+import CallReportChart from "../../../components/Charts/CallReportChart";
 import RecordTable from "./RecordTable";
 import SwipeableTemporaryDrawer from "../../../components/Sidebar/LAAMobileViewSidebar";
 import EnhancedTable from "./MaterialUITable";
@@ -70,7 +73,7 @@ function AdminDashboard() {
                 </select>
               </Col>
             </Row>
-            <QuarterlyLead_chart />
+            <LeadReport_chart/>
           </Col>
           <Col
             xl={5}
@@ -81,8 +84,9 @@ function AdminDashboard() {
             style={{ backgroundColor: "white", borderRadius: "10px" }}
           >
 
-            <h6 style={{ color: "#818181" }}>Pending Tasks Weekly (2020)</h6>
-            <QuarterlyLead_chart />
+            <h6 style={{ color: "#818181" }}>Pending Task for Today</h6>
+            <h3 style={{ color: "#818181" }}>Pending task</h3>
+            <PendingTaskForToday style={{ marginLeft: "20px", marginRight: "20px" }}/>
           </Col>
         </Row>
       </Container>
@@ -102,9 +106,9 @@ function AdminDashboard() {
             <Row className="pt-3">
               <Col style={{ color: "#818181" }}>
                 <h2 style={{ color: "#818181" }}>Quarterly Lead Tasks</h2>
-                <p style={{ color: "#818181" }}>
+                {/* <p style={{ color: "#818181" }}>
                   Lorem ipsum dolor sit amet, consectetur
-                </p>
+                </p> */}
               </Col>
               <Col
                 style={{
@@ -183,11 +187,11 @@ function AdminDashboard() {
               }}
             >
               <Col style={{ color: "#818181" }}>
-                <h6 style={{ color: "#818181" }}>Target Assigend</h6>
-                <h3 style={{ color: "#818181" }}>Lead Report</h3>
+                <h6 style={{ color: "#818181" }}>Quartely Lead Performance</h6>
+                <h3 style={{ color: "#818181" }}>Quarterly Lead</h3>
               </Col>
             </Row>
-            <QuarterlyLead_chart />
+            <QuarterlyPerformanceChart/>
           </Col>
           <Col
             xl={5}
@@ -197,8 +201,9 @@ function AdminDashboard() {
             className="mt-2 pt-3"
             style={{ backgroundColor: "white", borderRadius: "10px" }}
           >
-            <h6 style={{ color: "#818181" }}>Pending Tasks Weekly (2020)</h6>
-            <QuarterlyLead_chart />
+            <h6 style={{ color: "#818181" }}>Call Summary</h6>
+            <h3 style={{ color: "#818181" }}>Call Report</h3>
+            <CallReportChart />
           </Col>
         </Row>
       </Container>

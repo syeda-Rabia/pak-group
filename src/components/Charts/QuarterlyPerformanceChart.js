@@ -12,24 +12,24 @@ class LeadReport_chart extends Component {
   }
 
  async handleFetchData(){
-   console.log(ApiUrls.GET_LEAD_REPORT_DATA);
+  
    try{
     var res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
    }catch(e){
      console.log(e);
    }
   
-  //  let res={data:{
-  //   //  leads:40,
-  //   //  alucations:30,
-  //   //  calls:60,
-  //   //  sms:75,
-  //   //  visits:20,
-  //   //  closed:50,
-  //  }}
+//    let res={data:{
+//      leads:40,
+//      alucations:20,
+//     //  calls:60,
+//     //  sms:75,
+//     //  visits:20,
+//     //  closed:50,
+//    }}
 
   console.log(res);
-   let setData=Object.values(res.report).map(item=>item)
+   let setData=Object.values(res.quarterly).map(item=>item)
       this.setState({chartData:setData})
   }
 
@@ -47,27 +47,22 @@ class LeadReport_chart extends Component {
             labels: [
               // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
              
-              'Lead Assigned',
-              'total leads worked',
-              'call',
-              'sms',
-              'visit',
-              'closed',
+              'Lead Complete',
+              'Lead Loss',
+              
              
             ],
     
             datasets: [
               {
-                label: 'Leads Assign',
+                label: 'Quarterly Lead performance',
                 data:[...this.state.chartData,0],
                 backgroundColor: [
                  
-                  '#D3AF40',
+                  
                   '#2B5989',
                   '#7D418A',
-                  '#5CAC77',
-                  '#B80E4E',
-                  '#7182A2',
+                 
                   // '#D3AF40',
                   // '#2B5989',
                   // '#7D418A',

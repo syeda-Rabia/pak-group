@@ -645,14 +645,11 @@ const history = useHistory();
     );
   };
   const ModalEdit = ({ item }) => {
-    // console.log(
-    //   "____________________________________________________________________",
-    //   item
-    // );
+   
 
     const [time, setTime] = useState(timee);
     const [allProjects, setAllProjects] = useState([]);
-    const [project, setProject] = useState(item.project.id);
+    const [project, setProject] = useState(item?.project?.id);
     const [interestID, setInterestID] = useState();
     const [allSource, setAllSource] = useState([
       "Newspaper",
@@ -664,19 +661,19 @@ const history = useHistory();
       "Outdoor",
     ]);
 
-    const [selectedSource, setSelectedSource] = useState(item.source);
+    const [selectedSource, setSelectedSource] = useState(item?.source);
 
-    const [client, setClient] = useState(item.client_name);
-    const [contact, setContact] = useState(item.contact);
-    const [budget, setBudget] = useState(item.budget);
+    const [client, setClient] = useState(item?.client_name);
+    const [contact, setContact] = useState(item?.contact);
+    const [budget, setBudget] = useState(item?.budget);
 
-    const [country, setCountry] = useState(item.country_city);
+    const [country, setCountry] = useState(item?.country_city);
     // const [status, setStatus] = useState("New");
     const [interest, setInterest] = useState([]);
 
     const [emailError, setEmailError] = useState(false);
 
-    const [email, setEmail] = useState(item.email);
+    const [email, setEmail] = useState(item?.email);
     const [task, setTask] = useState("Sale");
     const [deadline, setDeadline] = useState("");
     const [source, setSource] = useState("newspaper");

@@ -154,6 +154,8 @@ export const POSTFile = async (url, formData) => {
 export const GET = async (url) => {
   let token = JSON.parse(localStorage.getItem("token"));
   // console.log("-----",token);
+
+  console.log(server_url + url);
   try {
     return fetch(server_url + url, {
       method: "get",
@@ -167,6 +169,7 @@ export const GET = async (url) => {
     })
       .then((response) => response.json())
       .then((res) => {
+        console.log(res);
         //  ;
         return res;
       })

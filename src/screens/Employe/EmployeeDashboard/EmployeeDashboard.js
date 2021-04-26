@@ -69,7 +69,7 @@ class EmployeeDashboard extends Component {
                   </select>
                 </Col>
               </Row>
-              <QuarterlyLead_chart />
+              <EmployeeQuartelyLeadChart />
             </Col>
             <Col
               xl={5}
@@ -80,7 +80,7 @@ class EmployeeDashboard extends Component {
               style={{ backgroundColor: "white", borderRadius: "10px" }}
             >
               <h6 style={{ color: "#818181" }}>Pending Tasks Weekly (2020)</h6>
-              <QuarterlyLead_chart />
+              <EmployeeQuartelyLeadChart/>
             </Col>
           </Row>
         </Container>
@@ -122,7 +122,7 @@ class EmployeeDashboard extends Component {
                   </select>
                 </Col>
               </Row>
-              <QuarterlyLead_chart />
+              <EmployeeQuartelyLeadChart />
             </Col>
           </Row>
         </Container>
@@ -185,7 +185,7 @@ class EmployeeDashboard extends Component {
                   <h3 style={{ color: "#818181" }}>Lead Report</h3>
                 </Col>
               </Row>
-              <QuarterlyLead_chart />
+              <EmployeeQuartelyLeadChart />
             </Col>
             <Col
               xl={5}
@@ -196,7 +196,7 @@ class EmployeeDashboard extends Component {
               style={{ backgroundColor: "white", borderRadius: "10px" }}
             >
               <h6 style={{ color: "#818181" }}>Pending Tasks Weekly (2020)</h6>
-              <QuarterlyLead_chart />
+              <EmployeeQuartelyLeadChart />
             </Col>
           </Row>
         </Container>
