@@ -1,68 +1,56 @@
-
-import React, { Component } from "react";
+import { containerSizesSelector } from "@material-ui/data-grid";
+import React, { Component, useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import ApiUrls from "./../../utils/ApiUrls";
 import { GET } from "./../../utils/Functions";
-class PendingTaskForToday extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chartData: [],
-    };
-  }
 
-  async handleFetchData() {
-    try{
-        var res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
-       }catch(e){
-         console.log(e);
-       }
-    let setData = Object.values(res?.pending).map((item) => item);
-    this.setState({ chartData: setData });
-  }
+export default function PendingTaskForToday(props) {
+  const [state, setState] = useState({
+    chartData: [],
+  });
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.handleFetchData();
-    }, 2000);
-  }
-  render() {
-    return (
-      <div className="barchart">
-        <Bar
-          data={{
-            labels: [
-              // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
+  const handleFetchData = async () => {
+    let setData = Object?.values(props?.pendingTask)?.map((item) => item);
+    setState({ chartData: setData });
+  };
+  useEffect(() => {
+    handleFetchData();
+  }, [props.pendingTask]);
 
-              "OverDue",
-              "Grace Period",
-              "Follow Up",
-              "New",
-            ],
+  return (
+    <div className="barchart">
+      <Bar
+        data={{
+          labels: [
+            // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
 
-            datasets: [
+            "OverDue",
+            "Grace Period",
+            "Follow Up",
+            "New",
+          ],
+
+          datasets: [
+            {
+              label: "Quarterly Action Summary",
+              data: [...state?.chartData, 0],
+              backgroundColor: ["#D3AF40", "#2B5989", "#7D418A", "#7182A2"],
+            },
+          ],
+        }}
+        width={100}
+        height={300}
+        options={{
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
               {
-                label: "Quarterly Action Summary",
-                data: [...this.state?.chartData, 0],
-                backgroundColor: ["#D3AF40", "#2B5989", "#7D418A", "#7182A2"],
+                maxBarThickness: 50,
               },
             ],
-          }}
-          width={100}
-          height={300}
-          options={{
-            maintainAspectRatio: false,
-            scales: {
-              xAxes: [
-                {
-                  maxBarThickness: 50,
-                },
-              ],
-            },
-          }}
-        />
-      </div>
-    );
-  }
+          },
+        }}
+      />
+    </div>
+  );
 }
-export default PendingTaskForToday;

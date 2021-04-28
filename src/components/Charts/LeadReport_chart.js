@@ -1,97 +1,69 @@
 import { containerSizesSelector } from '@material-ui/data-grid';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect  } from 'react';
 import { Bar} from 'react-chartjs-2';
 import ApiUrls from "./../../utils/ApiUrls";
 import { GET } from "./../../utils/Functions";
-class LeadReport_chart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-     chartData:[],
-    };
-  }
 
- async handleFetchData(){
-   console.log(ApiUrls.GET_LEAD_REPORT_DATA);
-   try{
-    var res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
-   }catch(e){
-     console.log(e);
-   }
+
+export default function LeadReport_chart(props)  {
+
+  const [state, setState] =useState({
+    chartData: [],
+  })
+ 
+
+ const  handleFetchData=async ()=>{
   
-  //  let res={data:{
-  //   //  leads:40,
-  //   //  alucations:30,
-  //   //  calls:60,
-  //   //  sms:75,
-  //   //  visits:20,
-  //   //  closed:50,
-  //  }}
-
-  console.log(res);
-   let setData=Object?.values(res?.report)?.map(item=>item)
-      this.setState({chartData:setData})
+   let setData=Object?.values(props?.data)?.map(item=>item)
+   setState({chartData:setData})
   }
+  useEffect(() => {
+    handleFetchData()
+  }, [props.data]);
 
-  componentDidMount(){
-    setTimeout(() => {
-      this.handleFetchData()
-    }, 2000);
-  }
-  render() {
-    return (
-      <div className="barchart">
-        <Bar
+  return (
+    <div className="barchart">
+      <Bar
 
-          data={{
-            labels: [
-              // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
-             
-              'Lead Assigned',
-              'total leads worked',
-              'call',
-              'sms',
-              'visit',
-              'closed',
-             
-            ],
-    
-            datasets: [
-              {
-                label: 'Leads Assign',
-                data:[...this.state?.chartData,0],
-                backgroundColor: [
-                 
-                  '#D3AF40',
-                  '#2B5989',
-                  '#7D418A',
-                  '#5CAC77',
-                  '#B80E4E',
-                  '#7182A2',
-                  // '#D3AF40',
-                  // '#2B5989',
-                  // '#7D418A',
-                  // '#5CAC77',
-                  // '#544CF9',
-                  // '#7182A2',
-                  // '#D3AF40',
-                  // '#2B5989',
-                  // '#7D418A',
-                  // '#5CAC77',
-                ],
-              },
-            ],
-          }}
-          width={100}
-          height={300}
-          options={{ maintainAspectRatio: false,  scales: {
-            xAxes: [{
-                maxBarThickness: 50,
-            }]
-        } }}
-        />
-      </div>
-    );
-  }
+        data={{
+          labels: [
+            // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
+           
+            'Lead Assigned',
+            'total leads worked',
+            'call',
+            'sms',
+            'visit',
+            'closed',
+           
+          ],
+  
+          datasets: [
+            {
+              label: 'Leads Assign',
+              data:[...state?.chartData,0],
+              backgroundColor: [
+               
+                '#D3AF40',
+                '#2B5989',
+                '#7D418A',
+                '#5CAC77',
+                '#B80E4E',
+                '#7182A2',
+              
+              ],
+            },
+          ],
+        }}
+        width={100}
+        height={300}
+        options={{ maintainAspectRatio: false,  scales: {
+          xAxes: [{
+              maxBarThickness: 50,
+          }]
+      } }}
+      />
+    </div>
+  );
+  
 }
-export default LeadReport_chart;

@@ -537,7 +537,7 @@ export default function LeadsAllocatonAndAddition(props) {
         </td>
         <td>{splitDate}</td>
         <td>
-          <KeyboardDatePickerExample value={today} showDate={handleDateValue} />
+          <KeyboardDatePickerExample value={today} showDate={handleDateValue}/>
         </td>
         <td>{item.interest.interest}</td>
         <td>

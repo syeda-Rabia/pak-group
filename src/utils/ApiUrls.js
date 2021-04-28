@@ -6,6 +6,7 @@ const ApiUrls = {
   LOGOUT: "",
 //dashboard
 GET_LEAD_REPORT_DATA:"admin/dashboard/leads_report",
+POST_LEAD_FILTER:"admin/dashboard/filterLeadsReport",
   // USERS
   CREATE_USER: "admin/employee/add",
   EDIT_USER: "admin/employee/edit",

@@ -8,3 +8,21 @@
     display: none;
   }
 } */
+.ant-picker-panels > *:last-child {
+  /* display: none !important; */
+  flex-wrap: wrap !important; 
+}
+@media only screen and (max-width: 600px) {
+  .pad{
+    padding-left: 50px !important;
+    width:250px !important
+  }
+}
+@media only screen and (max-width: 375px) {
+  .pad{
+    padding-left: 50px !important;
+    width:250px !important
+  }
+}
+/* ticker */
+
