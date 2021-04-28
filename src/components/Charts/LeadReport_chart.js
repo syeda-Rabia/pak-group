@@ -29,7 +29,7 @@ class LeadReport_chart extends Component {
   //  }}
 
   console.log(res);
-   let setData=Object.values(res.report).map(item=>item)
+   let setData=Object?.values(res?.report)?.map(item=>item)
       this.setState({chartData:setData})
   }
 
@@ -59,7 +59,7 @@ class LeadReport_chart extends Component {
             datasets: [
               {
                 label: 'Leads Assign',
-                data:[...this.state.chartData,0],
+                data:[...this.state?.chartData,0],
                 backgroundColor: [
                  
                   '#D3AF40',

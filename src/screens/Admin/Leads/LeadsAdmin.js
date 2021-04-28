@@ -868,7 +868,7 @@ const history = useHistory();
                     {/* <TextField defaultValue={item.project.name} /> */}
                     <Select
                       className="form-control form-control-sm w-100"
-                      defaultValue={item.project.id}
+                      defaultValue={item?.project?.id}
                       onChange={(e) => {
                         console.log(
                           "select project ID is -----",
@@ -877,8 +877,8 @@ const history = useHistory();
                         setProject(e.target.value);
                       }}
                     >
-                      {allProjects.length > 0
-                        ? allProjects.map((pro) => (
+                      {allProjects?.length > 0
+                        ? allProjects?.map((pro) => (
                             <MenuItem key={pro.id} value={pro.id}>
                               {pro.name}
                             </MenuItem>
@@ -892,7 +892,7 @@ const history = useHistory();
                     <Select
                       className="form-control form-control-sm w-100"
                       defaultValue={
-                        item.interest !== null ? item.interest.id : null
+                        item?.interest !== null ? item?.interest?.id : null
                       }
                       onChange={(e) => {
                         console.log(
@@ -902,9 +902,9 @@ const history = useHistory();
                         setInterestID(e.target.value);
                       }}
                     >
-                      {interestList.length > 0 ? (
-                        interestList.map((int, index) => (
-                          <MenuItem key={int.id} value={int.id}>
+                      {interestList?.length > 0 ? (
+                        interestList?.map((int, index) => (
+                          <MenuItem key={int?.id} value={int.id}>
                             {int.interest}
                           </MenuItem>
                         ))

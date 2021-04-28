@@ -1,7 +1,8 @@
 
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-
+import ApiUrls from "./../../utils/ApiUrls";
+import { GET } from "./../../utils/Functions";
 class QuarterlyLead_chart extends Component {
   constructor(props) {
     super(props);
@@ -11,18 +12,19 @@ class QuarterlyLead_chart extends Component {
   }
 
   async handleFetchData() {
-    let res = {
-      data: {
-        leads: 40,
-        alucations: 30,
-        calls: 60,
-        sms: 75,
-        visits: 20,
-        closed: 50,
-        fdcflk:70,
-      },
-    };
-    let setData = Object.values(res.data).map((item) => item);
+    var res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
+    // let res = {
+    //   data: {
+    //     leads: 40,
+    //     alucations: 30,
+    //     calls: 60,
+    //     sms: 75,
+    //     visits: 20,
+    //     closed: 50,
+    //     fdcflk:70,
+    //   },
+    // };
+    let setData = Object.values(res?.data).map((item) => item.Leads);
     this.setState({ chartData: setData });
   }
 
@@ -45,7 +47,7 @@ class QuarterlyLead_chart extends Component {
             datasets: [
               {
                 label:'Quarterly Action Summary',
-                data: [...this.state.chartData, 0],
+                data: [...this.state?.chartData, 0],
                 backgroundColor: [
                   "#2B5989",
                   "#7D418A",

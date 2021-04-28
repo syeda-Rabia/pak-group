@@ -33,15 +33,15 @@ function App() {
   const [condition, setCondition] = React.useState("");
 
 
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({title: '', body: ''});
-  const [isTokenFound, setTokenFound] = useState(false);
-  getToken(setTokenFound);
+  // const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({title: '', body: ''});
+  // const [isTokenFound, setTokenFound] = useState(false);
+  // getToken(setTokenFound);
 
-  onMessageListener().then(payload => {
-    setShow(true);
-    setNotification({title: payload.notification.title, body: payload.notification.body})
-  }).catch(err => console.log('failed: ', err));
+  // onMessageListener().then(payload => {
+  //   setShow(true);
+  //   setNotification({title: payload.notification.title, body: payload.notification.body})
+  // }).catch(err => console.log('failed: ', err));
 
 
 
@@ -187,7 +187,7 @@ function App() {
         </Route>
         {userType === "admin" ? <AdminRoute /> : <EmployeRoute />}
       </Switch>
-      <Toast onClose={() => setShow(false)} show={show} delay={8000} autohide animation style={{
+      {/* <Toast onClose={() => setShow(false)} show={show} delay={8000} autohide animation style={{
           position: 'absolute',
           top: 20,
           right: 20,
@@ -203,7 +203,7 @@ function App() {
             <small>just now</small>
           </Toast.Header>
           <Toast.Body>{notification.body}</Toast.Body>
-        </Toast>
+        </Toast> */}
     </Router>
   );
 }

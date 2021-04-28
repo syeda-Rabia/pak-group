@@ -15,14 +15,17 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 export const getToken = (setTokenFound) => {
+  // console.log('----------amir.------------');
   return messaging.getToken({vapidKey: 'BNZ4erHMpm1Jh74T3r3A_yoWJyhmEAt_3OD_IODToDZMtVLgdefKjFCBchARq16wOuAyPRHCVZ50pIQhHRMZHf4'}).then((currentToken) => {
     if (currentToken) {
       console.log('current token for client: ', currentToken);
       setTokenFound(true);
+    
       localStorage.setItem("firebaseToken",currentToken);
       // Track the token -> client mapping, by sending to backend server
       // show on the UI that permission is secured
     } else {
+      
       console.log('No registration token available. Request permission to generate one.');
       setTokenFound(false);
       // shows on the UI that permission is required 

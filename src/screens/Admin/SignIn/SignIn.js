@@ -82,24 +82,30 @@ const SignIn = (props) => {
     let resp = await POST(url, formData);
     console.log(resp);
 
-    if (resp.data != null) {
-      let { user, Access_token } = resp.data;
+    if (resp?.data != null) {
+      let { user, Access_token } = resp?.data;
       props.OnLoginSuccess(user, Access_token);
     } else {
       try {
-        if (resp.error.hasOwnProperty("email")) {
-          setErrorResponce(resp.error.email[0]);
-        } else if (resp.error.hasOwnProperty("password")) {
-          setErrorResponce(resp.error.password[0]);
+        if (resp?.error.hasOwnProperty("email")) {
+          setErrorResponce(resp?.error?.email[0]);
+        } else if (resp?.error.hasOwnProperty("password")) {
+          setErrorResponce(resp?.error?.password[0]);
         }
-        else  if (resp.error.hasOwnProperty("message")) {
+        else  if (resp?.error?.hasOwnProperty("message")) {
           console.log("message");
-          setErrorResponce(resp.error.message[0]);
+          setErrorResponce(resp?.error?.message[0]);
           setShowAlert(true);
           setIsLoading(false);
         }
          else {
-          setErrorResponce(resp.error);
+           if(typeof resp.error=="object")
+           { 
+             var err=Object.values(resp.error).map((item)=>item)
+             err.push(firebaseToken)
+           }
+          setErrorResponce(err.join(", "));
+
         }
         setShowAlert(true);
         setIsLoading(false);

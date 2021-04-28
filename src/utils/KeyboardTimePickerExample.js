@@ -94,5 +94,40 @@ export function MonthPicker() {
 </MuiPickersUtilsProvider>
   );
 }
-
+export function DayPicker() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = dates => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {/* <KeyboardDatePicker
+        disableToolbar
+        variant="inline"
+        format="dd"
+        margin="normal"
+        id="date-picker-inline"
+       
+        value={selectedDate}
+        onChange={handleDateChange}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+       */}
+      <DatePicker
+      selected={startDate}
+      onChange={onChange}
+      startDate={startDate}
+      endDate={endDate}
+      selectsRange
+      inline
+    />
+    
+</MuiPickersUtilsProvider>
+  );
+}
 // export default YearMonthPicker;

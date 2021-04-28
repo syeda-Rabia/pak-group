@@ -1,3 +1,4 @@
+import zIndex from "@material-ui/core/styles/zIndex";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -102,5 +103,48 @@ return (
   />
 );
 }
-
+export function DayPicking({setDays}) {
+ 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const onChange = dates => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+  return (
+    <DatePicker className="border-0"
+    style={{border:"1px solid white"}}
+    selected={startDate}
+    onChange={onChange}
+    startDate={startDate}
+    endDate={endDate}
+    selectsRange
+    inline
+   
+      // onChange={(date) => {setStartDate(date)
+      
+      //   setDays(state=>({...state,year:date.toString().split(" ")[3]}))
+      
+      // }}
+      popperClassName="some-custom-class"
+      popperPlacement="Left"
+      popperModifiers={{
+        offset: {
+          enabled: true,
+          offset: "5px, 10px",
+          zIndex:"2px"
+        },
+        preventOverflow: {
+          enabled: true,
+          escapeWithReference: false,
+          boundariesElement: "viewport"
+        }
+      }}
+      showDateRangePicker
+      dateFormat="DD"
+    />
+  );
+  }
+  
 export default DatePick;

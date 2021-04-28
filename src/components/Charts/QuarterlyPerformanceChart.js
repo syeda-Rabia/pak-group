@@ -29,7 +29,7 @@ class LeadReport_chart extends Component {
 //    }}
 
   console.log(res);
-   let setData=Object.values(res.quarterly).map(item=>item)
+   let setData=Object.values(res?.quarterly).map(item=>item)
       this.setState({chartData:setData})
   }
 
@@ -56,7 +56,7 @@ class LeadReport_chart extends Component {
             datasets: [
               {
                 label: 'Quarterly Lead performance',
-                data:[...this.state.chartData,0],
+                data:[...this.state?.chartData,0],
                 backgroundColor: [
                  
                   

@@ -102,8 +102,9 @@ const NotificationToast = ({url}) => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [notificationData, setNotificationData] = useState([]);
   const [notificationsArray, setNotificationsArray] = React.useState([]);
-  const [isTokenFound, setTokenFound] = useState(false);
-  getToken(setTokenFound);
+  // const [isTokenFound, setTokenFound] = useState(false);
+  // getToken(setTokenFound);
+  // console.log("--------get token---------",getToken);
   onMessageListener()
     .then((payload) => {
 
@@ -191,7 +192,9 @@ const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
   const [TOKEN, setTOKEN] = useState(props.user.token);
   // ;
-
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken(setTokenFound);
+  // console.log("--------get token---------",getToken);
   const AdminRoute = () => {
     // ;
     return (
