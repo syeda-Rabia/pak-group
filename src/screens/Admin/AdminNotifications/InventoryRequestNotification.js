@@ -43,11 +43,9 @@ function EmployeeInventory(props) {
   const [openRequest, setOpenRequest] = React.useState(false);
   const history = useHistory();
   const reqId=props?.location?.data?.data;
-  console.log("--------reqid",reqId)
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION + "/"+reqId);
-    console.log("--------------------------------", res);
     if (res?.success != false) {
       setData(res?.request);
     }

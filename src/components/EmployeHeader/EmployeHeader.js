@@ -26,6 +26,8 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import NotificationList from "../notificatons/NotificationList";
 import AdminNotification from "../notificatons/AdminNotificationList";
+import ApiUrls from "../../utils/ApiUrls";
+import { GET, POST } from "../../utils/Functions";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
@@ -43,7 +45,22 @@ const EmployeHeader = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = async (event) => {
+    // event.preventDefault();
+    
+    let resp = await POST(ApiUrls.LOGOUT);
+   
+    if (resp.error === false) {
+      
+      props.LOGOUT();
+      history.push("/");
+    } 
+    else {
+      props.LOGOUT();
+      history.push("/");
+    }
 
+  }
   const openpopover = Boolean(anchorEl);
   const id =  openpopover ? 'simple-popover' : undefined;
 
@@ -317,10 +334,11 @@ const EmployeHeader = (props) => {
             No
           </Button>
           <Button
-            onClick={() => {
+            onClick={(e) => {
+              handleLogout(e);
               setOpen(false);
-              props.LOGOUT();
-              history.push("/");
+              // props.LOGOUT();
+              // history.push("/");
             }}
             color="primary"
           >

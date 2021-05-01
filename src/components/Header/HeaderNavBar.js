@@ -20,6 +20,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ApiUrls from "../../utils/ApiUrls";
+import { GET, POST } from "../../utils/Functions";
 
 const useStyles = makeStyles((theme) => ({
   white: {
@@ -43,7 +45,6 @@ const HeaderNavBar = (props) => {
   const classes = useStyles();
   const User=props.user.user_info.first_name;
   // ;
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
 
@@ -54,7 +55,23 @@ const HeaderNavBar = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = async (event) => {
+    // event.preventDefault();
+    
+    let resp = await POST(ApiUrls.LOGOUT);
+   
+    if (resp.error === false) {
+      
+      props.LOGOUT();
+      history.push("/");
+    } 
+    else {
+      props.LOGOUT();
+      history.push("/");
+    }
 
+   
+  };
   const openpopover = Boolean(anchorEl);
   const id =  openpopover ? 'simple-popover' : undefined;
 
@@ -370,11 +387,10 @@ onClick={()=>{
             No
           </Button>
           <Button
-            onClick={() => {
-             
+            onClick={(e) => {
+              handleLogout(e)
               setOpen(false);
-              props.LOGOUT();
-              history.push("/");
+            
             }}
             color="primary"
           >

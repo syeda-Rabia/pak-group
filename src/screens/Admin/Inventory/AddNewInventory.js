@@ -40,11 +40,11 @@ export default function AddInventory(props) {
   const [redirectPage, setRedirectPage] = React.useState(false);
 
   const [showProgress, setShowProgress] = React.useState(false);
-console.log("props",props);
+// console.log("props",props);
   //  ;
   const query=props.location.query;
   useEffect(() => {
-    console.log("query-------------",query)
+    // console.log("query-------------",query)
     // getAllProjectCategories();
     if(query.units !=undefined)
     setUnitsParent(query.units)
@@ -265,7 +265,7 @@ console.log("props",props);
   };
   const InventoryDetails = () => {
     const [InventoryData, setInventoryData] = React.useState(dummy);
-    console.log("inventory",InventoryData);
+    // console.log("inventory",InventoryData);
     const history = useHistory();
 
     const viewData = (data, id, index) => {
@@ -324,7 +324,7 @@ console.log("props",props);
       // ;
       let resp = await POST(ApiUrls.POST_CREATE_EXISTING_PROJECT_INVENTORIES, formData);
       // ;
-      console.log("response",resp);
+      // console.log("response",resp);
       if (resp.error === false) {
         history.push("/admin/inventory");
       } 

@@ -67,7 +67,7 @@ export default function EmployeeReport() {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_EMPLOYEE_LEAD_REPORT_DATA);
-    console.log("ress0", res);
+    // console.log("ress0", res);
     if (res?.success != false) {
       setData(res?.employeesReport?.data);
       setPageSize(res?.employeesReport?.per_page);
@@ -159,9 +159,14 @@ export default function EmployeeReport() {
           </div>
           <Col>
        
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>
+          {pageCount>1?(
+ <p className="page-info">
+ Showing {currentPage} from {pageCount}
+</p>
+          ):null
+         
+          }
+            
         </Col>
         <Col>
        

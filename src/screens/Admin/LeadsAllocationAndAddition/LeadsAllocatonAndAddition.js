@@ -73,7 +73,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
   const handleDateValue = (value) => {
     setDate(formatDate(value, "-"));
-    console.log(formatDate(value, "-"));
+    // console.log(formatDate(value, "-"));
   };
   //pagination
   const [pageSize, setPageSize] = React.useState(0);
@@ -93,7 +93,7 @@ export default function LeadsAllocatonAndAddition(props) {
     let resp = await GET(
       ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS_PAGINATION + page
     );
-    console.log("console log in  pagination-------------------------------------->",resp)
+    // console.log("console log in  pagination-------------------------------------->",resp)
     if (resp?.data != null) {
       setCurrentPage(resp?.data?.leads?.current_page);
       setAllLeadsToAllocate(resp?.data?.leads?.data);
@@ -122,9 +122,9 @@ export default function LeadsAllocatonAndAddition(props) {
      */
      console.log("console log in filter pagination-------------------------------------->")
     setIsLoading(true);
-    console.log("console log-------------------------------------->",filterurl+"&& page="+page)
+    // console.log("console log-------------------------------------->",filterurl+"&& page="+page)
     let res =await GET(filterurl+"&& page="+page);
-    console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
+    // console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
     if (res?.data != null) {
       setFilterCurrentPage(res?.data?.leads?.current_page);
       setAllLeadsToAllocate(res?.data?.leads?.data);
@@ -132,7 +132,7 @@ export default function LeadsAllocatonAndAddition(props) {
       setfilterTotalRecord(res?.data?.leads?.total);
      
     }
-    console.log("console log in filter pagination-------------------------------------->")
+    // console.log("console log in filter pagination-------------------------------------->")
     setIsLoading(false);
   };
 
@@ -142,15 +142,15 @@ export default function LeadsAllocatonAndAddition(props) {
   //filter pagination end
   React.useEffect(() => {
     if (AllleadsToAllocate?.length > 0 && select?.length > 0) {
-      console.log(
-        AllleadsToAllocate?.filter((leads) =>
-        select.includes(leads?.id)
-      )
-      )
+      // console.log(
+      //   AllleadsToAllocate?.filter((leads) =>
+      //   select.includes(leads?.id)
+      // )
+      // )
       let status = AllleadsToAllocate.filter((leads) =>
         select.includes(leads.id)
       )[0].status;
-      console.log(status);
+      // console.log(status);
       setCurrentStatus(status);
     } else setCurrentStatus("");
   }, [select]);
@@ -275,15 +275,15 @@ export default function LeadsAllocatonAndAddition(props) {
     getAllLeads();
     getAllEmployees();
   }, [refresh]);
-  console.log(props.searchData, "LET SEE");
+  // console.log(props.searchData, "LET SEE");
   const getAllLeads = async () => {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_ALLOCATE_OR_RE_ALLOCATE_LEADS);
-    console.log("response--------allocation--------", resp);
+    // console.log("response--------allocation--------", resp);
 
     if (resp?.data != null) {
-      console.trace("lead allocation", resp);
+      // console.trace("lead allocation", resp);
       setAllLeadsToAllocate(resp?.data?.leads?.data);
 
       setPageSize(resp?.data?.leads?.per_page);
@@ -308,7 +308,7 @@ export default function LeadsAllocatonAndAddition(props) {
 
     let res = await GET(props.searchData.url);
     setFilterUrl(props?.searchData?.url);
-    console.log("-------filter -------",props.searchData.url);
+    // console.log("-------filter -------",props.searchData.url);
     if (res?.error === false) {
       setAllLeadsToAllocate(res?.data?.leads?.data);
       setfilterPageSize(res?.data?.leads?.per_page);
@@ -319,7 +319,7 @@ export default function LeadsAllocatonAndAddition(props) {
       setIsFilter(true);
       setIsEmpty(false);
     } else if (res?.error?.hasOwnProperty("month")) {
-      console.log("res.error.hasOwnProperty(month)");
+      // console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res?.error?.month[0]);
       setShowErrorAlert(true);
@@ -372,14 +372,14 @@ export default function LeadsAllocatonAndAddition(props) {
       //   return temp;
       // });
       //  ;
-      console.log("-----------", {
-        // time_to_call: time,
-        dead_line: date,
-        allocated_to: selectedEmployee,
-        lead_id: item.id,
-        task: item.project.category.name,
-        isView:true,
-      });
+      // console.log("-----------", {
+      //   // time_to_call: time,
+      //   dead_line: date,
+      //   allocated_to: selectedEmployee,
+      //   lead_id: item.id,
+      //   task: item.project.category.name,
+      //   isView:true,
+      // });
 
       let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
         // time_to_call: time,
@@ -389,7 +389,7 @@ export default function LeadsAllocatonAndAddition(props) {
         task: item.project.category.name,
         isView:true,
       });
-      console.log("error message", resp);
+      // console.log("error message", resp);
       setRefresh(!refresh);
       setIsLoading(false);
 
@@ -400,7 +400,7 @@ export default function LeadsAllocatonAndAddition(props) {
         setMessage("Operation Failed");
         setShowErrorAlert(true);
       }
-      console.log("error message", resp);
+      // console.log("error message", resp);
     };
 
     const HandleTimeValue = (value) => {
@@ -598,10 +598,10 @@ export default function LeadsAllocatonAndAddition(props) {
       dead_line: date,
       isView:view
     };
-    console.log(postData);
+    // console.log(postData);
 
     let res = await POST(ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION, postData);
-    console.log("accepted", res);
+    // console.log("accepted", res);
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
@@ -703,10 +703,10 @@ export default function LeadsAllocatonAndAddition(props) {
                       className="form-control form-control-sm w-100"
                       value={selectedEmployee}
                       onChange={(e) => {
-                        console.log(
-                          "select employee ID is -----",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "select employee ID is -----",
+                        //   e.target.value
+                        // );
                         setSelectedEmployee(e.target.value);
                       }}
                     >
@@ -942,13 +942,12 @@ export default function LeadsAllocatonAndAddition(props) {
           </div>
           {showModalCTA ? <ModalCTA /> : null}
           <Col>
-          {IsFilter == false ? (
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>
-          ):<p className="page-info">
-          Showing {filtercurrentPage} from {filterpageCount}
-        </p>}
+          {IsFilter==false?(
+          pageCount>1?( <p className="page-info">
+          Showing {currentPage} from {pageCount}
+        </p>):null ):filterpageCount>1?(<p className="page-info">
+         Showing {filtercurrentPage} from {filterpageCount}
+       </p>):null}
         </Col>
           <Col>
             {IsFilter == false ? (

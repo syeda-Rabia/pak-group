@@ -40,7 +40,6 @@ export default function AdminNotification() {
     if (res?.success != false) {
       setData(res?.data?.Notifications);
     }
-    console.log("res__________________>for notification", res);
 
     setIsLoading(false);
   };

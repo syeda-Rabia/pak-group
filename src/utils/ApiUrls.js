@@ -3,7 +3,7 @@
 const ApiUrls = {
   // AUTHENTICATION
   LOGIN: "/login",
-  LOGOUT: "",
+  LOGOUT: "logout",
 //dashboard
 GET_LEAD_REPORT_DATA:"admin/dashboard/leads_report",
 POST_LEAD_FILTER:"admin/dashboard/filterLeadsReport",

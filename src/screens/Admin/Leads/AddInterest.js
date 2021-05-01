@@ -51,7 +51,7 @@ export default function AddInterest() {
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("ress0", res);
+    // console.log("ress0", res);
     if (res?.success != false) {
       setData(res?.data?.Interest);
     }
@@ -73,7 +73,7 @@ export default function AddInterest() {
         interest: interest,
       };
       let res = await POST(ApiUrls.ADD_INTEREST, postData);
-      console.log("post request", res);
+      // console.log("post request", res);
       if (res.error === false) {
         setMessage("Interest Added Successfully");
         setShowSuccessAlert(true);
@@ -166,7 +166,7 @@ export default function AddInterest() {
         setMessage("Interest Not Edited");
         setShowErrorAlert(true);
       }
-      console.log(res);
+      // console.log(res);
       setRefresh(!refresh);
 
       setShowEdit(false);
@@ -247,7 +247,7 @@ export default function AddInterest() {
         setMessage("Interest Not Deleted");
         setShowErrorAlert(true);
       }
-      console.log(res);
+      // console.log(res);
       setRefresh(!refresh);
     };
     return (

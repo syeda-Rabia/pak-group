@@ -94,7 +94,7 @@ const handleShow = (pageCount) => {
 
   const getAllProjects = async () => {
     let resp = await GET(ApiUrls.GET_ALL_PROJECTS_PAGINATION);
-  console.log("response------------------------------",resp);
+  // console.log("response------------------------------",resp);
 
     if (resp.data != null) {
       setAllProjects(resp?.data?.projects?.data);
@@ -139,7 +139,7 @@ const handleShow = (pageCount) => {
       // // arr.push(projects);
       // setData(arr);
       // setAllProjects(arr);
-      console.log("edit", res);
+      // console.log("edit", res);
       setShowEdit(false);
     };
 
@@ -551,9 +551,14 @@ const handleShow = (pageCount) => {
         </div>
         <Col>
         
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>
+        {pageCount>1?(
+ <p className="page-info">
+ Showing {currentPage} from {pageCount}
+</p>
+          ):null
+         
+          }
+            
         </Col>
         <Col>
        

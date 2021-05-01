@@ -191,9 +191,9 @@ const history = useHistory();
      */
      
     setIsLoading(true);
-    console.log("console log-------------------------------------->",filterurl+"&& page="+page)
+    // console.log("console log-------------------------------------->",filterurl+"&& page="+page)
     let res =await GET(filterurl+"&& page="+page);
-    console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
+    // console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
     if (res?.data != null) {
       setFilterCurrentPage(res?.data?.leads?.current_page);
       setAllLeads(res?.data?.leads?.data);
@@ -201,7 +201,7 @@ const history = useHistory();
       setfilterTotalRecord(res?.data?.leads?.total);
 
     }
-    console.log("console log in filter pagination-------------------------------------->")
+    // console.log("console log in filter pagination-------------------------------------->")
     setIsLoading(false);
   };
 
@@ -209,7 +209,7 @@ const history = useHistory();
     setFilterPageCount(filterpageCount);
   };
   //filter pagination end
-  console.log("props", props);
+  // console.log("props", props);
   useEffect(() => {
     // setIsLoading(true);
     getAllLeadsData();
@@ -223,7 +223,7 @@ const history = useHistory();
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("-----", res);
+    // console.log("-----", res);
     if (res?.success != false) {
       setInterestList(res?.data?.Interest);
     }
@@ -242,7 +242,7 @@ const history = useHistory();
       setTotalRecord(resp?.data?.leads?.total);
       setCurrentPage(resp?.data?.leads?.current_page);
     }
-    console.log("leads", resp?.data?.leads);
+    // console.log("leads", resp?.data?.leads);
     setIsLoading(false);
 
     //  ;
@@ -255,7 +255,7 @@ const history = useHistory();
     setRecordings([]);
     let res = await GET(props.searchData.url);
     setFilterUrl(props?.searchData?.url);
-    console.log("-----", res);
+    // console.log("-----", res);
     if (res?.success != false) {
      
       setAllLeads(res?.data?.leads?.data);
@@ -268,7 +268,7 @@ const history = useHistory();
       setIsEmpty(false);
     } else if(res.error.hasOwnProperty("month"))
     {
-      console.log("res.error.hasOwnProperty(month)");
+      // console.log("res.error.hasOwnProperty(month)");
       // setErrorResponce(resp.error);
       setMessage(res.error.month[0]);
       setShowErrorAlert(true);
@@ -383,9 +383,9 @@ const history = useHistory();
         budget: budget,
         country_city: country,
       };
-      console.log(formData);
+      // console.log(formData);
       let resp = await POST(ApiUrls.CREATE_LEAD, formData);
-      console.log("console----",resp);
+      // console.log("console----",resp);
       if (resp.error.hasOwnProperty("interest_id")) { 
         setMessage("Lead Not Submitted. Interest field is Required.");
         setShowErrorAlert(true);
@@ -393,7 +393,7 @@ const history = useHistory();
       setMessage("Lead added Successfully");
       setShowSuccessAlert(true);
 
-      console.trace(resp);
+      // console.trace(resp);
 
       setRefresh(!refresh);
       //  ;
@@ -541,10 +541,10 @@ const history = useHistory();
                       required="true"
                       value={project}
                       onChange={(e) => {
-                        console.log(
-                          "select project ID is -----",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "select project ID is -----",
+                        //   e.target.value
+                        // );
                         setProject(e.target.value);
                       }}
                     >
@@ -564,10 +564,10 @@ const history = useHistory();
                       required="true"
                       // value={interest}
                       onChange={(e) => {
-                        console.log(
-                          "selected Inventriry is ---- ",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "selected Inventriry is ---- ",
+                        //   e.target.value
+                        // );
                         setInterestID(e.target.value);
                       }}
                     >
@@ -737,7 +737,7 @@ const history = useHistory();
       };
 
       let resp = await POST(ApiUrls.EDIT_LEAD, formData);
-      console.log(resp);
+      // console.log(resp);
 
       if (resp.error === false) {
         setMessage("Lead Edited Successfully");
@@ -870,10 +870,10 @@ const history = useHistory();
                       className="form-control form-control-sm w-100"
                       defaultValue={item?.project?.id}
                       onChange={(e) => {
-                        console.log(
-                          "select project ID is -----",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "select project ID is -----",
+                        //   e.target.value
+                        // );
                         setProject(e.target.value);
                       }}
                     >
@@ -895,10 +895,10 @@ const history = useHistory();
                         item?.interest !== null ? item?.interest?.id : null
                       }
                       onChange={(e) => {
-                        console.log(
-                          "selected Inventriry is ---- ",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "selected Inventriry is ---- ",
+                        //   e.target.value
+                        // );
                         setInterestID(e.target.value);
                       }}
                     >
@@ -1014,7 +1014,7 @@ const history = useHistory();
       }
       setIsLoading(false);
       setRefresh(!refresh);
-      console.log("-------resp----",resp);
+      // console.log("-------resp----",resp);
       // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
       // console.log(resp);
       // // ;
@@ -1090,7 +1090,7 @@ const history = useHistory();
       </Modal>
     );
   };
-  console.log(recordings, "Recording");
+  // console.log(recordings, "Recording");
   const HandleAudioModule = ({
     recording,
     setActiveAudio,
@@ -1499,7 +1499,7 @@ const history = useHistory();
     // console.log(item);
     const DeleteRecordFromData = async () => {
       let res = await POST(ApiUrls.DELETE_LEAD+"?leadArray[0]=" + item.id);
-      console.log("*************************",res);
+      // console.log("*************************",res);
       if (res.error === false) {
         setMessage("Lead Deleted Successfully");
         setShowSuccessAlert(true);
@@ -1507,7 +1507,7 @@ const history = useHistory();
         setMessage("Lead Not Deleted");
         setShowErrorAlert(true);
       }
-      console.log("-----------------",res);
+      // console.log("-----------------",res);
       setRefresh(!refresh);
     };
     return (
@@ -1555,7 +1555,7 @@ const history = useHistory();
       ApiUrls.DELETE_LEAD,postData
       // postData
       );
-      console.log("----------------",res);
+      // console.log("----------------",res);
       // console.log("-------",postData,"---------", ApiUrls.DELETE_LEAD+`?${apendURL.join("&")}`,",,,,,,,,,,,,,,,,",res)
     if (res.error === false) {
       setMessage("Leads Deleted Successfully");
@@ -2147,11 +2147,11 @@ const history = useHistory();
         <ModalAdd />
         <Col>
         {IsFilter==false?(
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>):<p className="page-info">
+          pageCount>1?( <p className="page-info">
+          Showing {currentPage} from {pageCount}
+        </p>):null ):filterpageCount>1?(<p className="page-info">
          Showing {filtercurrentPage} from {filterpageCount}
-       </p>}
+       </p>):null}
         </Col>
         <Col>
        

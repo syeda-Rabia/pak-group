@@ -96,7 +96,7 @@ export default function LeadsAdmin(props) {
   const ref = useRef(null);
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-console.log("----------------------props----------------",props?.location?.data?.data);
+// console.log("----------------------props----------------",props?.location?.data?.data);
   const classes = useStyles();
   const leadID=props?.location?.data?.data;
   const ActionId=props?.location?.data?.empRecording;
@@ -117,7 +117,7 @@ console.log("----------------------props----------------",props?.location?.data?
       setAllLeads(resp?.data?.showLead);
       setAllActions(resp?.data?.empRecording)
     }
-    console.log("========leads------------------",resp);
+    // console.log("========leads------------------",resp);
     setIsLoading(false);
 
     //  ;
@@ -156,7 +156,6 @@ console.log("----------------------props----------------",props?.location?.data?
       }
       setIsLoading(false);
       setRefresh(!refresh);
-      console.log("-------resp----", resp);
       // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
       // console.log(resp);
       // // ;
@@ -231,7 +230,6 @@ console.log("----------------------props----------------",props?.location?.data?
       </Modal>
     );
   };
-  console.log(recordings, "Recording");
   const HandleAudioModule = ({
     recording,
     setActiveAudio,
@@ -440,7 +438,6 @@ console.log("----------------------props----------------",props?.location?.data?
       postData
       // postData
     );
-    console.log("----------------", res);
     // console.log("-------",postData,"---------", ApiUrls.DELETE_LEAD+`?${apendURL.join("&")}`,",,,,,,,,,,,,,,,,",res)
     if (res.error === false) {
       setMessage("Leads Deleted Successfully");

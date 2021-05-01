@@ -138,7 +138,6 @@ export default function LeadsAdmin(props) {
   const ref = useRef(null);
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-// console.log("----------------------props----------------",props.location)
   const classes = useStyles();
   const leadID=props?.location?.data?.data;
   const ActionId=props?.location?.data?.empAction;
@@ -159,7 +158,6 @@ export default function LeadsAdmin(props) {
       setAllLeads(resp.data.showLead);
       setAllActions(resp.data.empAction)
     }
-    console.log("leads",resp);
     setIsLoading(false);
 
     //  ;
@@ -198,7 +196,6 @@ export default function LeadsAdmin(props) {
       }
       setIsLoading(false);
       setRefresh(!refresh);
-      console.log("-------resp----", resp);
       // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
       // console.log(resp);
       // // ;
@@ -273,7 +270,6 @@ export default function LeadsAdmin(props) {
       </Modal>
     );
   };
-  console.log(recordings, "Recording");
   const HandleAudioModule = ({
     recording,
     setActiveAudio,
@@ -482,7 +478,6 @@ export default function LeadsAdmin(props) {
       postData
       // postData
     );
-    console.log("----------------", res);
     // console.log("-------",postData,"---------", ApiUrls.DELETE_LEAD+`?${apendURL.join("&")}`,",,,,,,,,,,,,,,,,",res)
     if (res.error === false) {
       setMessage("Leads Deleted Successfully");

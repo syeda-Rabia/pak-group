@@ -41,7 +41,7 @@ function getSteps() {
   return ["Action Type", "Select Option", "What Next", "Action"];
 }
 
-console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
+// console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
   let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
 
 function StepperUI({ label, content,length,index, data }) {
@@ -112,8 +112,8 @@ const [isLoading, setIsLoading] = React.useState(false);
 const leadID=props?.location?.query;
 const back=props?.location?.goback; 
 
-console.log("--------------------------",props,"back",back,"-------------------------")
-console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
+// console.log("--------------------------",props,"back",back,"-------------------------")
+// console.log(window.location.href.split("/")[window.location.href.split("/").length-1],"location**********************")
   let endpoint=window.location.href.split("/")[window.location.href.split("/").length-1].toLocaleLowerCase();
 React.useEffect(() => {
   setIsLoading(true);
@@ -164,11 +164,12 @@ function getStepContent(step) {
   
   
   const label = ["Action Type", "Select Option", "What Next", "Action"];
-  console.log("empty",data);
+  // console.log("empty",data);
   
   if(data.length==0)
-  { console.log("empty");
-  console.log(history, "----------------------------")
+  {
+    //  console.log("empty");
+  // console.log(history, "--------------------/--------")
    return <div>
        <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
          

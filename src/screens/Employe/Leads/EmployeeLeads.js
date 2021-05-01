@@ -1124,18 +1124,20 @@ function EmployeeLeads(props, lead_id) {
                     setPostData={setPostData}
                     userInfo={props.userInfo}
                   />
-                ))) : (
-                  <Snackbar
-                    open={true}
-                    autoHideDuration={6000}
-                    // anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  >
-                    <Alert variant="filled" severity="info">
-                      No Lead to Show
-                    </Alert>
-                  </Snackbar>
-                )}
+                ))) : null
+                // (
+                //   <Snackbar
+                //     open={true}
+                //     autoHideDuration={6000}
+                //     // anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                //     anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                //   >
+                //     <Alert variant="filled" severity="info">
+                //       No Lead to Show
+                //     </Alert>
+                //   </Snackbar>
+                // )
+                }
   
               
               </tbody>
@@ -1151,12 +1153,11 @@ function EmployeeLeads(props, lead_id) {
         </div>
         <Col>
         {IsFilter==false?(
-          <p className="page-info">
-            Showing {currentPage} from {pageCount}
-          </p>
-         ):<p className="page-info">
+          pageCount>1?( <p className="page-info">
+          Showing {currentPage} from {pageCount}
+        </p>):null ):filterpageCount>1?(<p className="page-info">
          Showing {filtercurrentPage} from {filterpageCount}
-       </p>}
+       </p>):null}
         </Col>
         <Col >
         {IsFilter==false?(

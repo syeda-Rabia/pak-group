@@ -133,7 +133,7 @@ export default function RecordTable() {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER_LEADS + filterData);
     // ;
     if (res?.success !== false) {
-      console.log(res?.data?.leads,"LET's See what you got",res?.data?.leads?.filter((item)=>item?.lead!=null));
+      // console.log(res?.data?.leads,"LET's See what you got",res?.data?.leads?.filter((item)=>item?.lead!=null));
 
       setData(res?.data?.leads?.filter((item)=>item.lead!=null));
     }
@@ -144,7 +144,7 @@ export default function RecordTable() {
   }, [filterData]);
   const handleFetchRequest = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log(res);
+    // console.log(res);
 
     if (res?.success != false) {
       setEmployees(res?.data?.users?.data);
@@ -165,7 +165,7 @@ export default function RecordTable() {
   const FetchInterestData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    console.log("-----", res);
+    // console.log("-----", res);
     if (res?.success != false) {
       setInterestList(res?.data?.Interest);
     }
@@ -471,7 +471,7 @@ export default function RecordTable() {
       };
 
       let resp = await POST(ApiUrls.EDIT_LEAD, formData);
-      console.log(resp,"response--------------------------------------",formData,);
+      // console.log(resp,"response--------------------------------------",formData,);
 
       if (resp.error === false) {
         setMessage("Lead Edited Successfully");
@@ -610,10 +610,10 @@ export default function RecordTable() {
                       className="form-control form-control-sm w-100"
                       defaultValue={item.lead.project.id}
                       onChange={(e) => {
-                        console.log(
-                          "select project ID is -----",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "select project ID is -----",
+                        //   e.target.value
+                        // );
                         setProject(e.target.value);
                       }}
                     >
@@ -635,10 +635,10 @@ export default function RecordTable() {
                         item.lead.interest !== null ? item.lead.interest_id : null
                       }
                       onChange={(e) => {
-                        console.log(
-                          "selected Inventriry is ---- ",
-                          e.target.value
-                        );
+                        // console.log(
+                        //   "selected Inventriry is ---- ",
+                        //   e.target.value
+                        // );
                         setInterestID(e.target.value);
                       }}
                     >
@@ -974,7 +974,7 @@ const ModalClose = ({ item }) => {
       }
       setIsLoading(false);
       setRefresh(!refresh);
-      console.log("-------resp----",resp);
+      // console.log("-------resp----",resp);
       // let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
       // console.log(resp);
       // // ;
@@ -1051,11 +1051,11 @@ const ModalClose = ({ item }) => {
     );
   };
   const ModalDelete = ({ item }) => {
-    console.log(item);
+    // console.log(item);
     const DeleteRecordFromData = async () => {
       // setIsLoading(true);
       let res = await GET(ApiUrls.DELETE_LEAD + item.lead.id);
-      console.log("error response",res);
+      // console.log("error response",res);
       if (res.error === false) {
         setMessage("Lead Deleted Successfully");
         setShowSuccessAlert(true);
@@ -1102,7 +1102,7 @@ const ModalClose = ({ item }) => {
     );
   };
   const TableRow = ({ index, item, allocated }) => {
-    console.log(item,"rabia");
+    // console.log(item,"rabia");
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
@@ -1295,7 +1295,7 @@ const ModalClose = ({ item }) => {
           value={filterData}
           onChange={(e) => {
             setIsLoading(true);
-            console.log(e.target.value);
+            // console.log(e.target.value);
             setFilterData(e?.target?.value);
           }}
         >

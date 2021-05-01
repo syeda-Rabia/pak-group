@@ -81,7 +81,7 @@ export default function InventoryAdmin(props) {
       let resp = await GET(
         ApiUrls.GET_SINGLE_PROECT_INVENTORIES + "/" + project_id
       );
-      console.log(resp, "project");
+      // console.log(resp, "project");
       if (resp.data != null) {
         setAllInventories(resp?.data?.inventories);
 
@@ -143,7 +143,7 @@ export default function InventoryAdmin(props) {
         property_status: status,
       };
       let res = await POST(ApiUrls.POST_All_EDITED_INVENTORIES, inventory);
-      console.log("---------------",res)
+      // console.log("---------------",res)
       if (res.error === false) {
         setMessage("inventory updated Successfully");
         setShowSuccessAlert(true);

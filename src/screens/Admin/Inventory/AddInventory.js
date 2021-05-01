@@ -45,9 +45,9 @@ export default function AddInventory(props) {
   const [showProgress, setShowProgress] = React.useState(false);
    const [ProjectErr, setProjectErr] = React.useState(false);
   const history = useHistory();
-console.log("props project name", props);
+// console.log("props project name", props);
 const project=props?.listData?.ProjectName;
-console.log("project name", project);
+// console.log("project name", project);
   //  ;
   useEffect(() => {
     getAllProjectCategories();
@@ -346,7 +346,7 @@ console.log("project name", project);
         history.push("/admin/inventory");                 
       }else if(resp.error.hasOwnProperty("name"))
       {
-        console.log("res.error.hasOwnProperty(month)");
+        // console.log("res.error.hasOwnProperty(month)");
         // setErrorResponce(resp.error);
         setMessage(resp.error.name[0]);
         setShowErrorAlert(true);
@@ -358,7 +358,7 @@ console.log("project name", project);
       //   setShowErrorAlert(true);
       //   // history.push("/admin/inventory");   
       // }
-      console.log("project message",resp );
+      // console.log("project message",resp );
       history.push("/admin/inventory");   
       setShowProgress(false);
     };

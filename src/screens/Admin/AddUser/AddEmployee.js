@@ -82,7 +82,7 @@ export default function AddEmployee() {
       setCurrentPage(resp?.data?.users?.current_page);
       setUserRecord(resp?.data?.users?.data);
     }
-    console.log("users",resp);
+  
     setIsLoading(false);
   };
 
@@ -123,7 +123,7 @@ export default function AddEmployee() {
     setIsLoading(true);
 
     let resp = await GET(ApiUrls.GET_ALL_USER);
-console.log(resp,"+++++++++++++++++++++");
+
     //  ;
     //  ;
     if (resp.data != null) {
@@ -265,7 +265,7 @@ console.log(resp,"+++++++++++++++++++++");
       };
       let resp = await POST(ApiUrls.EDIT_USER, formData);
       // ;
-      console.log("edit-----------",resp,formData);
+      
       try {
         if (resp.error == false) {
           setMessage(resp.success);
@@ -507,7 +507,7 @@ console.log(resp,"+++++++++++++++++++++");
       event.preventDefault();
 
       let resp = await GET(ApiUrls.BLOCK_USER + item.id + "/" + isBlocked);
-      console.log(resp);
+      
       // ;
       if (resp.error == false) {
         setMessage("User Blocked Successfully");
@@ -594,7 +594,7 @@ console.log(resp,"+++++++++++++++++++++");
         password: password,
         user_type: user_type,
       };
-      console.log(formData);
+    
       let resp = await POST(ApiUrls.CREATE_USER, formData);
       if (resp.error == false) {
         setMessage("User Created Successfully.");
@@ -1060,9 +1060,14 @@ console.log(resp,"+++++++++++++++++++++");
         </Row>
         <Row>
           <Col>
-            <p className="page-info">
-              Showing {currentPage} from {pageCount}
-            </p>
+          {pageCount>1?(
+ <p className="page-info">
+ Showing {currentPage} from {pageCount}
+</p>
+          ):null
+         
+          }
+            
           </Col>
           <Col>
             <Pagination

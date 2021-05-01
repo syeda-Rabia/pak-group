@@ -39,7 +39,7 @@ export default function AddCategories() {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_ALL_PROJECT_CATEGORIES);
     // ;
-    console.log(res);
+    // console.log(res);
     if (res?.success != false) {
       setData(res?.data?.ProjectCategory);
     }
@@ -66,7 +66,7 @@ export default function AddCategories() {
         name: category,
       };
       let res = await POST(ApiUrls.CREATE_PROJECT_CATEGORY, postData);
-      console.log("res category", res);
+      // console.log("res category", res);
       if (res.error === false) {
         setMessage("Category Added Successfully");
         setShowSuccessAlert(true);

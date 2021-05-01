@@ -63,7 +63,7 @@ function AdminDashboard() {
   // };
   const getLeadReport = async () => {
     let res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
-    console.log("leads__________>", res);
+    // console.log("leads__________>", res);
 
 
     if (res.error===false) {
@@ -78,7 +78,7 @@ function AdminDashboard() {
   };
   const getEmployeeDetails = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
-    console.log("employessss__________>", res);
+    // console.log("employessss__________>", res);
     // ;
 
     if (res.data != null) {
@@ -87,16 +87,16 @@ function AdminDashboard() {
   };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
-    console.log()
+    // console.log()
     let formData = {
       emp_id: employees,
       from_date:formatDate(Start) ,
       to_date: formatDate(End),
     };
-    console.log("formdata----", formData);
+    // console.log("formdata----", formData);
     let resp = await POST(ApiUrls.POST_LEAD_FILTER, formData);
 
-    console.log("console----", resp);
+    // console.log("console----", resp);
     if (resp?.hasOwnProperty("success")){
       setMessage(resp?.success);
       setShowSuccessAlert(true);
@@ -149,7 +149,7 @@ function AdminDashboard() {
               as="select"
               value={employees}
               onChange={(e) => {
-                console.log("select client ID is -----", e.target.value);
+                // console.log("select client ID is -----", e.target.value);
                 setEmployees(e.target.value);
               }}
             >
