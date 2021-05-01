@@ -289,9 +289,9 @@ onClick={()=>{
             <Tooltip title="Notifications" placement="left">
               {/* <Avatar className={classes.white}> */}
                 <IconButton className={classes.logout}>
-                <Badge variant="dot" color="error" style={{}}>
+                {/* <Badge variant="dot" color="error" style={{}}> */}
                   <NotificationsIcon style={{color:"white"}}/>
-                  </Badge>
+                  {/* </Badge> */}
                 </IconButton>
               {/* </Avatar> */}
             </Tooltip>

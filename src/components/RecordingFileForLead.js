@@ -178,6 +178,25 @@ console.log("----------------------props----------------",props)
                   <b>Created Date :</b>{" "}
                   {item.created_at.toString().split("T")[0]}
                 </span>{" "}
+                <>
+            {isActive() ? (
+              <button
+                type="button"
+                className="bg-transparent  button-focus ml-3 button-bg"
+                onClick={pauseSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="bg-transparent  button-focus ml-3 button-bg"
+                onClick={playSound}
+              >
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
+              </button>
+            )}
+            </>
               </span>
 
               {/* <span className="spn1">
@@ -197,25 +216,7 @@ console.log("----------------------props----------------",props)
           index={item.recordings[0].recording_file}
           /> */}
             {/* </span> */}
-            <>
-            {isActive() ? (
-              <button
-                type="button"
-                className="bg-transparent  button-focus pl-3  pt-0 button-bg"
-                onClick={pauseSound}
-              >
-                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPause} />
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="bg-transparent  button-focus pl-3 pt-0 button-bg"
-                onClick={playSound}
-              >
-                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-              </button>
-            )}
-            </>
+           
           </div>
       
     );

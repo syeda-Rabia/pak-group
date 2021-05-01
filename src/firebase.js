@@ -14,27 +14,47 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
+
 export const getToken = (setTokenFound) => {
-  // console.log('----------amir.------------');
+  // new Promise((resolve, reject) => {
+  //   messaging
+  //     .requestPermission()
+  //     .then(() => messaging.getToken({vapidKey: 'BNZ4erHMpm1Jh74T3r3A_yoWJyhmEAt_3OD_IODToDZMtVLgdefKjFCBchARq16wOuAyPRHCVZ50pIQhHRMZHf4'}))
+  //     .then((firebaseToken) => {
+  //       resolve(firebaseToken);
+  //       setTokenFound(true);
+  //       localStorage.setItem("firebaseToken",firebaseToken);
+  //     })
+  //     .catch((err) => {
+  //       reject(err);
+  //       setTokenFound(false);
+  //     });
+  // });
+   console.log('----------amir.------------');
   return messaging.getToken({vapidKey: 'BNZ4erHMpm1Jh74T3r3A_yoWJyhmEAt_3OD_IODToDZMtVLgdefKjFCBchARq16wOuAyPRHCVZ50pIQhHRMZHf4'}).then((currentToken) => {
     if (currentToken) {
       console.log('current token for client: ', currentToken);
-      setTokenFound(true);
+     setTokenFound(true);
     
-      localStorage.setItem("firebaseToken",currentToken);
-      // Track the token -> client mapping, by sending to backend server
-      // show on the UI that permission is secured
-    } else {
+    localStorage.setItem("firebaseToken",currentToken);
+     // Track the token -> client mapping, by sending to backend server
+     // show on the UI that permission is secured
+   } else {
       
-      console.log('No registration token available. Request permission to generate one.');
-      setTokenFound(false);
-      // shows on the UI that permission is required 
-    }
-  }).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-    // catch error while creating client token
-  });
+   console.log('No registration token available. Request permission to generate one.');
+
+     setTokenFound(false);
+    //  Notification.requestPermission();
+    
+   }
+   }).catch((err) => {
+   console.log('An error occurred while retrieving token. ');
+   Notification.requestPermission();
+  // catch error while creating client token
+   });
 }
+
+
 
 export const onMessageListener = () =>
   new Promise((resolve) => {

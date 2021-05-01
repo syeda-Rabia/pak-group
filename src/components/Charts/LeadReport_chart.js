@@ -19,7 +19,7 @@ export default function LeadReport_chart(props)  {
   }
   useEffect(() => {
     handleFetchData()
-  }, [props.data]);
+  }, [props?.data]);
 
   return (
     <div className="barchart">
@@ -34,7 +34,7 @@ export default function LeadReport_chart(props)  {
             'call',
             'sms',
             'visit',
-            'closed',
+           
            
           ],
   

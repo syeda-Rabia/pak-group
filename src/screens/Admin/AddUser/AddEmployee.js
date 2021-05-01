@@ -20,7 +20,7 @@ import { server_url, token } from "../../../utils/Config";
 import ApiUrls from "../../../utils/ApiUrls";
 import { GET, POST } from "../../../utils/Functions";
 
-import { validateEmail } from "../../../utils/Validation";
+import { validateEmail,validateLength } from "../../../utils/Validation";
 // import GetRecordFromServer from "../../../utils/Functions";
 import {
   Backdrop,
@@ -578,7 +578,7 @@ console.log(resp,"+++++++++++++++++++++");
     const [phone_no, setPhone_no] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-
+    const [passwordError, setPasswordError] = useState(false);
     const handleClickShowPassword = () => {
       setShowPassword(!showPassword);
     };
@@ -765,12 +765,19 @@ console.log(resp,"+++++++++++++++++++++");
                     </InputAdornment>
                   }
                   onChange={(e) => {
+                    if (validateLength(e.target.value, 8)) {
+                      setPasswordError(false);
+                    } else {
+                      setPasswordError(true);
+                    }
                     setPassword(e.target.value);
                   }}
                 />
-                <small class="form-text text-muted">
+                {passwordError? <small  class="form-text  text-red"
+                        style={{ color: "red" }}>
                   Your password must be 8 characters long
-                </small>
+                </small>:null}
+               
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -782,9 +789,17 @@ console.log(resp,"+++++++++++++++++++++");
               >
                 Close
               </Button>
-              <Button style={{ backgroundColor: "#2258BF" }} type="submit" disabled={emailError}>
+              {emailError||passwordError?(
+              <Button style={{ backgroundColor: "#2258BF" }} type="submit" 
+             
+              disabled>
                 Submit
-              </Button>
+              </Button>): <Button style={{ backgroundColor: "#2258BF" }} type="submit" 
+             
+             >
+               Submit
+             </Button>
+   } 
             </Modal.Footer>
           </div>
         </form>
@@ -987,13 +1002,13 @@ console.log(resp,"+++++++++++++++++++++");
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
                       ID
                     </th>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
                       First Name
                     </th>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
                       Last Name
                     </th>
                     <th scope="col" style={{ color: "#818181" }}>

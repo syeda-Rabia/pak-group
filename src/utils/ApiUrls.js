@@ -7,6 +7,8 @@ const ApiUrls = {
 //dashboard
 GET_LEAD_REPORT_DATA:"admin/dashboard/leads_report",
 POST_LEAD_FILTER:"admin/dashboard/filterLeadsReport",
+GET_EMPLOYEE_LEAD_REPORT:"employee/dashboard/leads_report",
+GET_EMPLOYEE_LEAD_REPORT_DATA:"admin/dashboard/user_report?page=",
   // USERS
   CREATE_USER: "admin/employee/add",
   EDIT_USER: "admin/employee/edit",

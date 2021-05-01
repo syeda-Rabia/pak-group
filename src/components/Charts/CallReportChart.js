@@ -31,7 +31,7 @@ export default function CallReportChart(props) {
 
           datasets: [
             {
-              label: "Quarterly Lead performance",
+              label: "Call Report",
               data: [...state?.chartData, 0],
               backgroundColor: ["#2B5989", "#7D418A"],
             },

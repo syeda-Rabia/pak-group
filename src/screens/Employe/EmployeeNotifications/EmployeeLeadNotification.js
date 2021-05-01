@@ -1027,16 +1027,12 @@ function EmployeeLeadsNotification(props, lead_id) {
   return (
     <Container fluid className="Laa">
       {/* <PreLoading startLoading={isLoading} /> */}
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        <Col lg={10} sm={10} xs={10} xl={11}>
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1 ">
+        <Col lg={12} sm={12} xs={12} xl={12}>
           <h3 style={{ color: "#818181" }}>Notification on lead</h3>
         </Col>
 
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <EmployeeMobileViewSidebar />
-          </div>
-        </Col>
+      
       </Row>
 
       <PreLoading startLoading={isLoading} />
@@ -1052,7 +1048,7 @@ function EmployeeLeadsNotification(props, lead_id) {
         closeError={setShowErrorAlert}
       />
 
-      <Row className="col-lg-12 shadow p-3  bg-white rounded ">
+      <Row className=" shadow p-3  bg-white rounded ml-1 mr-1">
         <div className="table-responsive  col-md-6 col-sm-12" ref={ref}>
           {data?.length > 0 ? (
             data?.map((lead, index) => (

@@ -79,7 +79,8 @@ const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
         position: "fixed",
         top: 100 +index*100,
         right: 20,
-        minWidth: 300,
+        minWidth: 350,
+        minHeight:80,
       }}
     >
       <Link exact={true} to={{ pathname:obj.screen , data:obj.data}}>
@@ -109,10 +110,10 @@ const NotificationToast = ({url}) => {
     .then((payload) => {
 
     
-      console.log("payload_____----------------------->",payload.data["gcm.notification.notification_body"]);
+      // console.log("payload_____----------------------->",payload.data["gcm.notification.notification_body"]);
       let receivedData=Object.entries(payload.data)
-      console.log(receivedData)
-      console.log("payload json parse_____----------------------->",JSON.parse(payload.data["gcm.notification.notification_body"]));
+      // console.log(receivedData)
+      // console.log("payload json parse_____----------------------->",JSON.parse(payload.data["gcm.notification.notification_body"]));
       let keys=["gcm.notification.notification_body","gcm.notification.notification_title","gcm.notification.screen"];
 
       let data=JSON.parse(payload.data["gcm.notification.notification_body"]);
@@ -137,7 +138,7 @@ const NotificationToast = ({url}) => {
       ]);
     })
     .catch((err) => console.log("failed: ", err));
-  console.log("notifications -------------->", notificationData);
+  // console.log("notifications -------------->", notificationData);
   //firebase end
 //  setInterval(() => {
 //     setNotificationData((state) =>{
@@ -156,32 +157,7 @@ const NotificationToast = ({url}) => {
 
       {notificationData.map((obj, index) => (
         <ToastComponent {...{ index,obj,setNotificationData,url }} />
-        //   <Toast
-        //   onClose={() => setShow(false)}
-        //   // onClick={()=>}
-        //   show={show}
-        //   delay={8000}
-        //   type="info"
-        //   autohide
-        //   animation
-        //   style={{
-        //     position: "fixed",
-        //     top: 100,
-        //     right: 20,
-        //     minWidth: 300,
-        //   }}
-        // >
-
-        //      <Toast.Header  style={{backgroundColor:"#2258bf",color:"white"}}>
-
-        //      <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-        //      <strong className="mr-auto">{obj.title}</strong>
-        //      <small>just now</small>
-        //    </Toast.Header>
-
-        //    <Toast.Body>{obj.body}</Toast.Body>
-
-        // </Toast>
+       
       ))}
     </div>
     </>
@@ -484,7 +460,7 @@ const mapStateToProps = (state) => {
 
   //  ;
 
-  // console.log("auths is --------", state.auth);
+  // console.log("auths is --------", state.auth.user_info.id);
 
   return {
     user: state.auth,

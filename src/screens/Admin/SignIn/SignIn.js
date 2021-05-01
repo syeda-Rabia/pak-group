@@ -39,6 +39,7 @@ const SignIn = (props) => {
   const [errorResponce, setErrorResponce] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
+  const [IsChecked, setIsChecked] = useState(false);
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -57,6 +58,14 @@ const SignIn = (props) => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  // useEffect(() => {
+  //   var emailvalue = localStorage.getItem("rememberEmail");
+  //   if (emailvalue !== "") {
+  //     setEmail(emailvalue);
+  //   } else {
+  //     setEmail("");
+  //   }
+  // }, []);
 
   const handleClose = () => {
     setShowAlert(false);
@@ -64,59 +73,68 @@ const SignIn = (props) => {
   const handleClickAway = () => {
     setEmailError(null);
   };
+  const handleChange = (e) => {
+    const checked = e.target.checked;
 
+    setIsChecked(checked);
+  };
+
+
+  
   const SignInFun = async (event) => {
     // loding dstasrt
     event.preventDefault();
     setIsLoading(true);
 
     let url = "login";
-    var firebaseToken= await localStorage.getItem("firebaseToken");
+    var firebaseToken = await localStorage.getItem("firebaseToken");
     let formData = {
       email: email,
       password: password,
-      device_token:firebaseToken,
-
+      device_token: firebaseToken,
     };
 
     let resp = await POST(url, formData);
     console.log(resp);
 
     if (resp?.data != null) {
+      if (IsChecked == true) localStorage.setItem("rememberEmail", email);
       let { user, Access_token } = resp?.data;
       props.OnLoginSuccess(user, Access_token);
     } else {
       try {
         if (resp?.error.hasOwnProperty("email")) {
           setErrorResponce(resp?.error?.email[0]);
-        } else if (resp?.error.hasOwnProperty("password")) {
+        } else if (resp?.error?.hasOwnProperty("password")) {
           setErrorResponce(resp?.error?.password[0]);
-        }
-        else  if (resp?.error?.hasOwnProperty("message")) {
+        } else if (resp?.error?.hasOwnProperty("device_token")) {
+      // alert("Notification permission is required")
+          setErrorResponce("Notification permission is required");
+        } else if (resp?.hasOwnProperty("error")) {
           console.log("message");
-          setErrorResponce(resp?.error?.message[0]);
+          setErrorResponce(resp?.error);
           setShowAlert(true);
           setIsLoading(false);
         }
-         else {
-           if(typeof resp.error=="object")
-           { 
-             var err=Object.values(resp.error).map((item)=>item)
-             err.push(firebaseToken)
-           }
-          setErrorResponce(err.join(", "));
+        //  else {
+        //    if(typeof resp.error=="object")
+        //    {
+        //      var err=Object.values(resp.error).map((item)=>item)
+        //      err.push(firebaseToken)
+        //    }
+        //   setErrorResponce(err.join(", "));
 
-        }
+        // }
         setShowAlert(true);
         setIsLoading(false);
-      } catch { 
-      //   if (resp.error.hasOwnProperty("message")) {
-      //   console.log("message");
-      //   setErrorResponce(resp.error.message[0]);
-      //   setShowAlert(true);
-      //   setIsLoading(false);
-      // }
-    }
+      } catch {
+        //   if (resp.error.hasOwnProperty("message")) {
+        //   console.log("message");
+        //   setErrorResponce(resp.error.message[0]);
+        //   setShowAlert(true);
+        //   setIsLoading(false);
+        // }
+      }
     }
 
     // lodimg false
@@ -221,6 +239,7 @@ const SignIn = (props) => {
                     // fullWidth={true}
                     placeholder="Enter Email"
                     type="email"
+                    Id="email"
                     value={email}
                     endAdornment={
                       <InputAdornment position="end">
@@ -284,7 +303,7 @@ const SignIn = (props) => {
                     }
                   />
                 </div>
-                <div
+                {/* <div
                   className="flx"
                   style={{
                     // backgroundColor: "red",
@@ -314,6 +333,7 @@ const SignIn = (props) => {
                       type="checkbox"
                       className="custom-control-input"
                       id="customCheck1"
+                      onChange={handleChange}
                     />
                     <label
                       className="custom-control-label"
@@ -350,7 +370,7 @@ const SignIn = (props) => {
                       </a>
                     </p>
                   </div>
-                </div>
+                </div> */}
                 {/* <Link to="/admin/dashboard" style={{ color: "white" }}> */}
                 <div
                   className="form-group"
@@ -360,7 +380,7 @@ const SignIn = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <button type="submit" className="btn btn-primary button1">
+                  <button  type="submit" className="btn btn-primary button1">
                     Login
                   </button>
                 </div>
@@ -368,7 +388,7 @@ const SignIn = (props) => {
             </form>
           </div>
         </div>
-      </div> 
+      </div>
       <div>
         <Footer />
       </div>

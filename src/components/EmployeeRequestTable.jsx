@@ -108,11 +108,15 @@ function EmployeeInventory() {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    <th scope="col" >
+                    <span id="spn" style={{ color: "#818181" }}>
                       ID
+                      </span>
                     </th>
-                    <th scope="col" style={{ color: "#818181" }}>
+                    <th scope="col" >
+                    <span id="spn" style={{ color: "#818181" }}>
                       Name
+                      </span>
                     </th>
                     {/* <th scope="col" style={{ color: "#818181" }}>
                       Last_Name
@@ -120,8 +124,10 @@ function EmployeeInventory() {
                     {/* <th scope="col" style={{ color: "#818181" }}>
                       Type of Unit
                     </th> */}
-                    <th scope="col" style={{ color: "#818181" }}>
+                   <th scope="col" >
+                    <span id="spn" style={{ color: "#818181" }}>
                       Message
+                      </span>
                     </th>
 
                     {/* <th scope="col" style={{ color: "#818181" }}>

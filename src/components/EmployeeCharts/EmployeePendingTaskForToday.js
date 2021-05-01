@@ -4,7 +4,7 @@ import { Bar } from "react-chartjs-2";
 import ApiUrls from "./../../utils/ApiUrls";
 import { GET } from "./../../utils/Functions";
 
-export default function PendingTaskForToday(props) {
+export default function EmployeePendingTaskForToday(props) {
   const [state, setState] = useState({
     chartData: [],
   });

@@ -124,13 +124,13 @@ ids:inventoryId,
   };
   return (
     <Container fluid className="Laa">
-      {isLoading == true ? (
+      {/* {isLoading == true ? (
         <>
           <Backdrop className={classes.backdrop} open={true}>
             <CircularProgress disableShrink />
           </Backdrop>
         </>
-      ) : null}
+      ) : null} */}
 
       <SuccessNotification
         showSuccess={showSuccessAlert}

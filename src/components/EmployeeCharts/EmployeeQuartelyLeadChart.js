@@ -1,90 +1,65 @@
-import React, { Component } from "react";
-import { Bar, Line, Pie } from "react-chartjs-2";
 
-class EmployeeQuartelyLeadChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chartData: {
-        labels: [
-          // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
-          "0",
-          "10",
-          "20",
-          "30",
-          "40",
-          "50",
-          "60",
-          "70",
-          "80",
-          "90",
-          "100",
-          "110",
-          "120",
-          "130",
-          "140",
-          "150",
-        ],
+import { containerSizesSelector } from '@material-ui/data-grid';
+import React, { Component, useState, useEffect  } from 'react';
+import { Bar} from 'react-chartjs-2';
+import ApiUrls from "./../../utils/ApiUrls";
+import { GET } from "./../../utils/Functions";
 
-        datasets: [
-          {
-            label: "Leads Assign",
-            data: [
-              0,
-              20,
-              40,
-              60,
-              40,
-              80,
-              60,
-              70,
-              60,
-              40,
-              70,
-              100,
-              40,
-              60,
-              80,
-              40,
-              60,
-              40,
-              20,
-            ],
-            backgroundColor: [
-              "",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-              "#B80E4E",
-              "#7182A2",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-              "#544CF9",
-              "#7182A2",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-            ],
-          },
-        ],
-      },
-    };
+
+export default function QuarterlyLead_chart(props)  {
+
+  const [state, setState] =useState({
+    chartData: [],
+  })
+ 
+
+ const  handleFetchData=async ()=>{
+  
+   let setData=Object?.values(props?.TaskReport)?.map((item)=>item.Leads)
+   setState({chartData:setData})
   }
-  render() {
-    return (
-      <div className="barchart">
-        <Bar
-          data={this.state.chartData}
-          width={100}
-          height={300}
-          options={{ maintainAspectRatio: false }}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    handleFetchData()
+  }, [props.TaskReport]);
+
+  return (
+    <div className="barchart">
+      <Bar
+
+        data={{
+          labels: [
+            // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
+            'task 1','task 2','task 3','task 4','task 5','task 6','task 7+'
+           
+          ],
+  
+          datasets: [
+            {
+              label: 'Quarterly Action Summary',
+              data:[...state?.chartData,0],
+              backgroundColor: [
+               
+                "#2B5989",
+                  "#7D418A",
+                  "#5CAC77",
+                  "#B80E4E",
+                  "#7182A2",
+                  "#D3AF40",
+                  "#2B5989",
+              
+              ],
+            },
+          ],
+        }}
+        width={100}
+        height={300}
+        options={{ maintainAspectRatio: false,  scales: {
+          xAxes: [{
+              maxBarThickness: 50,
+          }]
+      } }}
+      />
+    </div>
+  );
+  
 }
-export default EmployeeQuartelyLeadChart;

@@ -1,90 +1,69 @@
-import React, { Component } from "react";
-import { Bar, Line, Pie } from "react-chartjs-2";
+import { containerSizesSelector } from '@material-ui/data-grid';
+import React, { Component, useState, useEffect  } from 'react';
+import { Bar} from 'react-chartjs-2';
+import ApiUrls from "./../../utils/ApiUrls";
+import { GET } from "./../../utils/Functions";
 
-class EmployeeLeadReportChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chartData: {
-        labels: [
-          // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
-          "0",
-          "10",
-          "20",
-          "30",
-          "40",
-          "50",
-          "60",
-          "70",
-          "80",
-          "90",
-          "100",
-          "110",
-          "120",
-          "130",
-          "140",
-          "150",
-        ],
 
-        datasets: [
-          {
-            label: "Leads Assign",
-            data: [
-              0,
-              20,
-              40,
-              60,
-              40,
-              80,
-              60,
-              70,
-              60,
-              40,
-              70,
-              100,
-              40,
-              60,
-              80,
-              40,
-              60,
-              40,
-              20,
-            ],
-            backgroundColor: [
-              "",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-              "#B80E4E",
-              "#7182A2",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-              "#544CF9",
-              "#7182A2",
-              "#D3AF40",
-              "#2B5989",
-              "#7D418A",
-              "#5CAC77",
-            ],
-          },
-        ],
-      },
-    };
+export default function EmployeeLeadReportChart(props)  {
+
+  const [state, setState] =useState({
+    chartData: [],
+  })
+ 
+
+ const  handleFetchData=async ()=>{
+  
+   let setData=Object?.values(props?.data)?.map(item=>item)
+   setState({chartData:setData})
   }
-  render() {
-    return (
-      <div className="barchart">
-        <Bar
-          data={this.state.chartData}
-          width={100}
-          height={300}
-          options={{ maintainAspectRatio: false }}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    handleFetchData()
+  }, [props?.data]);
+
+  return (
+    <div className="barchart">
+      <Bar
+
+        data={{
+          labels: [
+            // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
+           
+            'Lead Assigned',
+            'total leads worked',
+            'call',
+            'sms',
+            'visit',
+           
+           
+          ],
+  
+          datasets: [
+            {
+              label: 'Leads Assign',
+              data:[...state?.chartData,0],
+              backgroundColor: [
+               
+                '#D3AF40',
+                '#2B5989',
+                '#7D418A',
+                '#5CAC77',
+                '#B80E4E',
+                '#7182A2',
+              
+              ],
+            },
+          ],
+        }}
+        width={100}
+        height={300}
+        options={{ maintainAspectRatio: false,  scales: {
+          xAxes: [{
+              maxBarThickness: 50,
+          }]
+      } }}
+      />
+    </div>
+  );
+  
 }
-export default EmployeeLeadReportChart;

@@ -196,16 +196,22 @@ export default function AddPolicies() {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    ID
-                  </th>
+                <th scope="col" >
+                <span id="sn" style={{ color: "#818181" }}>
+                  ID
+                  </span>
+                </th>
 
-                  <th scope="col" style={{ color: "#818181" }}>
-                Title
-                  </th>
-                  <th scope="col" style={{ color: "#818181" }}>
-                    Actions
-                  </th>
+                <th scope="col" >
+                <span id="sn" style={{ color: "#818181" }}>
+                  Title
+                  </span>
+                </th>
+                <th scope="col" >
+                <span id="sn" style={{ color: "#818181" }}>
+                  Action
+                  </span>
+                </th>
                 </tr>
               </thead>
               <tbody>

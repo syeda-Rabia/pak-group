@@ -2,7 +2,7 @@ import zIndex from "@material-ui/core/styles/zIndex";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { Container, Form, Row, Col } from "react-bootstrap";
  function DatePick({setDays}) {
   const [startDate, setStartDate] = useState("");
   const months=['JAN','FEB','MAR','APR',"MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
@@ -82,37 +82,44 @@ export function DayPicking({ value,setStart, setEnd }) {
   // };
   return (
     <>
-    <div className="row">
-    <div className="col-md-6 col-sm=12">
-      <h6>Start Date</h6>
+    <Row >
+    <Col className="col-md-6 col-sm=12">
+      <h6 style={{ color: "#818181", }}>Start Date</h6>
+      
     <DatePicker
-     className="form-control w-100 "
+     className="form-control w-100 bg-white"
+     
         selected={startDate}
         onChange={(date) => {setStartDate(date)
-    
+          // let start=date.toString().split(" ")[1];
           setStart(date)
         
         }}
         selectsStart
         startDate={startDate}
         endDate={endDate}
+        format="yyyy/MM/dd"
       />
-    </div>
-    <div className="col-md-6 col-sm=12" style={{float: "right" ,border:"none" ,paddingLeft:"5px"}} >
-    <h6>End date</h6>
+    </Col>
+    <Col className="col-md-6 col-sm=12" style={{float: "right" ,border:"none" ,paddingLeft:"5px"}} >
+    <h6 style={{ color: "#818181" }}>End date</h6>
     <DatePicker
-    className="form-control w-100 "
+    className="form-control w-100 bg-white"
         selected={endDate}
         onChange={(date) => {setEndDate(date)
+          // let end=date.toString().split(" ")[1];
           setEnd(date)
         }}
         selectsEnd
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
+        format="yyyy/MM/dd"
+        popperPlacement="bottom mr-2"
       />
-    </div>
-    </div>
+      
+    </Col>
+    </Row>
    
       
       </>

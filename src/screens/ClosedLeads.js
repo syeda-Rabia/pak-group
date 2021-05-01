@@ -595,15 +595,8 @@ export default function LeadsAdmin() {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Closed Leads</h3>
-        </Col>
 
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <LeadsMobileViewSidebar />
-          </div>
-        </Col>
+        <h3 style={{ color: "#818181" }}>Closed Leads</h3>
       </Row>
 
       <PreLoading startLoading={isLoading} />
