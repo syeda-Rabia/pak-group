@@ -25,6 +25,7 @@ import LeadNotification from "./screens/Admin/AdminNotifications/LeadsNotificati
 import Recordingnotification from "./screens/Admin/AdminNotifications/RecordingNotification";
 import InventoryRequestNotification from "./screens/Admin/AdminNotifications/InventoryRequestNotification";
 import EmployeeLeadNotification from "./screens/Employe/EmployeeNotifications/EmployeeLeadNotification";
+import ClosedLeadNotification from "./screens/Employe/EmployeeNotifications/ClosedLeadNotification";
 import InventoryNotification from "./screens/Employe/EmployeeNotifications/InventoryNotifications";
 import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
 import AdminAddNewInventoryScreen from "./screens/Admin/Views/AdminAddNewInventoryScreen";
@@ -48,6 +49,7 @@ import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetails
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
 import EmployeeInventoryDetails from "./screens/Employe/EmployeeInventory/EmployeeInventoryDetails";
+import ResetPassword from "./screens/ForgetPassword/ResetPassword";
 // import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
 import Test from "./screens/Test";
@@ -330,6 +332,7 @@ const NewApp = (props) => {
         <Route path="/test">
           <Test />
         </Route>
+        
       <NotificationToast url="/admin/leads" />
         
       </React.Fragment>
@@ -407,6 +410,15 @@ const NewApp = (props) => {
             </>
           )}
         />
+         <Route
+          exact
+          path="/employee/leads/closedlead"
+          render={(props) => (
+            <>
+              <ClosedLeadNotification {...props} />
+            </>
+          )}
+        />
         {/* <Route path="/employee/leads/notifications">
           <EmployeeLeadNotification />
         </Route> */}
@@ -432,6 +444,9 @@ const NewApp = (props) => {
       {" "}
       <Router>
         <Switch>
+        <Route exact path="/resetpassword">
+            <ResetPassword/>
+          </Route>
           {props.user.logged != false && props.user.token != null ? (
             parseInt(props.user.user_info.user_type) === 1 ? (
               <AdminRoute />
@@ -439,10 +454,16 @@ const NewApp = (props) => {
               <EmployeeRoute />
             )
           ) : (
+            <>
             <Route exact path="/">
               <SignIn setUser={setUserType} />
             </Route>
+           
+           
+          </>
           )}
+         
+          <Redirect from={"*"} to="/"/>
         </Switch>
       </Router>
       {/* <NotificationToast /> */}

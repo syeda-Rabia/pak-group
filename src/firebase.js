@@ -1,5 +1,20 @@
 import firebase from 'firebase/app';
 import 'firebase/messaging';
+const { detect } = require('detect-browser');
+const browser = detect();
+switch (browser && browser.name) {
+  case 'chrome':
+  case 'firefox':
+    console.log('supported');
+    break;
+ 
+  case 'microsoft edge':
+    console.log('kinda ok');
+    break;
+ 
+  default:
+    console.log('not supported');
+}
 
 var firebaseConfig = {
   apiKey: "AIzaSyDiHlhkSodmEoawqMpBuh0kt3YVnHW0f4M",
@@ -11,8 +26,19 @@ var firebaseConfig = {
   measurementId: "G-YXYMRJE37M"
 };
 
-firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging();
+let messaging = null
+
+if (firebase.messaging.isSupported()) {
+  firebase.initializeApp(firebaseConfig);
+  messaging = firebase.messaging()
+} else {
+  console.log('no-support :(')
+}
+// firebase.initializeApp(firebaseConfig);
+// if (firebase.messaging.isSupported())
+//     const messaging = firebase.messaging();
+
+// const messaging = firebase.messaging();
 
 
 export const getToken = (setTokenFound) => {

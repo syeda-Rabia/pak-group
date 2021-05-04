@@ -4,6 +4,9 @@ const ApiUrls = {
   // AUTHENTICATION
   LOGIN: "/login",
   LOGOUT: "logout",
+  //forgot password
+  POST_PASSWORD_RESET_EMAIL:"password/email",
+  POST_UPDATE_PASSWORD:"update_password",
 //dashboard
 GET_LEAD_REPORT_DATA:"admin/dashboard/leads_report",
 POST_LEAD_FILTER:"admin/dashboard/filterLeadsReport",
@@ -54,6 +57,7 @@ GET_EMPLOYEE_LEAD_REPORT_DATA:"admin/dashboard/user_report?page=",
   GET_ALL_LEADS: "admin/lead/all",
   GET_USER_LEADS: "employee/lead/all",
   GET_USER_LEADS_PAGINATION:"employee/lead/all?page=",
+  GET_TO_DO_LEADS_PAGINATION:"employee/lead/getToDoLeads",
   EMPLOYEE_ACTION: "employee/lead/edit",
   GET_EMPLOYEE_LEAD_ACTION:"admin/empAction/lead",
   GET_ALL_CLOSED_LEADS:"admin/lead/close",
@@ -81,6 +85,7 @@ GET_EMPLOYEE_LEAD_FILTER_DATA:"employee/lead/filter",
 //notifications 
 GET_EMPLOYEE_NOTIFICATIONS:"employee/notifications/all",
 GET_EMPLOYEE_NOTIFICATION_ON_LEAD:"employee/adminAction/showLead",
+POST_CLOSED_LEAD_NOTIFICATION:"employee/adminAction/closedlead",
 GET_ADMIN_NITIFICATIONS:"admin/notifications/all",
 GET_ADMIN_NOTIFICATION_ON_LEAD:"admin/empAction/showLead",
 GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION:"admin/inventoryRequest/getRequest",

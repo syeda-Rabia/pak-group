@@ -8,7 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {
   faEye,
   faPencilAlt,
-  faTrash,
+  faTrash, 
   faPlusSquare,
   faPlay,
   faPause,
@@ -255,7 +255,7 @@ const history = useHistory();
     setRecordings([]);
     let res = await GET(props.searchData.url);
     setFilterUrl(props?.searchData?.url);
-    // console.log("-----", res);
+    console.log("--filter---", res);
     if (res?.success != false) {
      
       setAllLeads(res?.data?.leads?.data);

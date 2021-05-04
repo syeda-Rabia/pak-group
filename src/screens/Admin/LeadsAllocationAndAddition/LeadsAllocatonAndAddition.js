@@ -42,10 +42,15 @@ export default function LeadsAllocatonAndAddition(props) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState();
+  const [updatedModalEmployee, setUpdatedModalEmployee] = useState();
+  const [updateModalDate, setUpdateModalDate] = React.useState("");
+
   const [showReset, setshowReset] = useState(false);
   const [showModalCTA, setShowModalCTA] = React.useState(false);
   const [filterurl, setFilterUrl] = React.useState("");
+  const [showModalUpdate, setShowModalUpdate] = React.useState(false);
 
+  const [selectedID, setSelectedID] = useState(0);
   var today = new Date();
   var datee = formatDate(today, "-");
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
@@ -158,8 +163,8 @@ export default function LeadsAllocatonAndAddition(props) {
   const ModalCTA = () => {
    
     const [message, setMessage] = useState("");
-    const [time, setTime] = useState(timee);
-    const [date, setDate] = useState(today);
+    // const [time, setTime] = useState(timee);
+    // const [date, setDate] = useState(today);
     const [checked, setChecked] = React.useState({ index: 0 });
 
    
@@ -349,13 +354,120 @@ export default function LeadsAllocatonAndAddition(props) {
       setEmployeesToAllocateLeads(resp?.data?.users);
     }
   };
+  const ModalUpdate = ({item}) => {
+   
+    const [message, setMessage] = useState("");
+    
+    const [checked, setChecked] = React.useState({ index: 0 });
+
+    const handlePostUpdate = async (event,view=0) => {
+      setIsLoading(true);
+
+     let formData={
+      dead_line: updateModalDate,
+      allocated_to: updatedModalEmployee,
+      lead_id: item.id,
+      task: item.project.category.name,
+      isView:view,
+     }
+      let resp = await POST(ApiUrls.UPDATE_LEAD_TO_USER, {
+        // time_to_call: time,
+        dead_line: updateModalDate,
+        allocated_to: updatedModalEmployee,
+        lead_id: item.id,
+        task: item.project.category.name,
+        isView:view,
+      });
+      console.log("error message", resp);
+      console.log(formData);
+      setRefresh(!refresh);
+      setIsLoading(false);
+
+      if (resp.error === false) {
+        setMessage("LEAD Allocated SUCCESSFULLY");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
+      // console.log("error message", resp);
+    };
+
+  
+    const showText = [
+      "Show current Employee previous actions",
+      "Don't show current Employee previous actions",
+    ];
+  
+   
+   
+    const handleChecked = (event, id) => {
+      setChecked({ index: id });
+    };
+    // if (options.title === optionsArray[0].title)
+    //
+    return (
+      <Modal
+        show={showModalUpdate}
+        onHide={() => {
+          setShowModalUpdate(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Shift and Warn</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form >
+            <p>
+              Do you really want to shift this lead 
+            </p>
+            {showText.map((item, index) => {
+              return (
+                <div key={index}>
+                  <Checkbox
+                    checked={checked.index === index}
+                    color="primary"
+                    onChange={(e) => {
+                      handleChecked(e, index);
+                    }}
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                  />
+                  {item}
+                </div>
+              );
+            })}
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={() => {
+              setShowModalUpdate(false);
+            }}
+          >
+            Close
+          </Button>
+          <Button
+            // style={{ backgroundColor: "#2258BF" }}
+            onClick={(e) => {
+              // SendShitLeadToServer(e);
+              handlePostUpdate(e,checked.index)
+              setShowModalUpdate(false);
+            }}
+          >
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
 
   const LeadsAllocationAndAdditionTable = ({ item, index, leads }) => {
     const [time, setTime] = useState(timee);
     const [date, setDate] = useState(datee);
 
     const [selectedEmployee, setSelectedEmployee] = useState();
-
+   
     const handlePostUpdate = async (event,view=0) => {
       setIsLoading(true);
 
@@ -387,7 +499,7 @@ export default function LeadsAllocatonAndAddition(props) {
         allocated_to: selectedEmployee,
         lead_id: item.id,
         task: item.project.category.name,
-        isView:true,
+        isView:view,
       });
       // console.log("error message", resp);
       setRefresh(!refresh);
@@ -548,14 +660,25 @@ export default function LeadsAllocatonAndAddition(props) {
             style={{
               backgroundColor: "#2258BF",
             }}
-            
-            onClick={(e) => handlePostUpdate(e)}
+            onClick={(e)=>{
+              if(item.status == "New")
+              handlePostUpdate(e)
+              else 
+                setShowModalUpdate(true);
+                setSelectedID(index);
+                setUpdatedModalEmployee(selectedEmployee)
+                setUpdateModalDate(date)
+            }}
+            // onClick={(e) => handlePostUpdate(e)}
             
           >
             Update
           </button>
+
         </td>
+      
       </tr>
+      
     );
   };
   const MultiLeadAssign = async (event) => {
@@ -601,7 +724,7 @@ export default function LeadsAllocatonAndAddition(props) {
     // console.log(postData);
 
     let res = await POST(ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION, postData);
-    // console.log("accepted", res);
+    console.log("accepted", res);
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
@@ -941,6 +1064,13 @@ export default function LeadsAllocatonAndAddition(props) {
             </div>
           </div>
           {showModalCTA ? <ModalCTA /> : null}
+          {AllleadsToAllocate.length > 0 ? (
+                <>
+                  
+                  <ModalUpdate item={AllleadsToAllocate[selectedID]} />
+                </>
+              ) : null}
+         
           <Col>
           {IsFilter==false?(
           pageCount>1?( <p className="page-info">

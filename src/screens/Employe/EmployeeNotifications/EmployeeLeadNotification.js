@@ -130,6 +130,11 @@ function EmployeeLeadsNotification(props, lead_id) {
 
   const leadID = props?.location?.data?.data;
   const ActionId = props?.location?.data?.adminAction;
+
+  var closed=localStorage.getItem("data");
+  let data1=JSON.parse(closed);
+  console.log("-local---",data1)
+
   const handleFetchData = async () => {
     setIsLoading(true);
     let formData = {

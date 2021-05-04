@@ -40,6 +40,7 @@ const SignIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [IsChecked, setIsChecked] = useState(false);
+  const [checked, setChecked] = useState(false)
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -58,15 +59,34 @@ const SignIn = (props) => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  useEffect(() => {
+    var emailvalue = localStorage.getItem("rememberEmail");
+    if (emailvalue !== "") {
+      setEmail(emailvalue);
+      setIsChecked(true)
+    } else {
+      setEmail("");
+      setIsChecked(false)
+    }
+  }, []);
+  useEffect(() => {
+    var passwordvalue = localStorage.getItem("rememberPassword");
+    if (passwordvalue !== "") {
+      setPassword(passwordvalue);
+    } else {
+      setPassword("");
+    }
+  }, []);
   // useEffect(() => {
+  //   var checkedvalue = localStorage.getItem("remembercheck");
   //   var emailvalue = localStorage.getItem("rememberEmail");
-  //   if (emailvalue !== "") {
-  //     setEmail(emailvalue);
+  //   var passwordvalue = localStorage.getItem("rememberPassword");
+  //   if (passwordvalue &&emailvalue!== "") {
+  //     setIsChecked(true);
   //   } else {
-  //     setEmail("");
+  //     setIsChecked(false);
   //   }
   // }, []);
-
   const handleClose = () => {
     setShowAlert(false);
   };
@@ -75,7 +95,6 @@ const SignIn = (props) => {
   };
   const handleChange = (e) => {
     const checked = e.target.checked;
-
     setIsChecked(checked);
   };
 
@@ -98,7 +117,16 @@ const SignIn = (props) => {
     console.log(resp);
 
     if (resp?.data != null) {
-      if (IsChecked == true) localStorage.setItem("rememberEmail", email);
+      
+      if (IsChecked == true){
+        localStorage.setItem("rememberEmail", email);
+        localStorage.setItem("rememberPassword", password);
+    } else{
+      localStorage.removeItem("rememberEmail");
+      localStorage.removeItem("rememberPassword");
+      
+    }
+   
       let { user, Access_token } = resp?.data;
       props.OnLoginSuccess(user, Access_token);
     } else {
@@ -111,7 +139,7 @@ const SignIn = (props) => {
       // alert("Notification permission is required")
           setErrorResponce("Notification permission is required");
         } else if (resp?.hasOwnProperty("error")) {
-          console.log("message");
+          // console.log("message");
           setErrorResponce(resp?.error);
           setShowAlert(true);
           setIsLoading(false);
@@ -303,7 +331,7 @@ const SignIn = (props) => {
                     }
                   />
                 </div>
-                {/* <div
+                <div
                   className="flx"
                   style={{
                     // backgroundColor: "red",
@@ -330,9 +358,12 @@ const SignIn = (props) => {
                       style={{
                         borderRadius: "20px",
                       }}
+                      // defaultChecked={false}
+                      checked={IsChecked}
                       type="checkbox"
                       className="custom-control-input"
                       id="customCheck1"
+                      
                       onChange={handleChange}
                     />
                     <label
@@ -370,7 +401,7 @@ const SignIn = (props) => {
                       </a>
                     </p>
                   </div>
-                </div> */}
+                </div>
                 {/* <Link to="/admin/dashboard" style={{ color: "white" }}> */}
                 <div
                   className="form-group"

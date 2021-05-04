@@ -10,7 +10,7 @@ class Footer extends Component {
   render() {
     return (
       <div>
-        <div className="row ">
+        {/* <div className="row ">
           <div
             className=" col-lg-6 col-sm-12   footer-link text-primary  "
             style={{ fontSize: "16px" }}
@@ -62,9 +62,9 @@ class Footer extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="row">
-          <div className="col-md-6 col-lg-6 mt-0">
+          <div className="col-md-6 col-lg-6 mt-5">
             <p
               className=" text1"
               style={{

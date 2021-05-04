@@ -153,7 +153,7 @@ function EmployeeLeads(props, lead_id) {
     
     */
    setIsLoading(true);
-   let resp = await GET(ApiUrls. GET_USER_LEADS_PAGINATION + page);
+   let resp = await GET(ApiUrls. GET_TO_DO_LEADS_PAGINATION + page);
 
    if (resp?.data != null) {
      setCurrentPage(resp?.data?.leads?.current_page);
@@ -186,7 +186,7 @@ function EmployeeLeads(props, lead_id) {
     
     let res =await GET(filterurl+"&& page="+page);
    
-    if (res.data != null) {
+    if (res?.data != null) {
       setFilterCurrentPage(res?.data?.leads?.current_page);
       setData(res?.data?.leads?.data);
       setfilterPageSize(res?.data?.leads?.per_page);
@@ -207,11 +207,11 @@ function EmployeeLeads(props, lead_id) {
     let res = await GET(ApiUrls.GET_USER_LEADS_PAGINATION );
     console.log("RESPONSE FROM SERVER -------------------------------", res);
     
-    if (res.success != false) {
-      setData(res.data?.leads?.data);
-      setPageSize(res.data?.leads?.per_page);
-      setTotalRecord(res.data?.leads?.total);
-      setCurrentPage(res.data?.leads?.current_page);
+    if (res?.success != false) {
+      setData(res?.data?.leads?.data);
+      setPageSize(res?.data?.leads?.per_page);
+      setTotalRecord(res?.data?.leads?.total);
+      setCurrentPage(res?.data?.leads?.current_page);
     }
     setIsLoading(false);
   };
@@ -219,18 +219,18 @@ function EmployeeLeads(props, lead_id) {
     handleFetchData();
   }, [refresh]);
   useEffect(() => {
-    if (props.searchData.search == true) setFilterdata();
-  }, [props.searchData.search]);
+    if (props?.searchData?.search == true) setFilterdata();
+  }, [props?.searchData?.search]);
 
   const setFilterdata = async () => {
     setshowReset(true);
     setIsLoading(true); 
     
     let res = await GET(props.searchData.url);
-    setFilterUrl(props.searchData.url);
+    setFilterUrl(props?.searchData.url);
     console.log("-----", res);
-    if (res.error === false) {
-      setData(res.data?.leads?.data);
+    if (res?.error === false) {
+      setData(res?.data?.leads?.data);
 
       setfilterPageSize(res.data?.leads?.per_page);
       setfilterTotalRecord(res.data?.leads?.total);
@@ -653,7 +653,7 @@ function EmployeeLeads(props, lead_id) {
         name: "Call",
         open: false,
         sub: [
-          { name: "CALL RECIVED", set: false },
+          { name: "CALL RECEIVED", set: false },
           { name: "CALL DECLINED", set: false },
           { name: "ASKED TO SEND WHATSAPP", set: false },
           { name: "ASKED TO SEND SMS", set: false },
@@ -669,7 +669,7 @@ function EmployeeLeads(props, lead_id) {
         name: "Visit",
         open: false,
         sub: [
-          { name: "VISIT SUCCESFULL", set: false },
+          { name: "VISIT SUCCESSFUL", set: false },
           { name: "VISIT POSTPONED", set: false },
           { name: "VISIT CANCELED", set: false },
         ],
@@ -887,34 +887,34 @@ function EmployeeLeads(props, lead_id) {
       // console.log("---------recording--------------",resp,formData);
   
     };
-    const formatTime = () => {
-      if (item.time_to_call !== null) {
-        let str = item.time_to_call;
-        let res = str.match(/(\d\d)/g);
-        let hours = res[0];
-        let min = res[1];
+    // const formatTime = () => {
+    //   if (item?.time_to_call !== null) {
+    //     let str = item?.time_to_call;
+    //     let res = str.match(/(\d\d)/g);
+    //     let hours = res[0];
+    //     let min = res[1];
   
-        let AmOrPm = hours >= 12 ? "pm" : "am";
-        hours = hours % 12 || 12;
-        return hours + ":" + min + " " + AmOrPm;
-        //  ;
-      }
-    };
-    let created_date=item.created_at;
-    let current=allocated.first_name;
-    let user=userInfo.first_name;
+    //     let AmOrPm = hours >= 12 ? "pm" : "am";
+    //     hours = hours % 12 || 12;
+    //     return hours + ":" + min + " " + AmOrPm;
+    //     //  ;
+    //   }
+    // };
+    let created_date=item?.created_at;
+    let current=allocated?.first_name;
+    let user=userInfo?.first_name;
    
     return (
       <tr>
         
         <td scope="row">{index + 1}</td>
-        <td>{item.client_name}</td>
-        <td>{item.contact}</td>
-        <td>{item.project.name}</td>
-        <td>{item.budget + " PKR"}</td>
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        <td>{item?.client_name}</td>
+        <td>{item?.contact}</td>
+        <td>{item?.project?.name}</td>
+        <td>{item?.budget + " PKR"}</td>
+        <td>{item?.time_to_call != null ? item?.time_to_call : "-------"}</td>
         {/* <td>{item.time_to_call}</td> */}
-        <td>{item.country_city}</td>
+        <td>{item?.country_city}</td>
   
         <td>
         {item.status != "" ? (
@@ -922,9 +922,9 @@ function EmployeeLeads(props, lead_id) {
               classes={{
                 label: classes.chipLabelColor,
                 root:
-                  item.status === "Overdue"
+                  item?.status === "Overdue"
                     ? classes.chipOverdue
-                    : item.status === "Grace Period"
+                    : item?.status === "Grace Period"
                     ? classes.chipGracePeriod
                     : item.status === "Complete"
                     ? classes.chipComplete
@@ -945,15 +945,15 @@ function EmployeeLeads(props, lead_id) {
         </td>
   
         {/* <td>{item.inventory.inventory_name}</td> */}
-        <td>{item.interest.interest}</td>
+        <td>{item?.interest?.interest}</td>
         {/* <td>
           {allocated?.first_name} 
            {userInfo.first_name} {userInfo.last_name} 
         </td> */}
-        <td>{item.email != null ? item.email : "-------"}</td>
-        <td>{item.task}</td>
+        <td>{item?.email != null ? item.email : "-------"}</td>
+        <td>{item?.task}</td>
         <td>{created_date.toString().split("T")[0]}</td>
-        <td>{item.dead_line}</td>
+        <td>{item?.dead_line}</td>
         <td>
             <Link to= 
              {{ pathname: "/employee/admin-action", query: { item } ,goback:{goback}}}
@@ -1007,7 +1007,7 @@ function EmployeeLeads(props, lead_id) {
                   onClick={() => {
                     // isLoading(true);
                     // let arr=[sample,sample,sample];
-                    setRecordings(item.recordings.map((item)=>{return {audio:(new Audio(publicURL + item.recording_file)),item:item}}));
+                    setRecordings(item?.recordings?.map((item)=>{return {audio:(new Audio(publicURL + item?.recording_file)),item:item}}));
                     setShowPlay(true);
                     setSelectedID(index);
                   }}

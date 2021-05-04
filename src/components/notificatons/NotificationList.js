@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: "500px",
-      paddingRight:"50px",
+      paddingRight: "50px",
       maxWidth: "36ch",
-      
+
       backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -35,11 +35,10 @@ export default function AlignItemsList() {
     handleFetchData();
   }, []);
 
- 
   const history = useHistory();
   const handleFetchData = async () => {
     let res = await GET(ApiUrls.GET_EMPLOYEE_NOTIFICATIONS);
-    
+
     if (res.success != false) {
       setData(res?.data?.Notifications);
     }
@@ -48,10 +47,18 @@ export default function AlignItemsList() {
     setIsLoading(false);
   };
   const Notifications = ({ item, index }) => {
-    let data=JSON.parse([item.notification_body]);
+    let data = JSON.parse([item.notification_body]);
     return (
       <ListItem alignItems="center">
-        <Link to={{pathname:item.screen ,data:data}}>
+        <Link
+          to={{ pathname: item.screen, data: data }}
+          onClick={() => {
+            localStorage.setItem("data", JSON.stringify(data));
+          }}
+          onContextMenu={() => {
+            localStorage.setItem("data", JSON.stringify(data));
+          }}
+        >
           {/* <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </ListItemAvatar> */}
@@ -79,9 +86,9 @@ export default function AlignItemsList() {
     <div style={{ right: "100px" }}>
       <List className={classes.root}>
         {data?.length > 0
-          ? data?.slice(0,3).map((item, index) => (
-              <Notifications item={item} index={index} />
-            ))
+          ? data
+              ?.slice(0, 3)
+              .map((item, index) => <Notifications item={item} index={index} />)
           : null}
         <Divider variant="inset" component="li" />
       </List>
