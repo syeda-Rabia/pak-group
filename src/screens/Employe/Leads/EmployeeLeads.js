@@ -52,7 +52,7 @@ import ErrorNotification from "../../../components/ErrorNotification";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
     color: "#fff",
-    backgroundColor: "red !important",
+    backgroundColor: "#FF5555 !important",
   },
   chipComplete: {
     color: "#fff",

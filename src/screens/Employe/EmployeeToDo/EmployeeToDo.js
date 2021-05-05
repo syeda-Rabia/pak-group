@@ -153,7 +153,7 @@ function EmployeeLeads(props, lead_id) {
     
     */
    setIsLoading(true);
-   let resp = await GET(ApiUrls. GET_TO_DO_LEADS_PAGINATION + page);
+   let resp = await GET(ApiUrls.GET_USER_LEADS_PAGINATION+ page);
 
    if (resp?.data != null) {
      setCurrentPage(resp?.data?.leads?.current_page);
@@ -903,8 +903,11 @@ function EmployeeLeads(props, lead_id) {
     let created_date=item?.created_at;
     let current=allocated?.first_name;
     let user=userInfo?.first_name;
-   
+    if( item.status!=="Loss"  && item.status!=="Complete") {
+        
+    
     return (
+     
       <tr>
         
         <td scope="row">{index + 1}</td>
@@ -1172,6 +1175,10 @@ function EmployeeLeads(props, lead_id) {
         </td>
       </tr>
     );
+            }
+            else{
+            return null
+            }
   };
   if(IsEmpty==true){
     return (<div>
