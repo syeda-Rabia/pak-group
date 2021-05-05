@@ -170,6 +170,7 @@ const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
   const [TOKEN, setTOKEN] = useState(props.user.token);
   // ;
+ 
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
   // console.log("--------get token---------",getToken);

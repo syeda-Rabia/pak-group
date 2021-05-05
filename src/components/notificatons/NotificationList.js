@@ -43,6 +43,7 @@ export default function AlignItemsList() {
       setData(res?.data?.Notifications);
     }
     console.log("res__________________>for notification", res);
+    // console.log("res_screen_________________",item.screen)
 
     setIsLoading(false);
   };
@@ -52,11 +53,13 @@ export default function AlignItemsList() {
       <ListItem alignItems="center">
         <Link
           to={{ pathname: item.screen, data: data }}
+          
           onClick={() => {
-            localStorage.setItem("data", JSON.stringify(data));
+            console.log("res__________________",item.screen)
+            localStorage.setItem(item.screen, JSON.stringify(data));
           }}
           onContextMenu={() => {
-            localStorage.setItem("data", JSON.stringify(data));
+            localStorage.setItem(item.screen, JSON.stringify(data));
           }}
         >
           {/* <ListItemAvatar>

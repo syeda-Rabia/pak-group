@@ -1,20 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/messaging';
+import {isMobile,isSafari} from 'react-device-detect';
 const { detect } = require('detect-browser');
 const browser = detect();
-switch (browser && browser.name) {
-  case 'chrome':
-  case 'firefox':
-    console.log('supported');
-    break;
- 
-  case 'microsoft edge':
-    console.log('kinda ok');
-    break;
- 
-  default:
-    console.log('not supported');
-}
+
 
 var firebaseConfig = {
   apiKey: "AIzaSyDiHlhkSodmEoawqMpBuh0kt3YVnHW0f4M",
@@ -42,21 +31,13 @@ if (firebase.messaging.isSupported()) {
 
 
 export const getToken = (setTokenFound) => {
-  // new Promise((resolve, reject) => {
-  //   messaging
-  //     .requestPermission()
-  //     .then(() => messaging.getToken({vapidKey: 'BNZ4erHMpm1Jh74T3r3A_yoWJyhmEAt_3OD_IODToDZMtVLgdefKjFCBchARq16wOuAyPRHCVZ50pIQhHRMZHf4'}))
-  //     .then((firebaseToken) => {
-  //       resolve(firebaseToken);
-  //       setTokenFound(true);
-  //       localStorage.setItem("firebaseToken",firebaseToken);
-  //     })
-  //     .catch((err) => {
-  //       reject(err);
-  //       setTokenFound(false);
-  //     });
-  // });
-   console.log('----------amir.------------');
+  if (isSafari) {
+    return console.log('safari');
+}
+
+
+else{
+  console.log('supported browser');
   return messaging.getToken({vapidKey: 'BNZ4erHMpm1Jh74T3r3A_yoWJyhmEAt_3OD_IODToDZMtVLgdefKjFCBchARq16wOuAyPRHCVZ50pIQhHRMZHf4'}).then((currentToken) => {
     if (currentToken) {
       console.log('current token for client: ', currentToken);
@@ -79,6 +60,10 @@ export const getToken = (setTokenFound) => {
   // catch error while creating client token
    });
 }
+   
+    }
+  
+ 
 
 
 
