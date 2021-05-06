@@ -102,12 +102,12 @@ function EmployeeLeadsNotification(props, lead_id) {
   const handleFetchData = async () => {
     setIsLoading(true);
 
-    let endpoint = window.location.href
-      .split("/")
-      [window.location.href.split("/").length - 1].toLocaleLowerCase();
-      console.log("end point",endpoint)
+    // let endpoint = window.location.href
+    //   .split("/")
+    //   [window.location.href.split("/").length - 1].toLocaleLowerCase();
+    //   console.log("end point",endpoint)
 
-    var closed = localStorage.getItem("item.screen");
+    var closed = localStorage.getItem("data");
     let data = JSON.parse(closed);
     console.log("-local---", data);
 

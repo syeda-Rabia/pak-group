@@ -33,7 +33,7 @@ export default function PendingTaskForToday(props) {
           datasets: [
             {
               label: "Pending Task",
-              data: [...state?.chartData, 0],
+              data: [...state?.chartData, 1],
               backgroundColor: ["#D3AF40", "#2B5989", "#7D418A", "#7182A2"],
             },
           ],

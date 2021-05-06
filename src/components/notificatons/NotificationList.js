@@ -56,10 +56,10 @@ export default function AlignItemsList() {
           
           onClick={() => {
             console.log("res__________________",item.screen)
-            localStorage.setItem(item.screen, JSON.stringify(data));
+            localStorage.setItem("data", JSON.stringify(data));
           }}
           onContextMenu={() => {
-            localStorage.setItem(item.screen, JSON.stringify(data));
+            localStorage.setItem("data", JSON.stringify(data));
           }}
         >
           {/* <ListItemAvatar>

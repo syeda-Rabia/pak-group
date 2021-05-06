@@ -32,7 +32,7 @@ export default function CallReportChart(props) {
           datasets: [
             {
               label: "Call Report",
-              data: [...state?.chartData, 0],
+              data: [...state?.chartData, 1],
               backgroundColor: ["#2B5989", "#7D418A"],
             },
           ],

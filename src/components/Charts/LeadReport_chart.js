@@ -8,7 +8,7 @@ import { GET } from "./../../utils/Functions";
 export default function LeadReport_chart(props)  {
 
   const [state, setState] =useState({
-    chartData: [],
+    chartData: [0,0,0,0,0],
   })
  
 
@@ -41,7 +41,7 @@ export default function LeadReport_chart(props)  {
           datasets: [
             {
               label: 'Leads Assign',
-              data:[...state?.chartData,0],
+              data:[...state?.chartData,1],
               backgroundColor: [
                
                 '#D3AF40',
