@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: "500px",
-      paddingRight: "50px",
+      paddingRight: "5px",
+      paddingLeft: "5px",
       maxWidth: "36ch",
 
       backgroundColor: theme.palette.background.paper,
@@ -50,11 +51,12 @@ export default function AlignItemsList() {
   const Notifications = ({ item, index }) => {
     let data = JSON.parse([item.notification_body]);
     return (
-      <ListItem alignItems="center">
-        <Link
+      <ListItem alignItems="center" style={{borderRadius:"10px",backgroundColor:"#F2F4F5",marginBottom:"5px"}}>
+        <Link  
           to={{ pathname: item.screen, data: data }}
           
           onClick={() => {
+          
             console.log("res__________________",item.screen)
             localStorage.setItem("data", JSON.stringify(data));
           }}

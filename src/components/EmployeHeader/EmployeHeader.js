@@ -1,7 +1,8 @@
-import React from "react";
+import React,{ useState,useEffect} from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "./EmployeHeader.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
+import { getToken, onMessageListener } from "./../../firebase";
 
 import { connect } from "react-redux";
 import { signOut } from "../../modules/Auth/actions";
@@ -31,6 +32,7 @@ import { GET, POST } from "../../utils/Functions";
 const EmployeHeader = (props) => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
+  const [count, setCount] = React.useState(0);
 
   const history = useHistory();
   const User=props.user.user_info.first_name;
@@ -40,6 +42,7 @@ const EmployeHeader = (props) => {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setCount(0);
   };
 
   const handleClose = () => {
@@ -59,8 +62,28 @@ const EmployeHeader = (props) => {
       props.LOGOUT();
       history.push("/");
     }
-
   }
+
+  const handleCount = async () => {
+    // event.preventDefault();
+    
+    let res = await GET(ApiUrls.GET_EMPLOYEE_NOTIFICATION_COUNT);
+    setCount(res?.data?.count);
+    console.log("count",res)
+  }
+
+  useEffect(() => {
+    // setIsLoading(true);
+    onMessageListener() .then((payload) => {
+      //api
+      handleCount();
+    
+     
+    })
+  }, [onMessageListener()]);
+  
+   
+   
   const openpopover = Boolean(anchorEl);
   const id =  openpopover ? 'simple-popover' : undefined;
 
@@ -256,9 +279,9 @@ const EmployeHeader = (props) => {
             <Tooltip title="Notifications" placement="left">
               {/* <Avatar className={classes.white}> */}
                 <IconButton className={classes.logout}>
-                {/* <Badge variant="dot" color="error" style={{}}> */}
+                <Badge badgeContent={count} color="error" style={{}}>
                   <NotificationsIcon style={{color:"white"}}/>
-                  {/* </Badge> */}
+                  </Badge>
                 </IconButton>
               {/* </Avatar> */}
             </Tooltip>

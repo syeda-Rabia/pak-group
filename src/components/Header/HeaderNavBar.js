@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import "./HeaderNavbar.css";
 import logo from "./../../assests/Pak-Group-logo-1.png";
@@ -46,10 +46,11 @@ const HeaderNavBar = (props) => {
   const User=props.user.user_info.first_name;
   // ;
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [count, setCount] = React.useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setCount(0);
   };
 
   const handleClose = () => {
@@ -72,6 +73,23 @@ const HeaderNavBar = (props) => {
 
    
   };
+  const handleCount = async () => {
+    // event.preventDefault();
+    
+    let res = await GET(ApiUrls.GET_ADMIN_NOTIFICATION_COUNT);
+    setCount(res?.data?.count);
+    console.log("count",res)
+  }
+
+  useEffect(() => {
+    // setIsLoading(true);
+    onMessageListener() .then((payload) => {
+      //api
+      handleCount();
+    
+     
+    })
+  }, [onMessageListener()]);
   const openpopover = Boolean(anchorEl);
   const id =  openpopover ? 'simple-popover' : undefined;
 
@@ -306,9 +324,9 @@ onClick={()=>{
             <Tooltip title="Notifications" placement="left">
               {/* <Avatar className={classes.white}> */}
                 <IconButton className={classes.logout}>
-                {/* <Badge variant="dot" color="error" style={{}}> */}
+                <Badge badgeContent={count} color="error" style={{}}>
                   <NotificationsIcon style={{color:"white"}}/>
-                  {/* </Badge> */}
+                  </Badge>
                 </IconButton>
               {/* </Avatar> */}
             </Tooltip>

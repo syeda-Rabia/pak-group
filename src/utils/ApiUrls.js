@@ -91,6 +91,9 @@ GET_ADMIN_NOTIFICATION_ON_LEAD:"admin/empAction/showLead",
 GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION:"admin/inventoryRequest/getRequest",
 GET_EMPLOYEE_NEW_INVENTORIES_NOTIFICATION:"employee/inventory/newInventories",
 GET_EMPLOYE_RECORDING_ON_LEAD:"admin/lead/showLead",
+//notification count
+GET_EMPLOYEE_NOTIFICATION_COUNT:"employee/notifications/count",
+GET_ADMIN_NOTIFICATION_COUNT:"admin/notifications/count",
 
   //   DASHBOARD
 

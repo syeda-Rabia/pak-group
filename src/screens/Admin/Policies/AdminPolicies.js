@@ -24,6 +24,7 @@ import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
 import ActionButton from "./../../../components/ActionButton";
 import TextEditor from "../../../components/editor/TextEditor";
+import DynamicTable from "../../../components/dynamicTable";
 
 
 import TextArea from "antd/lib/input/TextArea";
@@ -454,6 +455,7 @@ export default function AddPolicies() {
         </td>
        
       </tr>
+    
     );
   };
   return (
@@ -507,7 +509,7 @@ export default function AddPolicies() {
         <ReactTooltip id="AddTip" place="top" effect="solid">
           Add new interest
         </ReactTooltip>
-
+       
         <div className="table-responsive">
           <table className="table table-hover">
             <thead>
@@ -548,6 +550,7 @@ export default function AddPolicies() {
               </>
             ) : null}
           </table>
+          {/* <DynamicTable/> */}
           <ModalAdd />
         </div>
       </Row>
