@@ -35,9 +35,9 @@ export default function EmployeeReport() {
   /*  Pagination data  */
 
   const [pageSize, setPageSize] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(null);
+  const [currentPage, setCurrentPage] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(0);
-  const [totalRecord, setTotalRecord] = React.useState(null);
+  const [totalRecord, setTotalRecord] = React.useState(0);
 
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
@@ -94,7 +94,7 @@ export default function EmployeeReport() {
     return (
       <tr>
         
-        <td >{index+1}</td>
+        <td key={index + 1+"table"}>{index+1}</td>
         <td >{item.empName}</td>
         <td >{item.instructions}</td>
         <td >{item.call_expainations}</td>

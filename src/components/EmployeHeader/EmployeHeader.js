@@ -211,19 +211,26 @@ const EmployeHeader = (props) => {
                 }}
                >Policies</Nav.Item>
             </Link>
-            <Link 
-            //  onClick={() => {
-            //   setSelected(6);
-            // }}
-            id="R-navlink">
+            <Link
+             onClick={() => {
+              setSelected(6);
+            }}
+              id="R-navlink"
+              to={{
+                // pathname: "/employee/inventory",
+                // state: { from: "employeeHeader" },
+              }}
+            >
+           
               <Nav.Item 
               //  style={{
               //   backgroundColor:
               //     selected == 5 ? "rgba(93, 188, 210, 0.5)" : "transparent",
               // }}
               
-              >HR</Nav.Item>
-            </Link>
+              id="R-navlink">HR</Nav.Item>
+              </Link>
+            
             <Link
               id="mobileLogout"
               onClick={() => {
@@ -272,7 +279,7 @@ const EmployeHeader = (props) => {
        <span id="profile" style={{color:"white"}}> {User}</span> 
        <Nav id="profile">
          
-          <Link
+          <div
             id="profile"
             onClick={handleClick}
           >
@@ -285,16 +292,14 @@ const EmployeHeader = (props) => {
                 </IconButton>
               {/* </Avatar> */}
             </Tooltip>
-          </Link>
+          </div>
         </Nav>
         
-        <Nav id="profile">
-          <Link
-            id="R-navlink"
-            // to={{
-            //   pathname: "/",
-            //   state: { from: "EmployeeHeader" },
-            // }}
+        <Nav id="profile"
+         
+           
+            
+           
             onClick={() => {
               setOpen(true);
               // props.LOGOUT();
@@ -310,7 +315,7 @@ const EmployeHeader = (props) => {
               </Avatar>
              
             </Tooltip>
-          </Link>
+          {/* </Link> */}
         </Nav>
        
       </Navbar>
@@ -381,4 +386,4 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmployeHeader);
+export default connect(undefined, mapDispatchToProps)(EmployeHeader);

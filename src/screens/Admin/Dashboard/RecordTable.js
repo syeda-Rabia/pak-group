@@ -231,7 +231,7 @@ export default function RecordTable() {
       )}
   </Ticker> */}
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <p class="marquee">
+            <p className="marquee">
               <span
                 style={{ display: "flex", flexDirection: "row", width: "100%" }}
               >
@@ -253,7 +253,7 @@ export default function RecordTable() {
               </span> */}
             </p>
 
-            {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+            {/* <p className="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
 
             {/* <span className="spn1">2011/10/09</span> */}
             {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}
@@ -619,7 +619,7 @@ export default function RecordTable() {
                     >
                       {allProjects.length > 0
                         ? allProjects.map((pro) => (
-                            <MenuItem key={pro.id} value={pro.id}>
+                            <MenuItem key={pro.id+"project"} value={pro.id}>
                               {pro.name}
                             </MenuItem>
                           ))
@@ -644,7 +644,7 @@ export default function RecordTable() {
                     >
                       {interestList.length > 0 ? (
                         interestList.map((int, index) => (
-                          <MenuItem key={int.id} value={int.id}>
+                          <MenuItem key={int.id+"interest id"} value={int.id}>
                             {int.interest}
                           </MenuItem>
                         ))
@@ -697,7 +697,7 @@ export default function RecordTable() {
                     >
                       {allSource.length > 0
                         ? allSource.map((src) => (
-                            <MenuItem key={src} value={src}>
+                            <MenuItem key={src+"menu items"} value={src}>
                               {src}
                             </MenuItem>
                           ))
@@ -1012,7 +1012,7 @@ const ModalClose = ({ item }) => {
             Do you really want to Close this Lead!
             {showText.map((item, index) => {
         return (
-          <div key={index}>
+          <div key={index+"checkbox"}>
             <Checkbox
               checked={checked.index === index}
               color="primary"
@@ -1106,7 +1106,7 @@ const ModalClose = ({ item }) => {
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr>
-        <td scope="row" key={index + 1}>
+        <td scope="row" key={index + 1+"tableRow"}>
           {index + 1}
         </td>
         <td>{item.client_name}</td>
@@ -1300,7 +1300,7 @@ const ModalClose = ({ item }) => {
           }}
         >
           {employees?.map((item) => {
-            return <option value={item?.id}>{item?.first_name}</option>;
+            return <option value={item?.id+"itemid"}>{item?.first_name}</option>;
           })}
         </select>
       </div>
@@ -1386,7 +1386,7 @@ const ModalClose = ({ item }) => {
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Interest</span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sp" style={{ color: "#818181" }}>Time to Call</span>
                     </th>
                     <th scope="col">
@@ -1409,14 +1409,14 @@ const ModalClose = ({ item }) => {
                     <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Deadline</span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sp" style={{ color: "#818181" }}> Show Employee action</span>
                     </th>
                      <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Recordings</span>
                     </th>
                    
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sp" style={{ color: "#818181" }}>Call To Action</span>
                     </th>
                     <th scope="col">

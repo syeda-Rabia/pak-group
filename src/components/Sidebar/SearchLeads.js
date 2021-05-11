@@ -23,7 +23,7 @@ export default function SearchLeads(props) {
               <Form.Group>
                 <Form.Label>Project</Form.Label>
                 <Form.Control
-                  controlId="projectName"
+                  controlid="projectName"
                   as="select"
                   defaultValue="Project Name"
                 >
@@ -32,7 +32,7 @@ export default function SearchLeads(props) {
                 </Form.Control>
                 <Form.Label>Date wise</Form.Label>
                 <Form.Control
-                  controlId="date"
+                  controlid="date"
                   as="select"
                   defaultValue="Date Wise"
                 >
@@ -41,7 +41,7 @@ export default function SearchLeads(props) {
                 </Form.Control>
                 <Form.Label>Year Wise</Form.Label>
                 <Form.Control
-                  controlId="year"
+                  controlid="year"
                   as="select"
                   defaultValue="Year Wise"
                 >
@@ -54,7 +54,7 @@ export default function SearchLeads(props) {
               <Form.Group>
                 <Form.Label>Sale Person</Form.Label>
                 <Form.Control
-                  controlId="Sale Person"
+                  controlid="Sale Person"
                   as="select"
                   defaultValue="Sale Person"
                 >
@@ -63,7 +63,7 @@ export default function SearchLeads(props) {
                 </Form.Control>
                 <Form.Label>Month Wise</Form.Label>
                 <Form.Control
-                  controlId="month"
+                  controlid="month"
                   as="select"
                   defaultValue="Month Wise"
                 >

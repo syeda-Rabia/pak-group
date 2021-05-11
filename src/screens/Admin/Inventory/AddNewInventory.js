@@ -158,7 +158,7 @@ export default function AddInventory(props) {
           <Row>
             <div className="col-lg-12 shadow p-3  bg-white rounded ">
               <Form onSubmit={submit}>
-                <Form.Group controlId="inventoryName">
+                <Form.Group controlid="inventoryName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
                     value={name}
@@ -174,7 +174,7 @@ export default function AddInventory(props) {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="projectCategory">
+                <Form.Group controlid="projectCategory">
                   <Form.Label>Project Category</Form.Label>
 
                   <Select
@@ -210,7 +210,7 @@ export default function AddInventory(props) {
                   ) : null}
                 </Form.Group>
 
-                <Form.Group controlId="units">
+                <Form.Group controlid="units">
                   <Form.Label>Units</Form.Label>
                   <Form.Control
                     min="1"

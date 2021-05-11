@@ -225,7 +225,7 @@ const ResetPassword = (props) => {
                 <div>
                 {emailError == true ? (
                       <small
-                        class="form-text  text-red"
+                        className="form-text  text-red"
                         style={{ color: "red" }}
                       >
                         *Email should contain "@" and  "." Like (.com or pk.co)
@@ -288,7 +288,7 @@ const ResetPassword = (props) => {
                 </div>
                 <div>
                   {passwordError ? (
-                    <small class="form-text  text-red" style={{ color: "red" }}>
+                    <small className="form-text  text-red" style={{ color: "red" }}>
                       Your password must be 8 characters long
                     </small>
                   ) : null}
@@ -332,7 +332,7 @@ const ResetPassword = (props) => {
                 </div>
                 <div>
                   {ReEnterpasswordError ? (
-                    <small class="form-text  text-red" style={{ color: "red" }}>
+                    <small className="form-text  text-red" style={{ color: "red" }}>
                       password fields must match
                     </small>
                   ) : null}

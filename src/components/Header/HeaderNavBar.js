@@ -256,6 +256,10 @@ onClick={()=>{
               //   setSelected(7);
               // }}
               id="R-navlink"
+              to={{
+                // pathname: "",
+                // state: { from: "AdminHeader" },
+              }}
             >
               <Nav.Item
                 // style={{
@@ -320,7 +324,11 @@ onClick={()=>{
           <Link
             id="profile"
             onClick={handleClick}
+            to=""
+              
+            
           >
+              
             <Tooltip title="Notifications" placement="left">
               {/* <Avatar className={classes.white}> */}
                 <IconButton className={classes.logout}>
@@ -332,8 +340,8 @@ onClick={()=>{
             </Tooltip>
           </Link>
         </Nav>
-        <Nav id="profile">
-          {/* <Nav.Link
+        <Nav id="profile"
+          /* <Nav.Link
             href="#profile"
             style={{
               backgroundColor: "white",
@@ -347,8 +355,8 @@ onClick={()=>{
             }}
           >
             <span style={{ color: "black" }}>HR</span>
-          </Nav.Link> */}
-          <Link
+          </Nav.Link> */
+         
             // onClick={() => {
             //   setSelected(0);
             // }}
@@ -365,7 +373,7 @@ onClick={()=>{
                 </IconButton>
               </Avatar>
             </Tooltip>
-          </Link>
+          {/* </Link> */}
         </Nav>
       </Navbar>
       <Popover
@@ -428,4 +436,4 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderNavBar);
+export default connect(undefined, mapDispatchToProps)(HeaderNavBar);

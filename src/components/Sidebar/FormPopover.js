@@ -40,7 +40,7 @@ export default function FormPopover(props) {
     [window.location.href.split("/").length - 1].toLocaleLowerCase();
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
-  const [employees, setEmployees] = React.useState([]);
+  const [employees, setEmployees] = React.useState("");
   const [allEmployees, setAllEmployees] = React.useState([]);
   const [client, setClient] = React.useState([]);
   const [project, setProject] = useState("");
@@ -175,7 +175,7 @@ export default function FormPopover(props) {
                   <Form.Control
                     className="w-100"
                     style={{ overflowY: "scroll" }}
-                    controlId="projectName"
+                    controlid="projectName"
                     as="select"
                     defaultValue="project name"
                     value={project}
@@ -203,7 +203,7 @@ export default function FormPopover(props) {
 
                   <Form.Control
                     className="w-100"
-                    controlId="date"
+                    controlid="date"
                     as="select"
                     defaultValue="Date Wise"
                     onChange={(val) => {
@@ -229,13 +229,13 @@ export default function FormPopover(props) {
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <div class="form-control w-100">
+                  <div className="form-control w-100">
                     {/* <YearPicker setDays={setDays}/> */}
-                    <YearPicking controlId="year" setDays={setDays} />
+                    <YearPicking controlid="year" setDays={setDays} />
                   </div>
 
                   {/* <Form.Control
-                    controlId="year"
+                    controlid="year"
                     as="select"
                     defaultValue="Year Wise"
                    
@@ -256,7 +256,7 @@ export default function FormPopover(props) {
                   </Form.Label>
                   <Form.Control
                     className="w-100"
-                    controlId="Sale Person"
+                    controlid="Sale Person"
                     as="select"
                     value={employees}
                     onChange={(e) => {
@@ -283,7 +283,7 @@ export default function FormPopover(props) {
                   </Form.Label>
                   <div className="form-control w-100">
                     <DatePick
-                      controlId="month"
+                      controlid="month"
                       setDays={setDays}
                       //  {...days.day!= "" && days.month === ""? (
                       //    setmonthErr(true)
@@ -292,7 +292,7 @@ export default function FormPopover(props) {
                     />
                     {days.day != "" && days.month == "" ? (
                       <small
-                        class="form-text  text-red"
+                        className="form-text  text-red"
                         style={{ color: "red" }}
                       >
                         *This field is required
@@ -301,7 +301,7 @@ export default function FormPopover(props) {
                   </div>
 
                   {/* <Form.Control
-                    controlId="month"
+                    controlid="month"
                     as="select"
                     defaultValue="Month Wise"
                     onChange={(val) => {
@@ -329,7 +329,7 @@ export default function FormPopover(props) {
                         color: "white",
                       }}
                       disabled
-                      controlId="year"
+                      controlid="year"
                       as="button"
                       defaultValue=""
                       
@@ -345,7 +345,7 @@ export default function FormPopover(props) {
                         color: "white",
                       }}
                       // disabled
-                      controlId="year"
+                      controlid="year"
                       as="button"
                       defaultValue=""
                       onClick={(e) => {

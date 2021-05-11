@@ -397,7 +397,7 @@ export default function AddPolicies() {
     //  ;
     return (
       <tr>
-        <td>{index + 1}</td>
+        <td key={item.id}>{index + 1}</td>
         <td>{item.title}</td>
         <td>
           <div

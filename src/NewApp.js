@@ -490,4 +490,4 @@ const mapStateToProps = (state) => {
 };
 
 // export default Login;
-export default connect(mapStateToProps, mapDispatchToProps)(NewApp);
+export default connect(mapStateToProps, undefined)(NewApp);

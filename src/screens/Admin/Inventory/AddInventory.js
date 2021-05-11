@@ -155,7 +155,7 @@ const project=props?.listData?.ProjectName;
           <Row>
             <div className="col-lg-12 shadow p-3  bg-white rounded ">
               <Form onSubmit={submit}>
-                <Form.Group controlId="inventoryName">
+                <Form.Group controlid="inventoryName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
                     value={name}
@@ -180,7 +180,7 @@ const project=props?.listData?.ProjectName;
                        project.some((pro)=>pro.name==name)?(
                        
                         <small
-                       class="form-text  text-red"
+                       className="form-text  text-red"
                        style={{ color: "red" }}
                       
                      >
@@ -188,7 +188,7 @@ const project=props?.listData?.ProjectName;
 
                      </small>):null
                     }
-                <Form.Group controlId="projectCategory">
+                <Form.Group controlid="projectCategory">
                   <Form.Label>Project Category</Form.Label>
 
                   <Select
@@ -224,7 +224,7 @@ const project=props?.listData?.ProjectName;
                   ) : null}
                 </Form.Group>
 
-                <Form.Group controlId="units">
+                <Form.Group controlid="units">
                   <Form.Label>Units</Form.Label>
                   <Form.Control
                     min="1"

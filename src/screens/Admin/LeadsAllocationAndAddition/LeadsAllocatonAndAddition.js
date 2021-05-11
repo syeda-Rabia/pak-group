@@ -82,9 +82,9 @@ export default function LeadsAllocatonAndAddition(props) {
   };
   //pagination
   const [pageSize, setPageSize] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(null);
+  const [currentPage, setCurrentPage] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(0);
-  const [totalRecord, setTotalRecord] = React.useState(null);
+  const [totalRecord, setTotalRecord] = React.useState(0);
 
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
@@ -114,9 +114,9 @@ export default function LeadsAllocatonAndAddition(props) {
   //filter pagination
 
   const [filterPageSize, setfilterPageSize] = React.useState(0);
-  const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+  const [filtercurrentPage, setFilterCurrentPage] = React.useState(0);
   const [filterpageCount, setFilterPageCount] = React.useState(0);
-  const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+  const [filtertotalRecord, setfilterTotalRecord] = React.useState(0);
 
   const filterlastIndex = filtercurrentPage * filterPageSize;
   const filteristIndex = filterlastIndex - filterPageSize;
@@ -817,7 +817,7 @@ export default function LeadsAllocatonAndAddition(props) {
                 {/* <div className="col-lg-7"> */}
 
                 <Col lg={6}>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label for="selectEmployee">Select Employee</label>
 
                     <Select
@@ -997,12 +997,12 @@ export default function LeadsAllocatonAndAddition(props) {
                         Status
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Returned From
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         {" "}
                         Allocate/Re-Allocate
@@ -1013,7 +1013,7 @@ export default function LeadsAllocatonAndAddition(props) {
                         Task
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Created at
                       </span>
@@ -1028,7 +1028,7 @@ export default function LeadsAllocatonAndAddition(props) {
                         Interest
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Update Record
                       </span>

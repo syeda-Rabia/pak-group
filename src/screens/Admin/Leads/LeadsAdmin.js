@@ -145,9 +145,9 @@ const history = useHistory();
   /*  Pagination data  */
 
   const [pageSize, setPageSize] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(null);
+  const [currentPage, setCurrentPage] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(0);
-  const [totalRecord, setTotalRecord] = React.useState(null);
+  const [totalRecord, setTotalRecord] = React.useState(0);
 
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
@@ -178,9 +178,9 @@ const history = useHistory();
   //filter pagination
 
   const [filterPageSize, setfilterPageSize] = React.useState(0);
-  const [filtercurrentPage, setFilterCurrentPage] = React.useState(null);
+  const [filtercurrentPage, setFilterCurrentPage] = React.useState(0);
   const [filterpageCount, setFilterPageCount] = React.useState(0);
-  const [filtertotalRecord, setfilterTotalRecord] = React.useState(null);
+  const [filtertotalRecord, setfilterTotalRecord] = React.useState(0);
 
   const filterlastIndex = filtercurrentPage * filterPageSize;
   const filteristIndex = filterlastIndex - filterPageSize;
@@ -498,7 +498,7 @@ const history = useHistory();
                     />
                      {emailError == true ? (
                       <small
-                        class="form-text  text-red"
+                        className="form-text  text-red"
                         style={{ color: "red" }}
                       >
                         *Email should contain "@" and  "." Like (.com or pk.co)
@@ -1141,7 +1141,7 @@ const history = useHistory();
       )}
   </Ticker> */}
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <p class="marquee">
+            <p className="marquee">
               <span
                 style={{ display: "flex", flexDirection: "row", width: "100%" }}
               >
@@ -1164,7 +1164,7 @@ const history = useHistory();
               </span> */}
             </p>
 
-            {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+            {/* <p className="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
 
             {/* <span className="spn1">2011/10/09</span> */}
             {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}
@@ -2061,7 +2061,7 @@ const history = useHistory();
                         Interest
                       </span>
                     </th> */}
-                <th scope="col" class="text-nowrap">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     {" "}
                     Allocated To
@@ -2073,7 +2073,7 @@ const history = useHistory();
                     Task
                   </span>
                 </th>
-                <th scope="col" class="text-nowrap">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     Created at
                   </span>
@@ -2083,7 +2083,7 @@ const history = useHistory();
                     Deadline
                   </span>
                 </th>
-                <th scope="col" class="text-nowrap">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     Show Employee action
                   </span>
@@ -2095,7 +2095,7 @@ const history = useHistory();
                   </span>
                 </th>
 
-                <th scope="col" class="text-nowrap">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     Call To Action
                   </span>

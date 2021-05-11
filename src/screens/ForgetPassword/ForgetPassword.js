@@ -92,7 +92,7 @@ export default function FormDialog({ show, close }) {
                 />
                 {emailError == true ? (
                       <small
-                        class="form-text  text-red"
+                        className="form-text  text-red"
                         style={{ color: "red" }}
                       >
                         *Email should contain "@" and  "." Like (.com or pk.co)

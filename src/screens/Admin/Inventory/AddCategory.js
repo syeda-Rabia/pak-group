@@ -437,7 +437,7 @@ export default function AddCategories() {
                         ID
                       </th>
 
-                      <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                      <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                         Category Name
                       </th>
                       <th scope="col" style={{ color: "#818181" }}>

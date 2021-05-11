@@ -61,9 +61,9 @@ export default function AddEmployee() {
   /*  Pagination data  */
 
   const [pageSize, setPageSize] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(null);
+  const [currentPage, setCurrentPage] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(0);
-  const [totalRecord, setTotalRecord] = React.useState(null);
+  const [totalRecord, setTotalRecord] = React.useState(0);
 
   const lastIndex = currentPage * pageSize;
   const istIndex = lastIndex - pageSize;
@@ -126,7 +126,7 @@ export default function AddEmployee() {
 
     //  ;
     //  ;
-    if (resp.data != null) {
+    if (resp?.data != null) {
       setUserRecord(resp?.data?.users?.data);
       setPageSize(resp?.data?.users?.per_page);
       setTotalRecord(resp?.data?.users?.total);
@@ -419,7 +419,7 @@ export default function AddEmployee() {
                     setPassword(e.target.value);
                   }}
                 />
-                <small class="form-text text-muted">
+                <small className="form-text text-muted">
                   Your password must be 8 characters long
                 </small>
               </div>
@@ -681,7 +681,7 @@ export default function AddEmployee() {
                 />
                 {emailError == true ? (
                       <small
-                        class="form-text  text-red"
+                        className="form-text  text-red"
                         style={{ color: "red" }}
                       >
                         *Email should contain "@" and  "." Like (.com or pk.co)
@@ -773,7 +773,7 @@ export default function AddEmployee() {
                     setPassword(e.target.value);
                   }}
                 />
-                {passwordError? <small  class="form-text  text-red"
+                {passwordError? <small  className="form-text  text-red"
                         style={{ color: "red" }}>
                   Your password must be 8 characters long
                 </small>:null}
@@ -810,7 +810,7 @@ export default function AddEmployee() {
   const TableEmployee = ({ item, index }) => {
     return (
       <tr>
-        <td>{index + 1}</td>
+        <td key={index+1}>{index + 1}</td>
         <td>{item.first_name}</td>
         <td>{item.last_name}</td>
 
@@ -1002,13 +1002,13 @@ export default function AddEmployee() {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                       ID
                     </th>
-                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                       First Name
                     </th>
-                    <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                    <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                       Last Name
                     </th>
                     <th scope="col" style={{ color: "#818181" }}>

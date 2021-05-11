@@ -278,7 +278,7 @@ const scroll = (scrollOffset) => {
                         Select
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Serial No
                       </span>
@@ -288,22 +288,22 @@ const scroll = (scrollOffset) => {
                         Project
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Project Category
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Inventory Name
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Block Name
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Inventory Category
                       </span>
@@ -313,7 +313,7 @@ const scroll = (scrollOffset) => {
                         Status
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         ViewAble To
                       </span>

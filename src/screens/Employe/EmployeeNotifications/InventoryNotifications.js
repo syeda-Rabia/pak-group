@@ -160,7 +160,7 @@ ids:inventoryId,
                     ID
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                     <span id="spn" style={{ color: "#818181" }}>
                       Sr No
                       </span>
@@ -175,7 +175,7 @@ ids:inventoryId,
                     Category
                       </span>
                     </th>
-                    <th scope="col" class="text-nowrap">
+                    <th scope="col" className="text-nowrap">
                     <span id="spn" style={{ color: "#818181" }}>
                     Inventory Name
                       </span>

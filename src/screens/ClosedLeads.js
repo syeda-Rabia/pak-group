@@ -272,7 +272,7 @@ export default function LeadsAdmin() {
         )}
     </Ticker> */}
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <p class="marquee">
+              <p className="marquee">
                 <span
                   style={{
                     display: "flex",
@@ -299,7 +299,7 @@ export default function LeadsAdmin() {
                 </span> */}
               </p>
 
-              {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+              {/* <p className="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
 
               {/* <span className="spn1">2011/10/09</span> */}
               {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}

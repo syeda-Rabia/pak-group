@@ -57,9 +57,9 @@ export default function ProjectList() {
 /*  Pagination data  */
 
 const [pageSize, setPageSize] = React.useState(0);
-const [currentPage, setCurrentPage] = React.useState(null);
+const [currentPage, setCurrentPage] = React.useState(0);
 const [pageCount, setPageCount] = React.useState(0);
-const [totalRecord, setTotalRecord] = React.useState(null);
+const [totalRecord, setTotalRecord] = React.useState(0);
 
 const lastIndex = currentPage * pageSize;
 const istIndex = lastIndex - pageSize;
@@ -510,17 +510,17 @@ const handleShow = (pageCount) => {
                   <th scope="col" style={{ color: "#818181" }}>
                     ID
                   </th>
-                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                  <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                     Project Name
                   </th>
 
-                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                  <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                     Project Category
                   </th>
                   <th scope="col" style={{ color: "#818181" }}>
                     Units
                   </th>
-                  <th scope="col" class="text-nowrap" style={{ color: "#818181" }}>
+                  <th scope="col" className="text-nowrap" style={{ color: "#818181" }}>
                     Add More Units
                   </th>
 

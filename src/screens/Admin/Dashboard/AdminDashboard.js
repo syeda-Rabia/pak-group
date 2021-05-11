@@ -15,7 +15,7 @@ import "./AdminDashboard.css";
 import EnhancedTable from "./MaterialUITable";
 import RecordTable from "./RecordTable";
 function AdminDashboard() {
-  const [employees, setEmployees] = React.useState([]);
+  const [employees, setEmployees] = React.useState("");
   const [allEmployees, setAllEmployees] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -31,7 +31,7 @@ function AdminDashboard() {
   const [callReport, setCallReport] = useState({});
   const [TaskReport, setTaskReport] = useState({});
   const [result, setResult] = useState({});
-
+  const [refresh, setRefresh] = useState(false);
   const { RangePicker } = DatePicker;
 
   const [days, setDays] = useState({
@@ -54,7 +54,7 @@ function AdminDashboard() {
   useEffect(() => {
     getEmployeeDetails();
     getLeadReport();
-  }, []);
+  }, [refresh]);
 
   // const getLeadReport= async () => {
   //   let resp = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
@@ -145,7 +145,7 @@ function AdminDashboard() {
             <Form.Control
               className="w-100 "
               style={{ height:"32px",fontSize:"13px"}}
-              controlId="Sale Person"
+              controlid="Sale Person"
               as="select"
               value={employees}
               onChange={(e) => {
@@ -158,7 +158,7 @@ function AdminDashboard() {
                 ? allEmployees.map((e) => (
                     <option
                       style={{ color: "#2258BF"}}
-                      key={e.id}
+                      key={e.id+"employee id"}
                       value={e.id}
                     >
                       {e.first_name}

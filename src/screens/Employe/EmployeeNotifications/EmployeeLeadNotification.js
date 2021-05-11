@@ -378,7 +378,7 @@ function EmployeeLeadsNotification(props, lead_id) {
       )}
   </Ticker> */}
           <div style={{ display: "flex", flexDirection: "row" }}>
-            <p class="marquee">
+            <p className="marquee">
               <span
                 style={{ display: "flex", flexDirection: "row", width: "100%" }}
               >
@@ -401,7 +401,7 @@ function EmployeeLeadsNotification(props, lead_id) {
               </span> */}
             </p>
 
-            {/* <p class="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
+            {/* <p className="marquee"><span  className="spn2">{item.recordings[0].recording_file}</span></p> */}
 
             {/* <span className="spn1">2011/10/09</span> */}
             {/* <span className="spn2">{item.recordings[0].recording_file}</span> */}

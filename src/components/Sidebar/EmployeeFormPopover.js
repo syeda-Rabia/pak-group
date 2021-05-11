@@ -170,7 +170,7 @@ console.log("8888888888888888",resp);
                   <Form.Control
           className="w-100"
                     style={{ overflowY: "scroll" }}
-                    controlId="projectName"
+                    controlid="projectName"
                     as="select"
                     defaultValue="project name"
                     value={project}
@@ -198,7 +198,7 @@ console.log("8888888888888888",resp);
                   
                   <Form.Control
                   className="w-100"
-                    controlId="date"
+                    controlid="date"
                     as="select"
                     defaultValue="Date Wise"
                     onChange={(val) => {
@@ -225,15 +225,15 @@ console.log("8888888888888888",resp);
                   <Form.Label>
                     <b>Year Wise</b>
                   </Form.Label>
-                  <div class="form-control w-100">
+                  <div className="form-control w-100">
                     {/* <YearPicker setDays={setDays}/> */}
-                    <YearPicking controlId="year"
+                    <YearPicking controlid="year"
                    setDays={setDays}/>
                     </div>
                   
                   
                   {/* <Form.Control
-                    controlId="year"
+                    controlid="year"
                     as="select"
                     defaultValue="Year Wise"
                    
@@ -252,7 +252,7 @@ console.log("8888888888888888",resp);
                   {/* <Form.Label>
                     <b>Sale Person</b>
                   </Form.Label>
-                  <Form.Control controlId="Sale Person" as="select"
+                  <Form.Control controlid="Sale Person" as="select"
                    value={client}
                    onChange={(e) => {
                      console.log(
@@ -278,13 +278,13 @@ console.log("8888888888888888",resp);
                   </Form.Label>
                   <div className="form-control w-100" >
                   <DatePick  
-                   controlId="month"
+                   controlid="month"
                    setDays={setDays}
                 />
                  {
                   days.day!= "" && days.month == ""? (
                     <small
-                      class="form-text  text-red"
+                      className="form-text  text-red"
                       style={{ color: "red" }}
                     >
                       *This field is required
@@ -294,7 +294,7 @@ console.log("8888888888888888",resp);
                   </div>
                  
                   {/* <Form.Control
-                    controlId="month"
+                    controlid="month"
                     as="select"
                     defaultValue="Month Wise"
                     onChange={(val) => {
@@ -321,7 +321,7 @@ console.log("8888888888888888",resp);
                         color: "white",
                       }}
                       disabled
-                      controlId="year"
+                      controlid="year"
                       as="button"
                       defaultValue=""
                       
@@ -337,7 +337,7 @@ console.log("8888888888888888",resp);
                         color: "white",
                       }}
                       // disabled
-                      controlId="year"
+                      controlid="year"
                       as="button"
                       defaultValue=""
                       onClick={(e) => {
