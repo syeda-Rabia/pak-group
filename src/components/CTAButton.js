@@ -242,7 +242,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
     const handleTimeValue = (value) => {
       const timeStr = value.toString();
       var time = timeStr.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
-      setTime(time);
+      setTime(time); 
       console.log(time);
     };
     const handleChecked = (event, id) => {

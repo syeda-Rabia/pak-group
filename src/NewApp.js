@@ -38,6 +38,9 @@ import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import AdminPolicies from "./screens/Admin/Policies/AdminPolicies";
 import AdminAction from "./screens/Employe/Leads/AdminAction";
+import Account from "./screens/Admin/Account/Account";
+import SingleEmployeeAttenndance from "./screens/Admin/Account/SingleEmployeeAttenndance";
+import AllEmployeeAttenndance from "./screens/Admin/Account/AllEmployeesAttendance";
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
 import ProjectList from "./screens/Admin/Inventory/ProjectList";
 import AddInterest from "./screens/Admin/Leads/AddInterest";
@@ -288,6 +291,20 @@ const NewApp = (props) => {
         </Route>
         <Route exact path="/admin/viewable">
           <ViewableTo />
+        </Route>
+        <Route exact path="/admin/accounts">
+          <Account />
+        </Route>
+        <Route
+          path="/admin/accounts/empAttendance"
+          render={(props) => (
+            <>
+              <SingleEmployeeAttenndance {...props} />
+            </>
+          )}
+        ></Route>
+         <Route exact path="/admin/accounts/todayattendance">
+          <AllEmployeeAttenndance />
         </Route>
         <Route
           exact

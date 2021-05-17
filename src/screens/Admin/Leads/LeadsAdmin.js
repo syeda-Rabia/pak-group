@@ -426,7 +426,7 @@ const history = useHistory();
           }}
         >
           <div>
-            <Modal.Body>
+            <Modal.Body> 
               <div
                 style={{
                   display: "flex",

@@ -252,8 +252,25 @@ onClick={()=>{
               >Policies</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(7);
+              }}
+              id="R-navlink"
+              to={{
+                pathname: "/admin/accounts",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Accounts</Nav.Item>
+            </Link>
+            <Link
               // onClick={() => {
-              //   setSelected(7);
+              //   setSelected(8);
               // }}
               id="R-navlink"
               to={{
@@ -264,7 +281,7 @@ onClick={()=>{
               <Nav.Item
                 // style={{
                 //   backgroundColor:
-                //     selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                //     selected == 8 ? "rgba(93, 188, 210, 0.5)" : "transparent",
                 // }}
               >HR</Nav.Item>
             </Link>
@@ -272,7 +289,7 @@ onClick={()=>{
             <Link
               id="mobileLogout"
               onClick={() => {
-                setSelected(7);
+                setSelected(9);
               }}
               to={{
                 pathname: "/admin/notification",
@@ -282,7 +299,7 @@ onClick={()=>{
               <Nav.Item
               style={{
                 backgroundColor:
-                  selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                  selected == 9 ? "rgba(93, 188, 210, 0.5)" : "transparent",
               }}
               >
               NOTIFICATION</Nav.Item>
@@ -324,7 +341,7 @@ onClick={()=>{
           <Link
             id="profile"
             onClick={handleClick}
-            to=""
+            
               
             
           >

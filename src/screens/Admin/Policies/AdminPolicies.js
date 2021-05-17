@@ -507,7 +507,7 @@ export default function AddPolicies() {
           Add Policies
         </button>
         <ReactTooltip id="AddTip" place="top" effect="solid">
-          Add new interest
+          Add new policy
         </ReactTooltip>
        
         <div className="table-responsive">
