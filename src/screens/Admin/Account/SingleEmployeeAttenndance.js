@@ -24,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function EmployeeReport() {
+export default function EmployeeReport(props) {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [date, setDate] = useState();
 
   const [showView, setShowView] = useState(false);
-  const [data, setData] = useState(dummyData);
-  // const [data, setData] = useState([]);
+  // const [data, setData] = useState(dummyData);
+  const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -60,55 +60,59 @@ export default function EmployeeReport() {
     setTime(time);
     console.log(time);
   };
-  //   const handleFetchData = async () => {
-  //     setIsLoading(true);
-  //     let res = await GET(ApiUrls.GET_EMPLOYEE_LEAD_REPORT_DATA);
-  //     // console.log("ress0", res);
-  //     if (res?.success != false) {
-  //       setData(res?.employeesReport?.data);
-  //       setPageSize(res?.employeesReport?.per_page);
-  //       setTotalRecord(res?.employeesReport?.total);
-  //       setCurrentPage(res?.employeesReport?.current_page);
+  const EmpID=props?.location?.query?.item?.id;
+  console.log(EmpID,"idddddddd");
+    const handleFetchData = async () => {
+      setIsLoading(true);
+      let res = await GET(ApiUrls.GET_SINGLE_EMPLOYEE_ATTENDANCE+`?employee_id=${EmpID}`);
+      console.log("ress0", res);
+      if (res?.success != false) {
+        setData(res?.data?.attendance);
+       
 
-  //     }
-  //     setIsLoading(false);
-  //   };
+      }
+      setIsLoading(false);
+    };
 
-  //   useEffect(() => {
-  //     handleFetchData();
-  //   }, [refresh]);
+    useEffect(() => {
+      if (EmpID!= undefined) handleFetchData();
+      handleFetchData();
+    }, []);
   const history = useHistory();
 
   const Table = ({ item, index }) => {
     //  ;
+    // let d=item.date;
+    // let splitdate=d.split("\\s+")[0];
     return (
       <tr>
         <td key={index + 1 + "table"}>{index + 1}</td>
-        <td></td>
-        <td>
-          {" "}
+        <td>{item.date}</td>
+        <td>{item.sign_in}
+          {/* {" "}
           {
             <KeyboardTimePickerExample
-              value={timeVal}
+              value={item.sign_in}
               showTime={handleTimeValue}
-            />
-          }
+            /> */}
+          {/* } */}
         </td>
         <td>
-          {" "}
+        {item.sign_out}
+          {/* {" "}
           <KeyboardTimePickerExample
-            value={timeVal}
+            value={item.sign_out}
             showTime={handleTimeValue}
             // onChange={(e) => {
             //   setTime(formatDate(e.target.value));
 
             // }}
-          />
+          /> */}
         </td>
         <td>
           {" "}
           <select
-            value={type}
+            value={item.status}
             onChange={(e) => {
               setType(e.target.value);
             }}
@@ -210,7 +214,7 @@ export default function EmployeeReport() {
                 </th>
 
                 <th scope="col" style={{ color: "#818181" }}>
-                  Employee Name
+                  Date
                 </th>
                 <th scope="col" style={{ color: "#818181" }}>
                   SignIn

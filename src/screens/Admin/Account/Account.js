@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
 // import { dummyData } from "../../../assests/constants/todoList";
 import { server_url, token } from "../../../utils/Config";
-import { GET, POST } from "./../../../utils/Functions";
+import { GET, POST,formatDate } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
 import { Tooltip, IconButton } from "@material-ui/core";
@@ -28,6 +28,10 @@ import TextEditor from "../../../components/editor/TextEditor";
 import DynamicTable from "../../../components/dynamicTable";
 import Pak from "../../../assests/Image_pak.png";
 import Image from "../../../components/imageupload";
+import {
+  KeyboardDatePickerExample,
+  KeyboardTimePickerExample,
+} from "../../../utils/KeyboardTimePickerExample";
 import {
 
   
@@ -63,98 +67,122 @@ export default function AddAccount() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showView, setShowView] = useState(false);
-  const [data, setData] = useState( AddCategory);
-  // const [data, setData] = useState([]);
+  // const [data, setData] = useState( AddCategory);
+  const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-  
+  const [date, setDate] = useState();
+  var today = new Date();
+  const formatDate = (date) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
-//   const handleFetchData = async () => {
-//     setIsLoading(true);
-//     let res = await GET(ApiUrls.GET_POLICY_LIST);
-//     console.log("ress0", res);
-//     if (res?.success != false) {
-//       setData(res?.data?.policies);
-//     }
-//     setIsLoading(false);
-//   };
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
+  const handleDateValue = (value) => {
+    const str = value.toString();
+
+    // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
+    setDate(formatDate(value, "-"));
+  };
+  const handleFetchData = async () => {
+    setIsLoading(true);
+    let res = await GET(ApiUrls.GET_EMPLOYEE_DETAIL_LIST);
+    console.log("ress0", res);
+    if (res?.success != false) {
+      setData(res?.data?.employes);
+    }
+    setIsLoading(false);
+  };
   
-//   useEffect(() => {
-//     handleFetchData();
-//   }, [refresh]);
+  useEffect(() => {
+    handleFetchData();
+  }, [refresh]);
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     // const [interest, SetInterest] = useState("");
     const [name, setName] = useState("");
     const [designation, SetDesignation] = useState("");
     const [joiningDate, SetJoiningDate] = useState("");
+    const [date, setDate] = useState(today);
     const [salaryStatus, SetSalaryStatus] = useState("");
     const [salary, SetSalary] = useState("");
     const [contact, SetContact] = useState("");
     const [CNICno, SetCNIC] = useState("");
     const [image, setImage] = React.useState("");
-    const imageRef = React.useRef(null);
+    // const imageRef = React.useRef(null);
   
-    function useDisplayImage() {
-      const [result, setResult] = React.useState("");
+    // function useDisplayImage() {
+    //   const [result, setResult] = React.useState("");
   
-      function uploader(e) {
-        const imageFile = e.target.files[0];
+    //   function uploader(e) {
+    //     const imageFile = e.target.files[0];
   
-        const reader = new FileReader();
-        reader.addEventListener("load", (e) => {
-          setResult(e.target.result);
-        });
+    //     const reader = new FileReader();
+    //     reader.addEventListener("load", (e) => {
+    //       setResult(e.target.result);
+    //     });
   
-        reader.readAsDataURL(imageFile);
-      }
+    //     reader.readAsDataURL(imageFile);
+    //   }
   
-      return { result, uploader };
-    }
+    //   return { result, uploader };
+    // }
   
-    const { result, uploader } = useDisplayImage();
+    // const { result, uploader } = useDisplayImage();
 
 
   
 
     const addData = async (event) => {
       event.preventDefault();
-        let postData = {
-          id: "1",
-          name: name,
-          designation: designation,
-          date_of_joining: joiningDate,
-          salary_status: salaryStatus,
-          salary: salary,
-          contact: contact,
-          cnic: CNICno,
-          image:result,
+        // let postData = {
+        //   id: "1",
+        //   name: name,
+        //   designation: designation,
+        //   date_of_joining: joiningDate,
+        //   salary_status: salaryStatus,
+        //   salary: salary,
+        //   contact: contact,
+        //   cnic: CNICno,
+        //   image:result,
 
-        };
+        // };
 
-        let arr = data;
-        arr.push(postData);
-        setData(arr);
-        setShowAdd(false);
+        // let arr = data;
+        // arr.push(postData);
+        // setData(arr);
+        // setShowAdd(false);
     
 
       //api
       //*--------------------------------------
-    //   let postData = {
-    //     title: title,
-    //     body: description,
-    //   };
-    //   let res = await POST(ApiUrls.ADD_POLICY_DETAILS, postData);
-    //   console.log("post request", res);
-    //   if (res?.error === false) {
-    //     setMessage("Policy Added Successfully");
-    //     setShowSuccessAlert(true);
-    //   } else {
-    //     setMessage("Policy Not Added");
-    //     setShowErrorAlert(true);
-    //   }
+      let postData = {
+        name: name,
+          designation: designation,
+          date_of_joining: formatDate(date),
+          salary_status: salaryStatus,
+          salary: salary,
+          emergency: contact,
+          cnic: CNICno,
+          image:image,
+      };
+      let res = await POST(ApiUrls.POST_EMPLOYEE_DETAIL, postData);
+      console.log("post request",postData, res);
+      if (res?.error === false) {
+        setMessage("employee added successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("employee Not Added");
+        setShowErrorAlert(true);
+      }
       setRefresh(!refresh);
 
       setShowAdd(false);
@@ -235,7 +263,9 @@ export default function AddAccount() {
               </div>
               <div className="pb-3">
                 <h6>Date of Joining</h6>
-                <input
+                <div  className="form-control  w-100 "> <KeyboardDatePickerExample value={today} showDate={handleDateValue}/> </div>
+               
+                {/* <input
                   className="form-control  w-100 "
                   placeholder="Enter date"
                   type="text"
@@ -245,7 +275,7 @@ export default function AddAccount() {
                   onChange={(e) => {
                     SetJoiningDate(e.target.value);
                   }}
-                />
+                /> */}
               </div>
               <div className="pb-3">
                 <h6>CNIC</h6>
@@ -295,7 +325,7 @@ export default function AddAccount() {
               {/* <div className="App"> */}
      <h6> Employee Image</h6>
 
-    <Image/>
+    <Image {...{setImage,image}}/>
       {/* <input
         type="file"
         onChange={(e) => {
@@ -345,29 +375,29 @@ export default function AddAccount() {
     const [joiningDate, SetJoiningDate] = useState(item.date_of_joining);
     const [salaryStatus, SetSalaryStatus] = useState(item.salary_status);
     const [salary, SetSalary] = useState(item.salary);
-    const [contact, SetContact] = useState(item.contact);
+    const [contact, SetContact] = useState(item.emergency);
     const [CNICno, SetCNIC] = useState(item.cnic);
     const [image, setImage] = React.useState(item.image);
-    const imageRef = React.useRef(null);
+    // const imageRef = React.useRef(null);
   
-    function useDisplayImage() {
-      const [result, setResult] = React.useState("");
+    // function useDisplayImage() {
+    //   const [result, setResult] = React.useState("");
   
-      function uploader(e) {
-        const imageFile = e.target.files[0];
+    //   function uploader(e) {
+    //     const imageFile = e.target.files[0];
   
-        const reader = new FileReader();
-        reader.addEventListener("load", (e) => {
-          setResult(e.target.result);
-        });
+    //     const reader = new FileReader();
+    //     reader.addEventListener("load", (e) => {
+    //       setResult(e.target.result);
+    //     });
   
-        reader.readAsDataURL(imageFile);
-      }
+    //     reader.readAsDataURL(imageFile);
+    //   }
   
-      return { result, uploader };
-    }
+    //   return { result, uploader };
+    // }
   
-    const { result, uploader } = useDisplayImage();
+    // const { result, uploader } = useDisplayImage();
 
     const EditRecordToServer = async (event) => {
       event.preventDefault();
@@ -376,29 +406,29 @@ export default function AddAccount() {
       // push
 
       let postData = {
-        id: "1",
+        id: item.id,
         name: name,
-        designation: designation,
-        date_of_joining: joiningDate,
-        salary_status: salaryStatus,
-        salary: salary,
-        contact: contact,
-        cnic: CNICno,
-        image:result,
+          designation: designation,
+          date_of_joining: formatDate(date),
+          salary_status: salaryStatus,
+          salary: salary,
+          emergency: contact,
+          cnic: CNICno,
+          image:image,
 
       };
-      // let res = await POST(ApiUrls.EDIT_POLICY_DETAILS, postData);
-      // if (res.error === false) {
-      //   setMessage("Policy Edited Successfully");
-      //   setShowSuccessAlert(true);
-      // } else {
-      //   setMessage("Policy Not Edited");
-      //   setShowErrorAlert(true);
-      // }
-      // console.log(res);
-      // setRefresh(!refresh);
+      let res = await POST(ApiUrls.POST_EDIT_EMPLOYEE_DETAILS, postData);
+      if (res.error === false) {
+        setMessage("Emplyee Detail Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Employee Detail Not Edited");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
+      setRefresh(!refresh);
 
-      // setShowEdit(false);
+      setShowEdit(false);
     };
 
     return (
@@ -469,18 +499,8 @@ export default function AddAccount() {
                 />
               </div>
               <div className="pb-3">
-                <h6>Date of Joining</h6>
-                <input
-                  className="form-control  w-100 "
-                  placeholder="Enter date"
-                  type="text"
-                  minLength="3"
-                  maxLength="30"
-                  value={joiningDate}
-                  onChange={(e) => {
-                    SetJoiningDate(e.target.value);
-                  }}
-                />
+              <h6>Date of Joining</h6>
+                <div  className="form-control  w-100 "> <KeyboardDatePickerExample value={joiningDate} showDate={handleDateValue}/> </div>
               </div>
               <div className="pb-3">
                 <h6>CNIC</h6>
@@ -529,7 +549,7 @@ export default function AddAccount() {
               <Col className="col-md-6">
               {/* <div className="App"> */}
      <h6> Employee Image</h6>
-      <Image/>
+      <Image {...{setImage,image}}/>
       {/* <input
         type="file"
         value={item.image}
@@ -587,19 +607,19 @@ export default function AddAccount() {
 
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-    //   let res = await GET(ApiUrls.DELETE_POLICY_DETAILS + item.id);
-    //   setShowDelete(false);
-
-    //   if (res.error === false) {
-    //     setMessage("Policy Deleted Successfully");
-    //     setShowSuccessAlert(true);
-    //     // setRefresh(!refresh);
-    //     setSelectedID(0);
-    //   } else {
-    //     setMessage("Policy Not Deleted");
-    //     setShowErrorAlert(true);
-    //   }
-    //   console.log(res);
+      let res = await GET(ApiUrls.DELETE_EMPLOYEE + item.id);
+      setShowDelete(false);
+      console.log(item.id);
+      if (res.error === false) {
+        setMessage("Employee Deleted Successfully");
+        setShowSuccessAlert(true);
+        // setRefresh(!refresh);
+        setSelectedID(0);
+      } else {
+        setMessage("Employee Not Deleted");
+        setShowErrorAlert(true);
+      }
+      console.log(res);
       setRefresh(!refresh);
     };
     return (
@@ -647,13 +667,13 @@ export default function AddAccount() {
         <td>{item.date_of_joining}</td>
         <td>{item.salary_status}</td>
         <td>{item.cnic}</td>
-        <td>{item.contact}</td>
+        <td>{item.emergency}</td>
         <td>  <IconButton color="primary" aria-label="upload picture" component="span">
-                    <Avatar id="avatar" src={Pak}
+                    <Avatar id="avatar" src={item.image}
                             style={{
 
                                 width: "40px",
-                                height: "30px",
+                                height: "40px",
                                 margin:"0px", 
                                 padding:"0px",
                             }}
@@ -691,7 +711,7 @@ export default function AddAccount() {
               justifyContent: "center",
             }}
           >
-            <button
+            {/* <button
               data-tip
               data-for="ViewTip"
               type="button"
@@ -705,7 +725,7 @@ export default function AddAccount() {
             </button>
             <ReactTooltip id="ViewTip" place="top" effect="solid">
               View Details
-            </ReactTooltip>
+            </ReactTooltip> */}
             <button
               data-tip
               data-for="EditTip"
@@ -882,14 +902,13 @@ export default function AddAccount() {
               </tr>
             </thead>
             <tbody>
-              {/* {data
-                 
-                  .map((item, index) => {
-                    return <Table item={item} index={index} />;
-                  })} */}
-              {data?.map((item, index) => {
-                return <Table index={index} key={index} item={item} />;
-              })}
+             
+                   {data?.length > 0 ? (
+                data?.map((lead, index) => (
+                  <Table item={lead} index={index} />
+                ))
+              ) : null}
+             
             </tbody>
             {data?.length > 0 ? (
               <>

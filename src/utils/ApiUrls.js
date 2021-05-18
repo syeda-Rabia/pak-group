@@ -95,7 +95,13 @@ GET_EMPLOYE_RECORDING_ON_LEAD:"admin/lead/showLead",
 GET_EMPLOYEE_NOTIFICATION_COUNT:"employee/notifications/count",
 GET_ADMIN_NOTIFICATION_COUNT:"admin/notifications/count",
 
-  //   DASHBOARD
+  //   Account
+  GET_EMPLOYEE_DETAIL_LIST:"admin/accounts/employee/getEmployees",
+  POST_EMPLOYEE_DETAIL:"admin/accounts/employee/add",
+  POST_EDIT_EMPLOYEE_DETAILS:"admin/accounts/employee/edit",
+  DELETE_EMPLOYEE:"admin/accounts/employee/delete",
+  GET_SINGLE_EMPLOYEE_ATTENDANCE:"admin/accounts/attendance/showList",
+
 
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",

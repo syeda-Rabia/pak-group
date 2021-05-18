@@ -2,12 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-
-
-  
-
- 
-  export default function Image() {
+  export default function Image({setImage,image}) {
     const [state, setState] = React.useState({
         loading: false,
       });
@@ -22,14 +17,18 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
         if (info.file.status === 'done') {
           // Get this url from response in real world.
           getBase64(info.file.originFileObj, imageUrl =>
-            setState({
+          {  setState({
               imageUrl,
               loading: false,
-            }),
+            });
+            setImage(imageUrl)
+            image=imageUrl
+          
+          }
           );
         }
       };
-    console.log("image---",state)
+    console.log("image---",state,image)
     function getBase64(img, callback) {
         const reader = new FileReader();
         reader.addEventListener('load', () => callback(reader.result));
