@@ -242,7 +242,7 @@ const history = useHistory();
       setTotalRecord(resp?.data?.leads?.total);
       setCurrentPage(resp?.data?.leads?.current_page);
     }
-    // console.log("leads", resp?.data?.leads);
+    console.log("leads", resp);
     setIsLoading(false);
 
     //  ;

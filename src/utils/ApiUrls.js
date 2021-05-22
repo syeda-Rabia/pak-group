@@ -96,12 +96,14 @@ GET_EMPLOYEE_NOTIFICATION_COUNT:"employee/notifications/count",
 GET_ADMIN_NOTIFICATION_COUNT:"admin/notifications/count",
 
   //   Account
-  GET_EMPLOYEE_DETAIL_LIST:"admin/accounts/employee/getEmployees",
+  GET_EMPLOYEE_DETAIL_LIST:"admin/accounts/employee/getEmployees?page=",
   POST_EMPLOYEE_DETAIL:"admin/accounts/employee/add",
   POST_EDIT_EMPLOYEE_DETAILS:"admin/accounts/employee/edit",
   DELETE_EMPLOYEE:"admin/accounts/employee/delete",
   GET_SINGLE_EMPLOYEE_ATTENDANCE:"admin/accounts/attendance/showList",
-
+  GET_FILTER_ATTENDANCE_LIST:"admin/accounts/attendance/getList",
+GET_ALL_EMPLOYEES_ATTENDANCE_LIST:"admin/accounts/attendance/toDayAttendance",
+POST_ATTENDANCE:"admin/accounts/attendance/attendanceMark",
 
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",

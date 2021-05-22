@@ -105,3 +105,16 @@ select.form-control.form-control-sm {
   0%   { transform: translate(0, 0); }
   100% { transform: translate(-130%, 0); }
 }
+.zoom {
+ 
+  background-color: green;
+  transition: transform .2s;
+ 
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(2.5); /* IE 9 */
+  -webkit-transform: scale(2.5); /* Safari 3-8 */
+  transform: scale(2.5); 
+}

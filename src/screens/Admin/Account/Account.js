@@ -31,7 +31,9 @@ import Image from "../../../components/imageupload";
 import {
   KeyboardDatePickerExample,
   KeyboardTimePickerExample,
+  KeyboardDatePickerAttendance,
 } from "../../../utils/KeyboardTimePickerExample";
+import { publicURL,publicURLimage } from "./../../../utils/Config";
 import {
 
   
@@ -73,7 +75,42 @@ export default function AddAccount() {
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-  const [date, setDate] = useState();
+  // const [date, setDate] = useState();
+
+   /*  Pagination data  */
+
+   const [pageSize, setPageSize] = React.useState(0);
+   const [currentPage, setCurrentPage] = React.useState(0);
+   const [pageCount, setPageCount] = React.useState(0);
+   const [totalRecord, setTotalRecord] = React.useState(0);
+ 
+   const lastIndex = currentPage * pageSize;
+   const istIndex = lastIndex - pageSize;
+  //  const currentData = data.slice(istIndex, lastIndex);
+ 
+   // const [page, setPage] = React.useState(2);
+   const handlePageChange = async (page) => {
+     /*
+     Api Call
+     
+     */
+     setIsLoading(true);
+     let resp = await GET(ApiUrls.GET_EMPLOYEE_DETAIL_LIST + page);
+ 
+     if (resp?.data != null) {
+       setCurrentPage(resp?.data?.employes?.current_page);
+       setData(resp?.data?.employes?.data);
+     }
+   
+     setIsLoading(false);
+   };
+ 
+   const handleShow = (pageCount) => {
+     setPageCount(pageCount);
+   };
+ 
+   /*  Pagination data  */
+ 
   var today = new Date();
   const formatDate = (date) => {
     var d = new Date(date),
@@ -86,21 +123,25 @@ export default function AddAccount() {
 
     return [year, month, day].join("-");
   };
-  const handleDateValue = (value) => {
-    const str = value.toString();
+  // const handleDateValue = (value) => {
+  //   const str = value.toString();
 
-    // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
-    setDate(formatDate(value, "-"));
-  };
+  //   // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
+  //   setDate(formatDate(value, "-"));
+  // };
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_EMPLOYEE_DETAIL_LIST);
     console.log("ress0", res);
     if (res?.success != false) {
-      setData(res?.data?.employes);
+      setData(res?.data?.employes?.data);
+      setPageSize(res?.data?.employes?.per_page);
+      setTotalRecord(res?.data?.employes?.total);
+      setCurrentPage(res?.data?.employes?.current_page);
     }
     setIsLoading(false);
   };
+
   
   useEffect(() => {
     handleFetchData();
@@ -111,12 +152,21 @@ export default function AddAccount() {
     const [name, setName] = useState("");
     const [designation, SetDesignation] = useState("");
     const [joiningDate, SetJoiningDate] = useState("");
+    const [dutyHour, setDutyHour] = useState(0);
     const [date, setDate] = useState(today);
     const [salaryStatus, SetSalaryStatus] = useState("");
     const [salary, SetSalary] = useState("");
     const [contact, SetContact] = useState("");
     const [CNICno, SetCNIC] = useState("");
     const [image, setImage] = React.useState("");
+
+
+    const handleDateValue = (value) => {
+      const str = value.toString();
+  
+      // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
+      setDate(formatDate(value, "-"));
+    };
     // const imageRef = React.useRef(null);
   
     // function useDisplayImage() {
@@ -173,19 +223,21 @@ export default function AddAccount() {
           emergency: contact,
           cnic: CNICno,
           image:image,
+          duty_hours:dutyHour,
       };
       let res = await POST(ApiUrls.POST_EMPLOYEE_DETAIL, postData);
       console.log("post request",postData, res);
       if (res?.error === false) {
         setMessage("employee added successfully");
         setShowSuccessAlert(true);
+        
       } else {
         setMessage("employee Not Added");
         setShowErrorAlert(true);
       }
       setRefresh(!refresh);
-
       setShowAdd(false);
+    
     };
 
     //*-------------------------------------------------------
@@ -204,7 +256,7 @@ export default function AddAccount() {
         </Modal.Header>
         <form
           onSubmit={(e) => {
-            // SendRecordToServer(e);
+            addData(e);
           }}
         >
             
@@ -224,6 +276,7 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter name"
+                  required="true"
                   type="text"
                   minLength="3"
                   maxLength="30"
@@ -238,6 +291,7 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter Designation"
+                  required="true"
                   type="text"
                   minLength="3"
                   maxLength="30"
@@ -252,6 +306,7 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter Salary"
+                  required="true"
                   type="number"
                   minLength="3"
                   maxLength="30"
@@ -263,7 +318,7 @@ export default function AddAccount() {
               </div>
               <div className="pb-3">
                 <h6>Date of Joining</h6>
-                <div  className="form-control  w-100 "> <KeyboardDatePickerExample value={today} showDate={handleDateValue}/> </div>
+                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={today} showDate={handleDateValue}/> </div>
                
                 {/* <input
                   className="form-control  w-100 "
@@ -281,10 +336,13 @@ export default function AddAccount() {
                 <h6>CNIC</h6>
                 <input
                   className="form-control  w-100 "
-                  placeholder="Enter CNIC no"
-                  type="text"
-                  minLength="3"
-                  maxLength="30"
+                  placeholder="xxxxx-xxxxxxx-x"
+                // pattern="^[0-9]{5}-[-|]-[0-9]{7}-[-|]-[0-9]{1}"
+                  // Mask="_____-_______-_"
+                  required="true"
+                  // type="text"
+                  // minLength="3"
+                  // maxLength="30"
                   value={CNICno}
                   onChange={(e) => {
                     SetCNIC(e.target.value);
@@ -297,12 +355,27 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter contact no"
+                  required="true"
                   type="text"
                   minLength="3"
                   maxLength="30"
                   value={contact}
                   onChange={(e) => {
                     SetContact(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pb-3">
+                <h6>Duty Hour</h6>
+                <input
+                  className="form-control  w-100 "
+                  placeholder="Enter hours"
+                  required="true"
+                  type="text"
+                
+                  value={dutyHour}
+                  onChange={(e) => {
+                    setDutyHour(e.target.value);
                   }}
                 />
               </div>
@@ -357,7 +430,7 @@ export default function AddAccount() {
                 style={{ backgroundColor: "#2258BF" }}
                 type="submit"
                 value="Submit"
-                onClick={addData}
+                // onClick={addData}
               >
                 Add
               </Button>
@@ -372,12 +445,22 @@ export default function AddAccount() {
     // const [interest, SetInterest] = useState(item.interest);
     const [name, setName] = useState(item.name);
     const [designation, SetDesignation] = useState(item.designation);
-    const [joiningDate, SetJoiningDate] = useState(item.date_of_joining);
+    // const [joiningDate, SetJoiningDate] = useState(item.date_of_joining);
     const [salaryStatus, SetSalaryStatus] = useState(item.salary_status);
     const [salary, SetSalary] = useState(item.salary);
     const [contact, SetContact] = useState(item.emergency);
     const [CNICno, SetCNIC] = useState(item.cnic);
     const [image, setImage] = React.useState(item.image);
+    const [dutyHour, setDutyHour] = useState(0);
+    const [date, setDate] = useState(item.date_of_joining);
+
+
+    const handleDateValue = (value) => {
+      const str = value.toString();
+  
+      // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
+      setDate(formatDate(value, "-"));
+    };
     // const imageRef = React.useRef(null);
   
     // function useDisplayImage() {
@@ -415,6 +498,7 @@ export default function AddAccount() {
           emergency: contact,
           cnic: CNICno,
           image:image,
+          duty_hours:dutyHour,
 
       };
       let res = await POST(ApiUrls.POST_EDIT_EMPLOYEE_DETAILS, postData);
@@ -459,7 +543,7 @@ export default function AddAccount() {
               <div className="pb-3">
                 <h6>Name</h6>
                 <input
-                  className="form-control  w-100 "
+                  className="form-control  w-100"
                   placeholder="Enter name"
                   type="text"
                   minLength="3"
@@ -487,7 +571,7 @@ export default function AddAccount() {
               <div className="pb-3">
                 <h6>Salary</h6>
                 <input
-                  className="form-control  w-100 "
+                  className="form-control  w-100"
                   placeholder="Enter Salary"
                   type="number"
                   minLength="3"
@@ -500,13 +584,16 @@ export default function AddAccount() {
               </div>
               <div className="pb-3">
               <h6>Date of Joining</h6>
-                <div  className="form-control  w-100 "> <KeyboardDatePickerExample value={joiningDate} showDate={handleDateValue}/> </div>
+                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={Date} showDate={handleDateValue}/> </div>
               </div>
               <div className="pb-3">
                 <h6>CNIC</h6>
                 <input
                   className="form-control  w-100 "
-                  placeholder="Enter CNIC no"
+                  placeholder="xxxxx-xxxxxxx-x"
+                  mask="_____-_______-_"
+                  // placeholder="Enter CNIC no"
+                 
                   type="text"
                   minLength="3"
                   maxLength="30"
@@ -542,6 +629,20 @@ export default function AddAccount() {
                   value={salaryStatus}
                   onChange={(e) => {
                     SetSalaryStatus(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pb-3">
+                <h6>Duty Hour</h6>
+                <input
+                  className="form-control  w-100 "
+                  placeholder="Enter hours"
+                  required="true"
+                  type="text"
+                
+                  value={dutyHour}
+                  onChange={(e) => {
+                    setDutyHour(e.target.value);
                   }}
                 />
               </div>
@@ -582,18 +683,18 @@ export default function AddAccount() {
                 type="submit"
                 value="Submit"
                 style={{ backgroundColor: "#2258BF" }}
-                onClick={(e) => {
-                  setShowEdit(false);
-                  EditRecordToServer(e);
-                  // setData((state) =>
-                  //   state.map((val) => {
-                  //     if (val.id == item.id) {
-                  //       val.Description = description;
-                  //     }
-                  //     return val;
-                  //   })
-                  // );
-                }}
+                // onClick={(e) => {
+                //   setShowEdit(false);
+                //   EditRecordToServer(e);
+                //   // setData((state) =>
+                //   //   state.map((val) => {
+                //   //     if (val.id == item.id) {
+                //   //       val.Description = description;
+                //   //     }
+                //   //     return val;
+                //   //   })
+                //   // );
+                // }}
               >
                 Edit
               </Button>
@@ -656,19 +757,13 @@ export default function AddAccount() {
       </Modal>
     );
   };
+ 
   const Table = ({ item, index }) => {
     //  ;
     return (
       <tr>
         <td>{index + 1}</td>
-        <td>{item.name}</td>
-        <td>{item.designation}</td>
-        <td>{item.salary}</td>
-        <td>{item.date_of_joining}</td>
-        <td>{item.salary_status}</td>
-        <td>{item.cnic}</td>
-        <td>{item.emergency}</td>
-        <td>  <IconButton color="primary" aria-label="upload picture" component="span">
+        <td>  <IconButton className="zoom" color="primary" aria-label="upload picture" component="span">
                     <Avatar id="avatar" src={item.image}
                             style={{
 
@@ -682,7 +777,9 @@ export default function AddAccount() {
             {/* {item.image} */}
             </td>
 
-        <td>
+       
+        <td>{item.name}</td>
+         <td>
           <Link to={{ pathname: "/admin/accounts/empAttendance", query: { item}}}>
           {/* <Tooltip placement="top-start" title="View Employee Action"> */}
             <button
@@ -703,6 +800,13 @@ export default function AddAccount() {
             View Employee Attendance
           </ReactTooltip>
         </td>
+        <td>{item.designation}</td>
+        <td>{item.salary}</td>
+        <td>{item.date_of_joining}</td>
+        <td>{item.salary_status}</td>
+        <td>{item.cnic}</td>
+        <td>{item.emergency}</td>
+       
 
         <td>
           <div
@@ -791,7 +895,7 @@ export default function AddAccount() {
           </Tooltip>
         </IconButton> */}
         <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Employee Detail</h3>
+          <h3 style={{ color: "#818181" }}>Employee Details</h3>
         </Col>
       </Row>
 
@@ -801,7 +905,7 @@ export default function AddAccount() {
           data-tip
           data-for="AddTip"
           type="button"
-          className="btn btn-primary mt-2"
+          className="btn btn-primary mt-2 ml-2"
           style={{
             backgroundColor: "#2258BF",
           }}
@@ -848,10 +952,20 @@ export default function AddAccount() {
                   ID
                   </span>
                 </th>
-
+                <th scope="col" className="text-nowrap">
+                <span id="sn" style={{ color: "#818181" }}>
+              Employee image
+                  </span>
+                </th>
+               
                 <th scope="col" >
                 <span id="sn" style={{ color: "#818181" }}>
                   Name
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                <span id="sn" style={{ color: "#818181" }}>
+                  Attendece details
                   </span>
                 </th>
                 <th scope="col" >
@@ -884,16 +998,7 @@ export default function AddAccount() {
                 Contact
                   </span>
                 </th>
-                <th scope="col" className="text-nowrap">
-                <span id="sn" style={{ color: "#818181" }}>
-              Employee image
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                <span id="sn" style={{ color: "#818181" }}>
-                  Attendece details
-                  </span>
-                </th>
+              
                 <th scope="col" >
                 <span id="sn" style={{ color: "#818181" }}>
                   Action
@@ -922,6 +1027,27 @@ export default function AddAccount() {
           <ModalAdd />
         </div>
       </Row>
+      <Row>
+          <Col>
+          {pageCount>1?(
+ <p className="page-info">
+ Showing {currentPage} from {pageCount}
+</p>
+          ):null
+         
+          }
+            
+          </Col>
+          <Col>
+            <Pagination
+              itemsCount={totalRecord}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+              show={handleShow}
+            />
+          </Col>
+        </Row>
     </Container>
   );
 }

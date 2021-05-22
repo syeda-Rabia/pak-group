@@ -22,11 +22,16 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
               loading: false,
             });
             setImage(imageUrl)
-            image=imageUrl
+            // image=imageUrl
           
           }
           );
         }
+      };
+      const dummyRequest = ({ file, onSuccess }) => {
+        setTimeout(() => {
+          onSuccess("ok");
+        }, 0);
       };
     console.log("image---",state,image)
     function getBase64(img, callback) {
@@ -43,6 +48,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
         const isLt2M = file.size / 2048 / 2048 < 3;
         if (!isLt2M) {
           message.error('Image must smaller than 2MB!');
+          alert("Image must smaller than 2MB!");
         }
         return isJpgOrPng && isLt2M;
       }
@@ -59,11 +65,11 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        customRequest={dummyRequest}
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        {image ? <img src={image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
       </Upload>
     );
   }

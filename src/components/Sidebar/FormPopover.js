@@ -107,7 +107,7 @@ export default function FormPopover(props) {
   };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
-    let formData = {
+    let formData = { 
       client_name: employees,
       project_id: project,
       year: days.year,
