@@ -355,8 +355,9 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter contact no"
+                 pattern="[0-9]{4}-[0-9]{7}"
                   required="true"
-                  type="text"
+                  type="tel"
                   minLength="3"
                   maxLength="30"
                   value={contact}
@@ -364,6 +365,7 @@ export default function AddAccount() {
                     SetContact(e.target.value);
                   }}
                 />
+                 <small>Format:03xx-xxxxxxx</small>
               </div>
               <div className="pb-3">
                 <h6>Duty Hour</h6>
@@ -371,7 +373,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter hours"
                   required="true"
-                  type="text"
+                  type="number"
                 
                   value={dutyHour}
                   onChange={(e) => {
@@ -385,8 +387,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter salary status"
                   type="text"
-                  minLength="3"
-                  maxLength="30"
+               
                   value={salaryStatus}
                   onChange={(e) => {
                     SetSalaryStatus(e.target.value);
@@ -509,7 +510,7 @@ export default function AddAccount() {
         setMessage("Employee Detail Not Edited");
         setShowErrorAlert(true);
       }
-      console.log(res);
+      console.log("updated",res,postData);
       setRefresh(!refresh);
 
       setShowEdit(false);
@@ -584,7 +585,7 @@ export default function AddAccount() {
               </div>
               <div className="pb-3">
               <h6>Date of Joining</h6>
-                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={Date} showDate={handleDateValue}/> </div>
+                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={date} showDate={handleDateValue}/> </div>
               </div>
               <div className="pb-3">
                 <h6>CNIC</h6>
@@ -609,7 +610,8 @@ export default function AddAccount() {
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter contact no"
-                  type="text"
+                  type="tel"
+                  pattern="[0-9]{4}-[0-9]{7}"
                   minLength="3"
                   maxLength="30"
                   value={contact}
@@ -617,6 +619,7 @@ export default function AddAccount() {
                     SetContact(e.target.value);
                   }}
                 />
+                 <small>Format:03xx-xxxxxxx</small>
               </div>
               <div className="pb-3">
                 <h6>Salary Status</h6>
@@ -624,8 +627,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter salary status"
                   type="text"
-                  minLength="3"
-                  maxLength="30"
+                 
                   value={salaryStatus}
                   onChange={(e) => {
                     SetSalaryStatus(e.target.value);
@@ -638,7 +640,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter hours"
                   required="true"
-                  type="text"
+                  type="number"
                 
                   value={dutyHour}
                   onChange={(e) => {
@@ -708,7 +710,8 @@ export default function AddAccount() {
 
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-      let res = await GET(ApiUrls.DELETE_EMPLOYEE + item.id);
+      console.log("item in delete modal",item.id)
+      let res = await GET(ApiUrls.DELETE_EMPLOYEE +"/"+ item.id);
       setShowDelete(false);
       console.log(item.id);
       if (res.error === false) {
@@ -781,7 +784,7 @@ export default function AddAccount() {
         <td>{item.name}</td>
          <td>
           <Link to={{ pathname: "/admin/accounts/empAttendance", query: { item}}}>
-          {/* <Tooltip placement="top-start" title="View Employee Action"> */}
+          <Tooltip placement="top-start" title="View Employee Attendance">
             <button
               data-tip
               data-for="action"
@@ -794,11 +797,11 @@ export default function AddAccount() {
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
             </button>
-            {/* </Tooltip> */}
+            </Tooltip>
           </Link>
-          <ReactTooltip id="action" place="top" effect="solid">
+          {/* <ReactTooltip id="action" place="top" effect="solid">
             View Employee Attendance
-          </ReactTooltip>
+          </ReactTooltip> */}
         </td>
         <td>{item.designation}</td>
         <td>{item.salary}</td>
@@ -830,6 +833,8 @@ export default function AddAccount() {
             <ReactTooltip id="ViewTip" place="top" effect="solid">
               View Details
             </ReactTooltip> */}
+             <Tooltip placement="top-start" title="Edit Employee ">
+
             <button
               data-tip
               data-for="EditTip"
@@ -842,10 +847,12 @@ export default function AddAccount() {
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
             </button>
-            <ReactTooltip id="EditTip" place="top" effect="solid">
+             </Tooltip>
+            {/* <ReactTooltip id="EditTip" place="top" effect="solid">
               Edit Details
-            </ReactTooltip>
-            <button
+            </ReactTooltip> */}
+             <Tooltip placement="top-start" title="Delete Record">
+             <button
               data-tip
               data-for="DeleteTip"
               type="button"
@@ -857,9 +864,8 @@ export default function AddAccount() {
             >
               <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
             </button>
-            <ReactTooltip id="DeleteTip" place="top" effect="solid">
-              Delete Record
-            </ReactTooltip>
+             </Tooltip>
+           
           </div>
         </td>
        
@@ -924,7 +930,7 @@ export default function AddAccount() {
         <Link to={{ pathname: "/admin/accounts/todayattendance"}}>
         <button
           data-tip
-          data-for="AddTip"
+          data-for="empTip"
           type="button"
           className="btn btn-primary ml-2"
           style={{
@@ -937,13 +943,13 @@ export default function AddAccount() {
           <FontAwesomeIcon icon={faPlusSquare} />{" "}
         Today Attendance
         </button>
-        {/* <ReactTooltip id="AddTip" place="top" effect="solid">
+        <ReactTooltip id="empTip" place="top" effect="solid">
           Add Today Attendancee
-        </ReactTooltip> */}
+        </ReactTooltip>
         </Link>
      
        
-        <div className="table-responsive">
+        <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">
             <thead>
               <tr>
@@ -965,7 +971,7 @@ export default function AddAccount() {
                 </th>
                 <th scope="col" className="text-nowrap">
                 <span id="sn" style={{ color: "#818181" }}>
-                  Attendece details
+                  Attendance details
                   </span>
                 </th>
                 <th scope="col" >

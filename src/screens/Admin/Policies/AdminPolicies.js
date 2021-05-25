@@ -510,7 +510,7 @@ export default function AddPolicies() {
           Add new policy
         </ReactTooltip>
        
-        <div className="table-responsive">
+        <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">
             <thead>
               <tr>

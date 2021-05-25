@@ -120,7 +120,7 @@ export default function EmployeeReport() {
       
         <Row className=" shadow p-3  bg-white rounded mb-4">
          
-          <div className="table-responsive">
+          <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
             <table className="table table-hover">
               <thead>
                 <tr>

@@ -1324,7 +1324,7 @@ const ModalClose = ({ item }) => {
           >
              
        
-            <div className="table-responsive" ref={ref}>
+            <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
                 <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
        
        <div style={{paddingRight:10}}>

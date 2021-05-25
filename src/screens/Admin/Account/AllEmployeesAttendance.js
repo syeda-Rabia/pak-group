@@ -158,10 +158,11 @@ export default function EmployeeReport(props) {
   console.log(EmpID,"idddddddd",empdata,image);
     const handleFetchData = async () => {
       setIsLoading(true);
-      let res = await GET(ApiUrls.GET_ALL_EMPLOYEES_ATTENDANCE_LIST);
+      let res = await GET(ApiUrls.GET_ALL_EMPLOYEES_ATTENDANCE_LIST+`?date=${date}`);
       console.log("ress0", res);
       if (res?.success != false) {
         setData(res?.data?.attendance);
+        console.log("success", res);
        
       }
 
@@ -171,7 +172,7 @@ export default function EmployeeReport(props) {
     useEffect(() => {
      
       handleFetchData();
-    }, [refresh]);
+    }, [refresh,date]);
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [attTime, setAttTime] = useState();
@@ -420,7 +421,10 @@ export default function EmployeeReport(props) {
       <PreLoading startLoading={isLoading} />
 
       <Row className=" shadow p-3  bg-white rounded mt-4 ml-1 mr-1">
-      <IconButton
+      
+        <Col lg={5} md={5} sm={12} xs={12} xl={6}>
+          <h4 style={{ color: "#818181", paddingTop: "12px" }}>
+          <IconButton
           onClick={() => {
             history.push("/admin/accounts");
           }}
@@ -431,8 +435,6 @@ export default function EmployeeReport(props) {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <Col lg={5} md={5} sm={12} xs={12} xl={6}>
-          <h4 style={{ color: "#818181", paddingTop: "12px" }}>
             Attendance
           </h4>
         </Col>
@@ -447,7 +449,7 @@ export default function EmployeeReport(props) {
            <Col><KeyboardDatePickerAttendance value={date} showDate={handleDateValue}/></Col>
          
          </div>
-        <div className="table-responsive mt-5">
+        <div className="table-responsive mt-5" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">
             <thead>
               <tr>
@@ -461,14 +463,14 @@ export default function EmployeeReport(props) {
                   Name
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  SignIn
+                  Sign In
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  SignOut
+                  Sign Out
                   </span>
                 </th>
               

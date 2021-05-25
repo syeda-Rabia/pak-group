@@ -429,7 +429,7 @@ export default function AddCategories() {
               md="12"
               style={{ backgroundColor: "white", borderRadius: "5px" }}
             >
-              <div className="table-responsive">
+              <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
                 <table className="table table-hover">
                   <thead>
                     <tr>

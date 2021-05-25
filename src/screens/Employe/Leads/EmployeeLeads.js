@@ -93,7 +93,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const colors = {
+  New: {color: '#E0E0E0', textColor: 'black'},
+  Overdue: {color: '#DBAD73', textColor: 'black'},
+  "Grace Period": {color: '#F19595', textColor: 'black'},
+  Complete: {color: '#99CB99', textColor: 'black'},
+  Loss: {color: '#C8B6A7', textColor: 'black'},
+  Allocated: {color: '#A0C5E2', textColor: 'black'},
 
+};
 function EmployeeLeads(props, lead_id) {
   const [data, setData] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
@@ -772,7 +780,7 @@ function EmployeeLeads(props, lead_id) {
     };
     // let created_date=item.created_at;
     return (
-      <tr>
+      <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
         
         <td scope="row">{index + 1}</td>
         <td>{item.client_name}</td>
@@ -781,7 +789,7 @@ function EmployeeLeads(props, lead_id) {
         <td>{item.budget + " PKR"}</td>
         <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
         {/* <td>{item.time_to_call}</td> */}
-        <td>{item.country_city}</td>
+    
   
         <td>
           {item.status != "" ? (
@@ -812,10 +820,7 @@ function EmployeeLeads(props, lead_id) {
         {/* <td>{item.inventory.inventory_name}</td> */}
         <td>{item.interest.interest}</td>
        
-        <td>{item.email != null ? item.email : "-------"}</td>
-        <td>{item.task}</td>
-        <td>{item.created_at.toString().split("T")[0]}</td>
-        <td>{item.dead_line}</td>
+       
         <td>
             <Link to= 
              {{ pathname: "/employee/admin-action", query: { item },goback:{goback} }}
@@ -879,6 +884,11 @@ function EmployeeLeads(props, lead_id) {
               "-----"
             )}
           </td>
+          <td>{item.country_city}</td>
+          <td>{item.email != null ? item.email : "-------"}</td>
+        <td>{item.task}</td>
+        <td>{item.created_at.toString().split("T")[0]}</td>
+        <td>{item.dead_line}</td>
       {/* <td>
           <Button  onClick={() => {
                 SendFileToServer();
@@ -1011,7 +1021,7 @@ function EmployeeLeads(props, lead_id) {
           
           </div>
           
-          <div className="table-responsive" ref={ref}>
+          <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
@@ -1046,11 +1056,7 @@ function EmployeeLeads(props, lead_id) {
                       TOC
                     </span>
                   </th>
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Country/City
-                    </span>
-                  </th>
+                 
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Status
@@ -1066,6 +1072,23 @@ function EmployeeLeads(props, lead_id) {
                       Allocate_To
                     </span>
                   </th> */}
+                 
+                  <th scope="col" className="text-nowrap">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Admin Action
+                    </span>
+                  </th>
+                 
+                  <th scope="col">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Recordings
+                    </span>
+                  </th>
+                  <th scope="col">
+                    <span id="st" style={{ color: "#818181" }}>
+                      Country/City
+                    </span>
+                  </th>
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Email
@@ -1084,17 +1107,6 @@ function EmployeeLeads(props, lead_id) {
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Deadline
-                    </span>
-                  </th>
-                  <th scope="col" className="text-nowrap">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Admin Action
-                    </span>
-                  </th>
-                 
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Recordings
                     </span>
                   </th>
                   {/* <th scope="col">

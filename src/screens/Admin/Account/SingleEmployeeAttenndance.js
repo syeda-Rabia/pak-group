@@ -297,12 +297,12 @@ export default function EmployeeReport(props) {
       let res = await POST(ApiUrls.POST_ATTENDANCE, postData);
       // console.log("post request",postData, res);
       if (res?.error === false) {
-        setMessage("Attendance created successfully");
+        setMessage("Updated successfully");
         setShowSuccessAlert(true);
         console.log("record submitted")
         
       } else {
-        setMessage("Attendance not created");
+        setMessage("Attendance not Updated");
         setShowErrorAlert(true);
         console.log("record submitted")
       }
@@ -432,7 +432,11 @@ export default function EmployeeReport(props) {
       />
 
       <Row className=" shadow p-3  bg-white rounded mt-4 ml-1 mr-1">
-      <IconButton
+     
+        <Col lg={5} md={5} sm={12} xs={12} xl={6}>
+      
+          <h4 style={{ color: "#818181", paddingTop: "12px" }}>
+          <IconButton
           onClick={() => {
             history.push("/admin/accounts");
           }}
@@ -443,8 +447,6 @@ export default function EmployeeReport(props) {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <Col lg={5} md={5} sm={12} xs={12} xl={6}>
-          <h4 style={{ color: "#818181", paddingTop: "12px" }}>
             Employee Attendance Details
           </h4>
         </Col>
@@ -495,7 +497,7 @@ export default function EmployeeReport(props) {
        
       </Row>
       <Container fluid>
-        <Row className="">
+        <Row className="mt-4">
           <Col lg={2} sm={12} xs={12} xl={2}>
           On Time Arrival:
             <input
@@ -585,7 +587,7 @@ export default function EmployeeReport(props) {
               </div></Col>
           <Col className="ml-5"><div><Image {...{setImage,image}}/></div> </Col>
          
-        <div className="table-responsive mt-5">
+        <div className="table-responsive mt-5" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">
             <thead>
               <tr>
@@ -594,19 +596,19 @@ export default function EmployeeReport(props) {
                   ID
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                   Date
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  SignIn
+                  Sign In
                   </span>
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  SignOut
+                  Sign Out
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">

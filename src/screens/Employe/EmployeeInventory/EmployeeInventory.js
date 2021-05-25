@@ -222,7 +222,7 @@ function EmployeeInventory(props) {
               Request Inventory
             </Button>
  
-            <div className="table-responsive">
+            <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
               <table className="table table-hover">
                 <thead>
                   <tr>

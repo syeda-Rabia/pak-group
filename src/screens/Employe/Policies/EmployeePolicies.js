@@ -192,7 +192,7 @@ export default function AddPolicies() {
       
         <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
          
-          <div className="table-responsive">
+          <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
             <table className="table table-hover">
               <thead>
                 <tr>

@@ -100,7 +100,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "15px",
   },
 }));
+const colors = {
+  New: {color: '#E0E0E0', textColor: 'black'},
+  Overdue: {color: '#DBAD73', textColor: 'black'},
+  "Grace Period": {color: '#F19595', textColor: 'black'},
+  Complete: {color: '#99CB99', textColor: 'black'},
+  Loss: {color: '#C8B6A7', textColor: 'black'},
+  Allocated: {color: '#A0C5E2', textColor: 'black'},
 
+};
 export default function LeadsAdmin(props) {
   const [allLeads, setAllLeads] = useState([]);
 
@@ -1575,7 +1583,7 @@ const history = useHistory();
     let country_city = "country/city";
     let created_date=item.created_at;
     return (
-      <tr>
+      <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
          <td>
           <input
             type="checkBox"
@@ -1598,12 +1606,7 @@ const history = useHistory();
         <td>{item.interest != null ? item.interest.interest : "-------"}</td>
 
         <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
-        <td>
-          {item.hasOwnProperty("country_city") == true
-            ? item.country_city
-            : "-------"}
-        </td>
-        <td>{item.source}</td>
+      
 
         <td>
           {item.status != "" ? (
@@ -1644,8 +1647,7 @@ const history = useHistory();
             "-------"
           )}
         </td>
-        <td>{item.task}</td>
-        <td>{created_date.toString().split("T")[0]}</td>
+       
 
         <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
 
@@ -1797,6 +1799,14 @@ const history = useHistory();
             </ReactTooltip> */}
           </div>
         </td>
+        <td>
+          {item.hasOwnProperty("country_city") == true
+            ? item.country_city
+            : "-------"}
+        </td>
+        <td>{item.source}</td>
+        <td>{item.task}</td>
+        <td>{created_date.toString().split("T")[0]}</td>
       </tr>
     );
   };
@@ -1980,8 +1990,8 @@ const history = useHistory();
           </div>
         </Row>
 
-        <div className="table-responsive" ref={ref}>
-          <table className="table table-hover" style={{ minHeight: "200px"}}>
+        <div className="table-responsive "  style={{height: "500px", overflow: "auto"}} ref={ref}>
+          <table className="table table-hover " style={{ minHeight: "200px"}}>
             <thead>
               <tr>
               <th scope="col">
@@ -2039,16 +2049,7 @@ const history = useHistory();
                   </span>
                 </th>
 
-                <th scope="col">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Country/City
-                  </span>
-                </th>
-                <th scope="col">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Source
-                  </span>
-                </th>
+                
 
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
@@ -2068,16 +2069,7 @@ const history = useHistory();
                   </span>
                 </th>
 
-                <th scope="col">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Task
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Created at
-                  </span>
-                </th>
+               
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
                     Deadline
@@ -2104,6 +2096,26 @@ const history = useHistory();
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
                     Action
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Country/City
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Source
+                  </span>
+                </th>
+                <th scope="col">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Task
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    Created at
                   </span>
                 </th>
               </tr>

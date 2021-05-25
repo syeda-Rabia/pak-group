@@ -33,6 +33,17 @@ import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import Pagination from "../../../components/Pagination/Pagination";
 import nodata from "./../../../assests/nodata.png";
+
+
+const colors = {
+  New: {color: '#E0E0E0', textColor: 'black'},
+  Overdue: {color: '#DBAD73', textColor: 'black'},
+  "Grace Period": {color: '#F19595', textColor: 'black'},
+  Complete: {color: '#99CB99', textColor: 'black'},
+  Loss: {color: '#C8B6A7', textColor: 'black'},
+  Allocated: {color: '#A0C5E2', textColor: 'black'},
+
+};
 export default function LeadsAllocatonAndAddition(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
@@ -531,7 +542,7 @@ export default function LeadsAllocatonAndAddition(props) {
     let created_date = item.created_at;
     let splitDate = created_date.toString().split("T").reverse()[1];
     return (
-      <tr>
+      <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
         <td>
           <input
             type="checkBox"
@@ -559,8 +570,7 @@ export default function LeadsAllocatonAndAddition(props) {
           <KeyboardTimePickerExample value={today} showTime={HandleTimeValue} />
         </td> */}
 
-        <td>{item.source}</td>
-        <td>{item.country_city}</td>
+       
         <td>
           {item.status != "" ? (
             <Chip
@@ -638,16 +648,7 @@ export default function LeadsAllocatonAndAddition(props) {
           </select>
         </td> */}
 
-        <td>
-          {item.project.category.name}
-          {/* {item.task != null ? item.task : "-------"} */}
-          {/* <select className="form-control form-control-sm w-100">
-            <option value={"sale"}>Sale</option>
-            <option value={"rent"}>Rent</option>
-            <option value={"other"}>Other</option>
-          </select> */}
-        </td>
-        <td>{splitDate}</td>
+       
         <td>
           <KeyboardDatePickerExample value={today} showDate={handleDateValue}/>
         </td>
@@ -676,7 +677,18 @@ export default function LeadsAllocatonAndAddition(props) {
           </button>
 
         </td>
-      
+        <td>{item.source}</td>
+        <td>{item.country_city}</td>
+        <td>
+          {item.project.category.name}
+          {/* {item.task != null ? item.task : "-------"} */}
+          {/* <select className="form-control form-control-sm w-100">
+            <option value={"sale"}>Sale</option>
+            <option value={"rent"}>Rent</option>
+            <option value={"other"}>Other</option>
+          </select> */}
+        </td>
+        <td>{splitDate}</td>
       </tr>
       
     );
@@ -940,12 +952,12 @@ export default function LeadsAllocatonAndAddition(props) {
               </button>
             ) : null}
 
-            <div className="table-responsive" ref={ref}>
+            <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
               <table
                 className="table table-hover"
                 style={{ minHeight: "200px" }}
               >
-                <thead>
+                <thead style={{}}>
                   <tr>
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
@@ -982,16 +994,7 @@ export default function LeadsAllocatonAndAddition(props) {
                       TOC
                     </span>
                   </th> */}
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Source
-                      </span>
-                    </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Country/City
-                      </span>
-                    </th>
+                   
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Status
@@ -1008,16 +1011,7 @@ export default function LeadsAllocatonAndAddition(props) {
                         Allocate/Re-Allocate
                       </span>
                     </th>
-                    <th scope="col">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Task
-                      </span>
-                    </th>
-                    <th scope="col" className="text-nowrap">
-                      <span id="sn" style={{ color: "#818181" }}>
-                        Created at
-                      </span>
-                    </th>
+                   
                     <th scope="col">
                       <span id="sn" style={{ color: "#818181" }}>
                         Deadline
@@ -1031,6 +1025,26 @@ export default function LeadsAllocatonAndAddition(props) {
                     <th scope="col" className="text-nowrap">
                       <span id="sn" style={{ color: "#818181" }}>
                         Update Record
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Source
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Country/City
+                      </span>
+                    </th>
+                    <th scope="col">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Task
+                      </span>
+                    </th>
+                    <th scope="col" className="text-nowrap">
+                      <span id="sn" style={{ color: "#818181" }}>
+                        Created at
                       </span>
                     </th>
                   </tr>

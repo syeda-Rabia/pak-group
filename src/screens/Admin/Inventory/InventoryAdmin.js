@@ -473,7 +473,7 @@ export default function InventoryAdmin(props) {
        
        </div>
        
-            <div className="table-responsive" ref={ref}>
+            <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
               
               <table className="table table-hover">
                 <thead>
