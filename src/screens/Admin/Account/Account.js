@@ -986,7 +986,7 @@ export default function AddAccount() {
                 </th>
                 <th scope="col" className="text-nowrap">
                 <span id="sn" style={{ color: "#818181" }}>
-                  joining date
+                  Joining date
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">

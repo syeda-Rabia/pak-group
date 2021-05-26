@@ -249,16 +249,23 @@ export default function EmployeeReport(props) {
                   onClick={() => {
                     setTime(attTime);
                     setShowAdd(false);
-                    let updateData=JSON.parse(JSON.stringify(data))
-                    if(open=="signin"){
-                      updateData[selectedID].sign_in=attTime;
+                    if(attTime!=null){
+                      let updateData=JSON.parse(JSON.stringify(data))
+                      if(open=="signin"){
+                        updateData[selectedID].sign_in=attTime;
+                      }
+                      else{
+                        updateData[selectedID].sign_out=attTime;
+                      }
+                     
+                      setData(updateData);
                     }
                     else{
-                      updateData[selectedID].sign_out=attTime;
+                      setData(data);
                     }
                    
-                    setData(updateData);
-                  }}
+                    }
+                   }
                 >
                   
                   Ok
@@ -613,7 +620,7 @@ export default function EmployeeReport(props) {
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                working hours
+                Working Hours
                   </span>
                 </th>
                 <th scope="col">
@@ -623,18 +630,14 @@ export default function EmployeeReport(props) {
                 </th>
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
-                  update
+                  Update
                   </span>
                 </th>
                
               </tr>
             </thead>
             <tbody>
-              {/* {data
-                 
-                  .map((item, index) => {
-                    return <Table item={item} index={index} />;
-                  })} */}
+           
               {data?.map((item, index) => {
                 return <Table index={index} item={item} />;
               })}

@@ -55,7 +55,7 @@ import EmployeeInventoryDetails from "./screens/Employe/EmployeeInventory/Employ
 import ResetPassword from "./screens/ForgetPassword/ResetPassword";
 // import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
-import Test from "./screens/Test";
+// import Test from "./screens/Test";
 const ToastComponent = ({ index, setNotificationData ,obj,url}) => {
 //  setTimeout(() => {
 //     setNotificationData((state) =>
@@ -347,9 +347,9 @@ const NewApp = (props) => {
         <Route exact path="/admin/notification">
           <AdminNotification />
         </Route>
-        <Route path="/test">
+        {/* <Route path="/test">
           <Test />
-        </Route>
+        </Route> */}
         
       <NotificationToast url="/admin/leads" />
         
