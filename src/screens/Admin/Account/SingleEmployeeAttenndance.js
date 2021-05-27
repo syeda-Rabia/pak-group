@@ -559,7 +559,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
-              // value={result?.total_achieved}
+              value={summary?.absentCount}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
               // }}
@@ -582,17 +582,34 @@ export default function EmployeeReport(props) {
       </Container>
      
       <Row className=" shadow p-3  bg-white rounded mb-4 mt-4 ml-1 mr-1">
-          <Col className="ml-5"> <div>
-      {/* <div className="col-md-6 col-sm-12">
-        <div  className="col-md-6 col-sm-6"><h5>Name</h5></div>
-        <div  className="col-md-6 col-sm-6">{name}</div>
-      </div> */}
-              <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{name}</span></h5>
+          <Col className="ml-3"> 
+      <div className="col-md-6 col-sm-12 d-flex ">
+        <div  className="col-md-6 col-sm-12 mr-1"><h4 style={{ color: "#818181" }}>Name:</h4></div>
+        <div  className="col-md-6 col-sm-12" ><h5 style={{ color: "black" }}>{name}</h5> </div>
+      </div>
+      <div className="col-md-6 col-sm-12 d-flex">
+        <div  className="col-md-6  col-sm-12 mr-1"><h4 style={{ color: "#818181" }}>Designation:</h4></div>
+        <div  className="col-md-6 col-sm-12" ><h5 style={{ color: "black" }}>{designation}</h5> </div>
+      </div>
+      <div className="col-md-6 col-sm-12 d-flex">
+        <div  className="col-md-6 col-sm-12 text-nowrap mr-1"><h4 style={{ color: "#818181" }}>Date of joining:</h4></div>
+        <div  className="col-md-6 col-sm-12 " ><h5 style={{ color: "black" }}>{date_of_joining}</h5> </div>
+      </div>
+              {/* <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{name}</span></h5>
               <h5 style={{ color: "#818181" }}>Designation:<span className="ml-5" style={{ color: "black" }}>{designation}</span></h5>
-              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{date_of_joining}</span></h5>
+              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{date_of_joining}</span></h5> */}
             
-              </div></Col>
-          <Col className="ml-5"><div><Image {...{setImage,image}}/></div> </Col>
+              </Col>
+          <Col className="ml-5">
+            {/* <div><Image {...{setImage,image}}/>
+            </div> */}
+             <div
+           
+            style={{ marginRight: "30px", marginLeft: "30px" }}
+          >
+            <img style={{ width: "120px", height: "100px" }}  className="zoom" src={publicURLimage+props?.location?.query?.item?.image} />
+          </div>
+             </Col>
          
         <div className="table-responsive mt-5" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">

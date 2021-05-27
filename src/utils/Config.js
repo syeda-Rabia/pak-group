@@ -10,7 +10,7 @@ export const server_url = baseeURL+"/api/";
 // export const server_url = "https://ova.technovier.com/api/";
 // export const server_url = "https://technovier.com/crm/api/";
 export const publicURL=baseeURL+"/images/";
-export const publicURLimage=baseeURL+"/images/employee/";
+export const publicURLimage=baseeURL;
 // export const server_url = "https://pak-group.herokuapp.com/";
 // export const server_url = "http://192.168.0.105:8000/api/";
 // // Admin TOken
@@ -20,3 +20,4 @@ export const publicURLimage=baseeURL+"/images/employee/";
 // // employee TOken
 // export const token =
 //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiM2VlMWZiN2I5MzcyZTkzYjdhNjU3NGM1NzQ5Y2IzN2I5ZTBjMTFjZGY3ODY3ZmExNjE5OWIzYWIyMTFkZTJiMjM4NTBiMTEwN2RkNzYyZjgiLCJpYXQiOiIxNjExOTg3MTY1LjQ1MzYwMyIsIm5iZiI6IjE2MTE5ODcxNjUuNDUzNjA4IiwiZXhwIjoiMTY0MzUyMzE2NS40NDc2MDkiLCJzdWIiOiIyNyIsInNjb3BlcyI6W119.wzky_myY3543Rmn_BUeuSP5LibF0dfdP9O1VdUy5k6FuNBWjy9TK5i36IbxqpXR5Oy36frlIwckFF6hJUxyrGLLgwpi3tbWKh2ubi8exByxciW6-NxGK2B4Zvu8_ABsmhHvQZLugsoQ-zPJQTsXWIOzMha0EhhGAZjOLvoDIbEyXmpPqCDk2B7fgZN330KN70zKfaohxILoGj8hqXAL5mYU_pPSVqk2sHMjxy6GUKGj8jz-fOM4AT929au0aitA6wr9NxSYeigMD6mftgwyMYOJrNrPATzjCFq8phJgbYf80weX8w0Idw6aWCfwhWcTIK_B3WoUkvDSAhFZbZK_wrfgjVTXv4WgmarwkY05OrA3BXgyTHQXvP1eU1XabYApOcBwLHkZp8pu7HMUNCGr9BVzBn9f41AKqEgoZVTcGPbga0Pb6RJIytCPpvBPAtLjpaYt4ZOHWnFZgTCVea-VIMDuvi1nfVNRwyDNalnqc9zNTf7Qw5GNXbR0uy4NX8hq6nVL-T2Juv_ODZyotU_uCvTIki4qfroQdHGUwWJs7jCRu_5vfmFcoRbyChmtBRdJ_ZH4DknlUCxxeGVZc08_2_W7QhxFuyXUiDcdunhMHwAeSLS9fchd_hKlzZGIkAULahVUcaCKCJlpEIdj8NxJWwnlZxEpyU2qnyiZ1zRUfwCA";
+ 

@@ -107,7 +107,7 @@ select.form-control.form-control-sm {
 }
 .zoom {
  
-  background-color: green;
+  /* background-color: green; */
   transition: transform .2s;
  
   margin: 0 auto;

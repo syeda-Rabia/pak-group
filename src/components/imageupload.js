@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-  export default function Image({setImage,image}) {
+  export default function Image({setImage,image,setIsImage}) {
     const [state, setState] = React.useState({
         loading: false,
       });
@@ -22,6 +22,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
               loading: false,
             });
             setImage(imageUrl)
+            setIsImage(true);
             // image=imageUrl
           
           }
@@ -69,7 +70,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
-        {image ? <img src={image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        {image ? <img src={image} alt="avatar" style={{ width: '120px',height:"100px" }} /> : uploadButton}
       </Upload>
     );
   }

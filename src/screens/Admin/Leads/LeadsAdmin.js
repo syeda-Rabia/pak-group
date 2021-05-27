@@ -1992,9 +1992,9 @@ const history = useHistory();
 
         <div className="table-responsive "  style={{height: "500px", overflow: "auto"}} ref={ref}>
           <table className="table table-hover " style={{ minHeight: "200px"}}>
-            <thead>
+            <thead >
               <tr>
-              <th scope="col">
+              <th scope="col" >
                   <span id="sn" style={{ color: "#818181" }}>
                     Select
                   </span>

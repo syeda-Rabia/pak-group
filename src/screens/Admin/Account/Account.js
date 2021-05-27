@@ -1,56 +1,24 @@
-import "./../Leads/LeadsAdmin.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { faEye, faPencilAlt, faPlusSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faEye } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "react-bootstrap";
+import { Avatar, IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { AddCategory } from "./../../../assests/constants/addcategory";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import "react-phone-number-input/style.css";
+import { Link, useHistory } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import { Link } from "react-router-dom";
-import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
-// import { dummyData } from "../../../assests/constants/todoList";
-import { server_url, token } from "../../../utils/Config";
-import { GET, POST,formatDate } from "./../../../utils/Functions";
-import ApiUrls from "./../../../utils/ApiUrls";
-import Pagination from "../../../components/Pagination/Pagination";
-import { Tooltip, IconButton } from "@material-ui/core";
-import { useHistory, Redirect, Route } from "react-router-dom";
-import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
-import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
-import PreLoading from "../../../components/PreLoading";
-import ActionButton from "./../../../components/ActionButton";
-import TextEditor from "../../../components/editor/TextEditor";
-import DynamicTable from "../../../components/dynamicTable";
-import Pak from "../../../assests/Image_pak.png";
 import Image from "../../../components/imageupload";
+import Pagination from "../../../components/Pagination/Pagination";
+import PreLoading from "../../../components/PreLoading";
+import SuccessNotification from "../../../components/SuccessNotification";
 import {
-  KeyboardDatePickerExample,
-  KeyboardTimePickerExample,
-  KeyboardDatePickerAttendance,
+  KeyboardDatePickerAttendance
 } from "../../../utils/KeyboardTimePickerExample";
-import { publicURL,publicURLimage } from "./../../../utils/Config";
-import {
+import ApiUrls from "./../../../utils/ApiUrls";
+import { publicURLimage } from "./../../../utils/Config";
+import { GET, POST } from "./../../../utils/Functions";
+import "./../Leads/LeadsAdmin.css";
 
-  
-  Input,
-  Select,
-  MenuItem,
-  TextField,
-  Snackbar,
-  Slide,
-  Chip,
-  Fab,
-
-
-  Avatar,
-} from "@material-ui/core";
-
-import TextArea from "antd/lib/input/TextArea";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -153,13 +121,13 @@ export default function AddAccount() {
     const [designation, SetDesignation] = useState("");
     const [joiningDate, SetJoiningDate] = useState("");
     const [dutyHour, setDutyHour] = useState(0);
-    const [date, setDate] = useState(today);
+    const [date, setDate] = useState(new Date());
     const [salaryStatus, SetSalaryStatus] = useState("");
     const [salary, SetSalary] = useState("");
     const [contact, SetContact] = useState("");
     const [CNICno, SetCNIC] = useState("");
     const [image, setImage] = React.useState("");
-
+    const [isImage, setIsImage] = useState(false);
 
     const handleDateValue = (value) => {
       const str = value.toString();
@@ -318,7 +286,7 @@ export default function AddAccount() {
               </div>
               <div className="pb-3">
                 <h6>Date of Joining</h6>
-                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={today} showDate={handleDateValue}/> </div>
+                <div  className="form-control  w-100 "> <KeyboardDatePickerAttendance value={date} showDate={handleDateValue}/> </div>
                
                 {/* <input
                   className="form-control  w-100 "
@@ -373,7 +341,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter hours"
                   required="true"
-                  type="number"
+                  type="text"
                 
                   value={dutyHour}
                   onChange={(e) => {
@@ -399,7 +367,7 @@ export default function AddAccount() {
               {/* <div className="App"> */}
      <h6> Employee Image</h6>
 
-    <Image {...{setImage,image}}/>
+    <Image {...{setImage,image,setIsImage}}/>
       {/* <input
         type="file"
         onChange={(e) => {
@@ -451,9 +419,11 @@ export default function AddAccount() {
     const [salary, SetSalary] = useState(item.salary);
     const [contact, SetContact] = useState(item.emergency);
     const [CNICno, SetCNIC] = useState(item.cnic);
-    const [image, setImage] = React.useState(item.image);
+    const [image, setImage] = React.useState(publicURLimage+item.image);
+    // const [image1, setImage1] = React.useState(item.image);
     const [dutyHour, setDutyHour] = useState(0);
     const [date, setDate] = useState(item.date_of_joining);
+    const [isImage, setIsImage] = useState(false);
 
 
     const handleDateValue = (value) => {
@@ -488,20 +458,38 @@ export default function AddAccount() {
 
       // add validations
       // push
+    var postData
+if(isImage==true){
+  postData = {
+    id: item.id,
+    name: name,
+      designation: designation,
+      date_of_joining: formatDate(date),
+      salary_status: salaryStatus,
+      salary: salary,
+      emergency: contact,
+      cnic: CNICno,
+      image:image,
+      duty_hours:dutyHour,
 
-      let postData = {
-        id: item.id,
-        name: name,
-          designation: designation,
-          date_of_joining: formatDate(date),
-          salary_status: salaryStatus,
-          salary: salary,
-          emergency: contact,
-          cnic: CNICno,
-          image:image,
-          duty_hours:dutyHour,
+  };
+}
+else{
+  postData = {
+    id: item.id,
+    name: name,
+      designation: designation,
+      date_of_joining: formatDate(date),
+      salary_status: salaryStatus,
+      salary: salary,
+      emergency: contact,
+      cnic: CNICno,
+      image:item.image,
+      duty_hours:dutyHour,
 
-      };
+  };
+}
+       
       let res = await POST(ApiUrls.POST_EDIT_EMPLOYEE_DETAILS, postData);
       if (res.error === false) {
         setMessage("Emplyee Detail Edited Successfully");
@@ -547,6 +535,7 @@ export default function AddAccount() {
                   className="form-control  w-100"
                   placeholder="Enter name"
                   type="text"
+                  required="true"
                   minLength="3"
                   maxLength="30"
                   value={name}
@@ -561,6 +550,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter Designation"
                   type="text"
+                  required="true"
                   minLength="3"
                   maxLength="30"
                   value={designation}
@@ -640,7 +630,7 @@ export default function AddAccount() {
                   className="form-control  w-100 "
                   placeholder="Enter hours"
                   required="true"
-                  type="number"
+                  type="text"
                 
                   value={dutyHour}
                   onChange={(e) => {
@@ -652,7 +642,7 @@ export default function AddAccount() {
               <Col className="col-md-6">
               {/* <div className="App"> */}
      <h6> Employee Image</h6>
-      <Image {...{setImage,image}}/>
+      <Image {...{setImage,image,setIsImage}}/>
       {/* <input
         type="file"
         value={item.image}
@@ -767,7 +757,7 @@ export default function AddAccount() {
       <tr>
         <td>{index + 1}</td>
         <td>  <IconButton className="zoom" color="primary" aria-label="upload picture" component="span">
-                    <Avatar id="avatar" src={item.image}
+                    <Avatar id="avatar" src={publicURLimage+item.image}
                             style={{
 
                                 width: "40px",
