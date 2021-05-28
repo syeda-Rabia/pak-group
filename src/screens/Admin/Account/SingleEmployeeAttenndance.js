@@ -113,12 +113,12 @@ export default function EmployeeReport(props) {
     setDate(formatDate(value, "-"));
   };
  
-  const EmpID=props?.location?.query?.item?.id;
+  const EmpID=props?.match?.params?.id;
   const name=props?.location?.query?.item?.name;
   const designation=props?.location?.query?.item?.designation;
   const date_of_joining=props?.location?.query?.item?.date_of_joining;
   // setImage(props?.location?.query?.item?.image);
-  
+  console.log("emp props",props);
   const SendRecordToServer = async (event) => {
     event.preventDefault();
     let formData = { 
@@ -131,8 +131,9 @@ export default function EmployeeReport(props) {
     let res = await GET( ApiUrls.GET_FILTER_ATTENDANCE_LIST +
       `?employee_id=${EmpID}&&year=${days.year}&&month=${days.month}`);
       if (res?.success != false) {
-      
-          setMessage("Record find ");
+        if(res.hasOwnProperty("success"))
+        setMessage(res.success);
+          // setMessage("Record find ");
           setShowSuccessAlert(true);
          
         setData(res?.data?.attendance);
@@ -141,14 +142,14 @@ export default function EmployeeReport(props) {
         setSummary(res?.data);
 
       }
-      else{
-        setMessage("Operation Failed");
+      else  if(res.hasOwnProperty("error")){
+        setMessage(res.error);
         setShowErrorAlert(true);
       }
   setImage(emp?.image);
       
       console.log("0----image---",image)
-      setIsLoading(false);
+      // setIsLoading(false);
     
    
 
@@ -161,7 +162,7 @@ export default function EmployeeReport(props) {
  
   console.log(EmpID,"idddddddd",empdata,image);
     const handleFetchData = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       let res = await GET(ApiUrls.GET_SINGLE_EMPLOYEE_ATTENDANCE+`?employee_id=${EmpID}`);
       console.log("ress0", res);
       if (res?.success != false) {
@@ -174,7 +175,7 @@ export default function EmployeeReport(props) {
   setImage(emp?.image);
       
       console.log("0----image---",image)
-      setIsLoading(false);
+      // setIsLoading(false);
     };
 
     useEffect(() => {
@@ -261,8 +262,18 @@ export default function EmployeeReport(props) {
                       setData(updateData);
                     }
                     else{
-                      setData(data);
+                      let updateData=JSON.parse(JSON.stringify(data))
+                      if(open=="signin"){
+                        updateData[selectedID].sign_in=timee;
+                      }
+                      else{
+                        updateData[selectedID].sign_out=timee;
+                      }
+                     
+                      setData(updateData);
                     }
+                      // setData(data);
+                    
                    
                     }
                    }
@@ -463,7 +474,7 @@ export default function EmployeeReport(props) {
               <SwipeableTemporaryDrawer />
             </div> */}
 
-          <h6 style={{ color: "#818181", paddingTop: "7px" }}> select Year </h6>
+          <h6 style={{ color: "#818181", paddingTop: "7px" }}> Select Year </h6>
 
           <div className="form-control w-100">
             {/* <YearPicker setDays={setDays}/> */}
@@ -473,7 +484,7 @@ export default function EmployeeReport(props) {
         <Col lg={2} md={2} sm={12} xs={12} xl={2} className=" pb-0 ">
           <h6 style={{ color: "#818181", paddingTop: "7px" }}>
             {" "}
-            select month{" "}
+            Select Month{" "}
           </h6>
 
           <div className="form-control w-100">
@@ -583,7 +594,7 @@ export default function EmployeeReport(props) {
      
       <Row className=" shadow p-3  bg-white rounded mb-4 mt-4 ml-1 mr-1">
           <Col className="ml-3"> 
-      <div className="col-md-6 col-sm-12 d-flex ">
+      {/* <div className="col-md-6 col-sm-12 d-flex ">
         <div  className="col-md-6 col-sm-12 mr-1"><h4 style={{ color: "#818181" }}>Name:</h4></div>
         <div  className="col-md-6 col-sm-12" ><h5 style={{ color: "black" }}>{name}</h5> </div>
       </div>
@@ -594,10 +605,10 @@ export default function EmployeeReport(props) {
       <div className="col-md-6 col-sm-12 d-flex">
         <div  className="col-md-6 col-sm-12 text-nowrap mr-1"><h4 style={{ color: "#818181" }}>Date of joining:</h4></div>
         <div  className="col-md-6 col-sm-12 " ><h5 style={{ color: "black" }}>{date_of_joining}</h5> </div>
-      </div>
-              {/* <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{name}</span></h5>
-              <h5 style={{ color: "#818181" }}>Designation:<span className="ml-5" style={{ color: "black" }}>{designation}</span></h5>
-              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{date_of_joining}</span></h5> */}
+      </div> */}
+              <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{emp?.name}</span></h5>
+              <h5 style={{ color: "#818181" }}>Designation:<span className="ml-5" style={{ color: "black" }}>{emp?.designation}</span></h5>
+              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{emp?.date_of_joining}</span></h5>
             
               </Col>
           <Col className="ml-5">
@@ -607,11 +618,11 @@ export default function EmployeeReport(props) {
            
             style={{ marginRight: "30px", marginLeft: "30px" }}
           >
-            <img style={{ width: "120px", height: "100px" }}  className="zoom" src={publicURLimage+props?.location?.query?.item?.image} />
+            <img style={{ width: "120px", height: "100px" }}  className="zoom" src={publicURLimage+emp?.image} />
           </div>
              </Col>
          
-        <div className="table-responsive mt-5" style={{height: "500px", overflow: "auto"}}>
+        <div className="table-responsive mt-5" >
           <table className="table table-hover">
             <thead>
               <tr>

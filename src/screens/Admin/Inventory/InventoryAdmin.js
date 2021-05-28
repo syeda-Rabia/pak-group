@@ -443,7 +443,7 @@ export default function InventoryAdmin(props) {
 
         <Row>
           <div className="col-lg-12 shadow p-3  bg-white rounded mt-3 ">
-          <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+          {/* <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
        
        <div style={{paddingRight:10}}>
          <Fab
@@ -471,7 +471,7 @@ export default function InventoryAdmin(props) {
 
        </div>
        
-       </div>
+       </div> */}
        
             <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
               

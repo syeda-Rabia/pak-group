@@ -1,3 +1,4 @@
+import "./Account.css"
 import { faEye, faPencilAlt, faPlusSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, IconButton, makeStyles, Tooltip } from "@material-ui/core";
@@ -17,7 +18,7 @@ import {
 import ApiUrls from "./../../../utils/ApiUrls";
 import { publicURLimage } from "./../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
-import "./../Leads/LeadsAdmin.css";
+// import "./../Leads/LeadsAdmin.css";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -195,12 +196,12 @@ export default function AddAccount() {
       };
       let res = await POST(ApiUrls.POST_EMPLOYEE_DETAIL, postData);
       console.log("post request",postData, res);
-      if (res?.error === false) {
-        setMessage("employee added successfully");
+      if(res.hasOwnProperty("success")){
+        setMessage(res.success);
         setShowSuccessAlert(true);
-        
-      } else {
-        setMessage("employee Not Added");
+      } 
+      else if(res.hasOwnProperty("error")){
+        setMessage(res.error);
         setShowErrorAlert(true);
       }
       setRefresh(!refresh);
@@ -491,11 +492,12 @@ else{
 }
        
       let res = await POST(ApiUrls.POST_EDIT_EMPLOYEE_DETAILS, postData);
-      if (res.error === false) {
-        setMessage("Emplyee Detail Edited Successfully");
+      if(res.hasOwnProperty("success")){
+        setMessage(res.success);
         setShowSuccessAlert(true);
-      } else {
-        setMessage("Employee Detail Not Edited");
+      } 
+      else if(res.hasOwnProperty("error")){
+        setMessage(res.error);
         setShowErrorAlert(true);
       }
       console.log("updated",res,postData);
@@ -512,7 +514,7 @@ else{
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title style={{ color: "#818181" }}>Edit Policies</Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>Edit Employee Profile</Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
@@ -688,7 +690,7 @@ else{
                 //   // );
                 // }}
               >
-                Edit
+                Update
               </Button>
             </Modal.Footer>
           </div>
@@ -704,13 +706,13 @@ else{
       let res = await GET(ApiUrls.DELETE_EMPLOYEE +"/"+ item.id);
       setShowDelete(false);
       console.log(item.id);
-      if (res.error === false) {
-        setMessage("Employee Deleted Successfully");
+      if(res.hasOwnProperty("success")){
+        setMessage(res.success);
         setShowSuccessAlert(true);
-        // setRefresh(!refresh);
         setSelectedID(0);
-      } else {
-        setMessage("Employee Not Deleted");
+      } 
+      else if(res.hasOwnProperty("error")){
+        setMessage(res.error);
         setShowErrorAlert(true);
       }
       console.log(res);
@@ -755,15 +757,15 @@ else{
     //  ;
     return (
       <tr>
-        <td>{index + 1}</td>
+        <td style={{ verticalAlign:"inherit"}}>{index + 1}</td>
         <td>  <IconButton className="zoom" color="primary" aria-label="upload picture" component="span">
                     <Avatar id="avatar" src={publicURLimage+item.image}
                             style={{
 
                                 width: "40px",
                                 height: "40px",
-                                margin:"0px", 
-                                padding:"0px",
+                                // margin:"0px", 
+                                // padding:"0px",
                             }}
                     />
                 </IconButton>
@@ -773,7 +775,7 @@ else{
        
         <td>{item.name}</td>
          <td>
-          <Link to={{ pathname: "/admin/accounts/empAttendance", query: { item}}}>
+          <Link to={{ pathname: `/admin/accounts/empAttendance/${item.id}`, query: { item}}}>
           <Tooltip placement="top-start" title="View Employee Attendance">
             <button
               data-tip
@@ -950,7 +952,7 @@ else{
                 </th>
                 <th scope="col" className="text-nowrap">
                 <span id="sn" style={{ color: "#818181" }}>
-              Employee image
+              Employee Image
                   </span>
                 </th>
                
@@ -961,7 +963,7 @@ else{
                 </th>
                 <th scope="col" className="text-nowrap">
                 <span id="sn" style={{ color: "#818181" }}>
-                  Attendance details
+                  Attendance Details
                   </span>
                 </th>
                 <th scope="col" >
@@ -976,7 +978,7 @@ else{
                 </th>
                 <th scope="col" className="text-nowrap">
                 <span id="sn" style={{ color: "#818181" }}>
-                  Joining date
+                  Joining Date
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
@@ -1002,7 +1004,7 @@ else{
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
              
                    {data?.length > 0 ? (
                 data?.map((lead, index) => (

@@ -296,7 +296,7 @@ const NewApp = (props) => {
           <Account />
         </Route>
         <Route
-          path="/admin/accounts/empAttendance"
+          path="/admin/accounts/empAttendance/:id"
           render={(props) => (
             <>
               <SingleEmployeeAttenndance {...props} />

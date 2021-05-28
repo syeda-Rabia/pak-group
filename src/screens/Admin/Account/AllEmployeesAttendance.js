@@ -66,7 +66,7 @@ export default function EmployeeReport(props) {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [time, setTime] = useState();
   var today = new Date();
-   const [date, setDate] = useState(today);
+   const [date, setDate] = useState(formatDate(today, "-"));
 
   const [type, setType] = useState("");
   let timeVal = new Date();
@@ -117,40 +117,40 @@ export default function EmployeeReport(props) {
   const date_of_joining=props?.location?.query?.item?.date_of_joining;
   // setImage(props?.location?.query?.item?.image);
   
-  const SendRecordToServer = async (event) => {
-    event.preventDefault();
-    let formData = { 
-      employee_id: EmpID,
+  // const SendRecordToServer = async (event) => {
+  //   event.preventDefault();
+  //   let formData = { 
+  //     employee_id: EmpID,
     
-      year: days.year,
-      month: days.month,
+  //     year: days.year,
+  //     month: days.month,
     
-    };
-    let res = await GET( ApiUrls.GET_FILTER_ATTENDANCE_LIST +
-      `?employee_id=${EmpID}&&year=${days.year}&&month=${days.month}`);
-      if (res?.success != false) {
-        setData(res?.data?.attendance);
-        setEmp(res?.data?.employe[0]);
-        // setImage(emp?.image);
-        setSummary(res?.data);
+  //   };
+  //   let res = await GET( ApiUrls.GET_FILTER_ATTENDANCE_LIST +
+  //     `?employee_id=${EmpID}&&year=${days.year}&&month=${days.month}`);
+  //     if (res?.success != false) {
+  //       setData(res?.data?.attendance);
+  //       setEmp(res?.data?.employe[0]);
+  //       // setImage(emp?.image);
+  //       setSummary(res?.data);
 
-      }
-  setImage(emp?.image);
+  //     }
+  // setImage(emp?.image);
       
-      console.log("0----image---",image)
-      setIsLoading(false);
+  //     console.log("0----image---",image)
+  //     setIsLoading(false);
     
    
 
    
-    console.log("------filter------", res);
+  //   console.log("------filter------", res);
   
-    // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);
-    // console.log("---------filter response--------------",resp);
-    // console.log(resp);
-    // if(resp.success!=false)
-    // setRefresh(!refresh);
-  };
+  //   // let resp = await GET(ApiUrls.GET_FILTER_DATA+`?client_name=${client}&&project_id=${project}&&year=${days.year}&&month=${days.month}&& day=${days.day}`);
+  //   // console.log("---------filter response--------------",resp);
+  //   // console.log(resp);
+  //   // if(resp.success!=false)
+  //   // setRefresh(!refresh);
+  // };
 
   // const val=props?.location?.query?.item;
   // setEmpData(props?.location?.query?.item?.name);
@@ -168,6 +168,7 @@ export default function EmployeeReport(props) {
 
       setIsLoading(false);
     };
+    
 
     useEffect(() => {
      
@@ -252,7 +253,15 @@ export default function EmployeeReport(props) {
                       setData(updateData);
                     }
                     else{
-                      setData(data);
+                      let updateData=JSON.parse(JSON.stringify(data))
+                      if(open=="signin"){
+                        updateData[selectedID].sign_in=timee;
+                      }
+                      else{
+                        updateData[selectedID].sign_out=timee;
+                      }
+                     
+                      setData(updateData);
                     }
                    
                     }
@@ -292,15 +301,14 @@ export default function EmployeeReport(props) {
       };
       let res = await POST(ApiUrls.POST_ATTENDANCE, postData);
       console.log("post request",postData, res);
-      if (res?.error === false) {
-        setMessage("Attendance created successfully");
+      if(res.hasOwnProperty("success")){
+        setMessage(res.success);
         setShowSuccessAlert(true);
-        console.log("record submitted")
-        
-      } else {
-        setMessage("Attendance not created");
+       
+      } 
+      else if(res.hasOwnProperty("error")){
+        setMessage(res.error);
         setShowErrorAlert(true);
-        console.log("record submitted")
       }
       setRefresh(!refresh);
       
@@ -456,7 +464,7 @@ export default function EmployeeReport(props) {
            <Col><KeyboardDatePickerAttendance value={date} showDate={handleDateValue}/></Col>
          
          </div>
-        <div className="table-responsive mt-5" style={{height: "500px", overflow: "auto"}}>
+        <div className="table-responsive mt-5">
           <table className="table table-hover">
             <thead>
               <tr>

@@ -895,7 +895,7 @@ export default function LeadsAllocatonAndAddition(props) {
         ) : null}
         <Row>
           <div className="col-lg-12 shadow p-3  bg-white rounded ">
-            <div
+            {/* <div
               className="float-right floatingbtn"
               style={{
                 display: "flex",
@@ -933,7 +933,7 @@ export default function LeadsAllocatonAndAddition(props) {
                   <ChevronRightIcon />
                 </Fab>
               </div>
-            </div>
+            </div> */}
 
             {showReset == true ? (
               <button

@@ -240,7 +240,7 @@ const scroll = (scrollOffset) => {
                 ) : null}
               </div>
             </Row>
-            <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+            {/* <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
        
        <div style={{paddingRight:10}}>
          <Fab
@@ -266,9 +266,9 @@ const scroll = (scrollOffset) => {
            <ChevronRightIcon />
          </Fab>
 
-       </div>
+       </div> */}
        
-       </div>
+       {/* </div> */}
             <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
               <table className="table table-hover " style={{}}>
                 <thead>

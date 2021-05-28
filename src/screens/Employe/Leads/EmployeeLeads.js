@@ -992,7 +992,7 @@ function EmployeeLeads(props, lead_id) {
             <FontAwesomeIcon icon={faRedo} /> reverse filter
           </button>
            ):null} 
-        <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
+        {/* <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
           <div style={{paddingRight:10}}>
             <Fab
               className={classes.fab}
@@ -1020,7 +1020,7 @@ function EmployeeLeads(props, lead_id) {
           </div>
           
           </div>
-          
+           */}
           <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
             <table id="leadsTable" className="table table-hover">
               <thead>

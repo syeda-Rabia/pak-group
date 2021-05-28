@@ -266,7 +266,7 @@ onClick={()=>{
                   backgroundColor:
                     selected == 7 ? "rgba(93, 188, 210, 0.5)" : "transparent",
                 }}
-              >Accounts</Nav.Item>
+              >Attendance</Nav.Item>
             </Link>
             <Link
               // onClick={() => {

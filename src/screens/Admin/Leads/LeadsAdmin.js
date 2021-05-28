@@ -1966,28 +1966,7 @@ const history = useHistory();
               </div>
             
 
-          <div className="float-right floatingbtn" style={{}}>
-            <Fab
-              className={classes.fab} 
-              onClick={() => scroll(-50)}
-              color="primary"
-              aria-label="left"
-              style={{inlineSize:"34px",blockSize:"26px"}}
-            >
-              <ChevronLeftIcon />
-            </Fab>
-            <Fab
-              className={classes.fab}
-             
-              onClick={() => scroll(50)}
-              
-              color="primary"
-              aria-label="right"
-              style={{inlineSize:"34px",blockSize:"26px"}}
-            >
-              <ChevronRightIcon />
-            </Fab>
-          </div>
+         
         </Row>
 
         <div className="table-responsive "  style={{height: "500px", overflow: "auto"}} ref={ref}>
