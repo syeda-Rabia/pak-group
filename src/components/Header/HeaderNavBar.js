@@ -257,7 +257,7 @@ onClick={()=>{
               }}
               id="R-navlink"
               to={{
-                pathname: "/admin/accounts",
+                pathname: "/admin/attendance",
                 state: { from: "AdminHeader" },
               }}
             >

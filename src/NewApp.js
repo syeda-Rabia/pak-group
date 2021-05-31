@@ -292,7 +292,7 @@ const NewApp = (props) => {
         <Route exact path="/admin/viewable">
           <ViewableTo />
         </Route>
-        <Route exact path="/admin/accounts">
+        <Route exact path="/admin/attendance">
           <Account />
         </Route>
         <Route
