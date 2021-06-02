@@ -206,7 +206,7 @@ export default function LeadsAllocatonAndAddition(props) {
           <form >
             <p>
               Do you really want to shift this lead to
-              <b> {selectedEmployee.name}</b>.
+              <b> {selectedEmployee?.name}</b>.
             </p>
             {showText.map((item, index) => {
               return (
@@ -818,7 +818,7 @@ export default function LeadsAllocatonAndAddition(props) {
         />
         <ErrorNotification
           showError={showErrorAlert}
-          message={message}
+          message={"Please Select an Employee Before Allocating Lead"}
           closeError={setShowErrorAlert}
         />
 

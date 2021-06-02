@@ -184,7 +184,7 @@ const scroll = (scrollOffset) => {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <h3 style={{ color: "#818181" }}>ViewAble To </h3>
+        <h3 style={{ color: "#818181" }}>Viewable To </h3>
         </Row>
       </div>
 

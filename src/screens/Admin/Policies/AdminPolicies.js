@@ -305,7 +305,7 @@ export default function AddPolicies() {
               <div style={{ alignContent: "center" }}>
                 <div className="pb-3">
                   <h6>Policy Title </h6>
-                  <input className="form-control  w-100" value={item.title} />
+                  <input className="form-control  w-100"  readOnly value={item.title} />
                 </div>
                 <h6>Policy Description</h6>
                 <div

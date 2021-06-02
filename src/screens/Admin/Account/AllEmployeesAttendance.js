@@ -59,7 +59,7 @@ export default function EmployeeReport(props) {
   const [summary, setSummary] = useState();
   const [open, setOpen] = React.useState("signin");
   const [attTime, setAttTime] = useState();
-
+  const [timeError, setTimeError] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -90,6 +90,46 @@ export default function EmployeeReport(props) {
     }
    
   };
+
+  const compare = (start,end,index) => {
+    var startHour = start?.split(':')?.[0];
+    var startMinute = start?.split(':')?.[1];
+    var startSecond = start?.split(':')?.[2];
+
+    var endHour = end?.split(':')?.[0];
+    var endMinute = end?.split(':')?.[1];
+    var endSecond = end?.split(':')?.[2];
+
+    //Create date object and set the time to that
+    var startTimeObject = new Date();
+    startTimeObject.setHours(startHour, startMinute, startSecond);
+
+    //Create date object and set the time to that
+    var endTimeObject = new Date(startTimeObject);
+    endTimeObject.setHours(endHour, endMinute, endSecond);
+
+    //Now we are ready to compare both the dates
+    if(startTimeObject > endTimeObject)
+    {
+    // alert('End time should be after start time.');
+
+  if(!timeError.includes(index)){
+    setTimeError(state=>state.concat(index))
+  }
+    console.log("End time should be after start time.");
+    }
+    else 
+    {
+      if(timeError.includes(index)){
+        setTimeError(state=>state.filter(id=>id!=index))
+      }
+
+    // alert('Entries are perfect.');
+    console.log("Entries are perfect.")
+    }
+
+  } 
+  console.log("timer error",timeError)
   const timeFormat = (time) => {
     if(time){
 
@@ -247,6 +287,7 @@ export default function EmployeeReport(props) {
                         updateData[selectedID].sign_in=attTime;
                       }
                       else{
+                        compare(updateData[selectedID].sign_in,attTime,selectedID);
                         updateData[selectedID].sign_out=attTime;
                       }
                      
@@ -324,7 +365,7 @@ export default function EmployeeReport(props) {
           {
             <div  className="d-flex d-inline "
             >
-           <input className="form-control  w-100" value={to12Format(item.sign_in)} />
+           <input className="form-control  w-100"  readOnly value={to12Format(item.sign_in)} />
              <button
               data-tip
               data-for="EditTip"
@@ -357,10 +398,11 @@ export default function EmployeeReport(props) {
 {
   <div  className="d-flex d-inline "
   >
- <input className="form-control  w-100" value={to12Format(item.sign_out)} />
+ <input className="form-control  w-100"  readOnly value={to12Format(item.sign_out)} />
    <button
     data-tip
     data-for="EditTip"
+    disabled={item.sign_in==null}
     type="button "
     className="bg-transparent  button-focus mr-2"
     onClick={() => {
@@ -369,11 +411,8 @@ export default function EmployeeReport(props) {
       setSelectedID(index);
     }}
   >
-     {/* <KeyboardTimePickerExample
-    value={timeFormat(item.sign_in)}
-    // value={d}
-    showTime={handleTimeValue}
-  />  */}
+ 
+
   <FontAwesomeIcon style={{ fontSize: 15 }} icon={faClock} />
   </button>
   {/* <StaticTimePicker
@@ -383,6 +422,14 @@ export default function EmployeeReport(props) {
   />  */}
   </div>
 }
+{timeError.includes(index)==true?(
+   <small
+   className="form-text  text-red"
+   style={{ color: "red" }}
+ >
+   Sign Out time should be after Sign In time
+ </small>
+): null}
 </td>
 
        
@@ -405,15 +452,18 @@ export default function EmployeeReport(props) {
         </td>
 
         <td>
-          <>
-            <Button
-              onClick={() => {
-                sendRecordToServer();
-              }}
-            >
-              Update
-            </Button>
-          </>
+        {timeError.includes(index)==false?(
+
+<Button
+
+  onClick={() => {
+    sendRecordToServer();
+  }}
+>
+  Update
+</Button>
+
+         ):"----"}
         </td>
       </tr>
     );
@@ -441,7 +491,7 @@ export default function EmployeeReport(props) {
           <h4 style={{ color: "#818181", paddingTop: "12px" }}>
           <IconButton
           onClick={() => {
-            history.push("/admin/accounts");
+            history.push("/admin/attendance");
           }}
           aria-label="delete"
           color="primary"

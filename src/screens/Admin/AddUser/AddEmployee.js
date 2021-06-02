@@ -454,7 +454,7 @@ export default function AddEmployee() {
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
       let resp = await GET(ApiUrls.DELETE_USER + item.id);
-
+console.log("delete emp",resp)
       if (resp.error === false) {
         setShowAlert(true);
         setMessage(resp.success);

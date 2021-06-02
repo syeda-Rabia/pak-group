@@ -29,7 +29,7 @@ export default function QuarterlyLead_chart(props)  {
         data={{
           labels: [
             // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
-            'task 1','task 2','task 3','task 4','task 5','task 6','task 7+'
+            'task 0','task 1','task 2','task 3','task 4','task 5','task 6','task 7+'
            
           ],
   
@@ -38,7 +38,7 @@ export default function QuarterlyLead_chart(props)  {
               label: 'Quarterly Action Summary',
               data:[...state?.chartData,1],
               backgroundColor: [
-               
+                "#A8A8A8",
                 "#2B5989",
                   "#7D418A",
                   "#5CAC77",

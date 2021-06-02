@@ -14,8 +14,15 @@ import { DayPicking } from "../../../utils/YearPicker";
 import "./AdminDashboard.css";
 import EnhancedTable from "./MaterialUITable";
 import RecordTable from "./RecordTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+
+  faRedo,
+
+} from "@fortawesome/free-solid-svg-icons";
 function AdminDashboard() {
   const [employees, setEmployees] = React.useState("");
+  const [emp, setEmp] = React.useState("");
   const [allEmployees, setAllEmployees] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -27,12 +34,14 @@ function AdminDashboard() {
   const [End, setEnd] = useState();
   const [data, setData] = useState({});
   const [pendingTask, setPendingTask] = useState({});
+  const [showReset, setshowReset] = useState(false);
   const [quarterlyTask, setQuarterlyTask] = useState({});
   const [callReport, setCallReport] = useState({});
   const [TaskReport, setTaskReport] = useState({});
   const [result, setResult] = useState({});
   const [refresh, setRefresh] = useState(false);
-  const { RangePicker } = DatePicker;
+  
+  const { RangePicker } = DatePicker; 
 
   const [days, setDays] = useState({
     day: [],
@@ -98,6 +107,7 @@ function AdminDashboard() {
 
     // console.log("console----", resp);
     if (resp?.hasOwnProperty("success")){
+      setshowReset(true);
       setMessage(resp?.success);
       setShowSuccessAlert(true);
       setIsFilter(true);
@@ -133,8 +143,9 @@ function AdminDashboard() {
       />
           <Col lg={5} md={5} sm={12} xs={12} xl={6}>
             <h4 style={{ color: "#818181",paddingTop:"12px" }}>Admin Dashboard</h4>
+            
           </Col>
-          
+         
           <Col lg={2}    md={2} sm={12} xs={12} xl={2}>
             {/* <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
@@ -192,46 +203,123 @@ function AdminDashboard() {
             >
               Search
             </Form.Control>
+            {showReset==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn " 
+            onClick={() => {
+             
+              getLeadReport();
+              setshowReset(false);
+              setIsFilter(false);
+              // setIsLoading(true);
+              // setIsEmpty(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <span  className="text-nowrap"><FontAwesomeIcon icon={faRedo} /> Reverse</span>
+          </button>
+           ):null} 
           </Col>
         </Row>
       </Container>
       <Container fluid>
         <Row className="">
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            Target Assigned:
+          <Col lg={1} sm={12} xs={12} xl={1}>
+          <span class="text-nowrap"> Target Assigned</span>
+           
             <input
-              className="form-control w-100 "
+              className="form-control w-100 bg-white"
               placeholder=""
               type="text"
-              value={result?.total_allocation}
-              // onChange={(e) => {
-              //   setTargetAssigned(e.target.value);
-              // }}
+             
+              // value={result?.total_allocation}
+              onChange={(e) => {
+                // setTargetAssigned(e.target.value);
+              }}
             />
           </Col>
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            Target Achieved:
+          <Col lg={1} sm={12} xs={12} xl={1}>
+            <span class="text-nowrap">  Target Achieved</span>
+           
             <input
-              className="form-control w-100 "
+              className="form-control w-100 bg-white"
               placeholder=""
               type="text"
+              readOnly
               value={result?.total_achieved}
               // onChange={(e) => {
-              //   setTargetAssigned(e.target.value);
+              //   // setTargetAssigned(e.target.value);
               // }}
             />
           </Col>
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            No Of Meetings:
+          <Col lg={1} sm={12} xs={12} xl={1}>
+          <span class="text-nowrap">  No Of Meetings</span>
+         
             <input
-              className="form-control w-100 "
+              className="form-control w-100 bg-white"
               placeholder=""
               type="text"
+              readOnly
               value={result?.meetings}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
               // }}
             />
+          </Col>
+          <Col lg={1}    md={1} sm={12} xs={12} xl={1}>
+            {/* <div className="float-right drawer-div">
+              <SwipeableTemporaryDrawer />
+            </div> */}
+           
+              Employee
+           
+            <Form.Control
+              className="w-100 "
+              style={{ height:"32px",fontSize:"13px"}}
+              controlid="Sale Person"
+              as="select"
+              value={emp}
+              onChange={(e) => {
+                // console.log("select client ID is -----", e.target.value);
+                setEmp(e.target.value);
+              }}
+            >
+              <option>{null}</option>
+              {allEmployees.length > 0
+                ? allEmployees.map((e) => (
+                    <option
+                      style={{ color: "#2258BF"}}
+                      key={e.id+"employee id"}
+                      value={e.id}
+                    >
+                      {e.first_name}
+                      {/* {e.first_name + " " + e.last_name} */}
+                    </option>
+                  ))
+                : null}
+            </Form.Control>
+          </Col>
+          <Col lg={1} md={1} sm={4} xs={6} xl={1}>
+            <Form.Control
+              className="w-100"
+              style={{
+                marginTop: "21px",
+                backgroundColor: "#2258BF",
+                color: "white",
+              }}
+              // disabled
+
+              as="button"
+              defaultValue=""
+              onClick={(e) => {
+                // SendRecordToServer(e);
+              }}
+            >
+              Assign
+            </Form.Control>
           </Col>
           {/* {IsFilter==true?(
         <button

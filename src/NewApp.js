@@ -39,6 +39,10 @@ import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import AdminPolicies from "./screens/Admin/Policies/AdminPolicies";
 import AdminAction from "./screens/Employe/Leads/AdminAction";
 import Account from "./screens/Admin/Account/Account";
+import AdminAccounts from "./screens/Admin/Accounts/AccountListing";
+import AddAccount from "./screens/Admin/Accounts/AddAccount";
+import AddHome from "./screens/Admin/Accounts/AddHomeAndOffice";
+import LoanDetails from "./screens/Admin/Accounts/LoanDetails";
 import SingleEmployeeAttenndance from "./screens/Admin/Account/SingleEmployeeAttenndance";
 import AllEmployeeAttenndance from "./screens/Admin/Account/AllEmployeesAttendance";
 import InventorySidebar from "./components/Sidebar/InventorySidebar";
@@ -52,6 +56,7 @@ import AdminProjectDetailsScreen from "./screens/Admin/Views/AdminProjectDetails
 import { connect } from "react-redux";
 import ClosedLeads from "./screens/ClosedLeads";
 import EmployeeInventoryDetails from "./screens/Employe/EmployeeInventory/EmployeeInventoryDetails";
+
 import ResetPassword from "./screens/ForgetPassword/ResetPassword";
 // import { token } from "../src/utils/Config";
 import EmployeeRequestTable from "./components/EmployeeRequestTable";
@@ -235,10 +240,19 @@ const NewApp = (props) => {
             </>
           )}
         />
-        {/* <Route path="/admin/inventory">
-          <HeaderNavBar />
-          <AdminProjectListScreen />
-        </Route> */}
+        <Route path="/admin/Account">
+         
+          <AdminAccounts/>
+        </Route>
+        <Route path="/admin/addAccount">
+          <AddAccount />
+        </Route>
+        <Route path="/admin/addhome">
+          <AddHome />
+        </Route>
+        <Route path="/admin/loan-details">
+          <LoanDetails/>
+        </Route>
         {/* <Route path="/admin/dashboard"> */}
         <Route
           exact
@@ -296,14 +310,14 @@ const NewApp = (props) => {
           <Account />
         </Route>
         <Route
-          path="/admin/accounts/empAttendance/:id"
+          path="/admin/attendance/empAttendance/:id"
           render={(props) => (
             <>
               <SingleEmployeeAttenndance {...props} />
             </>
           )}
         ></Route>
-         <Route exact path="/admin/accounts/todayattendance">
+         <Route exact path="/admin/attendance/todayattendance">
           <AllEmployeeAttenndance />
         </Route>
         <Route

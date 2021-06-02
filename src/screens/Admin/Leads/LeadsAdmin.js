@@ -107,7 +107,6 @@ const colors = {
   Complete: {color: '#99CB99', textColor: 'black'},
   Loss: {color: '#C8B6A7', textColor: 'black'},
   Allocated: {color: '#A0C5E2', textColor: 'black'},
-
 };
 export default function LeadsAdmin(props) {
   const [allLeads, setAllLeads] = useState([]);
@@ -1241,7 +1240,7 @@ const history = useHistory();
                   activeAudio={activeAudio}
                   index={index}
                   setActiveAudio={setActiveAudio}
-                  item={recording.item}
+                  item={recording?.item}
                 />
               );
             })}
@@ -1409,7 +1408,7 @@ const history = useHistory();
                     type="text"
                     value={
                       item?.allocation?.length > 0
-                        ? item.allocation[0].allocated_to.first_name
+                        ? item?.allocation[0]?.allocated_to?.first_name
                         : "-------"
                     }
                   />
@@ -1425,7 +1424,7 @@ const history = useHistory();
                     className="form-control input-width w-100"
                     placeholder="Enter Country"
                     type="text"
-                    defaultValue={item.project.name}
+                    defaultValue={item?.project?.name}
                   />
                 </div>
                 <div className="pb-3">
@@ -1438,8 +1437,8 @@ const history = useHistory();
                     // placeholder=""
                     type="text"
                     defaultValue={
-                      item.interest !== null
-                        ? item.interest.interest
+                      item?.interest !== null
+                        ? item?.interest?.interest
                         : "NO INTEREST"
                     }
                   />
@@ -1583,29 +1582,29 @@ const history = useHistory();
     let country_city = "country/city";
     let created_date=item.created_at;
     return (
-      <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
+      <tr style={{backgroundColor: colors[item?.status]?.color, color: colors[item?.status]?.textColor}}>
          <td>
           <input
             type="checkBox"
             checked={select.includes(item.id)}
             onChange={(e) => {
               // setTask(item.project.category.name);
-              HandleName(item.id);
+              HandleName(item?.id);
             }}
           />
         </td>
         <td>{index + 1}</td>
-        <td>{item.client_name}</td>
-        <td>{item.contact}</td>
-        <td>{item.email}</td>
+        <td>{item?.client_name}</td>
+        <td>{item?.contact}</td>
+        <td>{item?.email}</td>
 
-        <td>{item.project.name}</td>
-        <td>{item.budget}</td>
+        <td>{item?.project?.name}</td>
+        <td>{item?.budget}</td>
 
         {/* <td>{item.inventory.serial_no}</td> */}
-        <td>{item.interest != null ? item.interest.interest : "-------"}</td>
+        <td>{item?.interest != null ? item?.interest?.interest : "-------"}</td>
 
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        <td>{item?.time_to_call != null ? item?.time_to_call : "-------"}</td>
       
 
         <td>
@@ -1640,7 +1639,7 @@ const history = useHistory();
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
-              label={item.allocation[0]?.allocated_to?.first_name}
+              label={item?.allocation[0]?.allocated_to?.first_name}
               style={{ marginRight: "5px" }}
             />
           ) : (
@@ -1649,7 +1648,7 @@ const history = useHistory();
         </td>
        
 
-        <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
+        <td>{item?.dead_line != null ? item?.dead_line : "-------"}</td>
 
         {/* <td>{item.Allocate}</td>
         <td>{item.Email}</td>
@@ -1678,7 +1677,7 @@ const history = useHistory();
         </td>
 
         <td>
-          {item.recordings?.length > 0 ? (
+          {item?.recordings?.length > 0 ? (
             <>
              <Tooltip placement="top-start" title="play">
               <button
@@ -1717,9 +1716,9 @@ const history = useHistory();
           {item?.allocation?.length > 0 ? (
             <CTAButton
               // leadId={item.allocation[0].lead_id}
-              empId={item.allocation[0].allocated_to.id}
-              lead_id={item.id}
-              deadline={item.dead_line}
+              empId={item?.allocation[0]?.allocated_to?.id}
+              lead_id={item?.id}
+              deadline={item?.dead_line}
               // status={item.status}
             />
           ) : (
@@ -1801,11 +1800,11 @@ const history = useHistory();
         </td>
         <td>
           {item.hasOwnProperty("country_city") == true
-            ? item.country_city
+            ? item?.country_city
             : "-------"}
         </td>
-        <td>{item.source}</td>
-        <td>{item.task}</td>
+        <td>{item?.source}</td>
+        <td>{item?.task}</td>
         <td>{created_date.toString().split("T")[0]}</td>
       </tr>
     );
@@ -1969,8 +1968,8 @@ const history = useHistory();
          
         </Row>
 
-        <div className="table-responsive "  style={{height: "500px", overflow: "auto"}} ref={ref}>
-          <table className="table table-hover " style={{ minHeight: "200px"}}>
+        <div className="table-responsive mt-4"  style={{height: "500px", overflow: "auto"}} ref={ref}>
+          <table className="table table-hover " >
             <thead >
               <tr>
               <th scope="col" >

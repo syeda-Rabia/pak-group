@@ -120,7 +120,14 @@ export default function RecordTable() {
       color: "black",
     },
   }));
-
+  const colors = {
+    New: {color: '#E0E0E0', textColor: 'black'},
+    Overdue: {color: '#DBAD73', textColor: 'black'},
+    "Grace Period": {color: '#F19595', textColor: 'black'},
+    Complete: {color: '#99CB99', textColor: 'black'},
+    Loss: {color: '#C8B6A7', textColor: 'black'},
+    Allocated: {color: '#A0C5E2', textColor: 'black'},
+  };
   const classes = useStyles();
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -1105,22 +1112,22 @@ const ModalClose = ({ item }) => {
     // console.log(item,"rabia");
     const records = paginate(data, currentPage, pageSize);
     return (
-      <tr>
+      <tr style={{backgroundColor: colors[item?.status]?.color, color: colors[item?.status]?.textColor}}>
         <td scope="row" key={index + 1+"tableRow"}>
           {index + 1}
         </td>
-        <td>{item.client_name}</td>
+        <td>{item?.client_name}</td>
 
-        <td>{item.contact}</td>
-        <td>{item.email}</td>
-        <td>{item.project.name}</td>
-        <td>{item.budget}</td>
-        <td>{item.interest != null ? item.interest.interest : "-------"}</td>
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
-        <td>{item.country_city}</td>
-        <td>{item.source}</td>
+        <td>{item?.contact}</td>
+        <td>{item?.email}</td>
+        <td>{item?.project?.name}</td>
+        <td>{item?.budget}</td>
+        <td>{item?.interest != null ? item?.interest?.interest : "-------"}</td>
+        <td>{item?.time_to_call != null ? item?.time_to_call : "-------"}</td>
+        <td>{item?.country_city}</td>
+        <td>{item?.source}</td>
         <td>
-          {item.status != "" ? (
+          {item?.status != "" ? (
             <Chip
               classes={{
                 label: classes.chipLabelColor,
@@ -1139,7 +1146,7 @@ const ModalClose = ({ item }) => {
                     ? classes.chipLoss
                     : null,
               }}
-              label={item.status}
+              label={item?.status}
             />
           ) : (
             "-------"
@@ -1162,8 +1169,8 @@ const ModalClose = ({ item }) => {
         {/* <td>--------------</td> */}
         {/* <td>{item.inventory.inventory_name}</td> */}
        
-        <td>{item.project.category.name}</td>
-        <td>{item.dead_line}</td>
+        <td>{item?.project?.category.name}</td>
+        <td>{item?.dead_line}</td>
         <td>
           <Link to={{ pathname: "/admin/emp-action", query: { item }, goback:{goback} }}>
             <button
@@ -1184,7 +1191,7 @@ const ModalClose = ({ item }) => {
           </ReactTooltip>
         </td>
         <td>
-          {item.recordings.length > 0 ? (
+          {item?.recordings?.length > 0 ? (
             <>
               <button
                 data-tip
@@ -1211,9 +1218,9 @@ const ModalClose = ({ item }) => {
         </td>
 
         <td>
-          <CTAButton lead_id={item.id} 
-          empId={allocated.id}
-          deadline={item.deadline}/>
+          <CTAButton lead_id={item?.id} 
+          empId={allocated?.id}
+          deadline={item?.deadline}/>
         </td>
         <td>
           <div className="d-flex d-inline">

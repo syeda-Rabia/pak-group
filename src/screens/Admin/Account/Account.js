@@ -775,7 +775,7 @@ else{
        
         <td>{item.name}</td>
          <td>
-          <Link to={{ pathname: `/admin/accounts/empAttendance/${item.id}`, query: { item}}}>
+          <Link to={{ pathname: `/admin/attendance/empAttendance/${item.id}`, query: { item}}}>
           <Tooltip placement="top-start" title="View Employee Attendance">
             <button
               data-tip
@@ -919,7 +919,7 @@ else{
         </ReactTooltip>
         </div>
      
-        <Link to={{ pathname: "/admin/accounts/todayattendance"}}>
+        <Link to={{ pathname: "/admin/attendance/todayattendance"}}>
         <button
           data-tip
           data-for="empTip"

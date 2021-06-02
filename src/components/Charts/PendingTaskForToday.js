@@ -28,13 +28,14 @@ export default function PendingTaskForToday(props) {
             "Grace Period",
             "Follow Up",
             "Allocated",
+            "New",
           ],
 
           datasets: [
             {
               label: "Pending Task",
               data: [...state?.chartData, 1],
-              backgroundColor: ["#D3AF40", "#2B5989", "#7D418A", "#7182A2"],
+              backgroundColor: ["#D3AF40", "#2B5989", "#7D418A", "#7182A2","#A8A8A8"],
             },
           ],
         }}

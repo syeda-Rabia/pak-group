@@ -10,8 +10,10 @@ import {
     TextField,
   
   } from "@material-ui/core";
+  import "./../screens/Admin/Leads/LeadsAdmin.css";
   import Checkbox from "@material-ui/core/Checkbox";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import { v4 as uuidv4 } from 'uuid';
 import {
   faEye,
   faPencilAlt,
@@ -25,139 +27,161 @@ import {
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
 export default function DynamicTable(props) {
-    const [date, setDate] = useState();
-    const [state, setState] = useState({
-        rows: [{}]
-      });
-      var today = new Date();
-      var datee = formatDate(today, "-");
-      const handleDateValue = (value) => {
-        setDate(formatDate(value, "-"));
-        // console.log(formatDate(value, "-"));
-      };
-  const handleChange = idx => e => {
-    const { name, value } = e.target;
-    const rows = [...state.rows];
-    rows[idx] = {
-      [name]: value
-    };
-    setState({
-      rows
-    });
-  };
-  const handleAddRow = () => {
-    const item = {
-      name: "",
-      mobile: ""
-    };
-    setState({
-      rows: [...state.rows, item]
-    });
-  };
-  const handleRemoveRow = () => {
-    setState({
-      rows: state.rows.slice(0, -1)
-    });
-  };
-  const handleRemoveSpecificRow = (idx) => () => {
-    const rows = [...state.rows]
-    rows.splice(idx, 1)
-    setState({ rows })
-  }
- 
+
+
+//adding new logic
+const [inputList, setInputList] = useState([{ name: "", amount: "" ,description:"",COR:"PG-"+uuidv4().split("-")[0]}]);
+
+// handle input change
+const handleInputChange = (e, index) => {
+  const { name, value } = e.target;
+  const list = [...inputList];
+  list[index][name] = value;
+  setInputList(list);
+};
+
+// handle click event of the Remove button
+const handleRemoveClick = index => {
+  const list = [...inputList];
+  list.splice(index, 1);
+  setInputList(list);
+};
+
+// handle click event of the Add button
+const handleAddClick = () => {
+  setInputList([...inputList, { name: "", amount: "" ,description:"",COR:"PG-"+uuidv4().split("-")[0] }]);
+};
+//ending new logic
+
+
+
+
+
+
     return (
-      <div>
-        <div className="container">
+    
+        <div className="w-100 ">
           <div className="row clearfix">
-            <div className="col-md-12 column">
+            <div className="col-md-12 column table-responsive">
               <table
                 className="table  table-hover"
                 id="tab_logic"
               >
                 <thead>
                   <tr>
-                    <th className="text-center" style={{ color: "#818181" }}> Sr no </th>
-                    <th className="text-center" style={{ color: "#818181" }}> Date </th>
-                    <th className="text-center" style={{ color: "#818181" }}> Name of invoice </th>
-                    <th className="text-center" style={{ color: "#818181" }}> Amount </th>
-                    <th className="text-center" style={{ color: "#818181" }}> Description </th>
-                    <th className="text-center" style={{ color: "#818181" }}> Action </th>
-
-                    <th />
+                  <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Sr no
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Name of invoice
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Amount spent
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Description
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    COR
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Action
+                  </span>
+                </th>
+                   
                   </tr>
                 </thead>
                 <tbody>
-                  {state.rows.map((item, idx) => (
+                  {inputList.map((item, idx) => (
                     <tr id="addr0" key={idx}>
                       <td>{idx}</td>
-                      <td><KeyboardDatePickerExample
+                      {/* <td><KeyboardDatePickerExample
                       value={date}
-                      showDate={handleDateValue}/> </td>
+                      showDate={handleDateValue}/> </td> */}
                       <td>
                         <input
                           type="text"
                           name="name"
-                          value={state.rows[idx].name}
-                          onChange={handleChange(idx)}
-                          className="form-control"
+                          placeholder="Enter Expense name"
+                          value={item.name}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
                         />
                       </td>
                       <td>
                         <input
                           type="text"
                           name="amount"
-                          value={state.rows[idx].mobile}
-                          onChange={handleChange(idx)}
-                          className="form-control"
+                          placeholder="Enter Amount spent"
+                          value={item.amount}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
                         />
                       </td>
                       <td>
-                      {/* <TextField
-                // variant="outlined"
-                autoFocus
-                margin="dense"
-                multiline
-                fullWidth
-                required={true}
-                label="Instruction"
-                // value={message}
-                onChange={(e) => {
-                //   handleChange(e.target.value);
-                }}
-              /> */}
+                     
+                      <input
+                          type="text"
+                          name="description"
+                          placeholder="Enter description"
+                          value={item.description}
+                          onChange={e => handleInputChange(e, idx)}
+                          style={{width:"400px"}}
+                          className="form-control "
+                        />
+                      </td>
+                      <td>
                         <input
                           type="text"
-                          name="Description"
-                          value={state.rows[idx].mobile}
-                          onChange={handleChange(idx)}
-                          className="form-control"
+                          name="amount"
+                          placeholder="Enter Amount spent"
+                          value={item.COR}
+                          // onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
                         />
                       </td>
                       <td>
-                        <button
-                          className="bg-transparent  button-focus ml-2"
-                          onClick={handleRemoveSpecificRow(idx)}
-                        >
-                          <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"blue" }} icon={faTrash} />
-                        </button>
+                      {inputList.length !== 1 && <button
+                       className="bg-transparent  button-focus ml-2"
+               
+                onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>}
+                     
                       </td>
+                        {inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3" style={{ color:"2258BF" }}> Add Row</button>}
+                      
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <button onClick={handleAddRow} className="btn btn-primary">
-                Add Row
-              </button>
+              {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
               <button
                 // onClick={handleRemoveRow}
-                className="btn btn-primary float-right"
+                className="btn btn-primary "
+                style={{ color:"2258BF" }}
               >
             Save
               </button>
             </div>
           </div>
         </div>
-      </div>
+   
     );
   
 }

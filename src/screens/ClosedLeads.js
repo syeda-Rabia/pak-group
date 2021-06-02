@@ -98,7 +98,14 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "15px",
   },
 }));
-
+const colors = {
+  New: {color: '#E0E0E0', textColor: 'black'},
+  Overdue: {color: '#DBAD73', textColor: 'black'},
+  "Grace Period": {color: '#F19595', textColor: 'black'},
+  Complete: {color: '#99CB99', textColor: 'black'},
+  Loss: {color: '#C8B6A7', textColor: 'black'},
+  Allocated: {color: '#A0C5E2', textColor: 'black'},
+};
 export default function LeadsAdmin() {
   const [allLeads, setAllLeads] = useState([]);
 
@@ -141,7 +148,7 @@ export default function LeadsAdmin() {
     //  ;
 
     let resp = await GET(ApiUrls.GET_ALL_CLOSED_LEADS);
-
+console.log(" closed lead responce",resp)
     if (resp?.data != null) {
       setAllLeads(resp?.data?.leads);
     }
@@ -382,29 +389,29 @@ export default function LeadsAdmin() {
 
     let country_city = "country/city";
     return (
-      <tr>
+      <tr style={{backgroundColor: colors[item?.status]?.color, color: colors[item?.status]?.textColor}}>
         <td>{index + 1}</td>
-        <td>{item.client_name}</td>
-        <td>{item.contact}</td>
+        <td>{item?.client_name}</td>
+        <td>{item?.contact}</td>
 
-        <td>{item.email != null ? item.email : "-------"}</td>
+        <td>{item?.email != null ? item?.email : "-------"}</td>
 
-        <td>{item.project.name}</td>
-        <td>{item.budget}</td>
+        <td>{item?.project?.name}</td>
+        <td>{item?.budget}</td>
 
         {/* <td>{item.inventory.serial_no}</td> */}
-        <td>{item.interest != null ? item.interest.interest : "-------"}</td>
+        <td>{item?.interest != null ? item?.interest?.interest : "-------"}</td>
 
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        <td>{item?.time_to_call != null ? item?.time_to_call : "-------"}</td>
         <td>
           {item.hasOwnProperty("country_city") == true
             ? item.country_city
             : "-------"}
         </td>
-        <td>{item.source}</td>
+        <td>{item?.source}</td>
 
         <td>
-          {item.status != "" ? (
+          {item?.status != "" ? (
             <Chip
               classes={{
                 label: classes.chipLabelColor,
@@ -423,7 +430,7 @@ export default function LeadsAdmin() {
                     ? classes.chipLoss
                     : null,
               }}
-              label={item.status}
+              label={item?.status}
             />
           ) : (
             "-------"
@@ -431,19 +438,19 @@ export default function LeadsAdmin() {
         </td>
 
         <td>
-          {item.allocation.length > 0 ? (
+          {item?.allocation?.length > 0 ? (
             <Chip
               icon={<FaceIcon />}
               variant="outlined"
-              label={item.allocation[0].allocated_to.first_name}
+              label={item?.allocation[0]?.allocated_to?.first_name}
               style={{ marginRight: "5px" }}
             />
           ) : (
             "-------"
           )}
         </td>
-        <td>{item.task}</td>
-        <td>{item.dead_line != null ? item.dead_line : "-------"}</td>
+        <td>{item?.task}</td>
+        <td>{item?.dead_line != null ? item?.dead_line : "-------"}</td>
 
         {/* <td>{item.Allocate_to}</td>
         <td>{item.Email}</td>
@@ -471,7 +478,7 @@ export default function LeadsAdmin() {
 
         <td>
           <div className="d-flex d-inline">
-            {item.recordings.length > 0 ? (
+            {item?.recordings?.length > 0 ? (
               <>
                 <button
                   data-tip
@@ -481,7 +488,7 @@ export default function LeadsAdmin() {
                   onClick={() => {
                     // isLoading(true);
                     // let arr=[sample,sample,sample];
-                    setRecordings(item.recordings);
+                    setRecordings(item?.recordings);
                     setShowPlay(true);
                     setSelectedID(index);
                   }}
@@ -497,7 +504,7 @@ export default function LeadsAdmin() {
             )}
           </div>
 
-          {allLeads.length > 0 && selectedID !== null ? (
+          {allLeads?.length > 0 && selectedID !== null ? (
             <>
               <ModalPlay item={allLeads[selectedID]} />
               {/* <ModalDelete item={allLeads[selectedID]} />
@@ -613,47 +620,8 @@ export default function LeadsAdmin() {
       />
 
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
-        <div
-          className="float-right floatingbtn"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            zIndex: 100,
-          }}
-        >
-          <div style={{ paddingRight: 10 }}>
-            <Fab
-              className={classes.fab}
-              onClick={() => scroll(-50)}
-              color="primary"
-              aria-label="left"
-              style={{
-                inlineSize: "34px",
-                blockSize: "26px",
-                backgroundColor: "#2258bf",
-              }}
-            >
-              <ChevronLeftIcon style={{}} />
-            </Fab>
-          </div>
-          <div style={{ paddingRight: 10 }}>
-            <Fab
-              className={classes.fab}
-              onClick={() => scroll(50)}
-              color="primary"
-              aria-label="right"
-              style={{
-                inlineSize: "34px",
-                blockSize: "26px",
-                backgroundColor: "#2258bf",
-              }}
-            >
-              <ChevronRightIcon />
-            </Fab>
-          </div>
-        </div>
-
-        <div className="table-responsive" ref={ref}>
+      
+        <div className="table-responsive" style={{height: "500px", overflow: "auto"}}>
           <table className="table table-hover">
             <thead>
               <tr>

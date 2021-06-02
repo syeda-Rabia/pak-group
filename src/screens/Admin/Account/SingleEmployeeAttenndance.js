@@ -378,7 +378,7 @@ export default function EmployeeReport(props) {
           {
             <div  className="d-flex d-inline "
             >
-           <input className="form-control  w-100" value={to12Format(item.sign_in)} />
+           <input className="form-control  w-100"  readOnly value={to12Format(item.sign_in)} />
              <button
               data-tip
               data-for="EditTip"
@@ -411,7 +411,7 @@ export default function EmployeeReport(props) {
 {
   <div  className="d-flex d-inline "
   >
- <input className="form-control  w-100" value={to12Format(item.sign_out)} />
+ <input className="form-control  w-100"  readOnly value={to12Format(item.sign_out)} />
  
    <button
     data-tip
@@ -444,7 +444,7 @@ export default function EmployeeReport(props) {
    className="form-text  text-red"
    style={{ color: "red" }}
  >
-   Sign Out time should be after start time
+   Sign Out time should be after Sign In time
  </small>
 ): null}
 </td>
@@ -510,7 +510,7 @@ export default function EmployeeReport(props) {
           <h4 style={{ color: "#818181", paddingTop: "12px" }}>
           <IconButton
           onClick={() => {
-            history.push("/admin/accounts");
+            history.push("/admin/attendance");
           }}
           aria-label="delete"
           color="primary"
@@ -576,6 +576,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.onTimeArrival}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
@@ -588,6 +589,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.overTime}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
@@ -600,6 +602,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.lateArrival}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
@@ -612,6 +615,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.leavsCount}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
@@ -624,6 +628,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.absentCount}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
@@ -636,6 +641,7 @@ export default function EmployeeReport(props) {
               className="form-control w-100 "
               placeholder=""
               type="text"
+              readOnly
               value={summary?.shortLeaveCount}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
