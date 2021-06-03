@@ -40,7 +40,11 @@ function AdminDashboard() {
   const [TaskReport, setTaskReport] = useState({});
   const [result, setResult] = useState({});
   const [refresh, setRefresh] = useState(false);
-  
+  const [quarter, setQuarter] = useState(0);
+  const [targetAssign, setTargetAssigned] = useState("");
+  const [targetAchieved, setTargetAchieved] = useState(0);
+  const [noOfMeeting, setNumberOfMeeting] = useState(0);
+
   const { RangePicker } = DatePicker; 
 
   const [days, setDays] = useState({
@@ -123,6 +127,39 @@ function AdminDashboard() {
       setMessage(resp.error);
       setShowErrorAlert(true);
       setIsFilter(false);
+    }
+  
+  };
+  const SendAssignRecordToServer = async (event) => {
+    event.preventDefault();
+    // console.log()
+    let formData = {
+      emp_id: emp,
+      target_assign:targetAssign,
+      quarter:quarter,
+     
+    };
+    console.log("formdata----", formData);
+    let resp = await POST(ApiUrls.POST_LEAD_FILTER, formData);
+
+    // console.log("console----", resp);
+    if (resp?.hasOwnProperty("success")){
+      // setshowReset(true);
+      // setMessage(resp?.success);
+      // setShowSuccessAlert(true);
+      // setIsFilter(true);
+      // setData(resp?.report);
+      // setPendingTask(resp?.pending)
+      // setCallReport(resp?.call_report)
+      // setQuarterlyTask(resp?.quarterly)
+      // setTaskReport(resp?.data)
+      // setResult(resp?.result)
+
+    }
+    else if (resp?.hasOwnProperty("error")){
+      // setMessage(resp.error);
+      // setShowErrorAlert(true);
+      // setIsFilter(false);
     }
   
   };
@@ -226,44 +263,44 @@ function AdminDashboard() {
         </Row>
       </Container>
       <Container fluid>
-        <Row className="">
+        <Row className="shadow mb-3 bg-white rounded mt-4 pb-2 pt-2">
           <Col lg={1} sm={12} xs={12} xl={1}>
-          <span class="text-nowrap"> Target Assigned</span>
+          <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}> Target Assigned</span>
            
             <input
               className="form-control w-100 bg-white"
               placeholder=""
-              type="text"
-             
-              // value={result?.total_allocation}
+              type="number"
+              
+              value={targetAssign}
               onChange={(e) => {
-                // setTargetAssigned(e.target.value);
+                setTargetAssigned(e.target.value);
               }}
             />
           </Col>
           <Col lg={1} sm={12} xs={12} xl={1}>
-            <span class="text-nowrap">  Target Achieved</span>
+            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>  Target Achieved</span>
            
             <input
               className="form-control w-100 bg-white"
               placeholder=""
               type="text"
               readOnly
-              value={result?.total_achieved}
+              value={targetAchieved}
               // onChange={(e) => {
               //   // setTargetAssigned(e.target.value);
               // }}
             />
           </Col>
           <Col lg={1} sm={12} xs={12} xl={1}>
-          <span class="text-nowrap">  No Of Meetings</span>
+          <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>  No Of Meetings</span>
          
             <input
               className="form-control w-100 bg-white"
               placeholder=""
               type="text"
               readOnly
-              value={result?.meetings}
+              value={noOfMeeting}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
               // }}
@@ -273,8 +310,8 @@ function AdminDashboard() {
             {/* <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
             </div> */}
-           
-              Employee
+            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}> Employee</span>
+              
            
             <Form.Control
               className="w-100 "
@@ -302,6 +339,33 @@ function AdminDashboard() {
                 : null}
             </Form.Control>
           </Col>
+          <Col lg={1}    md={1} sm={12} xs={12} xl={1}>
+            {/* <div className="float-right drawer-div">
+              <SwipeableTemporaryDrawer />
+            </div> */}
+            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>Quarter</span>
+           
+              
+           
+            <Form.Control
+              className="w-100 "
+              style={{ height:"32px",fontSize:"13px"}}
+              controlid="Sale Person"
+              as="select"
+              value={quarter}
+              onChange={(e) => {
+                console.log("select client ID is -----", e.target.value);
+                setQuarter(e.target.value);
+              }}
+            >
+              <option>{null}</option>
+              <option value={1}>JAN-MAR</option>
+              <option value={2}>APR-JUN</option>
+              <option value={3}>JUL-SEP</option>
+              <option value={4}>OCT-DEC</option>
+             
+            </Form.Control>
+          </Col>
           <Col lg={1} md={1} sm={4} xs={6} xl={1}>
             <Form.Control
               className="w-100"
@@ -315,7 +379,7 @@ function AdminDashboard() {
               as="button"
               defaultValue=""
               onClick={(e) => {
-                // SendRecordToServer(e);
+                SendAssignRecordToServer(e);
               }}
             >
               Assign

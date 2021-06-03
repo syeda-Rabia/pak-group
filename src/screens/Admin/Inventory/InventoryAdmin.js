@@ -558,8 +558,8 @@ export default function InventoryAdmin(props) {
 
                 {allInventories?.length > 0 ? (
                   <>
-                    <ModalDelete item={allInventories[selectedID]} />
-                    <ModalEdit item={allInventories[selectedID]} />
+                    <ModalDelete item={allInventories[selectedID]}/>
+                    <ModalEdit item={allInventories[selectedID]}/>
                   </>
                 ) : null}
               </table>

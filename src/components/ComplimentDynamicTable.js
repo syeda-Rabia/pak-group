@@ -26,11 +26,11 @@ import {
  faTimesCircle,
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
-export default function DynamicTable({setTableData,tableData,item}) {
+export default function ComplimentDynamicTable({setComplimentData,ComplimentData}) {
 
 
 //adding new logic
-const [inputList, setInputList] = useState([{ name: "", amount: "" ,description:"",COR:"PG-"+uuidv4().split("-")[0]}]);
+const [inputList, setInputList] = useState([{ name: "", amount: "", quantity: "" , distributed_to: "",description:"",COR:"PG-"+uuidv4().split("-")[0]}]);
 const [Listdata, setListData] = useState(inputList)
 // handle input change
 const handleInputChange = (e, index) => {
@@ -49,7 +49,7 @@ const handleRemoveClick = index => {
 
 // handle click event of the Add button
 const handleAddClick = () => {
-  setInputList([...inputList, { name: "", amount: "" ,description:"",COR:"PG-"+uuidv4().split("-")[0] }]);
+  setInputList([...inputList, { name: "", amount: "" , quantity: "" , distributed_to: "",description:"",COR:"PG-"+uuidv4().split("-")[0] }]);
 };
 //ending new logic
 
@@ -85,6 +85,18 @@ const handleAddClick = () => {
                   <span id="sn" style={{ color: "#818181" }}>
                     {" "}
                     Amount spent
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                  Quantity
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                   Distributed To
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
@@ -136,6 +148,26 @@ const handleAddClick = () => {
                         />
                       </td>
                       <td>
+                        <input
+                          type="number"
+                          name="quantity"
+                          placeholder="Enter Quantity "
+                          value={item.quantity}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="distributedto"
+                          placeholder="Enter name"
+                          value={item.distributed_to}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
+                        />
+                      </td>
+                      <td>
                      
                       <input
                           type="text"
@@ -177,7 +209,7 @@ const handleAddClick = () => {
                 onClick={()=>
                 {  
                  
-                  setTableData(state=>({...state,[item]:inputList}))}
+                  setComplimentData(state=>({...state,["Compliment"]:inputList}))}
                 }
                 
                 className="btn btn-primary "

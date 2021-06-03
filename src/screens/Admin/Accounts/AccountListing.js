@@ -1,11 +1,7 @@
 import { DatePicker } from "antd";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import CallReportChart from "../../../components/Charts/CallReportChart";
-import LeadReport_chart from "../../../components/Charts/LeadReport_chart";
-import PendingTaskForToday from "../../../components/Charts/PendingTaskForToday";
-import QuarterlyLead_chart from "../../../components/Charts/QuarterlyLead_chart";
-import QuarterlyPerformanceChart from "../../../components/Charts/QuarterlyPerformanceChart";
+
 import ErrorNotification from "../../../components/ErrorNotification";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ApiUrls from "../../../utils/ApiUrls";
@@ -15,6 +11,9 @@ import "./../Dashboard/AdminDashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link, Route } from "react-router-dom";
+import {ModalData} from "../../../assests/constants/LAAadmin";
+import ReactTooltip from "react-tooltip";
+
 import {
   faEye,
   faPencilAlt,
@@ -39,7 +38,7 @@ function AdminAccounts() {
   // var datee = formatDate(today, "-");
   const [Start, setStart] = useState();
   const [End, setEnd] = useState();
-  const [data, setData] = useState({});
+  const [data, setData] = useState(ModalData);
   
   const [refresh, setRefresh] = useState(false);
   const { RangePicker } = DatePicker;
@@ -99,6 +98,58 @@ function AdminAccounts() {
     // }
   
   };
+  const Table = ({ item, index }) => {
+    //  ;
+    return (
+      <tr>
+        <td>{index + 1}</td>
+        <td>{item.account_name}</td>
+        <td>{item.total_amount}</td>
+        <td>{item.amount_spent}</td>
+        <td>{item.amount_remaining}</td>
+        <td>
+          <div
+            className="d-flex d-inline "
+            style={{
+              justifyContent: "center",
+            }}
+          >
+            <button
+              data-tip
+              data-for="EditTip"
+              type="button "
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                // setShowEdit(true);
+                // setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPencilAlt} />
+            </button>
+            <ReactTooltip id="EditTip" place="top" effect="solid">
+              Edit Details
+            </ReactTooltip>
+            <button
+              data-tip
+              data-for="DeleteTip"
+              type="button"
+              className="bg-transparent  button-focus mr-2"
+              onClick={() => {
+                // setShowDelete(true);
+                // setSelectedID(index);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: 15 }} icon={faTrash} />
+            </button>
+            <ReactTooltip id="DeleteTip" place="top" effect="solid">
+              Delete Record
+            </ReactTooltip>
+          </div>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <Container fluid>
       {/* Ist Row */}
@@ -196,7 +247,7 @@ function AdminAccounts() {
 
          
         </Row>
-<Row className="mt-3 mb-2 ml-2"><h4>Total Summary :____________________</h4></Row>
+<Row className="mt-3 mb-2 ml-2" ><h4 style={{ color: "#818181" }}>Total Summary :{data?.totalSummary}</h4></Row>
         <div className="table-responsive "  
         // style={{height: "500px", overflow: "auto"}} 
         >
@@ -251,11 +302,11 @@ function AdminAccounts() {
               </tr>
             </thead>
             <tbody>
-              {/* {allLeads?.length > 0 ? (
-                allLeads?.map((lead, index) => (
-                  <LeadTable item={lead} index={index} />
-                ))
-              ) : null} */}
+              
+                {data?.map((item, index) => (
+                  <Table item={item} index={index}/>
+                ))}
+            
              
             </tbody>
           </table>
