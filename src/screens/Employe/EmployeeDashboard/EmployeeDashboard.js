@@ -30,7 +30,10 @@ function EmployeeDashboard(props) {
   const [callReport, setCallReport] = useState({});
   const [TaskReport, setTaskReport] = useState({});
   const [result, setResult] = useState({});
-
+  const [quarter, setQuarter] = useState(0);
+  const [targetAssign, setTargetAssigned] = useState("");
+  const [targetAchieved, setTargetAchieved] = useState(0);
+  const [noOfMeeting, setNumberOfMeeting] = useState(0);
   const { RangePicker } = DatePicker;
 
   const [days, setDays] = useState({
@@ -47,12 +50,34 @@ function EmployeeDashboard(props) {
    
     getLeadReport();
   }, []);
+  useEffect(() => {
+    SendTargetRecordToServer();
+  }, [quarter]);
+  const SendTargetRecordToServer = async () => {
+   
+    // console.log()
+    let formData = {
+    
+      quarter_option: quarter,
+    };
+    // console.log("formdata----", formData);
+    let resp = await POST(ApiUrls.POST_GET_EMPLOYEE_TARGET_DATA, formData);
 
-  // const getLeadReport= async () => {
-  //   let resp = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
-  //   console.log("-----------dashboard-----".resp)
-  //   setData(resp?.report);
-  // };
+    console.log("console----", resp);
+    if (resp?.hasOwnProperty("success")) {
+      // setMessage(resp?.success);
+      // setShowSuccessAlert(true);
+
+      setTargetAssigned(resp?.target?.target);
+      setTargetAchieved(resp?.target?.complete);
+      setNumberOfMeeting(resp?.target?.meeting);
+    // setQuarter(2);
+    } else if (resp?.hasOwnProperty("error")) {
+      // setMessage(resp.error);
+      // setShowErrorAlert(true);
+      // setIsFilter(false);
+    }
+  };
   const getLeadReport = async () => {
     let res = await GET(ApiUrls.GET_EMPLOYEE_LEAD_REPORT);
     console.log("-----PROPS---->", props);
@@ -86,51 +111,121 @@ function EmployeeDashboard(props) {
         closeError={setShowErrorAlert}
       />
           <Col lg={5} md={5} sm={12} xs={12} xl={6}>
-            <h4 style={{ color: "#818181",paddingTop:"12px" }}>Employee Dashboard</h4>
+            <h4 style={{ color: "#818181",paddingTop:"12px" }}>Employee Dashboard</h4> 
           </Col>
           
         
         </Row>
       </Container>
       <Container fluid>
-        <Row className="">
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            Target Assigned:
+        <Row className="shadow mb-3 bg-white rounded mt-4 pb-2 pt-2">
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              Target Assigned
+            </span>
+
             <input
-              className="form-control w-100 "
+              className="form-control w-100 bg-white"
               placeholder=""
-              type="text"
-              value={result?.total_allocation}
+              type="number"
+              readOnly
+              value={targetAssign}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
               // }}
             />
           </Col>
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            Target Achieved:
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              Target Achieved
+            </span>
+
             <input
-              className="form-control w-100 "
+              className="form-control w-100 bg-white"
               placeholder=""
               type="text"
-              value={result?.total_achieved}
+              readOnly
+              value={targetAchieved}
+              // onChange={(e) => {
+              //   // setTargetAssigned(e.target.value);
+              // }}
+            />
+          </Col>
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              No Of Meetings
+            </span>
+
+            <input
+              className="form-control w-100 bg-white"
+              placeholder=""
+              type="text"
+              readOnly
+              value={noOfMeeting}
               // onChange={(e) => {
               //   setTargetAssigned(e.target.value);
               // }}
             />
           </Col>
-          <Col lg={2} sm={12} xs={12} xl={2}>
-            No Of Meetings:
-            <input
-              className="form-control w-100 "
-              placeholder=""
-              type="text"
-              value={result?.meetings}
-              // onChange={(e) => {
-              //   setTargetAssigned(e.target.value);
-              // }}
-            />
+          <Col lg={1} md={2} sm={12} xs={12} xl={2}>
+            {/* <div className="float-right drawer-div">
+              <SwipeableTemporaryDrawer />
+            </div> */}
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              Quarter
+            </span>
+
+            <Form.Control
+              className="w-100 "
+              style={{ height: "32px", fontSize: "13px" }}
+              controlid="Sale Person"
+              as="select"
+              value={quarter}
+              onChange={(e) => {
+                console.log("select client ID is -----", e.target.value);
+                setQuarter(e.target.value);
+              }}
+            >
+              <option>{null}</option>
+              <option value={1}>JAN-MAR</option>
+              <option value={2}>APR-JUN</option>
+              <option value={3}>JUL-SEP</option>
+              <option value={4}>OCT-DEC</option>
+            </Form.Control>
           </Col>
-        
+         
+          {/* {IsFilter==true?(
+        <button
+            type="button"
+            className="btn btn-primary leadbtn ml-2" 
+            onClick={() => {
+             
+              getLeadReport();
+             
+              setIsFilter(false);
+            }}
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+          >
+            <FontAwesomeIcon icon={faRedo} /> reverse filter
+          </button>
+           ):null}  */}
         </Row>
       </Container>
       {/* 2nd Row */}

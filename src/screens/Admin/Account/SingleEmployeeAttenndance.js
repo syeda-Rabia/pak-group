@@ -5,7 +5,7 @@ import "react-phone-number-input/style.css";
 import { useHistory } from "react-router-dom";
 import PreLoading from "../../../components/PreLoading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faEye,faClock } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faEye, faClock } from "@fortawesome/free-solid-svg-icons";
 import Dialog from "@material-ui/core/Dialog";
 import { Modal } from "react-bootstrap";
 
@@ -14,10 +14,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ApiUrls from "./../../../utils/ApiUrls";
-import { GET, formatDate,POST } from "./../../../utils/Functions";
+import { GET, formatDate, POST } from "./../../../utils/Functions";
 import "./../../Admin/Leads/LeadsAdmin.css";
 import { dummyData } from "../../../assests/constants/todoList";
-import { publicURL,publicURLimage } from "./../../../utils/Config";
+import { publicURL, publicURLimage } from "./../../../utils/Config";
 import DatePick, { YearPicking } from "../../../utils/YearPicker";
 import {
   KeyboardDatePickerExample,
@@ -27,16 +27,11 @@ import {
 } from "../../../utils/KeyboardTimePickerExample";
 import Pagination from "../../../components/Pagination/Pagination";
 import Image from "../../../components/imageupload";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
+import { Tooltip, IconButton } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 
-
- 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -62,6 +57,8 @@ export default function EmployeeReport(props) {
   const [summary, setSummary] = useState();
   const [open, setOpen] = React.useState("signin");
   const [attTime, setAttTime] = useState();
+  const [monthErr, setmonthErr] = useState(false);
+  const [yearErr, setyearErr] = useState(false);
 
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
@@ -80,147 +77,148 @@ export default function EmployeeReport(props) {
   });
   // const [time, setTime] = useState(timee);
   const to12Format = (time) => {
-    if(time){
-      let hour = time?.split(':')?.[0];
-      let min = time?.split(':')?.[1];
-      let  res= {
+    if (time) {
+      let hour = time?.split(":")?.[0];
+      let min = time?.split(":")?.[1];
+      let res = {
         time: `${hour % 12 == 0 ? 12 : hour % 12}:${min}`,
-        format: `${hour < 12 ? 'AM' : 'PM'}`,
+        format: `${hour < 12 ? "AM" : "PM"}`,
       };
-      return `${res.time} ${res.format}`  
+      return `${res.time} ${res.format}`;
     }
-   
   };
-  
-  const compare = (start,end,index) => {
-    var startHour = start?.split(':')?.[0];
-    var startMinute = start?.split(':')?.[1];
-    var startSecond = start?.split(':')?.[2];
-   
-    var endHour = end?.split(':')?.[0];
-    var endMinute = end?.split(':')?.[1];
-    var endSecond = end?.split(':')?.[2];
-   
+
+  const compare = (start, end, index) => {
+    var startHour = start?.split(":")?.[0];
+    var startMinute = start?.split(":")?.[1];
+    var startSecond = start?.split(":")?.[2];
+
+    var endHour = end?.split(":")?.[0];
+    var endMinute = end?.split(":")?.[1];
+    var endSecond = end?.split(":")?.[2];
+
     //Create date object and set the time to that
     var startTimeObject = new Date();
     startTimeObject.setHours(startHour, startMinute, startSecond);
-   
+
     //Create date object and set the time to that
     var endTimeObject = new Date(startTimeObject);
     endTimeObject.setHours(endHour, endMinute, endSecond);
-   
+
     //Now we are ready to compare both the dates
-    if(startTimeObject > endTimeObject)
-    {
-    // alert('End time should be after start time.');
+    if (startTimeObject > endTimeObject) {
+      // alert('End time should be after start time.');
 
-  if(!timeError.includes(index)){
-    setTimeError(state=>state.concat(index))
-  }
-    console.log("End time should be after start time.");
-    }
-    else 
-    {
-      if(timeError.includes(index)){
-        setTimeError(state=>state.filter(id=>id!=index))
+      if (!timeError.includes(index)) {
+        setTimeError((state) => state.concat(index));
       }
-     
-    // alert('Entries are perfect.');
-    console.log("Entries are perfect.")
-    }
+      console.log("End time should be after start time.");
+    } else {
+      if (timeError.includes(index)) {
+        setTimeError((state) => state.filter((id) => id != index));
+      }
 
-  } 
-  console.log("timer error",timeError)
+      // alert('Entries are perfect.');
+      console.log("Entries are perfect.");
+    }
+  };
+  console.log("timer error", timeError);
   const timeFormat = (time) => {
-    if(time){
-
-      let hour = time?.split(':')?.[0];
-      let min = time?.split(':')?.[1];
-      let sec = time?.split(':')?.[2];
-      let d = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getHours(),hour,min,sec)
+    if (time) {
+      let hour = time?.split(":")?.[0];
+      let min = time?.split(":")?.[1];
+      let sec = time?.split(":")?.[2];
+      let d = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getHours(),
+        hour,
+        min,
+        sec
+      );
       // console.log("----------------",d)
-      return d ;
+      return d;
     }
-    let d1 = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getHours(),'00','00','00');
+    let d1 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getHours(),
+      "00",
+      "00",
+      "00"
+    );
     return d1;
   };
- 
+
   const handleDateValue = (value) => {
     const str = value.toString();
 
     // var res = str.match(/([A-Za-z]*\s\d{2}\s\d{4})/g)[0];
     setDate(formatDate(value, "-"));
   };
- 
-  const EmpID=props?.match?.params?.id;
-  const name=props?.location?.query?.item?.name;
-  const designation=props?.location?.query?.item?.designation;
-  const date_of_joining=props?.location?.query?.item?.date_of_joining;
+
+  const EmpID = props?.match?.params?.id;
+  const name = props?.location?.query?.item?.name;
+  const designation = props?.location?.query?.item?.designation;
+  const date_of_joining = props?.location?.query?.item?.date_of_joining;
   // setImage(props?.location?.query?.item?.image);
-  console.log("emp props",props);
+  console.log("emp props", props);
   const SendRecordToServer = async (event) => {
     event.preventDefault();
-    let formData = { 
+    let formData = {
       employee_id: EmpID,
-    
+
       year: days.year,
       month: days.month,
-    
     };
-    let res = await GET( ApiUrls.GET_FILTER_ATTENDANCE_LIST +
-      `?employee_id=${EmpID}&&year=${days.year}&&month=${days.month}`);
-      if (res?.success != false) {
-        if(res.hasOwnProperty("success"))
-        setMessage(res.success);
-          // setMessage("Record find ");
-          setShowSuccessAlert(true);
-         
-        setData(res?.data?.attendance);
-        setEmp(res?.data?.employe[0]);
-        // setImage(emp?.image);
-        setSummary(res?.data);
+    let res = await GET(
+      ApiUrls.GET_FILTER_ATTENDANCE_LIST +
+        `?employee_id=${EmpID}&&year=${days.year}&&month=${days.month}`
+    );
+    if (res?.success != false) {
+      if (res.hasOwnProperty("success")) setMessage(res.success);
+      // setMessage("Record find ");
+      setShowSuccessAlert(true);
 
-      }
-      else  if(res.hasOwnProperty("error")){
-        setMessage(res.error);
-        setShowErrorAlert(true);
-      }
-  setImage(emp?.image);
-      
-      console.log("0----image---",image)
-      // setIsLoading(false);
-    
-   
+      setData(res?.data?.attendance);
+      setEmp(res?.data?.employe[0]);
+      // setImage(emp?.image);
+      setSummary(res?.data);
+    } else if (res.hasOwnProperty("error")) {
+      setMessage(res.error);
+      setShowErrorAlert(true);
+    }
+    setImage(emp?.image);
 
-   
+    console.log("0----image---", image);
+    // setIsLoading(false);
+
     console.log("------filter------", res);
-  
-   
   };
 
- 
-  console.log(EmpID,"idddddddd",empdata,image);
-    const handleFetchData = async () => {
-      // setIsLoading(true);
-      let res = await GET(ApiUrls.GET_SINGLE_EMPLOYEE_ATTENDANCE+`?employee_id=${EmpID}`);
-      console.log("ress0", res);
-      if (res?.success != false) {
-        setData(res?.data?.attendance);
-        setEmp(res?.data?.employe[0]);
-        // setImage(emp?.image);
-        setSummary(res?.data);
+  console.log(EmpID, "idddddddd", empdata, image);
+  const handleFetchData = async () => {
+    // setIsLoading(true);
+    let res = await GET(
+      ApiUrls.GET_SINGLE_EMPLOYEE_ATTENDANCE + `?employee_id=${EmpID}`
+    );
+    console.log("ress0", res);
+    if (res?.success != false) {
+      setData(res?.data?.attendance);
+      setEmp(res?.data?.employe[0]);
+      // setImage(emp?.image);
+      setSummary(res?.data);
+    }
+    setImage(emp?.image);
 
-      }
-  setImage(emp?.image);
-      
-      console.log("0----image---",image)
-      // setIsLoading(false);
-    };
+    console.log("0----image---", image);
+    // setIsLoading(false);
+  };
 
-    useEffect(() => {
-      if (EmpID!= undefined) handleFetchData();
-      handleFetchData();
-    }, []);
+  useEffect(() => {
+    if (EmpID != undefined) handleFetchData();
+    handleFetchData();
+  }, []);
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [interest, SetInterest] = useState("");
@@ -234,14 +232,12 @@ export default function EmployeeReport(props) {
       console.log(time);
       // setShowAdd(false);
     };
-   
+
     // };
 
     return (
       <div className="bg-transparent">
-
         <Modal
-        
           show={showAdd}
           onHide={() => {
             setShowAdd(false);
@@ -261,18 +257,16 @@ export default function EmployeeReport(props) {
             <div className=" shadow bg-white rounded w-100">
               <Modal.Body>
                 <div className="pb-3">
-                 
-                 <StaticTimePicker
-                // value={timeFormat(item.sign_in)}
-                // value={d}
-                showTime={handleTimeValue}
-                // setAttTime={handleTimeValue}
-                // onClick={() => {
-                //   setShowAdd(false);
-                // }}
-
-              /> 
-              {console.log(attTime)}
+                  <StaticTimePicker
+                    // value={timeFormat(item.sign_in)}
+                    // value={d}
+                    showTime={handleTimeValue}
+                    // setAttTime={handleTimeValue}
+                    // onClick={() => {
+                    //   setShowAdd(false);
+                    // }}
+                  />
+                  {console.log(attTime)}
                 </div>
               </Modal.Body>
               <Modal.Footer>
@@ -289,115 +283,109 @@ export default function EmployeeReport(props) {
                   onClick={() => {
                     setTime(attTime);
                     setShowAdd(false);
-                    if(attTime!=null){
-                      let updateData=JSON.parse(JSON.stringify(data))
-                      if(open=="signin"){
-                        updateData[selectedID].sign_in=attTime;
+                    if (attTime != null) {
+                      let updateData = JSON.parse(JSON.stringify(data));
+                      if (open == "signin") {
+                        updateData[selectedID].sign_in = attTime;
+                      } else {
+                        compare(
+                          updateData[selectedID].sign_in,
+                          attTime,
+                          selectedID
+                        );
+                        updateData[selectedID].sign_out = attTime;
                       }
-                      else{
-                        compare(updateData[selectedID].sign_in,attTime,selectedID);
-                        updateData[selectedID].sign_out=attTime;
+
+                      setData(updateData);
+                    } else {
+                      let updateData = JSON.parse(JSON.stringify(data));
+                      if (open == "signin") {
+                        updateData[selectedID].sign_in = timee;
+                      } else {
+                        updateData[selectedID].sign_out = timee;
                       }
-                     
+
                       setData(updateData);
                     }
-                    else{
-                      let updateData=JSON.parse(JSON.stringify(data))
-                      if(open=="signin"){
-                        updateData[selectedID].sign_in=timee;
-                      }
-                      else{
-                        updateData[selectedID].sign_out=timee;
-                      }
-                    
-                      setData(updateData);
-                    }
-                      // setData(data);
-                    
-                   
-                    }
-                   }
+                    // setData(data);
+                  }}
                 >
-                  
                   Ok
                 </Button>
               </Modal.Footer>
             </div>
           </form>
         </Modal>
-    
       </div>
-  );
+    );
   };
   const Table = ({ item, index }) => {
     //  ;
 
-    let d=new Date(item.created_at);
+    let d = new Date(item.created_at);
     // let time=d.toString(d);
     // var timing = time.match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
-    let timedata=JSON.stringify(timeFormat(item.sign_in))
+    let timedata = JSON.stringify(timeFormat(item.sign_in));
     setAttTime(item.sign_in);
     setType(item.status);
 
-
     const sendRecordToServer = async (event) => {
-    
       //api
       //*--------------------------------------
       let postData = {
         employee_id: EmpID,
-          date: item.date,
-         sign_in: item.sign_in,
-         sign_out: item.sign_out,
-         status:item.status
+        date: item.date,
+        sign_in: item.sign_in,
+        sign_out: item.sign_out,
+        status: item.status,
       };
       let res = await POST(ApiUrls.POST_ATTENDANCE, postData);
       // console.log("post request",postData, res);
       if (res?.error === false) {
         setMessage("Updated successfully");
         setShowSuccessAlert(true);
-        console.log("record submitted")
-        
+        console.log("record submitted");
+        handleFetchData();
       } else {
         setMessage("Attendance not Updated");
         setShowErrorAlert(true);
-        console.log("record submitted")
+        console.log("record submitted");
       }
-      setRefresh(!refresh);
-      
-    
+      // setRefresh(!refresh);
     };
     return (
       <tr>
         <td key={index + 1 + "table"}>{index + 1}</td>
         <td>{item.date}</td>
         <td>
-
           {/* {JSON.stringify(timeFormat(item.sign_in))} */}
           {
-            <div  className="d-flex d-inline "
-            >
-           <input className="form-control  w-100"  readOnly value={to12Format(item.sign_in)} />
-             <button
-              data-tip
-              data-for="EditTip"
-              type="button "
-              className="bg-transparent  button-focus mr-2"
-              onClick={() => {
-                setOpen("signin");
-                setShowAdd(true);
-                setSelectedID(index);
-              }}
-            >
-               {/* <KeyboardTimePickerExample
+            <div className="d-flex d-inline ">
+              <input
+                className="form-control  w-100"
+                readOnly
+                value={to12Format(item.sign_in)}
+              />
+              <button
+                data-tip
+                data-for="EditTip"
+                type="button "
+                className="bg-transparent  button-focus mr-2"
+                onClick={() => {
+                  setOpen("signin");
+                  setShowAdd(true);
+                  setSelectedID(index);
+                }}
+              >
+                {/* <KeyboardTimePickerExample
               value={timeFormat(item.sign_in)}
               // value={d}
               showTime={handleTimeValue}
             />  */}
-            <FontAwesomeIcon style={{ fontSize: 15 }} icon={faClock} />
-            </button>
-            {/* <StaticTimePicker
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faClock} />
+              </button>
+              {/* <StaticTimePicker
               // value={timeFormat(item.sign_in)}
               // // value={d}
               // showTime={handleTimeValue}
@@ -406,48 +394,47 @@ export default function EmployeeReport(props) {
           }
         </td>
         <td>
+          {/* {JSON.stringify(timeFormat(item.sign_in))} */}
+          {
+            <div className="d-flex d-inline ">
+              <input
+                className="form-control  w-100"
+                readOnly
+                value={to12Format(item.sign_out)}
+              />
 
-{/* {JSON.stringify(timeFormat(item.sign_in))} */}
-{
-  <div  className="d-flex d-inline "
-  >
- <input className="form-control  w-100"  readOnly value={to12Format(item.sign_out)} />
- 
-   <button
-    data-tip
-    data-for="EditTip"
-    type="button "
-    disabled={item.sign_in==null}
-    className="bg-transparent  button-focus mr-2"
-    onClick={() => {
-      setOpen("signout");
-      setShowAdd(true);
-      setSelectedID(index);
-    }}
-  >
-     {/* <KeyboardTimePickerExample
+              <button
+                data-tip
+                data-for="EditTip"
+                type="button "
+                disabled={item.sign_in == null}
+                className="bg-transparent  button-focus mr-2"
+                onClick={() => {
+                  setOpen("signout");
+                  setShowAdd(true);
+                  setSelectedID(index);
+                }}
+              >
+                {/* <KeyboardTimePickerExample
     value={timeFormat(item.sign_in)}
     // value={d}
     showTime={handleTimeValue}
   />  */}
-  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faClock} />
-  </button>
-  {/* <StaticTimePicker
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faClock} />
+              </button>
+              {/* <StaticTimePicker
     // value={timeFormat(item.sign_in)}
     // // value={d}
     // showTime={handleTimeValue}
   />  */}
-  </div>
-}
-{timeError.includes(index)==true?(
-   <small
-   className="form-text  text-red"
-   style={{ color: "red" }}
- >
-   Sign Out time should be after Sign In time
- </small>
-): null}
-</td>
+            </div>
+          }
+          {timeError.includes(index) == true ? (
+            <small className="form-text  text-red" style={{ color: "red" }}>
+              Sign Out time should be after Sign In time
+            </small>
+          ) : null}
+        </td>
 
         <td>{item.working_hours}</td>
         <td>
@@ -455,8 +442,8 @@ export default function EmployeeReport(props) {
           <select
             value={item.status}
             onChange={(e) => {
-              let updateData=JSON.parse(JSON.stringify(data))
-              updateData[index].status=e.target.value
+              let updateData = JSON.parse(JSON.stringify(data));
+              updateData[index].status = e.target.value;
               setData(updateData);
             }}
             className="form-control form-control-sm w-100"
@@ -469,25 +456,21 @@ export default function EmployeeReport(props) {
         </td>
 
         <td>
-          {timeError.includes(index)==false?(
- 
- <Button
- 
-   onClick={() => {
-     sendRecordToServer();
-   }}
- >
-   Update
- </Button>
-
-          ):"----"}
-         
+          {timeError.includes(index) == false ? (
+            <Button
+              onClick={() => {
+                sendRecordToServer();
+              }}
+            >
+              Update
+            </Button>
+          ) : (
+            "----"
+          )}
         </td>
       </tr>
     );
-   
   };
-  
 
   return (
     <Container fluid className="Laa">
@@ -503,22 +486,20 @@ export default function EmployeeReport(props) {
         closeError={setShowErrorAlert}
       />
 
-      <Row className=" shadow p-3  bg-white rounded mt-4 ml-1 mr-1">
-     
+      <Row className=" shadow p-3  bg-white rounded mt-4 ml-1 mr-1 pb-1">
         <Col lg={5} md={5} sm={12} xs={12} xl={6}>
-      
           <h4 style={{ color: "#818181", paddingTop: "12px" }}>
-          <IconButton
-          onClick={() => {
-            history.push("/admin/attendance");
-          }}
-          aria-label="delete"
-          color="primary"
-        >
-          <Tooltip title="Go Back" placement="right" arrow>
-            <ArrowBackIcon />
-          </Tooltip>
-        </IconButton>
+            <IconButton
+              onClick={() => {
+                history.push("/admin/attendance");
+              }}
+              aria-label="delete"
+              color="primary"
+            >
+              <Tooltip title="Go Back" placement="right" arrow>
+                <ArrowBackIcon />
+              </Tooltip>
+            </IconButton>
             Employee Attendance Details
           </h4>
         </Col>
@@ -530,9 +511,16 @@ export default function EmployeeReport(props) {
 
           <h6 style={{ color: "#818181", paddingTop: "7px" }}> Select Year </h6>
 
-          <div className="form-control w-100">
+          <div className="form-control w-100 ">
             {/* <YearPicker setDays={setDays}/> */}
             <YearPicking controlid="year" setDays={setDays} />
+            {days.month != "" && days.year == "" ? (
+              <small className="form-text  text-red mb-1" 
+              style={{ color: "red" }}
+              >
+                *This field is required
+              </small>
+            ) : null}
           </div>
         </Col>
         <Col lg={2} md={2} sm={12} xs={12} xl={2} className=" pb-0 ">
@@ -544,34 +532,59 @@ export default function EmployeeReport(props) {
           <div className="form-control w-100">
             {/* <YearPicker setDays={setDays}/> */}
             <DatePick controlid="month" setDays={setDays} />
+            {days.year != "" && days.month == "" ? (
+              <small
+                className="form-text  text-red mb-1"
+                style={{ color: "red" }}
+              >
+                *This field is required
+              </small>
+            ) : null}
           </div>
         </Col>
         <Col lg={1} md={1} sm={4} xs={6} xl={1}>
-          <Form.Control
-            className="w-100"
-            style={{
-              marginTop: "32px",
-              backgroundColor: "#2258BF",
-              color: "white",
-            }}
-            // disabled
+          {days.month!='' && days.year!= ''?(
+ <Form.Control
+ className="w-100"
+ style={{
+   marginTop: "32px",
+   backgroundColor: "#2258BF",
+   color: "white",
+ }}
+ // disabled
 
-            as="button"
-            defaultValue=""
-            onClick={(e) => {
-              SendRecordToServer(e);
-            }}
-          >
-            Search
-          </Form.Control>
+ as="button"
+ defaultValue=""
+ onClick={(e) => {
+   SendRecordToServer(e);
+ }}
+>
+ Search
+</Form.Control>
+          ):<Form.Control
+          className="w-100"
+          style={{
+            marginTop: "32px",
+            backgroundColor: "#7D9DD9",
+            color: "white",
+          }}
+          disabled
+         
+          as="button"
+          defaultValue=""
+          onClick={(e) => {
+            SendRecordToServer(e);
+          }}
+         >
+          Search
+         </Form.Control>}
+         
         </Col>
-       
-       
       </Row>
       <Container fluid>
         <Row className="mt-4">
           <Col lg={2} sm={12} xs={12} xl={2}>
-          On Time Arrival:
+            On Time Arrival:
             <input
               className="form-control w-100 "
               placeholder=""
@@ -584,7 +597,7 @@ export default function EmployeeReport(props) {
             />
           </Col>
           <Col lg={2} sm={12} xs={12} xl={2}>
-          Over Time
+            Over Time
             <input
               className="form-control w-100 "
               placeholder=""
@@ -597,7 +610,7 @@ export default function EmployeeReport(props) {
             />
           </Col>
           <Col lg={2} sm={12} xs={12} xl={2}>
-          Late Arrival
+            Late Arrival
             <input
               className="form-control w-100 "
               placeholder=""
@@ -610,7 +623,7 @@ export default function EmployeeReport(props) {
             />
           </Col>
           <Col lg={2} sm={12} xs={12} xl={2}>
-          Leaves
+            Leaves
             <input
               className="form-control w-100 "
               placeholder=""
@@ -623,7 +636,7 @@ export default function EmployeeReport(props) {
             />
           </Col>
           <Col lg={2} sm={12} xs={12} xl={2}>
-          Absent
+            Absent
             <input
               className="form-control w-100 "
               placeholder=""
@@ -636,7 +649,7 @@ export default function EmployeeReport(props) {
             />
           </Col>
           <Col lg={2} sm={12} xs={12} xl={2}>
-          Short Leave
+            Short Leave
             <input
               className="form-control w-100 "
               placeholder=""
@@ -648,90 +661,137 @@ export default function EmployeeReport(props) {
               // }}
             />
           </Col>
-          
         </Row>
       </Container>
-     
+
       <Row className=" shadow p-3  bg-white rounded mb-4 mt-4 ml-1 mr-1">
-          <Col className="ml-3"> 
-      {/* <div className="col-md-6 col-sm-12 d-flex ">
-        <div  className="col-md-6 col-sm-12 mr-1"><h4 style={{ color: "#818181" }}>Name:</h4></div>
-        <div  className="col-md-6 col-sm-12" ><h5 style={{ color: "black" }}>{name}</h5> </div>
-      </div>
-      <div className="col-md-6 col-sm-12 d-flex">
-        <div  className="col-md-6  col-sm-12 mr-1"><h4 style={{ color: "#818181" }}>Designation:</h4></div>
-        <div  className="col-md-6 col-sm-12" ><h5 style={{ color: "black" }}>{designation}</h5> </div>
-      </div>
-      <div className="col-md-6 col-sm-12 d-flex">
-        <div  className="col-md-6 col-sm-12 text-nowrap mr-1"><h4 style={{ color: "#818181" }}>Date of joining:</h4></div>
-        <div  className="col-md-6 col-sm-12 " ><h5 style={{ color: "black" }}>{date_of_joining}</h5> </div>
-      </div> */}
-              <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{emp?.name}</span></h5>
+        <Container fluid>
+          <Row>
+            {" "}
+            <Col lg={6} md={6} sm={12} xs={12}>
+              <Row>
+                <div className="col-md-4 col-sm-12 d-flex ">
+                  <span
+                    style={{
+                      color: "#818181",
+                      fontSize: "26px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Name:
+                  </span>
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <span style={{ color: "black", fontSize: "24px" }}>
+                    {emp?.name}
+                  </span>{" "}
+                </div>
+              </Row>
+              <Row>
+                <div className="col-md-4  col-sm-12 d-flex">
+                  <span
+                    style={{
+                      color: "#818181",
+                      fontSize: "26px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Designation:
+                  </span>
+                </div>
+                <div className="col-md-8 col-sm-12">
+                  <span style={{ color: "black", fontSize: "24px" }}>
+                    {emp?.designation}
+                  </span>{" "}
+                </div>
+              </Row>
+              <Row>
+                <div className="col-md-4 col-sm-12 text-nowrap d-flex">
+                  <span
+                    style={{
+                      color: "#818181",
+                      fontSize: "26px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Date of joining:
+                  </span>
+                </div>
+                <div className="col-md-8 col-sm-12 ">
+                  <span style={{ color: "black", fontSize: "24px" }}>
+                    {emp?.date_of_joining}
+                  </span>{" "}
+                </div>
+              </Row>
+              {/* <h5 style={{ color: "#818181" }}>Name:<span className="ml-5" style={{ color: "black"}}>{emp?.name}</span></h5>
               <h5 style={{ color: "#818181" }}>Designation:<span className="ml-5" style={{ color: "black" }}>{emp?.designation}</span></h5>
-              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{emp?.date_of_joining}</span></h5>
-            
-              </Col>
-          <Col className="ml-5">
-            {/* <div><Image {...{setImage,image}}/>
+              <h5 style={{ color: "#818181" }}>Date of joining<span className="ml-5" style={{ color: "black" }}>{emp?.date_of_joining}</span></h5> */}
+            </Col>
+            <Col lg={6} md={6} sm={12} xs={12} className="mt-2">
+              {/* <div><Image {...{setImage,image}}/>
             </div> */}
-             <div
-           
-            style={{ marginRight: "30px", marginLeft: "30px" }}
-          >
-            <img style={{ width: "120px", height: "100px" }}  className="zoom" src={publicURLimage+emp?.image} />
-          </div>
-             </Col>
-         
-        <div className="table-responsive mt-5" >
+              <div
+
+              // style={{ marginRight: "30px", marginLeft: "30px" }}
+              >
+                <img
+                  style={{ width: "120px", height: "100px" }}
+                  className="zoom"
+                  src={publicURLimage + emp?.image}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+        <div className="table-responsive mt-5">
           <table className="table table-hover">
             <thead>
               <tr>
-              <th scope="col">
+                <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
-                  ID
+                    ID
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  Date
+                    Date
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  Sign In
+                    Sign In
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                  Sign Out
+                    Sign Out
                   </span>
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                Working Hours
+                    Working Hours
                   </span>
                 </th>
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
-                  Status
+                    Status
                   </span>
                 </th>
                 <th scope="col">
                   <span id="sn" style={{ color: "#818181" }}>
-                  Update
+                    Update
                   </span>
                 </th>
-               
               </tr>
             </thead>
             <tbody>
-           
               {data?.map((item, index) => {
                 return <Table index={index} item={item} />;
               })}
             </tbody>
           </table>
-          <ModalAdd  />
+          <ModalAdd />
           {/* <Row>
             <div className="col-md-12 ml-5 mt-5">
 
@@ -752,5 +812,4 @@ export default function EmployeeReport(props) {
       </Row>
     </Container>
   );
-  
 }

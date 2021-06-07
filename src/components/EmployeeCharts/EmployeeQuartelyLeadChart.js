@@ -12,12 +12,18 @@ export default function QuarterlyLead_chart(props)  {
     chartData: [],
   })
  
-
- const  handleFetchData=async ()=>{
+  const  handleFetchData=async ()=>{
+    let arr=Array(8).fill(0);
+     let setData=Object?.values(props?.TaskReport)?.map((item)=>{
+       arr[item.Task]=item.Leads;
+     })
+     setState({chartData:arr})
+    }
+//  const  handleFetchData=async ()=>{
   
-   let setData=Object?.values(props?.TaskReport)?.map((item)=>item.Leads)
-   setState({chartData:setData})
-  }
+//    let setData=Object?.values(props?.TaskReport)?.map((item)=>item.Leads)
+//    setState({chartData:setData})
+//   }
   useEffect(() => {
     handleFetchData()
   }, [props.TaskReport]);
@@ -29,16 +35,16 @@ export default function QuarterlyLead_chart(props)  {
         data={{
           labels: [
             // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
-            'task 1','task 2','task 3','task 4','task 5','task 6','task 7+'
+            'task 0','task 1','task 2','task 3','task 4','task 5','task 6','task 7+'
            
           ],
   
           datasets: [
             {
               label: 'Quarterly Action Summary',
-              data:[...state?.chartData,1],
+              data:[...state?.chartData,0],
               backgroundColor: [
-               
+                "#A8A8A8",
                 "#2B5989",
                   "#7D418A",
                   "#5CAC77",

@@ -41,6 +41,7 @@ import AdminAction from "./screens/Employe/Leads/AdminAction";
 import Account from "./screens/Admin/Account/Account";
 import AdminAccounts from "./screens/Admin/Accounts/AccountListing";
 import AddAccount from "./screens/Admin/Accounts/AddAccount";
+import AccountDetail from "./screens/Admin/Accounts/AccountDetail";
 import AddHome from "./screens/Admin/Accounts/AddHomeAndOffice";
 import LoanDetails from "./screens/Admin/Accounts/LoanDetails";
 import SingleEmployeeAttenndance from "./screens/Admin/Account/SingleEmployeeAttenndance";
@@ -246,6 +247,9 @@ const NewApp = (props) => {
         </Route>
         <Route path="/admin/addAccount">
           <AddAccount />
+        </Route>
+        <Route path="/admin/accountDetail">
+          <AccountDetail />
         </Route>
         <Route path="/admin/addhome">
           <AddHome />

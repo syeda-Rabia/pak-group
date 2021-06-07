@@ -196,7 +196,7 @@ const handleAddClick = () => {
                 onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>}
                      
                       </td>
-                        {inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3" style={{ color:"2258BF" }}> Add Row</button>}
+                        {inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
                       
                     </tr>
                   ))}

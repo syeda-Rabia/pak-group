@@ -1714,14 +1714,17 @@ const history = useHistory();
 
         <td>
           {item?.allocation?.length > 0 ? (
-            <CTAButton
-              // leadId={item.allocation[0].lead_id}
-              empId={item?.allocation[0]?.allocated_to?.id}
-              lead_id={item?.id}
-              deadline={item?.dead_line}
-              // status={item.status}
-            />
-          ) : (
+            item.status!=="Complete" && item.status!=="Loss"?(
+             
+              <CTAButton
+                // leadId={item.allocation[0].lead_id}
+                empId={item?.allocation[0]?.allocated_to?.id}
+                lead_id={item?.id}
+                deadline={item?.dead_line}
+                // status={item.status}
+              />
+            ):"------" )
+            : (
             "-------"
           )}
         </td>

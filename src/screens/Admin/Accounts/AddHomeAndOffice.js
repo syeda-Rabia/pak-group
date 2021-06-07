@@ -1,5 +1,5 @@
 import "./../Leads/LeadsAdmin.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -67,30 +67,31 @@ export default function AddHome() {
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [home, SetHome] = useState("");
-
+    const [type, SetType] = useState("Home");
     const addData = async (event) => {
       event.preventDefault();
       let postData = {
-        id: "1",
-        home: home,
+        // id: "1",
+        name: home,
+        type: type,
       };
-      let arr = data;
-      arr.push(postData);
-      setData(arr);
-      setShowAdd(false);
+      // let arr = data;
+      // arr.push(postData);
+      // setData(arr);
+      // setShowAdd(false);
       //api
-    //   let res = await POST(ApiUrls.ADD_INTEREST, postData);
-    //   // console.log("post request", res);
-    //   if (res.error === false) {
-    //     setMessage("Interest Added Successfully");
-    //     setShowSuccessAlert(true);
-    //   } else {
-    //     setMessage("Operation Failed");
-    //     setShowErrorAlert(true);
-    //   }
-    //   setRefresh(!refresh);
+      let res = await POST(ApiUrls.POST_ADD_HOME_OR_OFFICE, postData);
+      console.log("post request", res,postData);
+      if (res?.hasOwnProperty("success")) {
+        setMessage(res?.success);
+        setShowSuccessAlert(true);
+      } else if (res?.hasOwnProperty("error")) {
+        setMessage(res?.error);
+        setShowErrorAlert(true);
+      }
+      setRefresh(!refresh);
 
-    //   setShowAdd(false);
+      setShowAdd(false);
     };
     //api 
     // };
@@ -128,6 +129,29 @@ export default function AddHome() {
                   }}
                 />
               </div>
+              <div className="pb-3">
+                <h6>Select Home or office</h6>
+                <Form.Control
+              className="w-100 "
+              style={{ height: "32px", fontSize: "13px" }}
+              controlid="type"
+              as="select"
+              value={type}
+              onChange={(e) => {
+                console.log("select client ID is -----", e.target.value);
+                SetType(e.target.value);
+              }}
+            >
+              
+              <option value={"Home"}>Home</option>
+              <option value={"Office"}>Office</option>
+             
+            </Form.Control>
+              </div>
+
+
+
+
             </Modal.Body>
             <Modal.Footer>
               <Button

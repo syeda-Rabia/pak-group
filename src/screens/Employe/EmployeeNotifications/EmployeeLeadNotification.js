@@ -133,14 +133,18 @@ function EmployeeLeadsNotification(props, lead_id) {
 
   var closed=localStorage.getItem("data");
   let data1=JSON.parse(closed);
-  console.log("-local---",data1)
+  console.log("-local lead---",data1)
 
   const handleFetchData = async () => {
     setIsLoading(true);
     let formData = {
-      actions: ActionId,
-      ids: leadID,
+      actions: data1.adminAction,
+      ids: data1.data,
     };
+    // let formData = {
+    //   actions: ActionId,
+    //   ids: leadID,
+    // };
     let res = await POST(ApiUrls.GET_EMPLOYEE_NOTIFICATION_ON_LEAD, formData);
     console.log("-------------------------------", res);
 

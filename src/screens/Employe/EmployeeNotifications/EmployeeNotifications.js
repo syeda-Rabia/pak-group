@@ -43,6 +43,8 @@ export default function EmployeeNotification() {
     console.log("res__________________>for notification", res);
 
     setIsLoading(false);
+    // localStorage.getItem("data");
+    // localStorage.setItem("data", data);
   };
   useEffect(() => {
     handleFetchData();
@@ -51,7 +53,7 @@ export default function EmployeeNotification() {
 
   
   
-  const Notifications = ({ item, index }) => {
+  const Notifications = ({ item, index }) => { 
     let data=JSON.parse([item?.notification_body]);
     return (
       <ListItem alignItems="center" style={{borderRadius:"10px",backgroundColor:"#F2F4F5",marginBottom:"5px"}}>

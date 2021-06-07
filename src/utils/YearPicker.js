@@ -71,15 +71,16 @@ return (
   />
 );
 }
-export function DayPicking({ value,setStart, setEnd }) {
+export function DayPicking({ value,setStart, setEnd,Start:startDate,End:endDate }) {
  
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [start, setStartDate] = useState("");
+  const [end, setEndDate] = useState("");
   // const onChange = dates => {
   //   const [start, end] = dates;
   //   setStartDate(start);
   //   setEndDate(end);
   // };
+ 
   return (
     <>
     <Row >
@@ -90,6 +91,7 @@ export function DayPicking({ value,setStart, setEnd }) {
      className="form-control w-100 bg-white"
      
         selected={startDate}
+        required="true"
         onChange={(date) => {setStartDate(date)
           // let start=date.toString().split(" ")[1];
           setStart(date)
@@ -100,12 +102,22 @@ export function DayPicking({ value,setStart, setEnd }) {
         endDate={endDate}
         format="yyyy/MM/dd"
       />
+      {end!="" && start==""?(
+         <small className="form-text  text-red mb-1" 
+         style={{ color: "red",fontSize: 15 }}
+         >
+           *This field is required
+         </small>
+      ):null
+      }
+      <p></p>
     </Col>
     <Col className="col-md-6 col-sm=12" style={{float: "right" ,border:"none" ,paddingLeft:"5px"}} >
     <h6 style={{ color: "#818181" }}>End date</h6>
     <DatePicker
     className="form-control w-100 bg-white"
         selected={endDate}
+        required="true"
         onChange={(date) => {setEndDate(date)
           // let end=date.toString().split(" ")[1];
           setEnd(date)
@@ -117,7 +129,14 @@ export function DayPicking({ value,setStart, setEnd }) {
         format="yyyy/MM/dd"
         popperPlacement="bottom mr-2"
       />
-      
+       {start!="" && end==""?(
+         <small className="form-text  text-red mb-1" 
+         style={{ color: "red",fontSize: 15 }}
+         >
+           *This field is required
+         </small>
+      ):null
+      }
     </Col>
     </Row>
    

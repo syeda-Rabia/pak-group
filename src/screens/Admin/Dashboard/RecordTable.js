@@ -1218,9 +1218,16 @@ const ModalClose = ({ item }) => {
         </td>
 
         <td>
+        {/* {item?.allocation?.length > 0 ? ( */}
+            {item.status!=="Complete" && item.status!=="Loss"?(
+             
           <CTAButton lead_id={item?.id} 
           empId={allocated?.id}
           deadline={item?.deadline}/>
+          ):"------" 
+          /* : (
+          "-------" */
+        }
         </td>
         <td>
           <div className="d-flex d-inline">

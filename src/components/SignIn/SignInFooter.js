@@ -83,6 +83,24 @@ class Footer extends Component {
               </a>{" "}
               All Rights Reserved.
             </p>
+            <p
+              className=" text1"
+              style={{
+                color: "#2258BF",
+                wordSpacing: "-2px",
+              }}
+            >
+              Powered By 
+              <a
+                style={{
+                  color: "#2258BF",
+                }}
+                href="https://technovier.com/"
+              >
+                <strong>Technovier</strong>
+              </a>{" "}
+            
+            </p>
           </div>
         </div>
       </div>

@@ -15,11 +15,7 @@ import "./AdminDashboard.css";
 import EnhancedTable from "./MaterialUITable";
 import RecordTable from "./RecordTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-
-  faRedo,
-
-} from "@fortawesome/free-solid-svg-icons";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
 function AdminDashboard() {
   const [employees, setEmployees] = React.useState("");
   const [emp, setEmp] = React.useState("");
@@ -30,22 +26,23 @@ function AdminDashboard() {
   const [IsFilter, setIsFilter] = useState(false);
   var today = new Date();
   // var datee = formatDate(today, "-");
-  const [Start, setStart] = useState();
-  const [End, setEnd] = useState();
+  const [Start, setStart] = useState("");
+  const [End, setEnd] = useState("");
   const [data, setData] = useState({});
   const [pendingTask, setPendingTask] = useState({});
   const [showReset, setshowReset] = useState(false);
   const [quarterlyTask, setQuarterlyTask] = useState({});
   const [callReport, setCallReport] = useState({});
   const [TaskReport, setTaskReport] = useState({});
-  const [result, setResult] = useState({});
+  const [target, setTarget] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [quarter, setQuarter] = useState(0);
   const [targetAssign, setTargetAssigned] = useState("");
   const [targetAchieved, setTargetAchieved] = useState(0);
   const [noOfMeeting, setNumberOfMeeting] = useState(0);
+  const [disabledButton, setDisabledButton] = useState(false);
 
-  const { RangePicker } = DatePicker; 
+  const { RangePicker } = DatePicker;
 
   const [days, setDays] = useState({
     day: [],
@@ -65,10 +62,12 @@ function AdminDashboard() {
   };
 
   useEffect(() => {
+    SendTargetRecordToServer();
+  }, [emp, quarter]);
+  useEffect(() => {
     getEmployeeDetails();
     getLeadReport();
   }, [refresh]);
-
   // const getLeadReport= async () => {
   //   let resp = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
   //   console.log("-----------dashboard-----".resp)
@@ -78,17 +77,17 @@ function AdminDashboard() {
     let res = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
     // console.log("leads__________>", res);
 
-
-    if (res.error===false) {
+    if (res.error === false) {
       setData(res?.report);
-      setPendingTask(res?.pending)
-      setCallReport(res?.call_report)
-      setQuarterlyTask(res?.quarterly)
-      setTaskReport(res?.data)
-      setResult(res?.result)
-
+      setPendingTask(res?.pending);
+      setCallReport(res?.call_report);
+      setQuarterlyTask(res?.quarterly);
+      setTaskReport(res?.data);
+     
     }
   };
+  console.log("start",Start);
+  console.log("end",End);
   const getEmployeeDetails = async () => {
     let res = await GET(ApiUrls.GET_ALL_DASHBOARD_USER);
     // console.log("employessss__________>", res);
@@ -98,55 +97,75 @@ function AdminDashboard() {
       setAllEmployees(res.data.users.data);
     }
   };
+  const SendTargetRecordToServer = async () => {
+    // console.log()
+    let formData = {
+      emp_id: emp,
+      quarter_option: quarter,
+    };
+    // console.log("formdata----", formData);
+    let resp = await POST(ApiUrls.POST_EMPLOYEE_TARGET_DATA, formData);
+
+    console.log("console----", resp);
+    if (resp?.hasOwnProperty("success")) {
+      // setMessage(resp?.success);
+      // setShowSuccessAlert(true);
+
+      setTargetAssigned(resp?.target?.target);
+      setTargetAchieved(resp?.target?.complete);
+      setNumberOfMeeting(resp?.target?.meeting);
+      // setQuarter(2);
+    } else if (resp?.hasOwnProperty("error")) {
+      // setMessage(resp.error);
+      // setShowErrorAlert(true);
+      // setIsFilter(false);
+    }
+  };
   const SendRecordToServer = async (event) => {
     event.preventDefault();
     // console.log()
     let formData = {
       emp_id: employees,
-      from_date:formatDate(Start) ,
+      from_date: formatDate(Start),
       to_date: formatDate(End),
     };
-    // console.log("formdata----", formData);
+    console.log("formdata filter----", formData);
     let resp = await POST(ApiUrls.POST_LEAD_FILTER, formData);
 
     // console.log("console----", resp);
-    if (resp?.hasOwnProperty("success")){
+    if (resp?.hasOwnProperty("success")) {
       setshowReset(true);
       setMessage(resp?.success);
       setShowSuccessAlert(true);
       setIsFilter(true);
       setData(resp?.report);
-      setPendingTask(resp?.pending)
-      setCallReport(resp?.call_report)
-      setQuarterlyTask(resp?.quarterly)
-      setTaskReport(resp?.data)
-      setResult(resp?.result)
-
-    }
-    else if (resp?.hasOwnProperty("error")){
+      setPendingTask(resp?.pending);
+      setCallReport(resp?.call_report);
+      setQuarterlyTask(resp?.quarterly);
+      setTaskReport(resp?.data);
+      setTarget(resp?.target);
+    } else if (resp?.hasOwnProperty("error")) {
       setMessage(resp.error);
       setShowErrorAlert(true);
       setIsFilter(false);
     }
-  
   };
   const SendAssignRecordToServer = async (event) => {
     event.preventDefault();
     // console.log()
     let formData = {
       emp_id: emp,
-      target_assign:targetAssign,
-      quarter:quarter,
-     
+      target: targetAssign,
+      quarter_option: quarter,
     };
     console.log("formdata----", formData);
-    let resp = await POST(ApiUrls.POST_LEAD_FILTER, formData);
+    let resp = await POST(ApiUrls.POST_EMPLOYEE_LEAD_TARGET, formData);
 
-    // console.log("console----", resp);
-    if (resp?.hasOwnProperty("success")){
+    console.log("target console----", resp);
+    if (resp?.hasOwnProperty("success")) {
       // setshowReset(true);
-      // setMessage(resp?.success);
-      // setShowSuccessAlert(true);
+      setMessage(resp?.success);
+      setShowSuccessAlert(true);
       // setIsFilter(true);
       // setData(resp?.report);
       // setPendingTask(resp?.pending)
@@ -154,45 +173,43 @@ function AdminDashboard() {
       // setQuarterlyTask(resp?.quarterly)
       // setTaskReport(resp?.data)
       // setResult(resp?.result)
-
-    }
-    else if (resp?.hasOwnProperty("error")){
-      // setMessage(resp.error);
-      // setShowErrorAlert(true);
+    } else if (resp?.hasOwnProperty("error")) {
+      setMessage(resp.error);
+      setShowErrorAlert(true);
       // setIsFilter(false);
     }
-  
   };
   return (
     <Container fluid>
       {/* Ist Row */}
       <Container fluid>
         <Row className="shadow mb-3 bg-white rounded mt-4 pb-2 ">
-        <SuccessNotification
-        showSuccess={showSuccessAlert}
-        message={message}
-        closeSuccess={setShowSuccessAlert}
-      />
-      <ErrorNotification
-        showError={showErrorAlert}
-        message={message}
-        closeError={setShowErrorAlert}
-      />
+          <SuccessNotification
+            showSuccess={showSuccessAlert}
+            message={message}
+            closeSuccess={setShowSuccessAlert}
+          />
+          <ErrorNotification
+            showError={showErrorAlert}
+            message={message}
+            closeError={setShowErrorAlert}
+          />
           <Col lg={5} md={5} sm={12} xs={12} xl={6}>
-            <h4 style={{ color: "#818181",paddingTop:"12px" }}>Admin Dashboard</h4>
-            
+            <h4 style={{ color: "#818181", paddingTop: "12px" }}>
+              Admin Dashboard
+            </h4>
           </Col>
-         
-          <Col lg={2}    md={2} sm={12} xs={12} xl={2}>
+
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
             {/* <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
             </div> */}
-           
-              <h6 style={{ color: "#818181",paddingTop:"7px" }} >Employee</h6>
-           
+
+            <h6 style={{ color: "#818181", paddingTop: "7px" }}>Employee</h6>
+
             <Form.Control
               className="w-100 "
-              style={{ height:"32px",fontSize:"13px"}}
+              style={{ height: "32px", fontSize: "13px" }}
               controlid="Sale Person"
               as="select"
               value={employees}
@@ -205,8 +222,8 @@ function AdminDashboard() {
               {allEmployees.length > 0
                 ? allEmployees.map((e) => (
                     <option
-                      style={{ color: "#2258BF"}}
-                      key={e.id+"employee id"}
+                      style={{ color: "#2258BF" }}
+                      key={e.id + "employee id"}
                       value={e.id}
                     >
                       {e.first_name}
@@ -216,71 +233,91 @@ function AdminDashboard() {
                 : null}
             </Form.Control>
           </Col>
-          <Col lg={4}  md={4} sm={6} xs={12} xl={3} className="pt-2 pb-0 ">
-            
-            <DayPicking value={today} setStart={setStart} setEnd={setEnd} />
-           
-          
+          <Col lg={4} md={4} sm={6} xs={12} xl={3} className="pt-2 pb-0 ">
+            <DayPicking value={today} {...{setStart,setEnd,Start,End}}  />
           </Col>
+        {/* {Start!=='' && End!==''?(
+          setDisabledButton(true)
+        ):  setDisabledButton(false)} */}
           <Col lg={1} md={1} sm={4} xs={6} xl={1}>
-            <Form.Control
-              className="w-100"
-              style={{
-                marginTop: "32px",
-                backgroundColor: "#2258BF",
-                color: "white",
-              }}
-              // disabled
+            
+              <Form.Control
+                className="w-100"
+                style={{
+                  marginTop: "32px",
+                  backgroundColor: "#2258BF",
+                  color: "white",
+                }}
+               
+               
+                as="button"
+                defaultValue=""
+                onClick={(e) => {
+                  SendRecordToServer(e);
+                }}
+              >
+                Search
+              </Form.Control>
+            
 
-              as="button"
-              defaultValue=""
-              onClick={(e) => {
-                SendRecordToServer(e);
-              }}
-            >
-              Search
-            </Form.Control>
-            {showReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn " 
-            onClick={() => {
-             
-              getLeadReport();
-              setshowReset(false);
-              setIsFilter(false);
-              // setIsLoading(true);
-              // setIsEmpty(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <span  className="text-nowrap"><FontAwesomeIcon icon={faRedo} /> Reverse</span>
-          </button>
-           ):null} 
+            {showReset == true ? (
+              <button
+                type="button"
+                className="btn btn-primary leadbtn"
+                onClick={() => {
+                  getLeadReport();
+                  setshowReset(false);
+                  setIsFilter(false);
+                  setEmployees("");
+                  setStart("");
+                  setEnd("");
+                  // setRefresh(true);
+                 
+                  // setIsLoading(true);
+                  // setIsEmpty(false);
+                }}
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
+              >
+                <span className="text-nowrap">
+                  <FontAwesomeIcon icon={faRedo} /> Reverse
+                </span>
+              </button>
+            ) : null}
           </Col>
         </Row>
       </Container>
       <Container fluid>
         <Row className="shadow mb-3 bg-white rounded mt-4 pb-2 pt-2">
-          <Col lg={1} sm={12} xs={12} xl={1}>
-          <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}> Target Assigned</span>
-           
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              Target Assigned
+            </span>
+
             <input
               className="form-control w-100 bg-white"
               placeholder=""
               type="number"
-              
               value={targetAssign}
               onChange={(e) => {
                 setTargetAssigned(e.target.value);
               }}
             />
           </Col>
-          <Col lg={1} sm={12} xs={12} xl={1}>
-            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>  Target Achieved</span>
-           
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              Target Achieved
+            </span>
+
             <input
               className="form-control w-100 bg-white"
               placeholder=""
@@ -292,9 +329,15 @@ function AdminDashboard() {
               // }}
             />
           </Col>
-          <Col lg={1} sm={12} xs={12} xl={1}>
-          <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>  No Of Meetings</span>
-         
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              No Of Meetings
+            </span>
+
             <input
               className="form-control w-100 bg-white"
               placeholder=""
@@ -306,16 +349,21 @@ function AdminDashboard() {
               // }}
             />
           </Col>
-          <Col lg={1}    md={1} sm={12} xs={12} xl={1}>
+          <Col lg={1} md={1} sm={12} xs={12} xl={2}>
             {/* <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
             </div> */}
-            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}> Employee</span>
-              
-           
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              {" "}
+              Employee
+            </span>
+
             <Form.Control
               className="w-100 "
-              style={{ height:"32px",fontSize:"13px"}}
+              style={{ height: "32px", fontSize: "13px" }}
               controlid="Sale Person"
               as="select"
               value={emp}
@@ -328,8 +376,8 @@ function AdminDashboard() {
               {allEmployees.length > 0
                 ? allEmployees.map((e) => (
                     <option
-                      style={{ color: "#2258BF"}}
-                      key={e.id+"employee id"}
+                      style={{ color: "#2258BF" }}
+                      key={e.id + "employee id"}
                       value={e.id}
                     >
                       {e.first_name}
@@ -339,17 +387,20 @@ function AdminDashboard() {
                 : null}
             </Form.Control>
           </Col>
-          <Col lg={1}    md={1} sm={12} xs={12} xl={1}>
+          <Col lg={1} md={2} sm={12} xs={12} xl={2}>
             {/* <div className="float-right drawer-div">
               <SwipeableTemporaryDrawer />
             </div> */}
-            <span class="text-nowrap" style={{ color: "#818181",fontWeight:"bold"}}>Quarter</span>
-           
-              
-           
+            <span
+              class="text-nowrap"
+              style={{ color: "#818181", fontWeight: "bold" }}
+            >
+              Quarter
+            </span>
+
             <Form.Control
               className="w-100 "
-              style={{ height:"32px",fontSize:"13px"}}
+              style={{ height: "32px", fontSize: "13px" }}
               controlid="Sale Person"
               as="select"
               value={quarter}
@@ -363,7 +414,6 @@ function AdminDashboard() {
               <option value={2}>APR-JUN</option>
               <option value={3}>JUL-SEP</option>
               <option value={4}>OCT-DEC</option>
-             
             </Form.Control>
           </Col>
           <Col lg={1} md={1} sm={4} xs={6} xl={1}>
@@ -444,7 +494,8 @@ function AdminDashboard() {
           >
             {/* <h6 style={{ color: "#818181" }}>Pending Task for Today</h6> */}
             <h3 style={{ color: "#818181" }}>Pending task for today</h3>
-            <PendingTaskForToday pendingTask={pendingTask}
+            <PendingTaskForToday
+              pendingTask={pendingTask}
               style={{ marginLeft: "20px", marginRight: "20px" }}
             />
           </Col>
@@ -471,7 +522,7 @@ function AdminDashboard() {
                 </p> */}
               </Col>
             </Row>
-            <QuarterlyLead_chart TaskReport={TaskReport}/>
+            <QuarterlyLead_chart TaskReport={TaskReport} />
           </Col>
         </Row>
       </Container>
@@ -504,7 +555,7 @@ function AdminDashboard() {
                 <h3 style={{ color: "#818181" }}>Quarterly Lead Performance</h3>
               </Col>
             </Row>
-            <QuarterlyPerformanceChart quarterlyTask={quarterlyTask}/>
+            <QuarterlyPerformanceChart quarterlyTask={quarterlyTask} />
           </Col>
           <Col
             xl={5}
@@ -516,11 +567,11 @@ function AdminDashboard() {
           >
             {/* <h6 style={{ color: "#818181" }}>Call Summary</h6> */}
             <h3 style={{ color: "#818181" }}>Call Report</h3>
-            <CallReportChart callReport={callReport}/>
+            <CallReportChart callReport={callReport} />
           </Col>
         </Row>
       </Container>
-     
+
       <RecordTable />
       <Container fluid>
         <Row>
@@ -540,14 +591,8 @@ function AdminDashboard() {
           >
             <h3 style={{ color: "#818181" }}>Target Asigned</h3>
             {/* <LeadReport_chart /> */}
-          {/* </Col> */} 
-          <Col
-            xl={12}
-            lg={12}
-            sm={12}
-            xs={12}
-            
-          >
+          {/* </Col> */}
+          <Col xl={12} lg={12} sm={12} xs={12}>
             <EnhancedTable />
             {/* <RecordTable /> */}
           </Col>

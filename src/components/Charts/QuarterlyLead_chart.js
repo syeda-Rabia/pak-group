@@ -14,9 +14,11 @@ export default function QuarterlyLead_chart(props)  {
  
 
  const  handleFetchData=async ()=>{
-  
-   let setData=Object?.values(props?.TaskReport)?.map((item)=>item.Leads)
-   setState({chartData:setData})
+  let arr=Array(8).fill(0);
+   let setData=Object?.values(props?.TaskReport)?.map((item)=>{
+     arr[item.Task]=item.Leads;
+   })
+   setState({chartData:arr})
   }
   useEffect(() => {
     handleFetchData()
@@ -36,7 +38,7 @@ export default function QuarterlyLead_chart(props)  {
           datasets: [
             {
               label: 'Quarterly Action Summary',
-              data:[...state?.chartData,1],
+              data:[...state?.chartData,0],
               backgroundColor: [
                 "#A8A8A8",
                 "#2B5989",

@@ -141,6 +141,9 @@ export default function LeadsAdmin(props) {
   const classes = useStyles();
   const leadID=props?.location?.data?.data;
   const ActionId=props?.location?.data?.empAction;
+  var request = localStorage.getItem("adminData");
+    let data2 = JSON.parse(request);
+    console.log("-local-lead admin--", data2);
   useEffect(() => {
     setIsLoading(true);
     getAllLeadsData();

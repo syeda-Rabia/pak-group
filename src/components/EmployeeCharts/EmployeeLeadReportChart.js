@@ -41,7 +41,7 @@ export default function EmployeeLeadReportChart(props)  {
           datasets: [
             {
               label: 'Leads Assign',
-              data:[...state?.chartData,1],
+              data:[...state?.chartData,0],
               backgroundColor: [
                
                 '#D3AF40',

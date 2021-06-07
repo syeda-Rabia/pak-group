@@ -56,7 +56,9 @@ function EmployeeInventoryNotification(props) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  
+  var inventory=localStorage.getItem("data");
+  let data1=JSON.parse(inventory);
+  console.log("-local inventory---",data1)
   const inventoryId=props?.location?.data?.data;
   console.log("--------------------------->props inventory--",inventoryId)
 
@@ -68,8 +70,12 @@ function EmployeeInventoryNotification(props) {
 
     }
     let formData={
-ids:inventoryId,
-    }
+      ids:data1.data,
+          }
+
+//     let formData={
+// ids:inventoryId,
+//     }
     let res = await POST(
       ApiUrls.GET_EMPLOYEE_NEW_INVENTORIES_NOTIFICATION,formData
     );

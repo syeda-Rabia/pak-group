@@ -40,7 +40,8 @@ export default function AdminNotification() {
     if (res?.success != false) {
       setData(res?.data?.Notifications);
     }
-
+    localStorage.setItem("adminData", data)
+    console.log("data",data);
     setIsLoading(false);
   };
   useEffect(() => {

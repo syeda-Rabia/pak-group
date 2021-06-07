@@ -33,7 +33,7 @@ export default function EmployeeQuarterlyPerformancechart(props) {
           datasets: [
             {
               label: "Quarterly Lead performance",
-              data: [...state?.chartData, 1],
+              data: [...state?.chartData, 0],
               backgroundColor: ["#2B5989", "#7D418A"],
             },
           ],
