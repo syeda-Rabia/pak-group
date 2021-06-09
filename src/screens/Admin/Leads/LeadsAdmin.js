@@ -167,7 +167,7 @@ const history = useHistory();
      */
     setIsLoading(true);
     let resp = await GET(ApiUrls.GET_ALL_LEADS_PAGINATION + page);
-
+console.log("kkkkkk",resp)
     if (resp?.data != null) {
       setCurrentPage(resp?.data?.leads?.current_page);
       setAllLeads(resp?.data?.leads?.data);

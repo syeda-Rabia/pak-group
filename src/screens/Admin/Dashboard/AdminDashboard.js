@@ -16,6 +16,7 @@ import EnhancedTable from "./MaterialUITable";
 import RecordTable from "./RecordTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import { onMessageListener } from "../../../firebase";
 function AdminDashboard() {
   const [employees, setEmployees] = React.useState("");
   const [emp, setEmp] = React.useState("");
@@ -60,7 +61,13 @@ function AdminDashboard() {
 
     return [year, month, day].join("-");
   };
-
+  useEffect(() => {
+    onMessageListener()
+    .then((payload) => {
+      getLeadReport()
+    })
+    .catch((err) => console.log("failed: ", err));
+  },[])
   useEffect(() => {
     SendTargetRecordToServer();
   }, [emp, quarter]);

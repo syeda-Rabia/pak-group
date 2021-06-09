@@ -13,23 +13,39 @@ import {
   IconButton,
 } from "@material-ui/core";
 import {  useHistory, Redirect, Route } from "react-router-dom";
-
+import ApiUrls from "../../../utils/ApiUrls";
+import { GET, POST } from "../../../utils/Functions";
+import ErrorNotification from "../../../components/ErrorNotification";
+import SuccessNotification from "../../../components/SuccessNotification";
 export default function AddAccount() {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState([]);
   const [ComplimentData, setComplimentData] = React.useState([]);
+  const [accountData, setAccountData] = React.useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [accountName, setAccountName] = React.useState("");
   const [totalAmount, setTotalAmount] = React.useState(0);
-
+  const [message, setMessage] = React.useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   var today = new Date();
   const history = useHistory();
   // var datee = formatDate(today, "-");
   const [Start, setStart] = useState();
   const [End, setEnd] = useState();
+  const formatDate = (date) => {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  };
 const handleData=(data) => {
-  setData(state=>state.concat(data).reverse())
+  setData(state=>state.concat(data))
 }
 const handleRemove=(index) => {
   const list = [...data];
@@ -37,6 +53,29 @@ const handleRemove=(index) => {
   
   setData(list)
 }
+const SendRecordToServer = async (event) => {
+  // event.preventDefault();
+  let formData = {
+  account_name: accountName,
+    amount: totalAmount,
+    from_date: formatDate(Start),
+      to_date: formatDate(End),
+      data:accountData,
+  };
+  console.log("account data",formData);
+  // let resp = await POST(ApiUrls.CREATE_USER, formData);
+  // if (resp.error == false) {
+  //   setMessage("User Created Successfully.");
+  //   setShowSuccessAlert(true);
+  // } else {
+  //   // ;
+  //   setMessage("User Created Successfully.");
+  //   setShowErrorAlert(true);
+  // }
+
+  
+  setShowAdd(false);
+};
   console.log("table data",tableData);
   console.log("data",ComplimentData);
   const ModalAdd = ({ item }) => {
@@ -169,6 +208,16 @@ const handleRemove=(index) => {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
+        <SuccessNotification
+            showSuccess={showSuccessAlert}
+            message={message}
+            closeSuccess={setShowSuccessAlert}
+          />
+          <ErrorNotification
+            showError={showErrorAlert}
+            message={message}
+            closeError={setShowErrorAlert}
+          />
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>
             Add Account
@@ -209,7 +258,7 @@ const handleRemove=(index) => {
             />
           </Col>
           <Col lg={3} sm={12} xs={12} xl={3}>
-          <DayPicking value={today} setStart={setStart} setEnd={setEnd}/>
+          <DayPicking value={today} {...{setStart,setEnd,Start,End}}  />
           </Col>
          
          
@@ -291,6 +340,23 @@ const handleRemove=(index) => {
           <ComplimentDynamicTable {...{setComplimentData,ComplimentData}}/>
           
               </div> 
+              <div>
+              <button
+                  type="button"
+                  className="btn btn-primary mt-5"
+                 
+                  style={{
+                    backgroundColor: "#2258BF",float: "right"
+                  }}
+                  onClick={(e) => {
+                    setAccountData({...tableData,...ComplimentData})
+                    SendRecordToServer(e);
+                  }}
+                >
+                   Finish
+                </button>
+              </div>
+              
         </div>
         <ModalAdd/>
       </Row>
