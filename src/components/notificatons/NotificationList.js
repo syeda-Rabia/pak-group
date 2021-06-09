@@ -88,16 +88,18 @@ export default function AlignItemsList() {
   };
 
   return (
-    <div style={{ right: "100px" }}>
-      <List className={classes.root}>
+    <div style={{ right: "100px",height: "300px", overflow: "auto" }}>
+      <div style={{position:"sticky",zIndex:"1" }}><Link to="/employee/notifications">See All Notifications</Link></div>
+      
+      <div> <List className={classes.root}>
         {data?.length > 0
           ? data
-              ?.slice(0, 3)
-              .map((item, index) => <Notifications item={item} index={index} />)
+              ?.map((item, index) => <Notifications item={item} index={index} />)
           : null}
         <Divider variant="inset" component="li" />
-      </List>
-      <Link to="/employee/notifications">See All Notifications</Link>
+      </List></div>
+     <div></div>
+      
     </div>
   );
 }

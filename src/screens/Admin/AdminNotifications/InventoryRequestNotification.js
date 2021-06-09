@@ -42,7 +42,12 @@ function EmployeeInventory(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [openRequest, setOpenRequest] = React.useState(false);
   const history = useHistory();
-  const reqId=props?.location?.data?.data;
+  var request = localStorage.getItem("AdminData");
+  let data2 = JSON.parse(request);
+  console.log("-local-lead admin--", data2);
+  // const reqId=props?.location?.data?.data;
+  const reqId=data2?.data;
+
   const handleFetchData = async () => {
     setIsLoading(true);
     let res = await GET(ApiUrls.GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION + "/"+reqId);

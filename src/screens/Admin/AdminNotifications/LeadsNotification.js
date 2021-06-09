@@ -139,11 +139,14 @@ export default function LeadsAdmin(props) {
 
   var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
   const classes = useStyles();
-  const leadID=props?.location?.data?.data;
-  const ActionId=props?.location?.data?.empAction;
-  var request = localStorage.getItem("adminData");
-    let data2 = JSON.parse(request);
-    console.log("-local-lead admin--", data2);
+  var request = localStorage.getItem("AdminData");
+  let data2 = JSON.parse(request);
+  console.log("-local-lead admin--", data2);
+  const leadID=data2?.data;
+  const ActionId=data2?.empAction;
+  // const leadID=props?.location?.data?.data;
+  // const ActionId=props?.location?.data?.empAction;
+ 
   useEffect(() => {
     setIsLoading(true);
     getAllLeadsData();

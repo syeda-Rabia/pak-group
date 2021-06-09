@@ -68,6 +68,25 @@ function AdminDashboard() {
     getEmployeeDetails();
     getLeadReport();
   }, [refresh]);
+  useEffect(() => {
+    DisabledButton();
+  }, [Start,End]);
+  const DisabledButton = (Start,End) => {
+    
+  
+  if(Start=='' && End==''){
+    setDisabledButton(true)
+  }
+  else if(Start!='' && End==''){
+    setDisabledButton(true)
+  }
+  else if(Start=='' && End!=''){
+    setDisabledButton(true)
+  }
+  else {
+    setDisabledButton(false)
+  }
+};
   // const getLeadReport= async () => {
   //   let resp = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
   //   console.log("-----------dashboard-----".resp)
@@ -249,7 +268,7 @@ function AdminDashboard() {
                   color: "white",
                 }}
                
-               
+              //  disabled={disabledButton}
                 as="button"
                 defaultValue=""
                 onClick={(e) => {

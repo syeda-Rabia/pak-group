@@ -52,6 +52,8 @@ import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import ActionButton from "./../../../components/ActionButton";
 const useStyles = makeStyles((theme) => ({
+
+
   chipGracePeriod: {
     color: "#fff",
     backgroundColor: "#FF5555 !important",
@@ -710,7 +712,7 @@ function EmployeeLeads(props, lead_id) {
       if (whatNext == "REQUEST TO CLOSE") setValue("Request");
       else setValue("Meeting");
       setShowModalAction(true);
-      setOpen([
+      setOpen( [
         {
           name: "Call",
           open: false,
@@ -1045,6 +1047,7 @@ function EmployeeLeads(props, lead_id) {
           </>
           ):"----"}
           <Menu
+          style={{overflow:"auto"}}
             // className={classes.root}
             id="simple-menu"
             getContentAnchorEl={null}

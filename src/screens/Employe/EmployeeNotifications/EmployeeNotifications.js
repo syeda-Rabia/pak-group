@@ -57,7 +57,16 @@ export default function EmployeeNotification() {
     let data=JSON.parse([item?.notification_body]);
     return (
       <ListItem alignItems="center" style={{borderRadius:"10px",backgroundColor:"#F2F4F5",marginBottom:"5px"}}>
-        <Link to={{pathname:item.screen ,data:data}}>
+        <Link to={{pathname:item.screen ,data:data}}
+         onClick={() => {
+          
+          console.log("res__________________",item.screen)
+          localStorage.setItem("data", JSON.stringify(data));
+        }}
+        onContextMenu={() => {
+          localStorage.setItem("data", JSON.stringify(data));
+        }}
+        >
           {/* <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </ListItemAvatar> */}

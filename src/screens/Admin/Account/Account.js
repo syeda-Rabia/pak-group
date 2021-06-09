@@ -192,7 +192,7 @@ export default function AddAccount() {
           emergency: contact,
           cnic: CNICno,
           image:image,
-          duty_hours:dutyHour,
+          // duty_hours:dutyHour,
       };
       let res = await POST(ApiUrls.POST_EMPLOYEE_DETAIL, postData);
       console.log("post request",postData, res);
@@ -336,7 +336,7 @@ export default function AddAccount() {
                 />
                  <small>Format:03xx-xxxxxxx</small>
               </div>
-              <div className="pb-3">
+              {/* <div className="pb-3">
                 <h6>Duty Hour</h6>
                 <input
                   className="form-control  w-100 "
@@ -349,7 +349,7 @@ export default function AddAccount() {
                     setDutyHour(e.target.value);
                   }}
                 />
-              </div>
+              </div> */}
               <div className="pb-3">
                 <h6>Salary Status</h6>
                 <input
@@ -471,7 +471,7 @@ if(isImage==true){
       emergency: contact,
       cnic: CNICno,
       image:image,
-      duty_hours:dutyHour,
+      // duty_hours:dutyHour,
 
   };
 }
@@ -626,7 +626,7 @@ else{
                   }}
                 />
               </div>
-              <div className="pb-3">
+              {/* <div className="pb-3">
                 <h6>Duty Hour</h6>
                 <input
                   className="form-control  w-100 "
@@ -639,7 +639,7 @@ else{
                     setDutyHour(e.target.value);
                   }}
                 />
-              </div>
+              </div> */}
               </Col>
               <Col className="col-md-6">
               {/* <div className="App"> */}

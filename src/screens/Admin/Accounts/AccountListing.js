@@ -614,18 +614,7 @@ function AdminAccounts() {
                   <FontAwesomeIcon icon={faPlusSquare} /> Add Account
                 </button>
               </Link>
-              <Link to="/admin/addhome">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                 
-                  style={{
-                    backgroundColor: "#2258BF",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
-                </button>
-              </Link>
+             
               <Link to="/admin/loan-details">
                 <button
                   type="button"

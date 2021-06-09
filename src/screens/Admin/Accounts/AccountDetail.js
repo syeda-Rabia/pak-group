@@ -223,6 +223,11 @@ export default function AddAccount() {
  <tbody>
    
      {item.data?.map((item, index) => (
+      //  <>
+      //   <h4 style={{ color: "#818181" }}>{item}</h4>
+                  
+      //   <DynamicTable {...{setData,data,item}} />
+      //   </>
        <Table item={item} index={index}/>
      ))}
  
