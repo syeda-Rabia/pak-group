@@ -58,8 +58,11 @@ const HeaderNavBar = (props) => {
   };
   const handleLogout = async (event) => {
     // event.preventDefault();
-    
-    let resp = await POST(ApiUrls.LOGOUT);
+    var firebaseToken = await localStorage.getItem("firebaseToken");
+    let formData = {
+      device_token: firebaseToken,
+    };
+    let resp = await POST(ApiUrls.LOGOUT,formData);
    
     if (resp.error === false) {
       

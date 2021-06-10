@@ -20,6 +20,7 @@ import SuccessNotification from "../../../components/SuccessNotification";
 export default function AddAccount() {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState([]);
+  const [homeData, setHomeData] = React.useState([]);
   const [ComplimentData, setComplimentData] = React.useState([]);
   const [accountData, setAccountData] = React.useState([]);
   const [showAdd, setShowAdd] = useState(false);
@@ -44,6 +45,19 @@ export default function AddAccount() {
 
     return [year, month, day].join("-");
   };
+  const arrayData = () => {
+    let arr=  Object.keys(tableData).map(key=>{
+      return {name:key,hoc_exps:tableData[key]}
+    })
+    arr.push({name:'Compliment',hoc_exps:ComplimentData.Compliment})
+  //   console.log({hoc:arr,account: {
+  //     "account_name":"Account1",
+  //     "total_amount":"5000",
+  //     "start_date":"2021-06-01",
+  //     "end_date":"2021-06-09"
+  // }});
+    return arr;
+  };
 const handleData=(data) => {
   setData(state=>state.concat(data))
 }
@@ -56,27 +70,37 @@ const handleRemove=(index) => {
 const SendRecordToServer = async (event) => {
   // event.preventDefault();
   let formData = {
-  account_name: accountName,
-    amount: totalAmount,
-    from_date: formatDate(Start),
-      to_date: formatDate(End),
-      data:accountData,
+   
+   account: {
+    account_name: accountName,
+    total_amount: totalAmount,
+    start_date: formatDate(Start),
+    end_date: formatDate(End),
+      },
+      hoc:arrayData(),
+  // account_name: accountName,
+  //   amount: totalAmount,
+  //   from_date: formatDate(Start),
+  //     to_date: formatDate(End),
+  //     data:accountData,
   };
-  console.log("account data",formData);
-  // let resp = await POST(ApiUrls.CREATE_USER, formData);
-  // if (resp.error == false) {
-  //   setMessage("User Created Successfully.");
-  //   setShowSuccessAlert(true);
-  // } else {
-  //   // ;
-  //   setMessage("User Created Successfully.");
-  //   setShowErrorAlert(true);
-  // }
+  // const myObjStr = JSON.stringify(myObjStr);
+  let resp = await POST(ApiUrls.POST_ADD_EXPENCES, formData);
+  console.log("account data",formData,resp);
+  if (resp.error == false) {
+    setMessage("Account Created Successfully.");
+    setShowSuccessAlert(true);
+  } else {
+    // ;
+    setMessage("Account Not Created");
+    setShowErrorAlert(true);
+  }
 
   
   setShowAdd(false);
 };
   console.log("table data",tableData);
+  console.log("home data",homeData);
   console.log("data",ComplimentData);
   const ModalAdd = ({ item }) => {
     const [home, SetHome] = useState("");
@@ -331,9 +355,11 @@ const SendRecordToServer = async (event) => {
                 </button></div>
                   <h4 style={{ color: "#818181" }}>{item}</h4>
                   
-          <DynamicTable {...{setTableData,tableData,item}} />
-          
+          <DynamicTable {...{setTableData,tableData,value:"hoc_exps",item}} />
+         
               </div>;
+               setHomeData(state=>({...state,[item]:tableData}))
+              
                 })}
                <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>Compliment</h4>
@@ -349,8 +375,19 @@ const SendRecordToServer = async (event) => {
                     backgroundColor: "#2258BF",float: "right"
                   }}
                   onClick={(e) => {
+                    console.log("home data",homeData);
                     setAccountData({...tableData,...ComplimentData})
                     SendRecordToServer(e);
+                    let arr=  Object.keys(tableData).map(key=>{
+                      return {name:key,hoc_exps:tableData[key]}
+                    })
+                    arr.push({name:'Compliment',hoc_exps:ComplimentData.Compliment})
+                    console.log({hoc:arr,account: {
+                      "account_name":"Account1",
+                      "total_amount":"5000",
+                      "start_date":"2021-06-01",
+                      "end_date":"2021-06-09"
+                  }});
                   }}
                 >
                    Finish

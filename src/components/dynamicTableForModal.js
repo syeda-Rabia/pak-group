@@ -26,11 +26,11 @@ import {
  faTimesCircle,
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
-export default function DynamicTable({setTableData,tableData,item}) {
+export default function DynamicTable({setTableData,tableData,item,value}) {
 
 
 //adding new logic
-const [inputList, setInputList] = useState([{ name: "", amount: "" ,description:"",COR:"PG-"+uuidv4().split("-")[0]}]);
+const [inputList, setInputList] = useState(tableData);
 const [Listdata, setListData] = useState(inputList)
 // handle input change
 const handleInputChange = (e, index) => {
@@ -53,88 +53,7 @@ const handleAddClick = () => {
 };
 //ending new logic
 
-const Table = ({ item, idx }) => {
-    // console.log(item);
-    const LeadArray = [
-      {
-        name: " Sr no",
-        att: idx,
-      },
-      {
-        name: "Name of invoice",
-        att: <input
-        type="text"
-        name="name"
-        placeholder="Enter Expense name"
-        value={item.name}
-        onChange={e => handleInputChange(e, idx)}
-        className="form-control w-80"
-      />,
-      },
-      {
-        name: " Amount spent",
-        att: <input
-        type="text"
-        name="amount"
-        placeholder="Enter Amount spent"
-        value={item.amount}
-        onChange={e => handleInputChange(e, idx)}
-        className="form-control w-80"
-      />,
-      },
-      {
-        name: " Description",
-        att: <input
-        type="text"
-        name="description"
-        placeholder="Enter description"
-        value={item.description}
-        onChange={e => handleInputChange(e, idx)}
-        // style={{width:"400px"}}
-        className="form-control w-80"
-      />,
-      },
-      {
-        name: " COR",
-        att:  <input
-        type="text"
-        name="amount"
-        placeholder="Enter Amount spent"
-        value={item.COR}
-        // onChange={e => handleInputChange(e, idx)}
-        className="form-control w-80"
-      />,
-      },
-      {
-        name: " Action",
-        att: inputList.length !== 1 && <button
-            className="bg-transparent  button-focus ml-2"
-    
-     onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>
-          ,
-      },
-      {
-        name: " ",
-                       att: inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>
-        
-      }
-    ];
-    let country_city = "country/city";
-    let created_date = item.created_at;
-    return (
-      <>
-        {LeadArray.map((item) => {
-          return (
-            <tr>
-              <td>{item.name}</td>
-              <td>{item.att}</td>
-            </tr>
-            
-          );
-        })}
-      </>
-    );
-  };
+
 
 
 
@@ -150,24 +69,107 @@ const Table = ({ item, idx }) => {
               >
                 <thead>
                   <tr>
-                  <th scope="col">
+                  <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    Name
+                    {" "}
+                    Sr no
                   </span>
                 </th>
-
-                <th scope="col">
+                <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    values
+                    {" "}
+                    Name of invoice
                   </span>
                 </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Amount spent
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Description
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    COR
+                  </span>
+                </th>
+                <th scope="col" className="text-nowrap">
+                  <span id="sn" style={{ color: "#818181" }}>
+                    {" "}
+                    Action
+                  </span>
+                </th>
+                   
                   </tr>
                 </thead>
-
                 <tbody>
                   {inputList.map((item, idx) => (
-                         <Table item={item} idx={idx} />))}
+                    <tr id="addr0" key={idx}>
+                      <td>{idx}</td>
+                      {/* <td><KeyboardDatePickerExample
+                      value={date}
+                      showDate={handleDateValue}/> </td> */}
+                      <td>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Enter Expense name"
+                          value={item.name}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="amount"
+                          placeholder="Enter Amount spent"
+                          value={item.amount}
+                          onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
+                        />
+                      </td>
+                      <td>
                      
+                      <input
+                          type="text"
+                          name="description"
+                          placeholder="Enter description"
+                          value={item.description}
+                          onChange={e => handleInputChange(e, idx)}
+                          style={{width:"400px"}}
+                          className="form-control "
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="amount"
+                          placeholder="Enter Amount spent"
+                          value={item.COR}
+                          // onChange={e => handleInputChange(e, idx)}
+                          className="form-control w-100"
+                        />
+                      </td>
+                      <td>
+                      {inputList.length !== 1 && <button
+                       className="bg-transparent  button-focus ml-2"
+               
+                onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>}
+                     
+                      </td>
+                        {inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
+                      
+                    </tr>
+                  ))}
+                  
+              
                 </tbody>
                
               </table>
@@ -175,7 +177,7 @@ const Table = ({ item, idx }) => {
                 onClick={()=>
                 {  
                  
-                  setTableData(state=>({...state,[item]:inputList}))}
+                  setTableData(state=>({...state,[item.title]:inputList}))}
                 }
                 
                 className="btn btn-primary "

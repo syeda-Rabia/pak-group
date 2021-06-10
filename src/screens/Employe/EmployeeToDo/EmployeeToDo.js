@@ -9,7 +9,7 @@ import {
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Dropfile from "../../../utils/Dropfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload,faEye ,faPlay ,faPause,faRedo} from "@fortawesome/free-solid-svg-icons";
+import { faUpload,faEye ,faPlay ,faPause,faRedo, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
 import { GET, POST, formatDate,POSTFile } from "./../../../utils/Functions";
@@ -919,7 +919,9 @@ function EmployeeLeads(props, lead_id) {
     return (
      
       <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
-        
+         <td> {item.action=="Follow Up"?(
+ <FontAwesomeIcon style={{ fontSize: 15,color:"yellow",marginLeft:"5px" }} icon={faCheckCircle} />
+          ):null}</td>
         <td scope="row">{index + 1}</td>
         <td>{item?.client_name}</td>
         <td>{item?.contact}</td>
@@ -1322,7 +1324,11 @@ function EmployeeLeads(props, lead_id) {
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
-                  
+                <th scope="col">
+                    <span  style={{ color: "#818181" }}>
+                      {""}
+                    </span>
+                  </th>
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       ID

@@ -114,6 +114,7 @@ const NotificationToast = ({url}) => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [notificationData, setNotificationData] = useState([]);
   const [notificationsArray, setNotificationsArray] = React.useState([]);
+ 
   // const [isTokenFound, setTokenFound] = useState(false);
   // getToken(setTokenFound);
   // console.log("--------get token---------",getToken);
@@ -179,7 +180,7 @@ const NewApp = (props) => {
   const [userType, setUserType] = React.useState("admin");
   const [TOKEN, setTOKEN] = useState(props.user.token);
   // ;
- 
+  const [Access, setAccess] = useState(false);
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
   // console.log("--------get token---------",getToken);
@@ -484,11 +485,14 @@ const NewApp = (props) => {
             <ResetPassword/>
           </Route>
           {props.user.logged != false && props.user.token != null ? (
+            
             parseInt(props.user.user_info.user_type) === 1 ? (
               <AdminRoute />
+              
             ) : (
               <EmployeeRoute />
             )
+           
           ) : (
             <>
             <Route exact path="/">
@@ -498,7 +502,12 @@ const NewApp = (props) => {
            
           </>
           )}
-         
+         {/* {props.user.logged != false && props.user.token != null ? (
+           setAccess(true)
+         ):  setAccess(false)}
+         {Access!=true?(<Redirect from={"*"} to="/"/> ):null
+           
+         } */}
           <Redirect from={"*"} to="/"/>
         </Switch>
       </Router>

@@ -30,7 +30,7 @@ export default function ComplimentDynamicTable({setComplimentData,ComplimentData
 
 
 //adding new logic
-const [inputList, setInputList] = useState([{ name: "", amount: "", quantity: "" , distributed_to: "",description:"",COR:"PG-"+uuidv4().split("-")[0]}]);
+const [inputList, setInputList] = useState([{ name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0]}]);
 const [Listdata, setListData] = useState(inputList)
 // handle input change
 const handleInputChange = (e, index) => {
@@ -49,7 +49,7 @@ const handleRemoveClick = index => {
 
 // handle click event of the Add button
 const handleAddClick = () => {
-  setInputList([...inputList, { name: "", amount: "" , quantity: "" , distributed_to: "",description:"",COR:"PG-"+uuidv4().split("-")[0] }]);
+  setInputList([...inputList, { name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0] }]);
 };
 //ending new logic
 
@@ -158,14 +158,23 @@ const handleAddClick = () => {
                         />
                       </td>
                       <td>
-                        <input
+                      <input
+                          type="text"
+                          name="distributed_to"
+                          placeholder="Enter name"
+                          value={item.distributed_to}
+                          onChange={e => handleInputChange(e, idx)}
+                          style={{width:"400px"}}
+                          className="form-control "
+                        />
+                        {/* <input
                           type="text"
                           name="distributedto"
                           placeholder="Enter name"
                           value={item.distributed_to}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
-                        />
+                        /> */}
                       </td>
                       <td>
                      
@@ -183,8 +192,8 @@ const handleAddClick = () => {
                         <input
                           type="text"
                           name="amount"
-                          placeholder="Enter Amount spent"
-                          value={item.COR}
+                          placeholder=""
+                          value={item.cor}
                           // onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />

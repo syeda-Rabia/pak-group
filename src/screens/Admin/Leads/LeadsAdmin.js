@@ -14,6 +14,8 @@ import {
   faPause,
   faStop,
   faRedo,
+  faStar,
+  faCheckCircle,
  faTimesCircle,
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
@@ -1583,7 +1585,10 @@ console.log("kkkkkk",resp)
     let created_date=item.created_at;
     return (
       <tr style={{backgroundColor: colors[item?.status]?.color, color: colors[item?.status]?.textColor}}>
-         <td>
+        <td> {item.action=="Follow Up"?(
+ <FontAwesomeIcon style={{ fontSize: 15,color:"yellow",marginLeft:"5px" }} icon={faCheckCircle} />
+          ):null}</td>
+         <td> 
           <input
             type="checkBox"
             checked={select.includes(item.id)}
@@ -1592,6 +1597,7 @@ console.log("kkkkkk",resp)
               HandleName(item?.id);
             }}
           />
+         
         </td>
         <td>{index + 1}</td>
         <td>{item?.client_name}</td>
@@ -1975,6 +1981,11 @@ console.log("kkkkkk",resp)
           <table className="table table-hover " >
             <thead >
               <tr>
+              <th scope="col" >
+                  <span  style={{ color: "#818181" }}>
+                   {""}
+                  </span>
+                </th>
               <th scope="col" >
                   <span id="sn" style={{ color: "#818181" }}>
                     Select

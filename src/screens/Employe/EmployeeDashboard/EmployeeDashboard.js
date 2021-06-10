@@ -70,7 +70,7 @@ function EmployeeDashboard(props) {
 
       setTargetAssigned(resp?.target?.target);
       setTargetAchieved(resp?.target?.complete);
-      setNumberOfMeeting(resp?.target?.meeting);
+      setNumberOfMeeting(resp?.target?.meetings);
     // setQuarter(2);
     } else if (resp?.hasOwnProperty("error")) {
       // setMessage(resp.error);

@@ -34,6 +34,7 @@ import {
   faStop,
   faLessThanEqual,
   faCheckDouble,
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   KeyboardDatePickerExample,
@@ -1113,6 +1114,9 @@ const ModalClose = ({ item }) => {
     const records = paginate(data, currentPage, pageSize);
     return (
       <tr style={{backgroundColor: colors[item?.status]?.color, color: colors[item?.status]?.textColor}}>
+         <td> {item.action=="Follow Up"?(
+ <FontAwesomeIcon style={{ fontSize: 15,color:"yellow",marginLeft:"5px" }} icon={faCheckCircle} />
+          ):null}</td>
         <td scope="row" key={index + 1+"tableRow"}>
           {index + 1}
         </td>
@@ -1379,6 +1383,9 @@ const ModalClose = ({ item }) => {
               >
                 <thead>
                   <tr>
+                  <th scope="col" >
+                      <span  style={{ color: "#818181" }}>{""}</span>
+                    </th>
                     <th scope="col" >
                       <span id="sp" style={{ color: "#818181" }}>ID</span>
                     </th>

@@ -40,7 +40,7 @@ const SignIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const [IsChecked, setIsChecked] = useState(false);
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -63,10 +63,10 @@ const SignIn = (props) => {
     var emailvalue = localStorage.getItem("rememberEmail");
     if (emailvalue !== "") {
       setEmail(emailvalue);
-      setIsChecked(true)
+      setIsChecked(true);
     } else {
       setEmail("");
-      setIsChecked(false)
+      setIsChecked(false);
     }
   }, []);
   useEffect(() => {
@@ -98,8 +98,6 @@ const SignIn = (props) => {
     setIsChecked(checked);
   };
 
-
-  
   const SignInFun = async (event) => {
     // loding dstasrt
     event.preventDefault();
@@ -117,16 +115,14 @@ const SignIn = (props) => {
     console.log(resp);
 
     if (resp?.data != null) {
-      
-      if (IsChecked == true){
+      if (IsChecked == true) {
         localStorage.setItem("rememberEmail", email);
         localStorage.setItem("rememberPassword", password);
-    } else{
-      localStorage.removeItem("rememberEmail");
-      localStorage.removeItem("rememberPassword");
-      
-    }
-   
+      } else {
+        localStorage.removeItem("rememberEmail");
+        localStorage.removeItem("rememberPassword");
+      }
+
       let { user, Access_token } = resp?.data;
       props.OnLoginSuccess(user, Access_token);
     } else {
@@ -136,7 +132,7 @@ const SignIn = (props) => {
         } else if (resp?.error?.hasOwnProperty("password")) {
           setErrorResponce(resp?.error?.password[0]);
         } else if (resp?.error?.hasOwnProperty("device_token")) {
-      // alert("Notification permission is required")
+          // alert("Notification permission is required")
           setErrorResponce("Notification permission is required");
         } else if (resp?.hasOwnProperty("error")) {
           // console.log("message");
@@ -220,11 +216,12 @@ const SignIn = (props) => {
             }}
           >
             <p className="content">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur.
+              Welcome to the PAK GROUP task management software. This software
+              has been developed for your assistance through a streamlined
+              process from lead allocation to sales. Please remember this
+              software is for your use only, the contents of this software
+              cannot be shared with anyone in any circumstances. Best wishes and
+              best of luck.
             </p>
           </div>
         </div>
@@ -363,7 +360,6 @@ const SignIn = (props) => {
                       type="checkbox"
                       className="custom-control-input"
                       id="customCheck1"
-                      
                       onChange={handleChange}
                     />
                     <label
@@ -411,7 +407,7 @@ const SignIn = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <button  type="submit" className="btn btn-primary button1">
+                  <button type="submit" className="btn btn-primary button1">
                     Login
                   </button>
                 </div>
