@@ -220,6 +220,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
         isView:checked.index==0?true:false,
         new_lead_holder_emp: selectedEmployee.new_lead_holder_emp,
         dead_line: date,
+        admin_commit: message,
       });
       if (resp.error === false) {
         setAlertMessage("Lead shifted Successfully");
@@ -397,6 +398,22 @@ export default function CTAButton({ empId, lead_id, deadline }) {
       },
       
       )}
+       <div className="ml-5 mr-5">
+
+<TextField
+         // variant="outlined"
+         autoFocus
+         margin="dense"
+         multiline
+         fullWidth
+         required={true}
+         label="Warning Message"
+         value={message}
+         onChange={(e) => {
+           handleChange(e.target.value);
+         }}
+       />
+</div>
       <h6 className="ml-5 mt-3">select deadline</h6>
       <div className="ml-5" style={{}}>
 
@@ -405,6 +422,7 @@ export default function CTAButton({ empId, lead_id, deadline }) {
       value={today}
       showDate={handleDateValue}/>
        </div>
+      
             </form>
           </Modal.Body>
           <Modal.Footer>

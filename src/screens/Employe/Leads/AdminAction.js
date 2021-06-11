@@ -56,8 +56,10 @@ function StepperUI({ label, content,length,index, data }) {
       default:
         if(data.instruct_text==null ||data.instruct_text=="" ){
           return <div>
+              <Typography><b></b> </Typography>
              <Typography>Date {data.date}</Typography>
              <Typography>Time {data.time}</Typography>
+           
              {/* <div style={{width:"100%",display:"flex",alignItems:"center",marginTop:"20px",justifyContent:"center",backgroundColor:"green",height}}> */}
 
              <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>

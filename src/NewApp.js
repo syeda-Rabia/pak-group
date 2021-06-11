@@ -25,6 +25,7 @@ import LeadNotification from "./screens/Admin/AdminNotifications/LeadsNotificati
 import Recordingnotification from "./screens/Admin/AdminNotifications/RecordingNotification";
 import InventoryRequestNotification from "./screens/Admin/AdminNotifications/InventoryRequestNotification";
 import EmployeeLeadNotification from "./screens/Employe/EmployeeNotifications/EmployeeLeadNotification";
+import EmployeeShiftLeadNotification from "./screens/Employe/EmployeeNotifications/EmployeeSiftLeadNotification";
 import ClosedLeadNotification from "./screens/Employe/EmployeeNotifications/ClosedLeadNotification";
 import InventoryNotification from "./screens/Employe/EmployeeNotifications/InventoryNotifications";
 import AdminCategoriesDetailScreen from "./screens/Admin/Views/AdminCategoriesDetailScreen";
@@ -468,7 +469,15 @@ const NewApp = (props) => {
             </>
           )}
         />
-        
+         <Route
+          exact
+          path="/employee/lead-shift/notifications"
+          render={(props) => (
+            <>
+              <EmployeeShiftLeadNotification {...props} />
+            </>
+          )}
+        />
         <NotificationToast url="/employee/leads" />
 
 
@@ -498,7 +507,9 @@ const NewApp = (props) => {
             <Route exact path="/">
               <SignIn setUser={setUserType} />
             </Route>
-           
+            <Route path="*" >
+            <Redirect to="/"/>
+            </Route>
            
           </>
           )}

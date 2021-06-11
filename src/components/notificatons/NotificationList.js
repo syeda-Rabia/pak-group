@@ -68,7 +68,7 @@ export default function AlignItemsList() {
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </ListItemAvatar> */}
           <ListItemText
-            primary={item?.notification_type}
+            primary={item?.notification_title}
             secondary={
               <React.Fragment>
                 <Typography
