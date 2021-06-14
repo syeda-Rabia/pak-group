@@ -128,36 +128,36 @@ import {
   
     // const handleMenuButtonClick = (event) => {};
   
-    const leadID = props?.location?.data?.data;
-    const ActionId = props?.location?.data?.adminAction;
+    // const leadID = props?.location?.data?.data;
+    // const ActionId = props?.location?.data?.adminAction;
   
     var closed=localStorage.getItem("data");
     let data1=JSON.parse(closed);
     console.log("-local lead---",data1)
-  
+    const leadID = data1.data;
     const handleFetchData = async () => {
       setIsLoading(true);
-      let formData = {
-        actions: data1.adminAction,
-        ids: data1.data,
-      };
       // let formData = {
-      //   actions: ActionId,
-      //   ids: leadID,
+      //   actions: data1.adminAction,
+      //   ids: data1.data,
       // };
-      let res = await POST(ApiUrls.GET_EMPLOYEE_NOTIFICATION_ON_LEAD, formData);
-      console.log("-------------------------------", res);
+      let formData = {
+        commit_id: leadID,
+      
+      };
+      let res = await POST(ApiUrls.POST_ADMIN_NOTIFICATION_ON_LEADSHIFT, formData);
+      console.log("----------------------data---------", res);
   
       if (res?.success != false) {
-        setData(res?.data?.showLead);
-        setAllActions(res?.data?.adminAction);
+        setData(res?.data?.lead);
+        setAllActions(res?.data?.commit);
       }
       console.log("---------------leads----------------", formData, res);
       setIsLoading(false);
     };
     React.useEffect(() => {
       handleFetchData();
-    }, [leadID, ActionId]);
+    }, [leadID]);
     console.log("---------------props----------------", props?.location?.data);
   
     const scroll = (scrollOffset) => {
@@ -406,34 +406,34 @@ import {
           name: "Project",
           att: item.project.name,
         },
-        {
-          name: "Status",
-          att:
-            item.status != "" ? (
-              <Chip
-                classes={{
-                  label: classes.chipLabelColor,
-                  root:
-                    item.status === "Overdue"
-                      ? classes.chipOverdue
-                      : item.status === "Grace Period"
-                      ? classes.chipGracePeriod
-                      : item.status === "Complete"
-                      ? classes.chipComplete
-                      : item.status === "Follow up"
-                      ? classes.chipFollowUp
-                      : item.status === "Allocated"
-                      ? classes.chipAllocated
-                      : item.status === "Loss"
-                      ? classes.chipLoss
-                      : null,
-                }}
-                label={item.status}
-              />
-            ) : (
-              "-------"
-            ),
-        },
+        // {
+        //   name: "Status",
+        //   att:
+        //     item.status != "" ? (
+        //       <Chip
+        //         classes={{
+        //           label: classes.chipLabelColor,
+        //           root:
+        //             item.status === "Overdue"
+        //               ? classes.chipOverdue
+        //               : item.status === "Grace Period"
+        //               ? classes.chipGracePeriod
+        //               : item.status === "Complete"
+        //               ? classes.chipComplete
+        //               : item.status === "Follow up"
+        //               ? classes.chipFollowUp
+        //               : item.status === "Allocated"
+        //               ? classes.chipAllocated
+        //               : item.status === "Loss"
+        //               ? classes.chipLoss
+        //               : null,
+        //         }}
+        //         label={item.status}
+        //       />
+        //     ) : (
+        //       "-------"
+        //     ),
+        // },
         {
           name: "TOC",
           att: item.time_to_call != null ? item.time_to_call : "-------",
@@ -538,11 +538,14 @@ import {
             ) : null}
           </div>
           <div className="col-md-6 col-sm-12">
-              <h1>Comment</h1>
-              <h6>Your lead has shifted because </h6>
-            {/* {allactions?.length > 0 ? (
-              <AdminActionStepper data={allactions[0]} />
-            ) : null} */}
+             
+            {allactions?.length > 0 ? (
+               allactions?.map((lead, index) => (
+              <>
+               <h1>Comment</h1>
+               <h6>{lead.admin_commit} </h6>
+               </>
+            ) )): null}
           </div>
         </Row>
       </Container>

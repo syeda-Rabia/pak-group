@@ -115,7 +115,7 @@ GET_ADMIN_NOTIFICATION_ON_LEAD:"admin/empAction/showLead",
 GET_EMPLOYEE_iNVENTORY_REQUEST_NOTIFICATION:"admin/inventoryRequest/getRequest",
 GET_EMPLOYEE_NEW_INVENTORIES_NOTIFICATION:"employee/inventory/newInventories",
 GET_EMPLOYE_RECORDING_ON_LEAD:"admin/lead/showLead",
-
+POST_ADMIN_NOTIFICATION_ON_LEADSHIFT:"employee/lead/shofted_lead_commit",
 
 //notification count
 GET_EMPLOYEE_NOTIFICATION_COUNT:"employee/notifications/count",

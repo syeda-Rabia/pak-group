@@ -24,6 +24,7 @@ import {
   Snackbar,
   Select,
   Chip,
+  TextField,
   Fab,
 } from "@material-ui/core";
 import { Alert, AlertTitle, Skeleton } from "@material-ui/lab";
@@ -223,6 +224,22 @@ export default function LeadsAllocatonAndAddition(props) {
                 </div>
               );
             })}
+             <div className="ml-5 mr-5">
+
+<TextField
+         // variant="outlined"
+         autoFocus
+         margin="dense"
+         multiline
+         fullWidth
+         required={true}
+         label="Warning Message"
+         value={message}
+         onChange={(e) => {
+          setMessage(e.target.value);
+         }}
+       />
+</div>
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -238,7 +255,7 @@ export default function LeadsAllocatonAndAddition(props) {
             // style={{ backgroundColor: "#2258BF" }}
             onClick={(e) => {
               // SendShitLeadToServer(e);
-              SelectData(e,checked.index)
+              SelectData(e,checked.index,message)
               setShowModalCTA(false);
             }}
           >
@@ -388,9 +405,10 @@ export default function LeadsAllocatonAndAddition(props) {
         lead_id: item.id,
         task: item.project.category.name,
         isView:view,
+        admin_commit: message,
       });
-      console.log("error message", resp);
-      console.log(formData);
+      console.log(" message", resp);
+      console.log("form data",formData);
       setRefresh(!refresh);
       setIsLoading(false);
 
@@ -447,6 +465,22 @@ export default function LeadsAllocatonAndAddition(props) {
                 </div>
               );
             })}
+             <div className="ml-5 mr-5">
+
+<TextField
+         // variant="outlined"
+         autoFocus
+         margin="dense"
+         multiline
+         fullWidth
+         required={true}
+         label="Warning Message"
+         value={message}
+         onChange={(e) => {
+          setMessage(e.target.value);
+         }}
+       />
+</div>
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -724,19 +758,20 @@ export default function LeadsAllocatonAndAddition(props) {
     //  let arr = data;
   };
   // console.trace("------------------", AllleadsToAllocate);
-  const SelectData = async (event,view=0) => {
+  const SelectData = async (event,view=0,message) => {
     event.preventDefault();
     let postData = {
       lead_id: select,
       allocated_to: selectedEmployee,
       task: task,
       dead_line: date,
-      isView:view
+      isView:view,
+      admin_commit: message,
     };
     // console.log(postData);
 
     let res = await POST(ApiUrls.POST_ADD_MULTIPLE_LEAD_ALLOCATION, postData);
-    console.log("accepted", res);
+    console.log(" message", res);
     setRefresh(!refresh);
     setSelect([]);
     setViewable([]);
