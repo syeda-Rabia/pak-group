@@ -1,210 +1,138 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Container,Row,Col } from "react-bootstrap";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { GET, POST } from "../../../utils/Functions";
-import ApiUrls from "../../../utils/ApiUrls";
-import EmployeeLeads from "../../Employe/Leads/EmployeeLeads";
-import nodata from "./../../../assests/nodata.png";
-// import nodata from "./../../../assests/preview.gif";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
+import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {useHistory } from "react-router-dom";
-// const history = useHistory();
+import React, { useRef, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import ErrorNotification from "../../../components/ErrorNotification";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ApiUrls from "../../../utils/ApiUrls";
+import { GET } from "../../../utils/Functions";
+import AdminActionStepper from "./../../../components/adminActionStepper";
+import EmployeeActionStepper from "./../../../components/EmployeeActionStepper";
+import PreLoading from "./../../../components/PreLoading";
+import "./../Leads/EmployeeLeads.css";
 const useStyles = makeStyles((theme) => ({
+  chipGracePeriod: {
+    color: "#fff",
+    backgroundColor: "red !important",
+  },
+  chipComplete: {
+    color: "#fff",
+    backgroundColor: "#67B367 !important",
+  },
+  chipFollowUp: {
+    color: "#fff",
+    backgroundColor: "yellow !important",
+  },
+  chipOverdue: {
+    color: "#fff",
+    backgroundColor: "orange !important",
+  },
+  chipAllocated: {
+    color: "#fff",
+    backgroundColor: "#90caf9 !important",
+  },
+  chipShifted: {
+    color: "#fff",
+    backgroundColor: "#CEAAC3 !important",
+  },
+  chipLoss: {
+    color: "#fff",
+    backgroundColor: "#AC917A !important",
+  },
+  chipLabelColor: {
+    color: "black",
+  },
   root: {
     width: "100%",
-    padding: theme.spacing(4),
+    maxWidth: 360,
   },
-  button: {
-    marginTop: theme.spacing(0),
-    marginRight: theme.spacing(1),
+  nested: {
+    paddingLeft: theme.spacing(4),
   },
-  actionsContainer: {
-    marginBottom: theme.spacing(0),
-  },
-  resetContainer: {
-    padding: theme.spacing(0),
+  subNested: {
+    paddingLeft: theme.spacing(6),
   },
 }));
 
-function getSteps() {
-  return ["Action Type", "Action"];
-}
-
-
-
-function StepperUI({ label, content,length,index, data }) {
- 
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return data.action_type;
-      // case 1:
-      //   return data.select_option;
-      // case 2:
-      //   return data.what_next;
-      default:
-        if(data.instruct_text==null ||data.instruct_text=="" ){
-          return <div>
-              <Typography><b></b> </Typography>
-             <Typography>Date {data.date}</Typography>
-             <Typography>Time {data.time}</Typography>
-           
-             {/* <div style={{width:"100%",display:"flex",alignItems:"center",marginTop:"20px",justifyContent:"center",backgroundColor:"green",height}}> */}
-
-             <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-               <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {data.created_at}</p>
-             </div>
-            
-             {/* </div> */}
-          </div>
-        }
-        else{
-          return <div>
-          {data.instruct_text}
-          <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-               <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {data.created_at}</p>
-             </div>
-          </div>
-        }
-        
-       
-    }
-  }
-  return (
-
-    <>
-    
-    <Stepper style={{padding:0}} activeStep={index} orientation="vertical">
-      {
-        Array.from({length:length},(v,i)=>{
-          if(i==index) {
-            return  ( 
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-                <StepContent>
-                  <Typography>{getStepContent(i)}</Typography>
-                </StepContent>
-              </Step>
-            )
-          }
-          else 
-          return  (<div style={{display:'none'}}/>)
-        })
-      }
-    </Stepper>
-    </>
-  );
-}
-
-export default function VerticalLinearStepper(props) {
+function EmployeeLeadsNotification(props, lead_id) {
   const [data, setData] = React.useState([]);
-const [isLoading, setIsLoading] = React.useState(false);
-console.log(props)
-const leadID=props?.location?.query;
-const back=props?.location?.goback; 
-console.log("------------",back)
-React.useEffect(() => {
-  setIsLoading(true);
-  if (leadID?.item?.id != undefined) handleFetchData();
-}, []);
+  const [allactions, setAllActions] = useState([]);
+  const [refresh, setRefresh] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [value, setValue] = React.useState("");
+  const [showModalAction, setShowModalAction] = React.useState(true);
+  const [alertmessage, setAlertMessage] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [goback, setGoBack] = React.useState("leads");
+  const [showSuccessAlert, setShowSuccessAlert] = React.useState("");
+  const [showErrorAlert, setShowErrorAlert] = React.useState("");
+  const [postData, setPostData] = React.useState({});
+  const [recordings, setRecordings] = React.useState([]);
+  const [setPlay, setShowPlay] = React.useState(false);
+  const [selectedID, setSelectedID] = React.useState(null);
+  const [showReset, setshowReset] = useState(false);
+  const [filterurl, setFilterUrl] = React.useState("");
 
-// React.useEffect(() => {
-//   handleFetchData();
-// }, []);
-const history = useHistory();
-const handleFetchData = async () => {
+  const [IsFilter, setIsFilter] = useState(false);
+  const [IsEmpty, setIsEmpty] = useState(false);
 
- 
-  let res = await GET(
-    ApiUrls.GET_ADMIN_ACTION_ON_LEAD + "/" + leadID.item.id //this line
-  );
-  // console.log("--",res,ApiUrls.GET_EMPLOYEE_LEAD_ACTION + "/" + leadID.item.id);
-  console.log("--",JSON.stringify(res));
-  if (res.success != false) {
-    setData(res.data.adminAction);
-  }
- 
- 
-  setIsLoading(false);
-};
-// React.useEffect(() => {
-//   handleFetchData();
-// }, []);
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
-    case 1:
-      return "An ad group contains one or more ads which target a shared set of keywords.";
-    case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
-    default:
-      return "Unknown step";
-  }
-}
+  const ref = useRef(null);
+  // console.log(postData, "YES", value);
+  var today = new Date();
+  var timee = today.toString().match(/(\d{2}\:\d{2}\:\d{2})/g)[0];
 
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+
+  // let currentTime =
+  //   today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  // today = mm + "-" + dd + "-" + yyyy;
+  today = yyyy + "-" + mm + "-" + dd;
   const classes = useStyles();
-  
-  
-  const label = ["Action Type", "Action"];
-  console.log("empty",data);
-  
-  if(data.length==0)
-  { console.log("empty");
-  
-   return <div>
-       <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-3">
-       <IconButton
-          onClick={() => {
-            if(back.goback=="leads"){
-              history.push("/employee/leads");
-            }
-            if(back.goback=="todo"){
-              history.push("/employee/todolist");
-            }
-            
-          }}
-          aria-label="delete"
-          color="primary"
-        >
-          <Tooltip title="Go Back" placement="right" arrow>
-            <ArrowBackIcon />
-          </Tooltip>
-        </IconButton>
-        <h3 style={{ color: "#818181" }}>Admin Action</h3>
-      </Row>
-     <div style={{ display: "block",
-   marginLeft: "auto",
-   marginRight: "auto",
-   marginTop:"10%",
-   marginBottom:"auto",
-   width:"50%"}}> 
-   <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
-     </div>
-  }
-  else
-  return (
-    <Container fluid>
+  // const []
 
-    <div className={classes.root}>
-     
-       <Row className="col-lg-12 shadow p-3 mb-3 bg-white rounded ">
+  // const handleMenuButtonClick = (event) => {};
+
+  const leadID = props?.location?.query;
+  const back=props?.location?.goback; 
+  // const ActionId = props?.location?.data?.adminAction;
+
+  const handleFetchData = async () => {
+    setIsLoading(true);
+
+    // let formData = {
+    //   actions: ActionId,
+    //   ids: leadID,
+    // };
+    let res = await GET(
+      ApiUrls.GET_ADMIN_ACTION_ON_LEAD + "/" + leadID?.item?.id //this line
+    );
+    console.log("-------------------------------", res);
+
+    if (res?.success != false) {
+      setData(res?.data?.actions);
+      // setAllActions(res?.data?.adminAction);
+    }
+    // console.log("---------------leads----------------", formData, res);
+    setIsLoading(false);
+  };
+  React.useEffect(() => {
+    handleFetchData();
+  }, [leadID]);
+  // console.log("---------------props----------------", props?.location?.data);
+  const history = useHistory();
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
+
+  return (
+    <Container fluid className="Laa">
+      {/* <PreLoading startLoading={isLoading} /> */}
+      <Row className="col-lg-12 shadow p-3 mb-3 mt-3 ml-1 mr-1 bg-white rounded ">
        <IconButton
           onClick={() => {
             if(back.goback=="leads"){
@@ -224,19 +152,62 @@ function getStepContent(step) {
         <h3 style={{ color: "#818181" }}>Admin Action </h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
       </Row>
-      {
-        data.map((val)=>{
-          return (<div style={{marginBottom:"40px",backgroundColor:"gray"}}>
-          
-          {label.map((item, index) => {
-            return <StepperUI label={item} content={getStepContent(index)} data={val} length={label.length} index={index} />;
-            
-          })}
-          </div>)
-        })
-      }
-      {/* <div style={{ height:'5px',width:'100%',backgroundColor:'grey'}}/> */}
-    </div>
+
+      <PreLoading startLoading={isLoading} />
+
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={alertmessage}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={alertmessage}
+        closeError={setShowErrorAlert}
+      />
+
+      <Row className=" shadow p-3  bg-white rounded ml-1 mr-1">
+        <div className="col-md-6 col-sm-12 w-100">
+          {data?.length > 0
+            ? data?.map((item, index) =>
+                item.action_by == "Admin" ? (
+                  <>
+                  <div className="col-12 col-md-6" style={{ dispaly: "flex" }}>
+                    {" "}
+                    <AdminActionStepper data={item} />
+                  </div>
+                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                 </div>
+                 </>
+                ) : (
+                  <>
+                  <div className="col-12 d-block d-md-flex  justify-content-end">
+                    <div
+                      className="col-12 col-md-6"
+                      style={{ dispaly: "flex", alignSelf: "flex-end" }}
+                    >
+                      <EmployeeActionStepper data={item} />
+                    </div>
+                  </div>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                 </div>
+                  </>
+                )
+              )
+            : null}
+        </div>
+      </Row>
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.auth.user_info,
+  };
+};
+
+// export default Login;
+export default connect(mapStateToProps)(EmployeeLeadsNotification);
