@@ -1191,7 +1191,7 @@ const ModalClose = ({ item }) => {
             </button>
           </Link>
           <ReactTooltip id="act" place="top" effect="solid">
-            View Employee Action
+          Actions on Lead
           </ReactTooltip>
         </td>
         <td>
@@ -1431,7 +1431,7 @@ const ModalClose = ({ item }) => {
                       <span id="sp" style={{ color: "#818181" }}>Deadline</span>
                     </th>
                     <th scope="col" className="text-nowrap">
-                      <span id="sp" style={{ color: "#818181" }}> Show Employee action</span>
+                      <span id="sp" style={{ color: "#818181" }}> Action Summary</span>
                     </th>
                      <th scope="col">
                       <span id="sp" style={{ color: "#818181" }}>Recordings</span>

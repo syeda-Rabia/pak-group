@@ -11,6 +11,13 @@ import { GET } from "../../../utils/Functions";
 import AdminActionStepper from "./../../../components/adminActionStepper";
 import EmployeeActionStepper from "./../../../components/EmployeeActionStepper";
 import PreLoading from "./../../../components/PreLoading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  
+ faCircle,
+ faArrowDown
+
+} from "@fortawesome/free-solid-svg-icons";
 import "./../Leads/EmployeeLeads.css";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
@@ -56,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EmployeeLeadsNotification(props, lead_id) {
+function EmployeeLeadsAction(props, lead_id) {
   const [data, setData] = React.useState([]);
   const [allactions, setAllActions] = useState([]);
   const [refresh, setRefresh] = React.useState(false);
@@ -149,7 +156,7 @@ function EmployeeLeadsNotification(props, lead_id) {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <h3 style={{ color: "#818181" }}>Admin Action </h3>
+        <h3 style={{ color: "#818181" }}>  Action Summary</h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
       </Row>
 
@@ -172,12 +179,21 @@ function EmployeeLeadsNotification(props, lead_id) {
             ? data?.map((item, index) =>
                 item.action_by == "Admin" ? (
                   <>
+                   {item.new_lead_holder_emp!=item.prev_lead_holder_emp?(
+                     <>
+                     
+                     <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                     <p style={{position:"absolute",marginTop:"13px",marginBottom:"15px", backgroundColor:"white",fontSize: 20}}><b>Previous Actions</b> <FontAwesomeIcon style={{ fontSize: 20,color:"red" }} icon={faArrowDown} /></p>
+                   </div>
+                        
+                         </>
+                      ):null}
                   <div className="col-12 col-md-6" style={{ dispaly: "flex" }}>
                     {" "}
                     <AdminActionStepper data={item} />
                   </div>
-                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                  </>
                 ) : (
@@ -187,11 +203,12 @@ function EmployeeLeadsNotification(props, lead_id) {
                       className="col-12 col-md-6"
                       style={{ dispaly: "flex", alignSelf: "flex-end" }}
                     >
+                       
                       <EmployeeActionStepper data={item} />
                     </div>
                   </div>
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                   </>
                 )
@@ -210,4 +227,4 @@ const mapStateToProps = (state) => {
 };
 
 // export default Login;
-export default connect(mapStateToProps)(EmployeeLeadsNotification);
+export default connect(mapStateToProps)(EmployeeLeadsAction);

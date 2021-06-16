@@ -841,7 +841,7 @@ function EmployeeLeads(props, lead_id) {
               </button>
             </Link>
             <ReactTooltip id="actionAdmin" place="top" effect="solid">
-              View Admin Action
+            Actions on lead
             </ReactTooltip>
           </td>
         {/* <td>{"---"}</td> */}
@@ -1081,7 +1081,7 @@ function EmployeeLeads(props, lead_id) {
                  
                   <th scope="col" className="text-nowrap">
                     <span id="st" style={{ color: "#818181" }}>
-                      Admin Action
+                      Action Summary
                     </span>
                   </th>
                  

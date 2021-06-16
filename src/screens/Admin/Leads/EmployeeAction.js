@@ -11,6 +11,12 @@ import { GET } from "../../../utils/Functions";
 import AdminActionStepper from "./../../../components/adminActionStepper";
 import EmployeeActionStepper from "./../../../components/EmployeeActionStepper";
 import PreLoading from "./../../../components/PreLoading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  
+ faCircle,
+
+} from "@fortawesome/free-solid-svg-icons";
 // import "./../Leads/EmployeeLeads.css";
 const useStyles = makeStyles((theme) => ({
   chipGracePeriod: {
@@ -149,7 +155,7 @@ function EmployeeAction(props, lead_id) {
             <ArrowBackIcon />
           </Tooltip>
         </IconButton>
-        <h3 style={{ color: "#818181" }}>Employee Action </h3>
+        <h3 style={{ color: "#818181" }}>  Action Summary</h3>
         {/* <button className="btn btn-primary mt-0" style={{float:"right"}}>Abc</button> */}
       </Row>
 
@@ -170,14 +176,16 @@ function EmployeeAction(props, lead_id) {
         <div className="col-md-6 col-sm-12 w-100">
           {data?.length > 0
             ? data?.map((item, index) =>
+            // let date=item.created_at;
+            // const d=date.toString().split("T")[0];
                 item.action_by == "Admin" ? (
                   <>
                   <div className="col-12 col-md-6" style={{ dispaly: "flex" }}>
                     {" "}
                     <AdminActionStepper data={item} />
                   </div>
-                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                  </>
                 ) : (
@@ -187,11 +195,15 @@ function EmployeeAction(props, lead_id) {
                       className="col-12 col-md-6"
                       style={{ dispaly: "flex", alignSelf: "flex-end" }}
                     >
+                     {item.new_lead_holder_emp!=item.prev_lead_holder_emp?(
+                         <FontAwesomeIcon style={{ fontSize: 10,color:"green" }} icon={faCircle} />
+                      ):null}
+
                       <EmployeeActionStepper data={item} />
                     </div>
                   </div>
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}>Created At: {item.created_at}</p>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                   </>
                 )

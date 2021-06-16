@@ -1662,7 +1662,7 @@ console.log("kkkkkk",resp)
         <td>{item.Deadline}</td> */}
         <td>
           <Link to={{ pathname: "/admin/emp-action", query: { item}, goback:{goback}}}>
-          <Tooltip placement="top-start" title="View Employee Action">
+          <Tooltip placement="top-start" title=" Actions on Lead">
             <button
               data-tip
               data-for="action"
@@ -2069,7 +2069,7 @@ console.log("kkkkkk",resp)
                 </th>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
-                    Show Employee action
+                  Action Summary
                   </span>
                 </th>
 
