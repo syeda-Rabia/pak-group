@@ -26,7 +26,7 @@ export default function EmployeeCallReportChart(props) {
             // 'jan','feb','mar','apr','may','jun','july','aug','sep','oct','nov','dec'],
 
             "Total Number of calls",
-            "Call Recieved",
+            "Call Received ",
           ],
 
           datasets: [

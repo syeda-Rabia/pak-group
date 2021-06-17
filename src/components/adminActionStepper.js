@@ -167,7 +167,7 @@ export default function VerticalLinearStepper(props) {
         <div className={classes.root}>
           
         
-              <div style={{ marginBottom: "40px", backgroundColor: "gray" }}>
+              <div style={{ marginBottom: "2px", backgroundColor: "gray" }}>
                 {label.map((item, index) => {
                   return (
                     <StepperUI

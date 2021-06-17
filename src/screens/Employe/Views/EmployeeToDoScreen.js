@@ -25,7 +25,7 @@ export default function EmployeeToDoScreen(props) {
             xs={0}
             style={{ backgroundColor: "white" }}
           >
-            <EmployeeLeadsSidebar update={handleSearch}/>
+            <EmployeeLeadsSidebar update={handleSearch} screen={"todo"}/>
           </Col>
           <Col
             lg={10}
@@ -34,7 +34,7 @@ export default function EmployeeToDoScreen(props) {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <EmployeeToDo   searchData={{url:url,search:search}}  update={handleSearch}/>
+            <EmployeeToDo   searchData={{url:url,search:search }}  update={handleSearch}/>
           </Col>
         </Row>
       </Container>

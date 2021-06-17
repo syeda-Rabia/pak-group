@@ -25,7 +25,7 @@ export default function EmployeeLeadsScreen(props) {
             xs={0}
             style={{ backgroundColor: "white" }}
           >
-            <EmployeeLeadsSidebar update={handleSearch} />
+            <EmployeeLeadsSidebar update={handleSearch} screen={"leads"}  />
           </Col>
           <Col
             lg={10}
@@ -34,7 +34,7 @@ export default function EmployeeLeadsScreen(props) {
             xs={12}
             style={{ backgroundColor: "#FAFAFA" }}
           >
-            <EmployeeLeads listData={props.location.query}  searchData={{url:url,search:search}}  update={handleSearch}/>
+            <EmployeeLeads listData={props.location.query}  searchData={{url:url,search:search }}  update={handleSearch}/>
           </Col>
         </Row>
       </Container>

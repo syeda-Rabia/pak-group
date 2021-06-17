@@ -148,6 +148,9 @@ function EmployeeLeadsAction(props, lead_id) {
             if(back.goback=="todo"){
               history.push("/employee/todolist");
             }
+            if(back.goback=="shifted"){
+              history.push("/employee/shifted-leads");
+            }
           }}
           aria-label="delete"
           color="primary"
@@ -179,22 +182,25 @@ function EmployeeLeadsAction(props, lead_id) {
             ? data?.map((item, index) =>
                 item.action_by == "Admin" ? (
                   <>
-                   {item.new_lead_holder_emp!=item.prev_lead_holder_emp?(
+                  
+                  <div className="col-12 col-md-6" style={{ dispaly: "flex" }}>
+                    
+                    <AdminActionStepper data={item} />
+                  </div>
+                  
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"20px"}}>
+                   <p style={{position:"absolute",marginTop:"3px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
+                 </div>
+                 {item?.prev_lead_holder_emp!= null?(
+                 item?.new_lead_holder_emp!=item?.prev_lead_holder_emp?(
                      <>
                      
-                     <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
-                     <p style={{position:"absolute",marginTop:"13px",marginBottom:"15px", backgroundColor:"white",fontSize: 20}}><b>Previous Actions</b> <FontAwesomeIcon style={{ fontSize: 20,color:"red" }} icon={faArrowDown} /></p>
+                     <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"2px"}}>
+                     <p style={{position:"absolute",marginTop:"3px",marginBottom:"15px", backgroundColor:"white",fontSize: 20}}><b>Previous Actions</b> <FontAwesomeIcon style={{ fontSize: 20,color:"red" }} icon={faArrowDown} /></p>
                    </div>
                         
                          </>
-                      ):null}
-                  <div className="col-12 col-md-6" style={{ dispaly: "flex" }}>
-                    {" "}
-                    <AdminActionStepper data={item} />
-                  </div>
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
-                   <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
-                 </div>
+                      ):null): null}
                  </>
                 ) : (
                   <>

@@ -20,7 +20,12 @@ import { publicURL } from "./../../../utils/Config";
 import { GET } from "./../../../utils/Functions";
 import "./EmployeeLeads.css";
 
-
+import {
+    Tooltip,
+    IconButton,
+  } from "@material-ui/core";
+  import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+  import {useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +81,7 @@ const colors = {
   Allocated: {color: '#A0C5E2', textColor: 'black'},
 
 };
-function EmployeeLeads(props, lead_id) {
+function EmployeeShiftedLeads(props, lead_id) {
   const [data, setData] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -84,7 +89,7 @@ function EmployeeLeads(props, lead_id) {
   const [showModalAction, setShowModalAction] = React.useState(true);
   const [alertmessage, setAlertMessage] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [goback, setGoBack] = React.useState("leads");
+  const [goback, setGoBack] = React.useState("shifted");
   const [showSuccessAlert, setShowSuccessAlert] = React.useState("");
   const [showErrorAlert, setShowErrorAlert] = React.useState("");
   const [postData, setPostData] = React.useState({});
@@ -125,7 +130,7 @@ function EmployeeLeads(props, lead_id) {
 
  const lastIndex = currentPage * pageSize;
  const istIndex = lastIndex - pageSize;
- 
+ const history = useHistory();
  // const [page, setPage] = React.useState(2);
  const handlePageChange = async (page) => {
    /*
@@ -133,7 +138,7 @@ function EmployeeLeads(props, lead_id) {
     
     */
    setIsLoading(true);
-   let resp = await GET(ApiUrls. GET_USER_LEADS_PAGINATION + page);
+   let resp = await GET(ApiUrls. GET_SHIFTED_LEADS + page);
 
    if (resp.data != null) {
      setCurrentPage(resp.data.leads.current_page);
@@ -148,103 +153,26 @@ function EmployeeLeads(props, lead_id) {
 
  /*  Pagination data  end*/
 
- //filter pagination
-
- const [filterPageSize, setfilterPageSize] = React.useState(0);
- const [filtercurrentPage, setFilterCurrentPage] = React.useState(0);
- const [filterpageCount, setFilterPageCount] = React.useState(0);
- const [filtertotalRecord, setfilterTotalRecord] = React.useState(0);
-
- const filterlastIndex = filtercurrentPage * filterPageSize;
- const filteristIndex = filterlastIndex - filterPageSize;
- const handleFilterPageChange = async (page) => {
-   /*
-    Api Call
-    
-    */
-
-   setIsLoading(true);
-   console.log("console log-------------------------------------->",filterurl+"&& page="+page)
-   let res =await GET(filterurl+"&& page="+page);
-   console.log("console log in filter  pagination-------------------------------------->",props.searchData.url+"&& page="+page,res)
-   if (res.data != null) {
-     setFilterCurrentPage(res.data?.leads?.current_page);
-     setData(res.data?.leads?.data);
-     setfilterPageSize(res.data?.leads?.per_page);
-     setfilterTotalRecord(res.data?.leads?.total);
-
-   }
-   console.log("console log in filter pagination-------------------------------------->")
-   setIsLoading(false);
- };
-
- const handleFilterShow = (filterpageCount) => {
-   setFilterPageCount(filterpageCount);
- };
- //filter pagination end
-
+ 
   const handleFetchData = async () => {
     setIsLoading(true);
-    let res = await GET(ApiUrls.GET_USER_LEADS_PAGINATION );
+    let res = await GET(ApiUrls.GET_SHIFTED_LEADS );
     console.log("-------------------------------", res);
     
-    if (res.success != false) {
+    if (res?.success != false) {
       setData(res?.data?.leads?.data);
-      setPageSize(res.data?.leads?.per_page);
-      setTotalRecord(res.data?.leads?.total);
-      setCurrentPage(res.data?.leads?.current_page);
+      setPageSize(res?.data?.leads?.per_page);
+      setTotalRecord(res?.data?.leads?.total);
+      setCurrentPage(res?.data?.leads?.current_page);
     }
     setIsLoading(false);
   };
   React.useEffect(() => {
     handleFetchData();
   }, [refresh]);
-  console.log("---------------props----------------", props);
-  useEffect(() => {
-    if (props.searchData.search == true) setFilterdata();
-  }, [props.searchData.search]);
+  
 
-
-  const setFilterdata = async () => {
-    setshowReset(true);
-    setIsLoading(true); 
-    
-    let response = await GET(props.searchData.url);
-    setFilterUrl(props.searchData.url);
-    console.log("-----", response);
-    if (response.error === false) {
-      setData(response.data?.leads?.data);
-     
-      setfilterPageSize(response.data?.leads?.per_page);
-      setfilterTotalRecord(response.data?.leads?.total);
-      setFilterCurrentPage(response.data?.leads?.current_page);
-      setMessage("Lead find Successfully");
-      setShowSuccessAlert(true);
-      setIsFilter(true);
-      setIsEmpty(false);
-    } else if(response?.error?.hasOwnProperty("month"))
-    {
-      console.log("res.error.hasOwnProperty(month)");
-      // setErrorResponce(resp.error);
-      setMessage(response?.error?.month[0]);
-      setShowErrorAlert(true);
-      // setshowReset(false);
-      setshowReset(true);
-    setIsEmpty(true);
-    
-    }
-    else if(response.hasOwnProperty("error")){
-      // setMessage(response.error);
-      // setShowErrorAlert(true);
-      // setshowReset(false);
-
-      setshowReset(true);
-    setIsEmpty(true);
-    }
-   
-    setIsLoading(false);
-  };
-
+  
 
   const scroll = (scrollOffset) => {
     ref.current.scrollLeft += scrollOffset;
@@ -485,47 +413,19 @@ function EmployeeLeads(props, lead_id) {
     };
     // let created_date=item.created_at;
     return (
-      <tr style={{backgroundColor: colors[item.status]?.color, color: colors[item.status]?.textColor}}>
-         <td> {item.action=="Follow Up"?(
- <FontAwesomeIcon style={{ fontSize: 15,color:"yellow",marginLeft:"5px" }} icon={faCheckCircle} />
-          ):null}</td>
+      <tr >
+         
         <td scope="row">{index + 1}</td>
-        <td>{item.client_name}</td>
-        <td>{item.contact}</td>
-        <td>{item.project.name}</td>
-        <td>{item.budget + " PKR"}</td>
-        <td>{item.time_to_call != null ? item.time_to_call : "-------"}</td>
+        <td>{item?.client_name}</td>
+        <td>{item?.contact}</td>
+        <td>{item?.project?.name}</td>
+        <td>{item?.budget + " PKR"}</td>
+        <td>{item?.time_to_call != null ? item?.time_to_call : "-------"}</td>
         {/* <td>{item.time_to_call}</td> */}
     
   
-        <td>
-          {item.status != "" ? (
-            <Chip
-              classes={{
-                label: classes.chipLabelColor,
-                root:
-                  item.status === "Overdue"
-                    ? classes.chipOverdue
-                    : item.status === "Grace Period"
-                    ? classes.chipGracePeriod
-                    : item.status === "Complete"
-                    ? classes.chipComplete
-                    : item.status === "Follow up"
-                    ? classes.chipFollowUp
-                    : item.status === "Allocated"
-                    ? classes.chipAllocated
-                    : item.status === "Loss"
-                    ? classes.chipLoss
-                    : null,
-              }}
-              label={item.status}
-            />
-          ) : (
-            "-------"
-          )}
-        </td>
-        {/* <td>{item.inventory.inventory_name}</td> */}
-        <td>{item.interest.interest}</td>
+      
+      
        
        
         <td>
@@ -549,122 +449,39 @@ function EmployeeLeads(props, lead_id) {
             Actions on lead
             </ReactTooltip>
           </td>
-        {/* <td>{"---"}</td> */}
-        {/* <td>
-          <div
-            style={{ outline: "none", height: ""}}
-            className="d-flex"
-            {...getRootProps()}
-          >
-            <button className="bg-transparent  button-focus mr-2"><FontAwesomeIcon style={{ fontSize: 15 }} icon={faUpload} />Upload_file</button>
-            <p className="pl-1">
-              {acceptedFiles.map((file) => {
-                return file.path;
-              })}
-            </p>
-            <input {...getInputProps()} />
-          </div>
-        </td> */}
-        <td>
-            {item.recordings.length > 0 ? (
-              <>
-                <button
-                  data-tip
-                  data-for="play"
-                  type="button"
-                  className="bg-transparent  button-focus mr-2"
-                  onClick={() => {
-                    // isLoading(true);
-                    // let arr=[sample,sample,sample];
-                    setRecordings(item.recordings.map((item)=>{return {audio:(new Audio(publicURL + item.recording_file)),item:item}}));
-                    setShowPlay(true);
-                    setSelectedID(index);
-                  }}
-                >
-                  <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlay} />
-                </button>
-                <ReactTooltip id="play" place="top" effect="solid">
-                  play
-                </ReactTooltip>
-              </>
-            ) : (
-              "-----"
-            )}
-          </td>
-          <td>{item.country_city}</td>
+       
+      <td>{item.country_city}</td>
           <td>{item.email != null ? item.email : "-------"}</td>
         <td>{item.task}</td>
         <td>{item.created_at.toString().split("T")[0]}</td>
         <td>{item.dead_line}</td>
-      {/* <td>
-          <Button  onClick={() => {
-                SendFileToServer();
-              }}>Update</Button>
-        </td> */}
+     
       </tr>
     );
   };
-  if(IsEmpty==true){
-    return (<div>
-      <Row className=" shadow p-3 mb-3 bg-white rounded mt-3">
-
-      <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>
-          Employee Leads 
-          </h3>
-        </Col>
-
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-          <EmployeeMobileViewSidebar />
-          </div>
-        </Col>
-        {showReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn ml-2" 
-            onClick={() => {
-
-              handleFetchData();
-              setshowReset(false);
-              setIsFilter(false);
-              setIsEmpty(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-           ):null} 
-     </Row>
-    <div style={{ display: "block",
-  marginLeft: "auto",
-  marginRight: "auto",
-  marginTop:"10%",
-  marginBottom:"auto",
-  width:"50%"}}> 
-  <img style={{ width:"100%",height: "500px" }} src={nodata} /></div>
-    </div>
-  );
-  }
-  else
+  
   return (
     <Container fluid className="Laa">
-      {/* <PreLoading startLoading={isLoading} /> */}
-      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ">
+      <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>
-            Employee Leads 
+          <IconButton
+          onClick={() => {
+            history.push("/employee/leads");
+          }}
+          aria-label="delete"
+          color="primary"
+        >
+          <Tooltip title="Go Back" placement="right" arrow>
+            <ArrowBackIcon />
+          </Tooltip>
+        </IconButton>
+            Shifted Leads
             
           </h3>
         </Col>
 
-        <Col lg={2} sm={2} xs={2} xl={1} id="floatSidebar">
-          <div className="float-right ">
-            <EmployeeMobileViewSidebar />
-          </div>
-        </Col>
+       
       </Row>
       
       <PreLoading startLoading={isLoading} />
@@ -679,64 +496,17 @@ function EmployeeLeads(props, lead_id) {
         message={alertmessage}
         closeError={setShowErrorAlert}
       />
-      <Row>
+   
      
-        <div className="col-lg-12 shadow p-3  bg-white rounded ">
-        {showReset==true?(
-        <button
-            type="button"
-            className="btn btn-primary leadbtn ml-2" 
-            onClick={() => {
-             
-              handleFetchData();
-              setIsFilter(false);
-              setshowReset(false);
-            }}
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-          >
-            <FontAwesomeIcon icon={faRedo} /> reverse filter
-          </button>
-           ):null} 
-        {/* <div className="float-right floatingbtn" style={{display:"flex",justifyContent:"space-between",zIndex:100}}>
-          <div style={{paddingRight:10}}>
-            <Fab
-              className={classes.fab}
-              onClick={() => scroll(-50)}
-              color="primary"
-              aria-label="left"
-              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-            >
-              <ChevronLeftIcon style={{}}/>
-            </Fab>
+        <div className="col-lg-12 shadow p-3  bg-white rounded  ml-1 mr-1">
+        
+        
 
-          </div>
-          <div style={{paddingRight:10}}>
-          <Fab
-              className={classes.fab}
-              
-              onClick={() => scroll(50)}
-              color="primary"
-              aria-label="right"
-              style={{inlineSize:"34px",blockSize:"26px",backgroundColor:"#2258bf"}}
-            >
-              <ChevronRightIcon />
-            </Fab>
-
-          </div>
-          
-          </div>
-           */}
           <div className="table-responsive" style={{height: "500px", overflow: "auto"}} ref={ref}>
             <table id="leadsTable" className="table table-hover">
               <thead>
                 <tr>
-                <th scope="col">
-                    <span  style={{ color: "#818181" }}>
-                      {""}
-                    </span>
-                  </th>
+               
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       ID
@@ -768,16 +538,8 @@ function EmployeeLeads(props, lead_id) {
                     </span>
                   </th>
                  
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Status
-                    </span>
-                  </th>
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Interest
-                    </span>
-                  </th>
+                 
+                  
                   {/* <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Allocate_To
@@ -790,11 +552,7 @@ function EmployeeLeads(props, lead_id) {
                     </span>
                   </th>
                  
-                  <th scope="col">
-                    <span id="st" style={{ color: "#818181" }}>
-                      Recordings
-                    </span>
-                  </th>
+                 
                   <th scope="col">
                     <span id="st" style={{ color: "#818181" }}>
                       Country/City
@@ -836,9 +594,9 @@ function EmployeeLeads(props, lead_id) {
               {data?.length > 0 ? (
                 data.map((item, index) => (
                   <Table
-                    item={item.lead}
+                    item={item}
                     // item={lead}
-                    allocated={item.allocated_to}
+                    // allocated={item.allocated_to}
                     index={index}
                     setShowModalAction={setShowModalAction}
                     setValue={setValue}
@@ -875,15 +633,13 @@ function EmployeeLeads(props, lead_id) {
           </div>
         </div>
         <Col>
-        {IsFilter==false?(
+        {
           pageCount>1?( <p className="page-info">
           Showing {currentPage} from {pageCount}
-        </p>):null ):filterpageCount>1?(<p className="page-info">
-         Showing {filtercurrentPage} from {filterpageCount}
-       </p>):null}
+        </p>):null }
         </Col>
         <Col >
-        {IsFilter==false?(
+       
         <Pagination
  itemsCount={totalRecord}
  pageSize={pageSize}
@@ -891,16 +647,10 @@ function EmployeeLeads(props, lead_id) {
  onPageChange={handlePageChange}
  show={handleShow}
 />
-        ):<Pagination
-        itemsCount={filtertotalRecord}
-        pageSize={filterPageSize}
-        currentPage={filtercurrentPage}
-        onPageChange={handleFilterPageChange}
-        show={handleFilterShow}
-        />}
+        
         </Col>
         
-      </Row>
+     
     </Container>
   );
 }
@@ -912,4 +662,4 @@ const mapStateToProps = (state) => {
 };
 
 // export default Login;
-export default connect(mapStateToProps)(EmployeeLeads);
+export default connect(mapStateToProps)(EmployeeShiftedLeads);

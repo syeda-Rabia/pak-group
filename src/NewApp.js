@@ -35,6 +35,7 @@ import EmployeeDashboardScreen from "./screens/Employe/Views/EmployeeDashboardSc
 import EmployeeLeadsScreen from "./screens/Employe/Views/EmployeeLeadsScreen";
 import EmployeeInventory from "./screens/Employe/EmployeeInventory/EmployeeInventory";
 import EmployeeToDoScreen from "./screens/Employe/Views/EmployeeToDoScreen";
+import EmployeeShiftedLeads from "./screens/Employe/Leads/ShiftedLeads";
 import EmployeeToDo from "./screens/Employe/EmployeeToDo/EmployeeToDo";
 import EmployeePolicies from "./screens/Employe/Policies/EmployeePolicies";
 import AdminPolicies from "./screens/Admin/Policies/AdminPolicies";
@@ -427,6 +428,9 @@ const NewApp = (props) => {
         <Route path="/employee/todolist">
           {/* <EmployeeLeadsScreen {...props} /> */}
           <EmployeeToDoScreen {...props} />
+        </Route>
+        <Route path="/employee/shifted-leads">
+          <EmployeeShiftedLeads {...props}/>
         </Route>
         <Route
           path="/employee/admin-action"

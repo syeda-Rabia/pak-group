@@ -77,6 +77,7 @@ POST_GET_EMPLOYEE_TARGET_DATA:"employee/dashboard/show_target_report",
   GET_ALL_CLOSED_LEADS:"admin/lead/close",
   GET_ALL_LEADS_PAGINATION: "admin/lead/all?page=",
   POST_CLOSE_OR_WIN_LEAD:"admin/lead/closeLead",
+  GET_SHIFTED_LEADS:"employee/lead/shifted_leads?page=",
 
 
   //excel sheet read api
