@@ -650,7 +650,7 @@ function EmployeeLeads(props, lead_id) {
     userInfo,
     allocated,
   }) => {
-    const [recordingFile, setRecordingFile] = React.useState(null);
+    const [recordingFile, setRecordingFile] = React.useState("");
     const [action, setAction] = React.useState("follow up");
     const [anchorEl, setAnchorEl] = React.useState(null);
     
@@ -848,7 +848,7 @@ function EmployeeLeads(props, lead_id) {
        axiosConfig)
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
-        //  setAlertMessage(res.success);
+        //  setAlertMessage(res.data.data.error.recording_file);
         setMessage("Recording submitted Successfully");
         setShowSuccessAlert(true);
       })
@@ -1262,12 +1262,12 @@ function EmployeeLeads(props, lead_id) {
 
       <SuccessNotification
         showSuccess={showSuccessAlert}
-        message={alertmessage}
+        message={message}
         closeSuccess={setShowSuccessAlert}
       />
       <ErrorNotification
         showError={showErrorAlert}
-        message={alertmessage}
+        message={message}
         closeError={setShowErrorAlert}
       />
       <Row>

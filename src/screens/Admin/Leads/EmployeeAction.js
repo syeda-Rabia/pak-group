@@ -184,7 +184,7 @@ function EmployeeAction(props, lead_id) {
                     {" "}
                     <AdminActionStepper data={item} />
                   </div>
-                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"5px",marginBottom:"25px"}}>
+                   <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"50px"}}>
                    <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                  </>
@@ -200,7 +200,7 @@ function EmployeeAction(props, lead_id) {
                       <EmployeeActionStepper data={item} />
                     </div>
                   </div>
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"5px",marginBottom:"25px"}}>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"50px"}}>
                    <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                   </>

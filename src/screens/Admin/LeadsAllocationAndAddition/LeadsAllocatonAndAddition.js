@@ -638,7 +638,7 @@ export default function LeadsAllocatonAndAddition(props) {
           </select> */}
         </td>
         <td>
-        {item.allocated_to[0]?.returned?.first_name}
+        {item.allocated_to[0]?.allocated_to?.first_name}
           {/* {item?.allocated_to?.length > 0
             ? 
             <Chip

@@ -48,7 +48,7 @@ function AdminAccounts() {
   const [Start, setStart] = useState();
   const [End, setEnd] = useState();
   const [data, setData] = useState(ModalData);
-  const [home, setHome] = useState(dummyData);
+  const [home, setHome] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const { RangePicker } = DatePicker;
 
@@ -70,15 +70,14 @@ function AdminAccounts() {
   };
 
   useEffect(() => {
-    // getEmployeeDetails();
-    // getLeadReport();
+    getAccountListData();
   }, [refresh]);
 
-  // const getLeadReport= async () => {
-  //   let resp = await GET(ApiUrls.GET_LEAD_REPORT_DATA);
-  //   console.log("-----------dashboard-----".resp)
-  //   setData(resp?.report);
-  // };
+  const getAccountListData= async () => {
+    let resp = await GET(ApiUrls.GET_ALL_ACCOUNTS_LIST);
+    console.log("-----------account listing----",resp)
+    setData(resp?.data?.Account);
+  };
   
   const SendRecordToServer = async (event) => {
     event.preventDefault();
@@ -181,8 +180,8 @@ function AdminAccounts() {
         <td>{index + 1}</td>
         <td>{item.account_name}</td>
         <td>{item.total_amount}</td>
-        <td>{item.amount_spent}</td>
-        <td>{item.amount_remaining}</td>
+        <td>{}</td>
+        <td>{}</td>
         
         <td>
           <div

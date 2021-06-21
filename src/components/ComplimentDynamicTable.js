@@ -130,9 +130,9 @@ const handleAddClick = () => {
                       <td>
                         <input
                           type="text"
-                          name="name"
+                          name="name_of_invoice"
                           placeholder="Enter Expense name"
-                          value={item.name}
+                          value={item.name_of_invoice}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
@@ -140,9 +140,9 @@ const handleAddClick = () => {
                       <td>
                         <input
                           type="text"
-                          name="amount"
+                          name="amount_spent"
                           placeholder="Enter Amount spent"
-                          value={item.amount}
+                          value={item.amount_spent}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
@@ -164,8 +164,8 @@ const handleAddClick = () => {
                           placeholder="Enter name"
                           value={item.distributed_to}
                           onChange={e => handleInputChange(e, idx)}
-                          style={{width:"400px"}}
-                          className="form-control "
+                         
+                          className="form-control w-100"
                         />
                         {/* <input
                           type="text"

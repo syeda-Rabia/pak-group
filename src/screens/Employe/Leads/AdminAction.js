@@ -188,14 +188,14 @@ function EmployeeLeadsAction(props, lead_id) {
                     <AdminActionStepper data={item} />
                   </div>
                   
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"20px"}}>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"50px"}}>
                    <p style={{position:"absolute",marginTop:"3px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                  {item?.prev_lead_holder_emp!= null?(
                  item?.new_lead_holder_emp!=item?.prev_lead_holder_emp?(
                      <>
                      
-                     <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"2px"}}>
+                     <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"50px"}}>
                      <p style={{position:"absolute",marginTop:"3px",marginBottom:"15px", backgroundColor:"white",fontSize: 20}}><b>Previous Actions</b> <FontAwesomeIcon style={{ fontSize: 20,color:"red" }} icon={faArrowDown} /></p>
                    </div>
                         
@@ -213,7 +213,7 @@ function EmployeeLeadsAction(props, lead_id) {
                       <EmployeeActionStepper data={item} />
                     </div>
                   </div>
-                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px",marginBottom:"25px"}}>
+                  <div style={{width:"100%",border:"2px solid gray",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"50px"}}>
                    <p style={{position:"absolute",marginTop:"13px",backgroundColor:"white"}}><b>Date:</b> {item.created_at.toString().split("T")[0]} <b>Time:</b>  {item.created_at.toString().split("T")[1].split(".")[0]}</p>
                  </div>
                   </>

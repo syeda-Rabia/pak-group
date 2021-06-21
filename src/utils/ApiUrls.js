@@ -135,7 +135,8 @@ POST_ATTENDANCE:"admin/accounts/attendance/attendanceMark",
 
 //Accounts module
 POST_ADD_HOME_OR_OFFICE:"admin/accounts/homeoffice/add",
-POST_ADD_EXPENCES:"admin/accounts/add_expenses",
+POST_ADD_EXPENCES:"admin/accounts/add_account",
+GET_ALL_ACCOUNTS_LIST:"admin/accounts/list_account",
 
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",
