@@ -10,22 +10,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
   faPencilAlt,
-  faTrash, 
+  faTrash,
   faPlusSquare,
   faPlay,
   faPause,
   faStop,
   faRedo,
- faTimesCircle,
- faCheckDouble
+  faTimesCircle,
+  faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
-import {  useHistory, Redirect, Route } from "react-router-dom";
+import { Tooltip, IconButton } from "@material-ui/core";
+import { useHistory, Redirect, Route } from "react-router-dom";
 
 export default function AddAccount() {
   const [data, setData] = React.useState(AccountData);
@@ -41,9 +38,8 @@ export default function AddAccount() {
   const [Start, setStart] = useState();
   const [End, setEnd] = useState();
 
-
-  console.log("table data",tableData);
-  console.log("data",ComplimentData);
+  console.log("table data", tableData);
+  console.log("data", ComplimentData);
 
   const Table = ({ item, index }) => {
     //  ;
@@ -152,7 +148,7 @@ export default function AddAccount() {
   return (
     <Container fluid className="Laa">
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
-      <IconButton
+        <IconButton
           onClick={() => {
             history.push("/admin/account");
           }}
@@ -164,151 +160,142 @@ export default function AddAccount() {
           </Tooltip>
         </IconButton>
         <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>
-            Account Detail
-          </h3>
+          <h3 style={{ color: "#818181" }}>Account Detail</h3>
         </Col>
       </Row>
 
       <Row className="col-lg-12 shadow p-3  bg-white rounded ml-1 mr-1 ">
-     
-    
-    
         <div className="w-100">
-          
-                 {data?.map((item, index) => {
-                  return   <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
-                  <h4 style={{ color: "#818181" }}>{item.title}</h4>
-                  <div className="table-responsive "  
-        // style={{height: "500px", overflow: "auto"}} 
-        >
-            {item.title!=="Compliment"?(
- <table className="table table-hover" >
- <thead >
-   <tr>
-   <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         ID
-       </span>
-     </th>
-     <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         Name of Invoice
-       </span>
-     </th>
-     <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         Amount Spent
-       </span>
-     </th>
-     <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         Decription
-       </span>
-     </th>
-     <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         COR
-       </span>
-     </th>
-     
-     <th scope="col" className="text-nowrap">
-       <span id="sn" style={{ color: "#818181" }}>
-         {" "}
-         Action
-       </span>
-     </th>
-   </tr>
- </thead>
- <tbody>
-   
-     {item.data?.map((item, index) => (
-      //  <>
-      //   <h4 style={{ color: "#818181" }}>{item}</h4>
-                  
-      //   <DynamicTable {...{setData,data,item}} />
-      //   </>
-       <Table item={item} index={index}/>
-     ))}
- 
-  
- </tbody>
- {item.data?.length > 0 && selectedID !== null ? (
-          <>
-            {/* <ModalPlay item={allLeads[selectedID]} />
+          {data?.map((item, index) => {
+            return (
+              <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+                <h4 style={{ color: "#818181" }}>{item.title}</h4>
+                <div
+                  className="table-responsive "
+                  // style={{height: "500px", overflow: "auto"}}
+                >
+                  {item.title !== "Compliment" ? (
+                    <table className="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              ID
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Name of Invoice
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Amount Spent
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Decription
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              COR
+                            </span>
+                          </th>
+
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              {" "}
+                              Action
+                            </span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {item.data?.map((item, index) => (
+                          //  <>
+                          //   <h4 style={{ color: "#818181" }}>{item}</h4>
+
+                          //   <DynamicTable {...{setData,data,item}} />
+                          //   </>
+                          <Table item={item} index={index} />
+                        ))}
+                      </tbody>
+                      {item.data?.length > 0 && selectedID !== null ? (
+                        <>
+                          {/* <ModalPlay item={allLeads[selectedID]} />
          
             <ModalView item={allLeads[selectedID]} />
            
             <ModalClose item={allLeads[selectedID]} /> */}
-             {/* <ModalAddExpense item={item.data[selectedID]} /> */}
-             {/* <ModalEdit item={item.data[selectedID]} />
+                          {/* <ModalAddExpense item={item.data[selectedID]} /> */}
+                          {/* <ModalEdit item={item.data[selectedID]} />
              <ModalDelete item={item.data[selectedID]} /> */}
-          </> 
-        ) : null}
-</table>
+                        </>
+                      ) : null}
+                    </table>
+                  ) : (
+                    <table className="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              ID
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Name of Invoice
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Amount Spent
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Quantity
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Distributed To
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              Decription
+                            </span>
+                          </th>
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              COR
+                            </span>
+                          </th>
 
-            ): <table className="table table-hover" >
-            <thead >
-              <tr>
-              <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    ID
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Name of Invoice
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Amount Spent
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Quantity
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Distributed To
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    Decription
-                  </span>
-                </th>
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    COR
-                  </span>
-                </th>
-                
-                <th scope="col" className="text-nowrap">
-                  <span id="sn" style={{ color: "#818181" }}>
-                    {" "}
-                    Action
-                  </span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              
-                {item.data?.map((item, index) => (
-                  <Table1 item={item} index={index}/>
-                ))}
-            
-             
-            </tbody>
-           </table>
-           
-            }
-          </div>
-        </div>
-       
-                  {/* {data?.map((item, index) => {
+                          <th scope="col" className="text-nowrap">
+                            <span id="sn" style={{ color: "#818181" }}>
+                              {" "}
+                              Action
+                            </span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {item.data?.map((item, index) => (
+                          <Table1 item={item} index={index} />
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              </div>
+            );
+
+            {
+              /* {data?.map((item, index) => {
                   return   <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>{item}</h4>
           <DynamicTable {...{setTableData,tableData,item}} />
@@ -317,18 +304,17 @@ export default function AddAccount() {
                 })}
           <DynamicTable {...{setTableData,tableData,item}} />
           
-              </div>; */}
-                 })}
+              </div>; */
+            }
+          })}
 
-
-               {/* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+          {/* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>Compliment</h4>
           <ComplimentDynamicTable {...{setComplimentData,ComplimentData}}/>
           
               </div>  */}
         </div>
       </Row>
-     
     </Container>
   );
 }

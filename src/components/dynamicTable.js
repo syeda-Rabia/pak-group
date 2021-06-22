@@ -23,6 +23,7 @@ import {
   faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
 export default function DynamicTable({ setTableData, tableData, item, value }) {
+  // console.log("setTableData",setTableData,"tableData",tableData,"item",item)
   //adding new logic
   const [inputList, setInputList] = useState([
     {
@@ -130,7 +131,7 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
               </tr>
             </thead>
             <tbody>
-              {tableData[item].map((v, idx) => (
+              {tableData[item]?.map((v, idx) => (
                 <tr id="addr0" key={idx}>
                   <td>{idx}</td>
                   {/* <td><KeyboardDatePickerExample

@@ -59,8 +59,8 @@ export default function AddAccount() {
   };
   React.useEffect(()=>{
     let data={
-      "Account": [
-          {
+      
+          
               "id": 1,
               "account_name": "Account1",
               "total_amount": "5000",
@@ -180,10 +180,69 @@ export default function AddAccount() {
                   }
               ]
           }
-      ]}
+    
       setTimeout(() => {
-        setTableData(data.Account.hoc.name.hoc_exp)
+        // setData(data.Account[0].hoc[0].name);
+        console.log(data?.hoc.map((item) => ({
+          name:item.name,
+          tableData:item.hoc_exp,
+        }
+         
+         
+         
+         
+        )
+        ));
+        <>
+         {data?.hoc.map((item, index) => {
+            return (
+              <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+                <div>
+                  
+                  {" "}
+                  <button
+                    type="button"
+                    className=" bg-transparent  button-focus "
+                    style={{
+                      fontSize: "26px",
+                      backgroundColor: "#2258BF",
+                      fontWeight: "bold",
+                      float: "right",
+                    }}
+                    onClick={() => {
+                      handleRemove(index);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                </div>
+                
+                <h4 style={{ color: "#818181" }}>{item.name}</h4>
+
+                <DynamicTable
+                  {...{ setTableData, tableData:item.hoc_exp , value: "hoc_exps",  item:item.name}}
+                />
+              </div>
+            );
+            setHomeData((state) => ({ ...state, [item]: tableData }));
+          })}
+        {/* {data?.hoc.map((item) => ({
+   name:item.name,
+   tableData:item.hoc_exp,
+
+
+        }
+         
+      
+         
+         
+        )
+        )} */}
+        
+        </>
+       
       }, 1500);
+
       console.log("kknkn",tableData)
   },[])
   const handleData = (data) => {
