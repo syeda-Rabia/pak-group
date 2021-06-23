@@ -20,7 +20,9 @@ export default function AddAccount() {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState({});
   const [homeData, setHomeData] = React.useState([]);
-  const [ComplimentData, setComplimentData] = React.useState([]);
+  const [ComplimentData, setComplimentData] = React.useState({
+    Compliment: [],
+  });
   const [accountData, setAccountData] = React.useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [accountName, setAccountName] = React.useState("");
@@ -57,175 +59,173 @@ export default function AddAccount() {
     // }});
     return arr;
   };
-  React.useEffect(()=>{
-    let data={
-      
-          
-              "id": 1,
-              "account_name": "Account1",
-              "total_amount": "5000",
-              "start_date": "2021-06-01",
-              "end_date": "2021-06-09",
-              "is_deleted": 0,
-              "created_at": "2021-06-21T07:44:21.000000Z",
-              "updated_at": "2021-06-21T07:44:21.000000Z",
-              "hoc": [
-                  {
-                      "id": 1,
-                      "account_id": 1,
-                      "name": "Home1",
-                      "is_deleted": 0,
-                      "created_at": "2021-06-21T07:44:21.000000Z",
-                      "updated_at": "2021-06-21T07:44:21.000000Z",
-                      "hoc_exp": [
-                          {
-                              "id": 1,
-                              "hoc_id": 1,
-                              "name_of_invoice": "Home1 name_of_invoice",
-                              "amount_spent": "001 amount_spent",
-                              "description": "001 description",
-                              "cor": "001 cor",
-                              "quantity": null,
-                              "distributed_to": null,
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          },
-                          {
-                              "id": 2,
-                              "hoc_id": 1,
-                              "name_of_invoice": "Home1 name_of_invoice",
-                              "amount_spent": "002 amount_spent",
-                              "description": "002 description",
-                              "cor": "002 cor",
-                              "quantity": null,
-                              "distributed_to": null,
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          }
-                      ]
-                  },
-                  {
-                      "id": 2,
-                      "account_id": 1,
-                      "name": "Home2",
-                      "is_deleted": 0,
-                      "created_at": "2021-06-21T07:44:21.000000Z",
-                      "updated_at": "2021-06-21T07:44:21.000000Z",
-                      "hoc_exp": [
-                          {
-                              "id": 3,
-                              "hoc_id": 2,
-                              "name_of_invoice": "Home2 name_of_invoice",
-                              "amount_spent": "003 amount_spent",
-                              "description": "003 description",
-                              "cor": "003 cor",
-                              "quantity": null,
-                              "distributed_to": null,
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          },
-                          {
-                              "id": 4,
-                              "hoc_id": 2,
-                              "name_of_invoice": "Home2 name_of_invoice",
-                              "amount_spent": "004 amount_spent",
-                              "description": "004 description",
-                              "cor": "004 cor",
-                              "quantity": null,
-                              "distributed_to": null,
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          }
-                      ]
-                  },
-                  {
-                      "id": 3,
-                      "account_id": 1,
-                      "name": "Compliment",
-                      "is_deleted": 0,
-                      "created_at": "2021-06-21T07:44:21.000000Z",
-                      "updated_at": "2021-06-21T07:44:21.000000Z",
-                      "hoc_exp": [
-                          {
-                              "id": 5,
-                              "hoc_id": 3,
-                              "name_of_invoice": "Compliment name_of_invoice",
-                              "amount_spent": "003 amount_spent",
-                              "description": "003 description",
-                              "cor": "003 cor",
-                              "quantity": "10",
-                              "distributed_to": "Distributed To",
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          },
-                          {
-                              "id": 6,
-                              "hoc_id": 3,
-                              "name_of_invoice": "Compliment name_of_invoice",
-                              "amount_spent": "004 amount_spent",
-                              "description": "004 description",
-                              "cor": "004 cor",
-                              "quantity": "10",
-                              "distributed_to": "Distributed To",
-                              "is_deleted": 0,
-                              "created_at": "2021-06-21T07:44:21.000000Z",
-                              "updated_at": "2021-06-21T07:44:21.000000Z"
-                          }
-                      ]
-                  }
-              ]
-          }
-    
-      setTimeout(() => {
-        // setData(data.Account[0].hoc[0].name);
-        console.log(data?.hoc.map((item) => ({
-          name:item.name,
-          tableData:item.hoc_exp,
-        }
-         
-         
-         
-         
-        )
-        ));
-        <>
-         {data?.hoc.map((item, index) => {
-            return (
-              <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
-                <div>
-                  
-                  {" "}
-                  <button
-                    type="button"
-                    className=" bg-transparent  button-focus "
-                    style={{
-                      fontSize: "26px",
-                      backgroundColor: "#2258BF",
-                      fontWeight: "bold",
-                      float: "right",
-                    }}
-                    onClick={() => {
-                      handleRemove(index);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTimes} />
-                  </button>
-                </div>
-                
-                <h4 style={{ color: "#818181" }}>{item.name}</h4>
+  React.useEffect(() => {
+    let data = {
+      id: 1,
+      account_name: "Account1",
+      total_amount: "5000",
+      start_date: "2021-06-01",
+      end_date: "2021-06-09",
+      is_deleted: 0,
+      created_at: "2021-06-21T07:44:21.000000Z",
+      updated_at: "2021-06-21T07:44:21.000000Z",
+      hoc: [
+        {
+          id: 1,
+          account_id: 1,
+          name: "Home1",
+          is_deleted: 0,
+          created_at: "2021-06-21T07:44:21.000000Z",
+          updated_at: "2021-06-21T07:44:21.000000Z",
+          hoc_exp: [
+            {
+              id: 1,
+              hoc_id: 1,
+              name_of_invoice: "Home1 name_of_invoice",
+              amount_spent: "001 amount_spent",
+              description: "001 description",
+              cor: "001 cor",
+              quantity: null,
+              distributed_to: null,
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+            {
+              id: 2,
+              hoc_id: 1,
+              name_of_invoice: "Home1 name_of_invoice",
+              amount_spent: "002 amount_spent",
+              description: "002 description",
+              cor: "002 cor",
+              quantity: null,
+              distributed_to: null,
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+          ],
+        },
+        {
+          id: 2,
+          account_id: 1,
+          name: "Home2",
+          is_deleted: 0,
+          created_at: "2021-06-21T07:44:21.000000Z",
+          updated_at: "2021-06-21T07:44:21.000000Z",
+          hoc_exp: [
+            {
+              id: 3,
+              hoc_id: 2,
+              name_of_invoice: "Home2 name_of_invoice",
+              amount_spent: "003 amount_spent",
+              description: "003 description",
+              cor: "003 cor",
+              quantity: null,
+              distributed_to: null,
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+            {
+              id: 4,
+              hoc_id: 2,
+              name_of_invoice: "Home2 name_of_invoice",
+              amount_spent: "004 amount_spent",
+              description: "004 description",
+              cor: "004 cor",
+              quantity: null,
+              distributed_to: null,
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+          ],
+        },
+        {
+          id: 3,
+          account_id: 1,
+          name: "Compliment",
+          is_deleted: 0,
+          created_at: "2021-06-21T07:44:21.000000Z",
+          updated_at: "2021-06-21T07:44:21.000000Z",
+          hoc_exp: [
+            {
+              id: 5,
+              hoc_id: 3,
+              name_of_invoice: "Compliment name_of_invoice",
+              amount_spent: "003 amount_spent",
+              description: "003 description",
+              cor: "003 cor",
+              quantity: "10",
+              distributed_to: "Distributed To",
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+            {
+              id: 6,
+              hoc_id: 3,
+              name_of_invoice: "Compliment name_of_invoice",
+              amount_spent: "004 amount_spent",
+              description: "004 description",
+              cor: "004 cor",
+              quantity: "10",
+              distributed_to: "Distributed To",
+              is_deleted: 0,
+              created_at: "2021-06-21T07:44:21.000000Z",
+              updated_at: "2021-06-21T07:44:21.000000Z",
+            },
+          ],
+        },
+      ],
+    };
 
-                <DynamicTable
-                  {...{ setTableData, tableData:item.hoc_exp , value: "hoc_exps",  item:item.name}}
-                />
+    setTimeout(() => {
+      // setData(data.Account[0].hoc[0].name);
+      console.log(
+        data?.hoc.map((item) => ({
+          name: item.name,
+          tableData: item.hoc_exp,
+        }))
+      );
+      <>
+        {data?.hoc.map((item, index) => {
+          return (
+            <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+              <div>
+                {" "}
+                <button
+                  type="button"
+                  className=" bg-transparent  button-focus "
+                  style={{
+                    fontSize: "26px",
+                    backgroundColor: "#2258BF",
+                    fontWeight: "bold",
+                    float: "right",
+                  }}
+                  onClick={() => {
+                    handleRemove(index);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
               </div>
-            );
-            setHomeData((state) => ({ ...state, [item]: tableData }));
-          })}
+
+              <h4 style={{ color: "#818181" }}>{item.name}</h4>
+
+              <DynamicTable
+                {...{
+                  setTableData,
+                  tableData: item.hoc_exp,
+                  value: "hoc_exps",
+                  item: item.name,
+                }}
+              />
+            </div>
+          );
+          setHomeData((state) => ({ ...state, [item]: tableData }));
+        })}
         {/* {data?.hoc.map((item) => ({
    name:item.name,
    tableData:item.hoc_exp,
@@ -238,20 +238,19 @@ export default function AddAccount() {
          
         )
         )} */}
-        
-        </>
-       
-      }, 1500);
+      </>;
+    }, 1500);
 
-      console.log("kknkn",tableData)
-  },[])
+    console.log("kknkn", tableData);
+  }, []);
+
   const handleData = (data) => {
     setData((state) => state.concat(data));
     setTableData((state) => ({
       ...state,
       [data]: [
         {
-          id:null,
+          id: null,
           name_of_invoice: "",
           amount_spent: "",
           description: "",
@@ -259,6 +258,20 @@ export default function AddAccount() {
         },
       ],
     }));
+  };
+  const handleAddCompliment = () => {
+    setComplimentData({
+      Compliment: [
+        {
+          name_of_invoice: "",
+          amount_spent: "",
+          quantity: "",
+          distributed_to: "",
+          description: "",
+          cor: "PG-" + uuidv4().split("-")[0],
+        },
+      ],
+    });
   };
   const handleRemove = (index) => {
     const list = [...data];
@@ -486,6 +499,18 @@ export default function AddAccount() {
           >
             <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
           </button>
+          {ComplimentData.Compliment.length == 0 && (
+            <button
+              type="button"
+              className="btn btn-primary ml-1"
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+              onClick={handleAddCompliment}
+            >
+              <FontAwesomeIcon icon={faPlusSquare} /> Add Compliment
+            </button>
+          )}
         </Container>
 
         {/* <Col lg={4} md={4} sm={12} xs={12} xl={4}>
@@ -551,12 +576,14 @@ export default function AddAccount() {
             );
             setHomeData((state) => ({ ...state, [item]: tableData }));
           })}
-          <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
-            <h4 style={{ color: "#818181" }}>Compliment</h4>
-            <ComplimentDynamicTable
-              {...{ setComplimentData, ComplimentData }}
-            />
-          </div>
+          {ComplimentData.Compliment.length != 0 && (
+            <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+              <h4 style={{ color: "#818181" }}>Compliment</h4>
+              <ComplimentDynamicTable
+                {...{ setComplimentData, ComplimentData }}
+              />
+            </div>
+          )}
           <div>
             <button
               type="button"

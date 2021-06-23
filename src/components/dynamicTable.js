@@ -66,7 +66,7 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
   const handleAddClick = () => {
     setTableData(state=>{
       return {...state,[item]:state[item].concat({
-        id:null,
+        exp_id:null,
         name_of_invoice: "",
         amount_spent: "",
         description: "",

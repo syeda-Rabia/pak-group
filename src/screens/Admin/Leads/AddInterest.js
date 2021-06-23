@@ -348,7 +348,10 @@ export default function AddInterest() {
       />
       
         <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
-        <IconButton
+       
+        <Col lg={10} sm={10} xs={10} xl={11}>
+        
+          <h3 style={{ color: "#818181" }}> <IconButton
           onClick={() => {
             history.push("/admin/leads");
           }}
@@ -358,9 +361,7 @@ export default function AddInterest() {
           <Tooltip title="Go Back" placement="right" arrow>
             <ArrowBackIcon />
           </Tooltip>
-        </IconButton>
-        <Col lg={10} sm={10} xs={10} xl={11}>
-          <h3 style={{ color: "#818181" }}>Interest</h3>
+        </IconButton>Interest</h3>
         </Col>
         </Row>
      

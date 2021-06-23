@@ -84,6 +84,20 @@ export default function AddAccount() {
       ],
     }));
   };
+  const handleAddCompliment = () => {
+    setComplimentData({
+      Compliment: [
+        {
+          name_of_invoice: "",
+          amount_spent: "",
+          quantity: "",
+          distributed_to: "",
+          description: "",
+          cor: "PG-" + uuidv4().split("-")[0],
+        },
+      ],
+    });
+  };
   const handleRemove = (index) => {
     const list = [...data];
     list.splice(index, 1);
@@ -97,12 +111,15 @@ export default function AddAccount() {
   const getAccountListData= async () => {
     let resp = await GET(ApiUrls.VIEW_ACCOUNT_DETAILS + "/" +5);
     console.log("-----------account data----",resp)
+    setAccountData(resp?.data?.Account)
     let obj={};
     resp?.data.HOC.map(v=>{
+
       obj[v.name]=v.hoc_exp;
     });
+  
     setTableData(obj)
-
+    setComplimentData(obj)
     setData(resp?.data?.HOC);
   };
   const SendRecordToServer = async (event) => {
@@ -154,6 +171,64 @@ export default function AddAccount() {
           <h3 style={{ color: "#818181" }}>Account Detail</h3>
         </Col>
       </Row>
+      <Container fluid>
+          <Row className="">
+            <Col lg={2} sm={12} xs={12} xl={2}>
+              {/* <span class="text-nowrap"> Account Name</span> */}
+              <h6 style={{ color: "#818181" }}> Account Name</h6>
+              <input
+                className="form-control w-100 bg-white"
+                placeholder=""
+                type="text"
+                value={accountData?.account_name}
+                onChange={(e) => {
+                  setAccountName(e.target.value);
+                }}
+              />
+            </Col>
+            <Col lg={2} sm={12} xs={12} xl={2}>
+              {/* <span class="text-nowrap">Total samount</span> */}
+              <h6 style={{ color: "#818181" }}>Total Amount</h6>
+
+              <input
+                className="form-control w-100 bg-white"
+                placeholder=""
+                type="number"
+                value={accountData?.total_amount}
+                onChange={(e) => {
+                  setTotalAmount(e.target.value);
+                }}
+              />
+            </Col>
+            <Col lg={3} sm={12} xs={12} xl={3}>
+              <DayPicking value={today} {...{ setStart, setEnd, Start, End }} />
+            </Col>
+          </Row>
+          <button
+            type="button"
+            className="btn btn-primary"
+            style={{
+              backgroundColor: "#2258BF",
+            }}
+            onClick={() => {
+              setShowAdd(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
+          </button>
+          {ComplimentData?.Compliment?.length == 0 && (
+            <button
+              type="button"
+              className="btn btn-primary ml-1"
+              style={{
+                backgroundColor: "#2258BF",
+              }}
+              onClick={handleAddCompliment}
+            >
+              <FontAwesomeIcon icon={faPlusSquare} /> Add Compliment
+            </button>
+          )}
+        </Container>
 
       <Row className="col-lg-12 shadow p-3  bg-white rounded ml-1 mr-1 ">
         <div className="w-100">
@@ -189,9 +264,14 @@ export default function AddAccount() {
                     {...{ setTableData, tableData, value: "hoc_exps", item:item.name }}
                   />
                   </>
-                  ): ( <ComplimentDynamicTable
-                    {...{ setComplimentData, ComplimentData:item.hoc_exp }}
+                  ): (
+                    <>
+                    {ComplimentData.Compliment.length != 0 && (
+                     <ComplimentDynamicTable
+                    {...{ setComplimentData, ComplimentData }}
                   />)}
+                  </>
+                  )}
                 </div>
               );
               setHomeData((state) => ({ ...state, [item.name]: tableData }));   

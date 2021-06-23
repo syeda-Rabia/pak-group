@@ -26,7 +26,7 @@ import {
  faTimesCircle,
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
-export default function ComplimentDynamicTable({setComplimentData,ComplimentData}) {
+export default function ComplimentDynamicTable({setComplimentData,ComplimentData,item="Compliment"}) {
 
 
 //adding new logic
@@ -35,21 +35,39 @@ const [Listdata, setListData] = useState(inputList)
 // handle input change
 const handleInputChange = (e, index) => {
   const { name, value } = e.target;
-  const list = [...inputList];
-  list[index][name] = value;
-  setInputList(list);
+  // const list = [...inputList];
+  // list[index][name] = value;
+  setComplimentData(state=>{
+    return {...state,[item]:state[item].map((v,i)=>{
+      if(i==index)
+        v[name]=value
+      return v;
+    })}
+  })
+  // setInputList(list);
 };
 
 // handle click event of the Remove button
-const handleRemoveClick = index => {
-  const list = [...inputList];
-  list.splice(index, 1);
-  setInputList(list);
+const handleRemoveClick = (index) => {
+  // const list = [...inputList];
+  // list.splice(index, 1);
+  // setInputList(list);
+  if(ComplimentData[item][index].id!=null){
+    // api call for removing row from session
+  }
+  setComplimentData(state=>{
+    return {...state,[item]:state[item].filter((v,i)=>i!=index)}
+  })
 };
 
 // handle click event of the Add button
 const handleAddClick = () => {
-  setInputList([...inputList, { name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0] }]);
+  setComplimentData(state=>{
+    return {...state,[item]:state[item].concat({
+      exp_id:null,
+     name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0]
+    })}
+  })
 };
 //ending new logic
 
@@ -121,7 +139,7 @@ const handleAddClick = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {inputList.map((item, idx) => (
+                  {ComplimentData[item]?.map((v, idx) => (
                     <tr id="addr0" key={idx}>
                       <td>{idx}</td>
                       {/* <td><KeyboardDatePickerExample
@@ -132,7 +150,7 @@ const handleAddClick = () => {
                           type="text"
                           name="name_of_invoice"
                           placeholder="Enter Expense name"
-                          value={item.name_of_invoice}
+                          value={v.name_of_invoice}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
@@ -142,7 +160,7 @@ const handleAddClick = () => {
                           type="text"
                           name="amount_spent"
                           placeholder="Enter Amount spent"
-                          value={item.amount_spent}
+                          value={v.amount_spent}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
@@ -152,7 +170,7 @@ const handleAddClick = () => {
                           type="number"
                           name="quantity"
                           placeholder="Enter Quantity "
-                          value={item.quantity}
+                          value={v.quantity}
                           onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
@@ -162,7 +180,7 @@ const handleAddClick = () => {
                           type="text"
                           name="distributed_to"
                           placeholder="Enter name"
-                          value={item.distributed_to}
+                          value={v.distributed_to}
                           onChange={e => handleInputChange(e, idx)}
                          
                           className="form-control w-100"
@@ -182,7 +200,7 @@ const handleAddClick = () => {
                           type="text"
                           name="description"
                           placeholder="Enter description"
-                          value={item.description}
+                          value={v.description}
                           onChange={e => handleInputChange(e, idx)}
                           style={{width:"400px"}}
                           className="form-control "
@@ -193,19 +211,19 @@ const handleAddClick = () => {
                           type="text"
                           name="amount"
                           placeholder=""
-                          value={item.cor}
+                          value={v.cor}
                           // onChange={e => handleInputChange(e, idx)}
                           className="form-control w-100"
                         />
                       </td>
                       <td>
-                      {inputList.length !== 1 && <button
+                      {ComplimentData[item]?.length !== 1 && <button
                        className="bg-transparent  button-focus ml-2"
                
                 onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>}
                      
                       </td>
-                        {inputList.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
+                        {ComplimentData[item]?.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
                       
                     </tr>
                   ))}
@@ -214,7 +232,7 @@ const handleAddClick = () => {
                 </tbody>
                
               </table>
-              <button
+              {/* <button
                 onClick={()=>
                 {  
                  
@@ -226,8 +244,8 @@ const handleAddClick = () => {
               >
                 
             Save
-              </button>
-              {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
+              </button> */}
+              <div style={{ marginTop: 20 }}>{JSON.stringify(ComplimentData[item])}</div>
              
              
             </div>
