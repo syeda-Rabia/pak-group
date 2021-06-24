@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { AccountData } from "../../../assests/constants/AccountDetaildata";
 import { DayPicking } from "../../../utils/YearPicker";
 import DynamicTable from "../../../components/dynamicTable";
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v4 as uuidv4 } from "uuid";
 import ApiUrls from "../../../utils/ApiUrls";
 import { GET, POST } from "../../../utils/Functions";
-
+import { Modal } from "react-bootstrap";
   import { faPlusSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -18,7 +18,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Tooltip, IconButton } from "@material-ui/core";
 import { useHistory, Redirect, Route } from "react-router-dom";
 
-export default function AddAccount() {
+export default function ViewAndEditAccount(props) {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState([]);
   const [selectedID, setSelectedID] = useState(0);
@@ -34,7 +34,8 @@ export default function AddAccount() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   var today = new Date();
   const [refresh, setRefresh] = useState(false);
-  
+  const accId=props?.location?.query;
+  console.log("account props", accId)
   // var datee = formatDate(today, "-");
  
   const formatDate = (date) => {
@@ -74,6 +75,7 @@ export default function AddAccount() {
     setTableData((state) => ({
       ...state,
       [data]: [
+      
         {
           id:null,
           name_of_invoice: "",
@@ -99,21 +101,22 @@ export default function AddAccount() {
     });
   };
   const handleRemove = (index) => {
-    const list = [...data];
-    list.splice(index, 1);
+    const list = {...tableData};
+    delete list[index]
+    // list.splice(index, 1);
 
-    setData(list);
+    setTableData(list);
   };
   useEffect(() => {
     getAccountListData();
   }, [refresh]);
 
   const getAccountListData= async () => {
-    let resp = await GET(ApiUrls.VIEW_ACCOUNT_DETAILS + "/" +5);
+    let resp = await GET(ApiUrls.VIEW_ACCOUNT_DETAILS + "/" + accId?.item?.id);
     console.log("-----------account data----",resp)
     setAccountData(resp?.data?.Account)
     let obj={};
-    resp?.data.HOC.map(v=>{
+    resp?.data?.HOC?.map(v=>{
 
       obj[v.name]=v.hoc_exp;
     });
@@ -152,7 +155,118 @@ export default function AddAccount() {
 
     setShowAdd(false);
   };
- 
+  const ModalAdd = ({ item }) => {
+    const [home, SetHome] = useState("");
+    const [type, SetType] = useState("Home");
+    const addData = async (event) => {
+      event.preventDefault();
+      let postData = {
+        // id: "1",
+        name: home,
+        type: type,
+      };
+      // let arr = data;
+      // arr.push(postData);
+      // setData(arr);
+      // setShowAdd(false);
+      //api
+      // let res = await POST(ApiUrls.POST_ADD_HOME_OR_OFFICE, postData);
+      // console.log("post request", res,postData);
+      // if (res?.hasOwnProperty("success")) {
+      //   setMessage(res?.success);
+      //   setShowSuccessAlert(true);
+      // } else if (res?.hasOwnProperty("error")) {
+      //   setMessage(res?.error);
+      //   setShowErrorAlert(true);
+      // }
+      // setRefresh(!refresh);
+
+      // setShowAdd(false);
+    };
+    //api
+    // };
+
+    return (
+      <Modal
+        show={showAdd}
+        onHide={() => {
+          setShowAdd(false);
+        }}
+      >
+        <Modal.Header
+          closeButton
+          className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
+        >
+          <Modal.Title style={{ color: "#818181" }}>
+            Add Home and Office
+          </Modal.Title>
+        </Modal.Header>
+        <form
+          onSubmit={(e) => {
+            // SendRecordToServer(e);
+          }}
+        >
+          <div className="col-lg-12 shadow bg-white rounded">
+            <Modal.Body>
+              <div className="pb-3">
+                <h6>Home and Office</h6>
+                <input
+                  className="form-control  w-100 "
+                  placeholder="Enter Home or Office name"
+                  type="text"
+                  value={home}
+                  onChange={(e) => {
+                    SetHome(e.target.value);
+                  }}
+                />
+              </div>
+              {/* <div className="pb-3">
+                <h6>Select Home or office</h6>
+                <Form.Control
+              className="w-100 "
+              style={{ height: "32px", fontSize: "13px" }}
+              controlid="type"
+              as="select"
+              value={type}
+              onChange={(e) => {
+                console.log("select client ID is -----", e.target.value);
+                SetType(e.target.value);
+              }}
+            >
+              
+              <option value={"Home"}>Home</option>
+              <option value={"Office"}>Office</option>
+             
+            </Form.Control>
+              </div> */}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                onClick={() => {
+                  setShowAdd(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                style={{ backgroundColor: "#2258BF" }}
+                type="submit"
+                value="Submit"
+                onClick={() => {
+                  handleData(home);
+                  setShowAdd(false);
+                }}
+                // onClick={addData}
+              >
+                Add
+              </Button>
+            </Modal.Footer>
+          </div>
+        </form>
+      </Modal>
+    );
+  };
   return (
     <Container fluid className="Laa">
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
@@ -232,7 +346,7 @@ export default function AddAccount() {
 
       <Row className="col-lg-12 shadow p-3  bg-white rounded ml-1 mr-1 ">
         <div className="w-100">
-          {data?.map((item, index) => {
+          {Object.keys(tableData)?.map((item, index) => {
 
             return (
             
@@ -249,19 +363,19 @@ export default function AddAccount() {
                         float: "right",
                       }}
                       onClick={() => {
-                        handleRemove(index);
+                        handleRemove(item);
                       }}
                     >
                       <FontAwesomeIcon icon={faTimes} />
                     </button>
                   </div>
-                  <h4 style={{ color: "#818181" }}>{item.name}</h4>
-                  {item.name !== "Compliment" ? (
+                  <h4 style={{ color: "#818181" }}>{item}</h4>
+                  {item !== "Compliment" ? (
                     
                     <>
                    
                   <DynamicTable
-                    {...{ setTableData, tableData, value: "hoc_exps", item:item.name }}
+                    {...{ setTableData, tableData, value: "hoc_exps", item:item }}
                   />
                   </>
                   ): (
@@ -280,13 +394,48 @@ export default function AddAccount() {
              
             
           })}
-
+ <div>
+            <button
+              type="button"
+              className="btn btn-primary mt-5"
+              style={{
+                backgroundColor: "#2258BF",
+                float: "right",
+              }}
+              onClick={(e) => {
+                console.log("home data", homeData);
+                setAccountData({ ...tableData, ...ComplimentData });
+                SendRecordToServer(e);
+                let arr = Object.keys(tableData).map((key) => {
+                  return { name: key, hoc_exps: tableData[key] };
+                });
+                arr.push({
+                  name: "Compliment",
+                  hoc_exps: ComplimentData.Compliment,
+                });
+                console.log({
+                  hoc: arr,
+                  account: {
+                    account_name: "Account1",
+                    total_amount: "5000",
+                    start_date: "2021-06-01",
+                    end_date: "2021-06-09",
+                  },
+                });
+              }}
+            >
+              Finish
+            </button>
+          </div>
+        
+        
           {/* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>Compliment</h4>
           <ComplimentDynamicTable {...{setComplimentData,ComplimentData}}/>
           
               </div>  */}
         </div>
+        <ModalAdd />
       </Row>
     </Container>
   );

@@ -44,7 +44,7 @@ import Account from "./screens/Admin/Account/Account";
 import AdminAccounts from "./screens/Admin/Accounts/AccountListing";
 import AddAccount from "./screens/Admin/Accounts/AddAccount";
 import AccountDetail from "./screens/Admin/Accounts/AccountDetail";
-import AddHome from "./screens/Admin/Accounts/AddHomeAndOffice";
+import ViewAndEditAccount from "./screens/Admin/Accounts/ViewAndEditAccount";
 import LoanDetails from "./screens/Admin/Accounts/LoanDetails";
 import SingleEmployeeAttenndance from "./screens/Admin/Account/SingleEmployeeAttenndance";
 import AllEmployeeAttenndance from "./screens/Admin/Account/AllEmployeesAttendance";
@@ -254,9 +254,18 @@ const NewApp = (props) => {
         <Route path="/admin/accountDetail">
           <AccountDetail />
         </Route>
-        <Route path="/admin/addhome">
-          <AddHome />
-        </Route>
+        {/* <Route path="/admin/edit-account">
+          <ViewAndEditAccount />
+        </Route> */}
+        <Route
+          exact
+          path="/admin/edit-account"
+          render={(props) => (
+            <>
+              <ViewAndEditAccount {...props} />
+            </>
+          )}
+        />
         <Route path="/admin/loan-details">
           <LoanDetails/>
         </Route>

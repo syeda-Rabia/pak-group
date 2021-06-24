@@ -76,7 +76,7 @@ function AdminAccounts() {
   const getAccountListData= async () => {
     let resp = await GET(ApiUrls.GET_ALL_ACCOUNTS_LIST);
     console.log("-----------account listing----",resp)
-    setData(resp?.data?.Account);
+    setData(resp?.data?.Account?.data);
   };
   
   const SendRecordToServer = async (event) => {
@@ -109,34 +109,34 @@ function AdminAccounts() {
  
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-        let { id } = item;
-        console.log("ID is ", id);
+        // let { id } = item;
+        // console.log("ID is ", id);
   
-        let arr = data;
+        // let arr = data;
   
-        arr = arr.filter((user) => user.id != id.toString());
+        // arr = arr.filter((user) => user.id != id.toString());
   
-        console.log("arr length ", arr.length, arr, selectedID);
-        setSelectedID((state) => {
-          if (state == arr.length) return state - 1;
-          return state;
-        });
-        setData(arr);
-        setShowDelete(false);
-    //   let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
-    //   setShowDelete(false);
+        // console.log("arr length ", arr.length, arr, selectedID);
+        // setSelectedID((state) => {
+        //   if (state == arr.length) return state - 1;
+        //   return state;
+        // });
+        // setData(arr);
+        // setShowDelete(false);
+      let res = await GET(ApiUrls.DELETE_ACCOUNT + "/" + item.id);
+      setShowDelete(false);
 
-    //   if (res.error === false) {
-    //     setMessage("Interest Deleted Successfully");
-    //     setShowSuccessAlert(true);
-    //     // setRefresh(!refresh);
-    //     setSelectedID(0);
-    //   } else {
-    //     setMessage("Interest Not Deleted");
-    //     setShowErrorAlert(true);
-    //   }
-    //   // console.log(res);
-    //   setRefresh(!refresh);
+      if (res.error === false) {
+        setMessage("Account  Deleted Successfully");
+        setShowSuccessAlert(true);
+        // setRefresh(!refresh);
+        setSelectedID(0);
+      } else {
+        setMessage("Account Not Deleted");
+        setShowErrorAlert(true);
+      }
+      // console.log(res);
+      setRefresh(!refresh);
     };
     return (
       <Modal
@@ -180,8 +180,8 @@ function AdminAccounts() {
         <td>{index + 1}</td>
         <td>{item.account_name}</td>
         <td>{item.total_amount}</td>
-        <td>{}</td>
-        <td>{}</td>
+        <td>{item?.amount?.amount_spent}</td>
+        <td>{item?.amount?.remaing_amount}</td>
         
         <td>
           <div
@@ -200,7 +200,7 @@ function AdminAccounts() {
               //   setSelectedID(index);
               // }}
             >
-              <Link to={{ pathname: "/admin/accountDetail", query: { item } }}>
+              <Link to={{ pathname: "/admin/edit-account", query: { item } }}>
                 <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEye} />
               </Link>
             </button>
@@ -261,7 +261,7 @@ function AdminAccounts() {
           <Col lg={7} md={7} sm={12} xs={12} xl={7}>
             <h4 style={{ color: "#818181",paddingTop:"12px" }}>Account Listing</h4>
           </Col>
-          
+         
          
           <Col lg={4}  md={4} sm={6} xs={12} xl={3} className="pt-2 pb-0 ">
             

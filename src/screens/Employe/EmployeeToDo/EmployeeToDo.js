@@ -1177,9 +1177,13 @@ function EmployeeLeads(props, lead_id) {
         <td>
         {item.status!=="Loss"  && item.status!=="Complete"? (
              <>
-          <Button  onClick={() => {
+             {recordingFile !=""?
+             (
+              <Button  onClick={() => {
                 SendFileToServer();
               }}>Update</Button>
+             ):"----"}
+   
               </>
         ):"----"}
         </td>
