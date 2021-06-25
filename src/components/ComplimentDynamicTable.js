@@ -26,12 +26,19 @@ import {
  faTimesCircle,
  faCheckDouble
 } from "@fortawesome/free-solid-svg-icons";
+import ApiUrls from "../utils/ApiUrls";
+import { GET, POST } from "../utils/Functions";
+import SuccessNotification from "../components/SuccessNotification";
+import ErrorNotification from "../components/ErrorNotification";
 export default function ComplimentDynamicTable({setComplimentData,ComplimentData,item="Compliment"}) {
 
 
 //adding new logic
+const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+const [showErrorAlert, setShowErrorAlert] = useState(false);
 const [inputList, setInputList] = useState([{ name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0]}]);
 const [Listdata, setListData] = useState(inputList)
+const [message, setMessage] = React.useState("");
 // handle input change
 const handleInputChange = (e, index) => {
   const { name, value } = e.target;
@@ -64,7 +71,7 @@ const handleRemoveClick = (index) => {
 const handleAddClick = () => {
   setComplimentData(state=>{
     return {...state,[item]:state[item].concat({
-      exp_id:null,
+      id:null,
      name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0]
     })}
   })
@@ -79,6 +86,18 @@ const handleAddClick = () => {
     return (
     
         <div className="w-100 ">
+          <>
+    <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+      </>
           <div className="row clearfix">
             <div className="col-md-12 column table-responsive">
               <table

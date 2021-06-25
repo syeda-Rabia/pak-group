@@ -272,6 +272,23 @@ onClick={()=>{
               >Attendance</Nav.Item>
             </Link>
             <Link
+              onClick={() => {
+                setSelected(8);
+              }}
+              id="R-navlink"
+              to={{
+                pathname: "/admin/account",
+                state: { from: "AdminHeader" },
+              }}
+            >
+              <Nav.Item
+                style={{
+                  backgroundColor:
+                    selected == 8 ? "rgba(93, 188, 210, 0.5)" : "transparent",
+                }}
+              >Accounts</Nav.Item>
+            </Link>
+            <Link
               // onClick={() => {
               //   setSelected(8);
               // }}

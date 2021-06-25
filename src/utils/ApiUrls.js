@@ -139,7 +139,9 @@ POST_ADD_EXPENCES:"admin/accounts/add_account",
 GET_ALL_ACCOUNTS_LIST:"admin/accounts/list_account?page=",
 VIEW_ACCOUNT_DETAILS:"admin/accounts/view_account",
 DELETE_ACCOUNT:"admin/accounts/delete_account",
-
+UPDATE_ACCOUNT:"admin/accounts/update_account",
+DELETE_HOME_OR_COMPLIMENT:"admin/accounts/delete_hoc",
+DELETE_EXPENSE:"admin/accounts/delete_exp_hoc",
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",
   EDIT_INTEREST: "admin/interest/edit",

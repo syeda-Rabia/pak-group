@@ -11,8 +11,9 @@ import ApiUrls from "../../../utils/ApiUrls";
 import { GET, POST } from "../../../utils/Functions";
 import { Modal } from "react-bootstrap";
   import { faPlusSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-
-
+  import moment from 'moment';
+  import SuccessNotification from "../../../components/SuccessNotification";
+  import ErrorNotification from "../../../components/ErrorNotification";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Tooltip, IconButton } from "@material-ui/core";
@@ -21,7 +22,9 @@ import { useHistory, Redirect, Route } from "react-router-dom";
 export default function ViewAndEditAccount(props) {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState([]);
+  const [tableDataIds, setTableDataIds] = React.useState([]);
   const [selectedID, setSelectedID] = useState(0);
+  const [showDelete, setShowDelete] = useState(false);
  
   const [homeData, setHomeData] = React.useState([]);
   const [ComplimentData, setComplimentData] = React.useState([]);
@@ -49,11 +52,37 @@ export default function ViewAndEditAccount(props) {
 
     return [year, month, day].join("-");
   };
+  const timeFormat = (time) => {
+    if (time) {
+      let hour = time?.split(":")?.[0];
+      let min = time?.split(":")?.[1];
+      let sec = time?.split(":")?.[2];
+      let d = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getHours(),
+        hour,
+        min,
+        sec
+      );
+      // console.log("----------------",d)
+      return d;
+    }
+    let d1 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getHours(),
+      "00",
+      "00",
+      "00"
+    );
+    return d1;
+  };
   const arrayData = () => {
     let arr = Object.keys(tableData).map((key) => {
-      return { name: key, hoc_exps: tableData[key] };
+      return { name: key, hoc_exps: tableData[key],hoc_id:tableDataIds[key]?tableDataIds[key]:null };
     });
-    arr.push({ name: "Compliment", hoc_exps: ComplimentData.Compliment });
+    // arr.push({ name: "Compliment", hoc_exps: ComplimentData.Compliment,hoc_id:tableDataIds.Compliment?tableDataIds.Compliment:null });
     //   console.log({hoc:arr,account: {
     //     "account_name":"Account1",
     //     "total_amount":"5000",
@@ -71,12 +100,13 @@ export default function ViewAndEditAccount(props) {
   console.log("table data", tableData);
   console.log("data", ComplimentData);
   const handleData = (data) => {
-    setData((state) => state.concat(data));
+    // setData((state) => state.concat(data));
     setTableData((state) => ({
-      ...state,
+      ...state, 
       [data]: [
       
         {
+        
           id:null,
           name_of_invoice: "",
           amount_spent: "",
@@ -84,12 +114,14 @@ export default function ViewAndEditAccount(props) {
           cor: "PG-" + uuidv4().split("-")[0],
         },
       ],
+     
     }));
   };
   const handleAddCompliment = () => {
     setComplimentData({
       Compliment: [
         {
+          id:null,
           name_of_invoice: "",
           amount_spent: "",
           quantity: "",
@@ -100,12 +132,27 @@ export default function ViewAndEditAccount(props) {
       ],
     });
   };
-  const handleRemove = (index) => {
-    const list = {...tableData};
-    delete list[index]
+  const handleRemove = async(index) => {
+    
     // list.splice(index, 1);
 
+    console.log("ali ali ayesha",tableDataIds[index])
+    let res = await GET(ApiUrls.DELETE_HOME_OR_COMPLIMENT + "/" + tableDataIds[index]);
+    setShowDelete(false);
+    console.log("delete",res)
+    if (res.hasOwnProperty("success")) {
+      setMessage(res.success);
+      setShowSuccessAlert(true);
+      const list = {...tableData};
+    delete list[index]
     setTableData(list);
+      // setRefresh(!refresh);
+      setSelectedID(0);
+    } else  if (res.hasOwnProperty("error")){
+      setMessage(res.error);
+      setShowErrorAlert(true);
+    }
+   
   };
   useEffect(() => {
     getAccountListData();
@@ -114,25 +161,33 @@ export default function ViewAndEditAccount(props) {
   const getAccountListData= async () => {
     let resp = await GET(ApiUrls.VIEW_ACCOUNT_DETAILS + "/" + accId?.item?.id);
     console.log("-----------account data----",resp)
-    setAccountData(resp?.data?.Account)
+    setAccountData(resp?.data?.Account);
+  setAccountName(resp?.data?.Account?.account_name);
+  setTotalAmount(resp?.data?.Account?.total_amount);
+  setStart(resp?.data?.Account?.start_date)
+  setEnd(resp?.data?.Account?.end_date)
     let obj={};
+    let objIDs={}
     resp?.data?.HOC?.map(v=>{
-
+      objIDs[v.name]=v.id;
       obj[v.name]=v.hoc_exp;
+      
     });
   
     setTableData(obj)
     setComplimentData(obj)
-    setData(resp?.data?.HOC);
+    setData(obj);
+    setTableDataIds(objIDs);
   };
   const SendRecordToServer = async (event) => {
     // event.preventDefault();
     let formData = {
       account: {
+        account_id:accId?.item?.id,
         account_name: accountName,
         total_amount: totalAmount,
-        start_date: formatDate(Start),
-        end_date: formatDate(End),
+        start_date: formatDate(today),
+        end_date: formatDate(today),
       },
       hoc: arrayData(),
       // account_name: accountName,
@@ -142,14 +197,14 @@ export default function ViewAndEditAccount(props) {
       //     data:accountData,
     };
     // const myObjStr = JSON.stringify(myObjStr);
-    let resp = await POST(ApiUrls.POST_ADD_EXPENCES, formData);
+    let resp = await POST(ApiUrls.UPDATE_ACCOUNT, formData);
     console.log("account data", formData, resp);
     if (resp.error == false) {
-      setMessage("Account Created Successfully.");
+      setMessage("Account Updated Successfully.");
       setShowSuccessAlert(true);
     } else {
       // ;
-      setMessage("Account Not Created");
+      setMessage("Account Not updated");
       setShowErrorAlert(true);
     }
 
@@ -267,9 +322,20 @@ export default function ViewAndEditAccount(props) {
       </Modal>
     );
   };
+ 
   return (
     <Container fluid className="Laa">
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+      <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
         <IconButton
           onClick={() => {
             history.push("/admin/account");
@@ -294,7 +360,7 @@ export default function ViewAndEditAccount(props) {
                 className="form-control w-100 bg-white"
                 placeholder=""
                 type="text"
-                value={accountData?.account_name}
+                value={accountName}
                 onChange={(e) => {
                   setAccountName(e.target.value);
                 }}
@@ -308,19 +374,47 @@ export default function ViewAndEditAccount(props) {
                 className="form-control w-100 bg-white"
                 placeholder=""
                 type="number"
-                value={accountData?.total_amount}
+                value={totalAmount}
                 onChange={(e) => {
                   setTotalAmount(e.target.value);
                 }}
               />
+              
             </Col>
-            <Col lg={3} sm={12} xs={12} xl={3}>
-              <DayPicking value={today} {...{ setStart, setEnd, Start, End }} />
-            </Col>
+            {/* <Col lg={3} sm={12} xs={12} xl={3}>
+              <DayPicking value={today} {...{ setStart:moment(accountData.start_date).format("dddd, MMMM Do YYYY, h:mm:ss a"), setEnd, Start, End }} />
+            </Col> */}
+             <Col lg={2} sm={12} xs={12} xl={2}>
+             <h6 style={{ color: "#818181" }}>Start Date</h6>
+
+<input
+  className="form-control w-100 bg-white"
+  placeholder=""
+  type="text"
+  value={Start}
+  // onChange={(e) => {
+  //   setTotalAmount(e.target.value);
+  // }}
+/>
+</Col>
+<Col lg={2} sm={12} xs={12} xl={2}>
+             <h6 style={{ color: "#818181" }}>End Date</h6>
+
+<input
+  className="form-control w-100 bg-white"
+  placeholder=""
+  type="text"
+  value={End}
+  // onChange={(e) => {
+  //   setTotalAmount(e.target.value);
+  // }}
+/>
+             </Col>
+            
           </Row>
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary mt-3"
             style={{
               backgroundColor: "#2258BF",
             }}
@@ -364,6 +458,8 @@ export default function ViewAndEditAccount(props) {
                       }}
                       onClick={() => {
                         handleRemove(item);
+                        // setShowDelete(true);
+                        // setSelectedID(item);
                       }}
                     >
                       <FontAwesomeIcon icon={faTimes} />
@@ -380,7 +476,7 @@ export default function ViewAndEditAccount(props) {
                   </>
                   ): (
                     <>
-                    {ComplimentData.Compliment.length != 0 && (
+                    {ComplimentData?.Compliment?.length != 0 && (
                      <ComplimentDynamicTable
                     {...{ setComplimentData, ComplimentData }}
                   />)}
@@ -427,13 +523,15 @@ export default function ViewAndEditAccount(props) {
               Finish
             </button>
           </div>
+          {/* {Object.keys(tableDataIds)?.length>0 && selectedID !== null ?(
+ <ModalDelete item={tableDataIds[selectedID]} />
+          ):null} */}
         
-        
-          {/* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+          {/* /* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>Compliment</h4>
           <ComplimentDynamicTable {...{setComplimentData,ComplimentData}}/>
           
-              </div>  */}
+              </div>  */ }
         </div>
         <ModalAdd />
       </Row>

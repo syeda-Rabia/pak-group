@@ -94,6 +94,7 @@ export function DayPicking({ value,setStart, setEnd,Start:startDate,End:endDate 
         required="true"
         onChange={(date) => {setStartDate(date)
           // let start=date.toString().split(" ")[1];
+          
           setStart(date)
         
         }}

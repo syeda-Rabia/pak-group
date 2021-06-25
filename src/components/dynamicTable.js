@@ -22,9 +22,17 @@ import {
   faTimesCircle,
   faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
+import ApiUrls from "../utils/ApiUrls";
+import { GET, POST } from "../utils/Functions";
+import SuccessNotification from "../components/SuccessNotification";
+import ErrorNotification from "../components/ErrorNotification";
+
 export default function DynamicTable({ setTableData, tableData, item, value }) {
   // console.log("setTableData",setTableData,"tableData",tableData,"item",item)
   //adding new logic
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [message, setMessage] = React.useState("");
   const [inputList, setInputList] = useState([
     {
       name_of_invoice: "",
@@ -50,12 +58,25 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
   };
 
   // handle click event of the Remove button
-  const handleRemoveClick = (index) => {
+  const handleRemoveClick = async(index) => {
     // const list = [...inputList];
     // list.splice(index, 1);
     // setInputList(list);
     if(tableData[item][index].id!=null){
+      let res = await GET(ApiUrls.DELETE_EXPENSE + "/" + tableData[item][index].id);
+    
+      console.log("delete",tableData[item][index].id,res)
+      if (res.hasOwnProperty("success")) {
+        setMessage(res.success);
+        setShowSuccessAlert(true);
+        // setRefresh(!refresh);
+        
+      } else  if (res.hasOwnProperty("error")){
+        setMessage(res.error);
+        setShowErrorAlert(true);
+      }
       // api call for removing row from session
+
     }
     setTableData(state=>{
       return {...state,[item]:state[item].filter((v,i)=>i!=index)}
@@ -66,7 +87,7 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
   const handleAddClick = () => {
     setTableData(state=>{
       return {...state,[item]:state[item].concat({
-        exp_id:null,
+        id:null,
         name_of_invoice: "",
         amount_spent: "",
         description: "",
@@ -86,7 +107,20 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
   //ending new logic
 
   return (
+    
     <div className="w-100 ">
+      <>
+    <SuccessNotification
+        showSuccess={showSuccessAlert}
+        message={message}
+        closeSuccess={setShowSuccessAlert}
+      />
+      <ErrorNotification
+        showError={showErrorAlert}
+        message={message}
+        closeError={setShowErrorAlert}
+      />
+      </>
       <div className="row clearfix">
         <div className="col-md-12 column table-responsive">
           <table className="table  table-hover" id="tab_logic">
