@@ -424,10 +424,11 @@ export default function ViewAndEditAccount(props) {
           >
             <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
           </button>
+          
           {ComplimentData?.Compliment?.length == 0 && (
             <button
               type="button"
-              className="btn btn-primary ml-1"
+              className="btn btn-primary ml-1 mt-3"
               style={{
                 backgroundColor: "#2258BF",
               }}

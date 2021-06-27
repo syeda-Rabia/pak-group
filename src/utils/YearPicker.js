@@ -13,13 +13,19 @@ import { Container, Form, Row, Col } from "react-bootstrap";
   selected={startDate}
   onChange={(date) => {
     setStartDate(date);
-    // console.log(date);
+    if(date!=null){
+      let m=date.toString().split(" ")[1];
+      let monthNumber=months.findIndex((item)=>item.toUpperCase()==m.toUpperCase())+1;
+  
+      console.log(monthNumber,date);
+    
+  
+      setDays(state=>({...state,month:monthNumber>10?monthNumber:"0"+monthNumber}))
+    }
+   
+    console.log(date);
     // showDate(date);
-    let m=date.toString().split(" ")[1];
-    let monthNumber=months.findIndex((item)=>item.toUpperCase()==m.toUpperCase())+1;
-
-    console.log(monthNumber,date);
-    setDays(state=>({...state,month:monthNumber>10?monthNumber:"0"+monthNumber}))
+   
   }}
   
   dateFormat="MM"
@@ -49,7 +55,9 @@ return (
     value={startDate}
  
     onChange={(date) => {setStartDate(date)
-    
+console.log("date...",date)
+    if(date!=null)
+
       setDays(state=>({...state,year:date.toString().split(" ")[3]}))
     
     }}

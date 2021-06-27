@@ -160,7 +160,7 @@ const handleAddClick = () => {
                 <tbody>
                   {ComplimentData[item]?.map((v, idx) => (
                     <tr id="addr0" key={idx}>
-                      <td>{idx}</td>
+                      <td>{idx+1}</td>
                       {/* <td><KeyboardDatePickerExample
                       value={date}
                       showDate={handleDateValue}/> </td> */}
@@ -264,7 +264,7 @@ const handleAddClick = () => {
                 
             Save
               </button> */}
-              <div style={{ marginTop: 20 }}>{JSON.stringify(ComplimentData[item])}</div>
+              {/* <div style={{ marginTop: 20 }}>{JSON.stringify(ComplimentData[item])}</div> */}
              
              
             </div>

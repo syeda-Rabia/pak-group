@@ -167,7 +167,7 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
             <tbody>
               {tableData[item]?.map((v, idx) => (
                 <tr id="addr0" key={idx}>
-                  <td>{idx}</td>
+                  <td>{idx+1}</td>
                   {/* <td><KeyboardDatePickerExample
                       value={date}
                       showDate={handleDateValue}/> </td> */}
@@ -253,7 +253,7 @@ export default function DynamicTable({ setTableData, tableData, item, value }) {
           >
             Save
           </button> */}
-          <div style={{ marginTop: 20 }}>{JSON.stringify(tableData[item])}</div>
+          {/* <div style={{ marginTop: 20 }}>{JSON.stringify(tableData[item])}</div> */}
         </div>
       </div>
     </div>

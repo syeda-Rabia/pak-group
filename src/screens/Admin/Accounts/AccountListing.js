@@ -17,7 +17,7 @@ import ReactTooltip from "react-tooltip";
 import { dummyData } from "../../../assests/constants/todoList";
 import DynamicTable from "../../../components/dynamicTable";
 import DynamicTableFormodal from "../../../components/dynamicTableForModal";
-
+import Pagination from "../../../components/Pagination/Pagination";
 
 import {
   faEye,
@@ -47,9 +47,10 @@ function AdminAccounts() {
   // var datee = formatDate(today, "-");
   const [Start, setStart] = useState();
   const [End, setEnd] = useState();
-  const [data, setData] = useState(ModalData);
+  const [data, setData] = useState([]);
   const [home, setHome] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { RangePicker } = DatePicker;
 
   const [days, setDays] = useState({
@@ -72,11 +73,44 @@ function AdminAccounts() {
   useEffect(() => {
     getAccountListData();
   }, [refresh]);
+ /*  Pagination data  */
 
+ const [pageSize, setPageSize] = React.useState(0);
+ const [currentPage, setCurrentPage] = React.useState(0);
+ const [pageCount, setPageCount] = React.useState(0);
+ const [totalRecord, setTotalRecord] = React.useState(0);
+
+ const lastIndex = currentPage * pageSize;
+ const istIndex = lastIndex - pageSize;
+ 
+ // const [page, setPage] = React.useState(2);
+ const handlePageChange = async (page) => {
+   /*
+    Api Call
+    
+    */
+   setIsLoading(true);
+   let resp = await GET(ApiUrls.GET_ALL_ACCOUNTS_LIST + page);
+
+   if (resp?.data != null) {
+     setCurrentPage(resp?.data?.Account?.current_page);
+     setData(resp?.data?.Account?.data);
+   }
+   setIsLoading(false);
+ };
+
+ const handleShow = (pageCount) => {
+   setPageCount(pageCount);
+ };
+
+ /*  Pagination data  */
   const getAccountListData= async () => {
     let resp = await GET(ApiUrls.GET_ALL_ACCOUNTS_LIST);
     console.log("-----------account listing----",resp)
     setData(resp?.data?.Account?.data);
+    setPageSize(resp?.data?.Account?.per_page);
+      setTotalRecord(resp?.data?.Account?.total);
+      setCurrentPage(resp?.data?.Account?.current_page);
   };
   
   const SendRecordToServer = async (event) => {
@@ -403,7 +437,32 @@ function AdminAccounts() {
         {/* <ModalAdd />  */}
        
       </Row>
-   
+      <Col>
+       
+       {pageCount>1?(
+<p className="page-info">
+Showing {currentPage} from {pageCount}
+</p>
+       ):null
+      
+       }
+         
+     </Col>
+     <Col>
+    
+
+<Pagination
+itemsCount={totalRecord}
+pageSize={pageSize}
+currentPage={currentPage}
+onPageChange={handlePageChange}
+show={handleShow}
+/>
+
+      
+    
+    
+     </Col>
       </Container>
   );
 }

@@ -50,7 +50,10 @@ export default function AddAccount() {
     let arr = Object.keys(tableData).map((key) => {
       return { name: key, hoc_exps: tableData[key] };
     });
-    arr.push({ name: "Compliment", hoc_exps: ComplimentData.Compliment });
+    if (ComplimentData.Compliment.length != 0)
+      arr.push({ name: "Compliment", hoc_exps: ComplimentData.Compliment });
+    
+   
     //   console.log({hoc:arr,account: {
     //     "account_name":"Account1",
     //     "total_amount":"5000",
@@ -596,22 +599,22 @@ export default function AddAccount() {
                 console.log("home data", homeData);
                 setAccountData({ ...tableData, ...ComplimentData });
                 SendRecordToServer(e);
-                let arr = Object.keys(tableData).map((key) => {
-                  return { name: key, hoc_exps: tableData[key] };
-                });
-                arr.push({
-                  name: "Compliment",
-                  hoc_exps: ComplimentData.Compliment,
-                });
-                console.log({
-                  hoc: arr,
-                  account: {
-                    account_name: "Account1",
-                    total_amount: "5000",
-                    start_date: "2021-06-01",
-                    end_date: "2021-06-09",
-                  },
-                });
+                // let arr = Object.keys(tableData).map((key) => {
+                //   return { name: key, hoc_exps: tableData[key] };
+                // });
+                // arr.push({
+                //   name: "Compliment",
+                //   hoc_exps: ComplimentData.Compliment,
+                // });
+                // console.log({
+                //   hoc: arr,
+                //   account: {
+                //     account_name: "Account1",
+                //     total_amount: "5000",
+                //     start_date: "2021-06-01",
+                //     end_date: "2021-06-09",
+                //   },
+                // });
               }}
             >
               Finish
