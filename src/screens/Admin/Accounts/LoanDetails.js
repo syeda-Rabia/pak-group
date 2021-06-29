@@ -15,15 +15,13 @@ import { server_url, token } from "../../../utils/Config";
 import { GET, POST } from "./../../../utils/Functions";
 import ApiUrls from "./../../../utils/ApiUrls";
 import Pagination from "../../../components/Pagination/Pagination";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
-import {  useHistory, Redirect, Route } from "react-router-dom";
+import { Tooltip, IconButton } from "@material-ui/core";
+import { useHistory, Redirect, Route } from "react-router-dom";
 import { makeStyles, Backdrop, CircularProgress } from "@material-ui/core";
 import SuccessNotification from "../../../components/SuccessNotification";
 import ErrorNotification from "../../../components/ErrorNotification";
 import PreLoading from "../../../components/PreLoading";
+
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -42,21 +40,50 @@ export default function LoanDetails() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
 
-  const [data, setData] = useState(LoanData);
+  const [data, setData] = useState([]);
   const [selectedID, setSelectedID] = useState(0);
   const [message, setMessage] = React.useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const handleFetchData = async () => {
-    // setIsLoading(true);
-    // let res = await GET(ApiUrls.GET_ALL_INTEREST);
-    // // console.log("ress0", res);
-    // if (res?.success != false) {
-    //   setData(res?.data?.Interest);
-    // }
-    // setIsLoading(false);
+  /*  Pagination data  */
 
+  const [pageSize, setPageSize] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(0);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [totalRecord, setTotalRecord] = React.useState(0);
+
+  const lastIndex = currentPage * pageSize;
+  const istIndex = lastIndex - pageSize;
+
+  // const [page, setPage] = React.useState(2);
+  const handlePageChange = async (page) => {
+    setIsLoading(true);
+    let resp = await GET(ApiUrls.GET_LOAN_LIST + page);
+
+    if (resp?.data != null) {
+      setCurrentPage(resp?.data?.current_page);
+      setData(resp?.data?.data);
+    }
+    setIsLoading(false);
+  };
+
+  const handleShow = (pageCount) => {
+    setPageCount(pageCount);
+  };
+
+  /*  Pagination data  */
+  const handleFetchData = async () => {
+    setIsLoading(true);
+    let res = await GET(ApiUrls.GET_LOAN_LIST);
+    // console.log("ress0", res);
+    if (res?.success != false) {
+      setData(res?.data?.data);
+      setPageSize(res?.data?.per_page);
+      setTotalRecord(res?.data?.total);
+      setCurrentPage(res?.data?.current_page);
+    }
+    setIsLoading(false);
   };
   // React.useEffect(() => {
   //   handleFetchData();
@@ -67,36 +94,35 @@ export default function LoanDetails() {
   const history = useHistory();
   const ModalAdd = ({ item }) => {
     const [name, SetName] = useState("");
-    const [amount, SetAmount] = useState("");
-    const [returned, SetReturned] = useState("");
+    const [amount, SetAmount] = useState(0);
+    const [returned, SetReturned] = useState(0);
 
     const addData = async (event) => {
       event.preventDefault();
       let postData = {
-        id: "1",
-       name:name,
-       amount: amount,
-       returned: returned,
+        name: name,
+        amount_of_loan: amount,
+        returend_amount: returned,
       };
-      let arr = data;
-      arr.push(postData);
-      setData(arr);
-      setShowAdd(false);
+      // let arr = data;
+      // arr.push(postData);
+      // setData(arr);
+      // setShowAdd(false);
       //api
-    //   let res = await POST(ApiUrls.ADD_INTEREST, postData);
-    //   // console.log("post request", res);
-    //   if (res.error === false) {
-    //     setMessage("Interest Added Successfully");
-    //     setShowSuccessAlert(true);
-    //   } else {
-    //     setMessage("Operation Failed");
-    //     setShowErrorAlert(true);
-    //   }
-    //   setRefresh(!refresh);
+      let res = await POST(ApiUrls.POST_ADD_LOAN_DETAILS, postData);
+      // console.log("post request", res);
+      if (res.error === false) {
+        setMessage(" Loan Added Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Operation Failed");
+        setShowErrorAlert(true);
+      }
+      setRefresh(!refresh);
 
-    //   setShowAdd(false);
+      setShowAdd(false);
     };
-    //api 
+    //api
     // };
 
     return (
@@ -110,7 +136,9 @@ export default function LoanDetails() {
           closeButton
           className="col-lg-12 shadow p-3 mb-3 bg-white rounded mt-2"
         >
-          <Modal.Title style={{ color: "#818181" }}>Add Loan Details</Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>
+            Add Loan Details
+          </Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
@@ -119,13 +147,12 @@ export default function LoanDetails() {
         >
           <div className="col-lg-12 shadow bg-white rounded">
             <Modal.Body>
-            <div className="pb-3">
+              <div className="pb-3">
                 <h6>Name</h6>
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter name of employee"
                   type="text"
-                 
                   value={name}
                   onChange={(e) => {
                     SetName(e.target.value);
@@ -138,7 +165,6 @@ export default function LoanDetails() {
                   className="form-control  w-100 "
                   placeholder="Enter amount of loan"
                   type="number"
-                 
                   value={amount}
                   onChange={(e) => {
                     SetAmount(e.target.value);
@@ -151,14 +177,12 @@ export default function LoanDetails() {
                   className="form-control  w-100 "
                   placeholder="Enter Returned amount"
                   type="number"
-                 
                   value={returned}
                   onChange={(e) => {
                     SetReturned(e.target.value);
                   }}
                 />
               </div>
-             
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -185,54 +209,35 @@ export default function LoanDetails() {
   };
   const ModalEdit = ({ item }) => {
     //  ;
-    const [name, SetName] = useState(item.name);
-    const [amount, SetAmount] = useState(item.amount);
-    const [returned, SetReturned] = useState(item.returned);
+    const [name, SetName] = useState(item?.name);
+    const [amount, SetAmount] = useState(item?.amount_of_loan);
+    const [returned, SetReturned] = useState(item.returend_amount);
     const [remaining, SetRemaining] = useState(item.remaining);
-
-
 
     const EditRecordToServer = async (event) => {
       event.preventDefault();
-      event.preventDefault();
-      let postData = {
-        id: item.id,
-        name:name,
-        amount: amount,
-        returned: returned,
-      
-      };
-
-      let arr = data.map((val) => {
-        if (val.id == postData.id) val =postData;
-        return val;
-      });
-      // arr.push(postData);
-      setData(arr);
-      // setShowAdd(false);
-      setRefresh(!refresh);
-
-      setShowEdit(false);
 
       // add validations
       // push
 
-    //   let user = {
-    //     id: item.id,
-    //     home: home,
-    //   };
-    //   let res = await POST(ApiUrls.EDIT_INTEREST, user);
-    //   if (res.error === false) {
-    //     setMessage("Interest Edited Successfully");
-    //     setShowSuccessAlert(true);
-    //   } else {
-    //     setMessage("Interest Not Edited");
-    //     setShowErrorAlert(true);
-    //   }
-    //   // console.log(res);
-    //   setRefresh(!refresh);
+      let postData = {
+        id: item.id,
+        name: name,
+        amount_of_loan: amount,
+        returend_amount: returned,
+      };
+      let res = await POST(ApiUrls.POST_EDIT_LOAN, postData);
+      if (res.error === false) {
+        setMessage("Loan Detail Edited Successfully");
+        setShowSuccessAlert(true);
+      } else {
+        setMessage("Loan Detail Not Edited");
+        setShowErrorAlert(true);
+      }
+      // console.log(res);
+      setRefresh(!refresh);
 
-    //   setShowEdit(false);
+      setShowEdit(false);
     };
 
     return (
@@ -243,7 +248,9 @@ export default function LoanDetails() {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title style={{ color: "#818181" }}>Edit Home and Office</Modal.Title>
+          <Modal.Title style={{ color: "#818181" }}>
+            Edit Loan Detail
+          </Modal.Title>
         </Modal.Header>
         <form
           onSubmit={(e) => {
@@ -251,14 +258,13 @@ export default function LoanDetails() {
           }}
         >
           <div>
-          <Modal.Body>
-            <div className="pb-3">
+            <Modal.Body>
+              <div className="pb-3">
                 <h6>Name</h6>
                 <input
                   className="form-control  w-100 "
                   placeholder="Enter name of employee"
                   type="text"
-                 
                   value={name}
                   onChange={(e) => {
                     SetName(e.target.value);
@@ -271,7 +277,6 @@ export default function LoanDetails() {
                   className="form-control  w-100 "
                   placeholder="Enter amount of loan"
                   type="number"
-                 
                   value={amount}
                   onChange={(e) => {
                     SetAmount(e.target.value);
@@ -284,14 +289,13 @@ export default function LoanDetails() {
                   className="form-control  w-100 "
                   placeholder="Enter Returned amount"
                   type="number"
-                 
                   value={returned}
                   onChange={(e) => {
                     SetReturned(e.target.value);
                   }}
                 />
               </div>
-              <div className="pb-3">
+              {/* <div className="pb-3">
                 <h6>Remaining Amount</h6>
                 <input
                   className="form-control  w-100 "
@@ -303,10 +307,9 @@ export default function LoanDetails() {
                     SetRemaining(e.target.value);
                   }}
                 />
-              </div>
-             
+              </div> */}
             </Modal.Body>
-              <Modal.Footer>
+            <Modal.Footer>
               <Button
                 style={{ backgroundColor: "#2258BF" }}
                 onClick={() => {
@@ -334,34 +337,34 @@ export default function LoanDetails() {
   };
   const ModalDelete = ({ item }) => {
     const DeleteRecordFromData = async (item) => {
-        let { id } = item;
-        console.log("ID is ", id);
-  
-        let arr = data;
-  
-        arr = arr.filter((user) => user.id != id.toString());
-  
-        console.log("arr length ", arr.length, arr, selectedID);
-        setSelectedID((state) => {
-          if (state == arr.length) return state - 1;
-          return state;
-        });
-        setData(arr);
-        setShowDelete(false);
-    //   let res = await GET(ApiUrls.DELETE_INTEREST + item.id);
-    //   setShowDelete(false);
+      // let { id } = item;
+      // console.log("ID is ", id);
 
-    //   if (res.error === false) {
-    //     setMessage("Interest Deleted Successfully");
-    //     setShowSuccessAlert(true);
-    //     // setRefresh(!refresh);
-    //     setSelectedID(0);
-    //   } else {
-    //     setMessage("Interest Not Deleted");
-    //     setShowErrorAlert(true);
-    //   }
-    //   // console.log(res);
-    //   setRefresh(!refresh);
+      // let arr = data;
+
+      // arr = arr.filter((user) => user.id != id.toString());
+
+      // console.log("arr length ", arr.length, arr, selectedID);
+      // setSelectedID((state) => {
+      //   if (state == arr.length) return state - 1;
+      //   return state;
+      // });
+      // setData(arr);
+      // setShowDelete(false);
+        let res = await GET(ApiUrls.DELETE_LOAN + item.id);
+        setShowDelete(false);
+
+        if (res.error === false) {
+          setMessage("Loan Deleted Successfully");
+          setShowSuccessAlert(true);
+          // setRefresh(!refresh);
+          setSelectedID(0);
+        } else {
+          setMessage("Loan Not Deleted");
+          setShowErrorAlert(true);
+        }
+        // console.log(res);
+        setRefresh(!refresh);
     };
     return (
       <Modal
@@ -403,9 +406,9 @@ export default function LoanDetails() {
       <tr>
         <td>{index + 1}</td>
         <td>{item.name}</td>
-        <td>{item.amount}</td>
-        <td>{item.returned}</td>
-        <td>{item.remaining}</td>
+        <td>{item.amount_of_loan}</td>
+        <td>{item.returend_amount}</td>
+        <td>{item.remaining_ammount}</td>
         <td>
           <div
             className="d-flex d-inline "
@@ -462,8 +465,8 @@ export default function LoanDetails() {
         message={message}
         closeError={setShowErrorAlert}
       />
-      
-        <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
+
+      <Row className=" shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
         <IconButton
           onClick={() => {
             history.push("/admin/account");
@@ -478,41 +481,40 @@ export default function LoanDetails() {
         <Col lg={10} sm={10} xs={10} xl={11}>
           <h3 style={{ color: "#818181" }}>Loan Details</h3>
         </Col>
-        </Row>
-     
-      
-        <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
-          <button
-            data-tip
-            data-for="AddTip"
-            type="button"
-            className="btn btn-primary "
-            style={{
-              backgroundColor: "#2258BF",
-            }}
-            onClick={() => {
-              setShowAdd(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlusSquare} /> Add Loan
-          </button>
-          <ReactTooltip id="AddTip" place="top" effect="solid">
-            Add new Loan
-          </ReactTooltip>
-          <SuccessNotification
-        showSuccess={showSuccessAlert}
-        message={message}
-        closeSuccess={setShowSuccessAlert}
-      />
-      <ErrorNotification
-        showError={showErrorAlert}
-        message={message}
-        closeError={setShowErrorAlert}
-      />
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
+      </Row>
+
+      <Row className=" shadow p-3  bg-white rounded ml-2 mr-1">
+        <button
+          data-tip
+          data-for="AddTip"
+          type="button"
+          className="btn btn-primary "
+          style={{
+            backgroundColor: "#2258BF",
+          }}
+          onClick={() => {
+            setShowAdd(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} /> Add Loan
+        </button>
+        <ReactTooltip id="AddTip" place="top" effect="solid">
+          Add new Loan
+        </ReactTooltip>
+        <SuccessNotification
+          showSuccess={showSuccessAlert}
+          message={message}
+          closeSuccess={setShowSuccessAlert}
+        />
+        <ErrorNotification
+          showError={showErrorAlert}
+          message={message}
+          closeError={setShowErrorAlert}
+        />
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead>
+              <tr>
                 <th scope="col" className="text-nowrap">
                   <span id="sn" style={{ color: "#818181" }}>
                     Id
@@ -543,35 +545,51 @@ export default function LoanDetails() {
                     Actions
                   </span>
                 </th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  // userRecord != ""
-                  //   ? userRecord.map((user, index) => (
-                  //       <>
-                  //         <Table item={user} index={index} /> 
-                  //       </>
-                  //     ))
-                  //   : // <h1>No Data</h1>
-                  //     null
-                  // <Skeleton variant="rect" width={"100%"} height={"100%"} />
-                }
-                {data?.map((item, index) => {
-                    return <Table item={item} index={index} />;
-                  })}
-              </tbody>
-              {data?.length > 0 ? (
-                <>
-                  <ModalDelete item={data[selectedID]} />
-                  <ModalEdit item={data[selectedID]} />
-                </>
-              ) : null}
-            </table>
-            <ModalAdd />
-          </div>
-        
+              </tr>
+            </thead>
+            <tbody>
+              {
+                // userRecord != ""
+                //   ? userRecord.map((user, index) => (
+                //       <>
+                //         <Table item={user} index={index} />
+                //       </>
+                //     ))
+                //   : // <h1>No Data</h1>
+                //     null
+                // <Skeleton variant="rect" width={"100%"} height={"100%"} />
+              }
+              {data?.map((item, index) => {
+                return <Table item={item} index={index} />;
+              })}
+            </tbody>
+            {data?.length > 0 ? (
+              <>
+                <ModalDelete item={data[selectedID]} />
+                <ModalEdit item={data[selectedID]} />
+              </>
+            ) : null}
+          </table>
+          <ModalAdd />
+        </div>
+      </Row>
+      <Row>
+        <Col>
+          {pageCount > 1 ? (
+            <p className="page-info">
+              Showing {currentPage} from {pageCount}
+            </p>
+          ) : null}
+        </Col>
+        <Col>
+          <Pagination
+            itemsCount={totalRecord}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            show={handleShow}
+          />
+        </Col>
       </Row>
     </Container>
   );

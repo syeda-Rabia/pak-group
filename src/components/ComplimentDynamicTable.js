@@ -30,7 +30,7 @@ import ApiUrls from "../utils/ApiUrls";
 import { GET, POST } from "../utils/Functions";
 import SuccessNotification from "../components/SuccessNotification";
 import ErrorNotification from "../components/ErrorNotification";
-export default function ComplimentDynamicTable({setComplimentData,ComplimentData,item="Compliment"}) {
+export default function ComplimentDynamicTable({setComplimentData,ComplimentData,item="Compliment",   setTableData,tableData,}) {
 
 
 //adding new logic
@@ -44,7 +44,7 @@ const handleInputChange = (e, index) => {
   const { name, value } = e.target;
   // const list = [...inputList];
   // list[index][name] = value;
-  setComplimentData(state=>{
+  setTableData(state=>{
     return {...state,[item]:state[item].map((v,i)=>{
       if(i==index)
         v[name]=value
@@ -59,17 +59,17 @@ const handleRemoveClick = (index) => {
   // const list = [...inputList];
   // list.splice(index, 1);
   // setInputList(list);
-  if(ComplimentData[item][index].id!=null){
+  if(tableData[item][index].id!=null){
     // api call for removing row from session
   }
-  setComplimentData(state=>{
+  setTableData(state=>{
     return {...state,[item]:state[item].filter((v,i)=>i!=index)}
   })
 };
 
 // handle click event of the Add button
 const handleAddClick = () => {
-  setComplimentData(state=>{
+  setTableData(state=>{
     return {...state,[item]:state[item].concat({
       id:null,
      name_of_invoice: "", amount_spent: "", quantity: "" , distributed_to: "",description:"",cor:"PG-"+uuidv4().split("-")[0]
@@ -158,7 +158,7 @@ const handleAddClick = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {ComplimentData[item]?.map((v, idx) => (
+                  {tableData[item]?.map((v, idx) => (
                     <tr id="addr0" key={idx}>
                       <td>{idx+1}</td>
                       {/* <td><KeyboardDatePickerExample
@@ -236,13 +236,13 @@ const handleAddClick = () => {
                         />
                       </td>
                       <td>
-                      {ComplimentData[item]?.length !== 1 && <button
+                      {tableData[item]?.length !== 1 && <button
                        className="bg-transparent  button-focus ml-2"
                
                 onClick={() => handleRemoveClick(idx)}> <FontAwesomeIcon style={{ fontSize: 15,backgroundColor:"white",color:"2258BF" }} icon={faTrash} /></button>}
                      
                       </td>
-                        {ComplimentData[item]?.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
+                        {tableData[item]?.length - 1 === idx && <button onClick={handleAddClick}  className="btn btn-primary mt-3 text-nowrap" style={{ color:"2258BF" }}> Add Row</button>}
                       
                     </tr>
                   ))}
@@ -255,7 +255,7 @@ const handleAddClick = () => {
                 onClick={()=>
                 {  
                  
-                  setComplimentData(state=>({...state,["Compliment"]:inputList}))}
+                  setTableData(state=>({...state,["Compliment"]:inputList}))}
                 }
                 
                 className="btn btn-primary "

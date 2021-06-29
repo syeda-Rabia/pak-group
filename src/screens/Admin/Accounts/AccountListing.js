@@ -43,6 +43,7 @@ function AdminAccounts() {
   const [selectedID, setSelectedID] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showReset, setshowReset] = useState(false);
   var today = new Date();
   // var datee = formatDate(today, "-");
   const [Start, setStart] = useState();
@@ -116,29 +117,27 @@ function AdminAccounts() {
   const SendRecordToServer = async (event) => {
     event.preventDefault();
     // console.log()
-    // let formData = {
-      
-    //   from_date:formatDate(Start) ,
-    //   to_date: formatDate(End),
-    // };
-    // // console.log("formdata----", formData);
-    // let resp = await POST(ApiUrls.POST_LEAD_FILTER, formData);
-
-    // // console.log("console----", resp);
-    // if (resp?.hasOwnProperty("success")){
-    //   setMessage(resp?.success);
-    //   setShowSuccessAlert(true);
-    //   setIsFilter(true);
-    //   setData(resp?.report);
+    let formData = {
      
+      from_date: formatDate(Start),
+      to_date: formatDate(End),
+    };
+    console.log("formdata filter----", formData);
+    let resp = await POST(ApiUrls.GET_FILTER_ACCOUNT_DATA, formData);
 
-    // }
-    // else if (resp?.hasOwnProperty("error")){
-    //   setMessage(resp.error);
-    //   setShowErrorAlert(true);
-    //   setIsFilter(false);
-    // }
-  
+    console.log("console-uh---", resp);
+    if (resp?.hasOwnProperty("success")) {
+      setshowReset(true);
+      setMessage(resp?.success);
+      setShowSuccessAlert(true);
+      setIsFilter(true);
+      setData(resp?.data?.Account);
+     
+    } else if (resp?.hasOwnProperty("error")) {
+      setMessage(resp.error);
+      setShowErrorAlert(true);
+      setIsFilter(false);
+    }
   };
  
   const ModalDelete = ({ item }) => {
@@ -299,7 +298,7 @@ function AdminAccounts() {
          
           <Col lg={4}  md={4} sm={6} xs={12} xl={3} className="pt-2 pb-0 ">
             
-            <DayPicking value={today} setStart={setStart} setEnd={setEnd} />
+            <DayPicking  value={today} {...{setStart,setEnd,Start,End}}  />
            
           
           </Col>
@@ -321,6 +320,31 @@ function AdminAccounts() {
             >
               Search
             </Form.Control>
+            {showReset == true ? (
+              <button
+                type="button"
+                className="btn btn-primary leadbtn mt-2"
+                onClick={() => {
+                  getAccountListData();
+                  setshowReset(false);
+                  setIsFilter(false);
+                 
+                  setStart("");
+                  setEnd("");
+                  // setRefresh(true);
+                 
+                  // setIsLoading(true);
+                  // setIsEmpty(false);
+                }}
+                style={{
+                  backgroundColor: "#2258BF",
+                }}
+              >
+                <span className="text-nowrap">
+                  <FontAwesomeIcon icon={faRedo} /> Reverse
+                </span>
+              </button>
+            ) : null}
           </Col>
         </Row>
       </Container>

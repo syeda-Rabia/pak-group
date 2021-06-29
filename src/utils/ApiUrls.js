@@ -142,6 +142,15 @@ DELETE_ACCOUNT:"admin/accounts/delete_account",
 UPDATE_ACCOUNT:"admin/accounts/update_account",
 DELETE_HOME_OR_COMPLIMENT:"admin/accounts/delete_hoc",
 DELETE_EXPENSE:"admin/accounts/delete_exp_hoc",
+GET_FILTER_ACCOUNT_DATA:"admin/accounts/filter_account_liat",
+
+
+//loan module
+POST_ADD_LOAN_DETAILS:"admin/accounts/add_loan",
+POST_EDIT_LOAN:"admin/accounts/edit_loan",
+GET_LOAN_LIST:"admin/accounts/list_loan?page=",
+DELETE_LOAN:"admin/accounts/delete_loan/",
+
   // Interest
   GET_ALL_INTEREST: "admin/interest/all",
   EDIT_INTEREST: "admin/interest/edit",

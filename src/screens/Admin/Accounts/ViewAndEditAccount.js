@@ -10,10 +10,10 @@ import { v4 as uuidv4 } from "uuid";
 import ApiUrls from "../../../utils/ApiUrls";
 import { GET, POST } from "../../../utils/Functions";
 import { Modal } from "react-bootstrap";
-  import { faPlusSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-  import moment from 'moment';
-  import SuccessNotification from "../../../components/SuccessNotification";
-  import ErrorNotification from "../../../components/ErrorNotification";
+import { faPlusSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
+import SuccessNotification from "../../../components/SuccessNotification";
+import ErrorNotification from "../../../components/ErrorNotification";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Tooltip, IconButton } from "@material-ui/core";
@@ -22,10 +22,10 @@ import { useHistory, Redirect, Route } from "react-router-dom";
 export default function ViewAndEditAccount(props) {
   const [data, setData] = React.useState([]);
   const [tableData, setTableData] = React.useState([]);
-  const [tableDataIds, setTableDataIds] = React.useState([]);
+  const [tableDataIds, setTableDataIds] = React.useState({});
   const [selectedID, setSelectedID] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
- 
+
   const [homeData, setHomeData] = React.useState([]);
   const [ComplimentData, setComplimentData] = React.useState([]);
   const [accountData, setAccountData] = React.useState([]);
@@ -37,10 +37,10 @@ export default function ViewAndEditAccount(props) {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   var today = new Date();
   const [refresh, setRefresh] = useState(false);
-  const accId=props?.location?.query;
-  console.log("account props", accId)
+  const accId = props?.location?.query;
+  console.log("account props", accId);
   // var datee = formatDate(today, "-");
- 
+
   const formatDate = (date) => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -80,7 +80,11 @@ export default function ViewAndEditAccount(props) {
   };
   const arrayData = () => {
     let arr = Object.keys(tableData).map((key) => {
-      return { name: key, hoc_exps: tableData[key],hoc_id:tableDataIds[key]?tableDataIds[key]:null };
+      return {
+        name: key,
+        hoc_exps: tableData[key],
+        hoc_id: tableDataIds[key] ? tableDataIds[key] : null,
+      };
     });
     // arr.push({ name: "Compliment", hoc_exps: ComplimentData.Compliment,hoc_id:tableDataIds.Compliment?tableDataIds.Compliment:null });
     //   console.log({hoc:arr,account: {
@@ -102,26 +106,24 @@ export default function ViewAndEditAccount(props) {
   const handleData = (data) => {
     // setData((state) => state.concat(data));
     setTableData((state) => ({
-      ...state, 
+      ...state,
       [data]: [
-      
         {
-        
-          id:null,
+          id: null,
           name_of_invoice: "",
           amount_spent: "",
           description: "",
           cor: "PG-" + uuidv4().split("-")[0],
         },
       ],
-     
     }));
   };
   const handleAddCompliment = () => {
-    setComplimentData({
+    setTableData(state=>({
+      ...state,
       Compliment: [
         {
-          id:null,
+          id: null,
           name_of_invoice: "",
           amount_spent: "",
           quantity: "",
@@ -130,52 +132,49 @@ export default function ViewAndEditAccount(props) {
           cor: "PG-" + uuidv4().split("-")[0],
         },
       ],
-    });
+    }));
   };
-  const handleRemove = async(index) => {
-    
+  const handleRemove = async (index) => {
     // list.splice(index, 1);
-
-    console.log("ali ali ayesha",tableDataIds[index])
-    let res = await GET(ApiUrls.DELETE_HOME_OR_COMPLIMENT + "/" + tableDataIds[index]);
+    let res = await GET(
+      ApiUrls.DELETE_HOME_OR_COMPLIMENT + "/" + tableDataIds[index]
+    );
     setShowDelete(false);
-    console.log("delete",res)
+    console.log("delete", res, tableDataIds[index]);
     if (res.hasOwnProperty("success")) {
       setMessage(res.success);
       setShowSuccessAlert(true);
-      const list = {...tableData};
-    delete list[index]
-    setTableData(list);
+      const list = { ...tableData };
+      delete list[index];
+      setTableData(list);
       // setRefresh(!refresh);
       setSelectedID(0);
-    } else  if (res.hasOwnProperty("error")){
+    } else if (res.hasOwnProperty("error")) {
       setMessage(res.error);
       setShowErrorAlert(true);
     }
-   
   };
   useEffect(() => {
     getAccountListData();
   }, [refresh]);
 
-  const getAccountListData= async () => {
+  const getAccountListData = async () => {
     let resp = await GET(ApiUrls.VIEW_ACCOUNT_DETAILS + "/" + accId?.item?.id);
-    console.log("-----------account data----",resp)
+    console.log("-----------account data----", resp);
     setAccountData(resp?.data?.Account);
-  setAccountName(resp?.data?.Account?.account_name);
-  setTotalAmount(resp?.data?.Account?.total_amount);
-  setStart(resp?.data?.Account?.start_date)
-  setEnd(resp?.data?.Account?.end_date)
-    let obj={};
-    let objIDs={}
-    resp?.data?.HOC?.map(v=>{
-      objIDs[v.name]=v.id;
-      obj[v.name]=v.hoc_exp;
-      
+    setAccountName(resp?.data?.Account?.account_name);
+    setTotalAmount(resp?.data?.Account?.total_amount);
+    setStart(resp?.data?.Account?.start_date);
+    setEnd(resp?.data?.Account?.end_date);
+    let obj = {};
+    let objIDs = {};
+    resp?.data?.HOC?.map((v) => {
+      objIDs[v.name] = v.id;
+      obj[v.name] = v.hoc_exp;
     });
-  
-    setTableData(obj)
-    setComplimentData(obj)
+
+    setTableData(obj);
+    setComplimentData(obj);
     setData(obj);
     setTableDataIds(objIDs);
   };
@@ -183,7 +182,7 @@ export default function ViewAndEditAccount(props) {
     // event.preventDefault();
     let formData = {
       account: {
-        account_id:accId?.item?.id,
+        account_id: accId?.item?.id,
         account_name: accountName,
         total_amount: totalAmount,
         start_date: formatDate(today),
@@ -322,20 +321,20 @@ export default function ViewAndEditAccount(props) {
       </Modal>
     );
   };
- 
+
   return (
     <Container fluid className="Laa">
       <Row className="shadow p-3 mb-3 bg-white rounded mt-4 ml-1 mr-1">
-      <SuccessNotification
-        showSuccess={showSuccessAlert}
-        message={message}
-        closeSuccess={setShowSuccessAlert}
-      />
-      <ErrorNotification
-        showError={showErrorAlert}
-        message={message}
-        closeError={setShowErrorAlert}
-      />
+        <SuccessNotification
+          showSuccess={showSuccessAlert}
+          message={message}
+          closeSuccess={setShowSuccessAlert}
+        />
+        <ErrorNotification
+          showError={showErrorAlert}
+          message={message}
+          closeError={setShowErrorAlert}
+        />
         <IconButton
           onClick={() => {
             history.push("/admin/account");
@@ -352,146 +351,152 @@ export default function ViewAndEditAccount(props) {
         </Col>
       </Row>
       <Container fluid>
-          <Row className="">
-            <Col lg={2} sm={12} xs={12} xl={2}>
-              {/* <span class="text-nowrap"> Account Name</span> */}
-              <h6 style={{ color: "#818181" }}> Account Name</h6>
-              <input
-                className="form-control w-100 bg-white"
-                placeholder=""
-                type="text"
-                value={accountName}
-                onChange={(e) => {
-                  setAccountName(e.target.value);
-                }}
-              />
-            </Col>
-            <Col lg={2} sm={12} xs={12} xl={2}>
-              {/* <span class="text-nowrap">Total samount</span> */}
-              <h6 style={{ color: "#818181" }}>Total Amount</h6>
+        <Row className="">
+          <Col lg={2} sm={12} xs={12} xl={2}>
+            {/* <span class="text-nowrap"> Account Name</span> */}
+            <h6 style={{ color: "#818181" }}> Account Name</h6>
+            <input
+              className="form-control w-100 bg-white"
+              placeholder=""
+              type="text"
+              value={accountName}
+              onChange={(e) => {
+                setAccountName(e.target.value);
+              }}
+            />
+          </Col>
+          <Col lg={2} sm={12} xs={12} xl={2}>
+            {/* <span class="text-nowrap">Total samount</span> */}
+            <h6 style={{ color: "#818181" }}>Total Amount</h6>
 
-              <input
-                className="form-control w-100 bg-white"
-                placeholder=""
-                type="number"
-                value={totalAmount}
-                onChange={(e) => {
-                  setTotalAmount(e.target.value);
-                }}
-              />
-              
-            </Col>
-            {/* <Col lg={3} sm={12} xs={12} xl={3}>
+            <input
+              className="form-control w-100 bg-white"
+              placeholder=""
+              type="number"
+              value={totalAmount}
+              onChange={(e) => {
+                setTotalAmount(e.target.value);
+              }}
+            />
+          </Col>
+          {/* <Col lg={3} sm={12} xs={12} xl={3}>
               <DayPicking value={today} {...{ setStart:moment(accountData.start_date).format("dddd, MMMM Do YYYY, h:mm:ss a"), setEnd, Start, End }} />
             </Col> */}
-             <Col lg={2} sm={12} xs={12} xl={2}>
-             <h6 style={{ color: "#818181" }}>Start Date</h6>
+          <Col lg={2} sm={12} xs={12} xl={2}>
+            <h6 style={{ color: "#818181" }}>Start Date</h6>
 
-<input
-  className="form-control w-100 bg-white"
-  placeholder=""
-  type="text"
-  value={Start}
-  // onChange={(e) => {
-  //   setTotalAmount(e.target.value);
-  // }}
-/>
-</Col>
-<Col lg={2} sm={12} xs={12} xl={2}>
-             <h6 style={{ color: "#818181" }}>End Date</h6>
+            <input
+              className="form-control w-100 bg-white"
+              placeholder=""
+              type="text"
+              value={Start}
+              // onChange={(e) => {
+              //   setTotalAmount(e.target.value);
+              // }}
+            />
+          </Col>
+          <Col lg={2} sm={12} xs={12} xl={2}>
+            <h6 style={{ color: "#818181" }}>End Date</h6>
 
-<input
-  className="form-control w-100 bg-white"
-  placeholder=""
-  type="text"
-  value={End}
-  // onChange={(e) => {
-  //   setTotalAmount(e.target.value);
-  // }}
-/>
-             </Col>
-            
-          </Row>
+            <input
+              className="form-control w-100 bg-white"
+              placeholder=""
+              type="text"
+              value={End}
+              // onChange={(e) => {
+              //   setTotalAmount(e.target.value);
+              // }}
+            />
+          </Col>
+        </Row>
+        <button
+          type="button"
+          className="btn btn-primary mt-3"
+          style={{
+            backgroundColor: "#2258BF",
+          }}
+          onClick={() => {
+            setShowAdd(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
+        </button>
+
+        {!tableData.hasOwnProperty('Compliment') && (
           <button
             type="button"
-            className="btn btn-primary mt-3"
+            className="btn btn-primary ml-1 mt-3"
             style={{
               backgroundColor: "#2258BF",
             }}
-            onClick={() => {
-              setShowAdd(true);
-            }}
+            onClick={handleAddCompliment}
           >
-            <FontAwesomeIcon icon={faPlusSquare} /> Add Home and office
+            <FontAwesomeIcon icon={faPlusSquare} /> Add Compliment
           </button>
-          
-          {ComplimentData?.Compliment?.length == 0 && (
-            <button
-              type="button"
-              className="btn btn-primary ml-1 mt-3"
-              style={{
-                backgroundColor: "#2258BF",
-              }}
-              onClick={handleAddCompliment}
-            >
-              <FontAwesomeIcon icon={faPlusSquare} /> Add Compliment
-            </button>
-          )}
-        </Container>
+        )}
+      </Container>
 
       <Row className="col-lg-12 shadow p-3  bg-white rounded ml-1 mr-1 ">
         <div className="w-100">
           {Object.keys(tableData)?.map((item, index) => {
-
             return (
-            
-                <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
-                  <div>
-                    {" "}
-                    <button
-                      type="button"
-                      className=" bg-transparent  button-focus "
-                      style={{
-                        fontSize: "26px",
-                        backgroundColor: "#2258BF",
-                        fontWeight: "bold",
-                        float: "right",
-                      }}
-                      onClick={() => {
-                        handleRemove(item);
-                        // setShowDelete(true);
-                        // setSelectedID(item);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </button>
-                  </div>
-                  <h4 style={{ color: "#818181" }}>{item}</h4>
-                  {item !== "Compliment" ? (
-                    
-                    <>
-                   
-                  <DynamicTable
-                    {...{ setTableData, tableData, value: "hoc_exps", item:item }}
-                  />
-                  </>
-                  ): (
-                    <>
-                    {ComplimentData?.Compliment?.length != 0 && (
-                     <ComplimentDynamicTable
-                    {...{ setComplimentData, ComplimentData }}
-                  />)}
-                  </>
-                  )}
+              <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
+                <div>
+                  {" "}
+                  <button
+                    type="button"
+                    className=" bg-transparent  button-focus "
+                    style={{
+                      fontSize: "26px",
+                      backgroundColor: "#2258BF",
+                      fontWeight: "bold",
+                      float: "right",
+                    }}
+                    onClick={() => {
+                  if(tableDataIds.hasOwnProperty(item))
+                      handleRemove(item);
+                      else
+                       {
+                         let dummTableData=JSON.parse(JSON.stringify(tableData));
+                         delete dummTableData[item]
+                        setTableData(dummTableData)
+                       }
+                      // setShowDelete(true);
+                      // setSelectedID(item);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
                 </div>
-              );
-              setHomeData((state) => ({ ...state, [item.name]: tableData }));   
-
-            
-             
-            
+                <h4 style={{ color: "#818181" }}>{item}</h4>
+                {item !== "Compliment" ? (
+                  <>
+                    <DynamicTable
+                      {...{
+                        setTableData,
+                        tableData,
+                        value: "hoc_exps",
+                        item: item,
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <ComplimentDynamicTable
+                      {...{
+                        setComplimentData,
+                        ComplimentData,
+                        setTableData,
+                        tableData,
+                      }}
+                    />
+                  </>
+                )}
+              </div>
+            );
+            setHomeData((state) => ({ ...state, [item.name]: tableData }));
           })}
- <div>
+          <div>
             <button
               type="button"
               className="btn btn-primary mt-5"
@@ -527,12 +532,12 @@ export default function ViewAndEditAccount(props) {
           {/* {Object.keys(tableDataIds)?.length>0 && selectedID !== null ?(
  <ModalDelete item={tableDataIds[selectedID]} />
           ):null} */}
-        
+
           {/* /* <div className="mt-5 shadow p-3  bg-white rounded ml-1 mr-1">
                   <h4 style={{ color: "#818181" }}>Compliment</h4>
           <ComplimentDynamicTable {...{setComplimentData,ComplimentData}}/>
           
-              </div>  */ }
+              </div>  */}
         </div>
         <ModalAdd />
       </Row>
